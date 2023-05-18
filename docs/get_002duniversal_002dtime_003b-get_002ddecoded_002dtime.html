@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>get-universal-time; get-decoded-time (ANSI Common Lisp)</title>
+
+<meta name="description" content="get-universal-time; get-decoded-time (ANSI Common Lisp)">
+<meta name="keywords" content="get-universal-time; get-decoded-time (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Environment.html" rel="up" title="Environment">
+<link href="sleep.html" rel="next" title="sleep">
+<link href="encode_002duniversal_002dtime.html" rel="prev" title="encode-universal-time">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="get_002duniversal_002dtime_003b-get_002ddecoded_002dtime"></span><div class="header">
+<p>
+Next: <a href="sleep.html" accesskey="n" rel="next">sleep</a>, Previous: <a href="encode_002duniversal_002dtime.html" accesskey="p" rel="prev">encode-universal-time</a>, Up: <a href="Environment.html" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">get-universal-time; get-decoded-time</h4>
+<span id="get_002duniversal_002dtime_002c-get_002ddecoded_002dtime-_0028Function_0029"></span><h3 class="heading">get-universal-time, get-decoded-time (Function)</h3>
+<span id="index-get_002duniversal_002dtime-2"></span>
+<span id="index-get_002duniversal_002dtime"></span>
+<span id="index-get_002ddecoded_002dtime-2"></span>
+<span id="index-get_002ddecoded_002dtime"></span>
+<span id="get_002duniversal_002dtime"></span><span id="get_002ddecoded_002dtime"></span>
+
+<span id="Syntax_003a-503"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-get_002duniversal_002dtime-1">Function: <strong>get-universal-time</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> universal-time</em></dt>
+</dl>
+
+<dl>
+<dt id="index-get_002ddecoded_002dtime-1">Function: <strong>get-decoded-time</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> second, minute, hour, date, month, year, day, daylight-p, zone</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-489"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>universal-time</var>&mdash;a <i>universal time</i>.
+</p>
+<p><var>second</var>, <var>minute</var>, <var>hour</var>,
+<var>date</var>, <var>month</var>, <var>year</var>,
+<var>day</var>, <var>daylight-p</var>, <var>zone</var>&mdash;a <i>decoded time</i>.
+</p>
+<span id="Description_003a-651"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>get-universal-time</code> returns the current time, represented as a <i>universal time</i>.
+</p>
+<p><code>get-decoded-time</code> returns the current time, represented as a <i>decoded time</i>.
+</p>
+<span id="Examples_003a-463"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">;; At noon on July 4, 1976 in Eastern Daylight Time.
+ (get-decoded-time) <span class="roman">→</span> 0, 0, 12, 4, 7, 1976, 6, <i>true</i>, 5
+;; At exactly the same instant.
+ (get-universal-time) <span class="roman">→</span> 2414332800
+;; Exactly five minutes later.
+ (get-universal-time) <span class="roman">→</span> 2414333100
+;; The difference is 300 seconds (five minutes)
+ (- * **) <span class="roman">→</span> 300
+</pre></div>
+
+
+<span id="Affected-By_003a-120"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The time of day (<i>i.e.</i>, the passage of time),
+the system clock&rsquo;s ability to keep accurate time,
+and the accuracy of the system clock&rsquo;s initial setting.
+</p>
+<span id="Exceptional-Situations_003a-237"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>error</code> might be signaled if the current time cannot be determined.
+</p>
+<span id="See-Also_003a-531"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="decode_002duniversal_002dtime.html">decode-universal-time</a>,
+<a href="encode_002duniversal_002dtime.html">encode-universal-time</a>,
+<a href="Time.html">Section 25.1.4 (Time)</a>
+</p>
+<span id="Notes_003a-325"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (get-decoded-time) ≡ (decode-universal-time (get-universal-time))
+</pre></div>
+
+
+<p>No <i>implementation</i> is required to have a way to verify that the
+time returned is correct.  However, if an <i>implementation</i> provides
+a validity check (<i>e.g.</i>, the failure to have properly initialized the system
+clock can be reliably detected) and that validity check fails, 
+the <i>implementation</i> is strongly encouraged (but not required)
+to signal an error of <i>type</i> <code>error</code> (rather than, for example, returning a
+known-to-be-wrong value) that is <i>correctable</i> by allowing the user
+to interactively set the correct time.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="sleep.html" accesskey="n" rel="next">sleep</a>, Previous: <a href="encode_002duniversal_002dtime.html" accesskey="p" rel="prev">encode-universal-time</a>, Up: <a href="Environment.html" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

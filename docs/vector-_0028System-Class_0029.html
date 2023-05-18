@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>vector (System Class) (ANSI Common Lisp)</title>
+
+<meta name="description" content="vector (System Class) (ANSI Common Lisp)">
+<meta name="keywords" content="vector (System Class) (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Arrays.html" rel="up" title="Arrays">
+<link href="simple_002dvector.html" rel="next" title="simple-vector">
+<link href="simple_002darray.html" rel="prev" title="simple-array">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="vector-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="simple_002dvector.html" accesskey="n" rel="next">simple-vector</a>, Previous: <a href="simple_002darray.html" accesskey="p" rel="prev">simple-array</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">vector (System Class)</h4>
+<span id="vector-_0028System-Class_0029-1"></span><h3 class="heading">vector (System Class)</h3>
+<span id="index-vector-5"></span>
+<span id="index-vector-2"></span>
+
+
+<span id="Class-Precedence-List_003a-54"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>vector</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-422"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Any one-dimensional <i>array</i> is a <i>vector</i>.
+</p>
+<p>The <i>type</i> <code>vector</code> is a subtype of <i>type</i> <code>array</code>; 
+for all <i>types</i> <code>x</code>, <code>(vector x)</code> is the same as <code>(array x (*))</code>.
+</p>
+<p>The <i>type</i> <code>(vector t)</code>, the <i>type</i> <code>string</code>, and the <i>type</i> <code>bit-vector</code>
+are <i>disjoint</i> subtypes of <i>type</i> <code>vector</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(vector <tt>[</tt><tt>{</tt>element-type | <tt>*</tt><tt>}</tt> <tt>[</tt><tt>{</tt>size | <tt>*</tt><tt>}</tt><tt>]</tt><tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>.
+</p>
+<p><var>element-type</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set of specialized <i>vectors</i>
+whose <i>element type</i> and <var>dimension</var> match the specified values.
+Specifically:
+</p>
+<p>If <var>element-type</var> is the <i>symbol</i> <tt>*</tt>,
+<i>vectors</i> are not excluded on the basis of their <i>element type</i>.
+Otherwise, only those <var>vectors</var> are included whose <i>actual array element type</i>
+is the result of <i>upgrading</i> <var>element-type</var>;
+see <a href="Specialized-Arrays.html#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
+</p>
+<p>If a <var>size</var> is specified,
+the set includes only those <var>vectors</var> whose only <i>dimension</i>
+is <var>size</var>.
+If the <i>symbol</i> <tt>*</tt> is specified instead of a <var>size</var>,
+the set is not restricted on the basis of <i>dimension</i>.
+</p>
+<span id="See-Also_003a-345"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Specialized-Arrays.html#RequiredSpecializedArrays">Section 15.1.2.2 (Required Kinds of Specialized Arrays)</a>,
+<a href="Sharpsign.html#SharpsignLeftParen">Section 2.4.8.3 (Sharpsign Left-Parenthesis)</a>,
+<a href="Default-Print_002dObject-Methods.html#PrintingOtherVectors">Section 22.1.3.7 (Printing Other Vectors)</a>,
+<a href="Sharpsign.html#SharpsignA">Section 2.4.8.12 (Sharpsign A)</a>
+</p>
+<span id="Notes_003a-231"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <i>type</i> <code>(vector <var>e</var> <var>s</var>)</code> 
+is equivalent to the <i>type</i> <code>(array <var>e</var> (<var>s</var>))</code>.
+</p>
+<p>The type <code>(vector bit)</code> has the name <code>bit-vector</code>.
+</p>
+<p>The union of all <i>types</i> <code>(vector C)</code>, 
+where C is any <i>subtype</i> of <code>character</code>,
+has the name <code>string</code>.
+</p>
+<p><code>(vector *)</code> refers to all <i>vectors</i> 
+regardless of element type, <code>(vector <var>type-specifier</var>)</code>
+refers only to those <i>vectors</i> 
+that can result from giving <var>type-specifier</var> as the
+<tt>:element-type</tt> argument to <code>make-array</code>.  
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="simple_002dvector.html" accesskey="n" rel="next">simple-vector</a>, Previous: <a href="simple_002darray.html" accesskey="p" rel="prev">simple-array</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

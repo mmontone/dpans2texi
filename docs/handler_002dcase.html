@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>handler-case (ANSI Common Lisp)</title>
+
+<meta name="description" content="handler-case (ANSI Common Lisp)">
+<meta name="keywords" content="handler-case (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conditions.html" rel="up" title="Conditions">
+<link href="ignore_002derrors.html" rel="next" title="ignore-errors">
+<link href="handler_002dbind.html" rel="prev" title="handler-bind">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="handler_002dcase"></span><div class="header">
+<p>
+Next: <a href="ignore_002derrors.html" accesskey="n" rel="next">ignore-errors</a>, Previous: <a href="handler_002dbind.html" accesskey="p" rel="prev">handler-bind</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">handler-case</h4>
+<span id="handler_002dcase-_0028Macro_0029"></span><h3 class="heading">handler-case (Macro)</h3>
+<span id="index-handler_002dcase-2"></span>
+<span id="index-handler_002dcase"></span>
+
+
+
+<span id="Syntax_003a-155"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-handler_002dcase-1">Macro: <strong>handler-case</strong> <em><var>expression</var> 〚<tt>{</tt><tt>↓</tt>error-clause<tt>}</tt>* | <tt>↓</tt>no-error-clause〛 <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<dl compact="compact">
+<dt><var>clause</var>::=</dt>
+<dd><p><tt>↓</tt>error-clause | <tt>↓</tt>no-error-clause
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>error-clause</var>::=</dt>
+<dd><p><tt>(</tt>typespec <tt>(</tt><tt>[</tt>var<tt>]</tt><tt>)</tt> <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>form<tt>}</tt>*<tt>)</tt>
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>no-error-clause</var>::=</dt>
+<dd><p><tt>(</tt><tt>:no-error</tt> <var>lambda-list</var> <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>form<tt>}</tt>*<tt>)</tt>
+</p></dd>
+</dl>
+
+<span id="Arguments-and-Values_003a-144"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>expression</var>&mdash;a <i>form</i>.
+</p>
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>var</var>&mdash;a <i>variable</i> <i>name</i>. 
+</p>
+<p><var>lambda-list</var>&mdash;an <i>ordinary lambda list</i>.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>form</var>&mdash;a <i>form</i>.
+</p>
+<p><var>results</var>&mdash;In the normal situation, the values returned are those that result from
+the evaluation of <var>expression</var>;
+in the exceptional situation when control is transferred to a <var>clause</var>,
+the value of the last <var>form</var> in that <var>clause</var> is returned.
+</p>
+<span id="Description_003a-197"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>handler-case</code> executes <var>expression</var> in a <i>dynamic environment</i> where
+various handlers are active.  Each <i>error-clause</i> specifies how to 
+handle a <i>condition</i> matching the indicated <var>typespec</var>. 
+A <i>no-error-clause</i> allows the specification of a particular action
+if control returns normally.
+</p>
+<p>If a <i>condition</i> is signaled for which there is an appropriate
+<i>error-clause</i> during the execution of <var>expression</var>
+(<i>i.e.</i>, one for which <code>(typep <i>condition</i> '<var>typespec</var>)</code>
+returns <i>true</i>) and if there is no intervening handler for a 
+<i>condition</i> of that <i>type</i>, then control is transferred to
+the body of the relevant <i>error-clause</i>.  In this case, the 
+dynamic state is unwound appropriately (so that the handlers established
+around the <var>expression</var> are no longer active), and <var>var</var> is bound to
+the <i>condition</i> that had been signaled.
+If more than one case is provided, those cases are made accessible
+in parallel.  That is, in
+</p>
+<div class="lisp">
+<pre class="lisp">  (handler-case <i>form</i>
+    (<i>typespec1</i> (<i>var1</i>) <i>form1</i>)
+    (<i>typespec2</i> (<i>var2</i>) <i>form2</i>))
+</pre></div>
+
+
+<p>if the first <i>clause</i> (containing <i>form1</i>) has been selected, 
+the handler for the second is no longer visible (or vice versa).
+</p>
+<p>The <i>clauses</i>
+are searched sequentially from top to bottom. If there is <i>type</i>
+overlap between <var>typespecs</var>, 
+the earlier of the <i>clauses</i> is selected.
+</p>
+<p>If <var>var</var> 
+is not needed, it can be omitted. That is, a <i>clause</i> such as:
+</p>
+<div class="lisp">
+<pre class="lisp">  (<var>typespec</var> (<var>var</var>) (declare (ignore <var>var</var>)) <var>form</var>)
+</pre></div>
+
+
+<p>can be written
+<code>(<var>typespec</var> () <var>form</var>)</code>.
+</p>
+<p>If there are no <var>forms</var> in a selected <i>clause</i>, the case, and therefore
+<code>handler-case</code>, returns <code>nil</code>.
+If execution of <var>expression</var> 
+returns normally and no <i>no-error-clause</i>
+exists, the values returned by 
+<var>expression</var> are returned by <code>handler-case</code>.
+If execution of 
+<var>expression</var> returns normally and a <i>no-error-clause</i>
+does exist, the values returned are used as arguments to the function
+described by constructing
+<code>(lambda <var>lambda-list</var> <tt>{</tt>form<tt>}</tt>*)</code>
+from the <i>no-error-clause</i>, and the <i>values</i> of that function call are
+returned by <code>handler-case</code>.
+The handlers which were established around the <var>expression</var> are no longer active at the time of this call.
+</p>
+<span id="Examples_003a-126"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun assess-condition (condition)
+   (handler-case (signal condition)
+     (warning () &quot;Lots of smoke, but no fire.&quot;)
+     ((or arithmetic-error control-error cell-error stream-error)
+        (condition)
+       (format nil &quot;~S looks especially bad.&quot; condition))
+     (serious-condition (condition)
+       (format nil &quot;~S looks serious.&quot; condition))
+     (condition () &quot;Hardly worth mentioning.&quot;)))
+<span class="roman">→</span> ASSESS-CONDITION
+ (assess-condition (make-condition 'stream-error :stream *terminal-io*))
+<span class="roman">→</span> &quot;#&lt;STREAM-ERROR 12352256&gt; looks especially bad.&quot;
+ (define-condition random-condition (condition) () 
+   (:report (lambda (condition stream)
+              (declare (ignore condition))
+              (princ &quot;Yow&quot; stream))))
+<span class="roman">→</span> RANDOM-CONDITION
+ (assess-condition (make-condition 'random-condition))
+<span class="roman">→</span> &quot;Hardly worth mentioning.&quot;
+</pre></div>
+
+
+<span id="See-Also_003a-172"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="handler_002dbind.html">handler-bind</a>,
+<a href="ignore_002derrors.html">ignore-errors</a>,
+<a href="Condition-System-Concepts.html">Section 9.1 (Condition System Concepts)</a>
+</p>
+<span id="Notes_003a-105"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (handler-case form
+   (<i>type1</i> (<i>var1</i>) . <i>body1</i>)
+   (<i>type2</i> (<i>var2</i>) . <i>body2</i>) ...)
+</pre></div>
+
+<p>is approximately equivalent to:
+</p>
+<div class="lisp">
+<pre class="lisp"> (block #1=#:g0001
+   (let ((#2=#:g0002 nil))
+     (tagbody
+       (handler-bind ((<i>type1</i> #'(lambda (temp)
+                                       (setq #1# temp)
+                                       (go #3=#:g0003)))
+                      (<i>type2</i> #'(lambda (temp)
+                                       (setq #2# temp)
+                                       (go #4=#:g0004))) ...)
+       (return-from #1# form))
+         #3# (return-from #1# (let ((<i>var1</i> #2#)) . <i>body1</i>))
+         #4# (return-from #1# (let ((<i>var2</i> #2#)) . <i>body2</i>)) ...)))
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (handler-case form
+   (<i>type1</i> <i>(var1)</i> . <i>body1</i>)
+   ...
+   (:no-error (<i>varN-1</i> <i>varN-2</i> ...) . <i>bodyN</i>))
+</pre></div>
+
+<p>is approximately equivalent to:
+</p>
+<div class="lisp">
+<pre class="lisp">
+
+ (block #1=#:error-return
+  (multiple-value-call #'(lambda (<i>varN-1</i> <i>varN-2</i> ...) . <i>bodyN</i>)
+     (block #2=#:normal-return
+       (return-from #1#
+         (handler-case (return-from #2# form)
+           (<i>type1</i> (<i>var1</i>) . <i>body1</i>) ...)))))
+</pre></div>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="ignore_002derrors.html" accesskey="n" rel="next">ignore-errors</a>, Previous: <a href="handler_002dbind.html" accesskey="p" rel="prev">handler-bind</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

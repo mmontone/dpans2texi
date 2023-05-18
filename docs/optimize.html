@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>optimize (ANSI Common Lisp)</title>
+
+<meta name="description" content="optimize (ANSI Common Lisp)">
+<meta name="keywords" content="optimize (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="special.html" rel="next" title="special">
+<link href="declaration.html" rel="prev" title="declaration">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="optimize"></span><div class="header">
+<p>
+Next: <a href="special.html" accesskey="n" rel="next">special</a>, Previous: <a href="declaration.html" accesskey="p" rel="prev">declaration</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">optimize</h4>
+<span id="optimize-_0028Declaration_0029"></span><h3 class="heading">optimize (Declaration)</h3>
+<span id="index-optimize-1"></span>
+<span id="index-optimize"></span>
+
+
+<span id="Syntax_003a-23"></span><h4 class="subsubheading">Syntax:</h4>
+
+<p><code>(optimize <tt>{</tt><var>quality</var> | (<var>quality</var> <var>value</var>)<tt>}</tt>*)</code>
+<span id="index-compilation_002dspeed"></span>
+<span id="index-debug"></span>
+<span id="index-safety-1"></span>
+<span id="index-space"></span>
+<span id="index-speed"></span>
+</p>
+<span id="Arguments_003a-8"></span><h4 class="subsubheading">Arguments:</h4>
+
+<p><var>quality</var>&mdash;an <i>optimize quality</i>.
+</p>
+<p><var>value</var>&mdash;one of the <i>integers</i> <code>0</code>, <code>1</code>, <code>2</code>, or <code>3</code>.
+</p>
+<span id="Valid-Context_003a-6"></span><h4 class="subsubheading">Valid Context:</h4>
+
+<p><i>declaration</i> or <i>proclamation</i>
+</p>
+<span id="Description_003a-24"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Advises the compiler that each <var>quality</var> should be given attention
+according to the specified corresponding <var>value</var>.
+Each <var>quality</var> must be a <i>symbol</i> naming an <i>optimize quality</i>; 
+the names and meanings of the standard <var>optimize qualities</var> are shown in 
+the next figure.
+</p>
+
+<div class="float"><span id="fig3_002e25"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Name</th><th>Meaning</th></tr></thead>
+<tr><td><code>compilation-speed</code></td><td>speed of the compilation process</td></tr>
+<tr><td><code>debug</code></td><td>ease of debugging</td></tr>
+<tr><td><code>safety</code></td><td>run-time error checking</td></tr>
+<tr><td><code>space</code></td><td>both code size and run-time space</td></tr>
+<tr><td><code>speed</code></td><td>speed of the object code</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 3.25: </strong>Optimize qualities</p></div></div>
+
+<p>There may be other, <i>implementation-defined</i> <i>optimize qualities</i>.
+</p>
+<p>A <var>value</var> <code>0</code> means that the corresponding <var>quality</var> is totally
+unimportant, and <code>3</code> that the <var>quality</var> is extremely important;
+<code>1</code> and <code>2</code> are intermediate values, with <code>1</code> the 
+neutral value.
+<code>(<var>quality</var> 3)</code> can be abbreviated to <var>quality</var>.
+</p>
+<p>Note that <i>code</i> which has the optimization <code>(safety 3)</code>,
+or just <code>safety</code>,
+is called <i>safe</i> <i>code</i>.
+</p>
+<p>The consequences are unspecified if a <var>quality</var> appears more than once
+with <i>different</i> <var>values</var>.
+</p>
+<span id="Examples_003a-20"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun often-used-subroutine (x y)
+   (declare (optimize (safety 2)))
+   (error-check x y)
+   (hairy-setup x)
+   (do ((i 0 (+ i 1))
+        (z x (cdr z)))
+       ((null z))
+     ;; This inner loop really needs to burn.
+     (declare (optimize speed))
+     (declare (fixnum i))
+     ))
+</pre></div>
+
+
+<span id="See-Also_003a-24"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="declare.html">declare</a>,
+<a href="declaim.html">declaim</a>,
+<a href="proclaim.html">proclaim</a>,
+<a href="Declaration-Scope.html">Section 3.3.4 (Declaration Scope)</a>
+</p>
+<span id="Notes_003a-14"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>An <code>optimize</code> declaration never applies to either a <i>variable</i> or
+a <i>function</i> <i>binding</i>.  An <code>optimize</code> declaration can only
+be a <i>free declaration</i>.  For more information, see <a href="Declaration-Scope.html">Section 3.3.4 (Declaration Scope)</a>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="special.html" accesskey="n" rel="next">special</a>, Previous: <a href="declaration.html" accesskey="p" rel="prev">declaration</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

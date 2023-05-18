@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>read; read-preserving-whitespace (ANSI Common Lisp)</title>
+
+<meta name="description" content="read; read-preserving-whitespace (ANSI Common Lisp)">
+<meta name="keywords" content="read; read-preserving-whitespace (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reader.html" rel="up" title="Reader">
+<link href="read_002ddelimited_002dlist.html" rel="next" title="read-delimited-list">
+<link href="make_002ddispatch_002dmacro_002dcharacter.html" rel="prev" title="make-dispatch-macro-character">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="read_003b-read_002dpreserving_002dwhitespace"></span><div class="header">
+<p>
+Next: <a href="read_002ddelimited_002dlist.html" accesskey="n" rel="next">read-delimited-list</a>, Previous: <a href="make_002ddispatch_002dmacro_002dcharacter.html" accesskey="p" rel="prev">make-dispatch-macro-character</a>, Up: <a href="Reader.html" accesskey="u" rel="up">Reader</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">read; read-preserving-whitespace</h4>
+<span id="read_002c-read_002dpreserving_002dwhitespace-_0028Function_0029"></span><h3 class="heading">read, read-preserving-whitespace (Function)</h3>
+<span id="index-read-2"></span>
+<span id="index-read"></span>
+<span id="index-read_002dpreserving_002dwhitespace-2"></span>
+<span id="index-read_002dpreserving_002dwhitespace"></span>
+<span id="read"></span><span id="read_002dpreserving_002dwhitespace"></span>
+
+<span id="Syntax_003a-487"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-read-1">Function: <strong>read</strong> <em><tt>&amp;optional</tt> input-stream eof-error-p eof-value recursive-p <span class="roman">→</span> object</em></dt>
+</dl>
+
+<dl>
+<dt id="index-read_002dpreserving_002dwhitespace-1">Function: <strong>read-preserving-whitespace</strong> <em><tt>&amp;optional</tt> <span class="nolinebreak">input-stream</span>&nbsp;<span class="nolinebreak">eof-error-p</span><!-- /@w --> <span class="nolinebreak">eof-value</span>&nbsp;<span class="nolinebreak">recursive-p</span><!-- /@w --> <span class="roman">→</span> object</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-473"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>input-stream</var>&mdash;an <i>input</i> <i>stream designator</i>.
+</p>
+<p><var>eof-error-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>true</i>.
+</p>
+<p><var>eof-value</var>&mdash;an <i>object</i>.
+The default is <code>nil</code>.
+</p>
+<p><var>recursive-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>object</var>&mdash;an <i>object</i> (parsed by the <i>Lisp reader</i>)
+or the <var>eof-value</var>.
+</p>
+<span id="Description_003a-623"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>read</code> parses the printed representation of an <i>object</i>
+from <var>input-stream</var> and builds such an <i>object</i>.
+</p>
+<p><code>read-preserving-whitespace</code> is like <code>read</code> but preserves
+any <i>whitespace</i><sub>2</sub>
+that delimits the printed representation of the <i>object</i>.
+<code>read-preserving-whitespace</code> is exactly like <code>read</code>
+when the <var>recursive-p</var> <i>argument</i> to <code>read-preserving-whitespace</code>
+is <i>true</i>.
+</p>
+<p>When <code>*read-suppress*</code> is <i>false</i>,
+<code>read</code> throws away the delimiting <i>character</i> required by
+certain printed representations if it is a
+<i>whitespace</i><sub>2</sub>
+but <code>read</code> preserves the character 
+(using <code>unread-char</code>) if it is
+syntactically meaningful, because it could be the start of the next expression.
+</p>
+<p>If a file ends in a <i>symbol</i> or a <i>number</i>
+immediately followed by an <i>end of file</i><sub>1</sub>
+<code>read</code> reads the <i>symbol</i> or <i>number</i> successfully;
+when called again, it sees the <i>end of file</i><sub>1</sub>
+only then acts according to <var>eof-error-p</var>.
+If a file contains ignorable text at the end, such
+as blank lines and comments, <code>read</code> 
+does not consider it to end in the
+middle of an <i>object</i>.
+</p>
+<p>If <var>recursive-p</var> is <i>true</i>, the call to <code>read</code> is 
+expected to be made
+from within some function that itself
+has been called from <code>read</code> or from a similar input function, rather
+than from the top level.  
+</p>
+
+<p>Both functions return the <i>object</i> read from <var>input-stream</var>.
+<var>Eof-value</var> is returned if <var>eof-error-p</var> is <i>false</i> and end of file
+is reached before the beginning of an <i>object</i>.
+</p>
+<span id="Examples_003a-444"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (read)
+▷ <kbd>'a</kbd>
+<span class="roman">→</span> (QUOTE A)
+ (with-input-from-string (is &quot; &quot;) (read is nil 'the-end)) <span class="roman">→</span> THE-END
+ (defun skip-then-read-char (s c n)
+    (if (char= c #\<tt>{</tt>) (read s t nil t) (read-preserving-whitespace s))
+    (read-char-no-hang s)) <span class="roman">→</span> SKIP-THEN-READ-CHAR
+ (let ((*readtable* (copy-readtable nil)))
+    (set-dispatch-macro-character #\# #\<tt>{</tt> #'skip-then-read-char)
+    (set-dispatch-macro-character #\# #\<tt>}</tt> #'skip-then-read-char)
+    (with-input-from-string (is &quot;#<tt>{</tt>123 x #<tt>}</tt>123 y&quot;)
+      (format t &quot;~S ~S&quot; (read is) (read is)))) <span class="roman">→</span> #\x, #\Space, NIL
+</pre></div>
+
+
+<p>As an example, consider this <i>reader macro</i> definition:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun slash-reader (stream char)
+   (declare (ignore char))
+   `(path . ,(loop for dir = (read-preserving-whitespace stream t nil t)
+                   then (progn (read-char stream t nil t)
+                               (read-preserving-whitespace stream t nil t))
+                   collect dir
+                   while (eql (peek-char nil stream nil nil t) #\/))))
+ (set-macro-character #\/ #'slash-reader)
+</pre></div>
+
+
+<p>Consider now calling <code>read</code> on this expression:
+</p>
+<div class="lisp">
+<pre class="lisp"> (zyedh /usr/games/zork /usr/games/boggle)
+</pre></div>
+
+<p>The <code>/</code> macro reads objects separated by more <code>/</code> characters;
+thus <code>/usr/games/zork</code> is intended to read as <code>(path usr games zork)</code>.
+The entire example expression should therefore be read as
+</p>
+<div class="lisp">
+<pre class="lisp"> (zyedh (path usr games zork) (path usr games boggle))
+</pre></div>
+
+<p>However, if <code>read</code> had been used instead of
+<code>read-preserving-whitespace</code>, then after the reading of the symbol
+<code>zork</code>, the following space would be discarded; the next call
+to <code>peek-char</code> would see the following <code>/</code>, and the loop would
+continue, producing this interpretation:
+</p>
+<div class="lisp">
+<pre class="lisp"> (zyedh (path usr games zork usr games boggle))
+</pre></div>
+
+<p>There are times when <i>whitespace</i><sub>2</sub>
+If a command interpreter takes single-character commands,
+but occasionally reads an <i>object</i> then if the <i>whitespace</i><sub>2</sub>
+after a <i>symbol</i> 
+is not discarded it might be interpreted as a command
+some time later after the <i>symbol</i> had been read.
+</p>
+<span id="Affected-By_003a-108"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-input*</code>,
+<code>*terminal-io*</code>,
+<code>*readtable*</code>,
+<code>*read-default-float-format*</code>,
+<code>*read-base*</code>,
+<code>*read-suppress*</code>,
+<code>*package*</code>,
+<code>*read-eval*</code>.
+</p>
+<span id="Exceptional-Situations_003a-229"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p><code>read</code> signals an error of <i>type</i> <code>end-of-file</code>, 
+regardless of <var>eof-error-p</var>, if
+the file ends in the middle of an <i>object</i> representation.
+For example, if a file does
+not contain enough right parentheses to balance the left parentheses in
+it, <code>read</code> signals an error.
+This is detected when <code>read</code> or <code>read-preserving-whitespace</code>
+is called with <var>recursive-p</var> and <var>eof-error-p</var> <i>non-nil</i>, 
+and end-of-file is reached before the beginning of an <i>object</i>.
+</p>
+<p>If <var>eof-error-p</var> is <i>true</i>, an error of <i>type</i> <code>end-of-file</code>
+is signaled at the end of file.
+</p>
+<span id="See-Also_003a-506"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="peek_002dchar.html">peek-char</a>,
+<a href="read_002dchar.html">read-char</a>,
+<a href="unread_002dchar.html">unread-char</a>,
+<a href="read_002dfrom_002dstring.html">read-from-string</a>,
+<a href="read_002ddelimited_002dlist.html">read-delimited-list</a>, 
+<a href="parse_002dinteger.html">parse-integer</a>, 
+<a href="Syntax.html">Chapter 2 (Syntax)</a>,
+<a href="Reader-Concepts.html">Section 23.1 (Reader Concepts)</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="read_002ddelimited_002dlist.html" accesskey="n" rel="next">read-delimited-list</a>, Previous: <a href="make_002ddispatch_002dmacro_002dcharacter.html" accesskey="p" rel="prev">make-dispatch-macro-character</a>, Up: <a href="Reader.html" accesskey="u" rel="up">Reader</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

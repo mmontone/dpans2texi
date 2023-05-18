@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>A (ANSI Common Lisp)</title>
+
+<meta name="description" content="A (ANSI Common Lisp)">
+<meta name="keywords" content="A (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Glossary.html" rel="up" title="Glossary">
+<link href="B.html" rel="next" title="B">
+<link href="Non_002dalphabetic.html" rel="prev" title="Non-alphabetic">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="A"></span><div class="header">
+<p>
+Next: <a href="B.html" accesskey="n" rel="next">B</a>, Previous: <a href="Non_002dalphabetic.html" accesskey="p" rel="prev">Non-alphabetic</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="A-1"></span><h3 class="unnumberedsec">A</h3>
+<dl compact="compact">
+<dt><b>absolute</b> <span id="glos_002dabsolute"></span></dt>
+<dd><p><i>adj.</i>
+1. (of a <i>time</i>)
+representing a specific point in time.
+2. (of a <i>pathname</i>)
+representing a specific position in a directory hierarchy.
+See <a href="R.html#glos_002drelative">relative</a>.
+</p>
+</dd>
+<dt><b>access</b>  <i>n.</i>, <i>v.t.</i></dt>
+<dd><p>1. <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>place</i>, or <i>array</i>)
+to <i>read</i><sub>1</sub>
+the <i>place</i>
+or an <i>element</i> of the <i>array</i>.
+2. <i>n.</i>&nbsp;<!-- /@w -->(of a <i>place</i>)
+an attempt to <i>access</i><sub>1</sub>
+</p>
+</dd>
+<dt><b>accessibility</b>  <i>n.</i></dt>
+<dd><p>the state of being <i>accessible</i>.
+</p>
+</dd>
+<dt><b>accessible</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>1. (of an <i>object</i>) capable of being <i>referenced</i>.
+2. (of <i>shared slots</i> or <i>local slots</i> in an <i>instance</i> of 
+a <i>class</i>) having been defined by the <i>class</i> 
+of the <i>instance</i> or <i>inherited</i> from a
+<i>superclass</i> of that <i>class</i>.
+3. (of a <i>symbol</i> in a <i>package</i>)
+capable of being <i>referenced</i> without a <i>package prefix</i> 
+when that <i>package</i> is current, regardless of whether the
+<i>symbol</i> is <i>present</i> in that <i>package</i> or is <i>inherited</i>.
+</p>
+</dd>
+<dt><b>accessor</b>  <i>n.</i></dt>
+<dd><p>an <i>operator</i> that performs an <i>access</i>.
+See <a href="R.html#glos_002dreader">reader</a> and <i>writer</i>.
+</p>
+</dd>
+<dt><b>active</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>1. (of a <i>handler</i>, a <i>restart</i>, or a <i>catch tag</i>)
+having been <i>established</i> but not yet <i>disestablished</i>.
+2. (of an <i>element</i> of an <i>array</i>)
+having an index that is greater than or equal to zero,
+but less than the <i>fill pointer</i> (if any).
+For an <i>array</i> that has no <i>fill pointer</i>,
+all <i>elements</i> are considered <i>active</i>.
+</p>
+</dd>
+<dt><b>actual adjustability</b> <span id="glos_002dactual-adjustability"></span></dt>
+<dd><p><i>n.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)
+a <i>generalized boolean</i> that is associated with the <i>array</i>, 
+representing whether the <i>array</i> is <i>actually adjustable</i>.
+See also <a href="E.html#glos_002dexpressed-adjustability">expressed adjustability</a> and <code>adjustable-array-p</code>.
+</p>
+</dd>
+<dt><b>actual argument</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>an <i>argument</i>.
+</p>
+</dd>
+<dt><b>actual array element type</b>  <i>n.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
+<dd><p>the <i>type</i> for which the <i>array</i> is actually specialized,
+which is the <i>upgraded array element type</i> of 
+the <i>expressed array element type</i> of the <i>array</i>.
+See the <i>function</i> <a href="array_002delement_002dtype.html">array-element-type</a>.
+</p>
+</dd>
+<dt><b>actual complex part type</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>complex</i>)</dt>
+<dd><p>the <i>type</i> in which the real and imaginary parts of the <i>complex</i>
+are actually represented, which is the <i>upgraded complex part type</i> of the
+<i>expressed complex part type</i> of the <i>complex</i>.
+</p>
+</dd>
+<dt><b>actual parameter</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>an <i>argument</i>.
+</p>
+</dd>
+<dt><b>actually adjustable</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
+<dd><p>such that <code>adjust-array</code> can adjust its characteristics
+by direct modification.
+A <i>conforming program</i> may depend on
+an <i>array</i> being <i>actually adjustable</i>
+only if either that <i>array</i> is known to have been <i>expressly adjustable</i>
+or if that <i>array</i> has been explicitly tested by <code>adjustable-array-p</code>.
+</p>
+</dd>
+<dt><b>adjustability</b>  <i>n.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
+<dd><p>1. <i>expressed adjustability</i>.
+2. <i>actual adjustability</i>.
+</p>
+</dd>
+<dt><b>adjustable</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
+<dd><p>1. <i>expressly adjustable</i>.
+2. <i>actually adjustable</i>.
+</p>
+</dd>
+<dt><b>after method</b>  <i>n.</i></dt>
+<dd><p>a <i>method</i> having the <i>qualifier</i> <tt>:after</tt>.
+</p>
+</dd>
+<dt><b>alist</b>  [ˈāˌlist], <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>an <i>association list</i>.
+</p>
+</dd>
+<dt><b>alphabetic</b>  <i>n.</i>, <i>adj.</i></dt>
+<dd><p>1. <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)
+being one of the <i>standard characters</i> <code>A</code> through <code>Z</code> 
+or <code>a</code> through <code>z</code>,
+or being any <i>implementation-defined</i> character that has <i>case</i>,
+or being some other <i>graphic</i> <i>character</i>
+defined by the <i>implementation</i> to be <i>alphabetic</i><sub>1</sub>
+2. a. <i>n.</i>
+one of several possible <i>constituent traits</i> of a <i>character</i>.
+For details, see <a href="Character-Syntax-Types.html#ConstituentChars">Section 2.1.4.1 (Constituent Characters)</a>&nbsp;<!-- /@w -->and <a href="Reader-Algorithm.html">Section 2.2 (Reader Algorithm)</a>.
+b. <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)
+being a <i>character</i> 
+that has <i>syntax type</i> <i>constituent</i> in the <i>current readtable</i> 
+and that has the <i>constituent trait</i> <i>alphabetic</i>[2a].
+See <a href="Character-Syntax-Types.html#ConstituentTraitsOfStdChars">Figure 2.8</a>.
+</p>
+</dd>
+<dt><b>alphanumeric</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)</dt>
+<dd><p>being either an <i>alphabetic</i><sub>1</sub>
+or a <i>numeric</i> character.
+</p>
+</dd>
+<dt><b>ampersand</b>  <i>n.</i></dt>
+<dd><p>the <i>standard character</i> that is called &ldquo;ampersand&rdquo; (<code>&amp;</code>).
+See <a href="Standard-Characters.html#StdCharsThree">Figure 2.5</a>.
+</p>
+</dd>
+<dt><b>anonymous</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>1. (of a <i>class</i> or <i>function</i>) having no <i>name</i>
+2. (of a <i>restart</i>) having a <i>name</i> of <code>nil</code>.
+</p>
+</dd>
+<dt><b>apparently uninterned</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>having a <i>home package</i> of <code>nil</code>.  (An <i>apparently uninterned</i> <i>symbol</i> 
+might or might not be an <i>uninterned</i> <i>symbol</i>.  <i>Uninterned symbols</i>
+have a <i>home package</i> of <code>nil</code>, but <i>symbols</i> which have been <i>uninterned</i>
+from their <i>home package</i> also have a <i>home package</i> of <code>nil</code>,
+even though they might still be <i>interned</i> in some other <i>package</i>.)
+</p>
+</dd>
+<dt><b>applicable</b>  <i>adj.</i></dt>
+<dd><p>1. (of a <i>handler</i>) being an <i>applicable handler</i>.
+2. (of a <i>method</i>) being an <i>applicable method</i>.
+3. (of a <i>restart</i>) being an <i>applicable restart</i>.
+</p>
+</dd>
+<dt><b>applicable handler</b>  <i>n.</i>&nbsp;<!-- /@w -->(for a <i>condition</i> being <i>signaled</i>)</dt>
+<dd><p>an <i>active</i> <i>handler</i> for which the associated type contains the
+<i>condition</i>.
+</p>
+</dd>
+<dt><b>applicable method</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>generic function</i></dt>
+<dd><p>called with <i>arguments</i>)
+a <i>method</i> of the <i>generic function</i> for which the
+<i>arguments</i> satisfy the <i>parameter specializers</i> 
+of that <i>method</i>.
+See <a href="Method-Selection-and-Combination.html#SelApplMeth">Section 7.6.6.1.1 (Selecting the Applicable Methods)</a>.
+</p>
+</dd>
+<dt><b>applicable restart</b>  <i>n.</i></dt>
+<dd><p>1. (for a <i>condition</i>)
+an <i>active</i> <i>handler</i> for which the associated test returns 
+<i>true</i> when given the <i>condition</i> as an argument.
+2. (for no particular <i>condition</i>)
+an <i>active</i> <i>handler</i> for which the associated test returns 
+<i>true</i> when given <code>nil</code>&nbsp;<!-- /@w -->as an argument.
+</p>
+</dd>
+<dt><b>apply</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>function</i> to a <i>list</i>)</dt>
+<dd><p>to <i>call</i> the <i>function</i> with arguments that are the <i>elements</i>
+of the <i>list</i>.
+&ldquo;Applying the function <code>+</code> to a list of integers returns
+the sum of the elements of that list.&rdquo; 
+</p>
+</dd>
+<dt><b>argument</b>  <i>n.</i></dt>
+<dd><p>1. (of a <i>function</i>) an <i>object</i> which is offered as data
+to the <i>function</i> when it is <i>called</i>.
+2. (of a <i>format control</i>) a <i>format argument</i>.
+</p>
+</dd>
+<dt><b>argument evaluation order</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>the order in which <i>arguments</i> are evaluated in a function call.
+&ldquo;The argument evaluation order for Common Lisp is left to right.&rdquo;
+See <a href="Evaluation.html">Section 3.1 (Evaluation)</a>.
+</p>
+</dd>
+<dt><b>argument precedence order</b>  <i>n.</i></dt>
+<dd><p>the order in which the <i>arguments</i> to a <i>generic function</i> are
+considered when sorting the <i>applicable methods</i> into precedence order.
+</p>
+</dd>
+<dt><b>around method</b>  <i>n.</i></dt>
+<dd><p>a <i>method</i> having the <i>qualifier</i> <tt>:around</tt>.
+</p>
+</dd>
+<dt><b>array</b>  <i>n.</i></dt>
+<dd><p>an <i>object</i> of <i>type</i> <code>array</code>, which serves as a container for other
+<i>objects</i> arranged in a Cartesian coordinate system.
+</p>
+</dd>
+<dt><b>array element type</b>  <i>n.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
+<dd><p>1. a <i>type</i> associated with the <i>array</i>, 
+and of which all <i>elements</i> of the <i>array</i> are 
+constrained to be members.
+2. the <i>actual array element type</i> of the <i>array</i>.
+3. the <i>expressed array element type</i> of the <i>array</i>.
+</p>
+</dd>
+<dt><b>array total size</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>the total number of <i>elements</i> in an <i>array</i>, computed by taking 
+the product of the <i>dimensions</i> of the <i>array</i>.
+(The size of a zero-dimensional <i>array</i> is therefore one.)
+</p>
+</dd>
+<dt><b>assign</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>variable</i>)</dt>
+<dd><p>to change the <i>value</i> of the <i>variable</i> in a <i>binding</i>
+that has already been <i>established</i>.
+See the <i>special operator</i> <a href="setq.html">setq</a>.
+</p>
+</dd>
+<dt><b>association list</b> <span id="glos_002dassociation-list"></span></dt>
+<dd><p><i>n.</i>&nbsp;<!-- /@w -->
+a <i>list</i> of <i>conses</i> representing an association 
+of <i>keys</i> with <i>values</i>, where the <i>car</i> of each
+<i>cons</i> is the <i>key</i> and the <i>cdr</i> is the
+<i>value</i> associated with that <i>key</i>.
+</p>
+</dd>
+<dt><b>asterisk</b>  <i>n.</i></dt>
+<dd><p>the <i>standard character</i> that is variously called
+&ldquo;asterisk&rdquo;
+or &ldquo;star&rdquo; (<code>*</code>).
+See <a href="Standard-Characters.html#StdCharsThree">Figure 2.5</a>.
+</p>
+</dd>
+<dt><b>at-sign</b>  <i>n.</i></dt>
+<dd><p>the <i>standard character</i> that is variously called
+&ldquo;commercial at&rdquo;
+or &ldquo;at sign&rdquo; (<code>@</code>).
+See <a href="Standard-Characters.html#StdCharsThree">Figure 2.5</a>.
+</p>
+</dd>
+<dt><b>atom</b>  <i>n.</i></dt>
+<dd><p>any <i>object</i> that is not a <i>cons</i>.
+&ldquo;A vector is an atom.&rdquo;
+</p>
+</dd>
+<dt><b>atomic</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>being an <i>atom</i>.
+&ldquo;The number 3, the symbol <code>foo</code>, and <code>nil</code>&nbsp;<!-- /@w -->are atomic.&rdquo;
+</p>
+</dd>
+<dt><b>atomic type specifier</b>  <i>n.</i></dt>
+<dd><p>a <i>type specifier</i> that is <i>atomic</i>.
+For every <i>atomic type specifier</i>, <i>x</i>, there is an equivalent
+<i>compound type specifier</i> with no arguments supplied, <code>(<i>x</i>)</code>.
+</p>
+</dd>
+<dt><b>attribute</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)</dt>
+<dd><p>a program-visible aspect of the <i>character</i>.
+The only <i>standardized</i> <i>attribute</i> of a <i>character</i>
+is its <i>code</i><sub>2</sub>
+additional <i>implementation-defined</i> <i>attributes</i>.
+See <a href="Character-Attributes.html">Section 13.1.3 (Character Attributes)</a>.
+&ldquo;An implementation that support fonts
+might make font information an attribute of a character,
+while others might represent font information separately from characters.&rdquo;
+</p>
+</dd>
+<dt><b>aux variable</b>  <i>n.</i></dt>
+<dd><p>a <i>variable</i> that occurs in the part of a <i>lambda list</i>
+that was introduced by <code>&amp;aux</code>.  Unlike all other <i>variables</i>
+introduced by a <i>lambda-list</i>, <i>aux variables</i> are not 
+<i>parameters</i>.
+</p>
+</dd>
+<dt><b>auxiliary method</b>  <i>n.</i></dt>
+<dd><p>a member of one of two sets of <i>methods</i> 
+(the set of <i>primary methods</i> is the other)
+that form an exhaustive partition of the set of <i>methods</i>
+on the <i>method</i>&rsquo;s <i>generic function</i>.
+How these sets are determined is dependent on the <i>method combination</i> type;
+see <a href="Introduction-to-Methods.html">Section 7.6.2 (Introduction to Methods)</a>.
+</p>
+
+</dd>
+</dl>
+<hr>
+<div class="header">
+<p>
+Next: <a href="B.html" accesskey="n" rel="next">B</a>, Previous: <a href="Non_002dalphabetic.html" accesskey="p" rel="prev">Non-alphabetic</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

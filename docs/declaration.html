@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>declaration (ANSI Common Lisp)</title>
+
+<meta name="description" content="declaration (ANSI Common Lisp)">
+<meta name="keywords" content="declaration (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="optimize.html" rel="next" title="optimize">
+<link href="ftype.html" rel="prev" title="ftype">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="declaration"></span><div class="header">
+<p>
+Next: <a href="optimize.html" accesskey="n" rel="next">optimize</a>, Previous: <a href="ftype.html" accesskey="p" rel="prev">ftype</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">declaration</h4>
+<span id="declaration-_0028Declaration_0029"></span><h3 class="heading">declaration (Declaration)</h3>
+<span id="index-declaration-3"></span>
+<span id="index-declaration-2"></span>
+
+
+<span id="Syntax_003a-22"></span><h4 class="subsubheading">Syntax:</h4>
+
+<p><code>(declaration <tt>{</tt>name<tt>}</tt>*)</code>
+</p>
+<span id="Arguments_003a-7"></span><h4 class="subsubheading">Arguments:</h4>
+
+<p><var>name</var>&mdash;a <i>symbol</i>.
+</p>
+<span id="Valid-Context_003a-5"></span><h4 class="subsubheading">Valid Context:</h4>
+
+<p><i>proclamation</i> only
+</p>
+<span id="Description_003a-23"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Advises the compiler that each <var>name</var> is a valid but potentially
+non-standard declaration name.  The purpose of this is to tell one
+compiler not to issue warnings for declarations meant for another 
+compiler or other program processor.
+</p>
+<span id="Examples_003a-19"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (declaim (declaration author target-language target-machine))
+ (declaim (target-language ada))
+ (declaim (target-machine IBM-650))
+ (defun strangep (x)
+   (declare (author &quot;Harry Tweeker&quot;))
+   (member x '(strange weird odd peculiar)))
+</pre></div>
+
+
+<span id="See-Also_003a-23"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="declaim.html">declaim</a>,
+<a href="proclaim.html">proclaim</a>
+</p>
+
+
+
+
+</body>
+</html>

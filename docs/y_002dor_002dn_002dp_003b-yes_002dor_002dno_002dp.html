@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>y-or-n-p; yes-or-no-p (ANSI Common Lisp)</title>
+
+<meta name="description" content="y-or-n-p; yes-or-no-p (ANSI Common Lisp)">
+<meta name="keywords" content="y-or-n-p; yes-or-no-p (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="make_002dsynonym_002dstream.html" rel="next" title="make-synonym-stream">
+<link href="finish_002doutput_003b-force_002doutput_003b-clear_002doutput.html" rel="prev" title="finish-output; force-output; clear-output">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="y_002dor_002dn_002dp_003b-yes_002dor_002dno_002dp"></span><div class="header">
+<p>
+Next: <a href="make_002dsynonym_002dstream.html" accesskey="n" rel="next">make-synonym-stream</a>, Previous: <a href="finish_002doutput_003b-force_002doutput_003b-clear_002doutput.html" accesskey="p" rel="prev">finish-output; force-output; clear-output</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">y-or-n-p; yes-or-no-p</h4>
+<span id="y_002dor_002dn_002dp_002c-yes_002dor_002dno_002dp-_0028Function_0029"></span><h3 class="heading">y-or-n-p, yes-or-no-p (Function)</h3>
+<span id="index-y_002dor_002dn_002dp-2"></span>
+<span id="index-y_002dor_002dn_002dp"></span>
+<span id="index-yes_002dor_002dno_002dp-2"></span>
+<span id="index-yes_002dor_002dno_002dp"></span>
+
+
+<span id="Syntax_003a-451"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-y_002dor_002dn_002dp-1">Function: <strong>y-or-n-p</strong> <em><tt>&amp;optional</tt> control <tt>&amp;rest</tt> arguments <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-yes_002dor_002dno_002dp-1">Function: <strong>yes-or-no-p</strong> <em><tt>&amp;optional</tt> control <tt>&amp;rest</tt> arguments <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-438"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>control</var>&mdash;a <i>format control</i>.
+</p>
+<p><var>arguments</var>&mdash;<i>format arguments</i> for <var>control</var>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-568"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These functions ask a question and parse a response from the user.
+They return <i>true</i> if the answer is affirmative,
+or <i>false</i> if the answer is negative.
+</p>
+<p><code>y-or-n-p</code> is for asking the user a question whose answer is either
+&ldquo;yes&rdquo; or &ldquo;no.&rdquo;  
+It is intended that the reply require
+the user to answer a yes-or-no question with a single
+character.
+<code>yes-or-no-p</code> is also for asking the user a question
+whose answer is either &ldquo;Yes&rdquo; or &ldquo;No.&rdquo;  
+It is intended that the reply require
+the user to take more action than just a single keystroke, such as typing
+the full word <code>yes</code> or <code>no</code> followed by a newline.
+</p>
+<p><code>y-or-n-p</code> types out a message (if supplied), reads an answer
+in some <i>implementation-dependent</i> manner (intended to be short and simple,
+such as reading a single character such as <code>Y</code> or <code>N</code>).
+<code>yes-or-no-p</code> types out a message (if supplied), 
+attracts the user&rsquo;s attention (for example, by ringing
+the terminal&rsquo;s bell),
+and reads an answer
+in some <i>implementation-dependent</i> manner (intended to be multiple characters,
+such as <code>YES</code> or <code>NO</code>).
+</p>
+<p>If <var>format-control</var> is supplied and not <code>nil</code>,
+then a <code>fresh-line</code> operation is performed; then
+a message is printed as if <var>format-control</var> and <var>arguments</var>
+were given to <code>format</code>.
+In any case, <code>yes-or-no-p</code> and <code>y-or-n-p</code> will provide 
+a prompt such as &ldquo;<code>(Y or N)</code>&rdquo; or &ldquo;<code>(Yes or No)</code>&rdquo; if appropriate.
+</p>
+<p>All input and output are performed using <i>query I/O</i>.
+</p>
+<span id="Examples_003a-414"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (y-or-n-p &quot;(t or nil) given by&quot;)
+▷ (t or nil) given by (Y or N) <kbd>Y</kbd>
+<span class="roman">→</span> <i>true</i>
+ (yes-or-no-p &quot;a ~S message&quot; 'frightening) 
+▷ a FRIGHTENING message (Yes or No) <kbd>no</kbd>
+<span class="roman">→</span> <i>false</i>
+ (y-or-n-p &quot;Produce listing file?&quot;) 
+▷ Produce listing file?
+▷ Please respond with Y or N. <kbd>n</kbd>
+<span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Side-Effects_003a-71"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Output to and input from <i>query I/O</i> will occur.
+</p>
+<span id="Affected-By_003a-96"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*query-io*</code>.
+</p>
+<span id="See-Also_003a-464"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="format.html">format</a>
+</p>
+<span id="Notes_003a-296"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>yes-or-no-p</code> and <code>yes-or-no-p</code> do not add question marks
+to the end of the prompt string, so any desired question mark or other
+punctuation should be explicitly included in the text query.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="make_002dsynonym_002dstream.html" accesskey="n" rel="next">make-synonym-stream</a>, Previous: <a href="finish_002doutput_003b-force_002doutput_003b-clear_002doutput.html" accesskey="p" rel="prev">finish-output; force-output; clear-output</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

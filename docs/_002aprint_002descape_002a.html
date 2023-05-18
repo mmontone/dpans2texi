@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>*print-escape* (ANSI Common Lisp)</title>
+
+<meta name="description" content="*print-escape* (ANSI Common Lisp)">
+<meta name="keywords" content="*print-escape* (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Printer.html" rel="up" title="Printer">
+<link href="_002aprint_002dgensym_002a.html" rel="next" title="*print-gensym*">
+<link href="_002aprint_002dcircle_002a.html" rel="prev" title="*print-circle*">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="g_t_002aprint_002descape_002a"></span><div class="header">
+<p>
+Next: <a href="_002aprint_002dgensym_002a.html" accesskey="n" rel="next">*print-gensym*</a>, Previous: <a href="_002aprint_002dcircle_002a.html" accesskey="p" rel="prev">*print-circle*</a>, Up: <a href="Printer.html" accesskey="u" rel="up">Printer</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">*print-escape*</h4>
+<span id="g_t_002aprint_002descape_002a-_0028Variable_0029"></span><h3 class="heading">*print-escape* (Variable)</h3>
+<span id="index-_002aprint_002descape_002a-1"></span>
+<span id="index-_002aprint_002descape_002a"></span>
+
+
+<span id="Value-Type_003a-13"></span><h4 class="subsubheading">Value Type:</h4>
+
+<p>a <i>generalized boolean</i>.
+</p>
+<span id="Initial-Value_003a-13"></span><h4 class="subsubheading">Initial Value:</h4>
+
+<p><i>true</i>.
+</p>
+<span id="Description_003a-608"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If <i>false</i>,
+escape characters and <i>package prefixes</i> are not output
+when an expression is printed.
+</p>
+<p>If <i>true</i>, an attempt is made to print an <i>expression</i>
+in such a way that it can be read again to produce an <code>equal</code> <i>expression</i>.
+(This is only a guideline; not a requirement.  See <code>*print-readably*</code>.)
+</p>
+<p>For more specific details of how the <i>value</i> of <code>*print-escape*</code>
+affects the printing of certain <i>types</i>,
+see <a href="Default-Print_002dObject-Methods.html">Section 22.1.3 (Default Print-Object Methods)</a>.
+</p>
+<span id="Examples_003a-436"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (let ((*print-escape* t)) (write #\a))
+▷ #\a
+<span class="roman">→</span> #\a
+ (let ((*print-escape* nil)) (write #\a))
+▷ a
+<span class="roman">→</span> #\a
+</pre></div>
+
+
+<span id="Affected-By_003a-106"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>princ</code>, <code>prin1</code>, <code>format</code>
+</p>
+<span id="See-Also_003a-494"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="write_003b-prin1_003b-print_003b-pprint_003b-princ.html#write">write</a>, <a href="readtable_002dcase.html">readtable-case</a>
+</p>
+<span id="Notes_003a-307"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>princ</code> effectively binds <code>*print-escape*</code> to <i>false</i>.
+<code>prin1</code> effectively binds <code>*print-escape*</code> to <i>true</i>.
+</p>
+
+
+
+
+</body>
+</html>

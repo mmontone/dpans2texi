@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>function-keywords (ANSI Common Lisp)</title>
+
+<meta name="description" content="function-keywords (ANSI Common Lisp)">
+<meta name="keywords" content="function-keywords (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Objects.html" rel="up" title="Objects">
+<link href="ensure_002dgeneric_002dfunction.html" rel="next" title="ensure-generic-function">
+<link href="Inheritance-of-Methods.html" rel="prev" title="Inheritance of Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="function_002dkeywords"></span><div class="header">
+<p>
+Next: <a href="ensure_002dgeneric_002dfunction.html" accesskey="n" rel="next">ensure-generic-function</a>, Previous: <a href="Generic-Functions-and-Methods.html" accesskey="p" rel="prev">Generic Functions and Methods</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">function-keywords</h4>
+<span id="function_002dkeywords-_0028Standard-Generic-Function_0029"></span><h3 class="heading">function-keywords (Standard Generic Function)</h3>
+<span id="index-function_002dkeywords-2"></span>
+<span id="index-function_002dkeywords"></span>
+
+
+
+<span id="Syntax_003a-100"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-function_002dkeywords-1">Generic Function: <strong>function-keywords</strong> <em>method <span class="roman">→</span> keys, allow-other-keys-p</em></dt>
+</dl>
+
+<span id="Method-Signatures_003a"></span><h4 class="subsubheading">Method Signatures:</h4>
+
+<p>function-keywords <tt>(</tt><var>method</var> <code>standard-method</code><tt>)</tt>
+</p>
+<span id="Arguments-and-Values_003a-89"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>method</var>&mdash;a <i>method</i>.
+</p>
+<p><var>keys</var>&mdash;a <i>list</i>.
+</p>
+<p><var>allow-other-keys-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-128"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the keyword parameter specifiers for a <var>method</var>.
+</p>
+<p>Two values are returned: 
+a <i>list</i> of the explicitly named keywords 
+and a <i>generalized boolean</i> that states whether <code>&amp;allow-other-keys</code>
+had been specified in the <var>method</var> definition.
+</p>
+<span id="Examples_003a-98"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defmethod gf1 ((a integer) &amp;optional (b 2)
+                 &amp;key (c 3) ((:dee d) 4) e ((eff f)))
+   (list a b c d e f))
+<span class="roman">→</span> #&lt;STANDARD-METHOD GF1 (INTEGER) 36324653&gt;
+ (find-method #'gf1 '() (list (find-class 'integer))) 
+<span class="roman">→</span> #&lt;STANDARD-METHOD GF1 (INTEGER) 36324653&gt;
+ (function-keywords *)
+<span class="roman">→</span> (:C :DEE :E EFF), <i>false</i>
+ (defmethod gf2 ((a integer))
+   (list a b c d e f))
+<span class="roman">→</span> #&lt;STANDARD-METHOD GF2 (INTEGER) 42701775&gt;
+ (function-keywords (find-method #'gf1 '() (list (find-class 'integer))))
+<span class="roman">→</span> (), <i>false</i>
+ (defmethod gf3 ((a integer) &amp;key b c d &amp;allow-other-keys)
+   (list a b c d e f))
+ (function-keywords *)
+<span class="roman">→</span> (:B :C :D), <i>true</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-9"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>defmethod</code>
+</p>
+<span id="See-Also_003a-110"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="defmethod.html">defmethod</a>
+</p>
+
+
+
+
+</body>
+</html>

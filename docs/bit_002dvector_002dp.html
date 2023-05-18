@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>bit-vector-p (ANSI Common Lisp)</title>
+
+<meta name="description" content="bit-vector-p (ANSI Common Lisp)">
+<meta name="keywords" content="bit-vector-p (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Arrays.html" rel="up" title="Arrays">
+<link href="simple_002dbit_002dvector_002dp.html" rel="next" title="simple-bit-vector-p">
+<link href="bit_002dand_003b-bit_002dandc1_003b-bit_002dandc2_003b-bit_002deqv_003b-bit_002dior_003b-bit_002dnand_003b-bit_002dnor_003b-bit_002b.html" rel="prev" title="bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="bit_002dvector_002dp"></span><div class="header">
+<p>
+Next: <a href="simple_002dbit_002dvector_002dp.html" accesskey="n" rel="next">simple-bit-vector-p</a>, Previous: <a href="bit_002dand_003b-bit_002dandc1_003b-bit_002dandc2_003b-bit_002deqv_003b-bit_002dior_003b-bit_002dnand_003b-bit_002dnor_003b-bit_002b.html" accesskey="p" rel="prev">bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">bit-vector-p</h4>
+<span id="bit_002dvector_002dp-_0028Function_0029"></span><h3 class="heading">bit-vector-p (Function)</h3>
+<span id="index-bit_002dvector_002dp-2"></span>
+<span id="index-bit_002dvector_002dp"></span>
+
+
+<span id="Syntax_003a-355"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-bit_002dvector_002dp-1">Function: <strong>bit-vector-p</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-344"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-454"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>bit-vector</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-326"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (bit-vector-p (make-array 6 
+                           :element-type 'bit 
+                           :fill-pointer t)) <span class="roman">→</span> <i>true</i>
+ (bit-vector-p #*) <span class="roman">→</span> <i>true</i>
+ (bit-vector-p (make-array 6)) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="See-Also_003a-373"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="typep.html">typep</a>
+</p>
+<span id="Notes_003a-247"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (bit-vector-p <var>object</var>) ≡ (typep <var>object</var> 'bit-vector)
+</pre></div>
+
+
+
+
+
+
+</body>
+</html>

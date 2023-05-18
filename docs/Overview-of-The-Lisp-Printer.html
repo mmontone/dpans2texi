@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Overview of The Lisp Printer (ANSI Common Lisp)</title>
+
+<meta name="description" content="Overview of The Lisp Printer (ANSI Common Lisp)">
+<meta name="keywords" content="Overview of The Lisp Printer (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Lisp-Printer.html" rel="up" title="The Lisp Printer">
+<link href="Printer-Dispatching.html" rel="next" title="Printer Dispatching">
+<link href="The-Lisp-Printer.html" rel="prev" title="The Lisp Printer">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Overview-of-The-Lisp-Printer"></span><div class="header">
+<p>
+Next: <a href="Printer-Dispatching.html" accesskey="n" rel="next">Printer Dispatching</a>, Up: <a href="The-Lisp-Printer.html" accesskey="u" rel="up">The Lisp Printer</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Overview-of-The-Lisp-Printer-1"></span><h4 class="subsection">22.1.1 Overview of The Lisp Printer</h4>
+
+<p><span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->provides a representation of most <i>objects</i> in the form 
+of printed text called the printed representation.
+Functions such as <code>print</code> take an <i>object</i> 
+and send the characters of its printed representation to a <i>stream</i>. 
+The collection of routines that does this is known as the (<span class="roman">Common Lisp</span>) printer.  
+</p>
+<p>Reading a printed representation 
+typically
+produces an <i>object</i> that is <code>equal</code> to the
+originally printed <i>object</i>.
+</p>
+<span id="Multiple-Possible-Textual-Representations"></span><h4 class="subsubsection">22.1.1.1 Multiple Possible Textual Representations</h4>
+
+<p>Most <i>objects</i> have more than one possible textual representation.
+For example, the positive <i>integer</i> with a magnitude of twenty-seven
+can be textually expressed in any of these ways:
+</p>
+<div class="lisp">
+<pre class="lisp"> 27    27.    #o33    #x1B    #b11011    #.(* 3 3 3)    81/3
+</pre></div>
+
+
+<p>A list containing the two symbols <code>A</code> and <code>B</code> can also be textually
+expressed in a variety of ways:
+</p>
+<div class="lisp">
+<pre class="lisp"> (A B)    (a b)    (  a  b )    (\A |B|) 
+(|\A|
+  B
+)
+</pre></div>
+
+
+<p>In general,
+from the point of view of the <i>Lisp reader</i>,
+wherever <i>whitespace</i> is permissible in a textual representation,
+any number of <i>spaces</i> and <i>newlines</i> can appear in <i>standard syntax</i>.
+</p>
+<p>When a function such as <code>print</code> produces a printed representation,
+it must choose 
+from among many possible textual representations.
+In most cases, it chooses a 
+program readable representation,
+but in certain cases it might use a more compact notation that is not 
+program-readable.
+</p>
+<p>A number of option variables, called
+<span id="index-printer-control-variable"></span>
+<em>printer control variables</em>,
+are provided to permit control of individual aspects of the 
+printed representation of <i>objects</i>.
+The next figure&nbsp;<!-- /@w -->shows the <i>standardized</i> <i>printer control variables</i>;
+there might also be <i>implementation-defined</i> <i>printer control variables</i>.
+</p>
+
+
+<div class="float"><span id="StdPrinterControlVars"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*print-array*</td><td>*print-gensym*</td><td>*print-pprint-dispatch*</td></tr>
+<tr><td>*print-base*</td><td>*print-length*</td><td>*print-pretty*</td></tr>
+<tr><td>*print-case*</td><td>*print-level*</td><td>*print-radix*</td></tr>
+<tr><td>*print-circle*</td><td>*print-lines*</td><td>*print-readably*</td></tr>
+<tr><td>*print-escape*</td><td>*print-miser-width*</td><td>*print-right-margin*</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 22.1: </strong>Standardized Printer Control Variables</p></div></div>
+
+<p>In addition to the <i>printer control variables</i>, 
+the following additional <i>defined names</i> 
+relate to or affect the behavior of the <i>Lisp printer</i>:
+</p>
+
+<div class="float"><span id="fig22_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*package*</td><td>*read-eval*</td><td>readtable-case</td></tr>
+<tr><td>*read-default-float-format*</td><td>*readtable*</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 22.2: </strong>Additional Influences on the Lisp printer.</p></div></div>
+
+<span id="g_t22_002e1_002e1_002e1_002e1-Printer-Escaping"></span><h4 class="unnumberedsubsubsec">22.1.1.1.1 Printer Escaping</h4>
+
+
+<p>The <i>variable</i> <code>*print-escape*</code> controls whether the <i>Lisp printer</i>
+tries to produce notations such as escape characters and package prefixes.
+</p>
+<p>The <i>variable</i> <code>*print-readably*</code> can be used to override
+many of the individual aspects controlled by the other 
+<i>printer control variables</i> when program-readable output
+is especially important.
+</p>
+<p>One of the many effects of making the <i>value</i> of <code>*print-readably*</code> be <i>true</i>
+is that the <i>Lisp printer</i> behaves as if <code>*print-escape*</code> were also <i>true</i>.
+For notational convenience, we say that 
+if the value of either <code>*print-readably*</code> or <code>*print-escape*</code> is <i>true</i>, 
+then <span id="index-printer-escaping"></span>
+<em>printer escaping</em> is &ldquo;enabled&rdquo;;
+and we say that
+if the values of both <code>*print-readably*</code> and <code>*print-escape*</code> are <i>false</i>, 
+then <i>printer escaping</i> is &ldquo;disabled&rdquo;.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Printer-Dispatching.html" accesskey="n" rel="next">Printer Dispatching</a>, Up: <a href="The-Lisp-Printer.html" accesskey="u" rel="up">The Lisp Printer</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Stream Arguments to Standardized Functions (ANSI Common Lisp)</title>
+
+<meta name="description" content="Stream Arguments to Standardized Functions (ANSI Common Lisp)">
+<meta name="keywords" content="Stream Arguments to Standardized Functions (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Stream-Concepts.html" rel="up" title="Stream Concepts">
+<link href="Restrictions-on-Composite-Streams.html" rel="next" title="Restrictions on Composite Streams">
+<link href="Stream-Variables.html" rel="prev" title="Stream Variables">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Stream-Arguments-to-Standardized-Functions"></span><div class="header">
+<p>
+Next: <a href="Restrictions-on-Composite-Streams.html" accesskey="n" rel="next">Restrictions on Composite Streams</a>, Previous: <a href="Stream-Variables.html" accesskey="p" rel="prev">Stream Variables</a>, Up: <a href="Stream-Concepts.html" accesskey="u" rel="up">Stream Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Stream-Arguments-to-Standardized-Functions-1"></span><h4 class="subsection">21.1.3 Stream Arguments to Standardized Functions</h4>
+
+<p>The <i>operators</i> in the next figure&nbsp;<!-- /@w -->accept <i>stream</i> <i>arguments</i> that
+might be either <i>open</i> or <i>closed</i> <i>streams</i>.
+</p>
+
+
+<div class="float"><span id="OpenOrClosedStreamOps"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>broadcast-stream-streams</td><td>file-author</td><td>pathnamep</td></tr>
+<tr><td>close</td><td>file-namestring</td><td>probe-file</td></tr>
+<tr><td>compile-file</td><td>file-write-date</td><td>rename-file</td></tr>
+<tr><td>compile-file-pathname</td><td>host-namestring</td><td>streamp</td></tr>
+<tr><td>concatenated-stream-streams</td><td>load</td><td>synonym-stream-symbol</td></tr>
+<tr><td>delete-file</td><td>logical-pathname</td><td>translate-logical-pathname</td></tr>
+<tr><td>directory</td><td>merge-pathnames</td><td>translate-pathname</td></tr>
+<tr><td>directory-namestring</td><td>namestring</td><td>truename</td></tr>
+<tr><td>dribble</td><td>open</td><td>two-way-stream-input-stream</td></tr>
+<tr><td>echo-stream-input-stream</td><td>open-stream-p</td><td>two-way-stream-output-stream</td></tr>
+<tr><td>echo-stream-ouput-stream</td><td>parse-namestring</td><td>wild-pathname-p</td></tr>
+<tr><td>ed</td><td>pathname</td><td>with-open-file</td></tr>
+<tr><td>enough-namestring</td><td>pathname-match-p</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 21.7: </strong>Operators that accept either Open or Closed Streams</p></div></div>
+
+<p>The <i>operators</i> in the next figure&nbsp;<!-- /@w -->accept <i>stream</i> <i>arguments</i> that
+must be <i>open</i> <i>streams</i>.
+</p>
+
+<div class="float"><span id="fig21_002e8"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>clear-input</td><td>output-stream-p</td><td>read-char-no-hang</td></tr>
+<tr><td>clear-output</td><td>peek-char</td><td>read-delimited-list</td></tr>
+<tr><td>file-length</td><td>pprint</td><td>read-line</td></tr>
+<tr><td>file-position</td><td>pprint-fill</td><td>read-preserving-whitespace</td></tr>
+<tr><td>file-string-length</td><td>pprint-indent</td><td>stream-element-type</td></tr>
+<tr><td>finish-output</td><td>pprint-linear</td><td>stream-external-format</td></tr>
+<tr><td>force-output</td><td>pprint-logical-block</td><td>terpri</td></tr>
+<tr><td>format</td><td>pprint-newline</td><td>unread-char</td></tr>
+<tr><td>fresh-line</td><td>pprint-tab</td><td>with-open-stream</td></tr>
+<tr><td>get-output-stream-string</td><td>pprint-tabular</td><td>write</td></tr>
+<tr><td>input-stream-p</td><td>prin1</td><td>write-byte</td></tr>
+<tr><td>interactive-stream-p</td><td>princ</td><td>write-char</td></tr>
+<tr><td>listen</td><td>print</td><td>write-line</td></tr>
+<tr><td>make-broadcast-stream</td><td>print-object</td><td>write-string</td></tr>
+<tr><td>make-concatenated-stream</td><td>print-unreadable-object</td><td>y-or-n-p</td></tr>
+<tr><td>make-echo-stream</td><td>read</td><td>yes-or-no-p</td></tr>
+<tr><td>make-synonym-stream</td><td>read-byte</td><td></td></tr>
+<tr><td>make-two-way-stream</td><td>read-char</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 21.8: </strong>Operators that accept Open Streams only</p></div></div>
+
+
+
+
+
+</body>
+</html>

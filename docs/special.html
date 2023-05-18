@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>special (ANSI Common Lisp)</title>
+
+<meta name="description" content="special (ANSI Common Lisp)">
+<meta name="keywords" content="special (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="locally.html" rel="next" title="locally">
+<link href="optimize.html" rel="prev" title="optimize">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="special"></span><div class="header">
+<p>
+Next: <a href="locally.html" accesskey="n" rel="next">locally</a>, Previous: <a href="optimize.html" accesskey="p" rel="prev">optimize</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">special</h4>
+<span id="special-_0028Declaration_0029"></span><h3 class="heading">special (Declaration)</h3>
+<span id="index-special-2"></span>
+<span id="index-special-1"></span>
+
+
+<span id="Syntax_003a-24"></span><h4 class="subsubheading">Syntax:</h4>
+
+<p><code>(special <tt>{</tt>var<tt>}</tt>*)</code>
+</p>
+<span id="Arguments_003a-9"></span><h4 class="subsubheading">Arguments:</h4>
+
+<p><var>var</var>&mdash;a <i>symbol</i>.
+</p>
+<span id="Valid-Context_003a-7"></span><h4 class="subsubheading">Valid Context:</h4>
+
+<p><i>declaration</i> or <i>proclamation</i>
+</p>
+<span id="Binding-Types-Affected_003a-5"></span><h4 class="subsubheading">Binding Types Affected:</h4>
+
+<p><i>variable</i>
+</p>
+<span id="Description_003a-25"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Specifies that all of
+the <var>vars</var> named are dynamic.
+This specifier affects variable <i>bindings</i> and 
+affects references.
+All variable <i>bindings</i> affected are made to be dynamic <i>bindings</i>,
+and affected variable references refer to the current dynamic 
+<i>binding</i>.
+For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun hack (thing *mod*)    ;The binding of the parameter
+   (declare (special *mod*))  ; *mod* is visible to hack1,
+   (hack1 (car thing)))       ; but not that of thing.
+ (defun hack1 (arg)
+   (declare (special *mod*))  ;Declare references to *mod*
+                              ;within hack1 to be special.
+   (if (atom arg) *mod*
+       (cons (hack1 (car arg)) (hack1 (cdr arg)))))
+</pre></div>
+
+
+<p>A <code>special</code> declaration does not affect inner <i>bindings</i> 
+of a <var>var</var>; the inner <i>bindings</i> implicitly shadow
+a <code>special</code> declaration and must be explicitly re-declared to
+be <code>special</code>.
+<code>special</code> declarations never apply to function <i>bindings</i>.
+</p>
+<p><code>special</code> declarations can be either <i>bound declarations</i>,
+affecting both a binding and references, or <i>free declarations</i>,
+affecting only references, depending on whether the declaration is 
+attached to a variable binding.
+</p>
+<p>When used in a <i>proclamation</i>, a <code>special</code> 
+<i>declaration specifier</i>
+applies to all <i>bindings</i> as well as to all references of the
+mentioned variables.  For example, after
+</p>
+<div class="lisp">
+<pre class="lisp"> (declaim (special x))
+</pre></div>
+
+
+<p>then in a function definition such as
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun example (x) ...)
+</pre></div>
+
+
+<p>the parameter <code>x</code> is bound as a dynamic variable
+rather than as a lexical variable.  
+</p>
+<span id="Examples_003a-21"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">(defun declare-eg (y)                 ;this y is special
+ (declare (special y))
+ (let ((y t))                         ;this y is lexical
+      (list y
+            (locally (declare (special y)) y)))) ;this y refers to the
+                                                 ;special binding of y
+<span class="roman">→</span> DECLARE-EG 
+ (declare-eg nil) <span class="roman">→</span> (T NIL) 
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp">(setf (symbol-value 'x) 6)
+(defun foo (x)                         ;a lexical binding of x
+  (print x)
+  (let ((x (1+ x)))                    ;a special binding of x
+    (declare (special x))              ;and a lexical reference
+    (bar))
+  (1+ x))
+(defun bar () 
+  (print (locally (declare (special x))
+           x)))
+(foo 10) 
+▷ 10
+▷ 11
+<span class="roman">→</span> 11
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp">(setf (symbol-value 'x) 6)
+(defun bar (x y)            ;[1] 1st occurrence of x
+  (let ((old-x x)           ;[2] 2nd occurrence of x -- same as 1st occurrence
+        (x y))              ;[3] 3rd occurrence of x
+    (declare (special x))
+    (list old-x x)))
+(bar 'first 'second) <span class="roman">→</span> (FIRST SECOND)
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (defun few (x &amp;optional (y *foo*))
+   (declare (special *foo*))
+   ...)
+</pre></div>
+
+<p>The reference to <code>*foo*</code>
+in the first line of this example is not <code>special</code>
+even though there is a <code>special</code> declaration in the second line.
+</p>
+<div class="lisp">
+<pre class="lisp"> (declaim (special prosp)) <span class="roman">→</span> <i>implementation-dependent</i>
+ (setq prosp 1 reg 1) <span class="roman">→</span> 1
+ (let ((prosp 2) (reg 2))         ;the binding of prosp is special
+    (set 'prosp 3) (set 'reg 3)   ;due to the preceding proclamation,
+    (list prosp reg))             ;whereas the variable reg is lexical
+<span class="roman">→</span> (3 2)
+ (list prosp reg) <span class="roman">→</span> (1 3)
+
+ (declaim (special x))          ;x is always special.
+ (defun example (x y)                                 
+   (declare (special y))
+   (let ((y 3) (x (* x 2)))
+     (print (+ y (locally (declare (special y)) y)))
+     (let ((y 4)) (declare (special y)) (foo x)))) <span class="roman">→</span> EXAMPLE
+</pre></div>
+
+<p>In the contorted code above, the outermost and innermost <i>bindings</i> of
+<code>y</code> are dynamic,
+but the middle
+binding is lexical. The two arguments to <code>+</code> are different,
+one being the value, which is <code>3</code>, of the lexical variable
+<code>y</code>, and the other being the value of the dynamic variable named <code>y</code>
+(a <i>binding</i> 
+of which happens, coincidentally, to lexically surround it at
+an outer level).  All the <i>bindings</i> 
+of <code>x</code> and references to <code>x</code>
+are dynamic, however, because of the proclamation that <code>x</code> is
+always <code>special</code>.
+</p>
+<span id="See-Also_003a-25"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="defparameter_003b-defvar.html#defparameter">defparameter</a>,
+<a href="defparameter_003b-defvar.html#defvar">defvar</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="locally.html" accesskey="n" rel="next">locally</a>, Previous: <a href="optimize.html" accesskey="p" rel="prev">optimize</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

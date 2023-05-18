@@ -1,0 +1,764 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Variable Initialization and Stepping Clauses (ANSI Common Lisp)</title>
+
+<meta name="description" content="Variable Initialization and Stepping Clauses (ANSI Common Lisp)">
+<meta name="keywords" content="Variable Initialization and Stepping Clauses (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-LOOP-Facility.html" rel="up" title="The LOOP Facility">
+<link href="Value-Accumulation-Clauses.html" rel="next" title="Value Accumulation Clauses">
+<link href="Overview-of-the-Loop-Facility.html" rel="prev" title="Overview of the Loop Facility">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Variable-Initialization-and-Stepping-Clauses"></span><div class="header">
+<p>
+Next: <a href="Value-Accumulation-Clauses.html" accesskey="n" rel="next">Value Accumulation Clauses</a>, Previous: <a href="Overview-of-the-Loop-Facility.html" accesskey="p" rel="prev">Overview of the Loop Facility</a>, Up: <a href="The-LOOP-Facility.html" accesskey="u" rel="up">The LOOP Facility</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Variable-Initialization-and-Stepping-Clauses-1"></span><h4 class="subsection">6.1.2 Variable Initialization and Stepping Clauses</h4>
+
+<span id="Iteration-Control"></span><h4 class="subsubsection">6.1.2.1 Iteration Control</h4>
+
+<p>Iteration control clauses allow direction of <code>loop</code> iteration.
+The <i>loop keywords</i> <code>for</code> and <code>as</code>
+designate iteration control clauses.
+Iteration control clauses differ with respect to the specification of
+termination tests and to the initialization and <i>stepping</i><sub>1</sub>
+of loop variables.  Iteration clauses by themselves
+do not cause the Loop Facility to return values, but they
+can be used in conjunction with value-accumulation clauses to
+return values.  
+</p>
+<p>All variables are initialized in the loop prologue.  
+A <i>variable</i> <i>binding</i> has <i>lexical scope</i>
+unless it is proclaimed <code>special</code>;
+thus, by default, the variable can be <i>accessed</i> only by <i>forms</i> 
+that lie textually within the <code>loop</code>.
+Stepping assignments are made in the loop body before any other <i>forms</i>
+are evaluated in the body.  
+</p>
+<p>The variable argument in iteration control clauses can be a 
+destructuring list.  A destructuring list
+is a <i>tree</i> whose <i>non-nil</i> <i>atoms</i> are <i>variable</i> <i>names</i>.
+See <a href="Overview-of-the-Loop-Facility.html#DestructuringLOOPVars">Section 6.1.1.7 (Destructuring)</a>.
+</p>
+<p>The iteration control clauses <code>for</code>, <code>as</code>,  and <code>repeat</code> 
+must precede any other loop clauses, except
+<code>initially</code>, <code>with</code>, and <code>named</code>,
+since they establish variable <i>bindings</i>.  
+When iteration control clauses are
+used in a <code>loop</code>,
+the corresponding
+termination tests in the loop body are evaluated
+before any other loop body code is executed.
+</p>
+
+<p>If multiple iteration clauses are used to control iteration, variable
+initialization and <i>stepping</i><sub>1</sub>
+The <code>and</code> construct can be used to connect two or more
+iteration clauses when <i>sequential</i> <i>binding</i> and 
+<i>stepping</i><sub>1</sub>
+The iteration behavior of clauses joined by <code>and</code>
+is analogous to the behavior of the macro <code>do</code> with
+respect to <code>do*</code>.
+</p>
+<p>The <code>for</code> and <code>as</code> clauses iterate by using one or more local 
+loop  variables that are initialized to some value and that 
+can be modified or <i>stepped</i><sub>1</sub>
+For these clauses, iteration terminates when a local
+variable reaches some supplied value or when some other loop clause
+terminates iteration.
+At each iteration, variables can be 
+<i>stepped</i><sub>1</sub>
+or can be assigned a new value by the evaluation of a <i>form</i>).
+Destructuring can be used to assign 
+values to variables during iteration. 
+</p>
+<p>The <code>for</code> and <code>as</code> keywords are synonyms; they can be used
+interchangeably.  There are seven syntactic formats for these constructs.
+In each syntactic format, the <i>type</i> of
+<var>var</var> can be supplied by the optional <var>type-spec</var>
+argument.  If <var>var</var> is a destructuring list, the <i>type</i>
+supplied by the <var>type-spec</var> argument must appropriately match
+the elements of the list.  
+By convention, <code>for</code> introduces new iterations and <code>as</code>
+introduces iterations that depend on a previous iteration specification.
+</p>
+<span id="g_t6_002e1_002e2_002e1_002e1-The-for_002das_002darithmetic-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.1 The for-as-arithmetic subclause</h4>
+
+
+<p>In the <i>for-as-arithmetic</i> subclause, the <code>for</code> 
+or <code>as</code> construct iterates from the value supplied by
+<var>form1</var> to the value supplied by <var>form2</var> in increments or
+decrements denoted by <var>form3</var>. Each
+expression is evaluated only once and must evaluate to a <i>number</i>.  
+The variable <var>var</var> is bound to the value of 
+<var>form1</var> in the first iteration and is <i>stepped</i><sub>1</sub>
+by the value of <var>form3</var> in each succeeding iteration,
+or by 1 if <var>form3</var> is not provided.  
+The following <i>loop keywords</i> serve as valid prepositions within this 
+syntax.
+At least one of the 
+prepositions must be used; 
+and at most one from each line may be used in a single subclause.
+</p>
+
+<dl compact="compact">
+<dt><code>from | downfrom | upfrom</code></dt>
+<dt><code>to | downto | upto | below | above</code></dt>
+<dt><code>by</code></dt>
+</dl>
+
+
+<p>The prepositional phrases in each subclause may appear in any order.
+For example, either &ldquo;<code>from x by y</code>&rdquo; or &ldquo;<code>by y from x</code>&rdquo; is permitted.
+However, because left-to-right order of evaluation is preserved,
+the effects will be different in the case of side effects.
+<span id="index-order-of-evaluation-5"></span>
+<span id="index-evaluation-order-5"></span>
+Consider:
+</p>
+<div class="lisp">
+<pre class="lisp">(let ((x 1)) (loop for i from x by (incf x) to 10 collect i))
+<span class="roman">→</span> (1 3 5 7 9)
+(let ((x 1)) (loop for i by (incf x) from x to 10 collect i))
+<span class="roman">→</span> (2 4 6 8 10)
+</pre></div>
+
+
+<p>The descriptions of the prepositions follow:
+</p>
+
+<dl compact="compact">
+<dt><code>from</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>from</code> specifies the value from which
+<i>stepping</i><sub>1</sub>
+<i>Stepping</i><sub>1</sub>
+decremental <i>stepping</i><sub>1</sub>
+the preposition <code>downto</code> 
+or <code>above</code> must be used with <var>form2</var>.  For incremental
+<i>stepping</i><sub>1</sub>
+</p>
+</dd>
+<dt><code>downfrom, upfrom</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>downfrom</code> 
+indicates that the variable <var>var</var> is decreased in decrements
+supplied by <var>form3</var>; the <i>loop keyword</i> <code>upfrom</code> indicates that 
+<var>var</var> is increased in increments supplied by <var>form3</var>.
+</p>
+</dd>
+<dt><code>to</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>to</code> marks the end value
+for <i>stepping</i><sub>1</sub>
+<i>Stepping</i><sub>1</sub>
+If decremental <i>stepping</i><sub>1</sub>
+the preposition <code>downfrom</code> must be used with <var>form1</var>,
+or else the preposition <code>downto</code> or <code>above</code> should be used instead
+of <code>to</code> with <var>form2</var>.
+</p>
+</dd>
+<dt><code>downto, upto</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>downto</code> specifies decremental <i>stepping</i>;
+the <i>loop keyword</i> <code>upto</code> specifies incremental <i>stepping</i>.
+In both cases, the amount of change on each step is specified by <var>form3</var>,
+and the <code>loop</code> terminates when the variable <var>var</var> passes 
+the value of <var>form2</var>.
+Since there is no default for <var>form1</var> in decremental <i>stepping</i><sub>1</sub>
+a <var>form1</var> value must be supplied (using <code>from</code> or <code>downfrom</code>)
+when <code>downto</code> is supplied.
+</p>
+</dd>
+<dt><code>below, above</code></dt>
+<dd>
+
+<p>The <i>loop keywords</i> <code>below</code> and <code>above</code> are analogous to
+<code>upto</code> and <code>downto</code> respectively.  These keywords stop
+iteration just before the value of the variable <var>var</var> reaches the value 
+supplied by <var>form2</var>; the end value of <var>form2</var> is not included.
+Since there is no default for <var>form1</var> in decremental <i>stepping</i><sub>1</sub>
+a <var>form1</var> value must be supplied (using <code>from</code> or <code>downfrom</code>)
+when <code>above</code> is supplied.
+</p>
+</dd>
+<dt><code>by</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>by</code> marks the increment or decrement supplied by
+<var>form3</var>.  The value of <var>form3</var> can be any 
+positive 
+<i>number</i>.
+The default value is 1.
+</p></dd>
+</dl>
+
+
+<p>In an iteration control clause, the <code>for</code> or <code>as</code> construct
+causes termination when the supplied limit is reached.  That is,
+iteration continues until the value <var>var</var> is stepped to the
+exclusive or inclusive limit supplied by <var>form2</var>.  The range is
+exclusive if <var>form3</var> increases or decreases <var>var</var>
+to the value of <var>form2</var> without reaching that value; the loop
+keywords <code>below</code> and <code>above</code> provide exclusive limits.  An
+inclusive limit allows <var>var</var> to attain the value of
+<var>form2</var>; <code>to</code>, <code>downto</code>, and <code>upto</code> provide inclusive
+limits.  
+</p>
+<span id="g_t6_002e1_002e2_002e1_002e1_002e1-Examples-of-for_002das_002darithmetic-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.1.1 Examples of for-as-arithmetic subclause</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;; Print some numbers.
+ (loop for i from 1 to 3
+       do (print i))
+▷ 1
+▷ 2
+▷ 3
+<span class="roman">→</span> NIL
+ 
+;; Print every third number.
+ (loop for i from 10 downto 1 by 3
+       do (print i))
+▷ 10 
+▷ 7 
+▷ 4 
+▷ 1 
+<span class="roman">→</span> NIL
+ 
+;; Step incrementally from the default starting value.
+ (loop for i below 3
+       do (print i))
+▷ 0
+▷ 1
+▷ 2
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+
+
+<span id="g_t6_002e1_002e2_002e1_002e2-The-for_002das_002din_002dlist-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.2 The for-as-in-list subclause</h4>
+
+
+<p>In the <i>for-as-in-list</i> subclause,
+the <code>for</code> 
+or <code>as</code> construct iterates over the contents of a 
+<i>list</i>.  It checks for 
+the end of the <i>list</i> as if by using <code>endp</code>.  
+The variable <var>var</var> is bound to the successive elements  of 
+the <i>list</i> in <var>form1</var> before each
+iteration.  At the end of each iteration, the function <var>step-fun</var>
+is applied to the <i>list</i>; the default value for <var>step-fun</var> is
+<code>cdr</code>.
+The <i>loop keywords</i> <code>in</code> and <code>by</code> serve as valid prepositions in
+this syntax.
+The <code>for</code> or <code>as</code> construct causes termination when the
+end of the <i>list</i> is reached.
+</p>
+<span id="g_t6_002e1_002e2_002e1_002e2_002e1-Examples-of-for_002das_002din_002dlist-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.2.1 Examples of for-as-in-list subclause</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;; Print every item in a list.
+ (loop for item in '(1 2 3) do (print item))
+▷ 1
+▷ 2
+▷ 3
+<span class="roman">→</span> NIL
+ 
+;; Print every other item in a list.
+ (loop for item in '(1 2 3 4 5) by #'cddr
+       do (print item))
+▷ 1
+▷ 3
+▷ 5
+<span class="roman">→</span> NIL
+ 
+;; Destructure a list, and sum the x values using fixnum arithmetic.
+ (loop for (item . x) of-type (t . fixnum) in '((A . 1) (B . 2) (C . 3))
+       unless (eq item 'B) sum x)
+<span class="roman">→</span> 4
+</pre></div>
+
+
+
+
+<span id="g_t6_002e1_002e2_002e1_002e3-The-for_002das_002don_002dlist-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.3 The for-as-on-list subclause</h4>
+
+
+<p>In the <i>for-as-on-list</i> subclause, the <code>for</code> or <code>as</code>
+construct iterates over
+a <i>list</i>. It checks for the
+end of the <i>list</i> as if by using <code>atom</code>.
+The variable <var>var</var> is bound to the successive tails of the 
+<i>list</i> in 
+<var>form1</var>.  At the end of each iteration, the function <var>step-fun</var>
+is applied to the <i>list</i>; the default value for <var>step-fun</var> is <code>cdr</code>.
+The <i>loop keywords</i> <code>on</code> and <code>by</code> serve as valid
+prepositions in this syntax.
+The <code>for</code> or <code>as</code> construct causes termination when the
+end of the <i>list</i> is reached.
+</p>
+<span id="g_t6_002e1_002e2_002e1_002e3_002e1-Examples-of-for_002das_002don_002dlist-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.3.1 Examples of for-as-on-list subclause</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;; Collect successive tails of a list.
+ (loop for sublist on '(a b c d)
+       collect sublist)
+<span class="roman">→</span> ((A B C D) (B C D) (C D) (D))
+ 
+;; Print a list by using destructuring with the loop keyword ON.
+ (loop for (item) on '(1 2 3)
+       do (print item))
+▷ 1 
+▷ 2 
+▷ 3 
+<span class="roman">→</span> NIL
+ 
+</pre></div>
+
+
+
+
+<span id="g_t6_002e1_002e2_002e1_002e4-The-for_002das_002dequals_002dthen-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.4 The for-as-equals-then subclause</h4>
+
+
+<p>In the <i>for-as-equals-then</i> subclause
+the <code>for</code> 
+or <code>as</code> construct 
+initializes the variable <var>var</var> by setting it to the
+result of evaluating <var>form1</var> on the first iteration, then setting
+it to the result of evaluating <var>form2</var> on the second and
+subsequent iterations.  If <var>form2</var> is omitted, the construct
+uses <var>form1</var> on the second and
+subsequent iterations.  
+The <i>loop keywords</i> = and <code>then</code> serve as valid prepositions
+in this syntax. 
+This construct does not provide any termination tests.
+</p>
+<span id="g_t6_002e1_002e2_002e1_002e4_002e1-Examples-of-for_002das_002dequals_002dthen-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.4.1 Examples of for-as-equals-then subclause</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;; Collect some numbers.
+ (loop for item = 1 then (+ item 10)
+       for iteration from 1 to 5
+       collect item)
+<span class="roman">→</span> (1 11 21 31 41)
+</pre></div>
+
+
+
+
+<span id="g_t6_002e1_002e2_002e1_002e5-The-for_002das_002dacross-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.5 The for-as-across subclause</h4>
+
+
+<p>In the <i>for-as-across</i> subclause the <code>for</code> 
+or <code>as</code> construct binds the variable <var>var</var> to the value of
+each element in the array <var>vector</var>.
+The <i>loop keyword</i> <code>across</code> marks the array <var>vector</var>; <code>across</code>
+is used as a preposition in this syntax.
+Iteration stops when there are no more elements in the supplied
+<i>array</i> that can be referenced.
+Some implementations might recognize a <code>the</code> special form
+in the <var>vector</var> form to produce more efficient code.
+</p>
+<span id="g_t6_002e1_002e2_002e1_002e5_002e1-Examples-of-for_002das_002dacross-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.5.1 Examples of for-as-across subclause</h4>
+
+
+<div class="lisp">
+<pre class="lisp"> (loop for char across (the simple-string (find-message channel))
+       do (write-char char stream))
+</pre></div>
+
+
+
+
+<span id="g_t6_002e1_002e2_002e1_002e6-The-for_002das_002dhash-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.6 The for-as-hash subclause</h4>
+
+
+<p>In the <i>for-as-hash</i> subclause
+the <code>for</code> 
+or <code>as</code> construct 
+iterates over the elements, keys, and values of a <i>hash-table</i>.
+In this syntax, a compound preposition is used to designate access to a
+<i>hash table</i>.
+The variable <var>var</var> takes on the value of each hash key
+or hash value in the supplied <var>hash-table</var>. 
+The following <i>loop keywords</i> serve as valid prepositions within this syntax:
+</p>
+
+<dl compact="compact">
+<dt><code>being</code></dt>
+<dd>
+
+<p>The keyword <code>being</code> introduces either the Loop schema 
+<code>hash-key</code> or <code>hash-value</code>.
+</p>
+</dd>
+<dt><code>each</code>, <code>the</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>each</code>
+follows the <i>loop keyword</i> <code>being</code> when <code>hash-key</code> or
+<code>hash-value</code> is used.  The <i>loop keyword</i> <code>the</code> is used with
+<code>hash-keys</code> and <code>hash-values</code> only for ease of reading.
+This agreement isn&rsquo;t required.
+</p>
+</dd>
+<dt><code>hash-key</code>, <code>hash-keys</code></dt>
+<dd>
+
+<p>These <i>loop keywords</i> access each key entry of the <i>hash table</i>.  If 
+the name <code>hash-value</code> is supplied in a <code>using</code> construct with one
+of these Loop schemas, the iteration can optionally access the keyed
+value. The order in which the keys are accessed is undefined; empty
+slots in the <i>hash table</i> are ignored.  
+</p>
+</dd>
+<dt><code>hash-value</code>, <code>hash-values</code></dt>
+<dd>
+
+<p>These <i>loop keywords</i> access each value entry of a 
+<i>hash table</i>.  If 
+the name <code>hash-key</code> is supplied in a <code>using</code> construct with one of
+these Loop schemas, the iteration can optionally access the key that
+corresponds to the value.  The order in which the keys are accessed is
+undefined; empty slots in the <i>hash table</i> are ignored. 
+</p>
+</dd>
+<dt><code>using</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>using</code> introduces 
+the optional key or the keyed value to
+be accessed.  It allows access to the hash key if iteration is over
+the hash values, and the hash value if 
+iteration is over the hash keys.
+</p>
+</dd>
+<dt><code>in</code>, <code>of</code></dt>
+<dd>
+
+<p>These loop prepositions introduce <var>hash-table</var>.
+</p></dd>
+</dl>
+
+
+<p>In effect 
+</p>
+<p><code>being</code>
+<tt>{</tt><code>each</code> | <code>the</code><tt>}</tt>
+<tt>{</tt><code>hash-value</code>  |
+<code>hash-values</code> |
+<code>hash-key</code>    |
+<code>hash-keys</code><tt>}</tt>
+<tt>{</tt><code>in</code> | <code>of</code><tt>}</tt>
+</p>
+<p>is a compound preposition.
+</p>
+<p>Iteration stops when there are no more hash keys or hash values to be
+referenced in the supplied <var>hash-table</var>.
+</p>
+
+<span id="g_t6_002e1_002e2_002e1_002e7-The-for_002das_002dpackage-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.7 The for-as-package subclause</h4>
+
+
+<p>In the <i>for-as-package</i> subclause
+the <code>for</code> 
+or <code>as</code> construct                    
+iterates over the <i>symbols</i> in a <i>package</i>.
+In this syntax, a compound preposition is used to designate access to a
+<i>package</i>.
+The variable <var>var</var> takes on the value of each <i>symbol</i>
+in the supplied <i>package</i>.  
+The following <i>loop keywords</i> serve as valid prepositions within this syntax:
+</p>
+
+<dl compact="compact">
+<dt><code>being</code></dt>
+<dd>
+
+<p>The keyword <code>being</code> introduces either the Loop schema 
+<code>symbol</code>, <code>present-symbol</code>,  or <code>external-symbol</code>.
+</p>
+</dd>
+<dt><code>each</code>, <code>the</code></dt>
+<dd>
+
+<p>The <i>loop keyword</i> <code>each</code>
+follows the <i>loop keyword</i> <code>being</code> when <code>symbol</code>, 
+<code>present-symbol</code>, or <code>external-symbol</code> is used.  
+The <i>loop keyword</i> <code>the</code> is used with <code>symbols</code>, 
+<code>present-symbols</code>, and <code>external-symbols</code> only for ease of reading.
+This agreement isn&rsquo;t required.
+</p>
+</dd>
+<dt><code>present-symbol</code>, <code>present-symbols</code></dt>
+<dd>
+
+<p>These Loop schemas iterate over the <i>symbols</i> 
+that are <i>present</i> in a <i>package</i>.
+The <var>package</var> to be iterated over is supplied in the same way
+that <i>package</i> arguments to <code>find-package</code> are supplied.  
+If the <var>package</var> for the iteration is not supplied, 
+the <i>current package</i> is used.  
+If a <var>package</var> that does not exist is supplied, 
+an error of <i>type</i> <code>package-error</code> is signaled.
+</p>
+</dd>
+<dt><code>symbol</code>, <code>symbols</code></dt>
+<dd>
+
+<p>These Loop schemas iterate over <i>symbols</i> that are
+<i>accessible</i> in a given <var>package</var>.  
+The <var>package</var> to be iterated over is supplied in the same way
+that <i>package</i> arguments to <code>find-package</code> are supplied.
+If the <var>package</var> for the iteration is not supplied, 
+the <i>current package</i> is used.
+If a <var>package</var> that does not exist is supplied, 
+an error of <i>type</i> <code>package-error</code> is signaled.
+</p>
+</dd>
+<dt><code>external-symbol</code>, <code>external-symbols</code></dt>
+<dd>
+
+<p>These Loop schemas iterate over the <i>external symbols</i> of a <var>package</var>.
+The <var>package</var> to be iterated over is supplied in the same way
+that <i>package</i> arguments to <code>find-package</code> are supplied.
+If the <var>package</var> for the iteration is not supplied, 
+the <i>current package</i> is used.
+If a <var>package</var> that does not exist is supplied, 
+an error of <i>type</i> <code>package-error</code> is signaled.
+</p>
+</dd>
+<dt><code>in</code>, <code>of</code></dt>
+<dd>
+
+<p>These loop prepositions introduce <var>package</var>.
+</p></dd>
+</dl>
+
+
+<p>In effect 
+</p>
+<p><code>being</code>
+<tt>{</tt><code>each</code> | <code>the</code><tt>}</tt>
+<tt>{</tt><code>symbol</code>          |
+<code>symbols</code>         |
+<code>present-symbol</code>  |
+<code>present-symbols</code> |
+<code>external-symbol</code> |
+<code>external-symbols</code><tt>}</tt>
+<tt>{</tt><code>in</code> | <code>of</code><tt>}</tt>
+</p>
+<p>is a compound preposition.
+</p>
+<p>Iteration stops when there are no more <i>symbols</i> to be referenced 
+in the supplied <var>package</var>.
+</p>
+<span id="g_t6_002e1_002e2_002e1_002e7_002e1-Examples-of-for_002das_002dpackage-subclause"></span><h4 class="unnumberedsubsubsec">6.1.2.1.7.1 Examples of for-as-package subclause</h4>
+
+
+<div class="lisp">
+<pre class="lisp"> (let ((*package* (make-package &quot;TEST-PACKAGE-1&quot;)))
+   ;; For effect, intern some symbols
+   (read-from-string &quot;(THIS IS A TEST)&quot;)
+   (export (intern &quot;THIS&quot;))
+   (loop for x being each present-symbol of *package*
+          do (print x)))
+▷ A 
+▷ TEST 
+▷ THIS
+▷ IS 
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+
+
+
+<span id="Local-Variable-Initializations"></span><h4 class="subsubsection">6.1.2.2 Local Variable Initializations</h4>
+
+<p>When a <code>loop</code> <i>form</i> is executed, the local variables are bound and are
+initialized to some value.  These local variables exist until <code>loop</code>
+iteration terminates, at which point they cease to exist.  
+Implicit variables are also established by iteration control clauses and the
+<code>into</code> preposition of accumulation clauses.
+</p>
+<p>The <code>with</code> construct initializes variables that are local to 
+a loop.  The variables are initialized one time only.
+If the optional <var>type-spec</var> argument is supplied for the variable 
+<var>var</var>, but there is no related expression to be evaluated, <var>var</var>
+is initialized to an appropriate default value for its <i>type</i>.
+For example, for the types <code>t</code>, <code>number</code>, 
+and <code>float</code>,
+the default values are <code>nil</code>, <code>0</code>, and <code>0.0</code> respectively.
+The consequences are undefined if a 
+<var>type-spec</var> argument is supplied for <var>var</var> if
+the related expression returns a value that is not of the supplied 
+<i>type</i>.
+By default, the <code>with</code> construct initializes variables
+<i>sequentially</i>; that is, one variable is assigned a value before the
+next expression is evaluated.  However, by using the <i>loop keyword</i> <code>and</code>
+to join several <code>with</code> clauses, 
+initializations can be forced to occur in <i>parallel</i>; that 
+is, all of the supplied
+<var>forms</var> are evaluated, and the results are bound to the respective
+variables simultaneously.
+</p>
+<p><i>Sequential</i> <i>binding</i> is used when it is desireable for the initialization of
+some variables to depend on the values of previously bound variables.
+For example, suppose the variables <code>a</code>, <code>b</code>, and <code>c</code> are to be bound in sequence:
+</p>
+<div class="lisp">
+<pre class="lisp"> (loop with a = 1 
+       with b = (+ a 2) 
+       with c = (+ b 3)
+       return (list a b c))
+<span class="roman">→</span> (1 3 6)
+</pre></div>
+
+
+<p>The execution of the above <code>loop</code> is equivalent to the execution of
+the following code:
+</p>
+<div class="lisp">
+<pre class="lisp"> (block nil
+   (let* ((a 1)
+          (b (+ a 2))
+          (c (+ b 3)))
+     (tagbody
+         (next-loop (return (list a b c))
+                    (go next-loop)
+                    end-loop))))
+</pre></div>
+
+
+<p>If the values of previously bound variables are not needed
+for the initialization of other local variables, an 
+<code>and</code> clause can be used to 
+specify that the bindings are to occur in <i>parallel</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (loop with a = 1 
+       and b = 2 
+       and c = 3
+       return (list a b c))
+<span class="roman">→</span> (1 2 3)
+</pre></div>
+
+
+<p>The execution of the above loop is equivalent to the execution of
+the following code:
+</p>
+<div class="lisp">
+<pre class="lisp"> (block nil
+   (let ((a 1)
+         (b 2)
+         (c 3))
+     (tagbody
+         (next-loop (return (list a b c))
+                    (go next-loop)
+                    end-loop))))
+</pre></div>
+
+
+<span id="g_t6_002e1_002e2_002e2_002e1-Examples-of-WITH-clause"></span><h4 class="unnumberedsubsubsec">6.1.2.2.1 Examples of WITH clause</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;; These bindings occur in sequence.
+ (loop with a = 1 
+       with b = (+ a 2) 
+       with c = (+ b 3)
+       return (list a b c))
+<span class="roman">→</span> (1 3 6)
+ 
+;; These bindings occur in parallel.
+ (setq a 5 b 10)
+<span class="roman">→</span> 10
+ (loop with a = 1
+       and b = (+ a 2)
+       and c = (+ b 3)
+       return (list a b c))
+<span class="roman">→</span> (1 7 13)
+ 
+;; This example shows a shorthand way to declare local variables 
+;; that are of different types.
+ (loop with (a b c) of-type (float integer float)
+       return (format nil &quot;~A ~A ~A&quot; a b c))
+<span class="roman">→</span> &quot;0.0 0 0.0&quot;
+ 
+;; This example shows a shorthand way to declare local variables 
+;; that are the same type.
+ (loop with (a b c) of-type float 
+       return (format nil &quot;~A ~A ~A&quot; a b c))
+<span class="roman">→</span> &quot;0.0 0.0 0.0&quot;
+</pre></div>
+
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Value-Accumulation-Clauses.html" accesskey="n" rel="next">Value Accumulation Clauses</a>, Previous: <a href="Overview-of-the-Loop-Facility.html" accesskey="p" rel="prev">Overview of the Loop Facility</a>, Up: <a href="The-LOOP-Facility.html" accesskey="u" rel="up">The LOOP Facility</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Exceptional Situations in the Compiler (ANSI Common Lisp)</title>
+
+<meta name="description" content="Exceptional Situations in the Compiler (ANSI Common Lisp)">
+<meta name="keywords" content="Exceptional Situations in the Compiler (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Compilation.html" rel="up" title="Compilation">
+<link href="Declarations.html" rel="next" title="Declarations">
+<link href="Literal-Objects-in-Compiled-Files.html" rel="prev" title="Literal Objects in Compiled Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Exceptional-Situations-in-the-Compiler"></span><div class="header">
+<p>
+Previous: <a href="Literal-Objects-in-Compiled-Files.html" accesskey="p" rel="prev">Literal Objects in Compiled Files</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Exceptional-Situations-in-the-Compiler-1"></span><h4 class="subsection">3.2.5 Exceptional Situations in the Compiler</h4>
+
+
+
+<p><code>compile</code> and <code>compile-file</code> are permitted to
+signal errors and warnings, including errors due to compile-time
+processing of <code>(eval-when (:compile-toplevel) ...)</code> forms,
+macro expansion, and conditions signaled by the compiler itself.
+</p>
+<p><i>Conditions</i> of <i>type</i> <code>error</code> might be signaled by the compiler
+in situations where the compilation cannot proceed without intervention.  
+</p>
+<p>In addition to situations for which the standard specifies that
+<i>conditions</i> of <i>type</i> <code>warning</code> must or might be signaled,
+warnings might be signaled in situations where the compiler can
+determine that the consequences are undefined or that a run-time
+error will be signaled.  Examples of this situation are as follows: 
+violating type declarations,
+altering or assigning the value of a constant defined with <code>defconstant</code>,
+calling built-in Lisp functions with a wrong number of arguments or malformed keyword
+argument lists, 
+and using unrecognized declaration specifiers.
+</p>
+<p>The compiler is permitted to issue warnings about matters of
+programming style as conditions of <i>type</i> <code>style-warning</code>.
+Examples of this situation are as follows:
+redefining a function using a different argument list,
+calling a function with a wrong number of arguments,
+not declaring <code>ignore</code> of a local variable that is not referenced,
+and referencing a variable declared <code>ignore</code>.
+</p>
+<p>Both <code>compile</code> and <code>compile-file</code> are permitted
+(but not required) to <i>establish</i> a <i>handler</i>
+for <i>conditions</i> of <i>type</i> <code>error</code>.  For example, they
+might signal a warning, and restart compilation from some
+<i>implementation-dependent</i> point in order to let the 
+compilation proceed without manual intervention.
+</p>
+<p>Both <code>compile</code> and <code>compile-file</code> return three
+values, the second two indicating whether the source code being compiled
+contained errors and whether style warnings were issued.
+</p>
+
+<p>Some warnings might be deferred until the end of compilation. 
+See <code>with-compilation-unit</code>.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Literal-Objects-in-Compiled-Files.html" accesskey="p" rel="prev">Literal Objects in Compiled Files</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

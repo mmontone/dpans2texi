@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>intern (ANSI Common Lisp)</title>
+
+<meta name="description" content="intern (ANSI Common Lisp)">
+<meta name="keywords" content="intern (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Packages.html" rel="up" title="Packages">
+<link href="package_002dname.html" rel="next" title="package-name">
+<link href="do_002dsymbols_003b-do_002dexternal_002dsymbols_003b-do_002dall_002dsymbols.html" rel="prev" title="do-symbols; do-external-symbols; do-all-symbols">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="intern"></span><div class="header">
+<p>
+Next: <a href="package_002dname.html" accesskey="n" rel="next">package-name</a>, Previous: <a href="do_002dsymbols_003b-do_002dexternal_002dsymbols_003b-do_002dall_002dsymbols.html" accesskey="p" rel="prev">do-symbols; do-external-symbols; do-all-symbols</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">intern</h4>
+<span id="intern-_0028Function_0029"></span><h3 class="heading">intern (Function)</h3>
+<span id="index-intern-2"></span>
+<span id="index-intern"></span>
+
+
+<span id="Syntax_003a-204"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-intern-1">Function: <strong>intern</strong> <em>string <tt>&amp;optional</tt> package <span class="roman">→</span> symbol, status</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-193"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>string</var>&mdash;a <i>string</i>.
+</p>
+<p><var>package</var>&mdash;a <i>package designator</i>.
+The default is the <i>current package</i>.
+</p>
+<p><var>symbol</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>status</var>&mdash;one of <tt>:inherited</tt>, <tt>:external</tt>, <tt>:internal</tt>, or <code>nil</code>.
+</p>
+<span id="Description_003a-257"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>intern</code> enters a <i>symbol</i> named <var>string</var> into <var>package</var>.
+If a <i>symbol</i> whose name is the same as <var>string</var> 
+is already <i>accessible</i> in <var>package</var>, it is returned.
+If no such <i>symbol</i> is <i>accessible</i> in <var>package</var>, 
+a new <i>symbol</i> with the given name is created 
+and entered into <var>package</var> as an <i>internal symbol</i>,
+or as an <i>external symbol</i> if the <var>package</var> is the <code>KEYWORD</code> <i>package</i>; 
+<var>package</var> becomes the <i>home package</i> of the created <i>symbol</i>.
+</p>
+<p>The first value returned by <code>intern</code>, <var>symbol</var>,
+is the <i>symbol</i> that was found or
+created.  
+The meaning of the <i>secondary value</i>, <var>status</var>, is as follows:
+</p>
+<dl compact="compact">
+<dt><tt>:internal</tt></dt>
+<dd>
+
+<p>The <i>symbol</i> was found 
+and is
+<i>present</i> in <var>package</var> as an <i>internal symbol</i>.
+</p>
+</dd>
+<dt><tt>:external</tt></dt>
+<dd>
+
+<p>The <i>symbol</i> was found
+and is
+<i>present</i> as an <i>external symbol</i>.
+</p>
+</dd>
+<dt><tt>:inherited</tt></dt>
+<dd>
+
+<p>The <i>symbol</i> was found
+and is inherited via <code>use-package</code> 
+(which implies that the <i>symbol</i> is internal).
+</p>
+</dd>
+<dt><code>nil</code></dt>
+<dd>
+
+<p>No pre-existing <i>symbol</i> was found,
+so one was created.
+</p>
+<p>It is <i>implementation-dependent</i> whether the <i>string</i> 
+that becomes the new <i>symbol</i>&rsquo;s <i>name</i> is the given
+<var>string</var> or a copy of it.  Once a <i>string</i>
+has been given as the <var>string</var> <i>argument</i> to
+<i>intern</i> in this situation where a new <i>symbol</i> is created,
+the consequences are undefined if a
+subsequent attempt is made to alter that <i>string</i>.
+</p></dd>
+</dl>
+
+
+<span id="Examples_003a-175"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (in-package &quot;COMMON-LISP-USER&quot;) <span class="roman">→</span> #&lt;PACKAGE &quot;COMMON-LISP-USER&quot;&gt;
+ (intern &quot;Never-Before&quot;) <span class="roman">→</span> |Never-Before|, NIL
+ (intern &quot;Never-Before&quot;) <span class="roman">→</span> |Never-Before|, :INTERNAL 
+ (intern &quot;NEVER-BEFORE&quot; &quot;KEYWORD&quot;) <span class="roman">→</span> :NEVER-BEFORE, NIL
+ (intern &quot;NEVER-BEFORE&quot; &quot;KEYWORD&quot;) <span class="roman">→</span> :NEVER-BEFORE, :EXTERNAL
+</pre></div>
+
+
+<span id="See-Also_003a-229"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="find_002dsymbol.html">find-symbol</a>,
+<a href="read_003b-read_002dpreserving_002dwhitespace.html#read">read</a>,
+<a href="symbol.html">symbol</a>,
+<a href="unintern.html">unintern</a>,
+<a href="Symbols-as-Tokens.html">Section 2.3.4 (Symbols as Tokens)</a>
+</p>
+<span id="Notes_003a-133"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>intern</code> does not need to do any name conflict checking 
+because it never creates a new <i>symbol</i> 
+if there is already an <i>accessible</i> <i>symbol</i> with the name given.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="package_002dname.html" accesskey="n" rel="next">package-name</a>, Previous: <a href="do_002dsymbols_003b-do_002dexternal_002dsymbols_003b-do_002dall_002dsymbols.html" accesskey="p" rel="prev">do-symbols; do-external-symbols; do-all-symbols</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

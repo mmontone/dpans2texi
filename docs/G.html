@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>G (ANSI Common Lisp)</title>
+
+<meta name="description" content="G (ANSI Common Lisp)">
+<meta name="keywords" content="G (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Glossary.html" rel="up" title="Glossary">
+<link href="H.html" rel="next" title="H">
+<link href="F.html" rel="prev" title="F">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="G"></span><div class="header">
+<p>
+Next: <a href="H.html" accesskey="n" rel="next">H</a>, Previous: <a href="F.html" accesskey="p" rel="prev">F</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="G-1"></span><h3 class="unnumberedsec">G</h3>
+<dl compact="compact">
+<dt><b>general</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
+<dd><p>having <i>element type</i> <code>t</code>,
+and consequently able to have any <i>object</i> as an <i>element</i>.
+</p>
+</dd>
+<dt><b>generalized boolean</b> <span id="glos_002dgeneralized-boolean"></span></dt>
+<dd><p><i>n.</i>&nbsp;<!-- /@w -->
+an <i>object</i> used as a truth value, where the symbol&nbsp;<code>nil</code>&nbsp;<!-- /@w -->
+represents <i>false</i> and all other <i>objects</i> represent <i>true</i>.
+See <a href="B.html#glos_002dboolean">boolean</a>.
+</p>
+</dd>
+<dt><b>generalized instance</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>class</i>)</dt>
+<dd><p>an <i>object</i> the <i>class</i> of which is either that <i>class</i> itself,
+or some subclass of that <i>class</i>.  (Because of the correspondence between
+types and classes, the term &ldquo;generalized instance of X&rdquo;
+implies &ldquo;object of type X&rdquo; and in cases where X is a <i>class</i> 
+(or <i>class name</i>) the reverse is also true.
+The former terminology emphasizes the view of X as a <i>class</i>
+while the latter emphasizes the view of X as a <i>type specifier</i>.)
+</p>
+</dd>
+<dt><b>generalized reference</b>  <i>n.</i></dt>
+<dd><p>a reference to a location storing an <i>object</i> as if to a <i>variable</i>.
+(Such a reference can be either to <i>read</i> or <i>write</i> the location.)
+See <a href="Generalized-Reference.html">Section 5.1 (Generalized Reference)</a>.  See also <i>place</i>.
+</p>
+</dd>
+<dt><b>generalized synonym stream</b>  <i>n.</i>&nbsp;<!-- /@w -->(with a <i>synonym stream symbol</i>)</dt>
+<dd><p>1. (to a <i>stream</i>) 
+a <i>synonym stream</i> to the <i>stream</i>,
+or a <i>composite stream</i> which has as a target 
+a <i>generalized synonym stream</i> to the <i>stream</i>.
+2. (to a <i>symbol</i>)
+a <i>synonym stream</i> to the <i>symbol</i>,
+or a <i>composite stream</i> which has as a target 
+a <i>generalized synonym stream</i> to the <i>symbol</i>.
+</p>
+</dd>
+<dt><b>generic function</b>  <i>n.</i></dt>
+<dd><p>a <i>function</i> whose behavior depends on the <i>classes</i> or
+identities of the arguments supplied to it and whose parts include, among
+other things, a set of <i>methods</i>, a <i>lambda list</i>, and a
+<i>method combination</i> type.
+</p>
+</dd>
+<dt><b>generic function lambda list</b>  <i>n.</i></dt>
+<dd><p>A <i>lambda list</i> that is used to describe data flow into a <i>generic function</i>.
+See <a href="Generic-Function-Lambda-Lists.html">Section 3.4.2 (Generic Function Lambda Lists)</a>.
+</p>
+</dd>
+<dt><b>gensym</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>an <i>uninterned</i> <i>symbol</i>.
+See the <i>function</i> <a href="gensym.html">gensym</a>.
+</p>
+</dd>
+<dt><b>global declaration</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>a <i>form</i> that makes certain kinds of information about 
+code globally available; that is, a <code>proclaim</code> <i>form</i> 
+or a <code>declaim</code> <i>form</i>.
+</p>
+</dd>
+<dt><b>global environment</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>that part of an <i>environment</i> that contains <i>bindings</i>
+with <i>indefinite scope</i> and <i>indefinite extent</i>.
+</p>
+</dd>
+<dt><b>global variable</b>  <i>n.</i></dt>
+<dd><p>a <i>dynamic variable</i> or a <i>constant variable</i>.
+</p>
+</dd>
+<dt><b>glyph</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>a visual representation.
+&ldquo;Graphic characters have associated glyphs.&rdquo;
+</p>
+</dd>
+<dt><b>go</b>  <i>v.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>to transfer control to a <i>go point</i>.
+See the <i>special operator</i> <a href="go.html">go</a>.
+</p>
+</dd>
+<dt><b>go point</b></dt>
+<dd><p>one of possibly several <i>exit points</i> that are <i>established</i> 
+by <code>tagbody</code> (or other abstractions, such as <code>prog</code>, 
+which are built from <code>tagbody</code>).
+</p>
+</dd>
+<dt><b>go tag</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>the <i>symbol</i> or <i>integer</i> that, within the <i>lexical scope</i> 
+of a <code>tagbody</code> <i>form</i>, names an <i>exit point</i>
+<i>established</i> by that <code>tagbody</code> <i>form</i>.
+</p>
+</dd>
+<dt><b>graphic</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)</dt>
+<dd><p>being a &ldquo;printing&rdquo; or &ldquo;displayable&rdquo; <i>character</i> 
+that has a standard visual representation
+as a single <i>glyph</i>, such as <code>A</code> or <code>*</code> or <code>=</code>.
+<i>Space</i> is defined to be <i>graphic</i>.
+Of the <i>standard characters</i>, all but <i>newline</i> are <i>graphic</i>.
+See <a href="N.html#glos_002dnon_002dgraphic">non-graphic</a>.
+</p>
+
+</dd>
+</dl>
+<hr>
+<div class="header">
+<p>
+Next: <a href="H.html" accesskey="n" rel="next">H</a>, Previous: <a href="F.html" accesskey="p" rel="prev">F</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

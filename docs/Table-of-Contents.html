@@ -1,0 +1,1142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Table of Contents (ANSI Common Lisp)</title>
+
+<meta name="description" content="Table of Contents (ANSI Common Lisp)">
+<meta name="keywords" content="Table of Contents (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="List-of-Figures.html" rel="prev" title="List of Figures">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Table-of-Contents"></span><div class="header">
+<p>
+Previous: <a href="List-of-Figures.html" accesskey="p" rel="prev">List of Figures</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a id="toc-Credits-1" href="Credits.html#Credits">Credits</a></li>
+  <li><a id="toc-Introduction-1" href="Introduction.html#Introduction">1 Introduction</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Scope_002c-Purpose_002c-and-History" href="Scope_003b-Purpose_003b-and-History.html#Scope_003b-Purpose_003b-and-History">1.1 Scope, Purpose, and History</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Scope-and-Purpose-1" href="Scope-and-Purpose.html#Scope-and-Purpose">1.1.1 Scope and Purpose</a></li>
+      <li><a id="toc-History-1" href="History.html#History">1.1.2 History</a></li>
+    </ul></li>
+    <li><a id="toc-Organization-of-the-Document-1" href="Organization-of-the-Document.html#Organization-of-the-Document">1.2 Organization of the Document</a></li>
+    <li><a id="toc-Referenced-Publications-1" href="Referenced-Publications.html#Referenced-Publications">1.3 Referenced Publications</a></li>
+    <li><a id="toc-Definitions-1" href="Definitions.html#Definitions">1.4 Definitions</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Notational-Conventions-1" href="Notational-Conventions.html#Notational-Conventions">1.4.1 Notational Conventions</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Font-Key" href="Notational-Conventions.html#Font-Key">1.4.1.1 Font Key</a></li>
+        <li><a id="toc-Modified-BNF-Syntax" href="Notational-Conventions.html#Modified-BNF-Syntax">1.4.1.2 Modified BNF Syntax</a></li>
+        <li><a id="toc-1_002e4_002e1_002e2_002e1-Splicing-in-Modified-BNF-Syntax" href="Notational-Conventions.html#g_t1_002e4_002e1_002e2_002e1-Splicing-in-Modified-BNF-Syntax">1.4.1.2.1 Splicing in Modified BNF Syntax</a></li>
+        <li><a id="toc-1_002e4_002e1_002e2_002e2-Indirection-in-Modified-BNF-Syntax" href="Notational-Conventions.html#g_t1_002e4_002e1_002e2_002e2-Indirection-in-Modified-BNF-Syntax">1.4.1.2.2 Indirection in Modified BNF Syntax</a></li>
+        <li><a id="toc-1_002e4_002e1_002e2_002e3-Additional-Uses-for-Indirect-Definitions-in-Modified-BNF-Syntax" href="Notational-Conventions.html#g_t1_002e4_002e1_002e2_002e3-Additional-Uses-for-Indirect-Definitions-in-Modified-BNF-Syntax">1.4.1.2.3 Additional Uses for Indirect Definitions in Modified BNF Syntax</a></li>
+        <li><a id="toc-Special-Symbols" href="Notational-Conventions.html#Special-Symbols">1.4.1.3 Special Symbols</a></li>
+        <li><a id="toc-Objects-with-Multiple-Notations" href="Notational-Conventions.html#Objects-with-Multiple-Notations">1.4.1.4 Objects with Multiple Notations</a></li>
+        <li><a id="toc-1_002e4_002e1_002e4_002e1-Case-in-Symbols" href="Notational-Conventions.html#g_t1_002e4_002e1_002e4_002e1-Case-in-Symbols">1.4.1.4.1 Case in Symbols</a></li>
+        <li><a id="toc-1_002e4_002e1_002e4_002e2-Numbers" href="Notational-Conventions.html#g_t1_002e4_002e1_002e4_002e2-Numbers">1.4.1.4.2 Numbers</a></li>
+        <li><a id="toc-1_002e4_002e1_002e4_002e3-Use-of-the-Dot-Character" href="Notational-Conventions.html#g_t1_002e4_002e1_002e4_002e3-Use-of-the-Dot-Character">1.4.1.4.3 Use of the Dot Character</a></li>
+        <li><a id="toc-1_002e4_002e1_002e4_002e4-NIL" href="Notational-Conventions.html#g_t1_002e4_002e1_002e4_002e4-NIL">1.4.1.4.4 NIL</a></li>
+        <li><a id="toc-Designators-1" href="Notational-Conventions.html#Designators-1">1.4.1.5 Designators</a></li>
+        <li><a id="toc-Nonsense-Words" href="Notational-Conventions.html#Nonsense-Words">1.4.1.6 Nonsense Words</a></li>
+      </ul></li>
+      <li><a id="toc-Error-Terminology-1" href="Error-Terminology.html#Error-Terminology">1.4.2 Error Terminology</a></li>
+      <li><a id="toc-Sections-Not-Formally-Part-Of-This-Standard-1" href="Sections-Not-Formally-Part-Of-This-Standard.html#Sections-Not-Formally-Part-Of-This-Standard">1.4.3 Sections Not Formally Part Of This Standard</a></li>
+      <li><a id="toc-Interpreting-Dictionary-Entries-1" href="Interpreting-Dictionary-Entries.html#Interpreting-Dictionary-Entries">1.4.4 Interpreting Dictionary Entries</a>
+      <ul class="no-bullet">
+        <li><a id="toc-The-_0060_0060Affected-By_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Affected-By_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.1 The &ldquo;Affected By&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Arguments_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Arguments_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.2 The &ldquo;Arguments&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Arguments-and-Values_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Arguments-and-Values_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.3 The &ldquo;Arguments and Values&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Binding-Types-Affected_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Binding-Types-Affected_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.4 The &ldquo;Binding Types Affected&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Class-Precedence-List_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Class-Precedence-List_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.5 The &ldquo;Class Precedence List&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-Dictionary-Entries-for-Type-Specifiers" href="Interpreting-Dictionary-Entries.html#Dictionary-Entries-for-Type-Specifiers">1.4.4.6 Dictionary Entries for Type Specifiers</a></li>
+        <li><a id="toc-1_002e4_002e4_002e6_002e1-The-_0060_0060Compound-Type-Specifier-Kind_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e6_002e1-The-_0060_0060Compound-Type-Specifier-Kind_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.6.1 The &ldquo;Compound Type Specifier Kind&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-1_002e4_002e4_002e6_002e2-The-_0060_0060Compound-Type-Specifier-Syntax_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e6_002e2-The-_0060_0060Compound-Type-Specifier-Syntax_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.6.2 The &ldquo;Compound Type Specifier Syntax&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-1_002e4_002e4_002e6_002e3-The-_0060_0060Compound-Type-Specifier-Arguments_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e6_002e3-The-_0060_0060Compound-Type-Specifier-Arguments_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.6.3 The &ldquo;Compound Type Specifier Arguments&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-1_002e4_002e4_002e6_002e4-The-_0060_0060Compound-Type-Specifier-Description_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e6_002e4-The-_0060_0060Compound-Type-Specifier-Description_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.6.4 The &ldquo;Compound Type Specifier Description&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Constant-Value_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Constant-Value_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.7 The &ldquo;Constant Value&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Description_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Description_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.8 The &ldquo;Description&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Examples_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Examples_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.9 The &ldquo;Examples&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Exceptional-Situations_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Exceptional-Situations_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.10 The &ldquo;Exceptional Situations&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Initial-Value_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Initial-Value_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.11 The &ldquo;Initial Value&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Argument-Precedence-Order_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Argument-Precedence-Order_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.12 The &ldquo;Argument Precedence Order&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Method-Signature_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Method-Signature_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.13 The &ldquo;Method Signature&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Name_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Name_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.14 The &ldquo;Name&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Notes_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Notes_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.15 The &ldquo;Notes&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Pronunciation_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Pronunciation_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.16 The &ldquo;Pronunciation&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060See-Also_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060See-Also_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.17 The &ldquo;See Also&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Side-Effects_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Side-Effects_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.18 The &ldquo;Side Effects&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Supertypes_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Supertypes_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.19 The &ldquo;Supertypes&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Syntax_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Syntax_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.20 The &ldquo;Syntax&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-1_002e4_002e4_002e20_002e1-Special-_0060_0060Syntax_0027_0027-Notations-for-Overloaded-Operators" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e20_002e1-Special-_0060_0060Syntax_0027_0027-Notations-for-Overloaded-Operators">1.4.4.20.1 Special &ldquo;Syntax&rdquo; Notations for Overloaded Operators</a></li>
+        <li><a id="toc-1_002e4_002e4_002e20_002e2-Naming-Conventions-for-Rest-Parameters" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e20_002e2-Naming-Conventions-for-Rest-Parameters">1.4.4.20.2 Naming Conventions for Rest Parameters</a></li>
+        <li><a id="toc-1_002e4_002e4_002e20_002e3-Requiring-Non_002dNull-Rest-Parameters-in-the-_0060_0060Syntax_0027_0027-Section" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e20_002e3-Requiring-Non_002dNull-Rest-Parameters-in-the-_0060_0060Syntax_0027_0027-Section">1.4.4.20.3 Requiring Non-Null Rest Parameters in the &ldquo;Syntax&rdquo; Section</a></li>
+        <li><a id="toc-1_002e4_002e4_002e20_002e4-Return-values-in-the-_0060_0060Syntax_0027_0027-Section" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e20_002e4-Return-values-in-the-_0060_0060Syntax_0027_0027-Section">1.4.4.20.4 Return values in the &ldquo;Syntax&rdquo; Section</a></li>
+        <li><a id="toc-1_002e4_002e4_002e20_002e4_002e1-No-Arguments-or-Values-in-the-_0060_0060Syntax_0027_0027-Section" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e20_002e4_002e1-No-Arguments-or-Values-in-the-_0060_0060Syntax_0027_0027-Section">1.4.4.20.4.1 No Arguments or Values in the &ldquo;Syntax&rdquo; Section</a></li>
+        <li><a id="toc-1_002e4_002e4_002e20_002e4_002e2-Unconditional-Transfer-of-Control-in-the-_0060_0060Syntax_0027_0027-Section" href="Interpreting-Dictionary-Entries.html#g_t1_002e4_002e4_002e20_002e4_002e2-Unconditional-Transfer-of-Control-in-the-_0060_0060Syntax_0027_0027-Section">1.4.4.20.4.2 Unconditional Transfer of Control in the &ldquo;Syntax&rdquo; Section</a></li>
+        <li><a id="toc-The-_0060_0060Valid-Context_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Valid-Context_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.21 The &ldquo;Valid Context&rdquo; Section of a Dictionary Entry</a></li>
+        <li><a id="toc-The-_0060_0060Value-Type_0027_0027-Section-of-a-Dictionary-Entry" href="Interpreting-Dictionary-Entries.html#The-_0060_0060Value-Type_0027_0027-Section-of-a-Dictionary-Entry">1.4.4.22 The &ldquo;Value Type&rdquo; Section of a Dictionary Entry</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Conformance-1" href="Conformance.html#Conformance">1.5 Conformance</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Conforming-Implementations-1" href="Conforming-Implementations.html#Conforming-Implementations">1.5.1 Conforming Implementations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Required-Language-Features" href="Conforming-Implementations.html#Required-Language-Features">1.5.1.1 Required Language Features</a></li>
+        <li><a id="toc-Documentation-of-Implementation_002dDependent-Features" href="Conforming-Implementations.html#Documentation-of-Implementation_002dDependent-Features">1.5.1.2 Documentation of Implementation-Dependent Features</a></li>
+        <li><a id="toc-Documentation-of-Extensions" href="Conforming-Implementations.html#Documentation-of-Extensions">1.5.1.3 Documentation of Extensions</a></li>
+        <li><a id="toc-Treatment-of-Exceptional-Situations" href="Conforming-Implementations.html#Treatment-of-Exceptional-Situations">1.5.1.4 Treatment of Exceptional Situations</a></li>
+        <li><a id="toc-1_002e5_002e1_002e4_002e1-Resolution-of-Apparent-Conflicts-in-Exceptional-Situations" href="Conforming-Implementations.html#g_t1_002e5_002e1_002e4_002e1-Resolution-of-Apparent-Conflicts-in-Exceptional-Situations">1.5.1.4.1 Resolution of Apparent Conflicts in Exceptional Situations</a></li>
+        <li><a id="toc-1_002e5_002e1_002e4_002e1_002e1-Examples-of-Resolution-of-Apparent-Conflicts" href="Conforming-Implementations.html#g_t1_002e5_002e1_002e4_002e1_002e1-Examples-of-Resolution-of-Apparent-Conflicts">1.5.1.4.1.1 Examples of Resolution of Apparent Conflicts</a></li>
+        <li><a id="toc-Conformance-Statement" href="Conforming-Implementations.html#Conformance-Statement">1.5.1.5 Conformance Statement</a></li>
+      </ul></li>
+      <li><a id="toc-Conforming-Programs-1" href="Conforming-Programs.html#Conforming-Programs">1.5.2 Conforming Programs</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Use-of-Implementation_002dDefined-Language-Features" href="Conforming-Programs.html#Use-of-Implementation_002dDefined-Language-Features">1.5.2.1 Use of Implementation-Defined Language Features</a></li>
+        <li><a id="toc-1_002e5_002e2_002e1_002e1-Use-of-Read_002dTime-Conditionals" href="Conforming-Programs.html#g_t1_002e5_002e2_002e1_002e1-Use-of-Read_002dTime-Conditionals">1.5.2.1.1 Use of Read-Time Conditionals</a></li>
+        <li><a id="toc-Character-Set-for-Portable-Code" href="Conforming-Programs.html#Character-Set-for-Portable-Code">1.5.2.2 Character Set for Portable Code</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Language-Extensions-1" href="Language-Extensions.html#Language-Extensions">1.6 Language Extensions</a></li>
+    <li><a id="toc-Language-Subsets-1" href="Language-Subsets.html#Language-Subsets">1.7 Language Subsets</a></li>
+    <li><a id="toc-Deprecated-Language-Features-1" href="Deprecated-Language-Features.html#Deprecated-Language-Features">1.8 Deprecated Language Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Deprecated-Functions-1" href="Deprecated-Functions.html#Deprecated-Functions">1.8.1 Deprecated Functions</a></li>
+      <li><a id="toc-Deprecated-Argument-Conventions-1" href="Deprecated-Argument-Conventions.html#Deprecated-Argument-Conventions">1.8.2 Deprecated Argument Conventions</a></li>
+      <li><a id="toc-Deprecated-Variables-1" href="Deprecated-Variables.html#Deprecated-Variables">1.8.3 Deprecated Variables</a></li>
+      <li><a id="toc-Deprecated-Reader-Syntax-1" href="Deprecated-Reader-Syntax.html#Deprecated-Reader-Syntax">1.8.4 Deprecated Reader Syntax</a></li>
+    </ul></li>
+    <li><a id="toc-Symbols-in-the-COMMON_002dLISP-Package-1" href="Symbols-in-the-COMMON_002dLISP-Package.html#Symbols-in-the-COMMON_002dLISP-Package">1.9 Symbols in the COMMON-LISP Package</a></li>
+  </ul></li>
+  <li><a id="toc-Syntax-1" href="Syntax.html#Syntax">2 Syntax</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Character-Syntax-1" href="Character-Syntax.html#Character-Syntax">2.1 Character Syntax</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Readtables-1" href="Readtables.html#Readtables">2.1.1 Readtables</a>
+      <ul class="no-bullet">
+        <li><a id="toc-The-Current-Readtable" href="Readtables.html#The-Current-Readtable">2.1.1.1 The Current Readtable</a></li>
+        <li><a id="toc-The-Standard-Readtable" href="Readtables.html#The-Standard-Readtable">2.1.1.2 The Standard Readtable</a></li>
+        <li><a id="toc-The-Initial-Readtable" href="Readtables.html#The-Initial-Readtable">2.1.1.3 The Initial Readtable</a></li>
+      </ul></li>
+      <li><a id="toc-Variables-that-affect-the-Lisp-Reader-1" href="Variables-that-affect-the-Lisp-Reader.html#Variables-that-affect-the-Lisp-Reader">2.1.2 Variables that affect the Lisp Reader</a></li>
+      <li><a id="toc-Standard-Characters-1" href="Standard-Characters.html#Standard-Characters">2.1.3 Standard Characters</a></li>
+      <li><a id="toc-Character-Syntax-Types-1" href="Character-Syntax-Types.html#Character-Syntax-Types">2.1.4 Character Syntax Types</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Constituent-Characters" href="Character-Syntax-Types.html#Constituent-Characters">2.1.4.1 Constituent Characters</a></li>
+        <li><a id="toc-Constituent-Traits" href="Character-Syntax-Types.html#Constituent-Traits">2.1.4.2 Constituent Traits</a></li>
+        <li><a id="toc-Invalid-Characters" href="Character-Syntax-Types.html#Invalid-Characters">2.1.4.3 Invalid Characters</a></li>
+        <li><a id="toc-Macro-Characters" href="Character-Syntax-Types.html#Macro-Characters">2.1.4.4 Macro Characters</a></li>
+        <li><a id="toc-Multiple-Escape-Characters" href="Character-Syntax-Types.html#Multiple-Escape-Characters">2.1.4.5 Multiple Escape Characters</a></li>
+        <li><a id="toc-2_002e1_002e4_002e5_002e1-Examples-of-Multiple-Escape-Characters" href="Character-Syntax-Types.html#g_t2_002e1_002e4_002e5_002e1-Examples-of-Multiple-Escape-Characters">2.1.4.5.1 Examples of Multiple Escape Characters</a></li>
+        <li><a id="toc-Single-Escape-Character" href="Character-Syntax-Types.html#Single-Escape-Character">2.1.4.6 Single Escape Character</a></li>
+        <li><a id="toc-2_002e1_002e4_002e6_002e1-Examples-of-Single-Escape-Characters" href="Character-Syntax-Types.html#g_t2_002e1_002e4_002e6_002e1-Examples-of-Single-Escape-Characters">2.1.4.6.1 Examples of Single Escape Characters</a></li>
+        <li><a id="toc-Whitespace-Characters" href="Character-Syntax-Types.html#Whitespace-Characters">2.1.4.7 Whitespace Characters</a></li>
+        <li><a id="toc-2_002e1_002e4_002e7_002e1-Examples-of-Whitespace-Characters" href="Character-Syntax-Types.html#g_t2_002e1_002e4_002e7_002e1-Examples-of-Whitespace-Characters">2.1.4.7.1 Examples of Whitespace Characters</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Reader-Algorithm-1" href="Reader-Algorithm.html#Reader-Algorithm">2.2 Reader Algorithm</a></li>
+    <li><a id="toc-Interpretation-of-Tokens-1" href="Interpretation-of-Tokens.html#Interpretation-of-Tokens">2.3 Interpretation of Tokens</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Numbers-as-Tokens-1" href="Numbers-as-Tokens.html#Numbers-as-Tokens">2.3.1 Numbers as Tokens</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Potential-Numbers-as-Tokens" href="Numbers-as-Tokens.html#Potential-Numbers-as-Tokens">2.3.1.1 Potential Numbers as Tokens</a></li>
+        <li><a id="toc-2_002e3_002e1_002e1_002e1-Escape-Characters-and-Potential-Numbers" href="Numbers-as-Tokens.html#g_t2_002e3_002e1_002e1_002e1-Escape-Characters-and-Potential-Numbers">2.3.1.1.1 Escape Characters and Potential Numbers</a></li>
+        <li><a id="toc-2_002e3_002e1_002e1_002e2-Examples-of-Potential-Numbers" href="Numbers-as-Tokens.html#g_t2_002e3_002e1_002e1_002e2-Examples-of-Potential-Numbers">2.3.1.1.2 Examples of Potential Numbers</a></li>
+      </ul></li>
+      <li><a id="toc-Constructing-Numbers-from-Tokens-1" href="Constructing-Numbers-from-Tokens.html#Constructing-Numbers-from-Tokens">2.3.2 Constructing Numbers from Tokens</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Syntax-of-a-Rational" href="Constructing-Numbers-from-Tokens.html#Syntax-of-a-Rational">2.3.2.1 Syntax of a Rational</a></li>
+        <li><a id="toc-2_002e3_002e2_002e1_002e1-Syntax-of-an-Integer" href="Constructing-Numbers-from-Tokens.html#g_t2_002e3_002e2_002e1_002e1-Syntax-of-an-Integer">2.3.2.1.1 Syntax of an Integer</a></li>
+        <li><a id="toc-2_002e3_002e2_002e1_002e2-Syntax-of-a-Ratio" href="Constructing-Numbers-from-Tokens.html#g_t2_002e3_002e2_002e1_002e2-Syntax-of-a-Ratio">2.3.2.1.2 Syntax of a Ratio</a></li>
+        <li><a id="toc-Syntax-of-a-Float" href="Constructing-Numbers-from-Tokens.html#Syntax-of-a-Float">2.3.2.2 Syntax of a Float</a></li>
+        <li><a id="toc-Syntax-of-a-Complex" href="Constructing-Numbers-from-Tokens.html#Syntax-of-a-Complex">2.3.2.3 Syntax of a Complex</a></li>
+      </ul></li>
+      <li><a id="toc-The-Consing-Dot-1" href="The-Consing-Dot.html#The-Consing-Dot">2.3.3 The Consing Dot</a></li>
+      <li><a id="toc-Symbols-as-Tokens-1" href="Symbols-as-Tokens.html#Symbols-as-Tokens">2.3.4 Symbols as Tokens</a></li>
+      <li><a id="toc-Valid-Patterns-for-Tokens-1" href="Valid-Patterns-for-Tokens.html#Valid-Patterns-for-Tokens">2.3.5 Valid Patterns for Tokens</a></li>
+      <li><a id="toc-Package-System-Consistency-Rules-1" href="Package-System-Consistency-Rules.html#Package-System-Consistency-Rules">2.3.6 Package System Consistency Rules</a></li>
+    </ul></li>
+    <li><a id="toc-Standard-Macro-Characters-1" href="Standard-Macro-Characters.html#Standard-Macro-Characters">2.4 Standard Macro Characters</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Left_002dParenthesis-1" href="Left_002dParenthesis.html#Left_002dParenthesis">2.4.1 Left-Parenthesis</a></li>
+      <li><a id="toc-Right_002dParenthesis-1" href="Right_002dParenthesis.html#Right_002dParenthesis">2.4.2 Right-Parenthesis</a></li>
+      <li><a id="toc-Single_002dQuote-1" href="Single_002dQuote.html#Single_002dQuote">2.4.3 Single-Quote</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Single_002dQuote" href="Single_002dQuote.html#Examples-of-Single_002dQuote">2.4.3.1 Examples of Single-Quote</a></li>
+      </ul></li>
+      <li><a id="toc-Semicolon-1" href="Semicolon.html#Semicolon">2.4.4 Semicolon</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Semicolon" href="Semicolon.html#Examples-of-Semicolon">2.4.4.1 Examples of Semicolon</a></li>
+        <li><a id="toc-Notes-about-Style-for-Semicolon" href="Semicolon.html#Notes-about-Style-for-Semicolon">2.4.4.2 Notes about Style for Semicolon</a></li>
+        <li><a id="toc-2_002e4_002e4_002e2_002e1-Use-of-Single-Semicolon" href="Semicolon.html#g_t2_002e4_002e4_002e2_002e1-Use-of-Single-Semicolon">2.4.4.2.1 Use of Single Semicolon</a></li>
+        <li><a id="toc-2_002e4_002e4_002e2_002e2-Use-of-Double-Semicolon" href="Semicolon.html#g_t2_002e4_002e4_002e2_002e2-Use-of-Double-Semicolon">2.4.4.2.2 Use of Double Semicolon</a></li>
+        <li><a id="toc-2_002e4_002e4_002e2_002e3-Use-of-Triple-Semicolon" href="Semicolon.html#g_t2_002e4_002e4_002e2_002e3-Use-of-Triple-Semicolon">2.4.4.2.3 Use of Triple Semicolon</a></li>
+        <li><a id="toc-2_002e4_002e4_002e2_002e4-Use-of-Quadruple-Semicolon" href="Semicolon.html#g_t2_002e4_002e4_002e2_002e4-Use-of-Quadruple-Semicolon">2.4.4.2.4 Use of Quadruple Semicolon</a></li>
+        <li><a id="toc-2_002e4_002e4_002e2_002e5-Examples-of-Style-for-Semicolon" href="Semicolon.html#g_t2_002e4_002e4_002e2_002e5-Examples-of-Style-for-Semicolon">2.4.4.2.5 Examples of Style for Semicolon</a></li>
+      </ul></li>
+      <li><a id="toc-Double_002dQuote-1" href="Double_002dQuote.html#Double_002dQuote">2.4.5 Double-Quote</a></li>
+      <li><a id="toc-Backquote-1" href="Backquote.html#Backquote">2.4.6 Backquote</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Notes-about-Backquote" href="Backquote.html#Notes-about-Backquote">2.4.6.1 Notes about Backquote</a></li>
+      </ul></li>
+      <li><a id="toc-Comma-1" href="Comma.html#Comma">2.4.7 Comma</a></li>
+      <li><a id="toc-Sharpsign-1" href="Sharpsign.html#Sharpsign">2.4.8 Sharpsign</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Sharpsign-Backslash" href="Sharpsign.html#Sharpsign-Backslash">2.4.8.1 Sharpsign Backslash</a></li>
+        <li><a id="toc-Sharpsign-Single_002dQuote" href="Sharpsign.html#Sharpsign-Single_002dQuote">2.4.8.2 Sharpsign Single-Quote</a></li>
+        <li><a id="toc-Sharpsign-Left_002dParenthesis" href="Sharpsign.html#Sharpsign-Left_002dParenthesis">2.4.8.3 Sharpsign Left-Parenthesis</a></li>
+        <li><a id="toc-Sharpsign-Asterisk" href="Sharpsign.html#Sharpsign-Asterisk">2.4.8.4 Sharpsign Asterisk</a></li>
+        <li><a id="toc-2_002e4_002e8_002e4_002e1-Examples-of-Sharpsign-Asterisk" href="Sharpsign.html#g_t2_002e4_002e8_002e4_002e1-Examples-of-Sharpsign-Asterisk">2.4.8.4.1 Examples of Sharpsign Asterisk</a></li>
+        <li><a id="toc-Sharpsign-Colon" href="Sharpsign.html#Sharpsign-Colon">2.4.8.5 Sharpsign Colon</a></li>
+        <li><a id="toc-Sharpsign-Dot" href="Sharpsign.html#Sharpsign-Dot">2.4.8.6 Sharpsign Dot</a></li>
+        <li><a id="toc-Sharpsign-B" href="Sharpsign.html#Sharpsign-B">2.4.8.7 Sharpsign B</a></li>
+        <li><a id="toc-Sharpsign-O" href="Sharpsign.html#Sharpsign-O">2.4.8.8 Sharpsign O</a></li>
+        <li><a id="toc-Sharpsign-X" href="Sharpsign.html#Sharpsign-X">2.4.8.9 Sharpsign X</a></li>
+        <li><a id="toc-Sharpsign-R" href="Sharpsign.html#Sharpsign-R">2.4.8.10 Sharpsign R</a></li>
+        <li><a id="toc-Sharpsign-C" href="Sharpsign.html#Sharpsign-C">2.4.8.11 Sharpsign C</a></li>
+        <li><a id="toc-Sharpsign-A" href="Sharpsign.html#Sharpsign-A">2.4.8.12 Sharpsign A</a></li>
+        <li><a id="toc-Sharpsign-S" href="Sharpsign.html#Sharpsign-S">2.4.8.13 Sharpsign S</a></li>
+        <li><a id="toc-Sharpsign-P" href="Sharpsign.html#Sharpsign-P">2.4.8.14 Sharpsign P</a></li>
+        <li><a id="toc-Sharpsign-Equal_002dSign" href="Sharpsign.html#Sharpsign-Equal_002dSign">2.4.8.15 Sharpsign Equal-Sign</a></li>
+        <li><a id="toc-Sharpsign-Sharpsign" href="Sharpsign.html#Sharpsign-Sharpsign">2.4.8.16 Sharpsign Sharpsign</a></li>
+        <li><a id="toc-Sharpsign-Plus" href="Sharpsign.html#Sharpsign-Plus">2.4.8.17 Sharpsign Plus</a></li>
+        <li><a id="toc-Sharpsign-Minus" href="Sharpsign.html#Sharpsign-Minus">2.4.8.18 Sharpsign Minus</a></li>
+        <li><a id="toc-Sharpsign-Vertical_002dBar" href="Sharpsign.html#Sharpsign-Vertical_002dBar">2.4.8.19 Sharpsign Vertical-Bar</a></li>
+        <li><a id="toc-2_002e4_002e8_002e19_002e1-Examples-of-Sharpsign-Vertical_002dBar" href="Sharpsign.html#g_t2_002e4_002e8_002e19_002e1-Examples-of-Sharpsign-Vertical_002dBar">2.4.8.19.1 Examples of Sharpsign Vertical-Bar</a></li>
+        <li><a id="toc-2_002e4_002e8_002e19_002e2-Notes-about-Style-for-Sharpsign-Vertical_002dBar" href="Sharpsign.html#g_t2_002e4_002e8_002e19_002e2-Notes-about-Style-for-Sharpsign-Vertical_002dBar">2.4.8.19.2 Notes about Style for Sharpsign Vertical-Bar</a></li>
+        <li><a id="toc-Sharpsign-Less_002dThan_002dSign" href="Sharpsign.html#Sharpsign-Less_002dThan_002dSign">2.4.8.20 Sharpsign Less-Than-Sign</a></li>
+        <li><a id="toc-Sharpsign-Whitespace" href="Sharpsign.html#Sharpsign-Whitespace">2.4.8.21 Sharpsign Whitespace</a></li>
+        <li><a id="toc-Sharpsign-Right_002dParenthesis" href="Sharpsign.html#Sharpsign-Right_002dParenthesis">2.4.8.22 Sharpsign Right-Parenthesis</a></li>
+      </ul></li>
+      <li><a id="toc-Re_002dReading-Abbreviated-Expressions-1" href="Re_002dReading-Abbreviated-Expressions.html#Re_002dReading-Abbreviated-Expressions">2.4.9 Re-Reading Abbreviated Expressions</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Evaluation-and-Compilation-1" href="Evaluation-and-Compilation.html#Evaluation-and-Compilation">3 Evaluation and Compilation</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Evaluation-1" href="Evaluation.html#Evaluation">3.1 Evaluation</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Introduction-to-Environments-1" href="Introduction-to-Environments.html#Introduction-to-Environments">3.1.1 Introduction to Environments</a>
+      <ul class="no-bullet">
+        <li><a id="toc-The-Global-Environment" href="Introduction-to-Environments.html#The-Global-Environment">3.1.1.1 The Global Environment</a></li>
+        <li><a id="toc-Dynamic-Environments" href="Introduction-to-Environments.html#Dynamic-Environments">3.1.1.2 Dynamic Environments</a></li>
+        <li><a id="toc-Lexical-Environments" href="Introduction-to-Environments.html#Lexical-Environments">3.1.1.3 Lexical Environments</a></li>
+        <li><a id="toc-3_002e1_002e1_002e3_002e1-The-Null-Lexical-Environment" href="Introduction-to-Environments.html#g_t3_002e1_002e1_002e3_002e1-The-Null-Lexical-Environment">3.1.1.3.1 The Null Lexical Environment</a></li>
+        <li><a id="toc-Environment-Objects" href="Introduction-to-Environments.html#Environment-Objects">3.1.1.4 Environment Objects</a></li>
+      </ul></li>
+      <li><a id="toc-The-Evaluation-Model-1" href="The-Evaluation-Model.html#The-Evaluation-Model">3.1.2 The Evaluation Model</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Form-Evaluation" href="The-Evaluation-Model.html#Form-Evaluation">3.1.2.1 Form Evaluation</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e1-Symbols-as-Forms" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e1-Symbols-as-Forms">3.1.2.1.1 Symbols as Forms</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e1_002e1-Lexical-Variables" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e1_002e1-Lexical-Variables">3.1.2.1.1.1 Lexical Variables</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e1_002e2-Dynamic-Variables" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e1_002e2-Dynamic-Variables">3.1.2.1.1.2 Dynamic Variables</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e1_002e3-Constant-Variables" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e1_002e3-Constant-Variables">3.1.2.1.1.3 Constant Variables</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e1_002e4-Symbols-Naming-Both-Lexical-and-Dynamic-Variables" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e1_002e4-Symbols-Naming-Both-Lexical-and-Dynamic-Variables">3.1.2.1.1.4 Symbols Naming Both Lexical and Dynamic Variables</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e2-Conses-as-Forms" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e2-Conses-as-Forms">3.1.2.1.2 Conses as Forms</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e2_002e1-Special-Forms" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e2_002e1-Special-Forms">3.1.2.1.2.1 Special Forms</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e2_002e2-Macro-Forms" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e2_002e2-Macro-Forms">3.1.2.1.2.2 Macro Forms</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e2_002e3-Function-Forms" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e2_002e3-Function-Forms">3.1.2.1.2.3 Function Forms</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e2_002e4-Lambda-Forms" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e2_002e4-Lambda-Forms">3.1.2.1.2.4 Lambda Forms</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e3-Self_002dEvaluating-Objects" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e3-Self_002dEvaluating-Objects">3.1.2.1.3 Self-Evaluating Objects</a></li>
+        <li><a id="toc-3_002e1_002e2_002e1_002e3_002e1-Examples-of-Self_002dEvaluating-Objects" href="The-Evaluation-Model.html#g_t3_002e1_002e2_002e1_002e3_002e1-Examples-of-Self_002dEvaluating-Objects">3.1.2.1.3.1 Examples of Self-Evaluating Objects</a></li>
+      </ul></li>
+      <li><a id="toc-Lambda-Expressions-1" href="Lambda-Expressions.html#Lambda-Expressions">3.1.3 Lambda Expressions</a></li>
+      <li><a id="toc-Closures-and-Lexical-Binding-1" href="Closures-and-Lexical-Binding.html#Closures-and-Lexical-Binding">3.1.4 Closures and Lexical Binding</a></li>
+      <li><a id="toc-Shadowing-1" href="Shadowing.html#Shadowing">3.1.5 Shadowing</a></li>
+      <li><a id="toc-Extent-1" href="Extent.html#Extent">3.1.6 Extent</a></li>
+      <li><a id="toc-Return-Values-1" href="Return-Values.html#Return-Values">3.1.7 Return Values</a></li>
+    </ul></li>
+    <li><a id="toc-Compilation-1" href="Compilation.html#Compilation">3.2 Compilation</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Compiler-Terminology-1" href="Compiler-Terminology.html#Compiler-Terminology">3.2.1 Compiler Terminology</a></li>
+      <li><a id="toc-Compilation-Semantics-1" href="Compilation-Semantics.html#Compilation-Semantics">3.2.2 Compilation Semantics</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Compiler-Macros" href="Compilation-Semantics.html#Compiler-Macros">3.2.2.1 Compiler Macros</a></li>
+        <li><a id="toc-3_002e2_002e2_002e1_002e1-Purpose-of-Compiler-Macros" href="Compilation-Semantics.html#g_t3_002e2_002e2_002e1_002e1-Purpose-of-Compiler-Macros">3.2.2.1.1 Purpose of Compiler Macros</a></li>
+        <li><a id="toc-3_002e2_002e2_002e1_002e2-Naming-of-Compiler-Macros" href="Compilation-Semantics.html#g_t3_002e2_002e2_002e1_002e2-Naming-of-Compiler-Macros">3.2.2.1.2 Naming of Compiler Macros</a></li>
+        <li><a id="toc-3_002e2_002e2_002e1_002e3-When-Compiler-Macros-Are-Used" href="Compilation-Semantics.html#g_t3_002e2_002e2_002e1_002e3-When-Compiler-Macros-Are-Used">3.2.2.1.3 When Compiler Macros Are Used</a></li>
+        <li><a id="toc-3_002e2_002e2_002e1_002e3_002e1-Notes-about-the-Implementation-of-Compiler-Macros" href="Compilation-Semantics.html#g_t3_002e2_002e2_002e1_002e3_002e1-Notes-about-the-Implementation-of-Compiler-Macros">3.2.2.1.3.1 Notes about the Implementation of Compiler Macros</a></li>
+        <li><a id="toc-Minimal-Compilation" href="Compilation-Semantics.html#Minimal-Compilation">3.2.2.2 Minimal Compilation</a></li>
+        <li><a id="toc-Semantic-Constraints" href="Compilation-Semantics.html#Semantic-Constraints">3.2.2.3 Semantic Constraints</a></li>
+      </ul></li>
+      <li><a id="toc-File-Compilation-1" href="File-Compilation.html#File-Compilation">3.2.3 File Compilation</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Processing-of-Top-Level-Forms" href="File-Compilation.html#Processing-of-Top-Level-Forms">3.2.3.1 Processing of Top Level Forms</a></li>
+        <li><a id="toc-3_002e2_002e3_002e1_002e1-Processing-of-Defining-Macros" href="File-Compilation.html#g_t3_002e2_002e3_002e1_002e1-Processing-of-Defining-Macros">3.2.3.1.1 Processing of Defining Macros</a></li>
+        <li><a id="toc-3_002e2_002e3_002e1_002e2-Constraints-on-Macros-and-Compiler-Macros" href="File-Compilation.html#g_t3_002e2_002e3_002e1_002e2-Constraints-on-Macros-and-Compiler-Macros">3.2.3.1.2 Constraints on Macros and Compiler Macros</a></li>
+      </ul></li>
+      <li><a id="toc-Literal-Objects-in-Compiled-Files-1" href="Literal-Objects-in-Compiled-Files.html#Literal-Objects-in-Compiled-Files">3.2.4 Literal Objects in Compiled Files</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Externalizable-Objects" href="Literal-Objects-in-Compiled-Files.html#Externalizable-Objects">3.2.4.1 Externalizable Objects</a></li>
+        <li><a id="toc-Similarity-of-Literal-Objects" href="Literal-Objects-in-Compiled-Files.html#Similarity-of-Literal-Objects">3.2.4.2 Similarity of Literal Objects</a></li>
+        <li><a id="toc-3_002e2_002e4_002e2_002e1-Similarity-of-Aggregate-Objects" href="Literal-Objects-in-Compiled-Files.html#g_t3_002e2_002e4_002e2_002e1-Similarity-of-Aggregate-Objects">3.2.4.2.1 Similarity of Aggregate Objects</a></li>
+        <li><a id="toc-3_002e2_002e4_002e2_002e2-Definition-of-Similarity" href="Literal-Objects-in-Compiled-Files.html#g_t3_002e2_002e4_002e2_002e2-Definition-of-Similarity">3.2.4.2.2 Definition of Similarity</a></li>
+        <li><a id="toc-Extensions-to-Similarity-Rules" href="Literal-Objects-in-Compiled-Files.html#Extensions-to-Similarity-Rules">3.2.4.3 Extensions to Similarity Rules</a></li>
+        <li><a id="toc-Additional-Constraints-on-Externalizable-Objects" href="Literal-Objects-in-Compiled-Files.html#Additional-Constraints-on-Externalizable-Objects">3.2.4.4 Additional Constraints on Externalizable Objects</a></li>
+      </ul></li>
+      <li><a id="toc-Exceptional-Situations-in-the-Compiler-1" href="Exceptional-Situations-in-the-Compiler.html#Exceptional-Situations-in-the-Compiler">3.2.5 Exceptional Situations in the Compiler</a></li>
+    </ul></li>
+    <li><a id="toc-Declarations-1" href="Declarations.html#Declarations">3.3 Declarations</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Minimal-Declaration-Processing-Requirements-1" href="Minimal-Declaration-Processing-Requirements.html#Minimal-Declaration-Processing-Requirements">3.3.1 Minimal Declaration Processing Requirements</a></li>
+      <li><a id="toc-Declaration-Specifiers-1" href="Declaration-Specifiers.html#Declaration-Specifiers">3.3.2 Declaration Specifiers</a></li>
+      <li><a id="toc-Declaration-Identifiers-1" href="Declaration-Identifiers.html#Declaration-Identifiers">3.3.3 Declaration Identifiers</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Shorthand-notation-for-Type-Declarations" href="Declaration-Identifiers.html#Shorthand-notation-for-Type-Declarations">3.3.3.1 Shorthand notation for Type Declarations</a></li>
+      </ul></li>
+      <li><a id="toc-Declaration-Scope-1" href="Declaration-Scope.html#Declaration-Scope">3.3.4 Declaration Scope</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Declaration-Scope" href="Declaration-Scope.html#Examples-of-Declaration-Scope">3.3.4.1 Examples of Declaration Scope</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Lambda-Lists-1" href="Lambda-Lists.html#Lambda-Lists">3.4 Lambda Lists</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Ordinary-Lambda-Lists-1" href="Ordinary-Lambda-Lists.html#Ordinary-Lambda-Lists">3.4.1 Ordinary Lambda Lists</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Specifiers-for-the-required-parameters" href="Ordinary-Lambda-Lists.html#Specifiers-for-the-required-parameters">3.4.1.1 Specifiers for the required parameters</a></li>
+        <li><a id="toc-Specifiers-for-optional-parameters" href="Ordinary-Lambda-Lists.html#Specifiers-for-optional-parameters">3.4.1.2 Specifiers for optional parameters</a></li>
+        <li><a id="toc-A-specifier-for-a-rest-parameter" href="Ordinary-Lambda-Lists.html#A-specifier-for-a-rest-parameter">3.4.1.3 A specifier for a rest parameter</a></li>
+        <li><a id="toc-Specifiers-for-keyword-parameters" href="Ordinary-Lambda-Lists.html#Specifiers-for-keyword-parameters">3.4.1.4 Specifiers for keyword parameters</a></li>
+        <li><a id="toc-3_002e4_002e1_002e4_002e1-Suppressing-Keyword-Argument-Checking" href="Ordinary-Lambda-Lists.html#g_t3_002e4_002e1_002e4_002e1-Suppressing-Keyword-Argument-Checking">3.4.1.4.1 Suppressing Keyword Argument Checking</a></li>
+        <li><a id="toc-3_002e4_002e1_002e4_002e1_002e1-Examples-of-Suppressing-Keyword-Argument-Checking" href="Ordinary-Lambda-Lists.html#g_t3_002e4_002e1_002e4_002e1_002e1-Examples-of-Suppressing-Keyword-Argument-Checking">3.4.1.4.1.1 Examples of Suppressing Keyword Argument Checking</a></li>
+        <li><a id="toc-Specifiers-for-_0026aux-variables" href="Ordinary-Lambda-Lists.html#Specifiers-for-_0026aux-variables">3.4.1.5 Specifiers for <code>&amp;aux</code> variables</a></li>
+        <li><a id="toc-Examples-of-Ordinary-Lambda-Lists" href="Ordinary-Lambda-Lists.html#Examples-of-Ordinary-Lambda-Lists">3.4.1.6 Examples of Ordinary Lambda Lists</a></li>
+      </ul></li>
+      <li><a id="toc-Generic-Function-Lambda-Lists-1" href="Generic-Function-Lambda-Lists.html#Generic-Function-Lambda-Lists">3.4.2 Generic Function Lambda Lists</a></li>
+      <li><a id="toc-Specialized-Lambda-Lists-1" href="Specialized-Lambda-Lists.html#Specialized-Lambda-Lists">3.4.3 Specialized Lambda Lists</a></li>
+      <li><a id="toc-Macro-Lambda-Lists-1" href="Macro-Lambda-Lists.html#Macro-Lambda-Lists">3.4.4 Macro Lambda Lists</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Destructuring-by-Lambda-Lists" href="Macro-Lambda-Lists.html#Destructuring-by-Lambda-Lists">3.4.4.1 Destructuring by Lambda Lists</a></li>
+        <li><a id="toc-3_002e4_002e4_002e1_002e1-Data_002ddirected-Destructuring-by-Lambda-Lists" href="Macro-Lambda-Lists.html#g_t3_002e4_002e4_002e1_002e1-Data_002ddirected-Destructuring-by-Lambda-Lists">3.4.4.1.1 Data-directed Destructuring by Lambda Lists</a></li>
+        <li><a id="toc-3_002e4_002e4_002e1_002e1_002e1-Examples-of-Data_002ddirected-Destructuring-by-Lambda-Lists" href="Macro-Lambda-Lists.html#g_t3_002e4_002e4_002e1_002e1_002e1-Examples-of-Data_002ddirected-Destructuring-by-Lambda-Lists">3.4.4.1.1.1 Examples of Data-directed Destructuring by Lambda Lists</a></li>
+        <li><a id="toc-3_002e4_002e4_002e1_002e2-Lambda_002dlist_002ddirected-Destructuring-by-Lambda-Lists" href="Macro-Lambda-Lists.html#g_t3_002e4_002e4_002e1_002e2-Lambda_002dlist_002ddirected-Destructuring-by-Lambda-Lists">3.4.4.1.2 Lambda-list-directed Destructuring by Lambda Lists</a></li>
+      </ul></li>
+      <li><a id="toc-Destructuring-Lambda-Lists-1" href="Destructuring-Lambda-Lists.html#Destructuring-Lambda-Lists">3.4.5 Destructuring Lambda Lists</a></li>
+      <li><a id="toc-Boa-Lambda-Lists-1" href="Boa-Lambda-Lists.html#Boa-Lambda-Lists">3.4.6 Boa Lambda Lists</a></li>
+      <li><a id="toc-Defsetf-Lambda-Lists-1" href="Defsetf-Lambda-Lists.html#Defsetf-Lambda-Lists">3.4.7 Defsetf Lambda Lists</a></li>
+      <li><a id="toc-Deftype-Lambda-Lists-1" href="Deftype-Lambda-Lists.html#Deftype-Lambda-Lists">3.4.8 Deftype Lambda Lists</a></li>
+      <li><a id="toc-Define_002dmodify_002dmacro-Lambda-Lists-1" href="Define_002dmodify_002dmacro-Lambda-Lists.html#Define_002dmodify_002dmacro-Lambda-Lists">3.4.9 Define-modify-macro Lambda Lists</a></li>
+      <li><a id="toc-Define_002dmethod_002dcombination-Arguments-Lambda-Lists-1" href="Define_002dmethod_002dcombination-Arguments-Lambda-Lists.html#Define_002dmethod_002dcombination-Arguments-Lambda-Lists">3.4.10 Define-method-combination Arguments Lambda Lists</a></li>
+      <li><a id="toc-Syntactic-Interaction-of-Documentation-Strings-and-Declarations-1" href="Syntactic-Interaction-of-Documentation-Strings-and-Declarations.html#Syntactic-Interaction-of-Documentation-Strings-and-Declarations">3.4.11 Syntactic Interaction of Documentation Strings and Declarations</a></li>
+    </ul></li>
+    <li><a id="toc-Error-Checking-in-Function-Calls-1" href="Error-Checking-in-Function-Calls.html#Error-Checking-in-Function-Calls">3.5 Error Checking in Function Calls</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Argument-Mismatch-Detection-1" href="Argument-Mismatch-Detection.html#Argument-Mismatch-Detection">3.5.1 Argument Mismatch Detection</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Safe-and-Unsafe-Calls" href="Argument-Mismatch-Detection.html#Safe-and-Unsafe-Calls">3.5.1.1 Safe and Unsafe Calls</a></li>
+        <li><a id="toc-3_002e5_002e1_002e1_002e1-Error-Detection-Time-in-Safe-Calls" href="Argument-Mismatch-Detection.html#g_t3_002e5_002e1_002e1_002e1-Error-Detection-Time-in-Safe-Calls">3.5.1.1.1 Error Detection Time in Safe Calls</a></li>
+        <li><a id="toc-Too-Few-Arguments" href="Argument-Mismatch-Detection.html#Too-Few-Arguments">3.5.1.2 Too Few Arguments</a></li>
+        <li><a id="toc-Too-Many-Arguments" href="Argument-Mismatch-Detection.html#Too-Many-Arguments">3.5.1.3 Too Many Arguments</a></li>
+        <li><a id="toc-Unrecognized-Keyword-Arguments" href="Argument-Mismatch-Detection.html#Unrecognized-Keyword-Arguments">3.5.1.4 Unrecognized Keyword Arguments</a></li>
+        <li><a id="toc-Invalid-Keyword-Arguments" href="Argument-Mismatch-Detection.html#Invalid-Keyword-Arguments">3.5.1.5 Invalid Keyword Arguments</a></li>
+        <li><a id="toc-Odd-Number-of-Keyword-Arguments" href="Argument-Mismatch-Detection.html#Odd-Number-of-Keyword-Arguments">3.5.1.6 Odd Number of Keyword Arguments</a></li>
+        <li><a id="toc-Destructuring-Mismatch" href="Argument-Mismatch-Detection.html#Destructuring-Mismatch">3.5.1.7 Destructuring Mismatch</a></li>
+        <li><a id="toc-Errors-When-Calling-a-Next-Method" href="Argument-Mismatch-Detection.html#Errors-When-Calling-a-Next-Method">3.5.1.8 Errors When Calling a Next Method</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Traversal-Rules-and-Side-Effects-1" href="Traversal-Rules-and-Side-Effects.html#Traversal-Rules-and-Side-Effects">3.6 Traversal Rules and Side Effects</a></li>
+    <li><a id="toc-Destructive-Operations-1" href="Destructive-Operations.html#Destructive-Operations">3.7 Destructive Operations</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Modification-of-Literal-Objects-1" href="Modification-of-Literal-Objects.html#Modification-of-Literal-Objects">3.7.1 Modification of Literal Objects</a></li>
+      <li><a id="toc-Transfer-of-Control-during-a-Destructive-Operation-1" href="Transfer-of-Control-during-a-Destructive-Operation.html#Transfer-of-Control-during-a-Destructive-Operation">3.7.2 Transfer of Control during a Destructive Operation</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Transfer-of-Control-during-a-Destructive-Operation" href="Transfer-of-Control-during-a-Destructive-Operation.html#Examples-of-Transfer-of-Control-during-a-Destructive-Operation">3.7.2.1 Examples of Transfer of Control during a Destructive Operation</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Types-and-Classes-1" href="Types-and-Classes.html#Types-and-Classes">4 Types and Classes</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Introduction-to-Types-and-Classes-1" href="Introduction-to-Types-and-Classes.html#Introduction-to-Types-and-Classes">4.1 Introduction to Types and Classes</a></li>
+    <li><a id="toc-Types-1" href="Types.html#Types">4.2 Types</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Data-Type-Definition-1" href="Data-Type-Definition.html#Data-Type-Definition">4.2.1 Data Type Definition</a></li>
+      <li><a id="toc-Type-Relationships-1" href="Type-Relationships.html#Type-Relationships">4.2.2 Type Relationships</a></li>
+      <li><a id="toc-Type-Specifiers-1" href="Type-Specifiers.html#Type-Specifiers">4.2.3 Type Specifiers</a></li>
+    </ul></li>
+    <li><a id="toc-Classes-1" href="Classes.html#Classes">4.3 Classes</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Introduction-to-Classes-1" href="Introduction-to-Classes.html#Introduction-to-Classes">4.3.1 Introduction to Classes</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Standard-Metaclasses" href="Introduction-to-Classes.html#Standard-Metaclasses">4.3.1.1 Standard Metaclasses</a></li>
+      </ul></li>
+      <li><a id="toc-Defining-Classes-1" href="Defining-Classes.html#Defining-Classes">4.3.2 Defining Classes</a></li>
+      <li><a id="toc-Creating-Instances-of-Classes-1" href="Creating-Instances-of-Classes.html#Creating-Instances-of-Classes">4.3.3 Creating Instances of Classes</a></li>
+      <li><a id="toc-Inheritance-1" href="Inheritance.html#Inheritance">4.3.4 Inheritance</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Inheritance" href="Inheritance.html#Examples-of-Inheritance">4.3.4.1 Examples of Inheritance</a></li>
+        <li><a id="toc-Inheritance-of-Class-Options" href="Inheritance.html#Inheritance-of-Class-Options">4.3.4.2 Inheritance of Class Options</a></li>
+      </ul></li>
+      <li><a id="toc-Determining-the-Class-Precedence-List-1" href="Determining-the-Class-Precedence-List.html#Determining-the-Class-Precedence-List">4.3.5 Determining the Class Precedence List</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Topological-Sorting" href="Determining-the-Class-Precedence-List.html#Topological-Sorting">4.3.5.1 Topological Sorting</a></li>
+        <li><a id="toc-Examples-of-Class-Precedence-List-Determination" href="Determining-the-Class-Precedence-List.html#Examples-of-Class-Precedence-List-Determination">4.3.5.2 Examples of Class Precedence List Determination</a></li>
+      </ul></li>
+      <li><a id="toc-Redefining-Classes-1" href="Redefining-Classes.html#Redefining-Classes">4.3.6 Redefining Classes</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Modifying-the-Structure-of-Instances" href="Redefining-Classes.html#Modifying-the-Structure-of-Instances">4.3.6.1 Modifying the Structure of Instances</a></li>
+        <li><a id="toc-Initializing-Newly-Added-Local-Slots-1" href="Redefining-Classes.html#Initializing-Newly-Added-Local-Slots-1">4.3.6.2 Initializing Newly Added Local Slots</a></li>
+        <li><a id="toc-Customizing-Class-Redefinition" href="Redefining-Classes.html#Customizing-Class-Redefinition">4.3.6.3 Customizing Class Redefinition</a></li>
+      </ul></li>
+      <li><a id="toc-Integrating-Types-and-Classes-1" href="Integrating-Types-and-Classes.html#Integrating-Types-and-Classes">4.3.7 Integrating Types and Classes</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Data-and-Control-Flow-1" href="Data-and-Control-Flow.html#Data-and-Control-Flow">5 Data and Control Flow</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Generalized-Reference-1" href="Generalized-Reference.html#Generalized-Reference">5.1 Generalized Reference</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-of-Places-and-Generalized-Reference-1" href="Overview-of-Places-and-Generalized-Reference.html#Overview-of-Places-and-Generalized-Reference">5.1.1 Overview of Places and Generalized Reference</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Evaluation-of-Subforms-to-Places" href="Overview-of-Places-and-Generalized-Reference.html#Evaluation-of-Subforms-to-Places">5.1.1.1 Evaluation of Subforms to Places</a></li>
+        <li><a id="toc-5_002e1_002e1_002e1_002e1-Examples-of-Evaluation-of-Subforms-to-Places" href="Overview-of-Places-and-Generalized-Reference.html#g_t5_002e1_002e1_002e1_002e1-Examples-of-Evaluation-of-Subforms-to-Places">5.1.1.1.1 Examples of Evaluation of Subforms to Places</a></li>
+        <li><a id="toc-Setf-Expansions" href="Overview-of-Places-and-Generalized-Reference.html#Setf-Expansions">5.1.1.2 Setf Expansions</a></li>
+        <li><a id="toc-5_002e1_002e1_002e2_002e1-Examples-of-Setf-Expansions" href="Overview-of-Places-and-Generalized-Reference.html#g_t5_002e1_002e1_002e2_002e1-Examples-of-Setf-Expansions">5.1.1.2.1 Examples of Setf Expansions</a></li>
+      </ul></li>
+      <li><a id="toc-Kinds-of-Places-1" href="Kinds-of-Places.html#Kinds-of-Places">5.1.2 Kinds of Places</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Variable-Names-as-Places" href="Kinds-of-Places.html#Variable-Names-as-Places">5.1.2.1 Variable Names as Places</a></li>
+        <li><a id="toc-Function-Call-Forms-as-Places" href="Kinds-of-Places.html#Function-Call-Forms-as-Places">5.1.2.2 Function Call Forms as Places</a></li>
+        <li><a id="toc-VALUES-Forms-as-Places" href="Kinds-of-Places.html#VALUES-Forms-as-Places">5.1.2.3 VALUES Forms as Places</a></li>
+        <li><a id="toc-THE-Forms-as-Places" href="Kinds-of-Places.html#THE-Forms-as-Places">5.1.2.4 THE Forms as Places</a></li>
+        <li><a id="toc-APPLY-Forms-as-Places" href="Kinds-of-Places.html#APPLY-Forms-as-Places">5.1.2.5 APPLY Forms as Places</a></li>
+        <li><a id="toc-Setf-Expansions-and-Places" href="Kinds-of-Places.html#Setf-Expansions-and-Places">5.1.2.6 Setf Expansions and Places</a></li>
+        <li><a id="toc-Macro-Forms-as-Places" href="Kinds-of-Places.html#Macro-Forms-as-Places">5.1.2.7 Macro Forms as Places</a></li>
+        <li><a id="toc-Symbol-Macros-as-Places" href="Kinds-of-Places.html#Symbol-Macros-as-Places">5.1.2.8 Symbol Macros as Places</a></li>
+        <li><a id="toc-Other-Compound-Forms-as-Places" href="Kinds-of-Places.html#Other-Compound-Forms-as-Places">5.1.2.9 Other Compound Forms as Places</a></li>
+      </ul></li>
+      <li><a id="toc-Treatment-of-Other-Macros-Based-on-SETF-1" href="Treatment-of-Other-Macros-Based-on-SETF.html#Treatment-of-Other-Macros-Based-on-SETF">5.1.3 Treatment of Other Macros Based on SETF</a></li>
+    </ul></li>
+    <li><a id="toc-Transfer-of-Control-to-an-Exit-Point-1" href="Transfer-of-Control-to-an-Exit-Point.html#Transfer-of-Control-to-an-Exit-Point">5.2 Transfer of Control to an Exit Point</a></li>
+  </ul></li>
+  <li><a id="toc-Iteration-1" href="Iteration.html#Iteration">6 Iteration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-The-LOOP-Facility-1" href="The-LOOP-Facility.html#The-LOOP-Facility">6.1 The LOOP Facility</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-of-the-Loop-Facility-1" href="Overview-of-the-Loop-Facility.html#Overview-of-the-Loop-Facility">6.1.1 Overview of the Loop Facility</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Simple-vs-Extended-Loop" href="Overview-of-the-Loop-Facility.html#Simple-vs-Extended-Loop">6.1.1.1 Simple vs Extended Loop</a></li>
+        <li><a id="toc-6_002e1_002e1_002e1_002e1-Simple-Loop" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e1_002e1-Simple-Loop">6.1.1.1.1 Simple Loop</a></li>
+        <li><a id="toc-6_002e1_002e1_002e1_002e2-Extended-Loop" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e1_002e2-Extended-Loop">6.1.1.1.2 Extended Loop</a></li>
+        <li><a id="toc-Loop-Keywords" href="Overview-of-the-Loop-Facility.html#Loop-Keywords">6.1.1.2 Loop Keywords</a></li>
+        <li><a id="toc-Parsing-Loop-Clauses" href="Overview-of-the-Loop-Facility.html#Parsing-Loop-Clauses">6.1.1.3 Parsing Loop Clauses</a></li>
+        <li><a id="toc-Expanding-Loop-Forms" href="Overview-of-the-Loop-Facility.html#Expanding-Loop-Forms">6.1.1.4 Expanding Loop Forms</a></li>
+        <li><a id="toc-Summary-of-Loop-Clauses" href="Overview-of-the-Loop-Facility.html#Summary-of-Loop-Clauses">6.1.1.5 Summary of Loop Clauses</a></li>
+        <li><a id="toc-6_002e1_002e1_002e5_002e1-Summary-of-Variable-Initialization-and-Stepping-Clauses" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e5_002e1-Summary-of-Variable-Initialization-and-Stepping-Clauses">6.1.1.5.1 Summary of Variable Initialization and Stepping Clauses</a></li>
+        <li><a id="toc-6_002e1_002e1_002e5_002e2-Summary-of-Value-Accumulation-Clauses" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e5_002e2-Summary-of-Value-Accumulation-Clauses">6.1.1.5.2 Summary of Value Accumulation Clauses</a></li>
+        <li><a id="toc-6_002e1_002e1_002e5_002e3-Summary-of-Termination-Test-Clauses" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e5_002e3-Summary-of-Termination-Test-Clauses">6.1.1.5.3 Summary of Termination Test Clauses</a></li>
+        <li><a id="toc-6_002e1_002e1_002e5_002e4-Summary-of-Unconditional-Execution-Clauses" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e5_002e4-Summary-of-Unconditional-Execution-Clauses">6.1.1.5.4 Summary of Unconditional Execution Clauses</a></li>
+        <li><a id="toc-6_002e1_002e1_002e5_002e5-Summary-of-Conditional-Execution-Clauses" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e5_002e5-Summary-of-Conditional-Execution-Clauses">6.1.1.5.5 Summary of Conditional Execution Clauses</a></li>
+        <li><a id="toc-6_002e1_002e1_002e5_002e6-Summary-of-Miscellaneous-Clauses" href="Overview-of-the-Loop-Facility.html#g_t6_002e1_002e1_002e5_002e6-Summary-of-Miscellaneous-Clauses">6.1.1.5.6 Summary of Miscellaneous Clauses</a></li>
+        <li><a id="toc-Order-of-Execution" href="Overview-of-the-Loop-Facility.html#Order-of-Execution">6.1.1.6 Order of Execution</a></li>
+        <li><a id="toc-Destructuring" href="Overview-of-the-Loop-Facility.html#Destructuring">6.1.1.7 Destructuring</a></li>
+        <li><a id="toc-Restrictions-on-Side_002dEffects" href="Overview-of-the-Loop-Facility.html#Restrictions-on-Side_002dEffects">6.1.1.8 Restrictions on Side-Effects</a></li>
+      </ul></li>
+      <li><a id="toc-Variable-Initialization-and-Stepping-Clauses-1" href="Variable-Initialization-and-Stepping-Clauses.html#Variable-Initialization-and-Stepping-Clauses">6.1.2 Variable Initialization and Stepping Clauses</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Iteration-Control" href="Variable-Initialization-and-Stepping-Clauses.html#Iteration-Control">6.1.2.1 Iteration Control</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e1-The-for_002das_002darithmetic-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e1-The-for_002das_002darithmetic-subclause">6.1.2.1.1 The for-as-arithmetic subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e1_002e1-Examples-of-for_002das_002darithmetic-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e1_002e1-Examples-of-for_002das_002darithmetic-subclause">6.1.2.1.1.1 Examples of for-as-arithmetic subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e2-The-for_002das_002din_002dlist-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e2-The-for_002das_002din_002dlist-subclause">6.1.2.1.2 The for-as-in-list subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e2_002e1-Examples-of-for_002das_002din_002dlist-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e2_002e1-Examples-of-for_002das_002din_002dlist-subclause">6.1.2.1.2.1 Examples of for-as-in-list subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e3-The-for_002das_002don_002dlist-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e3-The-for_002das_002don_002dlist-subclause">6.1.2.1.3 The for-as-on-list subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e3_002e1-Examples-of-for_002das_002don_002dlist-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e3_002e1-Examples-of-for_002das_002don_002dlist-subclause">6.1.2.1.3.1 Examples of for-as-on-list subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e4-The-for_002das_002dequals_002dthen-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e4-The-for_002das_002dequals_002dthen-subclause">6.1.2.1.4 The for-as-equals-then subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e4_002e1-Examples-of-for_002das_002dequals_002dthen-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e4_002e1-Examples-of-for_002das_002dequals_002dthen-subclause">6.1.2.1.4.1 Examples of for-as-equals-then subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e5-The-for_002das_002dacross-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e5-The-for_002das_002dacross-subclause">6.1.2.1.5 The for-as-across subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e5_002e1-Examples-of-for_002das_002dacross-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e5_002e1-Examples-of-for_002das_002dacross-subclause">6.1.2.1.5.1 Examples of for-as-across subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e6-The-for_002das_002dhash-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e6-The-for_002das_002dhash-subclause">6.1.2.1.6 The for-as-hash subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e7-The-for_002das_002dpackage-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e7-The-for_002das_002dpackage-subclause">6.1.2.1.7 The for-as-package subclause</a></li>
+        <li><a id="toc-6_002e1_002e2_002e1_002e7_002e1-Examples-of-for_002das_002dpackage-subclause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e1_002e7_002e1-Examples-of-for_002das_002dpackage-subclause">6.1.2.1.7.1 Examples of for-as-package subclause</a></li>
+        <li><a id="toc-Local-Variable-Initializations" href="Variable-Initialization-and-Stepping-Clauses.html#Local-Variable-Initializations">6.1.2.2 Local Variable Initializations</a></li>
+        <li><a id="toc-6_002e1_002e2_002e2_002e1-Examples-of-WITH-clause" href="Variable-Initialization-and-Stepping-Clauses.html#g_t6_002e1_002e2_002e2_002e1-Examples-of-WITH-clause">6.1.2.2.1 Examples of WITH clause</a></li>
+      </ul></li>
+      <li><a id="toc-Value-Accumulation-Clauses-1" href="Value-Accumulation-Clauses.html#Value-Accumulation-Clauses">6.1.3 Value Accumulation Clauses</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-COLLECT-clause" href="Value-Accumulation-Clauses.html#Examples-of-COLLECT-clause">6.1.3.1 Examples of COLLECT clause</a></li>
+        <li><a id="toc-Examples-of-APPEND-and-NCONC-clauses" href="Value-Accumulation-Clauses.html#Examples-of-APPEND-and-NCONC-clauses">6.1.3.2 Examples of APPEND and NCONC clauses</a></li>
+        <li><a id="toc-Examples-of-COUNT-clause" href="Value-Accumulation-Clauses.html#Examples-of-COUNT-clause">6.1.3.3 Examples of COUNT clause</a></li>
+        <li><a id="toc-Examples-of-MAXIMIZE-and-MINIMIZE-clauses" href="Value-Accumulation-Clauses.html#Examples-of-MAXIMIZE-and-MINIMIZE-clauses">6.1.3.4 Examples of MAXIMIZE and MINIMIZE clauses</a></li>
+        <li><a id="toc-Examples-of-SUM-clause" href="Value-Accumulation-Clauses.html#Examples-of-SUM-clause">6.1.3.5 Examples of SUM clause</a></li>
+      </ul></li>
+      <li><a id="toc-Termination-Test-Clauses-1" href="Termination-Test-Clauses.html#Termination-Test-Clauses">6.1.4 Termination Test Clauses</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-REPEAT-clause" href="Termination-Test-Clauses.html#Examples-of-REPEAT-clause">6.1.4.1 Examples of REPEAT clause</a></li>
+        <li><a id="toc-Examples-of-ALWAYS_002c-NEVER_002c-and-THEREIS-clauses" href="Termination-Test-Clauses.html#Examples-of-ALWAYS_002c-NEVER_002c-and-THEREIS-clauses">6.1.4.2 Examples of ALWAYS, NEVER, and THEREIS clauses</a></li>
+        <li><a id="toc-Examples-of-WHILE-and-UNTIL-clauses" href="Termination-Test-Clauses.html#Examples-of-WHILE-and-UNTIL-clauses">6.1.4.3 Examples of WHILE and UNTIL clauses</a></li>
+      </ul></li>
+      <li><a id="toc-Unconditional-Execution-Clauses-1" href="Unconditional-Execution-Clauses.html#Unconditional-Execution-Clauses">6.1.5 Unconditional Execution Clauses</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-unconditional-execution" href="Unconditional-Execution-Clauses.html#Examples-of-unconditional-execution">6.1.5.1 Examples of unconditional execution</a></li>
+      </ul></li>
+      <li><a id="toc-Conditional-Execution-Clauses-1" href="Conditional-Execution-Clauses.html#Conditional-Execution-Clauses">6.1.6 Conditional Execution Clauses</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-WHEN-clause" href="Conditional-Execution-Clauses.html#Examples-of-WHEN-clause">6.1.6.1 Examples of WHEN clause</a></li>
+      </ul></li>
+      <li><a id="toc-Miscellaneous-Clauses-1" href="Miscellaneous-Clauses.html#Miscellaneous-Clauses">6.1.7 Miscellaneous Clauses</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Control-Transfer-Clauses" href="Miscellaneous-Clauses.html#Control-Transfer-Clauses">6.1.7.1 Control Transfer Clauses</a></li>
+        <li><a id="toc-6_002e1_002e7_002e1_002e1-Examples-of-NAMED-clause" href="Miscellaneous-Clauses.html#g_t6_002e1_002e7_002e1_002e1-Examples-of-NAMED-clause">6.1.7.1.1 Examples of NAMED clause</a></li>
+        <li><a id="toc-Initial-and-Final-Execution" href="Miscellaneous-Clauses.html#Initial-and-Final-Execution">6.1.7.2 Initial and Final Execution</a></li>
+      </ul></li>
+      <li><a id="toc-Examples-of-Miscellaneous-Loop-Features-1" href="Examples-of-Miscellaneous-Loop-Features.html#Examples-of-Miscellaneous-Loop-Features">6.1.8 Examples of Miscellaneous Loop Features</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-clause-grouping" href="Examples-of-Miscellaneous-Loop-Features.html#Examples-of-clause-grouping">6.1.8.1 Examples of clause grouping</a></li>
+      </ul></li>
+      <li><a id="toc-Notes-about-Loop-1" href="Notes-about-Loop.html#Notes-about-Loop">6.1.9 Notes about Loop</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Objects-1" href="Objects.html#Objects">7 Objects</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Object-Creation-and-Initialization-1" href="Object-Creation-and-Initialization.html#Object-Creation-and-Initialization">7.1 Object Creation and Initialization</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Initialization-Arguments-1" href="Initialization-Arguments.html#Initialization-Arguments">7.1.1 Initialization Arguments</a></li>
+      <li><a id="toc-Declaring-the-Validity-of-Initialization-Arguments-1" href="Declaring-the-Validity-of-Initialization-Arguments.html#Declaring-the-Validity-of-Initialization-Arguments">7.1.2 Declaring the Validity of Initialization Arguments</a></li>
+      <li><a id="toc-Defaulting-of-Initialization-Arguments-1" href="Defaulting-of-Initialization-Arguments.html#Defaulting-of-Initialization-Arguments">7.1.3 Defaulting of Initialization Arguments</a></li>
+      <li><a id="toc-Rules-for-Initialization-Arguments-1" href="Rules-for-Initialization-Arguments.html#Rules-for-Initialization-Arguments">7.1.4 Rules for Initialization Arguments</a></li>
+      <li><a id="toc-Shared_002dInitialize-1" href="Shared_002dInitialize.html#Shared_002dInitialize">7.1.5 Shared-Initialize</a></li>
+      <li><a id="toc-Initialize_002dInstance-1" href="Initialize_002dInstance.html#Initialize_002dInstance">7.1.6 Initialize-Instance</a></li>
+      <li><a id="toc-Definitions-of-Make_002dInstance-and-Initialize_002dInstance-1" href="Definitions-of-Make_002dInstance-and-Initialize_002dInstance.html#Definitions-of-Make_002dInstance-and-Initialize_002dInstance">7.1.7 Definitions of Make-Instance and Initialize-Instance</a></li>
+    </ul></li>
+    <li><a id="toc-Changing-the-Class-of-an-Instance-1" href="Changing-the-Class-of-an-Instance.html#Changing-the-Class-of-an-Instance">7.2 Changing the Class of an Instance</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Modifying-the-Structure-of-the-Instance-1" href="Modifying-the-Structure-of-the-Instance.html#Modifying-the-Structure-of-the-Instance">7.2.1 Modifying the Structure of the Instance</a></li>
+      <li><a id="toc-Initializing-Newly-Added-Local-Slots-2" href="Initializing-Newly-Added-Local-Slots.html#Initializing-Newly-Added-Local-Slots">7.2.2 Initializing Newly Added Local Slots</a></li>
+      <li><a id="toc-Customizing-the-Change-of-Class-of-an-Instance-1" href="Customizing-the-Change-of-Class-of-an-Instance.html#Customizing-the-Change-of-Class-of-an-Instance">7.2.3 Customizing the Change of Class of an Instance</a></li>
+    </ul></li>
+    <li><a id="toc-Reinitializing-an-Instance-1" href="Reinitializing-an-Instance.html#Reinitializing-an-Instance">7.3 Reinitializing an Instance</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Customizing-Reinitialization-1" href="Customizing-Reinitialization.html#Customizing-Reinitialization">7.3.1 Customizing Reinitialization</a></li>
+    </ul></li>
+    <li><a id="toc-Meta_002dObjects-1" href="Meta_002dObjects.html#Meta_002dObjects">7.4 Meta-Objects</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Standard-Meta_002dobjects-1" href="Standard-Meta_002dobjects.html#Standard-Meta_002dobjects">7.4.1 Standard Meta-objects</a></li>
+    </ul></li>
+    <li><a id="toc-Slots-1" href="Slots.html#Slots">7.5 Slots</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Introduction-to-Slots-1" href="Introduction-to-Slots.html#Introduction-to-Slots">7.5.1 Introduction to Slots</a></li>
+      <li><a id="toc-Accessing-Slots-1" href="Accessing-Slots.html#Accessing-Slots">7.5.2 Accessing Slots</a></li>
+      <li><a id="toc-Inheritance-of-Slots-and-Slot-Options-1" href="Inheritance-of-Slots-and-Slot-Options.html#Inheritance-of-Slots-and-Slot-Options">7.5.3 Inheritance of Slots and Slot Options</a></li>
+    </ul></li>
+    <li><a id="toc-Generic-Functions-and-Methods-1" href="Generic-Functions-and-Methods.html#Generic-Functions-and-Methods">7.6 Generic Functions and Methods</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Introduction-to-Generic-Functions-1" href="Introduction-to-Generic-Functions.html#Introduction-to-Generic-Functions">7.6.1 Introduction to Generic Functions</a></li>
+      <li><a id="toc-Introduction-to-Methods-1" href="Introduction-to-Methods.html#Introduction-to-Methods">7.6.2 Introduction to Methods</a></li>
+      <li><a id="toc-Agreement-on-Parameter-Specializers-and-Qualifiers-1" href="Agreement-on-Parameter-Specializers-and-Qualifiers.html#Agreement-on-Parameter-Specializers-and-Qualifiers">7.6.3 Agreement on Parameter Specializers and Qualifiers</a></li>
+      <li><a id="toc-Congruent-Lambda_002dlists-for-all-Methods-of-a-Generic-Function-1" href="Congruent-Lambda_002dlists-for-all-Methods-of-a-Generic-Function.html#Congruent-Lambda_002dlists-for-all-Methods-of-a-Generic-Function">7.6.4 Congruent Lambda-lists for all Methods of a Generic Function</a></li>
+      <li><a id="toc-Keyword-Arguments-in-Generic-Functions-and-Methods-1" href="Keyword-Arguments-in-Generic-Functions-and-Methods.html#Keyword-Arguments-in-Generic-Functions-and-Methods">7.6.5 Keyword Arguments in Generic Functions and Methods</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Keyword-Arguments-in-Generic-Functions-and-Methods" href="Keyword-Arguments-in-Generic-Functions-and-Methods.html#Examples-of-Keyword-Arguments-in-Generic-Functions-and-Methods">7.6.5.1 Examples of Keyword Arguments in Generic Functions and Methods</a></li>
+      </ul></li>
+      <li><a id="toc-Method-Selection-and-Combination-1" href="Method-Selection-and-Combination.html#Method-Selection-and-Combination">7.6.6 Method Selection and Combination</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Determining-the-Effective-Method" href="Method-Selection-and-Combination.html#Determining-the-Effective-Method">7.6.6.1 Determining the Effective Method</a></li>
+        <li><a id="toc-7_002e6_002e6_002e1_002e1-Selecting-the-Applicable-Methods" href="Method-Selection-and-Combination.html#g_t7_002e6_002e6_002e1_002e1-Selecting-the-Applicable-Methods">7.6.6.1.1 Selecting the Applicable Methods</a></li>
+        <li><a id="toc-7_002e6_002e6_002e1_002e2-Sorting-the-Applicable-Methods-by-Precedence-Order" href="Method-Selection-and-Combination.html#g_t7_002e6_002e6_002e1_002e2-Sorting-the-Applicable-Methods-by-Precedence-Order">7.6.6.1.2 Sorting the Applicable Methods by Precedence Order</a></li>
+        <li><a id="toc-7_002e6_002e6_002e1_002e3-Applying-method-combination-to-the-sorted-list-of-applicable-methods" href="Method-Selection-and-Combination.html#g_t7_002e6_002e6_002e1_002e3-Applying-method-combination-to-the-sorted-list-of-applicable-methods">7.6.6.1.3 Applying method combination to the sorted list of applicable methods</a></li>
+        <li><a id="toc-Standard-Method-Combination" href="Method-Selection-and-Combination.html#Standard-Method-Combination">7.6.6.2 Standard Method Combination</a></li>
+        <li><a id="toc-Declarative-Method-Combination" href="Method-Selection-and-Combination.html#Declarative-Method-Combination">7.6.6.3 Declarative Method Combination</a></li>
+        <li><a id="toc-Built_002din-Method-Combination-Types" href="Method-Selection-and-Combination.html#Built_002din-Method-Combination-Types">7.6.6.4 Built-in Method Combination Types</a></li>
+      </ul></li>
+      <li><a id="toc-Inheritance-of-Methods-1" href="Inheritance-of-Methods.html#Inheritance-of-Methods">7.6.7 Inheritance of Methods</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Structures-1" href="Structures.html#Structures">8 Structures</a></li>
+  <li><a id="toc-Conditions-1" href="Conditions.html#Conditions">9 Conditions</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Condition-System-Concepts-1" href="Condition-System-Concepts.html#Condition-System-Concepts">9.1 Condition System Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Condition-Types-1" href="Condition-Types.html#Condition-Types">9.1.1 Condition Types</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Serious-Conditions" href="Condition-Types.html#Serious-Conditions">9.1.1.1 Serious Conditions</a></li>
+      </ul></li>
+      <li><a id="toc-Creating-Conditions-1" href="Creating-Conditions.html#Creating-Conditions">9.1.2 Creating Conditions</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Condition-Designators" href="Creating-Conditions.html#Condition-Designators">9.1.2.1 Condition Designators</a></li>
+      </ul></li>
+      <li><a id="toc-Printing-Conditions-1" href="Printing-Conditions.html#Printing-Conditions">9.1.3 Printing Conditions</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Recommended-Style-in-Condition-Reporting" href="Printing-Conditions.html#Recommended-Style-in-Condition-Reporting">9.1.3.1 Recommended Style in Condition Reporting</a></li>
+        <li><a id="toc-9_002e1_002e3_002e1_002e1-Capitalization-and-Punctuation-in-Condition-Reports" href="Printing-Conditions.html#g_t9_002e1_002e3_002e1_002e1-Capitalization-and-Punctuation-in-Condition-Reports">9.1.3.1.1 Capitalization and Punctuation in Condition Reports</a></li>
+        <li><a id="toc-9_002e1_002e3_002e1_002e2-Leading-and-Trailing-Newlines-in-Condition-Reports" href="Printing-Conditions.html#g_t9_002e1_002e3_002e1_002e2-Leading-and-Trailing-Newlines-in-Condition-Reports">9.1.3.1.2 Leading and Trailing Newlines in Condition Reports</a></li>
+        <li><a id="toc-9_002e1_002e3_002e1_002e3-Embedded-Newlines-in-Condition-Reports" href="Printing-Conditions.html#g_t9_002e1_002e3_002e1_002e3-Embedded-Newlines-in-Condition-Reports">9.1.3.1.3 Embedded Newlines in Condition Reports</a></li>
+        <li><a id="toc-9_002e1_002e3_002e1_002e4-Note-about-Tabs-in-Condition-Reports" href="Printing-Conditions.html#g_t9_002e1_002e3_002e1_002e4-Note-about-Tabs-in-Condition-Reports">9.1.3.1.4 Note about Tabs in Condition Reports</a></li>
+        <li><a id="toc-9_002e1_002e3_002e1_002e5-Mentioning-Containing-Function-in-Condition-Reports" href="Printing-Conditions.html#g_t9_002e1_002e3_002e1_002e5-Mentioning-Containing-Function-in-Condition-Reports">9.1.3.1.5 Mentioning Containing Function in Condition Reports</a></li>
+      </ul></li>
+      <li><a id="toc-Signaling-and-Handling-Conditions-1" href="Signaling-and-Handling-Conditions.html#Signaling-and-Handling-Conditions">9.1.4 Signaling and Handling Conditions</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Signaling-1" href="Signaling-and-Handling-Conditions.html#Signaling-1">9.1.4.1 Signaling</a></li>
+        <li><a id="toc-9_002e1_002e4_002e1_002e1-Resignaling-a-Condition" href="Signaling-and-Handling-Conditions.html#g_t9_002e1_002e4_002e1_002e1-Resignaling-a-Condition">9.1.4.1.1 Resignaling a Condition</a></li>
+        <li><a id="toc-Restarts-1" href="Signaling-and-Handling-Conditions.html#Restarts-1">9.1.4.2 Restarts</a></li>
+        <li><a id="toc-9_002e1_002e4_002e2_002e1-Interactive-Use-of-Restarts" href="Signaling-and-Handling-Conditions.html#g_t9_002e1_002e4_002e2_002e1-Interactive-Use-of-Restarts">9.1.4.2.1 Interactive Use of Restarts</a></li>
+        <li><a id="toc-9_002e1_002e4_002e2_002e2-Interfaces-to-Restarts" href="Signaling-and-Handling-Conditions.html#g_t9_002e1_002e4_002e2_002e2-Interfaces-to-Restarts">9.1.4.2.2 Interfaces to Restarts</a></li>
+        <li><a id="toc-9_002e1_002e4_002e2_002e3-Restart-Tests" href="Signaling-and-Handling-Conditions.html#g_t9_002e1_002e4_002e2_002e3-Restart-Tests">9.1.4.2.3 Restart Tests</a></li>
+        <li><a id="toc-9_002e1_002e4_002e2_002e4-Associating-a-Restart-with-a-Condition" href="Signaling-and-Handling-Conditions.html#g_t9_002e1_002e4_002e2_002e4-Associating-a-Restart-with-a-Condition">9.1.4.2.4 Associating a Restart with a Condition</a></li>
+      </ul></li>
+      <li><a id="toc-Assertions-1" href="Assertions.html#Assertions">9.1.5 Assertions</a></li>
+      <li><a id="toc-Notes-about-the-Condition-System_0027s-Background-1" href="Notes-about-the-Condition-System_0027s-Background.html#Notes-about-the-Condition-System_0027s-Background">9.1.6 Notes about the Condition System&rsquo;s Background</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Symbols-1" href="Symbols.html#Symbols">10 Symbols</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Symbol-Concepts-1" href="Symbol-Concepts.html#Symbol-Concepts">10.1 Symbol Concepts</a></li>
+  </ul></li>
+  <li><a id="toc-Packages-1" href="Packages.html#Packages">11 Packages</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Package-Concepts-1" href="Package-Concepts.html#Package-Concepts">11.1 Package Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Introduction-to-Packages-1" href="Introduction-to-Packages.html#Introduction-to-Packages">11.1.1 Introduction to Packages</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Package-Names-and-Nicknames" href="Introduction-to-Packages.html#Package-Names-and-Nicknames">11.1.1.1 Package Names and Nicknames</a></li>
+        <li><a id="toc-Symbols-in-a-Package" href="Introduction-to-Packages.html#Symbols-in-a-Package">11.1.1.2 Symbols in a Package</a></li>
+        <li><a id="toc-11_002e1_002e1_002e2_002e1-Internal-and-External-Symbols" href="Introduction-to-Packages.html#g_t11_002e1_002e1_002e2_002e1-Internal-and-External-Symbols">11.1.1.2.1 Internal and External Symbols</a></li>
+        <li><a id="toc-11_002e1_002e1_002e2_002e2-Package-Inheritance" href="Introduction-to-Packages.html#g_t11_002e1_002e1_002e2_002e2-Package-Inheritance">11.1.1.2.2 Package Inheritance</a></li>
+        <li><a id="toc-11_002e1_002e1_002e2_002e3-Accessibility-of-Symbols-in-a-Package" href="Introduction-to-Packages.html#g_t11_002e1_002e1_002e2_002e3-Accessibility-of-Symbols-in-a-Package">11.1.1.2.3 Accessibility of Symbols in a Package</a></li>
+        <li><a id="toc-11_002e1_002e1_002e2_002e4-Locating-a-Symbol-in-a-Package" href="Introduction-to-Packages.html#g_t11_002e1_002e1_002e2_002e4-Locating-a-Symbol-in-a-Package">11.1.1.2.4 Locating a Symbol in a Package</a></li>
+        <li><a id="toc-11_002e1_002e1_002e2_002e5-Prevention-of-Name-Conflicts-in-Packages" href="Introduction-to-Packages.html#g_t11_002e1_002e1_002e2_002e5-Prevention-of-Name-Conflicts-in-Packages">11.1.1.2.5 Prevention of Name Conflicts in Packages</a></li>
+      </ul></li>
+      <li><a id="toc-Standardized-Packages-1" href="Standardized-Packages.html#Standardized-Packages">11.1.2 Standardized Packages</a>
+      <ul class="no-bullet">
+        <li><a id="toc-The-COMMON_002dLISP-Package" href="Standardized-Packages.html#The-COMMON_002dLISP-Package">11.1.2.1 The COMMON-LISP Package</a></li>
+        <li><a id="toc-11_002e1_002e2_002e1_002e1-Constraints-on-the-COMMON_002dLISP-Package-for-Conforming-Implementations" href="Standardized-Packages.html#g_t11_002e1_002e2_002e1_002e1-Constraints-on-the-COMMON_002dLISP-Package-for-Conforming-Implementations">11.1.2.1.1 Constraints on the COMMON-LISP Package for Conforming Implementations</a></li>
+        <li><a id="toc-11_002e1_002e2_002e1_002e2-Constraints-on-the-COMMON_002dLISP-Package-for-Conforming-Programs" href="Standardized-Packages.html#g_t11_002e1_002e2_002e1_002e2-Constraints-on-the-COMMON_002dLISP-Package-for-Conforming-Programs">11.1.2.1.2 Constraints on the COMMON-LISP Package for Conforming Programs</a></li>
+        <li><a id="toc-11_002e1_002e2_002e1_002e2_002e1-Some-Exceptions-to-Constraints-on-the-COMMON_002dLISP-Package-for-Conforming-Programs" href="Standardized-Packages.html#g_t11_002e1_002e2_002e1_002e2_002e1-Some-Exceptions-to-Constraints-on-the-COMMON_002dLISP-Package-for-Conforming-Programs">11.1.2.1.2.1 Some Exceptions to Constraints on the COMMON-LISP Package for Conforming Programs</a></li>
+        <li><a id="toc-The-COMMON_002dLISP_002dUSER-Package" href="Standardized-Packages.html#The-COMMON_002dLISP_002dUSER-Package">11.1.2.2 The COMMON-LISP-USER Package</a></li>
+        <li><a id="toc-The-KEYWORD-Package" href="Standardized-Packages.html#The-KEYWORD-Package">11.1.2.3 The KEYWORD Package</a></li>
+        <li><a id="toc-11_002e1_002e2_002e3_002e1-Interning-a-Symbol-in-the-KEYWORD-Package" href="Standardized-Packages.html#g_t11_002e1_002e2_002e3_002e1-Interning-a-Symbol-in-the-KEYWORD-Package">11.1.2.3.1 Interning a Symbol in the KEYWORD Package</a></li>
+        <li><a id="toc-11_002e1_002e2_002e3_002e2-Notes-about-The-KEYWORD-Package" href="Standardized-Packages.html#g_t11_002e1_002e2_002e3_002e2-Notes-about-The-KEYWORD-Package">11.1.2.3.2 Notes about The KEYWORD Package</a></li>
+        <li><a id="toc-Implementation_002dDefined-Packages" href="Standardized-Packages.html#Implementation_002dDefined-Packages">11.1.2.4 Implementation-Defined Packages</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Numbers-1" href="Numbers.html#Numbers">12 Numbers</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Number-Concepts-1" href="Number-Concepts.html#Number-Concepts">12.1 Number Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Numeric-Operations-1" href="Numeric-Operations.html#Numeric-Operations">12.1.1 Numeric Operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Associativity-and-Commutativity-in-Numeric-Operations" href="Numeric-Operations.html#Associativity-and-Commutativity-in-Numeric-Operations">12.1.1.1 Associativity and Commutativity in Numeric Operations</a></li>
+        <li><a id="toc-12_002e1_002e1_002e1_002e1-Examples-of-Associativity-and-Commutativity-in-Numeric-Operations" href="Numeric-Operations.html#g_t12_002e1_002e1_002e1_002e1-Examples-of-Associativity-and-Commutativity-in-Numeric-Operations">12.1.1.1.1 Examples of Associativity and Commutativity in Numeric Operations</a></li>
+        <li><a id="toc-Contagion-in-Numeric-Operations" href="Numeric-Operations.html#Contagion-in-Numeric-Operations">12.1.1.2 Contagion in Numeric Operations</a></li>
+        <li><a id="toc-Viewing-Integers-as-Bits-and-Bytes" href="Numeric-Operations.html#Viewing-Integers-as-Bits-and-Bytes">12.1.1.3 Viewing Integers as Bits and Bytes</a></li>
+        <li><a id="toc-12_002e1_002e1_002e3_002e1-Logical-Operations-on-Integers" href="Numeric-Operations.html#g_t12_002e1_002e1_002e3_002e1-Logical-Operations-on-Integers">12.1.1.3.1 Logical Operations on Integers</a></li>
+        <li><a id="toc-12_002e1_002e1_002e3_002e2-Byte-Operations-on-Integers" href="Numeric-Operations.html#g_t12_002e1_002e1_002e3_002e2-Byte-Operations-on-Integers">12.1.1.3.2 Byte Operations on Integers</a></li>
+      </ul></li>
+      <li><a id="toc-Implementation_002dDependent-Numeric-Constants-1" href="Implementation_002dDependent-Numeric-Constants.html#Implementation_002dDependent-Numeric-Constants">12.1.2 Implementation-Dependent Numeric Constants</a></li>
+      <li><a id="toc-Rational-Computations-1" href="Rational-Computations.html#Rational-Computations">12.1.3 Rational Computations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Rule-of-Unbounded-Rational-Precision" href="Rational-Computations.html#Rule-of-Unbounded-Rational-Precision">12.1.3.1 Rule of Unbounded Rational Precision</a></li>
+        <li><a id="toc-Rule-of-Canonical-Representation-for-Rationals" href="Rational-Computations.html#Rule-of-Canonical-Representation-for-Rationals">12.1.3.2 Rule of Canonical Representation for Rationals</a></li>
+        <li><a id="toc-Rule-of-Float-Substitutability" href="Rational-Computations.html#Rule-of-Float-Substitutability">12.1.3.3 Rule of Float Substitutability</a></li>
+      </ul></li>
+      <li><a id="toc-Floating_002dpoint-Computations-1" href="Floating_002dpoint-Computations.html#Floating_002dpoint-Computations">12.1.4 Floating-point Computations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Rule-of-Float-and-Rational-Contagion" href="Floating_002dpoint-Computations.html#Rule-of-Float-and-Rational-Contagion">12.1.4.1 Rule of Float and Rational Contagion</a></li>
+        <li><a id="toc-12_002e1_002e4_002e1_002e1-Examples-of-Rule-of-Float-and-Rational-Contagion" href="Floating_002dpoint-Computations.html#g_t12_002e1_002e4_002e1_002e1-Examples-of-Rule-of-Float-and-Rational-Contagion">12.1.4.1.1 Examples of Rule of Float and Rational Contagion</a></li>
+        <li><a id="toc-Rule-of-Float-Approximation" href="Floating_002dpoint-Computations.html#Rule-of-Float-Approximation">12.1.4.2 Rule of Float Approximation</a></li>
+        <li><a id="toc-Rule-of-Float-Underflow-and-Overflow" href="Floating_002dpoint-Computations.html#Rule-of-Float-Underflow-and-Overflow">12.1.4.3 Rule of Float Underflow and Overflow</a></li>
+        <li><a id="toc-Rule-of-Float-Precision-Contagion" href="Floating_002dpoint-Computations.html#Rule-of-Float-Precision-Contagion">12.1.4.4 Rule of Float Precision Contagion</a></li>
+      </ul></li>
+      <li><a id="toc-Complex-Computations-1" href="Complex-Computations.html#Complex-Computations">12.1.5 Complex Computations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Rule-of-Complex-Substitutability" href="Complex-Computations.html#Rule-of-Complex-Substitutability">12.1.5.1 Rule of Complex Substitutability</a></li>
+        <li><a id="toc-Rule-of-Complex-Contagion" href="Complex-Computations.html#Rule-of-Complex-Contagion">12.1.5.2 Rule of Complex Contagion</a></li>
+        <li><a id="toc-Rule-of-Canonical-Representation-for-Complex-Rationals" href="Complex-Computations.html#Rule-of-Canonical-Representation-for-Complex-Rationals">12.1.5.3 Rule of Canonical Representation for Complex Rationals</a></li>
+        <li><a id="toc-12_002e1_002e5_002e3_002e1-Examples-of-Rule-of-Canonical-Representation-for-Complex-Rationals" href="Complex-Computations.html#g_t12_002e1_002e5_002e3_002e1-Examples-of-Rule-of-Canonical-Representation-for-Complex-Rationals">12.1.5.3.1 Examples of Rule of Canonical Representation for Complex Rationals</a></li>
+        <li><a id="toc-Principal-Values-and-Branch-Cuts" href="Complex-Computations.html#Principal-Values-and-Branch-Cuts">12.1.5.4 Principal Values and Branch Cuts</a></li>
+      </ul></li>
+      <li><a id="toc-Interval-Designators-1" href="Interval-Designators.html#Interval-Designators">12.1.6 Interval Designators</a></li>
+      <li><a id="toc-Random_002dState-Operations-1" href="Random_002dState-Operations.html#Random_002dState-Operations">12.1.7 Random-State Operations</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Characters-1" href="Characters.html#Characters">13 Characters</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Character-Concepts-1" href="Character-Concepts.html#Character-Concepts">13.1 Character Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Introduction-to-Characters-1" href="Introduction-to-Characters.html#Introduction-to-Characters">13.1.1 Introduction to Characters</a></li>
+      <li><a id="toc-Introduction-to-Scripts-and-Repertoires-1" href="Introduction-to-Scripts-and-Repertoires.html#Introduction-to-Scripts-and-Repertoires">13.1.2 Introduction to Scripts and Repertoires</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Character-Scripts" href="Introduction-to-Scripts-and-Repertoires.html#Character-Scripts">13.1.2.1 Character Scripts</a></li>
+        <li><a id="toc-Character-Repertoires" href="Introduction-to-Scripts-and-Repertoires.html#Character-Repertoires">13.1.2.2 Character Repertoires</a></li>
+      </ul></li>
+      <li><a id="toc-Character-Attributes-1" href="Character-Attributes.html#Character-Attributes">13.1.3 Character Attributes</a></li>
+      <li><a id="toc-Character-Categories-1" href="Character-Categories.html#Character-Categories">13.1.4 Character Categories</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Graphic-Characters" href="Character-Categories.html#Graphic-Characters">13.1.4.1 Graphic Characters</a></li>
+        <li><a id="toc-Alphabetic-Characters" href="Character-Categories.html#Alphabetic-Characters">13.1.4.2 Alphabetic Characters</a></li>
+        <li><a id="toc-Characters-With-Case" href="Character-Categories.html#Characters-With-Case">13.1.4.3 Characters With Case</a></li>
+        <li><a id="toc-13_002e1_002e4_002e3_002e1-Uppercase-Characters" href="Character-Categories.html#g_t13_002e1_002e4_002e3_002e1-Uppercase-Characters">13.1.4.3.1 Uppercase Characters</a></li>
+        <li><a id="toc-13_002e1_002e4_002e3_002e2-Lowercase-Characters" href="Character-Categories.html#g_t13_002e1_002e4_002e3_002e2-Lowercase-Characters">13.1.4.3.2 Lowercase Characters</a></li>
+        <li><a id="toc-13_002e1_002e4_002e3_002e3-Corresponding-Characters-in-the-Other-Case" href="Character-Categories.html#g_t13_002e1_002e4_002e3_002e3-Corresponding-Characters-in-the-Other-Case">13.1.4.3.3 Corresponding Characters in the Other Case</a></li>
+        <li><a id="toc-13_002e1_002e4_002e3_002e4-Case-of-Implementation_002dDefined-Characters" href="Character-Categories.html#g_t13_002e1_002e4_002e3_002e4-Case-of-Implementation_002dDefined-Characters">13.1.4.3.4 Case of Implementation-Defined Characters</a></li>
+        <li><a id="toc-Numeric-Characters" href="Character-Categories.html#Numeric-Characters">13.1.4.4 Numeric Characters</a></li>
+        <li><a id="toc-Alphanumeric-Characters" href="Character-Categories.html#Alphanumeric-Characters">13.1.4.5 Alphanumeric Characters</a></li>
+        <li><a id="toc-Digits-in-a-Radix" href="Character-Categories.html#Digits-in-a-Radix">13.1.4.6 Digits in a Radix</a></li>
+      </ul></li>
+      <li><a id="toc-Identity-of-Characters-1" href="Identity-of-Characters.html#Identity-of-Characters">13.1.5 Identity of Characters</a></li>
+      <li><a id="toc-Ordering-of-Characters-1" href="Ordering-of-Characters.html#Ordering-of-Characters">13.1.6 Ordering of Characters</a></li>
+      <li><a id="toc-Character-Names-1" href="Character-Names.html#Character-Names">13.1.7 Character Names</a></li>
+      <li><a id="toc-Treatment-of-Newline-during-Input-and-Output-1" href="Treatment-of-Newline-during-Input-and-Output.html#Treatment-of-Newline-during-Input-and-Output">13.1.8 Treatment of Newline during Input and Output</a></li>
+      <li><a id="toc-Character-Encodings-1" href="Character-Encodings.html#Character-Encodings">13.1.9 Character Encodings</a></li>
+      <li><a id="toc-Documentation-of-Implementation_002dDefined-Scripts-1" href="Documentation-of-Implementation_002dDefined-Scripts.html#Documentation-of-Implementation_002dDefined-Scripts">13.1.10 Documentation of Implementation-Defined Scripts</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Conses-1" href="Conses.html#Conses">14 Conses</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Cons-Concepts-1" href="Cons-Concepts.html#Cons-Concepts">14.1 Cons Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Conses-as-Trees-1" href="Conses-as-Trees.html#Conses-as-Trees">14.1.1 Conses as Trees</a>
+      <ul class="no-bullet">
+        <li><a id="toc-General-Restrictions-on-Parameters-that-must-be-Trees" href="Conses-as-Trees.html#General-Restrictions-on-Parameters-that-must-be-Trees">14.1.1.1 General Restrictions on Parameters that must be Trees</a></li>
+      </ul></li>
+      <li><a id="toc-Conses-as-Lists-1" href="Conses-as-Lists.html#Conses-as-Lists">14.1.2 Conses as Lists</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Lists-as-Association-Lists" href="Conses-as-Lists.html#Lists-as-Association-Lists">14.1.2.1 Lists as Association Lists</a></li>
+        <li><a id="toc-Lists-as-Sets" href="Conses-as-Lists.html#Lists-as-Sets">14.1.2.2 Lists as Sets</a></li>
+        <li><a id="toc-General-Restrictions-on-Parameters-that-must-be-Lists" href="Conses-as-Lists.html#General-Restrictions-on-Parameters-that-must-be-Lists">14.1.2.3 General Restrictions on Parameters that must be Lists</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Arrays-1" href="Arrays.html#Arrays">15 Arrays</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Array-Concepts-1" href="Array-Concepts.html#Array-Concepts">15.1 Array Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Array-Elements-1" href="Array-Elements.html#Array-Elements">15.1.1 Array Elements</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Array-Indices" href="Array-Elements.html#Array-Indices">15.1.1.1 Array Indices</a></li>
+        <li><a id="toc-Array-Dimensions" href="Array-Elements.html#Array-Dimensions">15.1.1.2 Array Dimensions</a></li>
+        <li><a id="toc-15_002e1_002e1_002e2_002e1-Implementation-Limits-on-Individual-Array-Dimensions" href="Array-Elements.html#g_t15_002e1_002e1_002e2_002e1-Implementation-Limits-on-Individual-Array-Dimensions">15.1.1.2.1 Implementation Limits on Individual Array Dimensions</a></li>
+        <li><a id="toc-Array-Rank" href="Array-Elements.html#Array-Rank">15.1.1.3 Array Rank</a></li>
+        <li><a id="toc-15_002e1_002e1_002e3_002e1-Vectors" href="Array-Elements.html#g_t15_002e1_002e1_002e3_002e1-Vectors">15.1.1.3.1 Vectors</a></li>
+        <li><a id="toc-15_002e1_002e1_002e3_002e1_002e1-Fill-Pointers" href="Array-Elements.html#g_t15_002e1_002e1_002e3_002e1_002e1-Fill-Pointers">15.1.1.3.1.1 Fill Pointers</a></li>
+        <li><a id="toc-15_002e1_002e1_002e3_002e2-Multidimensional-Arrays" href="Array-Elements.html#g_t15_002e1_002e1_002e3_002e2-Multidimensional-Arrays">15.1.1.3.2 Multidimensional Arrays</a></li>
+        <li><a id="toc-15_002e1_002e1_002e3_002e2_002e1-Storage-Layout-for-Multidimensional-Arrays" href="Array-Elements.html#g_t15_002e1_002e1_002e3_002e2_002e1-Storage-Layout-for-Multidimensional-Arrays">15.1.1.3.2.1 Storage Layout for Multidimensional Arrays</a></li>
+        <li><a id="toc-15_002e1_002e1_002e3_002e2_002e2-Implementation-Limits-on-Array-Rank" href="Array-Elements.html#g_t15_002e1_002e1_002e3_002e2_002e2-Implementation-Limits-on-Array-Rank">15.1.1.3.2.2 Implementation Limits on Array Rank</a></li>
+      </ul></li>
+      <li><a id="toc-Specialized-Arrays-1" href="Specialized-Arrays.html#Specialized-Arrays">15.1.2 Specialized Arrays</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Array-Upgrading" href="Specialized-Arrays.html#Array-Upgrading">15.1.2.1 Array Upgrading</a></li>
+        <li><a id="toc-Required-Kinds-of-Specialized-Arrays" href="Specialized-Arrays.html#Required-Kinds-of-Specialized-Arrays">15.1.2.2 Required Kinds of Specialized Arrays</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Strings-1" href="Strings.html#Strings">16 Strings</a>
+  <ul class="no-bullet">
+    <li><a id="toc-String-Concepts-1" href="String-Concepts.html#String-Concepts">16.1 String Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Implications-of-Strings-Being-Arrays-1" href="Implications-of-Strings-Being-Arrays.html#Implications-of-Strings-Being-Arrays">16.1.1 Implications of Strings Being Arrays</a></li>
+      <li><a id="toc-Subtypes-of-STRING-1" href="Subtypes-of-STRING.html#Subtypes-of-STRING">16.1.2 Subtypes of STRING</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Sequences-1" href="Sequences.html#Sequences">17 Sequences</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Sequence-Concepts-1" href="Sequence-Concepts.html#Sequence-Concepts">17.1 Sequence Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-General-Restrictions-on-Parameters-that-must-be-Sequences-1" href="General-Restrictions-on-Parameters-that-must-be-Sequences.html#General-Restrictions-on-Parameters-that-must-be-Sequences">17.1.1 General Restrictions on Parameters that must be Sequences</a></li>
+    </ul></li>
+    <li><a id="toc-Rules-about-Test-Functions-1" href="Rules-about-Test-Functions.html#Rules-about-Test-Functions">17.2 Rules about Test Functions</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Satisfying-a-Two_002dArgument-Test-1" href="Satisfying-a-Two_002dArgument-Test.html#Satisfying-a-Two_002dArgument-Test">17.2.1 Satisfying a Two-Argument Test</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Satisfying-a-Two_002dArgument-Test" href="Satisfying-a-Two_002dArgument-Test.html#Examples-of-Satisfying-a-Two_002dArgument-Test">17.2.1.1 Examples of Satisfying a Two-Argument Test</a></li>
+      </ul></li>
+      <li><a id="toc-Satisfying-a-One_002dArgument-Test-1" href="Satisfying-a-One_002dArgument-Test.html#Satisfying-a-One_002dArgument-Test">17.2.2 Satisfying a One-Argument Test</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Satisfying-a-One_002dArgument-Test" href="Satisfying-a-One_002dArgument-Test.html#Examples-of-Satisfying-a-One_002dArgument-Test">17.2.2.1 Examples of Satisfying a One-Argument Test</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Hash-Tables-1" href="Hash-Tables.html#Hash-Tables">18 Hash Tables</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Hash-Table-Concepts-1" href="Hash-Table-Concepts.html#Hash-Table-Concepts">18.1 Hash Table Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Hash_002dTable-Operations-1" href="Hash_002dTable-Operations.html#Hash_002dTable-Operations">18.1.1 Hash-Table Operations</a></li>
+      <li><a id="toc-Modifying-Hash-Table-Keys-1" href="Modifying-Hash-Table-Keys.html#Modifying-Hash-Table-Keys">18.1.2 Modifying Hash Table Keys</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Visible-Modification-of-Objects-with-respect-to-EQ-and-EQL" href="Modifying-Hash-Table-Keys.html#Visible-Modification-of-Objects-with-respect-to-EQ-and-EQL">18.1.2.1 Visible Modification of Objects with respect to EQ and EQL</a></li>
+        <li><a id="toc-Visible-Modification-of-Objects-with-respect-to-EQUAL" href="Modifying-Hash-Table-Keys.html#Visible-Modification-of-Objects-with-respect-to-EQUAL">18.1.2.2 Visible Modification of Objects with respect to EQUAL</a></li>
+        <li><a id="toc-18_002e1_002e2_002e2_002e1-Visible-Modification-of-Conses-with-respect-to-EQUAL" href="Modifying-Hash-Table-Keys.html#g_t18_002e1_002e2_002e2_002e1-Visible-Modification-of-Conses-with-respect-to-EQUAL">18.1.2.2.1 Visible Modification of Conses with respect to EQUAL</a></li>
+        <li><a id="toc-18_002e1_002e2_002e2_002e2-Visible-Modification-of-Bit-Vectors-and-Strings-with-respect-to-EQUAL" href="Modifying-Hash-Table-Keys.html#g_t18_002e1_002e2_002e2_002e2-Visible-Modification-of-Bit-Vectors-and-Strings-with-respect-to-EQUAL">18.1.2.2.2 Visible Modification of Bit Vectors and Strings with respect to EQUAL</a></li>
+        <li><a id="toc-Visible-Modification-of-Objects-with-respect-to-EQUALP" href="Modifying-Hash-Table-Keys.html#Visible-Modification-of-Objects-with-respect-to-EQUALP">18.1.2.3 Visible Modification of Objects with respect to EQUALP</a></li>
+        <li><a id="toc-18_002e1_002e2_002e3_002e1-Visible-Modification-of-Structures-with-respect-to-EQUALP" href="Modifying-Hash-Table-Keys.html#g_t18_002e1_002e2_002e3_002e1-Visible-Modification-of-Structures-with-respect-to-EQUALP">18.1.2.3.1 Visible Modification of Structures with respect to EQUALP</a></li>
+        <li><a id="toc-18_002e1_002e2_002e3_002e2-Visible-Modification-of-Arrays-with-respect-to-EQUALP" href="Modifying-Hash-Table-Keys.html#g_t18_002e1_002e2_002e3_002e2-Visible-Modification-of-Arrays-with-respect-to-EQUALP">18.1.2.3.2 Visible Modification of Arrays with respect to EQUALP</a></li>
+        <li><a id="toc-18_002e1_002e2_002e3_002e3-Visible-Modification-of-Hash-Tables-with-respect-to-EQUALP" href="Modifying-Hash-Table-Keys.html#g_t18_002e1_002e2_002e3_002e3-Visible-Modification-of-Hash-Tables-with-respect-to-EQUALP">18.1.2.3.3 Visible Modification of Hash Tables with respect to EQUALP</a></li>
+        <li><a id="toc-Visible-Modifications-by-Language-Extensions" href="Modifying-Hash-Table-Keys.html#Visible-Modifications-by-Language-Extensions">18.1.2.4 Visible Modifications by Language Extensions</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Filenames-1" href="Filenames.html#Filenames">19 Filenames</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Overview-of-Filenames-1" href="Overview-of-Filenames.html#Overview-of-Filenames">19.1 Overview of Filenames</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Namestrings-as-Filenames-1" href="Namestrings-as-Filenames.html#Namestrings-as-Filenames">19.1.1 Namestrings as Filenames</a></li>
+      <li><a id="toc-Pathnames-as-Filenames-1" href="Pathnames-as-Filenames.html#Pathnames-as-Filenames">19.1.2 Pathnames as Filenames</a></li>
+      <li><a id="toc-Parsing-Namestrings-Into-Pathnames-1" href="Parsing-Namestrings-Into-Pathnames.html#Parsing-Namestrings-Into-Pathnames">19.1.3 Parsing Namestrings Into Pathnames</a></li>
+    </ul></li>
+    <li><a id="toc-Pathnames-1" href="Pathnames.html#Pathnames">19.2 Pathnames</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Pathname-Components-1" href="Pathname-Components.html#Pathname-Components">19.2.1 Pathname Components</a>
+      <ul class="no-bullet">
+        <li><a id="toc-The-Pathname-Host-Component" href="Pathname-Components.html#The-Pathname-Host-Component">19.2.1.1 The Pathname Host Component</a></li>
+        <li><a id="toc-The-Pathname-Device-Component" href="Pathname-Components.html#The-Pathname-Device-Component">19.2.1.2 The Pathname Device Component</a></li>
+        <li><a id="toc-The-Pathname-Directory-Component" href="Pathname-Components.html#The-Pathname-Directory-Component">19.2.1.3 The Pathname Directory Component</a></li>
+        <li><a id="toc-The-Pathname-Name-Component" href="Pathname-Components.html#The-Pathname-Name-Component">19.2.1.4 The Pathname Name Component</a></li>
+        <li><a id="toc-The-Pathname-Type-Component" href="Pathname-Components.html#The-Pathname-Type-Component">19.2.1.5 The Pathname Type Component</a></li>
+        <li><a id="toc-The-Pathname-Version-Component" href="Pathname-Components.html#The-Pathname-Version-Component">19.2.1.6 The Pathname Version Component</a></li>
+      </ul></li>
+      <li><a id="toc-Interpreting-Pathname-Component-Values-1" href="Interpreting-Pathname-Component-Values.html#Interpreting-Pathname-Component-Values">19.2.2 Interpreting Pathname Component Values</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Strings-in-Component-Values" href="Interpreting-Pathname-Component-Values.html#Strings-in-Component-Values">19.2.2.1 Strings in Component Values</a></li>
+        <li><a id="toc-19_002e2_002e2_002e1_002e1-Special-Characters-in-Pathname-Components" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e1_002e1-Special-Characters-in-Pathname-Components">19.2.2.1.1 Special Characters in Pathname Components</a></li>
+        <li><a id="toc-19_002e2_002e2_002e1_002e2-Case-in-Pathname-Components" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e1_002e2-Case-in-Pathname-Components">19.2.2.1.2 Case in Pathname Components</a></li>
+        <li><a id="toc-19_002e2_002e2_002e1_002e2_002e1-Local-Case-in-Pathname-Components" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e1_002e2_002e1-Local-Case-in-Pathname-Components">19.2.2.1.2.1 Local Case in Pathname Components</a></li>
+        <li><a id="toc-19_002e2_002e2_002e1_002e2_002e2-Common-Case-in-Pathname-Components" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e1_002e2_002e2-Common-Case-in-Pathname-Components">19.2.2.1.2.2 Common Case in Pathname Components</a></li>
+        <li><a id="toc-Special-Pathname-Component-Values" href="Interpreting-Pathname-Component-Values.html#Special-Pathname-Component-Values">19.2.2.2 Special Pathname Component Values</a></li>
+        <li><a id="toc-19_002e2_002e2_002e2_002e1-NIL-as-a-Component-Value" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e2_002e1-NIL-as-a-Component-Value">19.2.2.2.1 NIL as a Component Value</a></li>
+        <li><a id="toc-19_002e2_002e2_002e2_002e2-_003aWILD-as-a-Component-Value" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e2_002e2-_003aWILD-as-a-Component-Value">19.2.2.2.2 :WILD as a Component Value</a></li>
+        <li><a id="toc-19_002e2_002e2_002e2_002e3-_003aUNSPECIFIC-as-a-Component-Value" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e2_002e3-_003aUNSPECIFIC-as-a-Component-Value">19.2.2.2.3 :UNSPECIFIC as a Component Value</a></li>
+        <li><a id="toc-19_002e2_002e2_002e2_002e3_002e1-Relation-between-component-values-NIL-and-_003aUNSPECIFIC" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e2_002e3_002e1-Relation-between-component-values-NIL-and-_003aUNSPECIFIC">19.2.2.2.3.1 Relation between component values NIL and :UNSPECIFIC</a></li>
+        <li><a id="toc-Restrictions-on-Wildcard-Pathnames" href="Interpreting-Pathname-Component-Values.html#Restrictions-on-Wildcard-Pathnames">19.2.2.3 Restrictions on Wildcard Pathnames</a></li>
+        <li><a id="toc-Restrictions-on-Examining-Pathname-Components" href="Interpreting-Pathname-Component-Values.html#Restrictions-on-Examining-Pathname-Components">19.2.2.4 Restrictions on Examining Pathname Components</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e1-Restrictions-on-Examining-a-Pathname-Host-Component" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e1-Restrictions-on-Examining-a-Pathname-Host-Component">19.2.2.4.1 Restrictions on Examining a Pathname Host Component</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e2-Restrictions-on-Examining-a-Pathname-Device-Component" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e2-Restrictions-on-Examining-a-Pathname-Device-Component">19.2.2.4.2 Restrictions on Examining a Pathname Device Component</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e3-Restrictions-on-Examining-a-Pathname-Directory-Component" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e3-Restrictions-on-Examining-a-Pathname-Directory-Component">19.2.2.4.3 Restrictions on Examining a Pathname Directory Component</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e3_002e1-Directory-Components-in-Non_002dHierarchical-File-Systems" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e3_002e1-Directory-Components-in-Non_002dHierarchical-File-Systems">19.2.2.4.3.1 Directory Components in Non-Hierarchical File Systems</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e4-Restrictions-on-Examining-a-Pathname-Name-Component" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e4-Restrictions-on-Examining-a-Pathname-Name-Component">19.2.2.4.4 Restrictions on Examining a Pathname Name Component</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e5-Restrictions-on-Examining-a-Pathname-Type-Component" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e5-Restrictions-on-Examining-a-Pathname-Type-Component">19.2.2.4.5 Restrictions on Examining a Pathname Type Component</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e6-Restrictions-on-Examining-a-Pathname-Version-Component" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e6-Restrictions-on-Examining-a-Pathname-Version-Component">19.2.2.4.6 Restrictions on Examining a Pathname Version Component</a></li>
+        <li><a id="toc-19_002e2_002e2_002e4_002e7-Notes-about-the-Pathname-Version-Component" href="Interpreting-Pathname-Component-Values.html#g_t19_002e2_002e2_002e4_002e7-Notes-about-the-Pathname-Version-Component">19.2.2.4.7 Notes about the Pathname Version Component</a></li>
+        <li><a id="toc-Restrictions-on-Constructing-Pathnames" href="Interpreting-Pathname-Component-Values.html#Restrictions-on-Constructing-Pathnames">19.2.2.5 Restrictions on Constructing Pathnames</a></li>
+      </ul></li>
+      <li><a id="toc-Merging-Pathnames-1" href="Merging-Pathnames.html#Merging-Pathnames">19.2.3 Merging Pathnames</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Merging-Pathnames" href="Merging-Pathnames.html#Examples-of-Merging-Pathnames">19.2.3.1 Examples of Merging Pathnames</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a id="toc-Logical-Pathnames-1" href="Logical-Pathnames.html#Logical-Pathnames">19.3 Logical Pathnames</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Syntax-of-Logical-Pathname-Namestrings-1" href="Syntax-of-Logical-Pathname-Namestrings.html#Syntax-of-Logical-Pathname-Namestrings">19.3.1 Syntax of Logical Pathname Namestrings</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Additional-Information-about-Parsing-Logical-Pathname-Namestrings" href="Syntax-of-Logical-Pathname-Namestrings.html#Additional-Information-about-Parsing-Logical-Pathname-Namestrings">19.3.1.1 Additional Information about Parsing Logical Pathname Namestrings</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e1-The-Host-part-of-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e1-The-Host-part-of-a-Logical-Pathname-Namestring">19.3.1.1.1 The Host part of a Logical Pathname Namestring</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e2-The-Device-part-of-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e2-The-Device-part-of-a-Logical-Pathname-Namestring">19.3.1.1.2 The Device part of a Logical Pathname Namestring</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e3-The-Directory-part-of-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e3-The-Directory-part-of-a-Logical-Pathname-Namestring">19.3.1.1.3 The Directory part of a Logical Pathname Namestring</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e4-The-Type-part-of-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e4-The-Type-part-of-a-Logical-Pathname-Namestring">19.3.1.1.4 The Type part of a Logical Pathname Namestring</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e5-The-Version-part-of-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e5-The-Version-part-of-a-Logical-Pathname-Namestring">19.3.1.1.5 The Version part of a Logical Pathname Namestring</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e6-Wildcard-Words-in-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e6-Wildcard-Words-in-a-Logical-Pathname-Namestring">19.3.1.1.6 Wildcard Words in a Logical Pathname Namestring</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e7-Lowercase-Letters-in-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e7-Lowercase-Letters-in-a-Logical-Pathname-Namestring">19.3.1.1.7 Lowercase Letters in a Logical Pathname Namestring</a></li>
+        <li><a id="toc-19_002e3_002e1_002e1_002e8-Other-Syntax-in-a-Logical-Pathname-Namestring" href="Syntax-of-Logical-Pathname-Namestrings.html#g_t19_002e3_002e1_002e1_002e8-Other-Syntax-in-a-Logical-Pathname-Namestring">19.3.1.1.8 Other Syntax in a Logical Pathname Namestring</a></li>
+      </ul></li>
+      <li><a id="toc-Logical-Pathname-Components-1" href="Logical-Pathname-Components.html#Logical-Pathname-Components">19.3.2 Logical Pathname Components</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Unspecific-Components-of-a-Logical-Pathname" href="Logical-Pathname-Components.html#Unspecific-Components-of-a-Logical-Pathname">19.3.2.1 Unspecific Components of a Logical Pathname</a></li>
+        <li><a id="toc-Null-Strings-as-Components-of-a-Logical-Pathname" href="Logical-Pathname-Components.html#Null-Strings-as-Components-of-a-Logical-Pathname">19.3.2.2 Null Strings as Components of a Logical Pathname</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Files-1" href="Files.html#Files">20 Files</a>
+  <ul class="no-bullet">
+    <li><a id="toc-File-System-Concepts-1" href="File-System-Concepts.html#File-System-Concepts">20.1 File System Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Coercion-of-Streams-to-Pathnames-1" href="Coercion-of-Streams-to-Pathnames.html#Coercion-of-Streams-to-Pathnames">20.1.1 Coercion of Streams to Pathnames</a></li>
+      <li><a id="toc-File-Operations-on-Open-and-Closed-Streams-1" href="File-Operations-on-Open-and-Closed-Streams.html#File-Operations-on-Open-and-Closed-Streams">20.1.2 File Operations on Open and Closed Streams</a></li>
+      <li><a id="toc-Truenames-1" href="Truenames.html#Truenames">20.1.3 Truenames</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Truenames" href="Truenames.html#Examples-of-Truenames">20.1.3.1 Examples of Truenames</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Streams-1" href="Streams.html#Streams">21 Streams</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Stream-Concepts-1" href="Stream-Concepts.html#Stream-Concepts">21.1 Stream Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Introduction-to-Streams-1" href="Introduction-to-Streams.html#Introduction-to-Streams">21.1.1 Introduction to Streams</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Abstract-Classifications-of-Streams" href="Introduction-to-Streams.html#Abstract-Classifications-of-Streams">21.1.1.1 Abstract Classifications of Streams</a></li>
+        <li><a id="toc-21_002e1_002e1_002e1_002e1-Input_002c-Output_002c-and-Bidirectional-Streams" href="Introduction-to-Streams.html#g_t21_002e1_002e1_002e1_002e1-Input_002c-Output_002c-and-Bidirectional-Streams">21.1.1.1.1 Input, Output, and Bidirectional Streams</a></li>
+        <li><a id="toc-21_002e1_002e1_002e1_002e2-Open-and-Closed-Streams" href="Introduction-to-Streams.html#g_t21_002e1_002e1_002e1_002e2-Open-and-Closed-Streams">21.1.1.1.2 Open and Closed Streams</a></li>
+        <li><a id="toc-21_002e1_002e1_002e1_002e3-Interactive-Streams" href="Introduction-to-Streams.html#g_t21_002e1_002e1_002e1_002e3-Interactive-Streams">21.1.1.1.3 Interactive Streams</a></li>
+        <li><a id="toc-Abstract-Classifications-of-Streams-1" href="Introduction-to-Streams.html#Abstract-Classifications-of-Streams-1">21.1.1.2 Abstract Classifications of Streams</a></li>
+        <li><a id="toc-21_002e1_002e1_002e2_002e4-File-Streams" href="Introduction-to-Streams.html#g_t21_002e1_002e1_002e2_002e4-File-Streams">21.1.1.2.4 File Streams</a></li>
+        <li><a id="toc-Other-Subclasses-of-Stream" href="Introduction-to-Streams.html#Other-Subclasses-of-Stream">21.1.1.3 Other Subclasses of Stream</a></li>
+      </ul></li>
+      <li><a id="toc-Stream-Variables-1" href="Stream-Variables.html#Stream-Variables">21.1.2 Stream Variables</a></li>
+      <li><a id="toc-Stream-Arguments-to-Standardized-Functions-1" href="Stream-Arguments-to-Standardized-Functions.html#Stream-Arguments-to-Standardized-Functions">21.1.3 Stream Arguments to Standardized Functions</a></li>
+      <li><a id="toc-Restrictions-on-Composite-Streams-1" href="Restrictions-on-Composite-Streams.html#Restrictions-on-Composite-Streams">21.1.4 Restrictions on Composite Streams</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Printer-1" href="Printer.html#Printer">22 Printer</a>
+  <ul class="no-bullet">
+    <li><a id="toc-The-Lisp-Printer-1" href="The-Lisp-Printer.html#The-Lisp-Printer">22.1 The Lisp Printer</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Overview-of-The-Lisp-Printer-1" href="Overview-of-The-Lisp-Printer.html#Overview-of-The-Lisp-Printer">22.1.1 Overview of The Lisp Printer</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Multiple-Possible-Textual-Representations" href="Overview-of-The-Lisp-Printer.html#Multiple-Possible-Textual-Representations">22.1.1.1 Multiple Possible Textual Representations</a></li>
+        <li><a id="toc-22_002e1_002e1_002e1_002e1-Printer-Escaping" href="Overview-of-The-Lisp-Printer.html#g_t22_002e1_002e1_002e1_002e1-Printer-Escaping">22.1.1.1.1 Printer Escaping</a></li>
+      </ul></li>
+      <li><a id="toc-Printer-Dispatching-1" href="Printer-Dispatching.html#Printer-Dispatching">22.1.2 Printer Dispatching</a></li>
+      <li><a id="toc-Default-Print_002dObject-Methods-1" href="Default-Print_002dObject-Methods.html#Default-Print_002dObject-Methods">22.1.3 Default Print-Object Methods</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Printing-Numbers" href="Default-Print_002dObject-Methods.html#Printing-Numbers">22.1.3.1 Printing Numbers</a></li>
+        <li><a id="toc-22_002e1_002e3_002e1_002e1-Printing-Integers" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e1_002e1-Printing-Integers">22.1.3.1.1 Printing Integers</a></li>
+        <li><a id="toc-22_002e1_002e3_002e1_002e2-Printing-Ratios" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e1_002e2-Printing-Ratios">22.1.3.1.2 Printing Ratios</a></li>
+        <li><a id="toc-22_002e1_002e3_002e1_002e3-Printing-Floats" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e1_002e3-Printing-Floats">22.1.3.1.3 Printing Floats</a></li>
+        <li><a id="toc-22_002e1_002e3_002e1_002e4-Printing-Complexes" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e1_002e4-Printing-Complexes">22.1.3.1.4 Printing Complexes</a></li>
+        <li><a id="toc-22_002e1_002e3_002e1_002e5-Note-about-Printing-Numbers" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e1_002e5-Note-about-Printing-Numbers">22.1.3.1.5 Note about Printing Numbers</a></li>
+        <li><a id="toc-Printing-Characters" href="Default-Print_002dObject-Methods.html#Printing-Characters">22.1.3.2 Printing Characters</a></li>
+        <li><a id="toc-Printing-Symbols" href="Default-Print_002dObject-Methods.html#Printing-Symbols">22.1.3.3 Printing Symbols</a></li>
+        <li><a id="toc-22_002e1_002e3_002e3_002e1-Package-Prefixes-for-Symbols" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e3_002e1-Package-Prefixes-for-Symbols">22.1.3.3.1 Package Prefixes for Symbols</a></li>
+        <li><a id="toc-22_002e1_002e3_002e3_002e2-Effect-of-Readtable-Case-on-the-Lisp-Printer" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e3_002e2-Effect-of-Readtable-Case-on-the-Lisp-Printer">22.1.3.3.2 Effect of Readtable Case on the Lisp Printer</a></li>
+        <li><a id="toc-22_002e1_002e3_002e3_002e2_002e1-Examples-of-Effect-of-Readtable-Case-on-the-Lisp-Printer" href="Default-Print_002dObject-Methods.html#g_t22_002e1_002e3_002e3_002e2_002e1-Examples-of-Effect-of-Readtable-Case-on-the-Lisp-Printer">22.1.3.3.2.1 Examples of Effect of Readtable Case on the Lisp Printer</a></li>
+        <li><a id="toc-Printing-Strings" href="Default-Print_002dObject-Methods.html#Printing-Strings">22.1.3.4 Printing Strings</a></li>
+        <li><a id="toc-Printing-Lists-and-Conses" href="Default-Print_002dObject-Methods.html#Printing-Lists-and-Conses">22.1.3.5 Printing Lists and Conses</a></li>
+        <li><a id="toc-Printing-Bit-Vectors" href="Default-Print_002dObject-Methods.html#Printing-Bit-Vectors">22.1.3.6 Printing Bit Vectors</a></li>
+        <li><a id="toc-Printing-Other-Vectors" href="Default-Print_002dObject-Methods.html#Printing-Other-Vectors">22.1.3.7 Printing Other Vectors</a></li>
+        <li><a id="toc-Printing-Other-Arrays" href="Default-Print_002dObject-Methods.html#Printing-Other-Arrays">22.1.3.8 Printing Other Arrays</a></li>
+        <li><a id="toc-Examples-of-Printing-Arrays" href="Default-Print_002dObject-Methods.html#Examples-of-Printing-Arrays">22.1.3.9 Examples of Printing Arrays</a></li>
+        <li><a id="toc-Printing-Random-States" href="Default-Print_002dObject-Methods.html#Printing-Random-States">22.1.3.10 Printing Random States</a></li>
+        <li><a id="toc-Printing-Pathnames" href="Default-Print_002dObject-Methods.html#Printing-Pathnames">22.1.3.11 Printing Pathnames</a></li>
+        <li><a id="toc-Printing-Structures" href="Default-Print_002dObject-Methods.html#Printing-Structures">22.1.3.12 Printing Structures</a></li>
+        <li><a id="toc-Printing-Other-Objects" href="Default-Print_002dObject-Methods.html#Printing-Other-Objects">22.1.3.13 Printing Other Objects</a></li>
+      </ul></li>
+      <li><a id="toc-Examples-of-Printer-Behavior-1" href="Examples-of-Printer-Behavior.html#Examples-of-Printer-Behavior">22.1.4 Examples of Printer Behavior</a></li>
+    </ul></li>
+    <li><a id="toc-The-Lisp-Pretty-Printer-1" href="The-Lisp-Pretty-Printer.html#The-Lisp-Pretty-Printer">22.2 The Lisp Pretty Printer</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Pretty-Printer-Concepts-1" href="Pretty-Printer-Concepts.html#Pretty-Printer-Concepts">22.2.1 Pretty Printer Concepts</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Dynamic-Control-of-the-Arrangement-of-Output" href="Pretty-Printer-Concepts.html#Dynamic-Control-of-the-Arrangement-of-Output">22.2.1.1 Dynamic Control of the Arrangement of Output</a></li>
+        <li><a id="toc-Format-Directive-Interface" href="Pretty-Printer-Concepts.html#Format-Directive-Interface">22.2.1.2 Format Directive Interface</a></li>
+        <li><a id="toc-Compiling-Format-Strings" href="Pretty-Printer-Concepts.html#Compiling-Format-Strings">22.2.1.3 Compiling Format Strings</a></li>
+        <li><a id="toc-Pretty-Print-Dispatch-Tables" href="Pretty-Printer-Concepts.html#Pretty-Print-Dispatch-Tables">22.2.1.4 Pretty Print Dispatch Tables</a></li>
+        <li><a id="toc-Pretty-Printer-Margins" href="Pretty-Printer-Concepts.html#Pretty-Printer-Margins">22.2.1.5 Pretty Printer Margins</a></li>
+      </ul></li>
+      <li><a id="toc-Examples-of-using-the-Pretty-Printer-1" href="Examples-of-using-the-Pretty-Printer.html#Examples-of-using-the-Pretty-Printer">22.2.2 Examples of using the Pretty Printer</a></li>
+      <li><a id="toc-Notes-about-the-Pretty-Printer_0027s-Background-1" href="Notes-about-the-Pretty-Printer_0027s-Background.html#Notes-about-the-Pretty-Printer_0027s-Background">22.2.3 Notes about the Pretty Printer&rsquo;s Background</a></li>
+    </ul></li>
+    <li><a id="toc-Formatted-Output-1" href="Formatted-Output.html#Formatted-Output">22.3 Formatted Output</a>
+    <ul class="no-bullet">
+      <li><a id="toc-FORMAT-Basic-Output-1" href="FORMAT-Basic-Output.html#FORMAT-Basic-Output">22.3.1 FORMAT Basic Output</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-C_003a-Character" href="FORMAT-Basic-Output.html#Tilde-C_003a-Character">22.3.1.1 Tilde C: Character</a></li>
+        <li><a id="toc-Tilde-Percent_003a-Newline" href="FORMAT-Basic-Output.html#Tilde-Percent_003a-Newline">22.3.1.2 Tilde Percent: Newline</a></li>
+        <li><a id="toc-Tilde-Ampersand_003a-Fresh_002dLine" href="FORMAT-Basic-Output.html#Tilde-Ampersand_003a-Fresh_002dLine">22.3.1.3 Tilde Ampersand: Fresh-Line</a></li>
+        <li><a id="toc-Tilde-Vertical_002dBar_003a-Page" href="FORMAT-Basic-Output.html#Tilde-Vertical_002dBar_003a-Page">22.3.1.4 Tilde Vertical-Bar: Page</a></li>
+        <li><a id="toc-Tilde-Tilde_003a-Tilde" href="FORMAT-Basic-Output.html#Tilde-Tilde_003a-Tilde">22.3.1.5 Tilde Tilde: Tilde</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Radix-Control-1" href="FORMAT-Radix-Control.html#FORMAT-Radix-Control">22.3.2 FORMAT Radix Control</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-R_003a-Radix" href="FORMAT-Radix-Control.html#Tilde-R_003a-Radix">22.3.2.1 Tilde R: Radix</a></li>
+        <li><a id="toc-Tilde-D_003a-Decimal" href="FORMAT-Radix-Control.html#Tilde-D_003a-Decimal">22.3.2.2 Tilde D: Decimal</a></li>
+        <li><a id="toc-Tilde-B_003a-Binary" href="FORMAT-Radix-Control.html#Tilde-B_003a-Binary">22.3.2.3 Tilde B: Binary</a></li>
+        <li><a id="toc-Tilde-O_003a-Octal" href="FORMAT-Radix-Control.html#Tilde-O_003a-Octal">22.3.2.4 Tilde O: Octal</a></li>
+        <li><a id="toc-Tilde-X_003a-Hexadecimal" href="FORMAT-Radix-Control.html#Tilde-X_003a-Hexadecimal">22.3.2.5 Tilde X: Hexadecimal</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Floating_002dPoint-Printers-1" href="FORMAT-Floating_002dPoint-Printers.html#FORMAT-Floating_002dPoint-Printers">22.3.3 FORMAT Floating-Point Printers</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-F_003a-Fixed_002dFormat-Floating_002dPoint" href="FORMAT-Floating_002dPoint-Printers.html#Tilde-F_003a-Fixed_002dFormat-Floating_002dPoint">22.3.3.1 Tilde F: Fixed-Format Floating-Point</a></li>
+        <li><a id="toc-Tilde-E_003a-Exponential-Floating_002dPoint" href="FORMAT-Floating_002dPoint-Printers.html#Tilde-E_003a-Exponential-Floating_002dPoint">22.3.3.2 Tilde E: Exponential Floating-Point</a></li>
+        <li><a id="toc-Tilde-G_003a-General-Floating_002dPoint" href="FORMAT-Floating_002dPoint-Printers.html#Tilde-G_003a-General-Floating_002dPoint">22.3.3.3 Tilde G: General Floating-Point</a></li>
+        <li><a id="toc-Tilde-Dollarsign_003a-Monetary-Floating_002dPoint" href="FORMAT-Floating_002dPoint-Printers.html#Tilde-Dollarsign_003a-Monetary-Floating_002dPoint">22.3.3.4 Tilde Dollarsign: Monetary Floating-Point</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Printer-Operations-1" href="FORMAT-Printer-Operations.html#FORMAT-Printer-Operations">22.3.4 FORMAT Printer Operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-A_003a-Aesthetic" href="FORMAT-Printer-Operations.html#Tilde-A_003a-Aesthetic">22.3.4.1 Tilde A: Aesthetic</a></li>
+        <li><a id="toc-Tilde-S_003a-Standard" href="FORMAT-Printer-Operations.html#Tilde-S_003a-Standard">22.3.4.2 Tilde S: Standard</a></li>
+        <li><a id="toc-Tilde-W_003a-Write" href="FORMAT-Printer-Operations.html#Tilde-W_003a-Write">22.3.4.3 Tilde W: Write</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Pretty-Printer-Operations-1" href="FORMAT-Pretty-Printer-Operations.html#FORMAT-Pretty-Printer-Operations">22.3.5 FORMAT Pretty Printer Operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-Underscore_003a-Conditional-Newline" href="FORMAT-Pretty-Printer-Operations.html#Tilde-Underscore_003a-Conditional-Newline">22.3.5.1 Tilde Underscore: Conditional Newline</a></li>
+        <li><a id="toc-Tilde-Less_002dThan_002dSign_003a-Logical-Block" href="FORMAT-Pretty-Printer-Operations.html#Tilde-Less_002dThan_002dSign_003a-Logical-Block">22.3.5.2 Tilde Less-Than-Sign: Logical Block</a></li>
+        <li><a id="toc-Tilde-I_003a-Indent" href="FORMAT-Pretty-Printer-Operations.html#Tilde-I_003a-Indent">22.3.5.3 Tilde I: Indent</a></li>
+        <li><a id="toc-Tilde-Slash_003a-Call-Function" href="FORMAT-Pretty-Printer-Operations.html#Tilde-Slash_003a-Call-Function">22.3.5.4 Tilde Slash: Call Function</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Layout-Control-1" href="FORMAT-Layout-Control.html#FORMAT-Layout-Control">22.3.6 FORMAT Layout Control</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-T_003a-Tabulate" href="FORMAT-Layout-Control.html#Tilde-T_003a-Tabulate">22.3.6.1 Tilde T: Tabulate</a></li>
+        <li><a id="toc-Tilde-Less_002dThan_002dSign_003a-Justification" href="FORMAT-Layout-Control.html#Tilde-Less_002dThan_002dSign_003a-Justification">22.3.6.2 Tilde Less-Than-Sign: Justification</a></li>
+        <li><a id="toc-Tilde-Greater_002dThan_002dSign_003a-End-of-Justification" href="FORMAT-Layout-Control.html#Tilde-Greater_002dThan_002dSign_003a-End-of-Justification">22.3.6.3 Tilde Greater-Than-Sign: End of Justification</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Control_002dFlow-Operations-1" href="FORMAT-Control_002dFlow-Operations.html#FORMAT-Control_002dFlow-Operations">22.3.7 FORMAT Control-Flow Operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-Asterisk_003a-Go_002dTo" href="FORMAT-Control_002dFlow-Operations.html#Tilde-Asterisk_003a-Go_002dTo">22.3.7.1 Tilde Asterisk: Go-To</a></li>
+        <li><a id="toc-Tilde-Left_002dBracket_003a-Conditional-Expression" href="FORMAT-Control_002dFlow-Operations.html#Tilde-Left_002dBracket_003a-Conditional-Expression">22.3.7.2 Tilde Left-Bracket: Conditional Expression</a></li>
+        <li><a id="toc-Tilde-Right_002dBracket_003a-End-of-Conditional-Expression" href="FORMAT-Control_002dFlow-Operations.html#Tilde-Right_002dBracket_003a-End-of-Conditional-Expression">22.3.7.3 Tilde Right-Bracket: End of Conditional Expression</a></li>
+        <li><a id="toc-Tilde-Left_002dBrace_003a-Iteration" href="FORMAT-Control_002dFlow-Operations.html#Tilde-Left_002dBrace_003a-Iteration">22.3.7.4 Tilde Left-Brace: Iteration</a></li>
+        <li><a id="toc-Tilde-Right_002dBrace_003a-End-of-Iteration" href="FORMAT-Control_002dFlow-Operations.html#Tilde-Right_002dBrace_003a-End-of-Iteration">22.3.7.5 Tilde Right-Brace: End of Iteration</a></li>
+        <li><a id="toc-Tilde-Question_002dMark_003a-Recursive-Processing" href="FORMAT-Control_002dFlow-Operations.html#Tilde-Question_002dMark_003a-Recursive-Processing">22.3.7.6 Tilde Question-Mark: Recursive Processing</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Miscellaneous-Operations-1" href="FORMAT-Miscellaneous-Operations.html#FORMAT-Miscellaneous-Operations">22.3.8 FORMAT Miscellaneous Operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-Left_002dParen_003a-Case-Conversion" href="FORMAT-Miscellaneous-Operations.html#Tilde-Left_002dParen_003a-Case-Conversion">22.3.8.1 Tilde Left-Paren: Case Conversion</a></li>
+        <li><a id="toc-Tilde-Right_002dParen_003a-End-of-Case-Conversion" href="FORMAT-Miscellaneous-Operations.html#Tilde-Right_002dParen_003a-End-of-Case-Conversion">22.3.8.2 Tilde Right-Paren: End of Case Conversion</a></li>
+        <li><a id="toc-Tilde-P_003a-Plural" href="FORMAT-Miscellaneous-Operations.html#Tilde-P_003a-Plural">22.3.8.3 Tilde P: Plural</a></li>
+      </ul></li>
+      <li><a id="toc-FORMAT-Miscellaneous-Pseudo_002dOperations-1" href="FORMAT-Miscellaneous-Pseudo_002dOperations.html#FORMAT-Miscellaneous-Pseudo_002dOperations">22.3.9 FORMAT Miscellaneous Pseudo-Operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Tilde-Semicolon_003a-Clause-Separator" href="FORMAT-Miscellaneous-Pseudo_002dOperations.html#Tilde-Semicolon_003a-Clause-Separator">22.3.9.1 Tilde Semicolon: Clause Separator</a></li>
+        <li><a id="toc-Tilde-Circumflex_003a-Escape-Upward" href="FORMAT-Miscellaneous-Pseudo_002dOperations.html#Tilde-Circumflex_003a-Escape-Upward">22.3.9.2 Tilde Circumflex: Escape Upward</a></li>
+        <li><a id="toc-Tilde-Newline_003a-Ignored-Newline" href="FORMAT-Miscellaneous-Pseudo_002dOperations.html#Tilde-Newline_003a-Ignored-Newline">22.3.9.3 Tilde Newline: Ignored Newline</a></li>
+      </ul></li>
+      <li><a id="toc-Additional-Information-about-FORMAT-Operations-1" href="Additional-Information-about-FORMAT-Operations.html#Additional-Information-about-FORMAT-Operations">22.3.10 Additional Information about FORMAT Operations</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Nesting-of-FORMAT-Operations" href="Additional-Information-about-FORMAT-Operations.html#Nesting-of-FORMAT-Operations">22.3.10.1 Nesting of FORMAT Operations</a></li>
+        <li><a id="toc-Missing-and-Additional-FORMAT-Arguments" href="Additional-Information-about-FORMAT-Operations.html#Missing-and-Additional-FORMAT-Arguments">22.3.10.2 Missing and Additional FORMAT Arguments</a></li>
+        <li><a id="toc-Additional-FORMAT-Parameters" href="Additional-Information-about-FORMAT-Operations.html#Additional-FORMAT-Parameters">22.3.10.3 Additional FORMAT Parameters</a></li>
+        <li><a id="toc-Undefined-FORMAT-Modifier-Combinations" href="Additional-Information-about-FORMAT-Operations.html#Undefined-FORMAT-Modifier-Combinations">22.3.10.4 Undefined FORMAT Modifier Combinations</a></li>
+      </ul></li>
+      <li><a id="toc-Examples-of-FORMAT-1" href="Examples-of-FORMAT.html#Examples-of-FORMAT">22.3.11 Examples of FORMAT</a></li>
+      <li><a id="toc-Notes-about-FORMAT-1" href="Notes-about-FORMAT.html#Notes-about-FORMAT">22.3.12 Notes about FORMAT</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Reader-1" href="Reader.html#Reader">23 Reader</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Reader-Concepts-1" href="Reader-Concepts.html#Reader-Concepts">23.1 Reader Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Dynamic-Control-of-the-Lisp-Reader-1" href="Dynamic-Control-of-the-Lisp-Reader.html#Dynamic-Control-of-the-Lisp-Reader">23.1.1 Dynamic Control of the Lisp Reader</a></li>
+      <li><a id="toc-Effect-of-Readtable-Case-on-the-Lisp-Reader-1" href="Effect-of-Readtable-Case-on-the-Lisp-Reader.html#Effect-of-Readtable-Case-on-the-Lisp-Reader">23.1.2 Effect of Readtable Case on the Lisp Reader</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Examples-of-Effect-of-Readtable-Case-on-the-Lisp-Reader" href="Effect-of-Readtable-Case-on-the-Lisp-Reader.html#Examples-of-Effect-of-Readtable-Case-on-the-Lisp-Reader">23.1.2.1 Examples of Effect of Readtable Case on the Lisp Reader</a></li>
+      </ul></li>
+      <li><a id="toc-Argument-Conventions-of-Some-Reader-Functions-1" href="Argument-Conventions-of-Some-Reader-Functions.html#Argument-Conventions-of-Some-Reader-Functions">23.1.3 Argument Conventions of Some Reader Functions</a>
+      <ul class="no-bullet">
+        <li><a id="toc-The-EOF_002dERROR_002dP-argument" href="Argument-Conventions-of-Some-Reader-Functions.html#The-EOF_002dERROR_002dP-argument">23.1.3.1 The EOF-ERROR-P argument</a></li>
+        <li><a id="toc-The-RECURSIVE_002dP-argument" href="Argument-Conventions-of-Some-Reader-Functions.html#The-RECURSIVE_002dP-argument">23.1.3.2 The RECURSIVE-P argument</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-System-Construction-1" href="System-Construction.html#System-Construction">24 System Construction</a>
+  <ul class="no-bullet">
+    <li><a id="toc-System-Construction-Concepts-1" href="System-Construction-Concepts.html#System-Construction-Concepts">24.1 System Construction Concepts</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Loading-1" href="Loading.html#Loading">24.1.1 Loading</a></li>
+      <li><a id="toc-Features-1" href="Features.html#Features">24.1.2 Features</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Feature-Expressions" href="Features.html#Feature-Expressions">24.1.2.1 Feature Expressions</a></li>
+        <li><a id="toc-24_002e1_002e2_002e1_002e1-Examples-of-Feature-Expressions" href="Features.html#g_t24_002e1_002e2_002e1_002e1-Examples-of-Feature-Expressions">24.1.2.1.1 Examples of Feature Expressions</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Environment-1" href="Environment.html#Environment">25 Environment</a>
+  <ul class="no-bullet">
+    <li><a id="toc-The-External-Environment-1" href="The-External-Environment.html#The-External-Environment">25.1 The External Environment</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Top-level-loop-1" href="Top-level-loop.html#Top-level-loop">25.1.1 Top level loop</a></li>
+      <li><a id="toc-Debugging-Utilities-1" href="Debugging-Utilities.html#Debugging-Utilities">25.1.2 Debugging Utilities</a></li>
+      <li><a id="toc-Environment-Inquiry-1" href="Environment-Inquiry.html#Environment-Inquiry">25.1.3 Environment Inquiry</a></li>
+      <li><a id="toc-Time-1" href="Time.html#Time">25.1.4 Time</a>
+      <ul class="no-bullet">
+        <li><a id="toc-Decoded-Time" href="Time.html#Decoded-Time">25.1.4.1 Decoded Time</a></li>
+        <li><a id="toc-Universal-Time" href="Time.html#Universal-Time">25.1.4.2 Universal Time</a></li>
+        <li><a id="toc-Internal-Time" href="Time.html#Internal-Time">25.1.4.3 Internal Time</a></li>
+        <li><a id="toc-Seconds" href="Time.html#Seconds">25.1.4.4 Seconds</a></li>
+      </ul></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Glossary-1" href="Glossary.html#Glossary">26 Glossary</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Glossary-Notation-1" href="Glossary-Notation.html#Glossary-Notation">26.1 Glossary Notation</a></li>
+    <li><a id="toc-Non_002dalphabetic-1" href="Non_002dalphabetic.html#Non_002dalphabetic">Non-alphabetic</a></li>
+    <li><a id="toc-A-1" href="A.html#A">A</a></li>
+    <li><a id="toc-B-1" href="B.html#B">B</a></li>
+    <li><a id="toc-C-1" href="C.html#C">C</a></li>
+    <li><a id="toc-D-1" href="D.html#D">D</a></li>
+    <li><a id="toc-E-1" href="E.html#E">E</a></li>
+    <li><a id="toc-F-1" href="F.html#F">F</a></li>
+    <li><a id="toc-G-1" href="G.html#G">G</a></li>
+    <li><a id="toc-H-1" href="H.html#H">H</a></li>
+    <li><a id="toc-I-1" href="I.html#I">I</a></li>
+    <li><a id="toc-K-1" href="K.html#K">K</a></li>
+    <li><a id="toc-L-1" href="L.html#L">L</a></li>
+    <li><a id="toc-M-1" href="M.html#M">M</a></li>
+    <li><a id="toc-N-1" href="N.html#N">N</a></li>
+    <li><a id="toc-O-1" href="O.html#O">O</a></li>
+    <li><a id="toc-P-1" href="P.html#P">P</a></li>
+    <li><a id="toc-Q-1" href="Q.html#Q">Q</a></li>
+    <li><a id="toc-R-1" href="R.html#R">R</a></li>
+    <li><a id="toc-S-1" href="S.html#S">S</a></li>
+    <li><a id="toc-T-1" href="T.html#T">T</a></li>
+    <li><a id="toc-U-1" href="U.html#U">U</a></li>
+    <li><a id="toc-V-1" href="V.html#V">V</a></li>
+    <li><a id="toc-W-1" href="W.html#W">W</a></li>
+    <li><a id="toc-Y-1" href="Y.html#Y">Y</a></li>
+  </ul></li>
+  <li><a id="toc-Appendix-1" href="Appendix.html#Appendix">Appendix A Appendix</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Removed-Language-Features-1" href="Removed-Language-Features.html#Removed-Language-Features">A.1 Removed Language Features</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Requirements-for-removed-and-deprecated-features-1" href="Requirements-for-removed-and-deprecated-features.html#Requirements-for-removed-and-deprecated-features">A.1.1 Requirements for removed and deprecated features</a></li>
+      <li><a id="toc-Removed-Types-1" href="Removed-Types.html#Removed-Types">A.1.2 Removed Types</a></li>
+      <li><a id="toc-Removed-Operators-1" href="Removed-Operators.html#Removed-Operators">A.1.3 Removed Operators</a></li>
+      <li><a id="toc-Removed-Argument-Conventions-1" href="Removed-Argument-Conventions.html#Removed-Argument-Conventions">A.1.4 Removed Argument Conventions</a></li>
+      <li><a id="toc-Removed-Variables-1" href="Removed-Variables.html#Removed-Variables">A.1.5 Removed Variables</a></li>
+      <li><a id="toc-Removed-Reader-Syntax-1" href="Removed-Reader-Syntax.html#Removed-Reader-Syntax">A.1.6 Removed Reader Syntax</a></li>
+      <li><a id="toc-Packages-No-Longer-Required-1" href="Packages-No-Longer-Required.html#Packages-No-Longer-Required">A.1.7 Packages No Longer Required</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Index-1" href="Index.html#Index" rel="index">Index</a></li>
+  <li><a id="toc-Symbol-Index-1" href="Symbol-Index.html#Symbol-Index" rel="index">Symbol Index</a></li>
+  <li><a id="toc-List-of-Figures-1" href="List-of-Figures.html#List-of-Figures">List of Figures</a></li>
+</li>
+</ul>
+</div>
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="List-of-Figures.html" accesskey="p" rel="prev">List of Figures</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

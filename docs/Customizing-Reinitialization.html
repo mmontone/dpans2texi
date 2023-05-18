@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Customizing Reinitialization (ANSI Common Lisp)</title>
+
+<meta name="description" content="Customizing Reinitialization (ANSI Common Lisp)">
+<meta name="keywords" content="Customizing Reinitialization (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reinitializing-an-Instance.html" rel="up" title="Reinitializing an Instance">
+<link href="Meta_002dObjects.html" rel="next" title="Meta-Objects">
+<link href="Reinitializing-an-Instance.html" rel="prev" title="Reinitializing an Instance">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Customizing-Reinitialization"></span><div class="header">
+<p>
+Up: <a href="Reinitializing-an-Instance.html" accesskey="u" rel="up">Reinitializing an Instance</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Customizing-Reinitialization-1"></span><h4 class="subsection">7.3.1 Customizing Reinitialization</h4>
+
+<p><i>Methods</i> for <code>reinitialize-instance</code> may be defined to specify
+actions to be taken when an <i>instance</i> is updated.  If only
+<i>after methods</i> for <code>reinitialize-instance</code> are defined, 
+they will be run after the system-supplied primary <i>method</i> for 
+initialization and therefore will not interfere with the default behavior of 
+<code>reinitialize-instance</code>.
+</p>
+<p><i>Methods</i> for <code>shared-initialize</code> may be defined to customize 
+<i>class</i> redefinition.  For more information, see <a href="Shared_002dInitialize.html">Section 7.1.5 (Shared-Initialize)</a>.
+</p>
+
+
+
+
+
+</body>
+</html>

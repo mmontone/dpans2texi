@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>and (Macro) (ANSI Common Lisp)</title>
+
+<meta name="description" content="and (Macro) (ANSI Common Lisp)">
+<meta name="keywords" content="and (Macro) (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="cond.html" rel="next" title="cond">
+<link href="every_003b-some_003b-notevery_003b-notany.html" rel="prev" title="every; some; notevery; notany">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="and-_0028Macro_0029"></span><div class="header">
+<p>
+Next: <a href="cond.html" accesskey="n" rel="next">cond</a>, Previous: <a href="every_003b-some_003b-notevery_003b-notany.html" accesskey="p" rel="prev">every; some; notevery; notany</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">and (Macro)</h4>
+<span id="and-_0028Macro_0029-1"></span><h3 class="heading">and (Macro)</h3>
+<span id="index-and-5"></span>
+<span id="index-and-1"></span>
+
+
+<span id="Syntax_003a-70"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-and-3">Macro: <strong>and</strong> <em><tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-60"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>form</var>&mdash;a <i>form</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> resulting from the evaluation of 
+the last <var>form</var>, or the symbols <code>nil</code>&nbsp;<!-- /@w -->or <code>t</code>.
+</p>
+<span id="Description_003a-94"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The macro <code>and</code> evaluates each <var>form</var> one at a time from left to right. 
+As soon as any <var>form</var> evaluates to <code>nil</code>, <code>and</code> returns
+<code>nil</code>&nbsp;<!-- /@w -->without evaluating the remaining <var>forms</var>.  If all <var>forms</var>
+but the last evaluate to <i>true</i> values, <code>and</code> returns the results
+produced by evaluating the last <var>form</var>.
+</p>
+<p>If no <var>forms</var> are supplied, <code>(and)</code> returns <code>t</code>.
+</p>
+<p><code>and</code> passes back multiple values from the last <i>subform</i>
+but not from subforms other than the last.
+</p>
+<span id="Examples_003a-68"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (if (and (&gt;= n 0)
+          (&lt; n (length a-simple-vector))
+          (eq (elt a-simple-vector n) 'foo))
+     (princ &quot;Foo!&quot;))
+</pre></div>
+
+<p>The above expression prints <code>Foo!</code> if element <code>n</code> of <code>a-simple-vector</code>
+is the symbol <code>foo</code>, provided also that <code>n</code> is indeed a valid index
+for <code>a-simple-vector</code>.  Because <code>and</code> guarantees 
+left-to-right testing
+of its parts, <code>elt</code> is not called if <code>n</code> is out of range.
+</p>
+<div class="lisp">
+<pre class="lisp"> (setq temp1 1 temp2 1 temp3 1) <span class="roman">→</span> 1 
+ (and (incf temp1) (incf temp2) (incf temp3)) <span class="roman">→</span> 2 
+ (and (eql 2 temp1) (eql 2 temp2) (eql 2 temp3)) <span class="roman">→</span> <i>true</i>
+ (decf temp3) <span class="roman">→</span> 1 
+ (and (decf temp1) (decf temp2) (eq temp3 'nil) (decf temp3)) <span class="roman">→</span> NIL 
+ (and (eql temp1 temp2) (eql temp2 temp3)) <span class="roman">→</span> <i>true</i>
+ (and) <span class="roman">→</span> T 
+</pre></div>
+
+
+<span id="See-Also_003a-78"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="cond.html">cond</a>,
+<a href="every_003b-some_003b-notevery_003b-notany.html#every">every</a>,
+<a href="if.html">if</a>,
+<a href="or-_0028Macro_0029.html">or (Macro)</a>,
+<a href="when_003b-unless.html#when">when</a>
+</p>
+<span id="Notes_003a-50"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (and <var>form</var>) ≡ (let () <var>form</var>)
+ (and <var>form1</var> <var>form2</var> ...) ≡ (when <var>form1</var> (and <var>form2</var> ...))
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="cond.html" accesskey="n" rel="next">cond</a>, Previous: <a href="every_003b-some_003b-notevery_003b-notany.html" accesskey="p" rel="prev">every; some; notevery; notany</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

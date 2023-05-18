@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Documentation of Implementation-Defined Scripts (ANSI Common Lisp)</title>
+
+<meta name="description" content="Documentation of Implementation-Defined Scripts (ANSI Common Lisp)">
+<meta name="keywords" content="Documentation of Implementation-Defined Scripts (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Character-Concepts.html" rel="up" title="Character Concepts">
+<link href="character-_0028System-Class_0029.html" rel="next" title="character (System Class)">
+<link href="Character-Encodings.html" rel="prev" title="Character Encodings">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Documentation-of-Implementation_002dDefined-Scripts"></span><div class="header">
+<p>
+Previous: <a href="Character-Encodings.html" accesskey="p" rel="prev">Character Encodings</a>, Up: <a href="Character-Concepts.html" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Documentation-of-Implementation_002dDefined-Scripts-1"></span><h4 class="subsection">13.1.10 Documentation of Implementation-Defined Scripts</h4>
+
+<p>An <i>implementation</i> must document the <i>character</i> <i>scripts</i> 
+it supports. For each <i>character</i> <i>script</i> supported,
+the documentation must describe at least the following:
+</p>
+<ul>
+<li> Character labels, glyphs, and descriptions.
+Character labels must be uniquely named using only Latin capital letters A&ndash;Z,
+hyphen (-), and digits 0&ndash;9.
+</li><li> Reader canonicalization.
+Any mechanisms by which <code>read</code> treats
+<i>different</i> characters as equivalent must be documented.
+</li><li> The impact on <code>char-upcase</code>,
+<code>char-downcase</code>,
+and the case-sensitive <i>format directives</i>.
+In particular, for each <i>character</i> with <i>case</i>,
+whether it is <i>uppercase</i> or <i>lowercase</i>,
+and which <i>character</i> is its equivalent in the opposite case.
+</li><li> The behavior of the case-insensitive <i>functions</i>
+<code>char-equal</code>, <code>char-not-equal</code>,
+<code>char-lessp</code>, <code>char-greaterp</code>, 
+<code>char-not-greaterp</code>, and <code>char-not-lessp</code>.
+</li><li> The behavior of any <i>character</i> <i>predicates</i>;
+in particular, the effects of
+<code>alpha-char-p</code>,
+<code>lower-case-p</code>,
+<code>upper-case-p</code>,
+<code>both-case-p</code>,
+<code>graphic-char-p</code>, 
+and
+<code>alphanumericp</code>.
+</li><li> The interaction with file I/O, in particular,
+the supported coded character sets (for example, ISO8859/1-1987)
+and external encoding schemes supported are documented.
+</li></ul>
+
+
+
+
+
+
+</body>
+</html>

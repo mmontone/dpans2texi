@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>pprint-fill; pprint-linear; pprint-tabular (ANSI Common Lisp)</title>
+
+<meta name="description" content="pprint-fill; pprint-linear; pprint-tabular (ANSI Common Lisp)">
+<meta name="keywords" content="pprint-fill; pprint-linear; pprint-tabular (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Printer.html" rel="up" title="Printer">
+<link href="pprint_002dindent.html" rel="next" title="pprint-indent">
+<link href="pprint_002dexit_002dif_002dlist_002dexhausted.html" rel="prev" title="pprint-exit-if-list-exhausted">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="pprint_002dfill_003b-pprint_002dlinear_003b-pprint_002dtabular"></span><div class="header">
+<p>
+Next: <a href="pprint_002dindent.html" accesskey="n" rel="next">pprint-indent</a>, Previous: <a href="pprint_002dexit_002dif_002dlist_002dexhausted.html" accesskey="p" rel="prev">pprint-exit-if-list-exhausted</a>, Up: <a href="Printer.html" accesskey="u" rel="up">Printer</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">pprint-fill; pprint-linear; pprint-tabular</h4>
+<span id="pprint_002dfill_002c-pprint_002dlinear_002c-pprint_002dtabular-_0028Function_0029"></span><h3 class="heading">pprint-fill, pprint-linear, pprint-tabular (Function)</h3>
+<span id="index-pprint_002dfill-2"></span>
+<span id="index-pprint_002dfill"></span>
+<span id="index-pprint_002dlinear-2"></span>
+<span id="index-pprint_002dlinear"></span>
+<span id="index-pprint_002dtabular-2"></span>
+<span id="index-pprint_002dtabular"></span>
+<span id="pprint_002dfill"></span>
+
+
+<span id="Syntax_003a-472"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-pprint_002dfill-1">Function: <strong>pprint-fill</strong> <em>stream object <tt>&amp;optional</tt> colon-p at-sign-p <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+<dl>
+<dt id="index-pprint_002dlinear-1">Function: <strong>pprint-linear</strong> <em>stream object <tt>&amp;optional</tt> colon-p at-sign-p <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+<dl>
+<dt id="index-pprint_002dtabular-1">Function: <strong>pprint-tabular</strong> <em>stream object <tt>&amp;optional</tt> colon-p at-sign-p tabsize <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-458"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>stream</var>&mdash;an <i>output</i> <i>stream designator</i>.
+</p>
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>colon-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>true</i>.
+</p>
+<p><var>at-sign-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>implementation-dependent</i>.
+</p>
+<p><var>tabsize</var>&mdash;a non-negative <i>integer</i>.
+The default is <code>16</code>.
+</p>
+<span id="Description_003a-593"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The functions <code>pprint-fill</code>, <code>pprint-linear</code>, and
+<code>pprint-tabular</code> specify particular ways of <i>pretty printing</i>
+a <i>list</i> to <var>stream</var>. 
+Each function prints parentheses around the output if and only
+if <var>colon-p</var> is <i>true</i>.
+Each function ignores its <var>at-sign-p</var> argument.
+(Both arguments are included even though only one is needed
+so that these functions can be used via &lsquo;<samp>~/.../</samp>&rsquo;
+and as <code>set-pprint-dispatch</code> functions, as well as directly.)
+Each function handles abbreviation and the detection of circularity
+and sharing correctly, and uses <code>write</code> to print <var>object</var>
+when it is a <i>non-list</i>.
+</p>
+<p>If <var>object</var> is a <i>list</i> and 
+if the <i>value</i> of <code>*print-pretty*</code> is <i>false</i>,
+each of these functions prints <var>object</var>
+using a minimum of <i>whitespace</i>,
+as described in <a href="Default-Print_002dObject-Methods.html#PrintingListsAndConses">Section 22.1.3.5 (Printing Lists and Conses)</a>.
+Otherwise (if <var>object</var> is a <i>list</i> and 
+if the <i>value</i> of <code>*print-pretty*</code> is <i>true</i>):
+</p>
+
+<ul>
+<li> The <i>function</i> <code>pprint-linear</code> prints a <i>list</i> either all on one line, 
+or with each <i>element</i> on a separate line.  
+
+</li><li> The <i>function</i> <code>pprint-fill</code> prints a <i>list</i> with as many <i>elements</i>
+as possible on each line.
+
+</li><li> The <i>function</i> <code>pprint-tabular</code> is the same as <code>pprint-fill</code>
+except that it prints the <i>elements</i> so that they line up in columns.
+The <var>tabsize</var> specifies the column spacing in <i>ems</i>,
+which is the total spacing from the leading edge of one column to
+the leading edge of the next.
+</li></ul>
+
+
+
+<span id="Examples_003a-429"></span><h4 class="subsubheading">Examples:</h4>
+
+<p>Evaluating the following with a line length of <code>25</code> produces the output shown.
+</p>
+<div class="lisp">
+<pre class="lisp">(progn (princ &quot;Roads &quot;) 
+       (pprint-tabular *standard-output* '(elm main maple center) nil nil 8))
+Roads ELM     MAIN
+      MAPLE   CENTER
+</pre></div>
+
+
+<span id="Side-Effects_003a-75"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Performs output to the indicated <i>stream</i>.
+</p>
+<span id="Affected-By_003a-98"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The cursor position on the indicated <i>stream</i>, if it can be determined.
+</p>
+<span id="Notes_003a-299"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <i>function</i> <code>pprint-tabular</code> could be defined as follows:
+</p>
+<div class="lisp">
+<pre class="lisp">(defun pprint-tabular (s list &amp;optional (colon-p t) at-sign-p (tabsize nil))
+  (declare (ignore at-sign-p))
+  (when (null tabsize) (setq tabsize 16))
+  (pprint-logical-block (s list :prefix (if colon-p &quot;(&quot; &quot;&quot;)
+                                :suffix (if colon-p &quot;)&quot; &quot;&quot;))
+    (pprint-exit-if-list-exhausted)
+    (loop (write (pprint-pop) :stream s)
+          (pprint-exit-if-list-exhausted)
+          (write-char #\Space s)
+          (pprint-tab :section-relative 0 tabsize s)
+          (pprint-newline :fill s))))
+</pre></div>
+
+
+<p>Note that it would have been inconvenient to specify this function
+using <code>format</code>, because of the need to pass its <var>tabsize</var> argument
+through to a &lsquo;<samp>~:T</samp>&rsquo; format directive nested within an iteration over a list.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="pprint_002dindent.html" accesskey="n" rel="next">pprint-indent</a>, Previous: <a href="pprint_002dexit_002dif_002dlist_002dexhausted.html" accesskey="p" rel="prev">pprint-exit-if-list-exhausted</a>, Up: <a href="Printer.html" accesskey="u" rel="up">Printer</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

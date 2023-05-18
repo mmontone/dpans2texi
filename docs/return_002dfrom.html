@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>return-from (ANSI Common Lisp)</title>
+
+<meta name="description" content="return-from (ANSI Common Lisp)">
+<meta name="keywords" content="return-from (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="return.html" rel="next" title="return">
+<link href="go.html" rel="prev" title="go">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="return_002dfrom"></span><div class="header">
+<p>
+Next: <a href="return.html" accesskey="n" rel="next">return</a>, Previous: <a href="go.html" accesskey="p" rel="prev">go</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">return-from</h4>
+<span id="return_002dfrom-_0028Special-Operator_0029"></span><h3 class="heading">return-from (Special Operator)</h3>
+<span id="index-return_002dfrom-2"></span>
+<span id="index-return_002dfrom"></span>
+
+
+<span id="Syntax_003a-56"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-return_002dfrom-1">Special Form: <strong>return-from</strong> <em><var>name</var> <tt>[</tt><var>result</var><tt>]</tt> <span class="roman">→</span><span class="roman">|</span></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-46"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>name</var>&mdash;a <i>block tag</i>; not evaluated.
+</p>
+<p><var>result</var>&mdash;a <i>form</i>; evaluated.
+The default is <code>nil</code>.
+</p>
+<span id="Description_003a-78"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns control and <i>multiple values</i><sub>2</sub>
+</p>
+<p>A <code>block</code> <i>form</i> named <var>name</var> must lexically enclose
+the occurrence of <code>return-from</code>;  any <i>values</i> <i>yielded</i>
+by the <i>evaluation</i> of <var>result</var> are immediately returned from
+the innermost such lexically enclosing <i>block</i>.
+</p>
+<p>The transfer of control initiated by <code>return-from</code> is performed
+as described in <a href="Transfer-of-Control-to-an-Exit-Point.html">Section 5.2 (Transfer of Control to an Exit Point)</a>.
+</p>
+<span id="Examples_003a-52"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (block alpha (return-from alpha) 1) <span class="roman">→</span> NIL
+ (block alpha (return-from alpha 1) 2) <span class="roman">→</span> 1
+ (block alpha (return-from alpha (values 1 2)) 3) <span class="roman">→</span> 1, 2
+ (let ((a 0))
+    (dotimes (i 10) (incf a) (when (oddp i) (return)))
+    a) <span class="roman">→</span> 2
+ (defun temp (x)
+    (if x (return-from temp 'dummy))
+    44) <span class="roman">→</span> TEMP
+ (temp nil) <span class="roman">→</span> 44
+ (temp t) <span class="roman">→</span> DUMMY
+ (block out
+   (flet ((exit (n) (return-from out n)))
+     (block out (exit 1)))
+   2) <span class="roman">→</span> 1
+ (block nil   
+   (unwind-protect (return-from nil 1)
+     (return-from nil 2)))
+<span class="roman">→</span> 2
+ (dolist (flag '(nil t))
+   (block nil
+     (let ((x 5))
+       (declare (special x))
+       (unwind-protect (return-from nil)
+         (print x))))
+   (print 'here))
+▷ 5
+▷ HERE
+▷ 5
+▷ HERE
+<span class="roman">→</span> NIL
+ (dolist (flag '(nil t))
+   (block nil
+     (let ((x 5))
+       (declare (special x))
+       (unwind-protect
+           (if flag (return-from nil))
+         (print x))))
+   (print 'here))
+▷ 5
+▷ HERE
+▷ 5
+▷ HERE
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<p>The following has undefined consequences because the <code>block</code> <i>form</i>
+exits normally before the <code>return-from</code> <i>form</i> is attempted.
+</p>
+<div class="lisp">
+<pre class="lisp"> (funcall (block nil #'(lambda () (return-from nil)))) is an error.
+</pre></div>
+
+
+
+<span id="See-Also_003a-63"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="block.html">block</a>,
+<a href="return.html">return</a>,
+<a href="Evaluation.html">Section 3.1 (Evaluation)</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="return.html" accesskey="n" rel="next">return</a>, Previous: <a href="go.html" accesskey="p" rel="prev">go</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

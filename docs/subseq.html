@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>subseq (ANSI Common Lisp)</title>
+
+<meta name="description" content="subseq (ANSI Common Lisp)">
+<meta name="keywords" content="subseq (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Sequences.html" rel="up" title="Sequences">
+<link href="map.html" rel="next" title="map">
+<link href="make_002dsequence.html" rel="prev" title="make-sequence">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="subseq"></span><div class="header">
+<p>
+Next: <a href="map.html" accesskey="n" rel="next">map</a>, Previous: <a href="make_002dsequence.html" accesskey="p" rel="prev">make-sequence</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">subseq</h4>
+<span id="subseq-_0028Accessor_0029"></span><h3 class="heading">subseq (Accessor)</h3>
+<span id="index-subseq-2"></span>
+<span id="index-subseq"></span>
+
+
+<span id="Syntax_003a-369"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-subseq-1">Function: <strong>subseq</strong> <em>sequence start <tt>&amp;optional</tt> end <span class="roman">→</span> subsequence</em></dt>
+</dl>
+<p><tt>(setf (subseq sequence start <tt>&amp;optional</tt> end) new-subsequence)</tt>
+</p>
+<span id="Arguments-and-Values_003a-358"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The default for <var>end</var> is <code>nil</code>.
+</p>
+<p><var>subsequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>new-subsequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<span id="Description_003a-473"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>subseq</code> creates a <i>sequence</i> 
+that is a copy of the subsequence of <var>sequence</var>
+<var>bounded</var> by <var>start</var> and <var>end</var>.
+</p>
+<p><var>Start</var> specifies an offset into the original <var>sequence</var> and
+marks the beginning position of the subsequence.
+<var>end</var> marks the position following the last element of the subsequence.
+</p>
+<p><code>subseq</code> always allocates a new <i>sequence</i> for a result;
+it never shares storage with an old <i>sequence</i>. 
+The result subsequence is always of the same <i>type</i> as <var>sequence</var>.
+</p>
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result is a <i>fresh</i> <i>simple array</i>
+of <i>rank</i> one
+that has the same <i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, 
+the result is a <i>fresh</i> <i>list</i>. 
+</p>
+<p><code>setf</code> may be used with <code>subseq</code> to destructively replace
+<i>elements</i> of a subsequence with <i>elements</i> 
+taken from a <i>sequence</i> of new values.
+If the subsequence and the new sequence are not of equal length,
+the shorter length determines the number of elements that are
+replaced.  The remaining <i>elements</i> at the end of the longer sequence 
+are not modified in the operation.
+</p>
+<span id="Examples_003a-340"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq str &quot;012345&quot;) <span class="roman">→</span> &quot;012345&quot;
+ (subseq str 2) <span class="roman">→</span> &quot;2345&quot;
+ (subseq str 3 5) <span class="roman">→</span> &quot;34&quot;
+ (setf (subseq str 4) &quot;abc&quot;) <span class="roman">→</span> &quot;abc&quot;
+ str <span class="roman">→</span> &quot;0123ab&quot;
+ (setf (subseq str 0 2) &quot;A&quot;) <span class="roman">→</span> &quot;A&quot;
+ str <span class="roman">→</span> &quot;A123ab&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-154"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>new-subsequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-385"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="replace.html">replace</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="map.html" accesskey="n" rel="next">map</a>, Previous: <a href="make_002dsequence.html" accesskey="p" rel="prev">make-sequence</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

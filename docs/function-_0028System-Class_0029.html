@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>function (System Class) (ANSI Common Lisp)</title>
+
+<meta name="description" content="function (System Class) (ANSI Common Lisp)">
+<meta name="keywords" content="function (System Class) (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Types-and-Classes.html" rel="up" title="Types and Classes">
+<link href="compiled_002dfunction.html" rel="next" title="compiled-function">
+<link href="boolean.html" rel="prev" title="boolean">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="function-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="compiled_002dfunction.html" accesskey="n" rel="next">compiled-function</a>, Previous: <a href="boolean.html" accesskey="p" rel="prev">boolean</a>, Up: <a href="Types-and-Classes.html" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">function (System Class)</h4>
+<span id="function-_0028System-Class_0029-1"></span><h3 class="heading">function (System Class)</h3>
+<span id="index-function-4"></span>
+<span id="index-function-1"></span>
+
+
+
+<span id="Class-Precedence-List_003a"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>function</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-32"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>function</i> is an <i>object</i> that represents code 
+to be executed when an appropriate number of arguments is supplied.
+A <i>function</i> is produced by 
+the <code>function</code> <i>special form</i>,
+the <i>function</i> <code>coerce</code>,
+or
+the <i>function</i> <code>compile</code>.
+A <i>function</i> can be directly invoked by using it as the first argument to
+<code>funcall</code>, <code>apply</code>, or <code>multiple-value-call</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(function <tt>[</tt>arg-typespec <tt>[</tt>value-typespec<tt>]</tt><tt>]</tt>)
+</p>
+<dl compact="compact">
+<dt><var>arg-typespec</var>::=</dt>
+<dd><p><tt>(</tt><tt>{</tt>typespec<tt>}</tt>* <br> &nbsp;<!-- /@w --><tt>[</tt><tt>&amp;optional</tt> <tt>{</tt>typespec<tt>}</tt>*<tt>]</tt> <br> &nbsp;<!-- /@w --><tt>[</tt><tt>&amp;rest</tt> <var>typespec</var><tt>]</tt> <br> &nbsp;<!-- /@w --><tt>[</tt><tt>&amp;key</tt> <tt>{</tt><tt>(</tt>keyword typespec<tt>)</tt><tt>}</tt>*<tt>]</tt><tt>)</tt>
+</p></dd>
+</dl>
+
+<span id="Compound-Type-Specifier-Arguments_003a"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>value-typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+
+
+
+
+
+
+<p>The list form of the <code>function</code> <i>type-specifier</i>
+can be used only for declaration and not for discrimination.
+Every element of this <i>type</i> is
+a <i>function</i> that accepts arguments of the
+types   
+specified by the  <var>argj-types</var> and returns values that are
+members of the <i>types</i> specified by <var>value-type</var>. The
+<code>&amp;optional</code>, <code>&amp;rest</code>, <code>&amp;key</code>, 
+and <code>&amp;allow-other-keys</code> 
+markers can appear in the list of argument types. 
+The <i>type specifier</i> provided
+with <code>&amp;rest</code> is the <i>type</i> 
+of each actual argument, not the <i>type</i> of the
+corresponding variable.
+</p>
+<p>The <code>&amp;key</code> parameters 
+should be supplied as lists of the form <code>(<var>keyword</var> <var>type</var>)</code>.  
+The <var>keyword</var> must be a valid keyword-name symbol
+as must be supplied in the actual arguments of a
+call.
+This is usually a <i>symbol</i> in the <code>KEYWORD</code> <i>package</i> but can be any <i>symbol</i>.
+When <code>&amp;key</code> is given in a
+<code>function</code> <i>type specifier</i> <i>lambda list</i>,
+the <i>keyword parameters</i> given
+are exhaustive unless <code>&amp;allow-other-keys</code> is also present. 
+<code>&amp;allow-other-keys</code> is an indication 
+that other keyword arguments might actually be
+supplied and, if supplied, can be used. 
+For example,
+the <i>type</i> of the <i>function</i> <code>make-list</code> could be declared as follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (function ((integer 0) &amp;key (:initial-element t)) list)
+</pre></div>
+
+
+<p>The <var>value-type</var> can be a <code>values</code> 
+<i>type specifier</i> in order to indicate the
+<i>types</i> of <i>multiple values</i>.
+</p>
+
+<p>Consider a declaration of the following form:
+</p>
+<div class="lisp">
+<pre class="lisp"> (ftype (function (arg0-type arg1-type ...) val-type) f))
+</pre></div>
+
+
+<p>Any <i>form</i>
+<code>(f arg0 arg1 ...)</code>
+within the scope of
+that declaration is equivalent to the following:
+</p>
+<div class="lisp">
+<pre class="lisp"> (the val-type (f (the arg0-type arg0) (the arg1-type arg1) ...))
+</pre></div>
+
+
+<p>That is, the consequences are undefined if any of the arguments are
+not of the specified <i>types</i> or the result is not of the
+specified <i>type</i>. In particular, if any argument is not of the
+correct <i>type</i>, the result is not guaranteed to be of the
+specified <i>type</i>.
+</p>
+<p>Thus, an <code>ftype</code> declaration for a <i>function</i>
+describes <i>calls</i> to the <i>function</i>, not the actual definition
+of the <i>function</i>.
+</p>
+<p>Consider a declaration of the following form:
+</p>
+<div class="lisp">
+<pre class="lisp"> (type (function (arg0-type arg1-type ...) val-type) fn-valued-variable)
+</pre></div>
+
+
+<p>This declaration has the interpretation that, within the scope of the
+declaration, the consequences are unspecified if the value of <code>fn-valued-variable</code> is called with arguments not of the specified
+<i>types</i>; the value resulting from a valid call will be of type
+<code>val-type</code>.
+</p>
+<p>As with variable type declarations, nested declarations
+imply intersections of <i>types</i>, as follows:
+</p>
+<ul>
+<li> Consider the following two
+declarations of <code>ftype</code>:
+
+<div class="lisp">
+<pre class="lisp"> (ftype (function (arg0-type1 arg1-type1 ...) val-type1) f))
+</pre></div>
+
+<p>and
+</p>
+<div class="lisp">
+<pre class="lisp"> (ftype (function (arg0-type2 arg1-type2 ...) val-type2) f))
+</pre></div>
+
+
+<p>If both these declarations are in effect,
+then within the shared scope of the declarations, calls to <code>f</code> can be
+treated as if <code>f</code> were declared as follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (ftype (function ((and arg0-type1 arg0-type2) (and arg1-type1 arg1-type2 ...) ...)
+                  (and val-type1 val-type2)) 
+        f))
+</pre></div>
+
+
+<p>It is permitted to ignore one or all of the <code>ftype</code> declarations in force.
+</p>
+</li><li> If two (or more) type declarations are in effect for a variable, and
+they are both <code>function</code> declarations, the declarations combine similarly.
+</li></ul>
+
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="compiled_002dfunction.html" accesskey="n" rel="next">compiled-function</a>, Previous: <a href="boolean.html" accesskey="p" rel="prev">boolean</a>, Up: <a href="Types-and-Classes.html" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

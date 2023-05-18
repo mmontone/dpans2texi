@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>pi (ANSI Common Lisp)</title>
+
+<meta name="description" content="pi (ANSI Common Lisp)">
+<meta name="keywords" content="pi (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="sinh_003b-cosh_003b-tanh_003b-asinh_003b-acosh_003b-atanh.html" rel="next" title="sinh; cosh; tanh; asinh; acosh; atanh">
+<link href="asin_003b-acos_003b-atan.html" rel="prev" title="asin; acos; atan">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="pi"></span><div class="header">
+<p>
+Next: <a href="sinh_003b-cosh_003b-tanh_003b-asinh_003b-acosh_003b-atanh.html" accesskey="n" rel="next">sinh; cosh; tanh; asinh; acosh; atanh</a>, Previous: <a href="asin_003b-acos_003b-atan.html" accesskey="p" rel="prev">asin; acos; atan</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">pi</h4>
+<span id="pi-_0028Constant-Variable_0029"></span><h3 class="heading">pi (Constant Variable)</h3>
+<span id="index-pi-1"></span>
+<span id="index-pi"></span>
+
+
+<span id="Value_003a"></span><h4 class="subsubheading">Value:</h4>
+
+<p>an <i>implementation-dependent</i> <i>long float</i>.
+</p>
+<span id="Description_003a-287"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The best <i>long float</i> approximation to the mathematical constant π.
+</p>
+<span id="Examples_003a-191"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> ;; In each of the following computations, the precision depends 
+ ;; on the implementation.  Also, if `long float' is treated by 
+ ;; the implementation as equivalent to some other float format 
+ ;; (e.g., `double float') the exponent marker might be the marker
+ ;; for that equivalent (e.g., `D' instead of `L').
+ pi <span class="roman">→</span> 3.141592653589793L0
+ (cos pi) <span class="roman">→</span> -1.0L0
+
+ (defun sin-of-degrees (degrees)
+   (let ((x (if (floatp degrees) degrees (float degrees pi))))
+     (sin (* x (/ (float pi x) 180)))))
+</pre></div>
+
+
+<span id="Notes_003a-145"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>An approximation to π in some other precision can be obtained
+by writing <code>(float pi x)</code>, where <code>x</code> is a <i>float</i> of the
+desired precision, or by writing <code>(coerce pi <i>type</i>)</code>, 
+where <i>type</i> is the desired type, such as <code>short-float</code>.
+</p>
+
+
+
+
+</body>
+</html>

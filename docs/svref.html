@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>svref (ANSI Common Lisp)</title>
+
+<meta name="description" content="svref (ANSI Common Lisp)">
+<meta name="keywords" content="svref (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Arrays.html" rel="up" title="Arrays">
+<link href="vector-_0028Function_0029.html" rel="next" title="vector (Function)">
+<link href="simple_002dvector_002dp.html" rel="prev" title="simple-vector-p">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="svref"></span><div class="header">
+<p>
+Next: <a href="vector-_0028Function_0029.html" accesskey="n" rel="next">vector (Function)</a>, Previous: <a href="simple_002dvector_002dp.html" accesskey="p" rel="prev">simple-vector-p</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">svref</h4>
+<span id="svref-_0028Accessor_0029"></span><h3 class="heading">svref (Accessor)</h3>
+<span id="index-svref-2"></span>
+<span id="index-svref"></span>
+
+
+<span id="Syntax_003a-348"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-svref-1">Function: <strong>svref</strong> <em>simple-vector index <span class="roman">→</span> element</em></dt>
+</dl>
+<p><tt>(setf (svref simple-vector index) new-element)</tt>
+</p>
+<span id="Arguments-and-Values_003a-337"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>simple-vector</var>&mdash;a <i>simple vector</i>.
+</p>
+<p><var>index</var>&mdash;a <i>valid array index</i> for the <var>simple-vector</var>.
+</p>
+<p><var>element</var>, <var>new-element</var>&mdash;an <i>object</i>
+(whose <i>type</i> is a <i>subtype</i> 
+of the <i>array element type</i> of the <var>simple-vector</var>).
+</p>
+<span id="Description_003a-447"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Accesses</i> the <i>element</i> of <var>simple-vector</var> specified by <var>index</var>.
+</p>
+<span id="Examples_003a-319"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (simple-vector-p (setq v (vector 1 2 'sirens))) <span class="roman">→</span> <i>true</i>
+ (svref v 0) <span class="roman">→</span> 1
+ (svref v 2) <span class="roman">→</span> SIRENS
+ (setf (svref v 1) 'newcomer) <span class="roman">→</span> NEWCOMER               
+ v <span class="roman">→</span> #(1 NEWCOMER SIRENS)
+</pre></div>
+
+
+<span id="See-Also_003a-367"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="aref.html">aref</a>,
+<a href="bit_003b-sbit.html#sbit">sbit</a>,
+<a href="char_003b-schar.html#schar">schar</a>,
+<a href="vector-_0028Function_0029.html">vector (Function)</a>,
+<a href="Compiler-Terminology.html">Section 3.2.1 (Compiler Terminology)</a>
+</p>
+<span id="Notes_003a-243"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>svref</code> is identical to <code>aref</code> 
+except that it requires its first argument to be a <i>simple vector</i>.  
+</p>
+<div class="lisp">
+<pre class="lisp"> (svref <var>v</var> <var>i</var>) ≡ (aref (the simple-vector <var>v</var>) <var>i</var>)
+</pre></div>
+
+
+
+
+
+
+</body>
+</html>

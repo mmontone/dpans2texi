@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>values-list (ANSI Common Lisp)</title>
+
+<meta name="description" content="values-list (ANSI Common Lisp)">
+<meta name="keywords" content="values-list (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="multiple_002dvalues_002dlimit.html" rel="next" title="multiple-values-limit">
+<link href="values-_0028Accessor_0029.html" rel="prev" title="values (Accessor)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="values_002dlist"></span><div class="header">
+<p>
+Next: <a href="multiple_002dvalues_002dlimit.html" accesskey="n" rel="next">multiple-values-limit</a>, Previous: <a href="values-_0028Accessor_0029.html" accesskey="p" rel="prev">values (Accessor)</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">values-list</h4>
+<span id="values_002dlist-_0028Function_0029"></span><h3 class="heading">values-list (Function)</h3>
+<span id="index-values_002dlist-2"></span>
+<span id="index-values_002dlist"></span>
+
+
+<span id="Syntax_003a-83"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-values_002dlist-1">Function: <strong>values-list</strong> <em>list <span class="roman">→</span> <tt>{</tt>element<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-73"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>list</var>&mdash;a <i>list</i>.
+</p>
+<p><var>elements</var>&mdash;the <i>elements</i> of the <var>list</var>.
+</p>
+<span id="Description_003a-107"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>elements</i> of the <var>list</var> as <i>multiple values</i><sub>2</sub>
+</p>
+<span id="Examples_003a-81"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (values-list nil) <span class="roman">→</span> &lt;no <i>values</i>&gt;
+ (values-list '(1)) <span class="roman">→</span> 1
+ (values-list '(1 2)) <span class="roman">→</span> 1, 2
+ (values-list '(1 2 3)) <span class="roman">→</span> 1, 2, 3
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-20"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal <code>type-error</code> if its argument is not a <i>proper list</i>.
+</p>
+<span id="See-Also_003a-91"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="multiple_002dvalue_002dbind.html">multiple-value-bind</a>,
+<a href="multiple_002dvalue_002dlist.html">multiple-value-list</a>,
+<a href="multiple_002dvalues_002dlimit.html">multiple-values-limit</a>,
+<a href="values-_0028Accessor_0029.html">values (Accessor)</a>
+</p>
+<span id="Notes_003a-58"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (values-list <var>list</var>) ≡ (apply #'values <var>list</var>)
+</pre></div>
+
+
+<p><code>(equal <var>x</var> (multiple-value-list (values-list <var>x</var>)))</code>
+returns <i>true</i> for all <i>lists</i> <var>x</var>.
+</p>
+
+
+
+
+</body>
+</html>

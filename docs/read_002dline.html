@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>read-line (ANSI Common Lisp)</title>
+
+<meta name="description" content="read-line (ANSI Common Lisp)">
+<meta name="keywords" content="read-line (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="write_002dstring_003b-write_002dline.html" rel="next" title="write-string; write-line">
+<link href="write_002dchar.html" rel="prev" title="write-char">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="read_002dline"></span><div class="header">
+<p>
+Next: <a href="write_002dstring_003b-write_002dline.html" accesskey="n" rel="next">write-string; write-line</a>, Previous: <a href="write_002dchar.html" accesskey="p" rel="prev">write-char</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">read-line</h4>
+<span id="read_002dline-_0028Function_0029"></span><h3 class="heading">read-line (Function)</h3>
+<span id="index-read_002dline-2"></span>
+<span id="index-read_002dline"></span>
+
+
+<span id="Syntax_003a-436"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-read_002dline-1">Function: <strong>read-line</strong> <em><tt>&amp;optional</tt> input-stream eof-error-p eof-value recursive-p <span class="roman">→</span> line, missing-newline-p</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-425"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>input-stream</var>&mdash;an <i>input</i> <i>stream designator</i>.
+The default is <i>standard input</i>.
+</p>
+<p><var>eof-error-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>true</i>.
+</p>
+<p><var>eof-value</var>&mdash;an <i>object</i>.
+The default is <code>nil</code>.
+</p>
+<p><var>recursive-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>line</var>&mdash;a <i>string</i> or the <var>eof-value</var>.
+</p>
+<p><var>missing-newline-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-553"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Reads from <var>input-stream</var> a line of text
+that is terminated by a <i>newline</i> or <i>end of file</i>.
+</p>
+<p>If <var>recursive-p</var> is <i>true</i>, this call is expected to be
+embedded in a higher-level call to <code>read</code> or a similar
+<i>function</i> used by the <i>Lisp reader</i>.
+</p>
+<p>The <i>primary value</i>, <var>line</var>, is the line that is read,
+represented as a <i>string</i> (without the trailing <i>newline</i>, if any).
+If  <var>eof-error-p</var> is <i>false</i> 
+and the <i>end of file</i> for <var>input-stream</var> is reached
+before any <i>characters</i> are read,
+<var>eof-value</var> is returned as the <var>line</var>.
+</p>
+<p>The <i>secondary value</i>, <var>missing-newline-p</var>, 
+is a <i>generalized boolean</i> that is
+<i>false</i> if the <var>line</var> was terminated by a <i>newline</i>,
+or <i>true</i>  if the <var>line</var> was terminated by 
+the <i>end of file</i> for <var>input-stream</var>
+(or if the <var>line</var> is the <var>eof-value</var>).
+</p>
+<span id="Examples_003a-400"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq a &quot;line 1
+ line2&quot;)
+<span class="roman">→</span> &quot;line 1
+ line2&quot;
+ (read-line (setq input-stream (make-string-input-stream a)))
+<span class="roman">→</span> &quot;line 1&quot;, <i>false</i>
+ (read-line input-stream)
+<span class="roman">→</span> &quot;line2&quot;, <i>true</i>
+ (read-line input-stream nil nil)
+<span class="roman">→</span> NIL, <i>true</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-88"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-input*</code>,
+<code>*terminal-io*</code>.
+</p>
+<span id="Exceptional-Situations_003a-202"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If an <i>end of file</i><sub>2</sub>
+an error is signaled if <var>eof-error-p</var> is <i>true</i>.  
+</p>
+<span id="See-Also_003a-450"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="read_003b-read_002dpreserving_002dwhitespace.html#read">read</a>
+</p>
+<span id="Notes_003a-289"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The corresponding output function is <code>write-line</code>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="write_002dstring_003b-write_002dline.html" accesskey="n" rel="next">write-string; write-line</a>, Previous: <a href="write_002dchar.html" accesskey="p" rel="prev">write-char</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

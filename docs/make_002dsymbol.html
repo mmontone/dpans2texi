@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>make-symbol (ANSI Common Lisp)</title>
+
+<meta name="description" content="make-symbol (ANSI Common Lisp)">
+<meta name="keywords" content="make-symbol (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Symbols.html" rel="up" title="Symbols">
+<link href="copy_002dsymbol.html" rel="next" title="copy-symbol">
+<link href="keywordp.html" rel="prev" title="keywordp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="make_002dsymbol"></span><div class="header">
+<p>
+Next: <a href="copy_002dsymbol.html" accesskey="n" rel="next">copy-symbol</a>, Previous: <a href="keywordp.html" accesskey="p" rel="prev">keywordp</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">make-symbol</h4>
+<span id="make_002dsymbol-_0028Function_0029"></span><h3 class="heading">make-symbol (Function)</h3>
+<span id="index-make_002dsymbol-2"></span>
+<span id="index-make_002dsymbol"></span>
+
+
+<span id="Syntax_003a-171"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-make_002dsymbol-1">Function: <strong>make-symbol</strong> <em>name <span class="roman">→</span> new-symbol</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-160"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>name</var>&mdash;a <i>string</i>.
+</p>
+<p><var>new-symbol</var>&mdash;a <i>fresh</i>, <i>uninterned</i> <i>symbol</i>.
+</p>
+<span id="Description_003a-221"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>make-symbol</code> creates and returns a <i>fresh</i>, <i>uninterned</i>
+<i>symbol</i> whose <i>name</i> is the given <var>name</var>.
+The <var>new-symbol</var> is neither <i>bound</i> nor <i>fbound</i> 
+and has a <i>null</i> <i>property list</i>.
+</p>
+<p>It is <i>implementation-dependent</i> whether the <i>string</i> 
+that becomes the <var>new-symbol</var>&rsquo;s <i>name</i> is the given
+<var>name</var> or a copy of it.  Once a <i>string</i>
+has been given as the <var>name</var> <i>argument</i> to
+<i>make-symbol</i>, the consequences are undefined if a
+subsequent attempt is made to alter that <i>string</i>.
+</p>
+<span id="Examples_003a-143"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq temp-string &quot;temp&quot;) <span class="roman">→</span> &quot;temp&quot;
+ (setq temp-symbol (make-symbol temp-string)) <span class="roman">→</span> #:|temp|
+ (symbol-name temp-symbol) <span class="roman">→</span> &quot;temp&quot;
+ (eq (symbol-name temp-symbol) temp-string) <span class="roman">→</span> <i>implementation-dependent</i>
+ (find-symbol &quot;temp&quot;) <span class="roman">→</span> NIL, NIL
+ (eq (make-symbol temp-string) (make-symbol temp-string)) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-50"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>name</var> is not a <i>string</i>.
+</p>
+<span id="See-Also_003a-195"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="copy_002dsymbol.html">copy-symbol</a>
+</p>
+<span id="Notes_003a-116"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>No attempt is made by <code>make-symbol</code> to convert the case
+of the <i>name</i> to uppercase.  The only case conversion which ever 
+occurs for <i>symbols</i> is done by the <i>Lisp reader</i>.
+The program interface to <i>symbol</i> creation retains case,
+and the program interface to interning symbols is case-sensitive.
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Semicolon (ANSI Common Lisp)</title>
+
+<meta name="description" content="Semicolon (ANSI Common Lisp)">
+<meta name="keywords" content="Semicolon (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Standard-Macro-Characters.html" rel="up" title="Standard Macro Characters">
+<link href="Double_002dQuote.html" rel="next" title="Double-Quote">
+<link href="Single_002dQuote.html" rel="prev" title="Single-Quote">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Semicolon"></span><div class="header">
+<p>
+Next: <a href="Double_002dQuote.html" accesskey="n" rel="next">Double-Quote</a>, Previous: <a href="Single_002dQuote.html" accesskey="p" rel="prev">Single-Quote</a>, Up: <a href="Standard-Macro-Characters.html" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Semicolon-1"></span><h4 class="subsection">2.4.4 Semicolon</h4>
+<span id="index-_003b"></span>
+<span id="index-Semicolon-_0028reader-macro_0029"></span>
+<span id="index-comment"></span>
+
+<p><b>Syntax:</b> <code>;«<var>text</var>»</code>
+</p>
+<p>A <i>semicolon</i> introduces <i>characters</i> that are to be ignored,
+such as comments.  The <i>semicolon</i> and all <i>characters</i> up to
+and including the next <i>newline</i> or end of file are ignored.
+</p>
+<span id="Examples-of-Semicolon"></span><h4 class="subsubsection">2.4.4.1 Examples of Semicolon</h4>
+
+<div class="lisp">
+<pre class="lisp"> (+ 3 ; three
+    4)
+<span class="roman">→</span> 7    
+</pre></div>
+
+
+
+<span id="Notes-about-Style-for-Semicolon"></span><h4 class="subsubsection">2.4.4.2 Notes about Style for Semicolon</h4>
+
+<p>Some text editors make assumptions about desired indentation based on
+the number of <i>semicolons</i> that begin a comment.  The following style 
+conventions are common, although not by any means universal.  
+</p>
+<span id="g_t2_002e4_002e4_002e2_002e1-Use-of-Single-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.1 Use of Single Semicolon</h4>
+
+
+<p>Comments that begin with a single <i>semicolon</i> are all aligned to 
+the same column at the right (sometimes called the &ldquo;comment column&rdquo;).
+The text of such a comment generally applies only to the line on which it appears.
+Occasionally two or three contain a single sentence together;
+this is sometimes indicated by indenting all but the first with an additional
+space (after the <i>semicolon</i>).
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e2-Use-of-Double-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.2 Use of Double Semicolon</h4>
+
+
+<p>Comments that begin with a double <i>semicolon</i> are all aligned to
+the same level of indentation as a <i>form</i> would be at that same
+position in the <i>code</i>.
+The text of such a comment usually describes
+the state of the <i>program</i> at the point where the comment occurs,
+the <i>code</i> which follows the comment,
+or both.
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e3-Use-of-Triple-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.3 Use of Triple Semicolon</h4>
+
+
+<p>Comments that begin with a triple <i>semicolon</i> are all aligned to
+the left margin.  Usually they are used prior to a definition or set
+of definitions, rather than within a definition.
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e4-Use-of-Quadruple-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.4 Use of Quadruple Semicolon</h4>
+
+
+<p>Comments that begin with a quadruple <i>semicolon</i> are all aligned to
+the left margin, and generally contain only a short piece of text that
+serve as a title for the code which follows, and might be used in the
+header or footer of a program that prepares code for presentation as 
+a hardcopy document.
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e5-Examples-of-Style-for-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.5 Examples of Style for Semicolon</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;;;; Math Utilities
+
+;;; FIB computes the the Fibonacci function in the traditional
+;;; recursive way.
+
+(defun fib (n)
+  (check-type n integer)
+  ;; At this point we're sure we have an integer argument.
+  ;; Now we can get down to some serious computation.
+  (cond ((&lt; n 0)
+         ;; Hey, this is just supposed to be a simple example.
+         ;; Did you really expect me to handle the general case?
+         (error &quot;FIB got ~D as an argument.&quot; n))
+        ((&lt; n 2) n)             ;fib[0]=0 and fib[1]=1
+        ;; The cheap cases didn't work.
+        ;; Nothing more to do but recurse.
+        (t (+ (fib (- n 1))     ;The traditional formula
+              (fib (- n 2)))))) ; is fib[n-1]+fib[n-2].
+</pre></div>
+
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Double_002dQuote.html" accesskey="n" rel="next">Double-Quote</a>, Previous: <a href="Single_002dQuote.html" accesskey="p" rel="prev">Single-Quote</a>, Up: <a href="Standard-Macro-Characters.html" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

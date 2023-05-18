@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>dotimes (ANSI Common Lisp)</title>
+
+<meta name="description" content="dotimes (ANSI Common Lisp)">
+<meta name="keywords" content="dotimes (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Iteration.html" rel="up" title="Iteration">
+<link href="dolist.html" rel="next" title="dolist">
+<link href="do_003b-do_002a.html" rel="prev" title="do; do*">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="dotimes"></span><div class="header">
+<p>
+Next: <a href="dolist.html" accesskey="n" rel="next">dolist</a>, Previous: <a href="do_003b-do_002a.html" accesskey="p" rel="prev">do; do*</a>, Up: <a href="Iteration.html" accesskey="u" rel="up">Iteration</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">dotimes</h4>
+<span id="dotimes-_0028Macro_0029"></span><h3 class="heading">dotimes (Macro)</h3>
+<span id="index-dotimes-2"></span>
+<span id="index-dotimes"></span>
+
+
+
+<span id="Syntax_003a-96"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-dotimes-1">Macro: <strong>dotimes</strong> <em><tt>(</tt>var count-form <tt>[</tt>result-form<tt>]</tt><tt>)</tt> <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>tag | statement<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-86"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>var</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>count-form</var>&mdash;a <i>form</i>.
+</p>
+<p><var>result-form</var>&mdash;a <i>form</i>.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>tag</var>&mdash;a <i>go tag</i>; not evaluated.
+</p>
+<p><var>statement</var>&mdash;a <i>compound form</i>; evaluated as described below.
+</p>
+<p><var>results</var>&mdash;if a <code>return</code> or <code>return-from</code> form is executed,
+the <i>values</i> passed from that <i>form</i>;
+otherwise, the <i>values</i> returned by the <var>result-form</var>
+or <code>nil</code>&nbsp;<!-- /@w -->if there is no <var>result-form</var>.
+</p>
+<span id="Description_003a-124"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>dotimes</code> iterates over a series of <i>integers</i>.
+</p>
+<p><code>dotimes</code> evaluates <var>count-form</var>,
+which should produce an <i>integer</i>. 
+If <var>count-form</var> is zero or negative,
+the body is not executed.
+<code>dotimes</code> then executes the body once for each <i>integer</i> from 0 up to
+but not including
+the value of <var>count-form</var>,
+in the order in which the
+<var>tags</var> and <var>statements</var> occur, with
+<var>var</var> bound to each <i>integer</i>.
+Then <var>result-form</var> 
+is evaluated.
+At the time <var>result-form</var> is processed, <var>var</var> is bound to
+the number of times the body was executed.
+<var>Tags</var> label
+<var>statements</var>.
+</p>
+<p>An <i>implicit block</i>  
+named <code>nil</code>&nbsp;<!-- /@w -->surrounds <code>dotimes</code>.
+<code>return</code> may be used to terminate the loop immediately without
+performing any further iterations, returning zero or more <i>values</i>.
+</p>
+<p>The body of the loop is an <i>implicit tagbody</i>; 
+it may contain tags to serve as the targets of <code>go</code> statements.
+Declarations may appear before the body of the loop.
+</p>
+<p>The <i>scope</i> of the binding of <var>var</var>
+does not include the <var>count-form</var>,
+but the <var>result-form</var> is included.
+</p>
+<p>It is <i>implementation-dependent</i> whether <code>dotimes</code>
+<i>establishes</i> a new <i>binding</i> of <var>var</var> on each iteration
+or whether it <i>establishes</i> a binding for <var>var</var> once at the
+beginning and then <var>assigns</var> it on any subsequent iterations.
+</p>
+<span id="Examples_003a-94"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (dotimes (temp-one 10 temp-one)) <span class="roman">→</span> 10
+ (setq temp-two 0) <span class="roman">→</span> 0
+ (dotimes (temp-one 10 t) (incf temp-two)) <span class="roman">→</span> T
+ temp-two <span class="roman">→</span> 10
+</pre></div>
+
+
+<p>Here is an example of the use of <code>dotimes</code> in processing strings:
+</p>
+<div class="lisp">
+<pre class="lisp">;;; True if the specified subsequence of the string is a
+;;; palindrome (reads the same forwards and backwards).
+ (defun palindromep (string <tt>&amp;optional</tt>
+                           (start 0)
+                           (end (length string)))
+   (dotimes (k (floor (- end start) 2) t)
+    (unless (char-equal (char string (+ start k))
+                        (char string (- end k 1)))
+      (return nil))))
+ (palindromep &quot;Able was I ere I saw Elba&quot;) <span class="roman">→</span> T
+ (palindromep &quot;A man, a plan, a canal--Panama!&quot;) <span class="roman">→</span> NIL
+ (remove-if-not #'alpha-char-p          ;Remove punctuation.
+               &quot;A man, a plan, a canal--Panama!&quot;)
+<span class="roman">→</span> &quot;AmanaplanacanalPanama&quot;
+ (palindromep
+  (remove-if-not #'alpha-char-p
+                &quot;A man, a plan, a canal--Panama!&quot;)) <span class="roman">→</span> T
+ (palindromep
+  (remove-if-not
+   #'alpha-char-p
+   &quot;Unremarkable was I ere I saw Elba Kramer, nu?&quot;)) <span class="roman">→</span> T
+ (palindromep
+  (remove-if-not
+   #'alpha-char-p
+   &quot;A man, a plan, a cat, a ham, a yak,
+                  a yam, a hat, a canal--Panama!&quot;)) <span class="roman">→</span> T
+</pre></div>
+
+
+<span id="See-Also_003a-106"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="do_003b-do_002a.html#do">do</a>, <a href="dolist.html">dolist</a>, <a href="tagbody.html">tagbody</a>
+</p>
+<span id="Notes_003a-70"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>go</code> may be used within the body of
+<code>dotimes</code> to transfer control to a statement labeled by a <var>tag</var>.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="dolist.html" accesskey="n" rel="next">dolist</a>, Previous: <a href="do_003b-do_002a.html" accesskey="p" rel="prev">do; do*</a>, Up: <a href="Iteration.html" accesskey="u" rel="up">Iteration</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

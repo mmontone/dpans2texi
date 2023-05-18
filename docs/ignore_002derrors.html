@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ignore-errors (ANSI Common Lisp)</title>
+
+<meta name="description" content="ignore-errors (ANSI Common Lisp)">
+<meta name="keywords" content="ignore-errors (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conditions.html" rel="up" title="Conditions">
+<link href="define_002dcondition.html" rel="next" title="define-condition">
+<link href="handler_002dcase.html" rel="prev" title="handler-case">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="ignore_002derrors"></span><div class="header">
+<p>
+Next: <a href="define_002dcondition.html" accesskey="n" rel="next">define-condition</a>, Previous: <a href="handler_002dcase.html" accesskey="p" rel="prev">handler-case</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">ignore-errors</h4>
+<span id="ignore_002derrors-_0028Macro_0029"></span><h3 class="heading">ignore-errors (Macro)</h3>
+<span id="index-ignore_002derrors-2"></span>
+<span id="index-ignore_002derrors"></span>
+
+
+<span id="Syntax_003a-156"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-ignore_002derrors-1">Macro: <strong>ignore-errors</strong> <em><tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-145"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>forms</var>&mdash;an <i>implicit progn</i>.
+</p>
+<p><var>results</var>&mdash;In the normal situation,
+the <i>values</i> of the <i>forms</i> are returned;
+in the exceptional situation,
+two values are returned: <code>nil</code>&nbsp;<!-- /@w -->and the <i>condition</i>.
+</p>
+<span id="Description_003a-198"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>ignore-errors</code> is used to prevent <i>conditions</i> of <i>type</i> <code>error</code>
+from causing entry into the debugger.
+</p>
+<p>Specifically, <code>ignore-errors</code> <i>executes</i> <i>forms</i>
+in a <i>dynamic environment</i> where a <i>handler</i> for 
+<i>conditions</i> of <i>type</i> <code>error</code> has been established;
+if invoked, it <i>handles</i> such <i>conditions</i> by
+returning two <i>values</i>, <code>nil</code>&nbsp;<!-- /@w -->and the <i>condition</i> that was <i>signaled</i>,
+from the <code>ignore-errors</code> <i>form</i>.
+</p>
+<p>If a <i>normal return</i> from the <i>forms</i> occurs, 
+any <i>values</i> returned are returned by <code>ignore-errors</code>.
+</p>
+<span id="Examples_003a-127"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun load-init-file (program)
+   (let ((win nil))
+     (ignore-errors ;if this fails, don't enter debugger
+       (load (merge-pathnames (make-pathname :name program :type :lisp)
+                              (user-homedir-pathname)))
+       (setq win t))
+     (unless win (format t &quot;~&amp;Init file failed to load.~%&quot;))
+     win))
+ 
+ (load-init-file &quot;no-such-program&quot;)
+▷ Init file failed to load.
+NIL
+</pre></div>
+
+
+<span id="See-Also_003a-173"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="handler_002dcase.html">handler-case</a>, <a href="Condition-System-Concepts.html">Section 9.1 (Condition System Concepts)</a>
+</p>
+<span id="Notes_003a-106"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (ignore-errors . <i>forms</i>)
+</pre></div>
+
+
+<p>is equivalent to:
+</p>
+<div class="lisp">
+<pre class="lisp"> (handler-case (progn . <i>forms</i>)
+   (error (condition) (values nil condition)))
+</pre></div>
+
+
+<p>Because the second return value is a <i>condition</i>
+in the exceptional case, it is common (but not required) to arrange
+for the second return value in the normal case to be missing or <code>nil</code>&nbsp;<!-- /@w -->so
+that the two situations can be distinguished.
+</p>
+
+
+
+
+</body>
+</html>

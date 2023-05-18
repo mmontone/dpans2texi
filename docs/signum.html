@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>signum (ANSI Common Lisp)</title>
+
+<meta name="description" content="signum (ANSI Common Lisp)">
+<meta name="keywords" content="signum (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="sqrt_003b-isqrt.html" rel="next" title="sqrt; isqrt">
+<link href="mod_003b-rem.html" rel="prev" title="mod; rem">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="signum"></span><div class="header">
+<p>
+Next: <a href="sqrt_003b-isqrt.html" accesskey="n" rel="next">sqrt; isqrt</a>, Previous: <a href="mod_003b-rem.html" accesskey="p" rel="prev">mod; rem</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">signum</h4>
+<span id="signum-_0028Function_0029"></span><h3 class="heading">signum (Function)</h3>
+<span id="index-signum-2"></span>
+<span id="index-signum"></span>
+
+
+<span id="Syntax_003a-233"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-signum-1">Function: <strong>signum</strong> <em>number <span class="roman">→</span> signed-prototype</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-222"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>number</var>&mdash;a <i>number</i>.
+</p>
+<p><var>signed-prototype</var>&mdash;a <i>number</i>.
+</p>
+<span id="Description_003a-302"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>signum</code> determines a numerical value that indicates whether
+<var>number</var> is negative, zero, or positive.
+</p>
+<p>For a <i>rational</i>,
+<code>signum</code> returns one of <code>-1</code>, <code>0</code>, or <code>1</code>
+according to whether <var>number</var> is negative, zero, or positive.
+For a <i>float</i>, 
+the result is a <i>float</i> of the same format
+whose value is minus one, zero, or one.
+For a <i>complex</i> number <code>z</code>,
+<code>(signum <i>z</i>)</code> is a complex number of the same phase but with unit magnitude,
+unless <code>z</code> is a complex zero, in which case the result is <code>z</code>.
+</p>
+<p>For <i>rational</i> <i>arguments</i>, <code>signum</code> is a rational function,
+but it may be irrational for <i>complex</i> <i>arguments</i>.
+</p>
+<p>If <var>number</var> is a <i>float</i>, the result is a <i>float</i>.
+If <var>number</var> is a <i>rational</i>, the result is a <i>rational</i>.
+If <var>number</var> is a <i>complex float</i>, the result is a <i>complex float</i>.
+If <var>number</var> is a <i>complex rational</i>, the result is a <i>complex</i>, 
+but it is <i>implementation-dependent</i> whether that result is a
+<i>complex rational</i> or a <i>complex float</i>.
+</p>
+<span id="Examples_003a-206"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (signum 0) <span class="roman">→</span> 0
+ (signum 99) <span class="roman">→</span> 1
+ (signum 4/5) <span class="roman">→</span> 1
+ (signum -99/100) <span class="roman">→</span> -1
+ (signum 0.0) <span class="roman">→</span> 0.0
+ (signum #c(0 33)) <span class="roman">→</span> #C(0.0 1.0)
+ (signum #c(7.5 10.0)) <span class="roman">→</span> #C(0.6 0.8)
+ (signum #c(0.0 -14.7)) <span class="roman">→</span> #C(0.0 -1.0)
+ (eql (signum -0.0) -0.0) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="See-Also_003a-255"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Rational-Computations.html#FloatSubstitutability">Section 12.1.3.3 (Rule of Float Substitutability)</a>
+</p>
+<span id="Notes_003a-153"></span><h4 class="subsubheading">Notes:</h4>
+<div class="lisp">
+<pre class="lisp"> (signum x) ≡ (if (zerop x) x (/ x (abs x)))
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="sqrt_003b-isqrt.html" accesskey="n" rel="next">sqrt; isqrt</a>, Previous: <a href="mod_003b-rem.html" accesskey="p" rel="prev">mod; rem</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

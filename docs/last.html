@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>last (ANSI Common Lisp)</title>
+
+<meta name="description" content="last (ANSI Common Lisp)">
+<meta name="keywords" content="last (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="ldiff_003b-tailp.html" rel="next" title="ldiff; tailp">
+<link href="butlast_003b-nbutlast.html" rel="prev" title="butlast; nbutlast">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="last"></span><div class="header">
+<p>
+Next: <a href="ldiff_003b-tailp.html" accesskey="n" rel="next">ldiff; tailp</a>, Previous: <a href="butlast_003b-nbutlast.html" accesskey="p" rel="prev">butlast; nbutlast</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">last</h4>
+<span id="last-_0028Function_0029"></span><h3 class="heading">last (Function)</h3>
+<span id="index-last-2"></span>
+<span id="index-last"></span>
+      
+
+<span id="Syntax_003a-309"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-last-1">Function: <strong>last</strong> <em>list <tt>&amp;optional</tt> n <span class="roman">→</span> tail</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-298"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>list</var>&mdash;a <i>list</i>,
+which might be a <i>dotted list</i> but must not be a <i>circular list</i>.
+</p>
+<p><var>n</var>&mdash;a non-negative <i>integer</i>.
+The default is <code>1</code>.
+</p>
+<p><var>tail</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-399"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>last</code> returns the last <var>n</var> <i>conses</i> 
+(not the last <var>n</var> elements) of <var>list</var>).
+If <var>list</var> is (), <code>last</code> returns ().
+</p>
+<p>If <var>n</var> is zero,
+the atom that terminates <var>list</var> is returned.
+If <var>n</var> is greater than or equal to the number of <i>cons</i> cells in <var>list</var>,
+the result is <var>list</var>.
+</p>
+<span id="Examples_003a-282"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (last nil) <span class="roman">→</span> NIL
+ (last '(1 2 3)) <span class="roman">→</span> (3)
+ (last '(1 2 . 3)) <span class="roman">→</span> (2 . 3)
+ (setq x (list 'a 'b 'c 'd)) <span class="roman">→</span> (A B C D)
+ (last x) <span class="roman">→</span> (D)
+ (rplacd (last x) (list 'e 'f)) x <span class="roman">→</span> (A B C D E F)
+ (last x) <span class="roman">→</span> (F)
+
+ (last '(a b c))   <span class="roman">→</span> (C)
+
+ (last '(a b c) 0) <span class="roman">→</span> ()
+ (last '(a b c) 1) <span class="roman">→</span> (C)
+ (last '(a b c) 2) <span class="roman">→</span> (B C)
+ (last '(a b c) 3) <span class="roman">→</span> (A B C)
+ (last '(a b c) 4) <span class="roman">→</span> (A B C)
+
+ (last '(a . b) 0) <span class="roman">→</span> B
+ (last '(a . b) 1) <span class="roman">→</span> (A . B)
+ (last '(a . b) 2) <span class="roman">→</span> (A . B)
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-125"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The consequences are undefined if <var>list</var> is a <i>circular list</i>.
+Should signal an error of <i>type</i> <code>type-error</code> if <var>n</var> is not a non-negative <i>integer</i>.
+</p>
+<span id="See-Also_003a-323"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="butlast_003b-nbutlast.html#butlast">butlast</a>,
+<a href="nth.html">nth</a>
+</p>
+<span id="Notes_003a-214"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The following code could be used to define <code>last</code>.
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun last (list &amp;optional (n 1))
+   (check-type n (integer 0))
+   (do ((l list (cdr l))
+        (r list)
+        (i 0 (+ i 1)))
+       ((atom l) r)
+     (if (&gt;= i n) (pop r))))
+</pre></div>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="ldiff_003b-tailp.html" accesskey="n" rel="next">ldiff; tailp</a>, Previous: <a href="butlast_003b-nbutlast.html" accesskey="p" rel="prev">butlast; nbutlast</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

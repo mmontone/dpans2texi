@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>delete-package (ANSI Common Lisp)</title>
+
+<meta name="description" content="delete-package (ANSI Common Lisp)">
+<meta name="keywords" content="delete-package (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Packages.html" rel="up" title="Packages">
+<link href="make_002dpackage.html" rel="next" title="make-package">
+<link href="shadowing_002dimport.html" rel="prev" title="shadowing-import">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="delete_002dpackage"></span><div class="header">
+<p>
+Next: <a href="make_002dpackage.html" accesskey="n" rel="next">make-package</a>, Previous: <a href="shadowing_002dimport.html" accesskey="p" rel="prev">shadowing-import</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">delete-package</h4>
+<span id="delete_002dpackage-_0028Function_0029"></span><h3 class="heading">delete-package (Function)</h3>
+<span id="index-delete_002dpackage-2"></span>
+<span id="index-delete_002dpackage"></span>
+
+
+
+<span id="Syntax_003a-194"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-delete_002dpackage-1">Function: <strong>delete-package</strong> <em>package <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-183"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>package</var>&mdash;a <i>package designator</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-247"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>delete-package</code> deletes <var>package</var> from all package system
+data structures. 
+If the operation is successful, <code>delete-package</code> returns
+true, otherwise <code>nil</code>.
+The effect of <code>delete-package</code> is that the name and nicknames
+of <var>package</var> cease to be recognized package names.
+The package <i>object</i> is still a <i>package</i> 
+(<i>i.e.</i>, <code>packagep</code> is <i>true</i> of it)
+but <code>package-name</code> returns <code>nil</code>.
+The consequences of deleting the <code>COMMON-LISP</code> <i>package</i> or the <code>KEYWORD</code> <i>package</i> are undefined.
+The consequences of invoking any other package operation on <var>package</var>
+once it has been deleted are unspecified.
+In particular, the consequences of invoking <code>find-symbol</code>,
+<code>intern</code> and other functions that look for a symbol name in
+a <i>package</i> are unspecified if they are called with <code>*package*</code>
+bound to the deleted <var>package</var> or with the deleted <var>package</var> 
+as an argument.
+</p>
+<p>If <var>package</var> is a <i>package</i> <i>object</i> that has already
+been deleted, <code>delete-package</code> immediately returns <code>nil</code>.
+</p>
+<p>After this operation completes, the 
+<i>home package</i>
+of any <i>symbol</i> whose <i>home package</i> 
+had previously been
+<var>package</var> 
+is
+<i>implementation-dependent</i>.
+Except for this, <i>symbols</i> <i>accessible</i>
+in <var>package</var> are not modified in any other way;
+<i>symbols</i> whose <i>home package</i> is not <var>package</var> remain unchanged.
+</p>
+<span id="Examples_003a-166"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq *foo-package* (make-package &quot;FOO&quot; :use nil))
+ (setq *foo-symbol*  (intern &quot;FOO&quot; *foo-package*))
+ (export *foo-symbol* *foo-package*)
+
+ (setq *bar-package* (make-package &quot;BAR&quot; :use '(&quot;FOO&quot;)))
+ (setq *bar-symbol*  (intern &quot;BAR&quot; *bar-package*))
+ (export *foo-symbol* *bar-package*)
+ (export *bar-symbol* *bar-package*)
+
+ (setq *baz-package* (make-package &quot;BAZ&quot; :use '(&quot;BAR&quot;)))
+
+ (symbol-package *foo-symbol*) <span class="roman">→</span> #&lt;PACKAGE &quot;FOO&quot;&gt;
+ (symbol-package *bar-symbol*) <span class="roman">→</span> #&lt;PACKAGE &quot;BAR&quot;&gt;
+
+ (prin1-to-string *foo-symbol*) <span class="roman">→</span> &quot;FOO:FOO&quot;
+ (prin1-to-string *bar-symbol*) <span class="roman">→</span> &quot;BAR:BAR&quot;
+
+ (find-symbol &quot;FOO&quot; *bar-package*) <span class="roman">→</span> FOO:FOO, :EXTERNAL
+
+ (find-symbol &quot;FOO&quot; *baz-package*) <span class="roman">→</span> FOO:FOO, :INHERITED
+ (find-symbol &quot;BAR&quot; *baz-package*) <span class="roman">→</span> BAR:BAR, :INHERITED
+
+ (packagep *foo-package*) <span class="roman">→</span> <i>true</i>
+ (packagep *bar-package*) <span class="roman">→</span> <i>true</i>
+ (packagep *baz-package*) <span class="roman">→</span> <i>true</i>
+
+ (package-name *foo-package*) <span class="roman">→</span> &quot;FOO&quot;
+ (package-name *bar-package*) <span class="roman">→</span> &quot;BAR&quot;
+ (package-name *baz-package*) <span class="roman">→</span> &quot;BAZ&quot;
+
+ (package-use-list *foo-package*) <span class="roman">→</span> ()
+ (package-use-list *bar-package*) <span class="roman">→</span> (#&lt;PACKAGE &quot;FOO&quot;&gt;)
+ (package-use-list *baz-package*) <span class="roman">→</span> (#&lt;PACKAGE &quot;BAR&quot;&gt;)
+
+ (package-used-by-list *foo-package*) <span class="roman">→</span> (#&lt;PACKAGE &quot;BAR&quot;&gt;)
+ (package-used-by-list *bar-package*) <span class="roman">→</span> (#&lt;PACKAGE &quot;BAZ&quot;&gt;)
+ (package-used-by-list *baz-package*) <span class="roman">→</span> ()
+
+ (delete-package *bar-package*)
+▷ Error: Package BAZ uses package BAR.
+▷ If continued, BAZ will be made to unuse-package BAR,
+▷ and then BAR will be deleted.
+▷ Type :CONTINUE to continue.
+▷ Debug&gt; <kbd>:CONTINUE</kbd>
+<span class="roman">→</span> T
+
+ (symbol-package *foo-symbol*) <span class="roman">→</span> #&lt;PACKAGE &quot;FOO&quot;&gt;
+ (symbol-package *bar-symbol*) is unspecified
+
+ (prin1-to-string *foo-symbol*) <span class="roman">→</span> &quot;FOO:FOO&quot;
+ (prin1-to-string *bar-symbol*) is unspecified
+
+ (find-symbol &quot;FOO&quot; *bar-package*) is unspecified
+
+ (find-symbol &quot;FOO&quot; *baz-package*) <span class="roman">→</span> NIL, NIL
+ (find-symbol &quot;BAR&quot; *baz-package*) <span class="roman">→</span> NIL, NIL
+
+ (packagep *foo-package*) <span class="roman">→</span> T
+ (packagep *bar-package*) <span class="roman">→</span> T
+ (packagep *baz-package*) <span class="roman">→</span> T
+
+ (package-name *foo-package*) <span class="roman">→</span> &quot;FOO&quot;
+ (package-name *bar-package*) <span class="roman">→</span> NIL
+ (package-name *baz-package*) <span class="roman">→</span> &quot;BAZ&quot;
+
+ (package-use-list *foo-package*) <span class="roman">→</span> ()
+ (package-use-list *bar-package*) is unspecified
+ (package-use-list *baz-package*) <span class="roman">→</span> ()
+
+ (package-used-by-list *foo-package*) <span class="roman">→</span> ()
+ (package-used-by-list *bar-package*) is unspecified
+ (package-used-by-list *baz-package*) <span class="roman">→</span> ()
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-65"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If the <var>package</var> <i>designator</i> is a <i>name</i> that does not 
+currently name a <i>package</i>, 
+a <i>correctable</i> error of <i>type</i> <code>package-error</code> is signaled.
+If correction is attempted, no deletion action is attempted; 
+instead, <code>delete-package</code> immediately returns <code>nil</code>.
+</p>
+<p>If <var>package</var> is used by other <i>packages</i>, 
+a <i>correctable</i> error of <i>type</i> <code>package-error</code> is signaled.
+If correction is attempted,
+<code>unuse-package</code> is effectively called to remove any dependencies, 
+causing <var>package</var>&rsquo;s <i>external symbols</i> to cease being <i>accessible</i> to those 
+<i>packages</i> that use <var>package</var>. 
+<code>delete-package</code> then deletes <var>package</var> just as it would have had 
+there been no <i>packages</i> that used it.
+</p>
+<span id="See-Also_003a-219"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="unuse_002dpackage.html">unuse-package</a>
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="make_002dpackage.html" accesskey="n" rel="next">make-package</a>, Previous: <a href="shadowing_002dimport.html" accesskey="p" rel="prev">shadowing-import</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

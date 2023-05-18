@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+ (ANSI Common Lisp)</title>
+
+<meta name="description" content="substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+ (ANSI Common Lisp)">
+<meta name="keywords" content="substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+ (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Sequences.html" rel="up" title="Sequences">
+<link href="concatenate.html" rel="next" title="concatenate">
+<link href="replace.html" rel="prev" title="replace">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="substitute_003b-substitute_002dif_003b-substitute_002dif_002dnot_003b-nsubstitute_003b-nsubstitute_002d_002b"></span><div class="header">
+<p>
+Next: <a href="concatenate.html" accesskey="n" rel="next">concatenate</a>, Previous: <a href="replace.html" accesskey="p" rel="prev">replace</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+</h4>
+<span id="substitute_002c-substitute_002dif_002c-substitute_002dif_002dnot_002c-nsubstitute_002c-nsubstitute_002dif_002c-nsubstitute_002dif_002dnot-_0028Function_0029"></span><h3 class="heading">substitute, substitute-if, substitute-if-not, nsubstitute, nsubstitute-if, nsubstitute-if-not (Function)</h3>
+<span id="index-substitute-2"></span>
+<span id="index-substitute"></span>
+<span id="index-substitute_002dif-2"></span>
+<span id="index-substitute_002dif"></span>
+<span id="index-substitute_002dif_002dnot-2"></span>
+<span id="index-substitute_002dif_002dnot"></span>
+<span id="index-nsubstitute-2"></span>
+<span id="index-nsubstitute"></span>
+<span id="index-nsubstitute_002dif-2"></span>
+<span id="index-nsubstitute_002dif"></span>
+<span id="index-nsubstitute_002dif_002dnot-2"></span>
+<span id="index-nsubstitute_002dif_002dnot"></span>
+<span id="substitute"></span><span id="nsubstitute"></span>
+
+<span id="Syntax_003a-382"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-substitute-1">Function: <strong>substitute</strong> <em>newitem  olditem  sequence  <tt>&amp;key</tt> <span class="nolinebreak">from-end</span>&nbsp;test<!-- /@w --> <span class="nolinebreak">test-not</span>&nbsp;start<!-- /@w --> end&nbsp;count&nbsp;key<!-- /@w --> <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-substitute_002dif-1">Function: <strong>substitute-if</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-substitute_002dif_002dnot-1">Function: <strong>substitute-if-not</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-nsubstitute-1">Function: <strong>nsubstitute</strong> <em>newitem  olditem  sequence <tt>&amp;key</tt> from-end test test-not start end count key <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-nsubstitute_002dif-1">Function: <strong>nsubstitute-if</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-nsubstitute_002dif_002dnot-1">Function: <strong>nsubstitute-if-not</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-371"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>newitem</var>&mdash;an <i>object</i>.
+</p>
+<p><var>olditem</var>&mdash;an <i>object</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>predicate</var>&mdash;a <i>designator</i> for a <i>function</i> of one <i>argument</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>count</var>&mdash;an <i>integer</i> or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>result-sequence</var>&mdash;a <i>sequence</i>.
+</p>
+<span id="Description_003a-486"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>substitute</code>, <code>substitute-if</code>, and <code>substitute-if-not</code>
+return a 
+copy of <var>sequence</var> in which each <i>element</i>
+that <i>satisfies the test</i> has been replaced with <var>newitem</var>.
+</p>
+<p><code>nsubstitute</code>, <code>nsubstitute-if</code>, and <code>nsubstitute-if-not</code>
+are like <code>substitute</code>, <code>substitute-if</code>, and
+<code>substitute-if-not</code> respectively, but they may modify 
+<var>sequence</var>.
+</p>
+<p>If 
+<var>sequence</var> is a <i>vector</i>, the result is a
+<i>vector</i> that has the same
+<i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, the result is a 
+<i>list</i>. 
+</p>
+<p><var>Count</var>, if supplied, limits the number of elements
+altered; if more than <var>count</var> <i>elements</i> <i>satisfy the test</i>,
+then of these <i>elements</i> only the leftmost or rightmost, depending
+on <var>from-end</var>, are replaced,
+as many as specified by <var>count</var>.
+If <var>count</var> is supplied and negative, 
+the behavior is as if zero had been supplied instead.
+If <var>count</var> is <code>nil</code>, all matching items are affected.
+</p>
+<p>Supplying a <var>from-end</var> of <i>true</i> matters only when the
+<var>count</var> is provided (and <i>non-nil</i>);
+in that case,
+only the rightmost <var>count</var> <i>elements</i> <i>satisfying the test</i> are removed
+(instead of the leftmost).
+</p>
+<p><var>predicate</var>, <var>test</var>, and <var>test-not</var> 
+might be called more than once for each <i>sequence</i> <i>element</i>,
+and their side effects can happen in any order.         
+</p>
+<p>The result of all these functions is a <i>sequence</i>
+of the same <i>type</i> as <var>sequence</var>
+that has the same elements except that those in the subsequence
+<i>bounded</i> by <var>start</var> and <var>end</var> and <i>satisfying the test</i> 
+have been replaced by <var>newitem</var>.  
+</p>
+<p><code>substitute</code>, <code>substitute-if</code>, and <code>substitute-if-not</code>
+return a <var>sequence</var> which can share with <var>sequence</var> 
+or may be <i>identical</i> to the input <var>sequence</var>
+if no elements need to be changed.
+</p>
+<p><code>nsubstitute</code> and  <code>nsubstitute-if</code> are required to 
+<code>setf</code> any <code>car</code> (if <var>sequence</var> is a <i>list</i>) 
+or <code>aref</code> (if <var>sequence</var> is a <i>vector</i>)
+of <var>sequence</var> that is required to be replaced with <var>newitem</var>.
+If <var>sequence</var> is a <i>list</i>,
+none of the <i>cdrs</i> of the top-level <i>list</i> can be modified.  
+</p>
+<span id="Examples_003a-353"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (substitute #\. #\SPACE &quot;0 2 4 6&quot;) <span class="roman">→</span> &quot;0.2.4.6&quot;
+ (substitute 9 4 '(1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 9 1 3 9 5)
+ (substitute 9 4 '(1 2 4 1 3 4 5) :count 1) <span class="roman">→</span> (1 2 9 1 3 4 5)
+ (substitute 9 4 '(1 2 4 1 3 4 5) :count 1 :from-end t)
+<span class="roman">→</span> (1 2 4 1 3 9 5)
+ (substitute 9 3 '(1 2 4 1 3 4 5) :test #'&gt;) <span class="roman">→</span> (9 9 4 9 3 4 5)
+
+ (substitute-if 0 #'evenp '((1) (2) (3) (4)) :start 2 :key #'car)
+<span class="roman">→</span> ((1) (2) (3) 0)
+ (substitute-if 9 #'oddp '(1 2 4 1 3 4 5)) <span class="roman">→</span> (9 2 4 9 9 4 9)
+ (substitute-if 9 #'evenp '(1 2 4 1 3 4 5) :count 1 :from-end t)
+<span class="roman">→</span> (1 2 4 1 3 9 5)
+
+ (setq some-things (list 'a 'car 'b 'cdr 'c)) <span class="roman">→</span> (A CAR B CDR C)
+ (nsubstitute-if &quot;function was here&quot; #'fboundp some-things
+                 :count 1 :from-end t) <span class="roman">→</span> (A CAR B &quot;function was here&quot; C)
+ some-things <span class="roman">→</span> (A CAR B &quot;function was here&quot; C)
+ (setq alpha-tester (copy-seq &quot;ab &quot;)) <span class="roman">→</span> &quot;ab &quot;
+ (nsubstitute-if-not #\z #'alpha-char-p alpha-tester) <span class="roman">→</span> &quot;abz&quot;
+ alpha-tester <span class="roman">→</span> &quot;abz&quot;
+</pre></div>
+
+
+<span id="Side-Effects_003a-54"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><code>nsubstitute</code>, <code>nsubstitute-if</code>, and <code>nsubstitute-if-not</code>
+modify <var>sequence</var>.
+</p>
+<span id="Exceptional-Situations_003a-164"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-396"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="subst_003b-subst_002dif_003b-subst_002dif_002dnot_003b-nsubst_003b-nsubst_002dif_003b-nsubst_002dif_002dnot.html#subst">subst</a>,
+<a href="subst_003b-subst_002dif_003b-subst_002dif_002dnot_003b-nsubst_003b-nsubst_002dif_003b-nsubst_002dif_002dnot.html#nsubst">nsubst</a>,
+<a href="Compiler-Terminology.html">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-266"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result might or might not be simple, 
+and might or might not be <i>identical</i> to <var>sequence</var>.
+</p>
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+<p>The functions <code>substitute-if-not</code> and <code>nsubstitute-if-not</code> are deprecated.
+</p>
+<p><code>nsubstitute</code> and <code>nsubstitute-if</code> can be used 
+in for-effect-only positions in code.
+</p>
+<p>Because the side-effecting variants (<i>e.g.</i>, <code>nsubstitute</code>)
+potentially change the path that is being traversed, their effects in
+the presence of shared or circular structure may vary in surprising ways when
+compared to their non-side-effecting alternatives.  To see this,
+consider the following side-effect behavior, which might be exhibited by
+some implementations:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun test-it (fn)
+   (let ((x (cons 'b nil)))
+     (rplacd x x)
+     (funcall fn 'a 'b x :count 1)))
+ (test-it #'substitute) <span class="roman">→</span> (A . #1=(B . #1#))
+ (test-it #'nsubstitute) <span class="roman">→</span> (A . #1#)
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="concatenate.html" accesskey="n" rel="next">concatenate</a>, Previous: <a href="replace.html" accesskey="p" rel="prev">replace</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

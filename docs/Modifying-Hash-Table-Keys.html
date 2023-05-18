@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Modifying Hash Table Keys (ANSI Common Lisp)</title>
+
+<meta name="description" content="Modifying Hash Table Keys (ANSI Common Lisp)">
+<meta name="keywords" content="Modifying Hash Table Keys (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hash-Table-Concepts.html" rel="up" title="Hash Table Concepts">
+<link href="hash_002dtable.html" rel="next" title="hash-table">
+<link href="Hash_002dTable-Operations.html" rel="prev" title="Hash-Table Operations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Modifying-Hash-Table-Keys"></span><div class="header">
+<p>
+Previous: <a href="Hash_002dTable-Operations.html" accesskey="p" rel="prev">Hash-Table Operations</a>, Up: <a href="Hash-Table-Concepts.html" accesskey="u" rel="up">Hash Table Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Modifying-Hash-Table-Keys-1"></span><h4 class="subsection">18.1.2 Modifying Hash Table Keys</h4>
+
+
+<p>The function supplied as the <tt>:test</tt> argument to <code>make-hash-table</code>
+specifies the &lsquo;equivalence test&rsquo; for the <i>hash table</i> it creates.
+</p>
+<p>An <i>object</i> is &lsquo;visibly modified&rsquo; with regard to an equivalence test
+if there exists some set of <i>objects</i> (or potential <i>objects</i>)
+which are equivalent to the <i>object</i> before the modification but are
+no longer equivalent afterwards.
+</p>
+<p>If an <i>object</i> O<sub>1</sub>
+and is then visibly modified with regard to the equivalence test of H,
+then the consequences are unspecified if O<sub>1</sub>
+O<sub>2</sub>
+or after the modification), is used as a key in further operations on H.
+The consequences of using O<sub>1</sub>
+even if O<sub>1</sub>
+and then later modified again in such a way as 
+to undo the visible modification.
+</p>
+<p>Following are specifications of the modifications which are visible to the
+equivalence tests which must be supported by <i>hash tables</i>.  The modifications
+are described in terms of modification of components, and are defined
+recursively.  Visible modifications of components of the <i>object</i> are 
+visible modifications of the <i>object</i>.
+</p>
+<span id="Visible-Modification-of-Objects-with-respect-to-EQ-and-EQL"></span><h4 class="subsubsection">18.1.2.1 Visible Modification of Objects with respect to EQ and EQL</h4>
+<span id="VisModEQL"></span>
+<p>No <i>standardized</i> <i>function</i> is provided that is capable of visibly
+modifying an <i>object</i> with regard to <code>eq</code> or <code>eql</code>.
+</p>
+
+<span id="Visible-Modification-of-Objects-with-respect-to-EQUAL"></span><h4 class="subsubsection">18.1.2.2 Visible Modification of Objects with respect to EQUAL</h4>
+<span id="VisModEQUAL"></span>
+<p>As a consequence of the behavior for <code>equal</code>,
+the rules for visible modification of <i>objects</i> not explicitly mentioned in this
+section are inherited from those in <a href="#VisModEQL">Section 18.1.2.1 (Visible Modification of Objects with respect to EQ and EQL)</a>.
+</p>
+<span id="g_t18_002e1_002e2_002e2_002e1-Visible-Modification-of-Conses-with-respect-to-EQUAL"></span><h4 class="unnumberedsubsubsec">18.1.2.2.1 Visible Modification of Conses with respect to EQUAL</h4>
+
+
+<p>Any visible change to the <i>car</i> or the <i>cdr</i> of a <i>cons</i>
+is considered a visible modification with regard to <code>equal</code>.
+</p>
+
+<span id="g_t18_002e1_002e2_002e2_002e2-Visible-Modification-of-Bit-Vectors-and-Strings-with-respect-to-EQUAL"></span><h4 class="unnumberedsubsubsec">18.1.2.2.2 Visible Modification of Bit Vectors and Strings with respect to EQUAL</h4>
+
+
+<p>For a <i>vector</i> of <i>type</i> <code>bit-vector</code> or of <i>type</i> <code>string</code>, any visible change
+to an <i>active</i> <i>element</i> of the <i>vector</i>,
+or to the <i>length</i> of the <i>vector</i> (if it is <i>actually adjustable</i> 
+or has a <i>fill pointer</i>)
+is considered a visible modification with regard to <code>equal</code>.
+</p>
+
+
+<span id="Visible-Modification-of-Objects-with-respect-to-EQUALP"></span><h4 class="subsubsection">18.1.2.3 Visible Modification of Objects with respect to EQUALP</h4>
+
+<p>As a consequence of the behavior for <code>equalp</code>,
+the rules for visible modification of <i>objects</i> not explicitly mentioned in this
+section are inherited from those in <a href="#VisModEQUAL">Section 18.1.2.2 (Visible Modification of Objects with respect to EQUAL)</a>.
+</p>
+<span id="g_t18_002e1_002e2_002e3_002e1-Visible-Modification-of-Structures-with-respect-to-EQUALP"></span><h4 class="unnumberedsubsubsec">18.1.2.3.1 Visible Modification of Structures with respect to EQUALP</h4>
+
+
+<p>Any visible change to a <i>slot</i> of a <i>structure</i>
+is considered a visible modification with regard to <code>equalp</code>.
+</p>
+
+<span id="g_t18_002e1_002e2_002e3_002e2-Visible-Modification-of-Arrays-with-respect-to-EQUALP"></span><h4 class="unnumberedsubsubsec">18.1.2.3.2 Visible Modification of Arrays with respect to EQUALP</h4>
+
+
+<p>In an <i>array</i>, any visible change
+to an <i>active</i> <i>element</i>,
+to the <i>fill pointer</i> (if the <i>array</i> can and does have one),
+or to the <i>dimensions</i> (if the <i>array</i> is <i>actually adjustable</i>)
+is considered a visible modification with regard to <code>equalp</code>.
+</p>
+
+<span id="g_t18_002e1_002e2_002e3_002e3-Visible-Modification-of-Hash-Tables-with-respect-to-EQUALP"></span><h4 class="unnumberedsubsubsec">18.1.2.3.3 Visible Modification of Hash Tables with respect to EQUALP</h4>
+
+
+<p>In a <i>hash table</i>, any visible change
+to the count of entries in the <i>hash table</i>,
+to the keys,
+or to the values associated with the keys
+is considered a visible modification with regard to <code>equalp</code>.
+</p>
+<p>Note that the visibility of modifications to the keys depends on the equivalence test
+of the <i>hash table</i>, not on the specification of <code>equalp</code>.
+</p>
+
+
+<span id="Visible-Modifications-by-Language-Extensions"></span><h4 class="subsubsection">18.1.2.4 Visible Modifications by Language Extensions</h4>
+
+<p><i>Implementations</i> that extend the language by providing additional mutator
+functions (or additional behavior for existing mutator functions) must
+document how the use of these extensions interacts with equivalence tests and
+<i>hash table</i> searches.
+</p>
+<p><i>Implementations</i> that extend the language by defining additional acceptable
+equivalence tests for <i>hash tables</i> (allowing additional values for the <tt>:test</tt>
+argument to <code>make-hash-table</code>) must document the visible components of these
+tests.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Hash_002dTable-Operations.html" accesskey="p" rel="prev">Hash-Table Operations</a>, Up: <a href="Hash-Table-Concepts.html" accesskey="u" rel="up">Hash Table Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>search (ANSI Common Lisp)</title>
+
+<meta name="description" content="search (ANSI Common Lisp)">
+<meta name="keywords" content="search (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Sequences.html" rel="up" title="Sequences">
+<link href="mismatch.html" rel="next" title="mismatch">
+<link href="position_003b-position_002dif_003b-position_002dif_002dnot.html" rel="prev" title="position; position-if; position-if-not">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="search"></span><div class="header">
+<p>
+Next: <a href="mismatch.html" accesskey="n" rel="next">mismatch</a>, Previous: <a href="position_003b-position_002dif_003b-position_002dif_002dnot.html" accesskey="p" rel="prev">position; position-if; position-if-not</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">search</h4>
+<span id="search-_0028Function_0029"></span><h3 class="heading">search (Function)</h3>
+<span id="index-search-2"></span>
+<span id="index-search"></span>
+
+
+<span id="Syntax_003a-379"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-search-1">Function: <strong>search</strong> <em>sequence-1 sequence-2  <tt>&amp;key</tt> <span class="nolinebreak">from-end</span>&nbsp;test&nbsp;<span class="nolinebreak">test-not</span><!-- /@w --> key&nbsp;start1&nbsp;start2<!-- /@w --> end1&nbsp;end2<!-- /@w --> <span class="roman">→</span> position</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-368"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>Sequence-1</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>Sequence-2</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>start1</var>, <var>end1</var>&mdash;<i>bounding index designators</i> of <var>sequence-1</var>.
+The defaults for <var>start1</var> and <var>end1</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>start2</var>, <var>end2</var>&mdash;<i>bounding index designators</i> of <var>sequence-2</var>.
+The defaults for <var>start2</var> and <var>end2</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>position</var>&mdash;a <i>bounding index</i> of <var>sequence-2</var>,
+or <code>nil</code>.
+</p>
+<span id="Description_003a-483"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Searches <var>sequence-2</var> for a subsequence that matches <var>sequence-1</var>.  
+</p>
+<p>The implementation may choose to search <var>sequence-2</var> in any order;
+there is no guarantee on the number of times the test is made.
+For example,
+when <var>start-end</var> is <i>true</i>,
+the <var>sequence</var> might actually be searched from left to right
+instead of from right to left (but in either case would return
+the rightmost matching subsequence). 
+If the search succeeds,
+<code>search</code> returns the offset into <var>sequence-2</var> 
+of the first element of the leftmost or rightmost matching subsequence, 
+depending on <var>from-end</var>;
+otherwise <code>search</code> returns <code>nil</code>.
+</p>
+<p>If <var>from-end</var> is <i>true</i>, the index of the leftmost
+element of the rightmost matching subsequence is returned.
+</p>
+<span id="Examples_003a-350"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (search &quot;dog&quot; &quot;it's a dog's life&quot;) <span class="roman">→</span> 7
+ (search '(0 1) '(2 4 6 1 3 5) :key #'oddp) <span class="roman">→</span> 2
+</pre></div>
+
+
+<span id="See-Also_003a-393"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-264"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="mismatch.html" accesskey="n" rel="next">mismatch</a>, Previous: <a href="position_003b-position_002dif_003b-position_002dif_002dnot.html" accesskey="p" rel="prev">position; position-if; position-if-not</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

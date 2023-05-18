@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Valid Patterns for Tokens (ANSI Common Lisp)</title>
+
+<meta name="description" content="Valid Patterns for Tokens (ANSI Common Lisp)">
+<meta name="keywords" content="Valid Patterns for Tokens (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Interpretation-of-Tokens.html" rel="up" title="Interpretation of Tokens">
+<link href="Package-System-Consistency-Rules.html" rel="next" title="Package System Consistency Rules">
+<link href="Symbols-as-Tokens.html" rel="prev" title="Symbols as Tokens">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Valid-Patterns-for-Tokens"></span><div class="header">
+<p>
+Next: <a href="Package-System-Consistency-Rules.html" accesskey="n" rel="next">Package System Consistency Rules</a>, Previous: <a href="Symbols-as-Tokens.html" accesskey="p" rel="prev">Symbols as Tokens</a>, Up: <a href="Interpretation-of-Tokens.html" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Valid-Patterns-for-Tokens-1"></span><h4 class="subsection">2.3.5 Valid Patterns for Tokens</h4>
+
+<p>The valid patterns for <i>tokens</i> are summarized in the next figure. 
+</p>
+
+<div class="float"><span id="fig2_002e17"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code><i>nnnnn</i></code></td><td>a <i>number</i></td></tr>
+<tr><td><code><i>xxxxx</i></code></td><td>a <i>symbol</i> in the <i>current package</i></td></tr>
+<tr><td><code>:<i>xxxxx</i></code></td><td>a <i>symbol</i> in the the <code>KEYWORD</code> <i>package</i></td></tr>
+<tr><td><code><i>ppppp</i>:<i>xxxxx</i></code></td><td>an <i>external symbol</i> 
+in the <i>ppppp</i> <i>package</i></td></tr>
+<tr><td><code><i>ppppp</i>::<i>xxxxx</i></code></td><td>a (possibly internal) <i>symbol</i>  in the <i>ppppp</i> <i>package</i></td></tr>
+<tr><td><code>:<i>nnnnn</i></code></td><td>undefined</td></tr>
+<tr><td><code><i>ppppp</i>:<i>nnnnn</i></code></td><td>undefined</td></tr>
+<tr><td><code><i>ppppp</i>::<i>nnnnn</i></code></td><td>undefined</td></tr>
+<tr><td><code>::<i>aaaaa</i></code></td><td>undefined</td></tr>
+<tr><td><code><i>aaaaa</i>:</code></td><td>undefined</td></tr>
+<tr><td><code><i>aaaaa</i>:<i>aaaaa</i>:<i>aaaaa</i></code></td><td>undefined</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.17: </strong>Valid patterns for tokens</p></div></div>
+
+<p>Note that <i>nnnnn</i> has number syntax,
+neither <i>xxxxx</i> nor <i>ppppp</i> has number syntax,
+and <i>aaaaa</i> has any syntax.
+</p>
+<p>A summary of rules concerning <i>package markers</i> follows.
+In each case, examples are offered to illustrate the case;
+for presentational simplicity, the examples assume that
+the <i>readtable case</i> of the <i>current readtable</i> is <tt>:upcase</tt>.
+</p>
+
+<ol>
+<li> If there is a single <i>package marker</i>, and it occurs at the beginning of the
+<i>token</i>, then the <i>token</i> is interpreted as a <i>symbol</i> in the <code>KEYWORD</code> <i>package</i>.
+It also sets the <code>symbol-value</code> of the newly-created <i>symbol</i> to that
+same <i>symbol</i> so that the <i>symbol</i> will self-evaluate.
+
+<p>For example, 
+<code>:bar</code>, when read, interns <code>BAR</code> as an <i>external symbol</i> in the <code>KEYWORD</code> <i>package</i>.
+</p>
+</li><li> If there is a single <i>package marker</i> not at the beginning or end of the
+<i>token</i>, then it divides the <i>token</i> into two parts.  The first part
+specifies a <i>package</i>; 
+the second part is the name of an <i>external symbol</i>
+available in that package.  
+
+<p>For example, 
+<code>foo:bar</code>, when read, looks up <code>BAR</code> among the <i>external symbols</i> of
+the <i>package</i> named <code>FOO</code>.
+</p>
+</li><li> If there are two adjacent <i>package markers</i> not at the beginning or end of the
+<i>token</i>, then they divide the <i>token</i> into two parts.  The first part
+specifies a <i>package</i>;
+the second part is the name of a <i>symbol</i> within
+that <i>package</i> (possibly an <i>internal symbol</i>).
+
+<p>For example, 
+<code>foo::bar</code>, when read, interns <code>BAR</code> in the <i>package</i> named <code>FOO</code>.
+</p>
+</li><li> If the <i>token</i> contains no <i>package markers</i>, 
+and does not have <i>potential number</i> syntax,
+then the entire <i>token</i> is the name of the <i>symbol</i>.
+The <i>symbol</i> is looked up in the <i>current package</i>.
+
+<p>For example, 
+<code>bar</code>, when read, interns <code>BAR</code> in the <i>current package</i>.
+</p>
+</li><li> The consequences are unspecified if any other pattern of <i>package markers</i>
+in a <i>token</i> is used.
+All other uses of <i>package markers</i> within names of <i>symbols</i> 
+are not defined by this standard 
+but are reserved for <i>implementation-dependent</i> use.
+</li></ol>
+
+
+<p>For example,
+assuming the <i>readtable case</i> of the <i>current readtable</i> is <tt>:upcase</tt>,
+<code>editor:buffer</code> refers to the <i>external symbol</i> 
+named <code>BUFFER</code> present in the <i>package</i> named <code>editor</code>,
+regardless of whether there is a <i>symbol</i> named <code>BUFFER</code> in
+the <i>current package</i>.  If there is no <i>package</i> named
+<code>editor</code>, or if no <i>symbol</i> named <code>BUFFER</code>
+is present in <code>editor</code>, or if <code>BUFFER</code> is not exported by
+<code>editor</code>, the reader signals
+a correctable error.
+If <code>editor::buffer</code> is seen, the effect is exactly the same as
+reading <code>buffer</code> with the <code>EDITOR</code> <i>package</i> being the <i>current package</i>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Package-System-Consistency-Rules.html" accesskey="n" rel="next">Package System Consistency Rules</a>, Previous: <a href="Symbols-as-Tokens.html" accesskey="p" rel="prev">Symbols as Tokens</a>, Up: <a href="Interpretation-of-Tokens.html" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

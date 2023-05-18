@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>symbol-value (ANSI Common Lisp)</title>
+
+<meta name="description" content="symbol-value (ANSI Common Lisp)">
+<meta name="keywords" content="symbol-value (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Symbols.html" rel="up" title="Symbols">
+<link href="get.html" rel="next" title="get">
+<link href="symbol_002dplist.html" rel="prev" title="symbol-plist">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="symbol_002dvalue"></span><div class="header">
+<p>
+Next: <a href="get.html" accesskey="n" rel="next">get</a>, Previous: <a href="symbol_002dplist.html" accesskey="p" rel="prev">symbol-plist</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">symbol-value</h4>
+<span id="symbol_002dvalue-_0028Accessor_0029"></span><h3 class="heading">symbol-value (Accessor)</h3>
+<span id="index-symbol_002dvalue-2"></span>
+<span id="index-symbol_002dvalue"></span>
+
+
+<span id="Syntax_003a-179"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-symbol_002dvalue-1">Function: <strong>symbol-value</strong> <em>symbol <span class="roman">→</span> value</em></dt>
+</dl>
+<p><tt>(setf (symbol-value symbol) new-value)</tt>
+</p>
+<span id="Arguments-and-Values_003a-168"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>symbol</var>&mdash;a <i>symbol</i> that must have a <i>value</i>.
+</p>
+<p><var>value</var>, <var>new-value</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-230"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Accesses</i> the <i>symbol</i>&rsquo;s <i>value cell</i>.
+</p>
+<span id="Examples_003a-151"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setf (symbol-value 'a) 1) <span class="roman">→</span> 1
+ (symbol-value 'a) <span class="roman">→</span> 1
+ ;; SYMBOL-VALUE cannot see lexical variables.
+ (let ((a 2)) (symbol-value 'a)) <span class="roman">→</span> 1
+ (let ((a 2)) (setq a 3) (symbol-value 'a)) <span class="roman">→</span> 1
+ ;; SYMBOL-VALUE can see dynamic variables.
+ (let ((a 2)) 
+   (declare (special a)) 
+   (symbol-value 'a)) <span class="roman">→</span> 2
+ (let ((a 2)) 
+   (declare (special a)) 
+   (setq a 3)
+   (symbol-value 'a)) <span class="roman">→</span> 3
+ (let ((a 2))
+   (setf (symbol-value 'a) 3)
+   a) <span class="roman">→</span> 2
+ a <span class="roman">→</span> 3
+ (symbol-value 'a) <span class="roman">→</span> 3
+ (let ((a 4))
+   (declare (special a))
+   (let ((b (symbol-value 'a)))
+     (setf (symbol-value 'a) 5)
+     (values a b))) <span class="roman">→</span> 5, 4
+ a <span class="roman">→</span> 3
+ (symbol-value :any-keyword) <span class="roman">→</span> :ANY-KEYWORD
+ (symbol-value 'nil) <span class="roman">→</span> NIL
+ (symbol-value '()) <span class="roman">→</span> NIL
+ ;; The precision of this next one is <i>implementation-dependent</i>.
+ (symbol-value 'pi) <span class="roman">→</span> 3.141592653589793d0  
+</pre></div>
+
+
+<span id="Affected-By_003a-41"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>makunbound</code>,
+<code>set</code>,
+<code>setq</code>
+</p>
+<span id="Exceptional-Situations_003a-58"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>symbol</var> is not a <i>symbol</i>.
+</p>
+<p>Should signal <code>unbound-variable</code> if <var>symbol</var> is <i>unbound</i>
+and an attempt is made to <i>read</i> its <i>value</i>.  (No such error is signaled
+on an attempt to <i>write</i> its <i>value</i>.)
+</p>
+<span id="See-Also_003a-203"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="boundp.html">boundp</a>, <a href="makunbound.html">makunbound</a>, <a href="set.html">set</a>, <a href="setq.html">setq</a>
+</p>
+<span id="Notes_003a-123"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>symbol-value</code> can be used to get the value of a <i>constant variable</i>.
+<code>symbol-value</code> cannot <i>access</i> the value of a <i>lexical variable</i>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="get.html" accesskey="n" rel="next">get</a>, Previous: <a href="symbol_002dplist.html" accesskey="p" rel="prev">symbol-plist</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

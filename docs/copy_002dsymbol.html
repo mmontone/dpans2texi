@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>copy-symbol (ANSI Common Lisp)</title>
+
+<meta name="description" content="copy-symbol (ANSI Common Lisp)">
+<meta name="keywords" content="copy-symbol (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Symbols.html" rel="up" title="Symbols">
+<link href="gensym.html" rel="next" title="gensym">
+<link href="make_002dsymbol.html" rel="prev" title="make-symbol">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="copy_002dsymbol"></span><div class="header">
+<p>
+Next: <a href="gensym.html" accesskey="n" rel="next">gensym</a>, Previous: <a href="make_002dsymbol.html" accesskey="p" rel="prev">make-symbol</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">copy-symbol</h4>
+<span id="copy_002dsymbol-_0028Function_0029"></span><h3 class="heading">copy-symbol (Function)</h3>
+<span id="index-copy_002dsymbol-2"></span>
+<span id="index-copy_002dsymbol"></span>
+
+
+<span id="Syntax_003a-172"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-copy_002dsymbol-1">Function: <strong>copy-symbol</strong> <em>symbol <tt>&amp;optional</tt> copy-properties <span class="roman">→</span> new-symbol</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-161"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>symbol</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>copy-properties</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>new-symbol</var>&mdash;a <i>fresh</i>, <i>uninterned</i> <i>symbol</i>.
+</p>
+<span id="Description_003a-222"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>copy-symbol</code> returns a <i>fresh</i>, <i>uninterned</i> <i>symbol</i>,
+the <i>name</i> of which is <code>string=</code> to and possibly the <i>same</i> as
+the <i>name</i> of the given <var>symbol</var>.
+</p>
+<p>If <var>copy-properties</var> is <i>false</i>,
+the <var>new-symbol</var> is neither <i>bound</i> nor <i>fbound</i> 
+and has a <i>null</i> <i>property list</i>.
+If <var>copy-properties</var> is <i>true</i>, then
+the initial <i>value</i> of <var>new-symbol</var> is
+the <i>value</i> of <var>symbol</var>,
+the initial <i>function</i> definition of <var>new-symbol</var> is
+the <i>functional value</i> of <var>symbol</var>,
+and the <i>property list</i> of <var>new-symbol</var> is
+a <i>copy</i><sub>2</sub>
+</p>
+<span id="Examples_003a-144"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq fred 'fred-smith) <span class="roman">→</span> FRED-SMITH
+ (setf (symbol-value fred) 3) <span class="roman">→</span> 3
+ (setq fred-clone-1a (copy-symbol fred nil)) <span class="roman">→</span> #:FRED-SMITH
+ (setq fred-clone-1b (copy-symbol fred nil)) <span class="roman">→</span> #:FRED-SMITH
+ (setq fred-clone-2a (copy-symbol fred t))   <span class="roman">→</span> #:FRED-SMITH
+ (setq fred-clone-2b (copy-symbol fred t))   <span class="roman">→</span> #:FRED-SMITH
+ (eq fred fred-clone-1a) <span class="roman">→</span> <i>false</i>
+ (eq fred-clone-1a fred-clone-1b) <span class="roman">→</span> <i>false</i>
+ (eq fred-clone-2a fred-clone-2b) <span class="roman">→</span> <i>false</i>
+ (eq fred-clone-1a fred-clone-2a) <span class="roman">→</span> <i>false</i>
+ (symbol-value fred) <span class="roman">→</span> 3
+ (boundp fred-clone-1a) <span class="roman">→</span> <i>false</i>
+ (symbol-value fred-clone-2a) <span class="roman">→</span> 3
+ (setf (symbol-value fred-clone-2a) 4) <span class="roman">→</span> 4
+ (symbol-value fred) <span class="roman">→</span> 3
+ (symbol-value fred-clone-2a) <span class="roman">→</span> 4
+ (symbol-value fred-clone-2b) <span class="roman">→</span> 3
+ (boundp fred-clone-1a) <span class="roman">→</span> <i>false</i>
+ (setf (symbol-function fred) #'(lambda (x) x)) <span class="roman">→</span> #&lt;FUNCTION anonymous&gt;
+ (fboundp fred) <span class="roman">→</span> <i>true</i>
+ (fboundp fred-clone-1a) <span class="roman">→</span> <i>false</i>
+ (fboundp fred-clone-2a) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-51"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>symbol</var> is not a <i>symbol</i>.
+</p>
+<span id="See-Also_003a-196"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="make_002dsymbol.html">make-symbol</a>
+</p>
+<span id="Notes_003a-117"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Implementors are encouraged not to copy the <i>string</i> 
+which is the <i>symbol</i>&rsquo;s <i>name</i> unnecessarily.  
+Unless there is a good reason to do so, the normal implementation
+strategy is for the <var>new-symbol</var>&rsquo;s <i>name</i> to
+be <i>identical</i> to the given <var>symbol</var>&rsquo;s <i>name</i>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="gensym.html" accesskey="n" rel="next">gensym</a>, Previous: <a href="make_002dsymbol.html" accesskey="p" rel="prev">make-symbol</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

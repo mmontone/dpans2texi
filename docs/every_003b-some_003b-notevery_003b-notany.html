@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>every; some; notevery; notany (ANSI Common Lisp)</title>
+
+<meta name="description" content="every; some; notevery; notany (ANSI Common Lisp)">
+<meta name="keywords" content="every; some; notevery; notany (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="and-_0028Macro_0029.html" rel="next" title="and (Macro)">
+<link href="constantly.html" rel="prev" title="constantly">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="every_003b-some_003b-notevery_003b-notany"></span><div class="header">
+<p>
+Next: <a href="and-_0028Macro_0029.html" accesskey="n" rel="next">and (Macro)</a>, Previous: <a href="constantly.html" accesskey="p" rel="prev">constantly</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">every; some; notevery; notany</h4>
+<span id="every_002c-some_002c-notevery_002c-notany-_0028Function_0029"></span><h3 class="heading">every, some, notevery, notany (Function)</h3>
+<span id="index-every-2"></span>
+<span id="index-every"></span>
+<span id="index-some-2"></span>
+<span id="index-some"></span>
+<span id="index-notevery-2"></span>
+<span id="index-notevery"></span>
+<span id="index-notany-2"></span>
+<span id="index-notany"></span>
+<span id="every"></span><span id="some"></span>
+
+<span id="Syntax_003a-69"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-every-1">Function: <strong>every</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-some-1">Function: <strong>some</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> result</em></dt>
+</dl>
+<dl>
+<dt id="index-notevery-1">Function: <strong>notevery</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-notany-1">Function: <strong>notany</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-59"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>predicate</var>&mdash;a <i>designator</i> for a <i>function</i> of
+as many <i>arguments</i> as there are <var>sequences</var>.
+</p>
+<p><var>sequence</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>result</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>. 
+</p>
+<span id="Description_003a-93"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>every</code>, <code>some</code>, <code>notevery</code>, and <code>notany</code>
+test <i>elements</i> of <var>sequences</var> for satisfaction of a given <var>predicate</var>.
+The first argument to <var>predicate</var> is an <i>element</i> of the first <var>sequence</var>;
+each succeeding argument is an <i>element</i> of a succeeding <var>sequence</var>.
+</p>
+<p><var>Predicate</var> is first applied to the elements
+with index <code>0</code> in each of the <var>sequences</var>, and possibly then to
+the elements with index <code>1</code>, and so on, until a termination
+criterion is met or the end of the shortest of the <var>sequences</var> is reached.
+</p>
+<p><code>every</code> returns <i>false</i> as soon 
+as any invocation of <var>predicate</var> returns <i>false</i>.
+If the end of a <var>sequence</var> is reached,
+<code>every</code> returns <i>true</i>.
+Thus, <code>every</code> returns <i>true</i> if and only if
+every invocation of <var>predicate</var> returns <i>true</i>.
+</p>
+<p><code>some</code> returns the first <i>non-nil</i> value 
+which is returned by an invocation of <var>predicate</var>.
+If the end of a <var>sequence</var> is reached without any invocation of the
+<var>predicate</var> returning <i>true</i>, <code>some</code> returns <i>false</i>.
+Thus, <code>some</code> returns <i>true</i> if and only if
+some invocation of <var>predicate</var> returns <i>true</i>.
+</p>
+<p><code>notany</code> returns <i>false</i> 
+as soon as any invocation of <var>predicate</var> returns <i>true</i>.
+If the end of a <var>sequence</var> is reached,
+<code>notany</code> returns <i>true</i>.
+Thus, <code>notany</code> returns <i>true</i> if and only if 
+it is not the case that any invocation of <var>predicate</var> returns <i>true</i>.
+</p>
+<p><code>notevery</code> returns <i>true</i> as soon as any invocation of
+<var>predicate</var> returns <i>false</i>.
+If the end of a <var>sequence</var> is reached,
+<code>notevery</code> returns <i>false</i>.
+Thus, <code>notevery</code> returns <i>true</i> if and only if 
+it is not the case that every invocation of <var>predicate</var> returns <i>true</i>.
+</p>
+<span id="Examples_003a-67"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (every #'characterp &quot;abc&quot;) <span class="roman">→</span> <i>true</i>
+ (some #'= '(1 2 3 4 5) '(5 4 3 2 1)) <span class="roman">→</span> <i>true</i>
+ (notevery #'&lt; '(1 2 3 4) '(5 6 7 8) '(9 10 11 12)) <span class="roman">→</span> <i>false</i>
+ (notany #'&gt; '(1 2 3 4) '(5 6 7 8) '(9 10 11 12)) <span class="roman">→</span> <i>true</i> 
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-17"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal <code>type-error</code> if its first argument is neither a
+<i>symbol</i> nor a <i>function</i> or if any subsequent
+argument is not a <i>proper sequence</i>.
+</p>
+<p>Other exceptional situations are possible, depending on the nature
+of the <var>predicate</var>.
+</p>
+<span id="See-Also_003a-77"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="and-_0028Macro_0029.html">and (Macro)</a>,
+<a href="or-_0028Macro_0029.html">or (Macro)</a>,
+<a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-49"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (notany <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*) ≡ (not (some <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*))
+ (notevery <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*) ≡ (not (every <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*))
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="and-_0028Macro_0029.html" accesskey="n" rel="next">and (Macro)</a>, Previous: <a href="constantly.html" accesskey="p" rel="prev">constantly</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

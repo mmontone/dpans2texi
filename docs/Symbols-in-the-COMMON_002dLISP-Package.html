@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Symbols in the COMMON-LISP Package (ANSI Common Lisp)</title>
+
+<meta name="description" content="Symbols in the COMMON-LISP Package (ANSI Common Lisp)">
+<meta name="keywords" content="Symbols in the COMMON-LISP Package (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Introduction.html" rel="up" title="Introduction">
+<link href="Syntax.html" rel="next" title="Syntax">
+<link href="Deprecated-Reader-Syntax.html" rel="prev" title="Deprecated Reader Syntax">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Symbols-in-the-COMMON_002dLISP-Package"></span><div class="header">
+<p>
+Previous: <a href="Deprecated-Language-Features.html" accesskey="p" rel="prev">Deprecated Language Features</a>, Up: <a href="Introduction.html" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Symbols-in-the-COMMON_002dLISP-Package-1"></span><h3 class="section">1.9 Symbols in the COMMON-LISP Package</h3>
+
+<p>The figures on the next twelve pages contain a complete enumeration
+of the 978 <i>external</i> <i>symbols</i> in the <code>COMMON-LISP</code> <i>package</i>.
+<span id="index-COMMON_002dLISP"></span>
+</p>
+
+<div class="float"><span id="fig1_002e4"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>&amp;allow-other-keys</td><td>*print-miser-width*</td></tr>
+<tr><td>&amp;aux</td><td>*print-pprint-dispatch*</td></tr>
+<tr><td>&amp;body</td><td>*print-pretty*</td></tr>
+<tr><td>&amp;environment</td><td>*print-radix*</td></tr>
+<tr><td>&amp;key</td><td>*print-readably*</td></tr>
+<tr><td>&amp;optional</td><td>*print-right-margin*</td></tr>
+<tr><td>&amp;rest</td><td>*query-io*</td></tr>
+<tr><td>&amp;whole</td><td>*random-state*</td></tr>
+<tr><td>*</td><td>*read-base*</td></tr>
+<tr><td>**</td><td>*read-default-float-format*</td></tr>
+<tr><td>***</td><td>*read-eval*</td></tr>
+<tr><td>*break-on-signals*</td><td>*read-suppress*</td></tr>
+<tr><td>*compile-file-pathname*</td><td>*readtable*</td></tr>
+<tr><td>*compile-file-truename*</td><td>*standard-input*</td></tr>
+<tr><td>*compile-print*</td><td>*standard-output*</td></tr>
+<tr><td>*compile-verbose*</td><td>*terminal-io*</td></tr>
+<tr><td>*debug-io*</td><td>*trace-output*</td></tr>
+<tr><td>*debugger-hook*</td><td>+</td></tr>
+<tr><td>*default-pathname-defaults*</td><td>++</td></tr>
+<tr><td>*error-output*</td><td>+++</td></tr>
+<tr><td>*features*</td><td>-</td></tr>
+<tr><td>*gensym-counter*</td><td>/</td></tr>
+<tr><td>*load-pathname*</td><td>//</td></tr>
+<tr><td>*load-print*</td><td>///</td></tr>
+<tr><td>*load-truename*</td><td>/=</td></tr>
+<tr><td>*load-verbose*</td><td>1+</td></tr>
+<tr><td>*macroexpand-hook*</td><td>1-</td></tr>
+<tr><td>*modules*</td><td>&lt;</td></tr>
+<tr><td>*package*</td><td>&lt;=</td></tr>
+<tr><td>*print-array*</td><td>=</td></tr>
+<tr><td>*print-base*</td><td>&gt;</td></tr>
+<tr><td>*print-case*</td><td>&gt;=</td></tr>
+<tr><td>*print-circle*</td><td>abort</td></tr>
+<tr><td>*print-escape*</td><td>abs</td></tr>
+<tr><td>*print-gensym*</td><td>acons</td></tr>
+<tr><td>*print-length*</td><td>acos</td></tr>
+<tr><td>*print-level*</td><td>acosh</td></tr>
+<tr><td>*print-lines*</td><td>add-method</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.4: </strong>Symbols in the COMMON-LISP package (part one of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e5"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>adjoin</td><td>atom</td><td>boundp</td></tr>
+<tr><td>adjust-array</td><td>base-char</td><td>break</td></tr>
+<tr><td>adjustable-array-p</td><td>base-string</td><td>broadcast-stream</td></tr>
+<tr><td>allocate-instance</td><td>bignum</td><td>broadcast-stream-streams</td></tr>
+<tr><td>alpha-char-p</td><td>bit</td><td>built-in-class</td></tr>
+<tr><td>alphanumericp</td><td>bit-and</td><td>butlast</td></tr>
+<tr><td>and</td><td>bit-andc1</td><td>byte</td></tr>
+<tr><td>append</td><td>bit-andc2</td><td>byte-position</td></tr>
+<tr><td>apply</td><td>bit-eqv</td><td>byte-size</td></tr>
+<tr><td>apropos</td><td>bit-ior</td><td>caaaar</td></tr>
+<tr><td>apropos-list</td><td>bit-nand</td><td>caaadr</td></tr>
+<tr><td>aref</td><td>bit-nor</td><td>caaar</td></tr>
+<tr><td>arithmetic-error</td><td>bit-not</td><td>caadar</td></tr>
+<tr><td>arithmetic-error-operands</td><td>bit-orc1</td><td>caaddr</td></tr>
+<tr><td>arithmetic-error-operation</td><td>bit-orc2</td><td>caadr</td></tr>
+<tr><td>array</td><td>bit-vector</td><td>caar</td></tr>
+<tr><td>array-dimension</td><td>bit-vector-p</td><td>cadaar</td></tr>
+<tr><td>array-dimension-limit</td><td>bit-xor</td><td>cadadr</td></tr>
+<tr><td>array-dimensions</td><td>block</td><td>cadar</td></tr>
+<tr><td>array-displacement</td><td>boole</td><td>caddar</td></tr>
+<tr><td>array-element-type</td><td>boole-1</td><td>cadddr</td></tr>
+<tr><td>array-has-fill-pointer-p</td><td>boole-2</td><td>caddr</td></tr>
+<tr><td>array-in-bounds-p</td><td>boole-and</td><td>cadr</td></tr>
+<tr><td>array-rank</td><td>boole-andc1</td><td>call-arguments-limit</td></tr>
+<tr><td>array-rank-limit</td><td>boole-andc2</td><td>call-method</td></tr>
+<tr><td>array-row-major-index</td><td>boole-c1</td><td>call-next-method</td></tr>
+<tr><td>array-total-size</td><td>boole-c2</td><td>car</td></tr>
+<tr><td>array-total-size-limit</td><td>boole-clr</td><td>case</td></tr>
+<tr><td>arrayp</td><td>boole-eqv</td><td>catch</td></tr>
+<tr><td>ash</td><td>boole-ior</td><td>ccase</td></tr>
+<tr><td>asin</td><td>boole-nand</td><td>cdaaar</td></tr>
+<tr><td>asinh</td><td>boole-nor</td><td>cdaadr</td></tr>
+<tr><td>assert</td><td>boole-orc1</td><td>cdaar</td></tr>
+<tr><td>assoc</td><td>boole-orc2</td><td>cdadar</td></tr>
+<tr><td>assoc-if</td><td>boole-set</td><td>cdaddr</td></tr>
+<tr><td>assoc-if-not</td><td>boole-xor</td><td>cdadr</td></tr>
+<tr><td>atan</td><td>boolean</td><td>cdar</td></tr>
+<tr><td>atanh</td><td>both-case-p</td><td>cddaar</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.5: </strong>Symbols in the COMMON-LISP package (part two of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e6"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>cddadr</td><td>clear-input</td><td>copy-tree</td></tr>
+<tr><td>cddar</td><td>clear-output</td><td>cos</td></tr>
+<tr><td>cdddar</td><td>close</td><td>cosh</td></tr>
+<tr><td>cddddr</td><td>clrhash</td><td>count</td></tr>
+<tr><td>cdddr</td><td>code-char</td><td>count-if</td></tr>
+<tr><td>cddr</td><td>coerce</td><td>count-if-not</td></tr>
+<tr><td>cdr</td><td>compilation-speed</td><td>ctypecase</td></tr>
+<tr><td>ceiling</td><td>compile</td><td>debug</td></tr>
+<tr><td>cell-error</td><td>compile-file</td><td>decf</td></tr>
+<tr><td>cell-error-name</td><td>compile-file-pathname</td><td>declaim</td></tr>
+<tr><td>cerror</td><td>compiled-function</td><td>declaration</td></tr>
+<tr><td>change-class</td><td>compiled-function-p</td><td>declare</td></tr>
+<tr><td>char</td><td>compiler-macro</td><td>decode-float</td></tr>
+<tr><td>char-code</td><td>compiler-macro-function</td><td>decode-universal-time</td></tr>
+<tr><td>char-code-limit</td><td>complement</td><td>defclass</td></tr>
+<tr><td>char-downcase</td><td>complex</td><td>defconstant</td></tr>
+<tr><td>char-equal</td><td>complexp</td><td>defgeneric</td></tr>
+<tr><td>char-greaterp</td><td>compute-applicable-methods</td><td>define-compiler-macro</td></tr>
+<tr><td>char-int</td><td>compute-restarts</td><td>define-condition</td></tr>
+<tr><td>char-lessp</td><td>concatenate</td><td>define-method-combination</td></tr>
+<tr><td>char-name</td><td>concatenated-stream</td><td>define-modify-macro</td></tr>
+<tr><td>char-not-equal</td><td>concatenated-stream-streams</td><td>define-setf-expander</td></tr>
+<tr><td>char-not-greaterp</td><td>cond</td><td>define-symbol-macro</td></tr>
+<tr><td>char-not-lessp</td><td>condition</td><td>defmacro</td></tr>
+<tr><td>char-upcase</td><td>conjugate</td><td>defmethod</td></tr>
+<tr><td>char/=</td><td>cons</td><td>defpackage</td></tr>
+<tr><td>char&lt;</td><td>consp</td><td>defparameter</td></tr>
+<tr><td>char&lt;=</td><td>constantly</td><td>defsetf</td></tr>
+<tr><td>char=</td><td>constantp</td><td>defstruct</td></tr>
+<tr><td>char&gt;</td><td>continue</td><td>deftype</td></tr>
+<tr><td>char&gt;=</td><td>control-error</td><td>defun</td></tr>
+<tr><td>character</td><td>copy-alist</td><td>defvar</td></tr>
+<tr><td>characterp</td><td>copy-list</td><td>delete</td></tr>
+<tr><td>check-type</td><td>copy-pprint-dispatch</td><td>delete-duplicates</td></tr>
+<tr><td>cis</td><td>copy-readtable</td><td>delete-file</td></tr>
+<tr><td>class</td><td>copy-seq</td><td>delete-if</td></tr>
+<tr><td>class-name</td><td>copy-structure</td><td>delete-if-not</td></tr>
+<tr><td>class-of</td><td>copy-symbol</td><td>delete-package</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.6: </strong>Symbols in the COMMON-LISP package (part three of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e7"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>denominator</td><td>eq</td></tr>
+<tr><td>deposit-field</td><td>eql</td></tr>
+<tr><td>describe</td><td>equal</td></tr>
+<tr><td>describe-object</td><td>equalp</td></tr>
+<tr><td>destructuring-bind</td><td>error</td></tr>
+<tr><td>digit-char</td><td>etypecase</td></tr>
+<tr><td>digit-char-p</td><td>eval</td></tr>
+<tr><td>directory</td><td>eval-when</td></tr>
+<tr><td>directory-namestring</td><td>evenp</td></tr>
+<tr><td>disassemble</td><td>every</td></tr>
+<tr><td>division-by-zero</td><td>exp</td></tr>
+<tr><td>do</td><td>export</td></tr>
+<tr><td>do*</td><td>expt</td></tr>
+<tr><td>do-all-symbols</td><td>extended-char</td></tr>
+<tr><td>do-external-symbols</td><td>fboundp</td></tr>
+<tr><td>do-symbols</td><td>fceiling</td></tr>
+<tr><td>documentation</td><td>fdefinition</td></tr>
+<tr><td>dolist</td><td>ffloor</td></tr>
+<tr><td>dotimes</td><td>fifth</td></tr>
+<tr><td>double-float</td><td>file-author</td></tr>
+<tr><td>double-float-epsilon</td><td>file-error</td></tr>
+<tr><td>double-float-negative-epsilon</td><td>file-error-pathname</td></tr>
+<tr><td>dpb</td><td>file-length</td></tr>
+<tr><td>dribble</td><td>file-namestring</td></tr>
+<tr><td>dynamic-extent</td><td>file-position</td></tr>
+<tr><td>ecase</td><td>file-stream</td></tr>
+<tr><td>echo-stream</td><td>file-string-length</td></tr>
+<tr><td>echo-stream-input-stream</td><td>file-write-date</td></tr>
+<tr><td>echo-stream-output-stream</td><td>fill</td></tr>
+<tr><td>ed</td><td>fill-pointer</td></tr>
+<tr><td>eighth</td><td>find</td></tr>
+<tr><td>elt</td><td>find-all-symbols</td></tr>
+<tr><td>encode-universal-time</td><td>find-class</td></tr>
+<tr><td>end-of-file</td><td>find-if</td></tr>
+<tr><td>endp</td><td>find-if-not</td></tr>
+<tr><td>enough-namestring</td><td>find-method</td></tr>
+<tr><td>ensure-directories-exist</td><td>find-package</td></tr>
+<tr><td>ensure-generic-function</td><td>find-restart</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.7: </strong>Symbols in the COMMON-LISP package (part four of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e8"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>find-symbol</td><td>get-internal-run-time</td></tr>
+<tr><td>finish-output</td><td>get-macro-character</td></tr>
+<tr><td>first</td><td>get-output-stream-string</td></tr>
+<tr><td>fixnum</td><td>get-properties</td></tr>
+<tr><td>flet</td><td>get-setf-expansion</td></tr>
+<tr><td>float</td><td>get-universal-time</td></tr>
+<tr><td>float-digits</td><td>getf</td></tr>
+<tr><td>float-precision</td><td>gethash</td></tr>
+<tr><td>float-radix</td><td>go</td></tr>
+<tr><td>float-sign</td><td>graphic-char-p</td></tr>
+<tr><td>floating-point-inexact</td><td>handler-bind</td></tr>
+<tr><td>floating-point-invalid-operation</td><td>handler-case</td></tr>
+<tr><td>floating-point-overflow</td><td>hash-table</td></tr>
+<tr><td>floating-point-underflow</td><td>hash-table-count</td></tr>
+<tr><td>floatp</td><td>hash-table-p</td></tr>
+<tr><td>floor</td><td>hash-table-rehash-size</td></tr>
+<tr><td>fmakunbound</td><td>hash-table-rehash-threshold</td></tr>
+<tr><td>force-output</td><td>hash-table-size</td></tr>
+<tr><td>format</td><td>hash-table-test</td></tr>
+<tr><td>formatter</td><td>host-namestring</td></tr>
+<tr><td>fourth</td><td>identity</td></tr>
+<tr><td>fresh-line</td><td>if</td></tr>
+<tr><td>fround</td><td>ignorable</td></tr>
+<tr><td>ftruncate</td><td>ignore</td></tr>
+<tr><td>ftype</td><td>ignore-errors</td></tr>
+<tr><td>funcall</td><td>imagpart</td></tr>
+<tr><td>function</td><td>import</td></tr>
+<tr><td>function-keywords</td><td>in-package</td></tr>
+<tr><td>function-lambda-expression</td><td>incf</td></tr>
+<tr><td>functionp</td><td>initialize-instance</td></tr>
+<tr><td>gcd</td><td>inline</td></tr>
+<tr><td>generic-function</td><td>input-stream-p</td></tr>
+<tr><td>gensym</td><td>inspect</td></tr>
+<tr><td>gentemp</td><td>integer</td></tr>
+<tr><td>get</td><td>integer-decode-float</td></tr>
+<tr><td>get-decoded-time</td><td>integer-length</td></tr>
+<tr><td>get-dispatch-macro-character</td><td>integerp</td></tr>
+<tr><td>get-internal-real-time</td><td>interactive-stream-p</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.8: </strong>Symbols in the COMMON-LISP package (part five of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e9"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>intern</td><td>lisp-implementation-type</td></tr>
+<tr><td>internal-time-units-per-second</td><td>lisp-implementation-version</td></tr>
+<tr><td>intersection</td><td>list</td></tr>
+<tr><td>invalid-method-error</td><td>list*</td></tr>
+<tr><td>invoke-debugger</td><td>list-all-packages</td></tr>
+<tr><td>invoke-restart</td><td>list-length</td></tr>
+<tr><td>invoke-restart-interactively</td><td>listen</td></tr>
+<tr><td>isqrt</td><td>listp</td></tr>
+<tr><td>keyword</td><td>load</td></tr>
+<tr><td>keywordp</td><td>load-logical-pathname-translations</td></tr>
+<tr><td>labels</td><td>load-time-value</td></tr>
+<tr><td>lambda</td><td>locally</td></tr>
+<tr><td>lambda-list-keywords</td><td>log</td></tr>
+<tr><td>lambda-parameters-limit</td><td>logand</td></tr>
+<tr><td>last</td><td>logandc1</td></tr>
+<tr><td>lcm</td><td>logandc2</td></tr>
+<tr><td>ldb</td><td>logbitp</td></tr>
+<tr><td>ldb-test</td><td>logcount</td></tr>
+<tr><td>ldiff</td><td>logeqv</td></tr>
+<tr><td>least-negative-double-float</td><td>logical-pathname</td></tr>
+<tr><td>least-negative-long-float</td><td>logical-pathname-translations</td></tr>
+<tr><td>least-negative-normalized-double-float</td><td>logior</td></tr>
+<tr><td>least-negative-normalized-long-float</td><td>lognand</td></tr>
+<tr><td>least-negative-normalized-short-float</td><td>lognor</td></tr>
+<tr><td>least-negative-normalized-single-float</td><td>lognot</td></tr>
+<tr><td>least-negative-short-float</td><td>logorc1</td></tr>
+<tr><td>least-negative-single-float</td><td>logorc2</td></tr>
+<tr><td>least-positive-double-float</td><td>logtest</td></tr>
+<tr><td>least-positive-long-float</td><td>logxor</td></tr>
+<tr><td>least-positive-normalized-double-float</td><td>long-float</td></tr>
+<tr><td>least-positive-normalized-long-float</td><td>long-float-epsilon</td></tr>
+<tr><td>least-positive-normalized-short-float</td><td>long-float-negative-epsilon</td></tr>
+<tr><td>least-positive-normalized-single-float</td><td>long-site-name</td></tr>
+<tr><td>least-positive-short-float</td><td>loop</td></tr>
+<tr><td>least-positive-single-float</td><td>loop-finish</td></tr>
+<tr><td>length</td><td>lower-case-p</td></tr>
+<tr><td>let</td><td>machine-instance</td></tr>
+<tr><td>let*</td><td>machine-type</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.9: </strong>Symbols in the COMMON-LISP package (part six of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e10"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>machine-version</td><td>mask-field</td></tr>
+<tr><td>macro-function</td><td>max</td></tr>
+<tr><td>macroexpand</td><td>member</td></tr>
+<tr><td>macroexpand-1</td><td>member-if</td></tr>
+<tr><td>macrolet</td><td>member-if-not</td></tr>
+<tr><td>make-array</td><td>merge</td></tr>
+<tr><td>make-broadcast-stream</td><td>merge-pathnames</td></tr>
+<tr><td>make-concatenated-stream</td><td>method</td></tr>
+<tr><td>make-condition</td><td>method-combination</td></tr>
+<tr><td>make-dispatch-macro-character</td><td>method-combination-error</td></tr>
+<tr><td>make-echo-stream</td><td>method-qualifiers</td></tr>
+<tr><td>make-hash-table</td><td>min</td></tr>
+<tr><td>make-instance</td><td>minusp</td></tr>
+<tr><td>make-instances-obsolete</td><td>mismatch</td></tr>
+<tr><td>make-list</td><td>mod</td></tr>
+<tr><td>make-load-form</td><td>most-negative-double-float</td></tr>
+<tr><td>make-load-form-saving-slots</td><td>most-negative-fixnum</td></tr>
+<tr><td>make-method</td><td>most-negative-long-float</td></tr>
+<tr><td>make-package</td><td>most-negative-short-float</td></tr>
+<tr><td>make-pathname</td><td>most-negative-single-float</td></tr>
+<tr><td>make-random-state</td><td>most-positive-double-float</td></tr>
+<tr><td>make-sequence</td><td>most-positive-fixnum</td></tr>
+<tr><td>make-string</td><td>most-positive-long-float</td></tr>
+<tr><td>make-string-input-stream</td><td>most-positive-short-float</td></tr>
+<tr><td>make-string-output-stream</td><td>most-positive-single-float</td></tr>
+<tr><td>make-symbol</td><td>muffle-warning</td></tr>
+<tr><td>make-synonym-stream</td><td>multiple-value-bind</td></tr>
+<tr><td>make-two-way-stream</td><td>multiple-value-call</td></tr>
+<tr><td>makunbound</td><td>multiple-value-list</td></tr>
+<tr><td>map</td><td>multiple-value-prog1</td></tr>
+<tr><td>map-into</td><td>multiple-value-setq</td></tr>
+<tr><td>mapc</td><td>multiple-values-limit</td></tr>
+<tr><td>mapcan</td><td>name-char</td></tr>
+<tr><td>mapcar</td><td>namestring</td></tr>
+<tr><td>mapcon</td><td>nbutlast</td></tr>
+<tr><td>maphash</td><td>nconc</td></tr>
+<tr><td>mapl</td><td>next-method-p</td></tr>
+<tr><td>maplist</td><td>nil</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.10: </strong>Symbols in the COMMON-LISP package (part seven of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e11"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>nintersection</td><td>package-error</td></tr>
+<tr><td>ninth</td><td>package-error-package</td></tr>
+<tr><td>no-applicable-method</td><td>package-name</td></tr>
+<tr><td>no-next-method</td><td>package-nicknames</td></tr>
+<tr><td>not</td><td>package-shadowing-symbols</td></tr>
+<tr><td>notany</td><td>package-use-list</td></tr>
+<tr><td>notevery</td><td>package-used-by-list</td></tr>
+<tr><td>notinline</td><td>packagep</td></tr>
+<tr><td>nreconc</td><td>pairlis</td></tr>
+<tr><td>nreverse</td><td>parse-error</td></tr>
+<tr><td>nset-difference</td><td>parse-integer</td></tr>
+<tr><td>nset-exclusive-or</td><td>parse-namestring</td></tr>
+<tr><td>nstring-capitalize</td><td>pathname</td></tr>
+<tr><td>nstring-downcase</td><td>pathname-device</td></tr>
+<tr><td>nstring-upcase</td><td>pathname-directory</td></tr>
+<tr><td>nsublis</td><td>pathname-host</td></tr>
+<tr><td>nsubst</td><td>pathname-match-p</td></tr>
+<tr><td>nsubst-if</td><td>pathname-name</td></tr>
+<tr><td>nsubst-if-not</td><td>pathname-type</td></tr>
+<tr><td>nsubstitute</td><td>pathname-version</td></tr>
+<tr><td>nsubstitute-if</td><td>pathnamep</td></tr>
+<tr><td>nsubstitute-if-not</td><td>peek-char</td></tr>
+<tr><td>nth</td><td>phase</td></tr>
+<tr><td>nth-value</td><td>pi</td></tr>
+<tr><td>nthcdr</td><td>plusp</td></tr>
+<tr><td>null</td><td>pop</td></tr>
+<tr><td>number</td><td>position</td></tr>
+<tr><td>numberp</td><td>position-if</td></tr>
+<tr><td>numerator</td><td>position-if-not</td></tr>
+<tr><td>nunion</td><td>pprint</td></tr>
+<tr><td>oddp</td><td>pprint-dispatch</td></tr>
+<tr><td>open</td><td>pprint-exit-if-list-exhausted</td></tr>
+<tr><td>open-stream-p</td><td>pprint-fill</td></tr>
+<tr><td>optimize</td><td>pprint-indent</td></tr>
+<tr><td>or</td><td>pprint-linear</td></tr>
+<tr><td>otherwise</td><td>pprint-logical-block</td></tr>
+<tr><td>output-stream-p</td><td>pprint-newline</td></tr>
+<tr><td>package</td><td>pprint-pop</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.11: </strong>Symbols in the COMMON-LISP package (part eight of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e12"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>pprint-tab</td><td>read-char</td></tr>
+<tr><td>pprint-tabular</td><td>read-char-no-hang</td></tr>
+<tr><td>prin1</td><td>read-delimited-list</td></tr>
+<tr><td>prin1-to-string</td><td>read-from-string</td></tr>
+<tr><td>princ</td><td>read-line</td></tr>
+<tr><td>princ-to-string</td><td>read-preserving-whitespace</td></tr>
+<tr><td>print</td><td>read-sequence</td></tr>
+<tr><td>print-not-readable</td><td>reader-error</td></tr>
+<tr><td>print-not-readable-object</td><td>readtable</td></tr>
+<tr><td>print-object</td><td>readtable-case</td></tr>
+<tr><td>print-unreadable-object</td><td>readtablep</td></tr>
+<tr><td>probe-file</td><td>real</td></tr>
+<tr><td>proclaim</td><td>realp</td></tr>
+<tr><td>prog</td><td>realpart</td></tr>
+<tr><td>prog*</td><td>reduce</td></tr>
+<tr><td>prog1</td><td>reinitialize-instance</td></tr>
+<tr><td>prog2</td><td>rem</td></tr>
+<tr><td>progn</td><td>remf</td></tr>
+<tr><td>program-error</td><td>remhash</td></tr>
+<tr><td>progv</td><td>remove</td></tr>
+<tr><td>provide</td><td>remove-duplicates</td></tr>
+<tr><td>psetf</td><td>remove-if</td></tr>
+<tr><td>psetq</td><td>remove-if-not</td></tr>
+<tr><td>push</td><td>remove-method</td></tr>
+<tr><td>pushnew</td><td>remprop</td></tr>
+<tr><td>quote</td><td>rename-file</td></tr>
+<tr><td>random</td><td>rename-package</td></tr>
+<tr><td>random-state</td><td>replace</td></tr>
+<tr><td>random-state-p</td><td>require</td></tr>
+<tr><td>rassoc</td><td>rest</td></tr>
+<tr><td>rassoc-if</td><td>restart</td></tr>
+<tr><td>rassoc-if-not</td><td>restart-bind</td></tr>
+<tr><td>ratio</td><td>restart-case</td></tr>
+<tr><td>rational</td><td>restart-name</td></tr>
+<tr><td>rationalize</td><td>return</td></tr>
+<tr><td>rationalp</td><td>return-from</td></tr>
+<tr><td>read</td><td>revappend</td></tr>
+<tr><td>read-byte</td><td>reverse</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.12: </strong>Symbols in the COMMON-LISP package (part nine of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e13"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>room</td><td>simple-bit-vector</td></tr>
+<tr><td>rotatef</td><td>simple-bit-vector-p</td></tr>
+<tr><td>round</td><td>simple-condition</td></tr>
+<tr><td>row-major-aref</td><td>simple-condition-format-arguments</td></tr>
+<tr><td>rplaca</td><td>simple-condition-format-control</td></tr>
+<tr><td>rplacd</td><td>simple-error</td></tr>
+<tr><td>safety</td><td>simple-string</td></tr>
+<tr><td>satisfies</td><td>simple-string-p</td></tr>
+<tr><td>sbit</td><td>simple-type-error</td></tr>
+<tr><td>scale-float</td><td>simple-vector</td></tr>
+<tr><td>schar</td><td>simple-vector-p</td></tr>
+<tr><td>search</td><td>simple-warning</td></tr>
+<tr><td>second</td><td>sin</td></tr>
+<tr><td>sequence</td><td>single-float</td></tr>
+<tr><td>serious-condition</td><td>single-float-epsilon</td></tr>
+<tr><td>set</td><td>single-float-negative-epsilon</td></tr>
+<tr><td>set-difference</td><td>sinh</td></tr>
+<tr><td>set-dispatch-macro-character</td><td>sixth</td></tr>
+<tr><td>set-exclusive-or</td><td>sleep</td></tr>
+<tr><td>set-macro-character</td><td>slot-boundp</td></tr>
+<tr><td>set-pprint-dispatch</td><td>slot-exists-p</td></tr>
+<tr><td>set-syntax-from-char</td><td>slot-makunbound</td></tr>
+<tr><td>setf</td><td>slot-missing</td></tr>
+<tr><td>setq</td><td>slot-unbound</td></tr>
+<tr><td>seventh</td><td>slot-value</td></tr>
+<tr><td>shadow</td><td>software-type</td></tr>
+<tr><td>shadowing-import</td><td>software-version</td></tr>
+<tr><td>shared-initialize</td><td>some</td></tr>
+<tr><td>shiftf</td><td>sort</td></tr>
+<tr><td>short-float</td><td>space</td></tr>
+<tr><td>short-float-epsilon</td><td>special</td></tr>
+<tr><td>short-float-negative-epsilon</td><td>special-operator-p</td></tr>
+<tr><td>short-site-name</td><td>speed</td></tr>
+<tr><td>signal</td><td>sqrt</td></tr>
+<tr><td>signed-byte</td><td>stable-sort</td></tr>
+<tr><td>signum</td><td>standard</td></tr>
+<tr><td>simple-array</td><td>standard-char</td></tr>
+<tr><td>simple-base-string</td><td>standard-char-p</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.13: </strong>Symbols in the COMMON-LISP package (part ten of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e14"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>standard-class</td><td>sublis</td></tr>
+<tr><td>standard-generic-function</td><td>subseq</td></tr>
+<tr><td>standard-method</td><td>subsetp</td></tr>
+<tr><td>standard-object</td><td>subst</td></tr>
+<tr><td>step</td><td>subst-if</td></tr>
+<tr><td>storage-condition</td><td>subst-if-not</td></tr>
+<tr><td>store-value</td><td>substitute</td></tr>
+<tr><td>stream</td><td>substitute-if</td></tr>
+<tr><td>stream-element-type</td><td>substitute-if-not</td></tr>
+<tr><td>stream-error</td><td>subtypep</td></tr>
+<tr><td>stream-error-stream</td><td>svref</td></tr>
+<tr><td>stream-external-format</td><td>sxhash</td></tr>
+<tr><td>streamp</td><td>symbol</td></tr>
+<tr><td>string</td><td>symbol-function</td></tr>
+<tr><td>string-capitalize</td><td>symbol-macrolet</td></tr>
+<tr><td>string-downcase</td><td>symbol-name</td></tr>
+<tr><td>string-equal</td><td>symbol-package</td></tr>
+<tr><td>string-greaterp</td><td>symbol-plist</td></tr>
+<tr><td>string-left-trim</td><td>symbol-value</td></tr>
+<tr><td>string-lessp</td><td>symbolp</td></tr>
+<tr><td>string-not-equal</td><td>synonym-stream</td></tr>
+<tr><td>string-not-greaterp</td><td>synonym-stream-symbol</td></tr>
+<tr><td>string-not-lessp</td><td>t</td></tr>
+<tr><td>string-right-trim</td><td>tagbody</td></tr>
+<tr><td>string-stream</td><td>tailp</td></tr>
+<tr><td>string-trim</td><td>tan</td></tr>
+<tr><td>string-upcase</td><td>tanh</td></tr>
+<tr><td>string/=</td><td>tenth</td></tr>
+<tr><td>string&lt;</td><td>terpri</td></tr>
+<tr><td>string&lt;=</td><td>the</td></tr>
+<tr><td>string=</td><td>third</td></tr>
+<tr><td>string&gt;</td><td>throw</td></tr>
+<tr><td>string&gt;=</td><td>time</td></tr>
+<tr><td>stringp</td><td>trace</td></tr>
+<tr><td>structure</td><td>translate-logical-pathname</td></tr>
+<tr><td>structure-class</td><td>translate-pathname</td></tr>
+<tr><td>structure-object</td><td>tree-equal</td></tr>
+<tr><td>style-warning</td><td>truename</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.14: </strong>Symbols in the COMMON-LISP package (part eleven of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e15"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>truncate</td><td>values-list</td></tr>
+<tr><td>two-way-stream</td><td>variable</td></tr>
+<tr><td>two-way-stream-input-stream</td><td>vector</td></tr>
+<tr><td>two-way-stream-output-stream</td><td>vector-pop</td></tr>
+<tr><td>type</td><td>vector-push</td></tr>
+<tr><td>type-error</td><td>vector-push-extend</td></tr>
+<tr><td>type-error-datum</td><td>vectorp</td></tr>
+<tr><td>type-error-expected-type</td><td>warn</td></tr>
+<tr><td>type-of</td><td>warning</td></tr>
+<tr><td>typecase</td><td>when</td></tr>
+<tr><td>typep</td><td>wild-pathname-p</td></tr>
+<tr><td>unbound-slot</td><td>with-accessors</td></tr>
+<tr><td>unbound-slot-instance</td><td>with-compilation-unit</td></tr>
+<tr><td>unbound-variable</td><td>with-condition-restarts</td></tr>
+<tr><td>undefined-function</td><td>with-hash-table-iterator</td></tr>
+<tr><td>unexport</td><td>with-input-from-string</td></tr>
+<tr><td>unintern</td><td>with-open-file</td></tr>
+<tr><td>union</td><td>with-open-stream</td></tr>
+<tr><td>unless</td><td>with-output-to-string</td></tr>
+<tr><td>unread-char</td><td>with-package-iterator</td></tr>
+<tr><td>unsigned-byte</td><td>with-simple-restart</td></tr>
+<tr><td>untrace</td><td>with-slots</td></tr>
+<tr><td>unuse-package</td><td>with-standard-io-syntax</td></tr>
+<tr><td>unwind-protect</td><td>write</td></tr>
+<tr><td>update-instance-for-different-class</td><td>write-byte</td></tr>
+<tr><td>update-instance-for-redefined-class</td><td>write-char</td></tr>
+<tr><td>upgraded-array-element-type</td><td>write-line</td></tr>
+<tr><td>upgraded-complex-part-type</td><td>write-sequence</td></tr>
+<tr><td>upper-case-p</td><td>write-string</td></tr>
+<tr><td>use-package</td><td>write-to-string</td></tr>
+<tr><td>use-value</td><td>y-or-n-p</td></tr>
+<tr><td>user-homedir-pathname</td><td>yes-or-no-p</td></tr>
+<tr><td>values</td><td>zerop</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.15: </strong>Symbols in the COMMON-LISP package (part twelve of twelve).</p></div></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Deprecated-Language-Features.html" accesskey="p" rel="prev">Deprecated Language Features</a>, Up: <a href="Introduction.html" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Satisfying a One-Argument Test (ANSI Common Lisp)</title>
+
+<meta name="description" content="Satisfying a One-Argument Test (ANSI Common Lisp)">
+<meta name="keywords" content="Satisfying a One-Argument Test (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Rules-about-Test-Functions.html" rel="up" title="Rules about Test Functions">
+<link href="sequence.html" rel="next" title="sequence">
+<link href="Satisfying-a-Two_002dArgument-Test.html" rel="prev" title="Satisfying a Two-Argument Test">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Satisfying-a-One_002dArgument-Test"></span><div class="header">
+<p>
+Previous: <a href="Satisfying-a-Two_002dArgument-Test.html" accesskey="p" rel="prev">Satisfying a Two-Argument Test</a>, Up: <a href="Rules-about-Test-Functions.html" accesskey="u" rel="up">Rules about Test Functions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Satisfying-a-One_002dArgument-Test-1"></span><h4 class="subsection">17.2.2 Satisfying a One-Argument Test</h4>
+
+<p>When using one of the <i>functions</i> in the next figure,
+the elements E of a <i>sequence</i> S are filtered
+not on the basis of the presence or absence of an object O 
+under a two <i>argument</i> <i>predicate</i>,
+as with the <i>functions</i> described in <a href="Satisfying-a-Two_002dArgument-Test.html">Section 17.2.1 (Satisfying a Two-Argument Test)</a>,
+but rather on the basis of a one <i>argument</i> <i>predicate</i>.
+</p>
+
+<div class="float"><span id="fig17_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>assoc-if</td><td>member-if</td><td>rassoc-if</td></tr>
+<tr><td>assoc-if-not</td><td>member-if-not</td><td>rassoc-if-not</td></tr>
+<tr><td>count-if</td><td>nsubst-if</td><td>remove-if</td></tr>
+<tr><td>count-if-not</td><td>nsubst-if-not</td><td>remove-if-not</td></tr>
+<tr><td>delete-if</td><td>nsubstitute-if</td><td>subst-if</td></tr>
+<tr><td>delete-if-not</td><td>nsubstitute-if-not</td><td>subst-if-not</td></tr>
+<tr><td>find-if</td><td>position-if</td><td>substitute-if</td></tr>
+<tr><td>find-if-not</td><td>position-if-not</td><td>substitute-if-not</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 17.3: </strong>Operators that have One-Argument Tests to be Satisfied</p></div></div>
+
+<p>The element E<sub>i</sub>
+If a <tt>:key</tt> <i>argument</i> is provided,
+it is a <i>designator</i> for a <i>function</i> of one <i>argument</i> 
+to be called with each E<sub>i</sub>
+and <i>yielding</i> an <i>object</i> Z<sub>i</sub>
+(If there is no <tt>:key</tt> <i>argument</i>, Z<sub>i</sub>
+</p>
+<p><i>Functions</i> defined in this specification and having a name that
+ends in &ldquo;<code>-if</code>&rdquo; accept a first <i>argument</i> that is a <i>designator</i> for a 
+<i>function</i> of one <i>argument</i>, Z<sub>i</sub>
+An E<sub>i</sub>
+<em>satisfy the test</em> if this <tt>:test</tt> <i>function</i>
+returns a <i>generalized boolean</i> representing <i>true</i>.
+</p>
+<p><i>Functions</i> defined in this specification and having a name that
+ends in &ldquo;<code>-if-not</code>&rdquo; accept a first <i>argument</i> that is a <i>designator</i> for a 
+<i>function</i> of one <i>argument</i>, Z<sub>i</sub>
+An E<sub>i</sub>
+<em>satisfy the test</em> if this <tt>:test</tt> <i>function</i>
+returns a <i>generalized boolean</i> representing <i>false</i>.
+</p>
+<span id="Examples-of-Satisfying-a-One_002dArgument-Test"></span><h4 class="subsubsection">17.2.2.1 Examples of Satisfying a One-Argument Test</h4>
+
+<div class="lisp">
+<pre class="lisp"> (count-if #'zerop '(1 #C(0.0 0.0) 0 0.0d0 0.0s0 3)) <span class="roman">→</span> 4
+
+ (remove-if-not #'symbolp '(0 1 2 3 4 5 6 7 8 9 A B C D E F))
+<span class="roman">→</span> (A B C D E F)
+ (remove-if (complement #'symbolp) '(0 1 2 3 4 5 6 7 8 9 A B C D E F))
+<span class="roman">→</span> (A B C D E F)
+
+ (count-if #'zerop '(&quot;foo&quot; &quot;&quot; &quot;bar&quot; &quot;&quot; &quot;&quot; &quot;baz&quot; &quot;quux&quot;) :key #'length)
+<span class="roman">→</span> 3
+</pre></div>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Satisfying-a-Two_002dArgument-Test.html" accesskey="p" rel="prev">Satisfying a Two-Argument Test</a>, Up: <a href="Rules-about-Test-Functions.html" accesskey="u" rel="up">Rules about Test Functions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

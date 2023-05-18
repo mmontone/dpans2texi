@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>gentemp (ANSI Common Lisp)</title>
+
+<meta name="description" content="gentemp (ANSI Common Lisp)">
+<meta name="keywords" content="gentemp (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Symbols.html" rel="up" title="Symbols">
+<link href="symbol_002dfunction.html" rel="next" title="symbol-function">
+<link href="_002agensym_002dcounter_002a.html" rel="prev" title="*gensym-counter*">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="gentemp"></span><div class="header">
+<p>
+Next: <a href="symbol_002dfunction.html" accesskey="n" rel="next">symbol-function</a>, Previous: <a href="_002agensym_002dcounter_002a.html" accesskey="p" rel="prev">*gensym-counter*</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">gentemp</h4>
+<span id="gentemp-_0028Function_0029"></span><h3 class="heading">gentemp (Function)</h3>
+<span id="index-gentemp-2"></span>
+<span id="index-gentemp"></span>
+
+
+<span id="Syntax_003a-174"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-gentemp-1">Function: <strong>gentemp</strong> <em><tt>&amp;optional</tt> prefix package <span class="roman">→</span> new-symbol</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-163"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>prefix</var>&mdash;a <i>string</i>.
+The default is <code>&quot;T&quot;</code>.
+</p>
+<p><var>package</var>&mdash;a <i>package designator</i>.
+The default is the <i>current package</i>.
+</p>
+<p><var>new-symbol</var>&mdash;a <i>fresh</i>, <i>interned</i> <i>symbol</i>.
+</p>
+<span id="Description_003a-225"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>gentemp</code> creates and returns a <i>fresh</i> <i>symbol</i>,
+<i>interned</i> in the indicated <var>package</var>.
+The <i>symbol</i> is guaranteed to be one that was not previously
+<i>accessible</i> in <var>package</var>.
+It is neither <i>bound</i> nor <i>fbound</i>, and has a <i>null</i>
+<i>property list</i>.
+</p>
+<p>The <i>name</i> of the <var>new-symbol</var> is the concatenation 
+of the <var>prefix</var> and a suffix, which is taken from an internal
+counter used only by <code>gentemp</code>.  (If a <i>symbol</i> by that name
+is already <i>accessible</i> in <var>package</var>, the counter is incremented as
+many times as is necessary to produce a <i>name</i> that is not already the
+<i>name</i> of a <i>symbol</i> <i>accessible</i> in <var>package</var>.)
+</p>
+<span id="Examples_003a-146"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (gentemp) <span class="roman">→</span> T1298
+ (gentemp &quot;FOO&quot;) <span class="roman">→</span> FOO1299
+ (find-symbol &quot;FOO1300&quot;) <span class="roman">→</span> NIL, NIL
+ (gentemp &quot;FOO&quot;) <span class="roman">→</span> FOO1300
+ (find-symbol &quot;FOO1300&quot;) <span class="roman">→</span> FOO1300, :INTERNAL
+ (intern &quot;FOO1301&quot;) <span class="roman">→</span> FOO1301, :INTERNAL
+ (gentemp &quot;FOO&quot;) <span class="roman">→</span> FOO1302
+ (gentemp) <span class="roman">→</span> T1303
+</pre></div>
+
+
+<span id="Side-Effects_003a-20"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Its internal counter is incremented one or more times.
+</p>
+<p><i>Interns</i> the <var>new-symbol</var> in <var>package</var>.
+</p>
+<span id="Affected-By_003a-38"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The current state of its internal counter, and
+the current state of the <var>package</var>.
+</p>
+<span id="Exceptional-Situations_003a-53"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>prefix</var> is not a <i>string</i>.
+Should signal an error of <i>type</i> <code>type-error</code> if <var>package</var> is not a <i>package designator</i>.
+</p>
+<span id="See-Also_003a-199"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="gensym.html">gensym</a>
+</p>
+<span id="Notes_003a-120"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The function <code>gentemp</code> is deprecated.
+</p>
+<p>If <var>package</var> is the <code>KEYWORD</code> <i>package</i>,
+the result is an <i>external symbol</i> of <var>package</var>.
+Otherwise, the result is an <i>internal symbol</i> of <var>package</var>.
+</p>
+<p>The <code>gentemp</code> internal counter is independent of
+<code>*gensym-counter*</code>, the counter used by <code>gensym</code>.  
+There is no provision for accessing the <code>gentemp</code> internal counter.
+</p>
+<p>Just because <code>gentemp</code> creates a <i>symbol</i> which did not
+previously exist does not mean that such a <i>symbol</i> might not be
+seen in the future (<i>e.g.</i>, in a data file&mdash;perhaps even created by the
+same program in another session).  As such, this symbol is not truly
+unique in the same sense as a <i>gensym</i> would be.  In particular,
+programs which do automatic code generation should be careful not to
+attach global attributes to such generated <i>symbols</i> (<i>e.g.</i>,
+<code>special</code> <i>declarations</i>) and then write them into a file
+because such global attributes might, in a different session, end up
+applying to other <i>symbols</i> that were automatically generated on
+another day for some other purpose.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="symbol_002dfunction.html" accesskey="n" rel="next">symbol-function</a>, Previous: <a href="_002agensym_002dcounter_002a.html" accesskey="p" rel="prev">*gensym-counter*</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

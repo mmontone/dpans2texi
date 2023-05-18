@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>add-method (ANSI Common Lisp)</title>
+
+<meta name="description" content="add-method (ANSI Common Lisp)">
+<meta name="keywords" content="add-method (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Objects.html" rel="up" title="Objects">
+<link href="initialize_002dinstance-_0028Standard-Generic-Function_0029.html" rel="next" title="initialize-instance (Standard Generic Function)">
+<link href="find_002dmethod.html" rel="prev" title="find-method">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="add_002dmethod"></span><div class="header">
+<p>
+Next: <a href="initialize_002dinstance-_0028Standard-Generic-Function_0029.html" accesskey="n" rel="next">initialize-instance (Standard Generic Function)</a>, Previous: <a href="find_002dmethod.html" accesskey="p" rel="prev">find-method</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">add-method</h4>
+<span id="add_002dmethod-_0028Standard-Generic-Function_0029"></span><h3 class="heading">add-method (Standard Generic Function)</h3>
+<span id="index-add_002dmethod-2"></span>
+<span id="index-add_002dmethod"></span>
+
+
+<span id="Syntax_003a-134"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-add_002dmethod-1">Generic Function: <strong>add-method</strong> <em>generic-function method <span class="roman">→</span> generic-function</em></dt>
+</dl>
+
+<span id="Method-Signatures_003a-18"></span><h4 class="subsubheading">Method Signatures:</h4>
+
+<p>add-method <tt>(</tt><var><span class="nolinebreak">generic-function</span></var>&nbsp;<code><span class="nolinebreak">standard-generic-function</span></code><tt>)</tt><!-- /@w -->
+<tt>(</tt><var>method</var>&nbsp;<code>method</code><tt>)</tt><!-- /@w -->
+</p>
+<span id="Arguments-and-Values_003a-123"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>generic-function</var>&mdash;a <i>generic function</i> <i>object</i>.
+</p>
+<p><var>method</var>&mdash;a <i>method</i> <i>object</i>.
+</p>
+<span id="Description_003a-162"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The generic function <code>add-method</code> adds a <i>method</i>
+to a <i>generic function</i>.
+</p>
+<p>If <var>method</var> agrees with an existing <i>method</i> of <var>generic-function</var>
+on <i>parameter specializers</i> and <i>qualifiers</i>, 
+the existing <i>method</i> is replaced.
+</p>
+<span id="Exceptional-Situations_003a-44"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The <i>lambda list</i> of the method function of <var>method</var> must be
+congruent with the <i>lambda list</i> of <var>generic-function</var>, 
+or an error of <i>type</i> <code>error</code> is signaled.
+</p>
+<p>If <var>method</var> is a <i>method</i> <i>object</i> of
+another <i>generic function</i>, an error of <i>type</i> <code>error</code> is signaled.
+</p>
+
+<span id="See-Also_003a-144"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="defmethod.html">defmethod</a>,
+<a href="defgeneric.html">defgeneric</a>,
+<a href="find_002dmethod.html">find-method</a>,
+<a href="remove_002dmethod.html">remove-method</a>,
+<a href="Agreement-on-Parameter-Specializers-and-Qualifiers.html">Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)</a>
+</p>
+
+
+
+
+
+</body>
+</html>

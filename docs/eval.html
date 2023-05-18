@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>eval (ANSI Common Lisp)</title>
+
+<meta name="description" content="eval (ANSI Common Lisp)">
+<meta name="keywords" content="eval (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="eval_002dwhen.html" rel="next" title="eval-when">
+<link href="compile.html" rel="prev" title="compile">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="eval"></span><div class="header">
+<p>
+Next: <a href="eval_002dwhen.html" accesskey="n" rel="next">eval-when</a>, Previous: <a href="compile.html" accesskey="p" rel="prev">compile</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">eval</h4>
+<span id="eval-_0028Function_0029"></span><h3 class="heading">eval (Function)</h3>
+<span id="index-eval-4"></span>
+<span id="index-eval-1"></span>
+
+
+<span id="Syntax_003a-3"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-eval-3">Function: <strong>eval</strong> <em>form <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-2"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>form</var>&mdash;a <i>form</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> <i>yielded</i> by the <i>evaluation</i> of <var>form</var>.
+</p>
+<span id="Description_003a-3"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Evaluates <var>form</var> in the current <i>dynamic environment</i>
+and the <i>null lexical environment</i>.
+</p>
+<p><code>eval</code> is a user interface to the evaluator.
+</p>
+<p>The evaluator expands macro calls as if through the use of <code>macroexpand-1</code>.
+</p>
+<p>Constants appearing in code
+processed by <code>eval</code> are
+not copied nor coalesced. The code resulting from the execution of 
+<code>eval</code>
+references <i>objects</i> 
+that are <code>eql</code> to the corresponding <i>objects</i> in
+the source code.  
+</p>
+<span id="Examples_003a-2"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq form '(1+ a) a 999) <span class="roman">→</span> 999
+ (eval form) <span class="roman">→</span> 1000
+ (eval 'form) <span class="roman">→</span> (1+ A)
+ (let ((a '(this would break if eval used local value))) (eval form))
+<span class="roman">→</span> 1000
+</pre></div>
+
+
+<span id="See-Also_003a-3"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="macroexpand_003b-macroexpand_002d1.html#macroexpand_002d1">macroexpand-1</a>,
+<a href="The-Evaluation-Model.html">Section 3.1.2 (The Evaluation Model)</a>
+</p>
+<span id="Notes_003a-2"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>To obtain the current dynamic value of a <i>symbol</i>, 
+use of <code>symbol-value</code> is equivalent (and usually preferable) 
+to use of <code>eval</code>.
+</p>
+<p>Note that an <code>eval</code> <i>form</i> involves two levels of <i>evaluation</i> 
+for its <i>argument</i>.  First, <var>form</var> is <i>evaluated</i> by the
+normal argument evaluation mechanism as would occur with any <i>call</i>.
+The <i>object</i> that results from this normal <i>argument</i> <i>evaluation</i> 
+becomes the <i>value</i> of the <var>form</var> <i>parameter</i>, and is then
+<i>evaluated</i> as part of the <code>eval</code> <i>form</i>.
+For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (eval (list 'cdr (car '((quote (a . b)) c)))) <span class="roman">→</span> b
+</pre></div>
+
+<p>The <i>argument</i> <i>form</i> <code>(list 'cdr (car '((quote (a . b)) c)))</code> is evaluated
+in the usual way to produce the <i>argument</i> <code>(cdr (quote (a . b)))</code>; 
+<code>eval</code> then evaluates its <i>argument</i>, <code>(cdr (quote (a . b)))</code>, to produce <code>b</code>.
+Since a single <i>evaluation</i> already occurs for any <i>argument</i> <i>form</i>
+in any <i>function form</i>,
+<code>eval</code> is sometimes said to perform &ldquo;an extra level of evaluation.&rdquo;
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="eval_002dwhen.html" accesskey="n" rel="next">eval-when</a>, Previous: <a href="compile.html" accesskey="p" rel="prev">compile</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

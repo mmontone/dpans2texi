@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Re-Reading Abbreviated Expressions (ANSI Common Lisp)</title>
+
+<meta name="description" content="Re-Reading Abbreviated Expressions (ANSI Common Lisp)">
+<meta name="keywords" content="Re-Reading Abbreviated Expressions (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Standard-Macro-Characters.html" rel="up" title="Standard Macro Characters">
+<link href="Evaluation-and-Compilation.html" rel="next" title="Evaluation and Compilation">
+<link href="Sharpsign.html" rel="prev" title="Sharpsign">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Re_002dReading-Abbreviated-Expressions"></span><div class="header">
+<p>
+Previous: <a href="Sharpsign.html" accesskey="p" rel="prev">Sharpsign</a>, Up: <a href="Standard-Macro-Characters.html" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Re_002dReading-Abbreviated-Expressions-1"></span><h4 class="subsection">2.4.9 Re-Reading Abbreviated Expressions</h4>
+<span id="index-Dot-Dot"></span>
+<span id="index-_002e_002e"></span>
+<span id="index-Dot-Dot-Dot"></span>
+<span id="index-_002e_002e_002e"></span>
+<span id="index-Sharpsign-Whitespace-1"></span>
+<span id="index-Sharpsign-Right_002dParenthesis-1"></span>
+
+<p>Note that the <i>Lisp reader</i> will 
+generally
+signal an error of <i>type</i> <code>reader-error</code>
+when reading an <i>expression</i><sub>2</sub>
+abbreviated because of length or level limits 
+(see <code>*print-level*</code>,
+<code>*print-length*</code>,
+and <code>*print-lines*</code>)
+due to restrictions on &ldquo;<code>..</code>&rdquo;, &ldquo;<code>...</code>&rdquo;, &ldquo;<code>#</code>&rdquo; followed by <i>whitespace</i><sub>1</sub>
+and &ldquo;<code>#)</code>&rdquo;.
+</p>
+
+
+
+
+
+
+</body>
+</html>

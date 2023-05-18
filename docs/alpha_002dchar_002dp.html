@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>alpha-char-p (ANSI Common Lisp)</title>
+
+<meta name="description" content="alpha-char-p (ANSI Common Lisp)">
+<meta name="keywords" content="alpha-char-p (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Characters.html" rel="up" title="Characters">
+<link href="alphanumericp.html" rel="next" title="alphanumericp">
+<link href="characterp.html" rel="prev" title="characterp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="alpha_002dchar_002dp"></span><div class="header">
+<p>
+Next: <a href="alphanumericp.html" accesskey="n" rel="next">alphanumericp</a>, Previous: <a href="characterp.html" accesskey="p" rel="prev">characterp</a>, Up: <a href="Characters.html" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">alpha-char-p</h4>
+<span id="alpha_002dchar_002dp-_0028Function_0029"></span><h3 class="heading">alpha-char-p (Function)</h3>
+<span id="index-alpha_002dchar_002dp-2"></span>
+<span id="index-alpha_002dchar_002dp"></span>
+
+
+<span id="Syntax_003a-272"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-alpha_002dchar_002dp-1">Function: <strong>alpha-char-p</strong> <em>character <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-261"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-357"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>character</var> is an <i>alphabetic</i><sub>1</sub>
+</p>
+<span id="Examples_003a-245"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (alpha-char-p #\a) <span class="roman">→</span> <i>true</i>
+ (alpha-char-p #\5) <span class="roman">→</span> <i>false</i>
+ (alpha-char-p #\Newline) <span class="roman">→</span> <i>false</i>
+ ;; This next example presupposes an implementation
+ ;; in which #\α is a defined character.
+ (alpha-char-p #\α) <span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-59"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>None.
+(In particular, the results of this predicate are independent 
+of any special syntax which might have been enabled in the <i>current readtable</i>.)
+</p>
+<span id="Exceptional-Situations_003a-109"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-287"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="alphanumericp.html">alphanumericp</a>,
+<a href="Documentation-of-Implementation_002dDefined-Scripts.html">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>butlast; nbutlast (ANSI Common Lisp)</title>
+
+<meta name="description" content="butlast; nbutlast (ANSI Common Lisp)">
+<meta name="keywords" content="butlast; nbutlast (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="last.html" rel="next" title="last">
+<link href="revappend_003b-nreconc.html" rel="prev" title="revappend; nreconc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="butlast_003b-nbutlast"></span><div class="header">
+<p>
+Next: <a href="last.html" accesskey="n" rel="next">last</a>, Previous: <a href="revappend_003b-nreconc.html" accesskey="p" rel="prev">revappend; nreconc</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">butlast; nbutlast</h4>
+<span id="butlast_002c-nbutlast-_0028Function_0029"></span><h3 class="heading">butlast, nbutlast (Function)</h3>
+<span id="index-butlast-2"></span>
+<span id="index-butlast"></span>
+<span id="index-nbutlast-2"></span>
+<span id="index-nbutlast"></span>
+<span id="butlast"></span>
+
+<span id="Syntax_003a-308"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-butlast-1">Function: <strong>butlast</strong> <em>list <tt>&amp;optional</tt> n <span class="roman">→</span> result-list</em></dt>
+</dl>
+<dl>
+<dt id="index-nbutlast-1">Function: <strong>nbutlast</strong> <em>list <tt>&amp;optional</tt> n <span class="roman">→</span> result-list</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-297"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>list</var>&mdash;a <i>list</i>, 
+which might be a <i>dotted list</i> but must not be a <i>circular list</i>.
+</p>
+<p><var>n</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<p><var>result-list</var>&mdash;a <i>list</i>.
+</p>
+<span id="Description_003a-398"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>butlast</code> returns a copy of <var>list</var> from which the last
+<var>n</var>
+conses
+have been omitted.
+If <var>n</var> is not supplied, its value is 1.  
+If there are fewer than <var>n</var> 
+conses
+in <var>list</var>,
+<code>nil</code>&nbsp;<!-- /@w -->is returned and, in the case of <code>nbutlast</code>,
+<var>list</var> is not modified.  
+</p>
+<p><code>nbutlast</code> is like <code>butlast</code>, but <code>nbutlast</code> 
+may modify <var>list</var>.
+It changes the <i>cdr</i> of
+the <i>cons</i> <var>n</var>+1 from the end of the <var>list</var> to <code>nil</code>.  
+</p>
+<span id="Examples_003a-281"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (setq lst '(1 2 3 4 5 6 7 8 9)) <span class="roman">→</span> (1 2 3 4 5 6 7 8 9)
+ (butlast lst) <span class="roman">→</span> (1 2 3 4 5 6 7 8)
+ (butlast lst 5) <span class="roman">→</span> (1 2 3 4)
+ (butlast lst (+ 5 5)) <span class="roman">→</span> NIL
+ lst <span class="roman">→</span> (1 2 3 4 5 6 7 8 9)
+ (nbutlast lst 3) <span class="roman">→</span> (1 2 3 4 5 6)
+ lst <span class="roman">→</span> (1 2 3 4 5 6)
+ (nbutlast lst 99) <span class="roman">→</span> NIL
+ lst <span class="roman">→</span> (1 2 3 4 5 6)
+ (butlast '(a b c d)) <span class="roman">→</span> (A B C)
+ (butlast '((a b) (c d))) <span class="roman">→</span> ((A B))
+ (butlast '(a)) <span class="roman">→</span> NIL
+ (butlast nil) <span class="roman">→</span> NIL
+ (setq foo (list 'a 'b 'c 'd)) <span class="roman">→</span> (A B C D)
+ (nbutlast foo) <span class="roman">→</span> (A B C)
+ foo <span class="roman">→</span> (A B C)
+ (nbutlast (list 'a)) <span class="roman">→</span> NIL
+ (nbutlast '()) <span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-124"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>list</var> is not a <i>proper list</i> or a <i>dotted list</i>.
+Should signal an error of <i>type</i> <code>type-error</code> if <var>n</var> is not a non-negative <i>integer</i>.
+</p>
+<span id="Notes_003a-213"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (butlast <var>list</var> <var>n</var>) ≡ (ldiff <var>list</var> (last <var>list</var> <var>n</var>))
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="last.html" accesskey="n" rel="next">last</a>, Previous: <a href="revappend_003b-nreconc.html" accesskey="p" rel="prev">revappend; nreconc</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

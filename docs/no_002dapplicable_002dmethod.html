@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>no-applicable-method (ANSI Common Lisp)</title>
+
+<meta name="description" content="no-applicable-method (ANSI Common Lisp)">
+<meta name="keywords" content="no-applicable-method (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Objects.html" rel="up" title="Objects">
+<link href="no_002dnext_002dmethod.html" rel="next" title="no-next-method">
+<link href="method_002dqualifiers.html" rel="prev" title="method-qualifiers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="no_002dapplicable_002dmethod"></span><div class="header">
+<p>
+Next: <a href="no_002dnext_002dmethod.html" accesskey="n" rel="next">no-next-method</a>, Previous: <a href="method_002dqualifiers.html" accesskey="p" rel="prev">method-qualifiers</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">no-applicable-method</h4>
+<span id="no_002dapplicable_002dmethod-_0028Standard-Generic-Function_0029"></span><h3 class="heading">no-applicable-method (Standard Generic Function)</h3>
+<span id="index-no_002dapplicable_002dmethod-2"></span>
+<span id="index-no_002dapplicable_002dmethod"></span>
+
+
+<span id="Syntax_003a-115"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-no_002dapplicable_002dmethod-1">Generic Function: <strong>no-applicable-method</strong> <em>generic-function <tt>&amp;rest</tt> function-arguments <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Method-Signatures_003a-10"></span><h4 class="subsubheading">Method Signatures:</h4>
+
+<p>no-applicable-method <tt>(</tt><var><span class="nolinebreak">generic-function</span></var>&nbsp;<code>t</code><tt>)</tt><!-- /@w -->
+<tt>&amp;rest</tt>&nbsp;<span class="nolinebreak">function-arguments</span><!-- /@w -->
+</p>
+<span id="Arguments-and-Values_003a-104"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>generic-function</var>&mdash;a <i>generic function</i> 
+on which no <i>applicable method</i> was found.  
+</p>
+<p><var>function-arguments</var>&mdash;<i>arguments</i> to the <var>generic-function</var>.
+</p>
+<p><var>result</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-143"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The generic function <code>no-applicable-method</code> is called when a
+<i>generic function</i> 
+is invoked
+and no <i>method</i> on that <i>generic function</i> is applicable.
+The <i>default method</i> signals an error.
+</p>
+<p>The generic function <code>no-applicable-method</code> is not intended
+to be called by programmers.  Programmers may write <i>methods</i> for it.
+</p>
+<span id="Exceptional-Situations_003a-31"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The default <i>method</i> signals an error of <i>type</i> <code>error</code>.
+</p>
+<span id="See-Also_003a-125"></span><h4 class="subsubheading">See Also:</h4>
+
+
+
+
+
+</body>
+</html>

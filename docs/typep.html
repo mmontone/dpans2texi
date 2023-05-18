@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>typep (ANSI Common Lisp)</title>
+
+<meta name="description" content="typep (ANSI Common Lisp)">
+<meta name="keywords" content="typep (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Types-and-Classes.html" rel="up" title="Types and Classes">
+<link href="type_002derror.html" rel="next" title="type-error">
+<link href="type_002dof.html" rel="prev" title="type-of">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="typep"></span><div class="header">
+<p>
+Next: <a href="type_002derror.html" accesskey="n" rel="next">type-error</a>, Previous: <a href="type_002dof.html" accesskey="p" rel="prev">type-of</a>, Up: <a href="Types-and-Classes.html" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">typep</h4>
+<span id="typep-_0028Function_0029"></span><h3 class="heading">typep (Function)</h3>
+<span id="index-typep-2"></span>
+<span id="index-typep"></span>
+
+
+
+<span id="Syntax_003a-33"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-typep-1">Function: <strong>typep</strong> <em>object type-specifier <tt>&amp;optional</tt> environment <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-23"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>type-specifier</var>&mdash;any <i>type specifier</i> except 
+<tt>values</tt>, or a <i>type specifier</i> list
+whose first element is either <tt>function</tt> or <tt>values</tt>.
+</p>
+<p><var>environment</var>&mdash;an <i>environment</i> <i>object</i>.
+The default is <code>nil</code>, denoting the <i>null lexical environment</i>
+and the and current <i>global environment</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-50"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of the <i>type</i> specified by <var>type-specifier</var>; otherwise, returns <i>false</i>.
+</p>
+<p>A <var>type-specifier</var> of the form <code>(satisfies fn)</code> 
+is handled by applying the function <code>fn</code> to <var>object</var>.
+</p>
+<p><code>(typep <var>object</var> '(array <var>type-specifier</var>))</code>, 
+where <var>type-specifier</var> is not <code>*</code>,   
+returns <i>true</i> if and only if <var>object</var> is an <i>array</i> 
+that could be the result 
+of supplying <var>type-specifier</var> 
+as the <tt>:element-type</tt> argument to <code>make-array</code>.
+<code>(array *)</code> refers to all <i>arrays</i> 
+regardless of element type, while <code>(array <var>type-specifier</var>)</code>
+refers only to those <i>arrays</i> 
+that can result from giving <var>type-specifier</var> as the
+<tt>:element-type</tt> argument to <code>make-array</code>.  
+A similar interpretation applies to <code>(simple-array <var>type-specifier</var>)</code> 
+and <code>(vector <var>type-specifier</var>)</code>.
+See <a href="Specialized-Arrays.html#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
+</p>
+<p><code>(typep <var>object</var> '(complex <var>type-specifier</var>))</code>
+returns <i>true</i> for all <i>complex</i> numbers that can result from 
+giving <i>numbers</i> of type <var>type-specifier</var>
+to the <i>function</i> <code>complex</code>, plus all other <i>complex</i> numbers 
+of the same specialized representation.      
+Both the real and the imaginary parts of any such 
+<i>complex</i> number must satisfy:
+</p>
+<div class="lisp">
+<pre class="lisp"> (typep realpart 'type-specifier)
+ (typep imagpart 'type-specifier)
+</pre></div>
+
+
+<p>See the <i>function</i> <a href="upgraded_002dcomplex_002dpart_002dtype.html">upgraded-complex-part-type</a>.
+</p>
+
+<span id="Examples_003a-30"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (typep 12 'integer) <span class="roman">→</span> <i>true</i>
+ (typep (1+ most-positive-fixnum) 'fixnum) <span class="roman">→</span> <i>false</i>
+ (typep nil t) <span class="roman">→</span> <i>true</i>
+ (typep nil nil) <span class="roman">→</span> <i>false</i>
+ (typep 1 '(mod 2)) <span class="roman">→</span> <i>true</i>
+ (typep #c(1 1) '(complex (eql 1))) <span class="roman">→</span> <i>true</i>
+;; To understand this next example, you might need to refer to
+;; <a href="Complex-Computations.html#RuleOfCanonRepForComplexRationals">Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)</a>.
+ (typep #c(0 0) '(complex (eql 0))) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<p>Let <code>A<sub>x</sub>
+denote different <i>types</i>, but for which
+
+</code></p><div class="lisp">
+<pre class="lisp"> (upgraded-array-element-type 'A<sub>x</sub>
+</pre></div>
+
+<p>and
+</p>
+<div class="lisp">
+<pre class="lisp"> (upgraded-array-element-type 'A<sub>y</sub>
+</pre></div>
+
+<p>denote the same <i>type</i>.  Notice that
+</p>
+<div class="lisp">
+<pre class="lisp"> (typep (make-array 0 :element-type 'A<sub>x</sub>
+ (typep (make-array 0 :element-type 'A<sub>y</sub>
+ (typep (make-array 0 :element-type 'A<sub>x</sub>
+ (typep (make-array 0 :element-type 'A<sub>y</sub>
+</pre></div>
+
+
+
+<span id="Exceptional-Situations_003a-9"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>error</code> is signaled if <var>type-specifier</var> is <code>values</code>, 
+or a <i>type specifier</i> list whose first element is either
+<tt>function</tt> or <tt>values</tt>.
+</p>
+<p>The consequences are undefined if
+the <var>type-specifier</var> is not a <i>type specifier</i>.
+</p>
+<span id="See-Also_003a-37"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="type_002dof.html">type-of</a>,
+<a href="upgraded_002darray_002delement_002dtype.html">upgraded-array-element-type</a>,
+<a href="upgraded_002dcomplex_002dpart_002dtype.html">upgraded-complex-part-type</a>,
+<a href="Type-Specifiers.html">Section 4.2.3 (Type Specifiers)</a>
+</p>
+<span id="Notes_003a-23"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><i>Implementations</i> are encouraged to recognize and optimize the case of 
+<code>(typep <var>x</var> (the class <var>y</var>))</code>,
+since it does not involve any need for expansion 
+of <code>deftype</code> information at runtime.
+</p>
+<div class="lisp">
+<pre class="lisp">
+
+</pre></div>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="type_002derror.html" accesskey="n" rel="next">type-error</a>, Previous: <a href="type_002dof.html" accesskey="p" rel="prev">type-of</a>, Up: <a href="Types-and-Classes.html" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

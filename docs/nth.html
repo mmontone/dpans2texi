@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>nth (ANSI Common Lisp)</title>
+
+<meta name="description" content="nth (ANSI Common Lisp)">
+<meta name="keywords" content="nth (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="endp.html" rel="next" title="endp">
+<link href="first_003b-second_003b-third_003b-fourth_003b-fifth_003b-sixth_003b-seventh_003b-eighth_003b-ninth_003b-ten_002b.html" rel="prev" title="first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="nth"></span><div class="header">
+<p>
+Next: <a href="endp.html" accesskey="n" rel="next">endp</a>, Previous: <a href="first_003b-second_003b-third_003b-fourth_003b-fifth_003b-sixth_003b-seventh_003b-eighth_003b-ninth_003b-ten_002b.html" accesskey="p" rel="prev">first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">nth</h4>
+<span id="nth-_0028Accessor_0029"></span><h3 class="heading">nth (Accessor)</h3>
+<span id="index-nth-2"></span>
+<span id="index-nth"></span>
+
+
+<span id="Syntax_003a-302"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-nth-1">Function: <strong>nth</strong> <em>n list <span class="roman">→</span> object</em></dt>
+</dl>
+<p><tt>(setf (nth n list) new-object)</tt>
+</p>
+<span id="Arguments-and-Values_003a-291"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>n</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<p><var>list</var>&mdash;a <i>list</i>,
+which might be a <i>dotted list</i> or a <i>circular list</i>.
+</p>
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>new-object</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-392"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>nth</code> locates the <var>n</var>th element of <var>list</var>,
+where the <i>car</i> of the <var>list</var> is the &ldquo;zeroth&rdquo; element.
+Specifically,
+</p>
+<div class="lisp">
+<pre class="lisp"> (nth <var>n</var> <var>list</var>) ≡ (car (nthcdr <var>n</var> <var>list</var>))
+</pre></div>
+
+
+<p><code>nth</code> may be used to specify a <var>place</var> to <code>setf</code>.
+Specifically,
+</p>
+<div class="lisp">
+<pre class="lisp"> (setf (nth <var>n</var> <var>list</var>) <var>new-object</var>) ≡ (setf (car (nthcdr <var>n</var> <var>list</var>)) <var>new-object</var>)
+</pre></div>
+
+
+<span id="Examples_003a-275"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (nth 0 '(foo bar baz)) <span class="roman">→</span> FOO
+ (nth 1 '(foo bar baz)) <span class="roman">→</span> BAR
+ (nth 3 '(foo bar baz)) <span class="roman">→</span> NIL
+ (setq 0-to-3 (list 0 1 2 3)) <span class="roman">→</span> (0 1 2 3)
+ (setf (nth 2 0-to-3) &quot;two&quot;) <span class="roman">→</span> &quot;two&quot;
+ 0-to-3 <span class="roman">→</span> (0 1 &quot;two&quot; 3)
+</pre></div>
+
+
+<span id="See-Also_003a-318"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="elt.html">elt</a>,
+<a href="first_003b-second_003b-third_003b-fourth_003b-fifth_003b-sixth_003b-seventh_003b-eighth_003b-ninth_003b-ten_002b.html#first">first</a>,
+<a href="nthcdr.html">nthcdr</a>
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Defaulting of Initialization Arguments (ANSI Common Lisp)</title>
+
+<meta name="description" content="Defaulting of Initialization Arguments (ANSI Common Lisp)">
+<meta name="keywords" content="Defaulting of Initialization Arguments (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Object-Creation-and-Initialization.html" rel="up" title="Object Creation and Initialization">
+<link href="Rules-for-Initialization-Arguments.html" rel="next" title="Rules for Initialization Arguments">
+<link href="Declaring-the-Validity-of-Initialization-Arguments.html" rel="prev" title="Declaring the Validity of Initialization Arguments">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Defaulting-of-Initialization-Arguments"></span><div class="header">
+<p>
+Next: <a href="Rules-for-Initialization-Arguments.html" accesskey="n" rel="next">Rules for Initialization Arguments</a>, Previous: <a href="Declaring-the-Validity-of-Initialization-Arguments.html" accesskey="p" rel="prev">Declaring the Validity of Initialization Arguments</a>, Up: <a href="Object-Creation-and-Initialization.html" accesskey="u" rel="up">Object Creation and Initialization</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Defaulting-of-Initialization-Arguments-1"></span><h4 class="subsection">7.1.3 Defaulting of Initialization Arguments</h4>
+
+<p>A default value <i>form</i> can be supplied for an initialization
+argument by using the <tt>:default-initargs</tt> <i>class</i> option.  If an
+initialization argument is declared valid by some particular <i>class</i>,
+its default  value form might be specified by a different <i>class</i>. 
+In this case <tt>:default-initargs</tt> is used to supply a default value
+for an inherited initialization argument.
+</p>
+<p>The <tt>:default-initargs</tt> option is used only to provide default
+values for initialization arguments; it does not declare a <i>symbol</i> 
+as a valid initialization argument name.  Furthermore, 
+the <tt>:default-initargs</tt> option is used only to provide default values for
+initialization arguments when making an <i>instance</i>.
+</p>
+<p>The argument to the <tt>:default-initargs</tt> class 
+option is a list of
+alternating initialization argument names and <i>forms</i>.  
+Each <i>form</i> is the
+default  value form for the corresponding initialization
+argument.  The default  value <i>form</i> of an initialization
+argument is used and evaluated only if that initialization argument
+does not appear in the arguments to <code>make-instance</code> and is not
+defaulted by a more specific <i>class</i>.  The default  value <i>form</i> is
+evaluated in the lexical environment of the <code>defclass</code> form that
+supplied it; the resulting value is used as the initialization
+argument&rsquo;s value.
+</p>
+<p>The initialization arguments supplied to <code>make-instance</code> are combined
+with defaulted initialization arguments to produce a 
+<i>defaulted initialization argument list</i>. A 
+<i>defaulted initialization argument list</i>
+is a list of alternating initialization argument names and
+values in which unsupplied initialization arguments are defaulted and in
+which the explicitly supplied initialization arguments appear earlier in
+the list than the defaulted initialization arguments.  Defaulted
+initialization arguments are ordered according to the order in the 
+<i>class precedence list</i> of the <i>classes</i> that supplied the default values.
+</p>
+<p>There is a distinction between the purposes of the 
+<tt>:default-initargs</tt> and the <tt>:initform</tt> options with respect to the
+initialization of <i>slots</i>.  The <tt>:default-initargs</tt> 
+class option
+provides a mechanism for the user to give a default  value <i>form</i>
+for an initialization argument without knowing whether the
+initialization argument initializes a <i>slot</i> 
+or is passed to a <i>method</i>.
+If that initialization argument is not explicitly supplied in a call
+to <code>make-instance</code>, the default  value <i>form</i> is used, just
+as if it had been supplied in the call.  In contrast, the 
+<tt>:initform</tt> slot option provides a mechanism for the user to give a
+default initial value form for a <i>slot</i>.  An <tt>:initform</tt> form is
+used to initialize a <i>slot</i> only if no initialization argument
+associated with that <i>slot</i> is given as an argument to 
+<code>make-instance</code> or is defaulted by <tt>:default-initargs</tt>.
+</p>
+<span id="index-order-of-evaluation-6"></span>
+<span id="index-evaluation-order-6"></span>
+<p>The order of evaluation of default value <i>forms</i> for initialization
+arguments and the order of evaluation of <tt>:initform</tt> forms are
+undefined.  If the order of evaluation is important, 
+<code>initialize-instance</code> or <code>shared-initialize</code> <i>methods</i> 
+should be used
+instead.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Rules-for-Initialization-Arguments.html" accesskey="n" rel="next">Rules for Initialization Arguments</a>, Previous: <a href="Declaring-the-Validity-of-Initialization-Arguments.html" accesskey="p" rel="prev">Declaring the Validity of Initialization Arguments</a>, Up: <a href="Object-Creation-and-Initialization.html" accesskey="u" rel="up">Object Creation and Initialization</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

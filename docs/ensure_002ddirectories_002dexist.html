@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ensure-directories-exist (ANSI Common Lisp)</title>
+
+<meta name="description" content="ensure-directories-exist (ANSI Common Lisp)">
+<meta name="keywords" content="ensure-directories-exist (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Files.html" rel="up" title="Files">
+<link href="truename.html" rel="next" title="truename">
+<link href="probe_002dfile.html" rel="prev" title="probe-file">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="ensure_002ddirectories_002dexist"></span><div class="header">
+<p>
+Next: <a href="truename.html" accesskey="n" rel="next">truename</a>, Previous: <a href="probe_002dfile.html" accesskey="p" rel="prev">probe-file</a>, Up: <a href="Files.html" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">ensure-directories-exist</h4>
+<span id="ensure_002ddirectories_002dexist-_0028Function_0029"></span><h3 class="heading">ensure-directories-exist (Function)</h3>
+<span id="index-ensure_002ddirectories_002dexist-2"></span>
+<span id="index-ensure_002ddirectories_002dexist"></span>
+
+
+<span id="Syntax_003a-416"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-ensure_002ddirectories_002dexist-1">Function: <strong>ensure-directories-exist</strong> <em>pathspec <tt>&amp;key</tt> verbose <span class="roman">→</span> pathspec, created</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-405"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>verbose</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<p><var>created</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-524"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Tests whether the directories containing the specified <i>file</i> actually exist,
+and attempts to create them if they do not.
+</p>
+<p>If the containing directories do not exist and if <var>verbose</var> is <i>true</i>, 
+then the <i>implementation</i> is permitted (but not required) 
+to perform output to <i>standard output</i> saying what directories were created.
+If the containing directories exist, or if <var>verbose</var> is <i>false</i>,
+this function performs no output.
+</p>
+<p>The <i>primary value</i> is the given <i>pathspec</i> so that this operation can
+be straightforwardly composed with other file manipulation expressions.
+The <i>secondary value</i>, <var>created</var>, is <i>true</i> if any directories were
+created.
+</p>
+<span id="Affected-By_003a-77"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The host computer&rsquo;s file system.
+</p>
+<span id="Exceptional-Situations_003a-185"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>file-error</code> is signaled if the host, device, or directory
+part of <var>pathspec</var> is <i>wild</i>.
+</p>
+<p>If the directory creation attempt is not successful,
+an error of <i>type</i> <code>file-error</code> is signaled;
+if this occurs, 
+it might be the case that none, some, or all
+of the requested creations have actually occurred 
+within the <i>file system</i>.
+</p>
+<span id="See-Also_003a-427"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="probe_002dfile.html">probe-file</a>,
+<a href="open.html">open</a>,
+<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+
+
+
+</body>
+</html>

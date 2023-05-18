@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Hash-Table Operations (ANSI Common Lisp)</title>
+
+<meta name="description" content="Hash-Table Operations (ANSI Common Lisp)">
+<meta name="keywords" content="Hash-Table Operations (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hash-Table-Concepts.html" rel="up" title="Hash Table Concepts">
+<link href="Modifying-Hash-Table-Keys.html" rel="next" title="Modifying Hash Table Keys">
+<link href="Hash-Table-Concepts.html" rel="prev" title="Hash Table Concepts">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Hash_002dTable-Operations"></span><div class="header">
+<p>
+Next: <a href="Modifying-Hash-Table-Keys.html" accesskey="n" rel="next">Modifying Hash Table Keys</a>, Up: <a href="Hash-Table-Concepts.html" accesskey="u" rel="up">Hash Table Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Hash_002dTable-Operations-1"></span><h4 class="subsection">18.1.1 Hash-Table Operations</h4>
+
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> that are applicable 
+to <i>hash tables</i>.  The following rules apply to <i>hash tables</i>.
+</p>
+
+<ul class="no-bullet">
+<li>&ndash; A <i>hash table</i> can only associate one value with a given
+key. If an attempt is made to add a second value for a given key,
+the second value will replace the first.
+Thus, adding a value to a <i>hash table</i> is a destructive operation;
+the <i>hash table</i> is modified.  
+
+</li><li>&ndash; There are four kinds of <i>hash tables</i>:
+those whose keys are compared with <code>eq</code>,
+those whose keys are compared with <code>eql</code>,
+those whose keys are compared with <code>equal</code>, and
+those whose keys are compared with <code>equalp</code>.  
+
+</li><li>&ndash; <i>Hash tables</i> are created by <code>make-hash-table</code>. 
+<code>gethash</code> is used to look up a key and find the associated value.
+New entries are added to <i>hash tables</i> using <code>setf</code> with <code>gethash</code>.
+<code>remhash</code> is used to remove an entry.
+For example:
+
+<div class="lisp">
+<pre class="lisp"> (setq a (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32536573&gt;
+ (setf (gethash 'color a) 'brown) <span class="roman">→</span> BROWN
+ (setf (gethash 'name a) 'fred) <span class="roman">→</span> FRED
+ (gethash 'color a) <span class="roman">→</span> BROWN, <i>true</i>
+ (gethash 'name a) <span class="roman">→</span> FRED, <i>true</i>
+ (gethash 'pointy a) <span class="roman">→</span> NIL, <i>false</i>
+</pre></div>
+
+
+<p>In this example, the symbols <code>color</code> and <code>name</code> are being used as
+keys, and the symbols <code>brown</code> and <code>fred</code> are being used as the
+associated values.  The <i>hash table</i> 
+has two items in it, one of which                              
+associates from <code>color</code> to <code>brown</code>, and the other of which
+associates from <code>name</code> to <code>fred</code>.
+</p>
+</li><li>&ndash; A key or a value may be any <i>object</i>.
+
+
+</li><li>&ndash; The existence of an entry in the <i>hash table</i> can be determined
+from the <i>secondary value</i> returned by <code>gethash</code>.
+</li></ul>
+
+
+
+<div class="float"><span id="fig18_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>clrhash</td><td>hash-table-p</td><td>remhash</td></tr>
+<tr><td>gethash</td><td>make-hash-table</td><td>sxhash</td></tr>
+<tr><td>hash-table-count</td><td>maphash</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 18.1: </strong>Hash-table defined names</p></div></div>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Modifying-Hash-Table-Keys.html" accesskey="n" rel="next">Modifying Hash Table Keys</a>, Up: <a href="Hash-Table-Concepts.html" accesskey="u" rel="up">Hash Table Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

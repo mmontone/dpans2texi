@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>subtypep (ANSI Common Lisp)</title>
+
+<meta name="description" content="subtypep (ANSI Common Lisp)">
+<meta name="keywords" content="subtypep (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Types-and-Classes.html" rel="up" title="Types and Classes">
+<link href="type_002dof.html" rel="next" title="type-of">
+<link href="deftype.html" rel="prev" title="deftype">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="subtypep"></span><div class="header">
+<p>
+Next: <a href="type_002dof.html" accesskey="n" rel="next">type-of</a>, Previous: <a href="deftype.html" accesskey="p" rel="prev">deftype</a>, Up: <a href="Types-and-Classes.html" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">subtypep</h4>
+<span id="subtypep-_0028Function_0029"></span><h3 class="heading">subtypep (Function)</h3>
+<span id="index-subtypep-2"></span>
+<span id="index-subtypep"></span>
+
+
+
+<span id="Syntax_003a-31"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-subtypep-1">Function: <strong>subtypep</strong> <em>type-1 type-2 <tt>&amp;optional</tt> environment <span class="roman">→</span> subtype-p, valid-p</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-21"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>type-1</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>type-2</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>environment</var>&mdash;an <i>environment</i> <i>object</i>.
+The default is <code>nil</code>, denoting the <i>null lexical environment</i>
+and the current <i>global environment</i>.
+</p>
+<p><var>subtype-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<p><var>valid-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-48"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If <var>type-1</var> is a <i>recognizable subtype</i> of <var>type-2</var>, 
+the first <i>value</i> is <i>true</i>.
+Otherwise, the first <i>value</i> is <i>false</i>,
+indicating that either
+<var>type-1</var> is not a <i>subtype</i> of <var>type-2</var>, or else
+<var>type-1</var> is a <i>subtype</i> of <var>type-2</var> 
+but is not a <i>recognizable subtype</i>.
+</p>
+<p>A second <i>value</i> is also returned indicating the &lsquo;certainty&rsquo; of 
+the first <i>value</i>.  If this value is <i>true</i>, then the first
+value is an accurate indication of the <i>subtype</i> relationship.
+(The second <i>value</i> is always <i>true</i> when the first <i>value</i>
+is <i>true</i>.)
+</p>
+<p>The next figure&nbsp;<!-- /@w -->summarizes the possible combinations of <i>values</i>
+that might result.
+</p>
+
+<div class="float"><span id="fig4_002e9"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Value 1</th><th>Value 2</th><th>Meaning</th></tr></thead>
+<tr><td><i>true</i></td><td><i>true</i></td><td><var>type-1</var> is definitely a <i>subtype</i> of
+<var>type-2</var>.</td></tr>
+<tr><td><i>false</i></td><td><i>true</i></td><td><var>type-1</var> is definitely not a <i>subtype</i> of
+<var>type-2</var>.</td></tr>
+<tr><td><i>false</i></td><td><i>false</i></td><td><code>subtypep</code> could not determine the relationship,</td></tr>
+<tr><td></td><td></td><td>so <var>type-1</var> might or might not be a <i>subtype</i> of
+<var>type-2</var>.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.9: </strong>Result possibilities for subtypep</p></div></div>
+
+
+<p><code>subtypep</code> is permitted to return the 
+<i>values</i> <i>false</i> and <i>false</i> only when at least
+one argument involves one of these <i>type specifiers</i>:
+<code>and</code>,
+<code>eql</code>,
+the list form of <code>function</code>,
+<code>member</code>,
+<code>not</code>,
+<code>or</code>,
+<code>satisfies</code>,
+or
+<code>values</code>.
+(A <i>type specifier</i> &lsquo;involves&rsquo; such a <i>symbol</i> if, 
+after being <i>type expanded</i>,
+it contains that <i>symbol</i> in a position that would call for
+its meaning as a <i>type specifier</i> to be used.)
+One consequence of this is that if neither <var>type-1</var> nor <var>type-2</var>
+involves any of these <i>type specifiers</i>, then <code>subtypep</code> is obliged
+to determine the relationship accurately.  In particular, <code>subtypep</code> 
+returns the <i>values</i> <i>true</i> and <i>true</i>
+if the arguments are <code>equal</code> and do not involve
+any of these <i>type specifiers</i>.
+</p>
+<p><code>subtypep</code> never returns a second value of <code>nil</code>&nbsp;<!-- /@w -->when both
+<var>type-1</var> and <var>type-2</var> involve only
+the names in <a href="Type-Specifiers.html#StandardizedAtomicTypeSpecs">Figure 4.2</a>, or
+names of <i>types</i> defined by <code>defstruct</code>,
+<code>define-condition</code>,
+or <code>defclass</code>, or
+<i>derived types</i> that expand into only those names.
+While <i>type specifiers</i> listed in <a href="Type-Specifiers.html#StandardizedAtomicTypeSpecs">Figure 4.2</a>&nbsp;<!-- /@w -->and 
+names of <code>defclass</code> and <code>defstruct</code> can in some cases be
+implemented as <i>derived types</i>, <code>subtypep</code> regards them as primitive.
+</p>
+<p>The relationships between <i>types</i> reflected by <code>subtypep</code>
+are those specific to the particular implementation.  For example, if
+an implementation supports only a single type of floating-point numbers,
+in that implementation <code>(subtypep 'float 'long-float)</code> 
+returns the <i>values</i> <i>true</i> and <i>true</i> 
+(since the two <i>types</i> are identical).
+</p>
+<p>For all <var>T1</var> and <var>T2</var> other than <code>*</code>, 
+<code>(array <var>T1</var>)</code> and <code>(array <var>T2</var>)</code> 
+are two different <i>type specifiers</i> that always refer to the same sets of
+things if and only if they refer to <i>arrays</i>
+of exactly the same specialized representation, <i>i.e.</i>,
+if <code>(upgraded-array-element-type '<var>T1</var>)</code>  and
+<code>(upgraded-array-element-type '<var>T2</var>)</code> 
+return two different <i>type specifiers</i> that always refer to the same sets of
+<i>objects</i>.
+This is another way of saying that 
+<code>`(array <var>type-specifier</var>)</code>
+and
+<code>`(array ,(upgraded-array-element-type '<var>type-specifier</var>))</code> 
+refer to the same
+set of specialized <i>array</i> representations.
+For all <var>T1</var> and <var>T2</var> other than <code>*</code>, 
+the intersection of
+<code>(array <var>T1</var>)</code>
+and <code>(array <var>T2</var>)</code> is the empty set
+if and only if they refer to <i>arrays</i> of different,
+distinct specialized representations.  
+</p>
+<p>Therefore,
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(array T1) '(array T2)) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+<p>if and only if
+</p>
+<div class="lisp">
+<pre class="lisp"> (upgraded-array-element-type 'T1)  and
+ (upgraded-array-element-type 'T2)  
+</pre></div>
+
+
+<p>return two different <i>type specifiers</i> that always refer to the same sets of
+<i>objects</i>.
+</p>
+<p>For all type-specifiers <var>T1</var> and <var>T2</var> other than <code>*</code>, 
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(complex T1) '(complex T2)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+</pre></div>
+
+
+<p>if:
+</p>
+<ol>
+<li> <code>T1</code> is a <i>subtype</i> of <code>T2</code>, or
+</li><li> <code>(upgraded-complex-part-type '<var>T1</var>)</code> and
+<code>(upgraded-complex-part-type '<var>T2</var>)</code> 
+return two different <i>type specifiers</i> that always refer to the 
+same sets of <i>objects</i>; in this case,
+<code>(complex <var>T1</var>)</code> and 
+<code>(complex <var>T2</var>)</code> both refer to the 
+same specialized representation.
+</li></ol>
+
+<p>The <i>values</i> are <i>false</i> and <i>true</i> otherwise.
+</p>
+<p>The form
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(complex single-float) '(complex float))
+</pre></div>
+
+<p>must return <i>true</i> in all implementations, but
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(array single-float) '(array float))
+</pre></div>
+
+
+<p>returns <i>true</i> only in implementations that do not have a specialized <i>array</i>
+representation for <i>single floats</i> distinct from that for other <i>floats</i>.
+</p>
+
+
+<span id="Examples_003a-28"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (subtypep 'compiled-function 'function) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'null 'list) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'null 'symbol) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'integer 'string) <span class="roman">→</span> <i>false</i>, <i>true</i>
+ (subtypep '(satisfies dummy) nil) <span class="roman">→</span> <i>false</i>, <i>implementation-dependent</i>
+ (subtypep '(integer 1 3) '(integer 1 4)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep '(integer (0) (0)) 'nil) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'nil '(integer (0) (0))) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep '(integer (0) (0)) '(member)) <span class="roman">→</span> <i>true</i>, <i>true</i> ;or <i>false</i>, <i>false</i>
+ (subtypep '(member) 'nil) <span class="roman">→</span> <i>true</i>, <i>true</i> ;or <i>false</i>, <i>false</i>
+ (subtypep 'nil '(member)) <span class="roman">→</span> <i>true</i>, <i>true</i> ;or <i>false</i>, <i>false</i>
+</pre></div>
+
+
+<p>Let <code>&lt;aet-x&gt;</code> and <code>&lt;aet-y&gt;</code> be two distinct <i>type specifiers</i> that 
+do not always refer to the same sets of
+<i>objects</i>
+in a given implementation, but for which
+<code>make-array</code>, will return an 
+<i>object</i> of the same <i>array</i> <i>type</i>.
+</p>
+<p>Thus, in each case, 
+</p>
+<div class="lisp">
+<pre class="lisp">  (subtypep (array-element-type (make-array 0 :element-type '&lt;aet-x&gt;))
+            (array-element-type (make-array 0 :element-type '&lt;aet-y&gt;)))
+<span class="roman">→</span> <i>true</i>, <i>true</i>
+ 
+  (subtypep (array-element-type (make-array 0 :element-type '&lt;aet-y&gt;))
+            (array-element-type (make-array 0 :element-type '&lt;aet-x&gt;)))
+<span class="roman">→</span> <i>true</i>, <i>true</i>
+</pre></div>
+
+
+<p>If  <code>(array &lt;aet-x&gt;)</code> 
+and <code>(array &lt;aet-y&gt;)</code> are different names for
+exactly the same set of <i>objects</i>, 
+these names should always refer to the same sets of
+<i>objects</i>.
+That implies that the following set of tests are also true:
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(array &lt;aet-x&gt;) '(array &lt;aet-y&gt;)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep '(array &lt;aet-y&gt;) '(array &lt;aet-x&gt;)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+</pre></div>
+
+
+<span id="See-Also_003a-35"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Types.html">Section 4.2 (Types)</a>
+</p>
+<span id="Notes_003a-21"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The small differences between the <code>subtypep</code> specification for
+the <code>array</code> and <code>complex</code> types are necessary because there 
+is no creation function for <i>complexes</i> which allows 
+the specification of the resultant part type independently of
+the actual types of the parts.  Thus in the case of the <i>type</i> <code>complex</code>,
+the actual type of the parts is referred to, although a <i>number</i> 
+can be a member of more than one <i>type</i>.
+For example, <code>17</code> is of <i>type</i> <code>(mod 18)</code> 
+as well as <i>type</i> <code>(mod 256)</code> and <i>type</i> <code>integer</code>;
+and <code>2.3f5</code> is of <i>type</i> <code>single-float</code> 
+as well as <i>type</i> <code>float</code>.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="type_002dof.html" accesskey="n" rel="next">type-of</a>, Previous: <a href="deftype.html" accesskey="p" rel="prev">deftype</a>, Up: <a href="Types-and-Classes.html" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>disassemble (ANSI Common Lisp)</title>
+
+<meta name="description" content="disassemble (ANSI Common Lisp)">
+<meta name="keywords" content="disassemble (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Environment.html" rel="up" title="Environment">
+<link href="documentation_003b-setf-documentation.html" rel="next" title="documentation; setf documentation">
+<link href="get_002dinternal_002drun_002dtime.html" rel="prev" title="get-internal-run-time">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="disassemble"></span><div class="header">
+<p>
+Next: <a href="documentation_003b-setf-documentation.html" accesskey="n" rel="next">documentation; setf documentation</a>, Previous: <a href="get_002dinternal_002drun_002dtime.html" accesskey="p" rel="prev">get-internal-run-time</a>, Up: <a href="Environment.html" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">disassemble</h4>
+<span id="disassemble-_0028Function_0029"></span><h3 class="heading">disassemble (Function)</h3>
+<span id="index-disassemble-2"></span>
+<span id="index-disassemble"></span>
+
+
+<span id="Syntax_003a-513"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-disassemble-1">Function: <strong>disassemble</strong> <em>fn <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-499"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>fn</var>&mdash;an <i>extended function designator</i>
+or a <i>lambda expression</i>.
+</p>
+<span id="Description_003a-662"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>function</i> <code>disassemble</code> is a debugging aid that composes symbolic 
+instructions or expressions in some <i>implementation-dependent</i> 
+language which represent the code used to produce the <i>function</i>
+which is or is named by the argument <var>fn</var>.  The result is displayed
+to <i>standard output</i> in an <i>implementation-dependent</i> format.
+</p>
+<p>If <var>fn</var> is a <i>lambda expression</i> or <i>interpreted function</i>,
+it is compiled first and the result is disassembled.
+</p>
+<p>If the <var>fn</var> <i>designator</i> is a <i>function name</i>,
+the <i>function</i> that it <i>names</i> is disassembled.
+(If that <i>function</i> is an <i>interpreted function</i>,
+it is first compiled but the result of this implicit compilation is not installed.)
+</p>
+<span id="Examples_003a-467"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (defun f (a) (1+ a)) <span class="roman">→</span> F
+ (eq (symbol-function 'f)
+     (progn (disassemble 'f)
+            (symbol-function 'f))) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-128"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-output*</code>.
+</p>
+<span id="Exceptional-Situations_003a-240"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>fn</var> is not an <i>extended function designator</i> or a <i>lambda expression</i>.
+</p>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>file-position (ANSI Common Lisp)</title>
+
+<meta name="description" content="file-position (ANSI Common Lisp)">
+<meta name="keywords" content="file-position (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="file_002dstring_002dlength.html" rel="next" title="file-string-length">
+<link href="file_002dlength.html" rel="prev" title="file-length">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="file_002dposition"></span><div class="header">
+<p>
+Next: <a href="file_002dstring_002dlength.html" accesskey="n" rel="next">file-string-length</a>, Previous: <a href="file_002dlength.html" accesskey="p" rel="prev">file-length</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">file-position</h4>
+<span id="file_002dposition-_0028Function_0029"></span><h3 class="heading">file-position (Function)</h3>
+<span id="index-file_002dposition-6"></span>
+<span id="index-file_002dposition"></span>
+
+
+<span id="Syntax_003a-441"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-file_002dposition-4">Function: <strong>file-position</strong> <em>stream <span class="roman">→</span> position</em></dt>
+</dl>
+<dl>
+<dt id="index-file_002dposition-5">Function: <strong>file-position</strong> <em>stream position-spec <span class="roman">→</span> success-p</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-428"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>stream</var>&mdash;a <i>stream</i>.
+</p>
+<p><var>position-spec</var>&mdash;a <i>file position designator</i>.
+</p>
+<p><var>position</var>&mdash;a <i>file position</i> or <code>nil</code>.
+</p>
+<p><var>success-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-558"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns or changes the current position within a <var>stream</var>.
+</p>
+<p>When <var>position-spec</var> is not supplied,
+<code>file-position</code> returns the current <i>file position</i> in the <var>stream</var>,
+or <code>nil</code>&nbsp;<!-- /@w -->if this cannot be determined.
+</p>
+<p>When <var>position-spec</var> is supplied,
+the <i>file position</i> in <var>stream</var> is set to that <i>file position</i> (if possible).
+<code>file-position</code> returns <i>true</i> 
+if the repositioning is performed successfully,
+or <i>false</i> if it is not.
+</p>
+<p>An <i>integer</i> returned by <code>file-position</code> of one argument 
+should be acceptable as <var>position-spec</var> for use with the same file.
+</p>
+<p>For a character file,
+performing a single <code>read-char</code> or <code>write-char</code> operation
+may cause the file position to be increased by more than 1 because of
+character-set translations (such as translating between the <span class="roman">Common Lisp</span>
+<code>#\Newline</code> character and an external ASCII
+carriage-return/line-feed sequence) and other aspects of the
+implementation.  For a binary file, every <code>read-byte</code> 
+or <code>write-byte</code>
+operation increases the file position by 1.
+</p>
+<span id="Examples_003a-405"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun tester ()
+   (let ((noticed '()) file-written)
+     (flet ((notice (x) (push x noticed) x))
+       (with-open-file (s &quot;test.bin&quot; 
+                          :element-type '(unsigned-byte 8)
+                          :direction :output
+                          :if-exists :error)
+          (notice (file-position s)) ;1
+          (write-byte 5 s) 
+          (write-byte 6 s)
+          (let ((p (file-position s)))
+            (notice p) ;2
+            (notice (when p (file-position s (1- p))))) ;3
+          (write-byte 7 s)
+          (notice (file-position s)) ;4
+          (setq file-written (truename s)))
+        (with-open-file (s file-written
+                           :element-type '(unsigned-byte 8)
+                           :direction :input)
+          (notice (file-position s)) ;5
+          (let ((length (file-length s)))
+            (notice length) ;6
+            (when length
+              (dotimes (i length)
+                (notice (read-byte s)))))) ;7,...
+        (nreverse noticed))))
+<span class="roman">→</span> tester
+ (tester)
+<span class="roman">→</span> (0 2 T 2 0 2 5 7)
+or<span class="roman">→</span> (0 2 NIL 3 0 3 5 6 7)
+or<span class="roman">→</span> (NIL NIL NIL NIL NIL NIL)
+</pre></div>
+
+
+<span id="Side-Effects_003a-66"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>When the <var>position-spec</var> argument is supplied,
+the <i>file position</i> in the <var>stream</var> might be moved.
+</p>
+<span id="Affected-By_003a-90"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The value returned by <code>file-position</code> increases monotonically
+as input or output operations are performed.  
+</p>
+<span id="Exceptional-Situations_003a-206"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If <var>position-spec</var> is supplied, but is too large or otherwise inappropriate, 
+an error is signaled.
+</p>
+<span id="See-Also_003a-455"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="file_002dlength.html">file-length</a>,
+<a href="file_002dstring_002dlength.html">file-string-length</a>,
+<a href="open.html">open</a>
+</p>
+<span id="Notes_003a-293"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Implementations that have character files represented
+as a sequence of records of bounded size might choose to encode the
+file position as, for example,
+«record-number»*«max-record-size»+«character-within-record».
+This is a valid encoding because it increases monotonically as
+each character is read or written, though not necessarily by 1 at
+each step.  An <i>integer</i> might then be considered &ldquo;inappropriate&rdquo;
+as <var>position-spec</var> to <code>file-position</code> if, when decoded into
+record number and character number, it turned out that the
+supplied record was too short for the specified character number.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="file_002dstring_002dlength.html" accesskey="n" rel="next">file-string-length</a>, Previous: <a href="file_002dlength.html" accesskey="p" rel="prev">file-length</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

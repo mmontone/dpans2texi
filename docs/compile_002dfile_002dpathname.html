@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>compile-file-pathname (ANSI Common Lisp)</title>
+
+<meta name="description" content="compile-file-pathname (ANSI Common Lisp)">
+<meta name="keywords" content="compile-file-pathname (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="System-Construction.html" rel="up" title="System Construction">
+<link href="load.html" rel="next" title="load">
+<link href="compile_002dfile.html" rel="prev" title="compile-file">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="compile_002dfile_002dpathname"></span><div class="header">
+<p>
+Next: <a href="load.html" accesskey="n" rel="next">load</a>, Previous: <a href="compile_002dfile.html" accesskey="p" rel="prev">compile-file</a>, Up: <a href="System-Construction.html" accesskey="u" rel="up">System Construction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">compile-file-pathname</h4>
+<span id="compile_002dfile_002dpathname-_0028Function_0029"></span><h3 class="heading">compile-file-pathname (Function)</h3>
+<span id="index-compile_002dfile_002dpathname-2"></span>
+<span id="index-compile_002dfile_002dpathname"></span>
+
+
+
+<span id="Syntax_003a-497"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-compile_002dfile_002dpathname-1">Function: <strong>compile-file-pathname</strong> <em>input-file <tt>&amp;key</tt> output-file <tt>&amp;allow-other-keys</tt> <span class="roman">→</span> pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-483"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>input-file</var>&mdash;a <i>pathname designator</i>.
+(Default fillers for unspecified components are taken from
+<code>*default-pathname-defaults*</code>.)
+</p>
+<p><var>output-file</var>&mdash;a <i>pathname designator</i>.
+The default is <i>implementation-defined</i>.
+</p>
+<p><var>pathname</var>&mdash;a <i>pathname</i>.
+</p>
+<span id="Description_003a-639"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>pathname</i> that <code>compile-file</code> would write into,
+if given the same arguments.
+</p>
+<p>The defaults for the <var>output-file</var> 
+are taken from the <i>pathname</i> 
+that results from merging the <var>input-file</var> 
+with the <i>value</i> of <code>*default-pathname-defaults*</code>,
+except that the type component 
+should default to the appropriate
+<i>implementation-defined</i> default type for <i>compiled files</i>.
+</p>
+<p>If <var>input-file</var> is a <i>logical pathname</i> and <var>output-file</var> 
+is unsupplied, the result is a <i>logical pathname</i>.
+If <var>input-file</var> is a <i>logical pathname</i>, 
+it is translated into a physical pathname as if by calling 
+<code>translate-logical-pathname</code>.
+If <var>input-file</var> is a <i>stream</i>, 
+the <i>stream</i> can be either open or closed.
+<code>compile-file-pathname</code> returns the same <i>pathname</i> after a
+file is closed as it did when the file was open.
+It is an error if <var>input-file</var> is a <i>stream</i> that is 
+created with <code>make-two-way-stream</code>, <code>make-echo-stream</code>,             
+<code>make-broadcast-stream</code>, <code>make-concatenated-stream</code>,
+<code>make-string-input-stream</code>, <code>make-string-output-stream</code>.
+</p>
+<p>If an implementation supports additional keyword arguments to <code>compile-file</code>, 
+<code>compile-file-pathname</code> must accept the same arguments.
+</p>
+<span id="Examples_003a-457"></span><h4 class="subsubheading">Examples:</h4>
+
+<p>See <code>logical-pathname-translations</code>.
+</p>
+<span id="Exceptional-Situations_003a-234"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>file-error</code> might be signaled if either <var>input-file</var> or
+<var>output-file</var> is <i>wild</i>.
+</p>
+<span id="See-Also_003a-519"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="compile_002dfile.html">compile-file</a>,
+<a href="pathname-_0028System-Class_0029.html">pathname (System Class)</a>,
+<a href="logical_002dpathname-_0028System-Class_0029.html">logical-pathname (System Class)</a>,
+<a href="File-System-Concepts.html">Section 20.1 (File System Concepts)</a>,
+<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+
+
+
+
+
+</body>
+</html>

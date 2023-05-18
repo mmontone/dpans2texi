@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>mod; rem (ANSI Common Lisp)</title>
+
+<meta name="description" content="mod; rem (ANSI Common Lisp)">
+<meta name="keywords" content="mod; rem (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="signum.html" rel="next" title="signum">
+<link href="log.html" rel="prev" title="log">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="mod_003b-rem"></span><div class="header">
+<p>
+Next: <a href="signum.html" accesskey="n" rel="next">signum</a>, Previous: <a href="log.html" accesskey="p" rel="prev">log</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">mod; rem</h4>
+<span id="mod_002c-rem-_0028Function_0029"></span><h3 class="heading">mod, rem (Function)</h3>
+<span id="index-mod-4"></span>
+<span id="index-mod-1"></span>
+<span id="index-rem-2"></span>
+<span id="index-rem"></span>
+
+
+<span id="Syntax_003a-232"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-mod-2">Function: <strong>mod</strong> <em>number divisor <span class="roman">→</span> modulus</em></dt>
+</dl>
+<dl>
+<dt id="index-rem-1">Function: <strong>rem</strong> <em>number divisor <span class="roman">→</span> remainder</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-221"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>number</var>&mdash;a <i>real</i>.
+</p>
+<p><var>divisor</var>&mdash;a <i>real</i>.
+</p>
+<p><var>modulus</var>, <var>remainder</var>&mdash;a <i>real</i>.
+</p>
+<span id="Description_003a-301"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>mod</code> and <code>rem</code> are generalizations of the modulus
+and remainder functions respectively.
+</p>
+<p><code>mod</code> performs the operation <code>floor</code> 
+on <var>number</var> and <var>divisor</var> 
+and returns the remainder of the <code>floor</code> operation.
+</p>
+<p><code>rem</code> performs the operation <code>truncate</code> 
+on <var>number</var> and <var>divisor</var>
+and returns the remainder of the <code>truncate</code> operation.
+</p>
+<p><code>mod</code> and <code>rem</code> are 
+the modulus and remainder functions 
+when <var>number</var> and <var>divisor</var> are <i>integers</i>.
+</p>
+<span id="Examples_003a-205"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (rem -1 5) <span class="roman">→</span> -1
+ (mod -1 5) <span class="roman">→</span> 4
+ (mod 13 4) <span class="roman">→</span> 1
+ (rem 13 4) <span class="roman">→</span> 1
+ (mod -13 4) <span class="roman">→</span> 3
+ (rem -13 4) <span class="roman">→</span> -1
+ (mod 13 -4) <span class="roman">→</span> -3
+ (rem 13 -4) <span class="roman">→</span> 1
+ (mod -13 -4) <span class="roman">→</span> -1
+ (rem -13 -4) <span class="roman">→</span> -1
+ (mod 13.4 1) <span class="roman">→</span> 0.4
+ (rem 13.4 1) <span class="roman">→</span> 0.4
+ (mod -13.4 1) <span class="roman">→</span> 0.6
+ (rem -13.4 1) <span class="roman">→</span> -0.4
+</pre></div>
+
+
+<span id="See-Also_003a-254"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="floor_003b-ffloor_003b-ceiling_003b-fceiling_003b-truncate_003b-ftruncate_003b-round_003b-fround.html#floor">floor</a>, <a href="floor_003b-ffloor_003b-ceiling_003b-fceiling_003b-truncate_003b-ftruncate_003b-round_003b-fround.html#truncate">truncate</a>
+</p>
+<span id="Notes_003a-152"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The result of <code>mod</code> is either zero or a 
+<i>real</i>
+with the same sign as <var>divisor</var>.
+</p>
+
+
+
+</body>
+</html>

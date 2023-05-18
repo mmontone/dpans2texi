@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>row-major-aref (ANSI Common Lisp)</title>
+
+<meta name="description" content="row-major-aref (ANSI Common Lisp)">
+<meta name="keywords" content="row-major-aref (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Arrays.html" rel="up" title="Arrays">
+<link href="upgraded_002darray_002delement_002dtype.html" rel="next" title="upgraded-array-element-type">
+<link href="fill_002dpointer.html" rel="prev" title="fill-pointer">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="row_002dmajor_002daref"></span><div class="header">
+<p>
+Next: <a href="upgraded_002darray_002delement_002dtype.html" accesskey="n" rel="next">upgraded-array-element-type</a>, Previous: <a href="fill_002dpointer.html" accesskey="p" rel="prev">fill-pointer</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">row-major-aref</h4>
+<span id="row_002dmajor_002daref-_0028Accessor_0029"></span><h3 class="heading">row-major-aref (Accessor)</h3>
+<span id="index-row_002dmajor_002daref-2"></span>
+<span id="index-row_002dmajor_002daref"></span>
+
+
+<span id="Syntax_003a-345"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-row_002dmajor_002daref-1">Function: <strong>row-major-aref</strong> <em>array index <span class="roman">→</span> element</em></dt>
+</dl>
+<p><tt>(setf (row-major-aref array index) new-element)</tt>
+</p>
+<span id="Arguments-and-Values_003a-334"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>index</var>&mdash;a <i>valid array row-major index</i> for the <var>array</var>.
+</p>
+<p><var>element</var>, <var>new-element</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-441"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Considers <i>array</i> as a <i>vector</i> by viewing its <i>elements</i>
+in row-major order, and returns the <i>element</i> of that <i>vector</i> 
+which is referred to by the given <var>index</var>.
+</p>
+<p><code>row-major-aref</code> is valid for use with <code>setf</code>.
+</p>
+<span id="See-Also_003a-361"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="aref.html">aref</a>,
+<a href="array_002drow_002dmajor_002dindex.html">array-row-major-index</a>
+</p>
+<span id="Notes_003a-240"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (row-major-aref array index) ≡
+   (aref (make-array (array-total-size array)
+                     :displaced-to array
+                     :element-type (array-element-type array))
+         index)
+
+ (aref array i1 i2 ...) ≡
+     (row-major-aref array (array-row-major-index array i1 i2))
+</pre></div>
+
+
+
+
+
+
+
+</body>
+</html>

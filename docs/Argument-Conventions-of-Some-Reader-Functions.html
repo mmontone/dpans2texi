@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Argument Conventions of Some Reader Functions (ANSI Common Lisp)</title>
+
+<meta name="description" content="Argument Conventions of Some Reader Functions (ANSI Common Lisp)">
+<meta name="keywords" content="Argument Conventions of Some Reader Functions (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reader-Concepts.html" rel="up" title="Reader Concepts">
+<link href="readtable.html" rel="next" title="readtable">
+<link href="Effect-of-Readtable-Case-on-the-Lisp-Reader.html" rel="prev" title="Effect of Readtable Case on the Lisp Reader">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Argument-Conventions-of-Some-Reader-Functions"></span><div class="header">
+<p>
+Previous: <a href="Effect-of-Readtable-Case-on-the-Lisp-Reader.html" accesskey="p" rel="prev">Effect of Readtable Case on the Lisp Reader</a>, Up: <a href="Reader-Concepts.html" accesskey="u" rel="up">Reader Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Argument-Conventions-of-Some-Reader-Functions-1"></span><h4 class="subsection">23.1.3 Argument Conventions of Some Reader Functions</h4>
+
+<span id="The-EOF_002dERROR_002dP-argument"></span><h4 class="subsubsection">23.1.3.1 The EOF-ERROR-P argument</h4>
+
+<p><var>Eof-error-p</var> in input function calls
+controls what happens if input is from a file (or any other
+input source that has a definite end) and the end of the file is reached.
+If <var>eof-error-p</var> is <i>true</i> (the default), 
+an error of <i>type</i> <code>end-of-file</code> is signaled
+at end of file.  If it is <i>false</i>, then no error is signaled, and instead
+the function returns <var>eof-value</var>.
+</p>
+<p>Functions such as <code>read</code> that read the representation
+of an <i>object</i> rather than a single
+character always signals an error, regardless of <var>eof-error-p</var>, if
+the file ends in the middle of an object representation.
+For example, if a file does
+not contain enough right parentheses to balance the left parentheses in
+it, <code>read</code> signals an error.  If a file ends in a 
+<i>symbol</i> or a <i>number</i>
+immediately followed by end-of-file, <code>read</code> reads the 
+<i>symbol</i> or
+<i>number</i> 
+successfully and when called again will
+act according to <var>eof-error-p</var>.
+Similarly, the <i>function</i> <code>read-line</code>
+successfully reads the last line of a file even if that line
+is terminated by end-of-file rather than the newline character.
+Ignorable text, such as lines containing only <i>whitespace</i><sub>2</sub>
+are not considered to begin an <i>object</i>; 
+if <code>read</code> begins to read an <i>expression</i> but sees only such
+ignorable text, it does not consider the file to end in the middle of an <i>object</i>.
+Thus an <var>eof-error-p</var> argument controls what happens
+when the file ends between <i>objects</i>.
+</p>
+
+<span id="The-RECURSIVE_002dP-argument"></span><h4 class="subsubsection">23.1.3.2 The RECURSIVE-P argument</h4>
+
+<p>If <var>recursive-p</var> is supplied and not <code>nil</code>, it specifies that
+this function call is not an outermost call to <code>read</code> but an 
+embedded call, typically from a <i>reader macro function</i>.
+It is important to distinguish such recursive calls for three reasons.
+</p>
+
+<ol>
+<li> An outermost call establishes the context within which the
+<code>#<var>n</var>=</code> and <code>#<var>n</var>#</code> syntax is scoped.  Consider, for example,
+the expression
+
+<div class="lisp">
+<pre class="lisp"> (cons '#3=(p q r) '(x y . #3#))
+</pre></div>
+
+<p>If the <i>single-quote</i> <i>reader macro</i> were defined in this way:
+</p>
+<div class="lisp">
+<pre class="lisp"> (set-macro-character #\'       ;incorrect
+    #'(lambda (stream char)
+         (declare (ignore char))
+         (list 'quote (read stream))))
+</pre></div>
+
+
+<p>then each call to the <i>single-quote</i> <i>reader macro function</i> would establish
+independent contexts for the scope of <code>read</code> information, including the scope of
+identifications between markers like &ldquo;<code>#3=</code>&rdquo; and &ldquo;<code>#3#</code>&rdquo;.  However, for
+this expression, the scope was clearly intended to be determined by the outer set 
+of parentheses, so such a definition would be incorrect.
+The correct way to define the <i>single-quote</i>
+<i>reader macro</i> uses <var>recursive-p</var>: 
+</p>
+<div class="lisp">
+<pre class="lisp"> (set-macro-character #\'       ;correct
+    #'(lambda (stream char)
+         (declare (ignore char))
+         (list 'quote (read stream t nil t))))
+</pre></div>
+
+
+</li><li> A recursive call does not alter whether the reading process
+is to preserve <i>whitespace</i><sub>2</sub>
+outermost call was to <code>read</code> or <code>read-preserving-whitespace</code>).
+Suppose again that <i>single-quote</i> 
+were to be defined as shown above in the incorrect definition.
+Then a call to <code>read-preserving-whitespace</code>
+that read the expression <code>'foo&lt;Space&gt;</code> would fail to preserve the space
+character following the symbol <code>foo</code> because the <i>single-quote</i>
+<i>reader macro function</i> calls <code>read</code>, 
+not <code>read-preserving-whitespace</code>,
+to read the following expression (in this case <code>foo</code>).
+The correct definition, which passes the value <i>true</i> for <var>recursive-p</var>
+to <code>read</code>, allows the outermost call to determine
+whether <i>whitespace</i><sub>2</sub>
+
+</li><li> When end-of-file is encountered and the <var>eof-error-p</var> argument
+is not <code>nil</code>, the kind of error that is signaled may depend on the value
+of <var>recursive-p</var>.  If <var>recursive-p</var> 
+is <i>true</i>, then the end-of-file
+is deemed to have occurred within the middle of a printed representation;
+if <var>recursive-p</var> is <i>false</i>, then the end-of-file may be deemed to have
+occurred between <i>objects</i> rather than within the middle of one.
+</li></ol>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Effect-of-Readtable-Case-on-the-Lisp-Reader.html" accesskey="p" rel="prev">Effect of Readtable Case on the Lisp Reader</a>, Up: <a href="Reader-Concepts.html" accesskey="u" rel="up">Reader Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>rename-file (ANSI Common Lisp)</title>
+
+<meta name="description" content="rename-file (ANSI Common Lisp)">
+<meta name="keywords" content="rename-file (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Files.html" rel="up" title="Files">
+<link href="delete_002dfile.html" rel="next" title="delete-file">
+<link href="file_002dwrite_002ddate.html" rel="prev" title="file-write-date">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="rename_002dfile"></span><div class="header">
+<p>
+Next: <a href="delete_002dfile.html" accesskey="n" rel="next">delete-file</a>, Previous: <a href="file_002dwrite_002ddate.html" accesskey="p" rel="prev">file-write-date</a>, Up: <a href="Files.html" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">rename-file</h4>
+<span id="rename_002dfile-_0028Function_0029"></span><h3 class="heading">rename-file (Function)</h3>
+<span id="index-rename_002dfile-2"></span>
+<span id="index-rename_002dfile"></span>
+
+
+<span id="Syntax_003a-420"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-rename_002dfile-1">Function: <strong>rename-file</strong> <em>filespec new-name <span class="roman">→</span> defaulted-new-name, old-truename, new-truename</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-409"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>filespec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>new-name</var>&mdash;a <i>pathname designator</i> 
+other than a <i>stream</i>.
+</p>
+<p><var>defaulted-new-name</var>&mdash;a <i>pathname</i>
+</p>
+<p><var>old-truename</var>&mdash;a <i>physical pathname</i>.
+</p>
+<p><var>new-truename</var>&mdash;a <i>physical pathname</i>.
+</p>
+<span id="Description_003a-528"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>rename-file</code> modifies the file system in such a way
+that the file indicated by <var>filespec</var> is renamed to
+<var>defaulted-new-name</var>.
+</p>
+<p>It is an error to specify a filename containing a <i>wild</i> component,
+for <var>filespec</var> to contain a <code>nil</code>&nbsp;<!-- /@w -->component where the file system does
+not permit a <code>nil</code>&nbsp;<!-- /@w -->component, or for the result of defaulting missing
+components of <var>new-name</var> from <var>filespec</var> to contain a <code>nil</code>&nbsp;<!-- /@w -->component
+where the file system does not permit a <code>nil</code>&nbsp;<!-- /@w -->component.
+</p>
+<p>If <var>new-name</var> is a <i>logical pathname</i>, 
+<code>rename-file</code> returns a <i>logical pathname</i> as its <i>primary value</i>.
+</p>
+<p><code>rename-file</code> 
+returns three values if successful.  The <i>primary value</i>, <var>defaulted-new-name</var>,
+is the resulting name which is composed of
+<var>new-name</var> with any missing components filled in by performing
+a <code>merge-pathnames</code> operation using <var>filespec</var> as the defaults.
+The <i>secondary value</i>, <var>old-truename</var>,
+is the <i>truename</i> of the <i>file</i> before it was renamed.
+The <i>tertiary value</i>, <var>new-truename</var>,
+is the <i>truename</i> of the <i>file</i> after it was renamed.
+</p>
+<p>If the <var>filespec</var> <i>designator</i> is an open <i>stream</i>,
+then the <i>stream</i> itself and the file associated with it are 
+affected (if the <i>file system</i> permits).
+</p>
+<span id="Examples_003a-385"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">;; An example involving logical pathnames.
+ (with-open-file (stream &quot;sys:chemistry;lead.text&quot;
+                         :direction :output :if-exists :error)
+   (princ &quot;eureka&quot; stream)
+   (values (pathname stream) (truename stream)))
+<span class="roman">→</span> #P&quot;SYS:CHEMISTRY;LEAD.TEXT.NEWEST&quot;, #P&quot;Q:&gt;sys&gt;chem&gt;lead.text.1&quot;
+ (rename-file &quot;sys:chemistry;lead.text&quot; &quot;gold.text&quot;)
+<span class="roman">→</span> #P&quot;SYS:CHEMISTRY;GOLD.TEXT.NEWEST&quot;,
+   #P&quot;Q:&gt;sys&gt;chem&gt;lead.text.1&quot;,
+   #P&quot;Q:&gt;sys&gt;chem&gt;gold.text.1&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-189"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If the renaming operation is not successful, an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> might be signaled if <var>filespec</var> is <i>wild</i>.
+</p>
+<span id="See-Also_003a-431"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="truename.html">truename</a>,
+<a href="pathname-_0028System-Class_0029.html">pathname (System Class)</a>,
+<a href="logical_002dpathname-_0028System-Class_0029.html">logical-pathname (System Class)</a>,
+<a href="File-System-Concepts.html">Section 20.1 (File System Concepts)</a>,
+<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="delete_002dfile.html" accesskey="n" rel="next">delete-file</a>, Previous: <a href="file_002dwrite_002ddate.html" accesskey="p" rel="prev">file-write-date</a>, Up: <a href="Files.html" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

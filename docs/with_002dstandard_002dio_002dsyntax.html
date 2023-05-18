@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>with-standard-io-syntax (ANSI Common Lisp)</title>
+
+<meta name="description" content="with-standard-io-syntax (ANSI Common Lisp)">
+<meta name="keywords" content="with-standard-io-syntax (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reader.html" rel="up" title="Reader">
+<link href="_002aread_002dbase_002a.html" rel="next" title="*read-base*">
+<link href="set_002dsyntax_002dfrom_002dchar.html" rel="prev" title="set-syntax-from-char">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="with_002dstandard_002dio_002dsyntax"></span><div class="header">
+<p>
+Next: <a href="_002aread_002dbase_002a.html" accesskey="n" rel="next">*read-base*</a>, Previous: <a href="set_002dsyntax_002dfrom_002dchar.html" accesskey="p" rel="prev">set-syntax-from-char</a>, Up: <a href="Reader.html" accesskey="u" rel="up">Reader</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">with-standard-io-syntax</h4>
+<span id="with_002dstandard_002dio_002dsyntax-_0028Macro_0029"></span><h3 class="heading">with-standard-io-syntax (Macro)</h3>
+<span id="index-with_002dstandard_002dio_002dsyntax-2"></span>
+<span id="index-with_002dstandard_002dio_002dsyntax"></span>
+
+
+<span id="Syntax_003a-495"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-with_002dstandard_002dio_002dsyntax-1">Macro: <strong>with-standard-io-syntax</strong> <em><tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-481"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>forms</var>&mdash;an <i>implicit progn</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> returned by the <i>forms</i>.
+</p>
+<span id="Description_003a-631"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Within the dynamic extent of the body of <var>forms</var>, all reader/printer control
+variables, including any <i>implementation-defined</i> ones not specified by
+this standard, are bound to values that produce standard read/print
+behavior.  The values for the variables specified by this standard are listed in 
+the next figure.
+</p>
+
+
+
+<div class="float"><span id="fig23_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Variable</th><th>Value</th></tr></thead>
+<tr><td><code>*package*</code></td><td>The <code>CL-USER</code> <i>package</i></td></tr>
+<tr><td><code>*print-array*</code></td><td><code>t</code></td></tr>
+<tr><td><code>*print-base*</code></td><td><code>10</code></td></tr>
+<tr><td><code>*print-case*</code></td><td><tt>:upcase</tt></td></tr>
+<tr><td><code>*print-circle*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*print-escape*</code></td><td><code>t</code></td></tr>
+<tr><td><code>*print-gensym*</code></td><td><code>t</code></td></tr>
+<tr><td><code>*print-length*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*print-level*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*print-lines*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*print-miser-width*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*print-pprint-dispatch*</code></td><td>The <i>standard pprint dispatch table</i></td></tr>
+<tr><td><code>*print-pretty*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*print-radix*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*print-readably*</code></td><td><code>t</code></td></tr>
+<tr><td><code>*print-right-margin*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*read-base*</code></td><td><code>10</code></td></tr>
+<tr><td><code>*read-default-float-format*</code></td><td><code>single-float</code></td></tr>
+<tr><td><code>*read-eval*</code></td><td><code>t</code></td></tr>
+<tr><td><code>*read-suppress*</code></td><td><code>nil</code></td></tr>
+<tr><td><code>*readtable*</code></td><td>The <i>standard readtable</i></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 23.1: </strong>Values of standard control variables</p></div></div>
+
+<span id="Examples_003a-452"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (with-open-file (file pathname :direction :output)
+   (with-standard-io-syntax
+     (print data file)))
+
+;;; ... Later, in another Lisp:
+
+ (with-open-file (file pathname :direction :input)
+   (with-standard-io-syntax
+     (setq data (read file))))
+</pre></div>
+
+
+
+
+
+
+</body>
+</html>

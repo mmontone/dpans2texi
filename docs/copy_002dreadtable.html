@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>copy-readtable (ANSI Common Lisp)</title>
+
+<meta name="description" content="copy-readtable (ANSI Common Lisp)">
+<meta name="keywords" content="copy-readtable (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reader.html" rel="up" title="Reader">
+<link href="make_002ddispatch_002dmacro_002dcharacter.html" rel="next" title="make-dispatch-macro-character">
+<link href="readtable.html" rel="prev" title="readtable">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="copy_002dreadtable"></span><div class="header">
+<p>
+Next: <a href="make_002ddispatch_002dmacro_002dcharacter.html" accesskey="n" rel="next">make-dispatch-macro-character</a>, Previous: <a href="readtable.html" accesskey="p" rel="prev">readtable</a>, Up: <a href="Reader.html" accesskey="u" rel="up">Reader</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">copy-readtable</h4>
+<span id="copy_002dreadtable-_0028Function_0029"></span><h3 class="heading">copy-readtable (Function)</h3>
+<span id="index-copy_002dreadtable-2"></span>
+<span id="index-copy_002dreadtable"></span>
+
+
+<span id="Syntax_003a-485"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-copy_002dreadtable-1">Function: <strong>copy-readtable</strong> <em><tt>&amp;optional</tt> from-readtable to-readtable <span class="roman">→</span> readtable</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-471"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>from-readtable</var>&mdash;a <i>readtable designator</i>.
+The default is the <i>current readtable</i>.
+</p>
+<p><var>to-readtable</var>&mdash;a <i>readtable</i> or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>readtable</var>&mdash;the <var>to-readtable</var> if it is <i>non-nil</i>,
+or else a <i>fresh</i> <i>readtable</i>.
+</p>
+<span id="Description_003a-621"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>copy-readtable</code> copies <var>from-readtable</var>.
+</p>
+<p>If <var>to-readtable</var> is <code>nil</code>, a new <i>readtable</i> is created and returned.  
+Otherwise the <i>readtable</i> specified by <var>to-readtable</var> is modified and returned.
+</p>
+<p><code>copy-readtable</code> copies the setting of <code>readtable-case</code>.
+</p>
+<span id="Examples_003a-442"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq zvar 123) <span class="roman">→</span> 123
+ (set-syntax-from-char #\z #\' (setq table2 (copy-readtable))) <span class="roman">→</span> T
+ zvar <span class="roman">→</span> 123
+ (copy-readtable table2 *readtable*) <span class="roman">→</span> #&lt;READTABLE 614000277&gt;
+ zvar <span class="roman">→</span> VAR
+ (setq *readtable* (copy-readtable)) <span class="roman">→</span> #&lt;READTABLE 46210223&gt;
+ zvar <span class="roman">→</span> VAR
+ (setq *readtable* (copy-readtable nil)) <span class="roman">→</span> #&lt;READTABLE 46302670&gt;
+ zvar <span class="roman">→</span> 123
+</pre></div>
+
+
+<span id="See-Also_003a-504"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="readtable.html">readtable</a>,
+<a href="_002areadtable_002a.html">*readtable*</a>
+</p>
+<span id="Notes_003a-312"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp">(setq *readtable* (copy-readtable nil))
+</pre></div>
+
+<p>restores the input syntax to standard <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->syntax, even if
+the <i>initial readtable</i> has been clobbered 
+(assuming it is not so badly clobbered that you cannot type in the above expression).
+</p>
+<p>On the other hand,
+</p>
+<div class="lisp">
+<pre class="lisp">(setq *readtable* (copy-readtable))
+</pre></div>
+
+<p>replaces the current <i>readtable</i> with a copy of itself.
+This is useful if you want to save a copy of a readtable for later use,
+protected from alteration in the meantime.  It is also useful if you want to
+locally bind the readtable to a copy of itself, as in:
+</p>
+<div class="lisp">
+<pre class="lisp">(let ((*readtable* (copy-readtable))) ...)
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="make_002ddispatch_002dmacro_002dcharacter.html" accesskey="n" rel="next">make-dispatch-macro-character</a>, Previous: <a href="readtable.html" accesskey="p" rel="prev">readtable</a>, Up: <a href="Reader.html" accesskey="u" rel="up">Reader</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

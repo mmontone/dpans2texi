@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>define-symbol-macro (ANSI Common Lisp)</title>
+
+<meta name="description" content="define-symbol-macro (ANSI Common Lisp)">
+<meta name="keywords" content="define-symbol-macro (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="symbol_002dmacrolet.html" rel="next" title="symbol-macrolet">
+<link href="macroexpand_003b-macroexpand_002d1.html" rel="prev" title="macroexpand; macroexpand-1">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="define_002dsymbol_002dmacro"></span><div class="header">
+<p>
+Next: <a href="symbol_002dmacrolet.html" accesskey="n" rel="next">symbol-macrolet</a>, Previous: <a href="macroexpand_003b-macroexpand_002d1.html" accesskey="p" rel="prev">macroexpand; macroexpand-1</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">define-symbol-macro</h4>
+<span id="define_002dsymbol_002dmacro-_0028Macro_0029"></span><h3 class="heading">define-symbol-macro (Macro)</h3>
+<span id="index-define_002dsymbol_002dmacro-2"></span>
+<span id="index-define_002dsymbol_002dmacro"></span>
+
+
+<span id="Syntax_003a-12"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-define_002dsymbol_002dmacro-1">Macro: <strong>define-symbol-macro</strong> <em>symbol expansion <span class="roman">→</span> symbol</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-11"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>symbol</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>expansion</var>&mdash;a <i>form</i>.
+</p>
+<span id="Description_003a-12"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Provides a mechanism for globally affecting the <i>macro expansion</i>
+of the indicated <var>symbol</var>.
+</p>
+<p>Globally establishes an expansion function for the <i>symbol macro</i> 
+named by <var>symbol</var>.
+The only guaranteed property of an expansion <i>function</i> for a <i>symbol macro</i>
+is that when it is applied to the <i>form</i> and the <i>environment</i> it returns
+the correct expansion.  (In particular, it is <i>implementation-dependent</i> 
+whether the expansion is conceptually stored in the expansion function,
+the <i>environment</i>, or both.)
+</p>
+<p>Each global reference to <var>symbol</var> (<i>i.e.</i>, not <i>shadowed</i><sub>2</sub>
+<i>binding</i> for a <i>variable</i> or <i>symbol macro</i> named by
+the same <i>symbol</i>) is expanded by the normal macro expansion process;
+see <a href="The-Evaluation-Model.html#SymbolsAsForms">Section 3.1.2.1.1 (Symbols as Forms)</a>.
+The expansion of a <i>symbol macro</i> is subject to further <i>macro expansion</i>
+in the same <i>lexical environment</i> as the <i>symbol macro</i> reference,
+exactly analogous to normal <i>macros</i>.
+</p>
+<p>The consequences are unspecified if a <code>special</code> declaration is made for
+<var>symbol</var> while in the scope of this definition (<i>i.e.</i>, when it is not 
+<i>shadowed</i><sub>2</sub>
+or <i>symbol macro</i> named by the same <i>symbol</i>).
+</p>
+<p>Any use of <code>setq</code> to set the value of 
+the <var>symbol</var>
+while in the scope of this definition
+is treated as if it were a <code>setf</code>.
+<code>psetq</code> of <var>symbol</var>
+is treated as if it were a <code>psetf</code>, and
+<code>multiple-value-setq</code> 
+is treated as if it were a <code>setf</code> of <code>values</code>.
+</p>
+<p>A <i>binding</i> for a <i>symbol macro</i> can be <i>shadowed</i><sub>2</sub>
+by <code>let</code> or <code>symbol-macrolet</code>.
+</p>
+<span id="Examples_003a-10"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">(defvar *things* (list 'alpha 'beta 'gamma)) <span class="roman">→</span> *THINGS*
+
+(define-symbol-macro thing1 (first *things*)) <span class="roman">→</span> THING1
+(define-symbol-macro thing2 (second *things*)) <span class="roman">→</span> THING2
+(define-symbol-macro thing3 (third *things*)) <span class="roman">→</span> THING3
+
+thing1 <span class="roman">→</span> ALPHA
+(setq thing1 'ONE) <span class="roman">→</span> ONE
+*things* <span class="roman">→</span> (ONE BETA GAMMA)
+(multiple-value-setq (thing2 thing3) (values 'two 'three)) <span class="roman">→</span> TWO
+thing3 <span class="roman">→</span> THREE
+*things* <span class="roman">→</span> (ONE TWO THREE)
+
+(list thing2 (let ((thing2 2)) thing2)) <span class="roman">→</span> (TWO 2)
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-3"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If <var>symbol</var> is already defined as a <i>global variable</i>,
+an error of <i>type</i> <code>program-error</code> is signaled.
+</p>
+<span id="See-Also_003a-12"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="symbol_002dmacrolet.html">symbol-macrolet</a>,
+<a href="macroexpand_003b-macroexpand_002d1.html#macroexpand">macroexpand</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="symbol_002dmacrolet.html" accesskey="n" rel="next">symbol-macrolet</a>, Previous: <a href="macroexpand_003b-macroexpand_002d1.html" accesskey="p" rel="prev">macroexpand; macroexpand-1</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

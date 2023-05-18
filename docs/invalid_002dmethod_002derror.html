@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>invalid-method-error (ANSI Common Lisp)</title>
+
+<meta name="description" content="invalid-method-error (ANSI Common Lisp)">
+<meta name="keywords" content="invalid-method-error (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conditions.html" rel="up" title="Conditions">
+<link href="method_002dcombination_002derror.html" rel="next" title="method-combination-error">
+<link href="simple_002derror.html" rel="prev" title="simple-error">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="invalid_002dmethod_002derror"></span><div class="header">
+<p>
+Next: <a href="method_002dcombination_002derror.html" accesskey="n" rel="next">method-combination-error</a>, Previous: <a href="simple_002derror.html" accesskey="p" rel="prev">simple-error</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">invalid-method-error</h4>
+<span id="invalid_002dmethod_002derror-_0028Function_0029"></span><h3 class="heading">invalid-method-error (Function)</h3>
+<span id="index-invalid_002dmethod_002derror-2"></span>
+<span id="index-invalid_002dmethod_002derror"></span>
+
+
+<span id="Syntax_003a-147"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-invalid_002dmethod_002derror-1">Function: <strong>invalid-method-error</strong> <em>method format-control <tt>&amp;rest</tt> args <span class="roman">→</span> <i>implementation-dependent</i></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-136"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>method</var>&mdash;a <i>method</i>.
+</p>
+<p><var>format-control</var>&mdash;a <i>format control</i>.
+</p>
+<p><var>args</var>&mdash;<i>format arguments</i> for the <var>format-control</var>.
+</p>
+<span id="Description_003a-185"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>function</i> <code>invalid-method-error</code> is used to signal an error of <i>type</i> <code>error</code>
+when there is an applicable <i>method</i> whose <i>qualifiers</i> are not valid for
+the method combination type.  The error message is constructed by
+using the <var>format-control</var> suitable for <code>format</code>
+and any <var>args</var> to it.  Because an
+implementation may need to add additional contextual information to
+the error message, <code>invalid-method-error</code> should be called only
+within the dynamic extent of a method combination function.
+</p>
+<p>The <i>function</i> <code>invalid-method-error</code> is called automatically when a
+<i>method</i> fails to satisfy every <i>qualifier</i> pattern and predicate in a
+<code>define-method-combination</code> <i>form</i>.  A method combination function
+that imposes additional restrictions should call 
+<code>invalid-method-error</code> explicitly if it encounters a <i>method</i> 
+it cannot accept.
+</p>
+<p>Whether <code>invalid-method-error</code> returns to its caller or exits via
+<code>throw</code> is <i>implementation-dependent</i>.
+</p>
+<span id="Side-Effects_003a-10"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The debugger might be entered.
+</p>
+<span id="Affected-By_003a-22"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*break-on-signals*</code>
+</p>
+<span id="See-Also_003a-162"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="define_002dmethod_002dcombination.html">define-method-combination</a>
+</p>
+
+
+
+
+</body>
+</html>

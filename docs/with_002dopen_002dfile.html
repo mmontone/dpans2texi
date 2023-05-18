@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>with-open-file (ANSI Common Lisp)</title>
+
+<meta name="description" content="with-open-file (ANSI Common Lisp)">
+<meta name="keywords" content="with-open-file (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="close.html" rel="next" title="close">
+<link href="stream_002dexternal_002dformat.html" rel="prev" title="stream-external-format">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="with_002dopen_002dfile"></span><div class="header">
+<p>
+Next: <a href="close.html" accesskey="n" rel="next">close</a>, Previous: <a href="stream_002dexternal_002dformat.html" accesskey="p" rel="prev">stream-external-format</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">with-open-file</h4>
+<span id="with_002dopen_002dfile-_0028macro_0029"></span><h3 class="heading">with-open-file (macro)</h3>
+<span id="index-with_002dopen_002dfile-2"></span>
+<span id="index-with_002dopen_002dfile"></span>
+
+
+
+<span id="Syntax_003a-445"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-with_002dopen_002dfile-1">Macro: <strong>with-open-file</strong> <em><tt>(</tt>stream filespec <tt>{</tt>options<tt>}</tt>*<tt>)</tt> <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> results</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-432"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>stream</var>&mdash;a variable.
+</p>
+<p><var>filespec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>options</var>&mdash;<i>forms</i>; evaluated.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>forms</var>&mdash;an <i>implicit progn</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> returned by the <var>forms</var>.
+</p>
+<span id="Description_003a-562"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>with-open-file</code> uses <code>open</code> to create a <i>file stream</i>
+to <i>file</i> named by <var>filespec</var>. 
+<var>Filespec</var> is the name of the file to be opened.
+<var>Options</var> are used as keyword arguments to <code>open</code>.
+</p>
+<p>The <i>stream</i> <i>object</i> to which the <var>stream</var> <i>variable</i> 
+is <i>bound</i> has <i>dynamic extent</i>;
+its <i>extent</i> ends when the <i>form</i> is exited.
+</p>
+<p><code>with-open-file</code> evaluates the <var>forms</var> as an <i>implicit progn</i> 
+with <var>stream</var> bound to 
+the value returned by <code>open</code>.
+</p>
+<p>When control leaves the body, either normally or abnormally (such as by
+use of <code>throw</code>), the file is automatically closed.  If a new
+output file is being written, and control leaves abnormally, the file is
+aborted and the file system is left, so far as possible, as if the file
+had never been opened.  
+</p>
+<p>It is possible by the use of <code>:if-exists nil</code> 
+or <code>:if-does-not-exist nil</code> for
+<var>stream</var> to be bound to <code>nil</code>.
+Users of <code>:if-does-not-exist nil</code> should check for a valid <i>stream</i>.
+</p>
+<p>The consequences are undefined if an attempt is made to <i>assign</i> the 
+<var>stream</var> <i>variable</i>.  The compiler may choose to issue a
+warning if such an attempt is detected.
+</p>
+<span id="Examples_003a-408"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq p (merge-pathnames &quot;test&quot;))
+<span class="roman">→</span> #&lt;PATHNAME :HOST NIL :DEVICE <i>device-name</i> :DIRECTORY <i>directory-name</i>
+    :NAME &quot;test&quot; :TYPE NIL :VERSION :NEWEST&gt;
+ (with-open-file (s p :direction :output :if-exists :supersede)
+    (format s &quot;Here are a couple~%of test data lines~%&quot;)) <span class="roman">→</span> NIL
+ (with-open-file (s p)
+    (do ((l (read-line s) (read-line s nil 'eof)))
+        ((eq l 'eof) &quot;Reached end of file.&quot;)
+     (format t &quot;~&amp;*** ~A~%&quot; l)))
+▷ *** Here are a couple
+▷ *** of test data lines
+<span class="roman">→</span> &quot;Reached end of file.&quot;
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp">;; Normally one would not do this intentionally because it is
+;; not perspicuous, but beware when using :IF-DOES-NOT-EXIST NIL
+;; that this doesn't happen to you accidentally...
+ (with-open-file (foo &quot;no-such-file&quot; :if-does-not-exist nil)
+   (read foo))
+▷ <kbd>hello?</kbd>
+<span class="roman">→</span> HELLO? ;This value was read from the terminal, not a file!
+
+;; Here's another bug to avoid...
+ (with-open-file (foo &quot;no-such-file&quot; :direction :output :if-does-not-exist nil)
+   (format foo &quot;Hello&quot;))
+<span class="roman">→</span> &quot;Hello&quot; ;FORMAT got an argument of NIL!
+</pre></div>
+
+
+<span id="Side-Effects_003a-67"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Creates a <i>stream</i> to the <i>file</i> named by <var>filename</var> (upon entry),
+and closes the <i>stream</i> (upon exit).
+In some <i>implementations</i>,
+the <i>file</i> might be locked in some way while it is open.
+If the <i>stream</i> is an <i>output</i> <i>stream</i>,
+a <i>file</i> might be created.
+</p>
+<span id="Affected-By_003a-92"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The host computer&rsquo;s file system.
+</p>
+<span id="Exceptional-Situations_003a-208"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>See the <i>function</i> <a href="open.html">open</a>.
+</p>
+<span id="See-Also_003a-458"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="open.html">open</a>,
+<a href="close.html">close</a>,
+<a href="pathname-_0028System-Class_0029.html">pathname (System Class)</a>,
+<a href="logical_002dpathname-_0028System-Class_0029.html">logical-pathname (System Class)</a>,
+<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="close.html" accesskey="n" rel="next">close</a>, Previous: <a href="stream_002dexternal_002dformat.html" accesskey="p" rel="prev">stream-external-format</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

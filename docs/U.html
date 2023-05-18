@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>U (ANSI Common Lisp)</title>
+
+<meta name="description" content="U (ANSI Common Lisp)">
+<meta name="keywords" content="U (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Glossary.html" rel="up" title="Glossary">
+<link href="V.html" rel="next" title="V">
+<link href="T.html" rel="prev" title="T">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="U"></span><div class="header">
+<p>
+Next: <a href="V.html" accesskey="n" rel="next">V</a>, Previous: <a href="T.html" accesskey="p" rel="prev">T</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="U-1"></span><h3 class="unnumberedsec">U</h3>
+<dl compact="compact">
+<dt><b>unbound</b> <span id="glos_002dunbound"></span></dt>
+<dd><p><i>adj.</i>&nbsp;<!-- /@w -->
+not having an associated denotation in a <i>binding</i>.
+See <a href="B.html#glos_002dbound">bound</a>.
+</p>
+</dd>
+<dt><b>unbound variable</b>  <i>n.</i></dt>
+<dd><p>a <i>name</i> that is syntactically plausible as the name of a
+<i>variable</i> but which is not <i>bound</i> 
+in the <i>variable</i> <i>namespace</i>.
+</p>
+</dd>
+<dt><b>undefined function</b>  <i>n.</i></dt>
+<dd><p>a <i>name</i> that is syntactically plausible as the name of a
+<i>function</i> but which is not <i>bound</i>
+in the <i>function</i> <i>namespace</i>.
+</p>
+</dd>
+<dt><b>unintern</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>symbol</i> in a <i>package</i>)</dt>
+<dd><p>to make the <i>symbol</i> not be <i>present</i> in that <i>package</i>.
+(The <i>symbol</i> might continue to be <i>accessible</i> by inheritance.)
+</p>
+</dd>
+<dt><b>uninterned</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>symbol</i>)</dt>
+<dd><p>not <i>accessible</i> in any <i>package</i>; <i>i.e.</i>, not <i>interned</i><sub>1</sub>
+</p>
+</dd>
+<dt><b>universal time</b>  <i>n.</i></dt>
+<dd><p><i>time</i>, represented as a non-negative <i>integer</i> number of seconds.
+<i>Absolute</i> <i>universal time</i> is measured as an offset
+from the beginning of the year 1900 (ignoring <i>leap seconds</i>).
+See <a href="Time.html#UniversalTime">Section 25.1.4.2 (Universal Time)</a>.
+</p>
+</dd>
+<dt><b>unqualified method</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>a <i>method</i> with no <i>qualifiers</i>.
+</p>
+</dd>
+<dt><b>unregistered package</b>  <i>n.</i></dt>
+<dd><p>a <i>package</i> <i>object</i> that is not present in the <i>package registry</i>.
+An <i>unregistered package</i> has no <i>name</i>; <i>i.e.</i>, its <i>name</i> is <code>nil</code>.
+See the <i>function</i> <a href="delete_002dpackage.html">delete-package</a>.
+</p>
+</dd>
+<dt><b>unsafe</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of <i>code</i>)</dt>
+<dd><p>not <i>safe</i>.  (Note that, unless explicitly specified otherwise,
+if a particular kind of error checking is
+guaranteed only in a <i>safe</i> context, the same checking might or might not occur
+in that context if it were <i>unsafe</i>; describing a context as <i>unsafe</i>
+means that certain kinds of error checking are not reliably enabled
+but does not guarantee that error checking is definitely disabled.)
+</p>
+</dd>
+<dt><b>unsafe call</b>  <i>n.</i></dt>
+<dd><p>a <i>call</i> that is not a <i>safe call</i>.
+For more detailed information, see <a href="Argument-Mismatch-Detection.html#SafeAndUnsafeCalls">Section 3.5.1.1 (Safe and Unsafe Calls)</a>.
+</p>
+</dd>
+<dt><b>upgrade</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a declared <i>type</i> to an actual <i>type</i>)</dt>
+<dd><p>1. (when creating an <i>array</i>)
+to substitute an <i>actual array element type</i> 
+for an <i>expressed array element type</i>
+when choosing an appropriately <i>specialized</i> <i>array</i> representation.
+See the <i>function</i> <a href="upgraded_002darray_002delement_002dtype.html">upgraded-array-element-type</a>.
+2. (when creating a <i>complex</i>)
+to substitute an <i>actual complex part type</i> 
+for an <i>expressed complex part type</i>
+when choosing an appropriately <i>specialized</i> <i>complex</i> representation.
+See the <i>function</i> <a href="upgraded_002dcomplex_002dpart_002dtype.html">upgraded-complex-part-type</a>.
+</p>
+</dd>
+<dt><b>upgraded array element type</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>type</i>)</dt>
+<dd><p>a <i>type</i> that is a <i>supertype</i> of the <i>type</i>
+and that is used instead of the <i>type</i> whenever the
+<i>type</i> is used as an <i>array element type</i> 
+for object creation or type discrimination.
+See <a href="Specialized-Arrays.html#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
+</p>
+</dd>
+<dt><b>upgraded complex part type</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>type</i>)</dt>
+<dd><p>a <i>type</i> that is a <i>supertype</i> of the <i>type</i>
+and that is used instead of the <i>type</i> whenever the
+<i>type</i> is used as a <i>complex part type</i> 
+for object creation or type discrimination.
+See the <i>function</i> <a href="upgraded_002dcomplex_002dpart_002dtype.html">upgraded-complex-part-type</a>.
+</p>
+</dd>
+<dt><b>uppercase</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)</dt>
+<dd><p>being among <i>standard characters</i> corresponding to
+the capital letters <code>A</code> through <code>Z</code>,
+or being some other <i>implementation-defined</i> <i>character</i>
+that is defined by the <i>implementation</i> to be <i>uppercase</i>.
+See <a href="Character-Categories.html#CharactersWithCase">Section 13.1.4.3 (Characters With Case)</a>.
+</p>
+</dd>
+<dt><b>use</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>package</i> P<sub>1</sub>
+</dt>
+<dd><p>to <i>inherit</i> the <i>external symbols</i> of P<sub>1</sub>
+(If a package P<sub>2</sub>
+the <i>external symbols</i> of P<sub>1</sub>
+become <i>internal symbols</i> of P<sub>2</sub>
+unless they are explicitly <i>exported</i>.)
+&ldquo;The package <code>CL-USER</code> uses the package <code>CL</code>.&rdquo;
+</p>
+</dd>
+<dt><b>use list</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>package</i>)</dt>
+<dd><p>a (possibly empty) <i>list</i> associated with each <i>package</i>
+which determines what other <i>packages</i> are currently being
+<i>used</i> by that <i>package</i>.
+</p>
+</dd>
+<dt><b>user</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
+<dd><p>an active entity, typically a human, that invokes or interacts with a
+<i>program</i> at run time, but that is not necessarily a <i>programmer</i>.
+</p>
+
+</dd>
+</dl>
+<hr>
+<div class="header">
+<p>
+Next: <a href="V.html" accesskey="n" rel="next">V</a>, Previous: <a href="T.html" accesskey="p" rel="prev">T</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

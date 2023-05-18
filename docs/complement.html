@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>complement (ANSI Common Lisp)</title>
+
+<meta name="description" content="complement (ANSI Common Lisp)">
+<meta name="keywords" content="complement (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="constantly.html" rel="next" title="constantly">
+<link href="identity.html" rel="prev" title="identity">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="complement"></span><div class="header">
+<p>
+Next: <a href="constantly.html" accesskey="n" rel="next">constantly</a>, Previous: <a href="identity.html" accesskey="p" rel="prev">identity</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">complement</h4>
+<span id="complement-_0028Function_0029"></span><h3 class="heading">complement (Function)</h3>
+<span id="index-complement-2"></span>
+<span id="index-complement"></span>
+
+
+
+<span id="Syntax_003a-67"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-complement-1">Function: <strong>complement</strong> <em>function <span class="roman">→</span> complement-function</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-57"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>function</var>&mdash;a <i>function</i>.
+</p>
+<p><var>complement-function</var>&mdash;a <i>function</i>.
+</p>
+<span id="Description_003a-91"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>function</i> that
+takes the same <i>arguments</i> as <var>function</var>,
+and has the same side-effect behavior as <var>function</var>,
+but returns only a single value:
+a <i>generalized boolean</i> with the opposite truth value of that
+which would be returned as the <i>primary value</i> of <var>function</var>.
+That is, when the <var>function</var> would have returned
+<i>true</i> as its <i>primary value</i>
+the <var>complement-function</var> returns <i>false</i>,
+and when the <var>function</var> would have returned
+<i>false</i> as its <i>primary value</i>
+the <var>complement-function</var> returns <i>true</i>.
+</p>
+<span id="Examples_003a-65"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (funcall (complement #'zerop) 1) <span class="roman">→</span> <i>true</i>
+ (funcall (complement #'characterp) #\A) <span class="roman">→</span> <i>false</i>
+ (funcall (complement #'member) 'a '(a b c)) <span class="roman">→</span> <i>false</i>
+ (funcall (complement #'member) 'd '(a b c)) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="See-Also_003a-75"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="not-_0028Function_0029.html">not (Function)</a>
+</p>
+<span id="Notes_003a-47"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (complement <i>x</i>) ≡ #'(lambda (&amp;rest arguments) (not (apply <i>x</i> arguments)))
+</pre></div>
+
+
+<p>In <span class="roman">Common Lisp</span>, functions with names like &ldquo;<code><i>xxx</i>-if-not</code>&rdquo;
+are related to functions with names like &ldquo;<code><i>&rdquo; </i>
+in that
+
+</code></p><div class="lisp">
+<pre class="lisp">(<i>xxx</i>-if-not <i>f</i> . <i>arguments</i>) ≡ (<i>xxx</i>-if (complement <i>f</i>) . <i>arguments</i>)
+</pre></div>
+
+
+<p>For example,
+</p>
+<div class="lisp">
+<pre class="lisp"> (find-if-not #'zerop '(0 0 3)) ≡
+ (find-if (complement #'zerop) '(0 0 3)) <span class="roman">→</span> 3
+</pre></div>
+
+
+<p>Note that since the &ldquo;<code><i>xxx</i>-if-not</code>&rdquo; <i>functions</i>
+and the <tt>:test-not</tt> arguments have been deprecated,
+uses of &ldquo;<code><i>xxx</i>-if</code>&rdquo; <i>functions</i> or 
+<tt>:test</tt> arguments with <code>complement</code> are preferred.
+</p>
+
+
+
+
+</body>
+</html>

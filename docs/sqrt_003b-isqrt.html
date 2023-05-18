@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>sqrt; isqrt (ANSI Common Lisp)</title>
+
+<meta name="description" content="sqrt; isqrt (ANSI Common Lisp)">
+<meta name="keywords" content="sqrt; isqrt (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="random_002dstate.html" rel="next" title="random-state">
+<link href="signum.html" rel="prev" title="signum">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="sqrt_003b-isqrt"></span><div class="header">
+<p>
+Next: <a href="random_002dstate.html" accesskey="n" rel="next">random-state</a>, Previous: <a href="signum.html" accesskey="p" rel="prev">signum</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">sqrt; isqrt</h4>
+<span id="sqrt_002c-isqrt-_0028Function_0029"></span><h3 class="heading">sqrt, isqrt (Function)</h3>
+<span id="index-sqrt-2"></span>
+<span id="index-sqrt"></span>
+<span id="index-isqrt-2"></span>
+<span id="index-isqrt"></span>
+<span id="sqrt"></span>
+
+<span id="Syntax_003a-234"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-sqrt-1">Function: <strong>sqrt</strong> <em>number <span class="roman">→</span> root</em></dt>
+</dl>
+<dl>
+<dt id="index-isqrt-1">Function: <strong>isqrt</strong> <em>natural <span class="roman">→</span> natural-root</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-223"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>number</var>, <var>root</var>&mdash;a <i>number</i>.
+</p>
+<p><var>natural</var>, <var>natural-root</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-303"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>sqrt</code> and <code>isqrt</code> compute square roots.
+</p>
+<p><code>sqrt</code> returns the <i>principal</i> square root of <var>number</var>.
+If the <var>number</var> is not a <i>complex</i> but is negative,
+then the result is a <i>complex</i>.
+</p>
+<p><code>isqrt</code> returns the greatest <i>integer</i> 
+less than or equal to the exact positive square root of <var>natural</var>.
+</p>
+<p>If <var>number</var> is a positive <i>rational</i>,
+it is <i>implementation-dependent</i> 
+whether <var>root</var> is a <i>rational</i> or a <i>float</i>.
+If <var>number</var> is a negative <i>rational</i>,
+it is <i>implementation-dependent</i> 
+whether <var>root</var> is a <i>complex rational</i> or a <i>complex float</i>.
+</p>
+<p>The mathematical definition of complex square root (whether or not
+minus zero is supported) follows:
+</p>
+<p><code>(sqrt <i>x</i>) = (exp (/ (log <i>x</i>) 2))</code>
+</p>
+
+<p>The branch cut for square root lies along the negative real axis,
+continuous with quadrant II.
+The range consists of the right half-plane, including the non-negative
+imaginary axis and excluding the negative imaginary axis.
+</p>
+<span id="Examples_003a-207"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (sqrt 9.0) <span class="roman">→</span> 3.0
+ (sqrt -9.0) <span class="roman">→</span> #C(0.0 3.0)
+ (isqrt 9) <span class="roman">→</span> 3
+ (sqrt 12) <span class="roman">→</span> 3.4641016
+ (isqrt 12) <span class="roman">→</span> 3
+ (isqrt 300) <span class="roman">→</span> 17
+ (isqrt 325) <span class="roman">→</span> 18
+ (sqrt 25)
+<span class="roman">→</span> 5
+or<span class="roman">→</span> 5.0
+ (isqrt 25) <span class="roman">→</span> 5
+ (sqrt -1) <span class="roman">→</span> #C(0.0 1.0)
+ (sqrt #c(0 2)) <span class="roman">→</span> #C(1.0 1.0)
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-92"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The <i>function</i> <code>sqrt</code> should signal <code>type-error</code> if its argument 
+is not a <i>number</i>.
+</p>
+<p>The <i>function</i> <code>isqrt</code> should signal <code>type-error</code> if its argument 
+is not a non-negative <i>integer</i>.
+</p>
+<p>The functions <code>sqrt</code> and <code>isqrt</code> might signal <code>arithmetic-error</code>.
+</p>
+<span id="See-Also_003a-256"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="exp_003b-expt.html#exp">exp</a>,
+<a href="log.html">log</a>,
+<a href="Rational-Computations.html#FloatSubstitutability">Section 12.1.3.3 (Rule of Float Substitutability)</a>
+</p>
+<span id="Notes_003a-154"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (isqrt x) ≡ (values (floor (sqrt x))) 
+</pre></div>
+
+<p>but it is potentially more efficient.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="random_002dstate.html" accesskey="n" rel="next">random-state</a>, Previous: <a href="signum.html" accesskey="p" rel="prev">signum</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

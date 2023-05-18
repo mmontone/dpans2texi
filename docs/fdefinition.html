@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>fdefinition (ANSI Common Lisp)</title>
+
+<meta name="description" content="fdefinition (ANSI Common Lisp)">
+<meta name="keywords" content="fdefinition (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="fboundp.html" rel="next" title="fboundp">
+<link href="defun.html" rel="prev" title="defun">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="fdefinition"></span><div class="header">
+<p>
+Next: <a href="fboundp.html" accesskey="n" rel="next">fboundp</a>, Previous: <a href="defun.html" accesskey="p" rel="prev">defun</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">fdefinition</h4>
+<span id="fdefinition-_0028Accessor_0029"></span><h3 class="heading">fdefinition (Accessor)</h3>
+<span id="index-fdefinition-2"></span>
+<span id="index-fdefinition"></span>
+
+
+
+<span id="Syntax_003a-37"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-fdefinition-1">Function: <strong>fdefinition</strong> <em>function-name <span class="roman">→</span> definition</em></dt>
+</dl>
+<p><tt>(setf (fdefinition function-name) new-definition)</tt>
+</p>
+<span id="Arguments-and-Values_003a-27"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>function-name</var>&mdash;a <i>function name</i>.
+In the non-<code>setf</code> case, 
+the <i>name</i> must be <i>fbound</i> in the <i>global environment</i>.
+</p>
+<p><var>definition</var>&mdash;Current global function definition named by <var>function-name</var>.  
+</p>
+<p><var>new-definition</var>&mdash;a <i>function</i>.
+</p>
+<span id="Description_003a-56"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>fdefinition</code> <i>accesses</i> the current global function definition
+named by <var>function-name</var>.  The definition may be a
+<i>function</i> or may be an <i>object</i> representing a 
+<i>special form</i> or <i>macro</i>.
+The value returned by <code>fdefinition</code> when <code>fboundp</code> returns true
+but the <var>function-name</var> denotes a <i>macro</i> or 
+<i>special form</i> is not well-defined, but <code>fdefinition</code> does not signal an error. 
+</p>
+<span id="Exceptional-Situations_003a-10"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>function-name</var> is not a <i>function name</i>.
+</p>
+<p>An error of <i>type</i> <code>undefined-function</code> is signaled 
+in the non-<code>setf</code> case if <var>function-name</var> is not <i>fbound</i>.
+</p>
+<span id="See-Also_003a-43"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="fboundp.html">fboundp</a>,
+<a href="fmakunbound.html">fmakunbound</a>,
+<a href="macro_002dfunction.html">macro-function</a>,
+<a href="special_002doperator_002dp.html">special-operator-p</a>,
+<a href="symbol_002dfunction.html">symbol-function</a>
+</p>
+<span id="Notes_003a-25"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>fdefinition</code> cannot <i>access</i> the value of a lexical function name
+produced by <code>flet</code> or <code>labels</code>; it can <i>access</i> only
+the global function value.
+</p>
+<p><code>setf</code> can be used with 
+<code>fdefinition</code> to replace a global function
+definition when the <var>function-name</var>&rsquo;s function definition 
+does not represent a <i>special form</i>.
+<code>setf</code> of <code>fdefinition</code> 
+requires a <i>function</i> as the new value.
+It is an error to set the <code>fdefinition</code> of a <var>function-name</var>
+to a <i>symbol</i>, a <i>list</i>, or the value returned
+by <code>fdefinition</code> on the name of a <i>macro</i> 
+or <i>special form</i>.
+</p>
+
+
+
+
+</body>
+</html>

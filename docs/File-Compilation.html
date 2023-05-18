@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>File Compilation (ANSI Common Lisp)</title>
+
+<meta name="description" content="File Compilation (ANSI Common Lisp)">
+<meta name="keywords" content="File Compilation (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Compilation.html" rel="up" title="Compilation">
+<link href="Literal-Objects-in-Compiled-Files.html" rel="next" title="Literal Objects in Compiled Files">
+<link href="Compilation-Semantics.html" rel="prev" title="Compilation Semantics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="File-Compilation"></span><div class="header">
+<p>
+Next: <a href="Literal-Objects-in-Compiled-Files.html" accesskey="n" rel="next">Literal Objects in Compiled Files</a>, Previous: <a href="Compilation-Semantics.html" accesskey="p" rel="prev">Compilation Semantics</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="File-Compilation-1"></span><h4 class="subsection">3.2.3 File Compilation</h4>
+
+<p>The <i>function</i> <code>compile-file</code> performs compilation of 
+<i>forms</i> in a file following the rules specified in <a href="Compilation-Semantics.html">Section 3.2.2 (Compilation Semantics)</a>,
+and produces an output file that can be loaded by using <code>load</code>.
+</p>
+<p>Normally, the <i>top level forms</i> appearing in a file compiled with
+<code>compile-file</code> are evaluated only when the resulting
+compiled file is loaded, and not when the file is compiled.  However,
+it is typically the case that some forms in the file need to be evaluated
+at compile time so the
+remainder of the file can be read and compiled correctly.
+</p>
+<p>The <code>eval-when</code> <i>special form</i> can be used to control
+whether a <i>top level form</i> is evaluated at compile time, load
+time, or both.  It is possible to specify any of three situations with
+<code>eval-when</code>, denoted by the symbols <tt>:compile-toplevel</tt>,
+<tt>:load-toplevel</tt>, and <tt>:execute</tt>.  For top level 
+<code>eval-when</code> forms, <tt>:compile-toplevel</tt> specifies that the
+compiler must evaluate the body at compile time, and <code>:load-toplevel</code> specifies that the compiler must arrange to evaluate
+the body at load time. For non-top level <code>eval-when</code> forms,
+<tt>:execute</tt> specifies that the body must be executed in the run-time
+<i>environment</i>.
+</p>
+<p>The behavior of this <i>form</i> can be more precisely understood in
+terms of a model of how <code>compile-file</code> processes forms in
+a file to be compiled. There are two processing modes, called
+&ldquo;not-compile-time&rdquo; and &ldquo;compile-time-too&rdquo;.
+</p>
+<p>Successive forms are read from the file by <code>compile-file</code>
+and processed in not-compile-time mode; in this mode, 
+<code>compile-file</code> arranges for forms to be evaluated only at load time
+and not at compile time.  When <code>compile-file</code> is in
+compile-time-too mode, forms are evaluated both at compile time and
+load time.
+</p>
+<span id="Processing-of-Top-Level-Forms"></span><h4 class="subsubsection">3.2.3.1 Processing of Top Level Forms</h4>
+<span id="TopLevelForms"></span>
+<p>Processing of <i>top level forms</i> in the file compiler is defined
+as follows:
+</p>
+
+<ol>
+<li> If the <i>form</i> is a <i>compiler macro form</i>
+(not disabled by a <code>notinline</code> <i>declaration</i>),
+the <i>implementation</i> might or might not choose to compute
+the <i>compiler macro expansion</i> of the <i>form</i> and,
+having performed the expansion, might or might not choose to process the result
+as a <i>top level form</i> in the same processing mode
+(compile-time-too or not-compile-time).
+If it declines to obtain or use the expansion, it must process the original <i>form</i>.
+
+</li><li> If the form is a <i>macro form</i>,
+its <i>macro expansion</i> is computed and processed as a 
+<i>top level form</i> in
+the same processing mode (compile-time-too or not-compile-time).
+
+</li><li> If the form is a <code>progn</code> form, each of its
+body <i>forms</i> is sequentially processed as a 
+<i>top level form</i> in the same processing mode.
+
+</li><li> If the form is a <code>locally</code>, 
+<code>macrolet</code>, or <code>symbol-macrolet</code>, 
+<code>compile-file</code> establishes the appropriate bindings and processes the
+body forms as <i>top level forms</i> with those bindings in effect
+in the same processing mode.  (Note that this implies that the lexical
+<i>environment</i> in which <i>top level forms</i> are processed
+is not necessarily the <i>null lexical environment</i>.)
+
+</li><li> If the form is an <code>eval-when</code>
+<span id="index-eval_002dwhen"></span>
+form, it is
+handled according to the next figure.
+
+
+<div class="float"><span id="fig3_002e7"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th><b>CT</b></th><th><b>LT</b></th><th><b>E</b></th><th><b>Mode</b></th><th><b>Action</b></th><th><b>New Mode</b></th></tr></thead>
+<tr><td>Yes</td><td>Yes</td><td>&mdash;</td><td>&mdash;</td><td>Process</td><td>compile-time-too</td></tr>
+<tr><td>No</td><td>Yes</td><td>Yes</td><td>CTT</td><td>Process</td><td>compile-time-too</td></tr>
+<tr><td>No</td><td>Yes</td><td>Yes</td><td>NCT</td><td>Process</td><td>not-compile-time</td></tr>
+<tr><td>No</td><td>Yes</td><td>No</td><td>&mdash;</td><td>Process</td><td>not-compile-time</td></tr>
+<tr><td>Yes</td><td>No</td><td>&mdash;</td><td>&mdash;</td><td>Evaluate</td><td>&mdash;</td></tr>
+<tr><td>No</td><td>No</td><td>Yes</td><td>CTT</td><td>Evaluate</td><td>&mdash;</td></tr>
+<tr><td>No</td><td>No</td><td>Yes</td><td>NCT</td><td>Discard</td><td>&mdash;</td></tr>
+<tr><td>No</td><td>No</td><td>No</td><td>&mdash;</td><td>Discard</td><td>&mdash;</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 3.7: </strong>EVAL-WHEN processing</p></div></div>
+<p>Column <b>CT</b>   indicates whether <tt>:compile-toplevel</tt> is specified.
+Column <b>LT</b>   indicates whether <tt>:load-toplevel</tt> is specified.
+Column <b>E</b>    indicates whether <tt>:execute</tt> is specified.  
+Column <b>Mode</b> indicates the processing mode; 
+a dash (&mdash;) indicates that the processing mode is not relevant.
+</p>
+<p>The <b>Action</b> column specifies one of three actions:
+</p>
+
+<dl compact="compact">
+<dd><p><b>Process:</b> process the body as <i>top level forms</i> in the
+specified mode.
+</p>
+</dd>
+<dd><p><b>Evaluate:</b> evaluate the body in the dynamic execution
+context of the compiler, using the <i>evaluation environment</i> as
+the global environment and the <i>lexical environment</i> in which
+the <code>eval-when</code> appears.
+</p>
+</dd>
+<dd><p><b>Discard:</b> ignore the <i>form</i>.
+</p></dd>
+</dl>
+
+
+<p>The <b>New Mode</b> column indicates the new processing mode. 
+A dash (&mdash;) indicates the compiler remains in its current mode.
+</p>
+</li><li> Otherwise, the form is a <i>top level form</i> that
+is not one of the special cases.  In compile-time-too mode, the
+compiler first evaluates the form in the evaluation 
+<i>environment</i> and then minimally compiles it.  In not-compile-time
+mode, the <i>form</i> is simply minimally compiled.  All <i>subforms</i>
+are treated as <i>non-top-level forms</i>.
+
+<p>Note that <i>top level forms</i> are processed in the order in
+which they textually appear in the file and that each 
+<i>top level form</i> read by the compiler is processed before the next is
+read.  However, the order of processing (including macro expansion) of
+<i>subforms</i> that are not <i>top level forms</i> and the order of
+further compilation is unspecified as long as Common Lisp semantics
+are preserved.
+</p></li></ol>
+
+
+<p><code>eval-when</code> forms cause compile-time evaluation only at
+top level.  Both <tt>:compile-toplevel</tt> and <tt>:load-toplevel</tt> situation specifications
+are ignored for <i>non-top-level forms</i>. For <i>non-top-level forms</i>, 
+an <code>eval-when</code>
+specifying the <tt>:execute</tt> situation is treated as an <i>implicit progn</i>
+including the <i>forms</i> in the body of the <code>eval-when</code> <i>form</i>;
+otherwise, the <i>forms</i> in the body are ignored.
+</p>
+<span id="g_t3_002e2_002e3_002e1_002e1-Processing-of-Defining-Macros"></span><h4 class="unnumberedsubsubsec">3.2.3.1.1 Processing of Defining Macros</h4>
+
+
+
+<p>Defining <i>macros</i> (such as <code>defmacro</code> or <code>defvar</code>)
+appearing within a file being processed by <code>compile-file</code>
+normally have compile-time side effects which affect how subsequent <i>forms</i>
+in the same <i>file</i> are compiled.  A convenient model for explaining how these
+side effects happen is that the defining macro expands into one or
+more <code>eval-when</code> <i>forms</i>, and that the calls which cause the compile-time
+side effects to happen appear 
+in the body of an <code>(eval-when (:compile-toplevel) ...)</code> <i>form</i>.
+</p>
+<p>The compile-time side effects may cause information about the definition to
+be stored differently than if the defining macro had been processed in the
+&lsquo;normal&rsquo; way (either interpretively or by loading the compiled file).
+</p>
+<p>In particular, the information stored by the defining <i>macros</i> at compile time
+might or might not be available to the interpreter (either during or after compilation),
+or during subsequent calls to the <i>compiler</i>.  For example,
+the following code is nonportable because it assumes that the <i>compiler</i>
+stores the macro definition of <code>foo</code> where it is available to the interpreter:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defmacro foo (x) `(car ,x))
+ (eval-when (:execute :compile-toplevel :load-toplevel)
+   (print (foo '(a b c))))
+</pre></div>
+
+
+<p>A portable way to do the same thing would be to include the macro
+definition inside the <code>eval-when</code> <i>form</i>, as in:
+</p>
+<div class="lisp">
+<pre class="lisp"> (eval-when (:execute :compile-toplevel :load-toplevel)
+   (defmacro foo (x) `(car ,x))
+   (print (foo '(a b c))))
+</pre></div>
+
+
+
+<p>The next figure&nbsp;<!-- /@w -->lists macros that make definitions
+available both in the compilation and run-time <i>environments</i>.
+It is not specified whether definitions made available in the
+<i>compilation environment</i> are available in the evaluation
+<i>environment</i>, nor is it specified whether they are available
+in subsequent compilation units or subsequent invocations of the
+compiler.  As with <code>eval-when</code>, these compile-time side
+effects happen only when the defining macros appear at 
+top level.
+</p>
+
+<div class="float"><span id="fig3_002e8"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>declaim</td><td>define-modify-macro</td><td>defsetf</td></tr>
+<tr><td>defclass</td><td>define-setf-expander</td><td>defstruct</td></tr>
+<tr><td>defconstant</td><td>defmacro</td><td>deftype</td></tr>
+<tr><td>define-compiler-macro</td><td>defpackage</td><td>defvar</td></tr>
+<tr><td>define-condition</td><td>defparameter</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 3.8: </strong>Defining Macros That Affect the Compile-Time Environment</p></div></div>
+
+
+
+<span id="g_t3_002e2_002e3_002e1_002e2-Constraints-on-Macros-and-Compiler-Macros"></span><h4 class="unnumberedsubsubsec">3.2.3.1.2 Constraints on Macros and Compiler Macros</h4>
+
+
+
+<p>Except where explicitly stated otherwise, no <i>macro</i> defined in
+the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->standard produces an expansion that could cause any of the
+<i>subforms</i> of the <i>macro form</i> to be treated as 
+<i>top level forms</i>.  If an <i>implementation</i> also provides a
+<i>special operator</i> definition of a <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>macro</i>, 
+the <i>special operator</i> definition must be semantically equivalent
+in this respect.
+</p>
+<p><i>Compiler macro</i> expansions must also have the same
+top level evaluation semantics as the <i>form</i> which they replace.
+This is of concern both to <i>conforming implementations</i> and to
+<i>conforming programs</i>.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Literal-Objects-in-Compiled-Files.html" accesskey="n" rel="next">Literal Objects in Compiled Files</a>, Previous: <a href="Compilation-Semantics.html" accesskey="p" rel="prev">Compilation Semantics</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

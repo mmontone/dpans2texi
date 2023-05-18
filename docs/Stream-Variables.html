@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Stream Variables (ANSI Common Lisp)</title>
+
+<meta name="description" content="Stream Variables (ANSI Common Lisp)">
+<meta name="keywords" content="Stream Variables (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Stream-Concepts.html" rel="up" title="Stream Concepts">
+<link href="Stream-Arguments-to-Standardized-Functions.html" rel="next" title="Stream Arguments to Standardized Functions">
+<link href="Introduction-to-Streams.html" rel="prev" title="Introduction to Streams">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Stream-Variables"></span><div class="header">
+<p>
+Next: <a href="Stream-Arguments-to-Standardized-Functions.html" accesskey="n" rel="next">Stream Arguments to Standardized Functions</a>, Previous: <a href="Introduction-to-Streams.html" accesskey="p" rel="prev">Introduction to Streams</a>, Up: <a href="Stream-Concepts.html" accesskey="u" rel="up">Stream Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Stream-Variables-1"></span><h4 class="subsection">21.1.2 Stream Variables</h4>
+
+<p><i>Variables</i> whose <i>values</i> must be <i>streams</i> are sometimes called 
+<span id="index-stream-variable"></span>
+<em>stream variables</em>.
+</p>
+<p>Certain <i>stream variables</i> are defined by this specification 
+to be the proper source of input or output in various <i>situations</i> 
+where no specific <i>stream</i> has been specified instead.
+A complete list of such <i>standardized</i> <i>stream variables</i>
+appears in the next figure.  
+The consequences are undefined if at any time
+the <i>value</i> of any of these <i>variables</i> is not an <i>open</i> <i>stream</i>.
+</p>
+
+
+<div class="float"><span id="StandardizedStreamVars"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Glossary Term</th><th>Variable Name</th></tr></thead>
+<tr><td><i>debug I/O</i></td><td><code>*debug-io*</code></td></tr>
+<tr><td><i>error output</i></td><td><code>*error-output*</code></td></tr>
+<tr><td><i>query I/O</i></td><td><code>*query-io*</code></td></tr>
+<tr><td><i>standard input</i></td><td><code>*standard-input*</code></td></tr>
+<tr><td><i>standard output</i></td><td><code>*standard-output*</code></td></tr>
+<tr><td><i>terminal I/O</i></td><td><code>*terminal-io*</code></td></tr>
+<tr><td><i>trace output</i></td><td><code>*trace-output*</code></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 21.6: </strong>Standardized Stream Variables</p></div></div>
+
+<p>Note that, by convention, <i>standardized</i> <i>stream variables</i> have names 
+ending in &ldquo;<code>-input*</code>&rdquo;  if they must be <i>input</i> <i>streams</i>,
+ending in &ldquo;<code>-output*</code>&rdquo; if they must be <i>output</i> <i>streams</i>,
+or ending in &ldquo;<code>-io*</code>&rdquo;     if they must be <i>bidirectional</i> <i>streams</i>.
+</p>
+<p>User programs may <i>assign</i> or <i>bind</i> any <i>standardized</i> <i>stream variable</i>
+except <code>*terminal-io*</code>.
+</p>
+
+
+
+
+</body>
+</html>

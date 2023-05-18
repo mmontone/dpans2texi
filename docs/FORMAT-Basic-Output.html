@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>FORMAT Basic Output (ANSI Common Lisp)</title>
+
+<meta name="description" content="FORMAT Basic Output (ANSI Common Lisp)">
+<meta name="keywords" content="FORMAT Basic Output (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Formatted-Output.html" rel="up" title="Formatted Output">
+<link href="FORMAT-Radix-Control.html" rel="next" title="FORMAT Radix Control">
+<link href="Formatted-Output.html" rel="prev" title="Formatted Output">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="FORMAT-Basic-Output"></span><div class="header">
+<p>
+Next: <a href="FORMAT-Radix-Control.html" accesskey="n" rel="next">FORMAT Radix Control</a>, Up: <a href="Formatted-Output.html" accesskey="u" rel="up">Formatted Output</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="FORMAT-Basic-Output-1"></span><h4 class="subsection">22.3.1 FORMAT Basic Output</h4>
+
+<span id="Tilde-C_003a-Character"></span><h4 class="subsubsection">22.3.1.1 Tilde C: Character</h4>
+<span id="index-C-_0028format-directive_0029"></span>
+<span id="index-Tilde-C-_0028format-directive_0029"></span>
+
+
+<p>The next <i>arg</i> should be a <i>character</i>; 
+it is printed
+according to the modifier flags.
+</p>
+<p><code>~C</code> prints the <i>character</i> 
+as if by using <code>write-char</code> if it is a <i>simple character</i>.
+<i>Characters</i> that are not <i>simple</i>
+are not necessarily printed as if by <code>write-char</code>,
+but are displayed in an <i>implementation-defined</i>, abbreviated format.
+For example,
+</p>
+<div class="lisp">
+<pre class="lisp"> (format nil &quot;~C&quot; #\A) <span class="roman">→</span> &quot;A&quot;
+ (format nil &quot;~C&quot; #\Space) <span class="roman">→</span> &quot; &quot;
+</pre></div>
+
+
+<p><code>~:C</code> is the same as <code>~C</code> for <i>printing</i> <i>characters</i>,
+but other <i>characters</i> are &ldquo;spelled out.&rdquo;  The intent is that this
+is a &ldquo;pretty&rdquo; format for printing characters.
+For <i>simple</i> <i>characters</i> that are not <i>printing</i>,
+what is spelled out is the <i>name</i> of the <i>character</i> (see <code>char-name</code>).
+For <i>characters</i> that are not <i>simple</i> and not <i>printing</i>,
+what is spelled out is <i>implementation-defined</i>.
+For example, 
+</p>
+<div class="lisp">
+<pre class="lisp"> (format nil &quot;~:C&quot; #\A) <span class="roman">→</span> &quot;A&quot;
+ (format nil &quot;~:C&quot; #\Space) <span class="roman">→</span> &quot;Space&quot;
+;; This next example assumes an implementation-defined &quot;Control&quot; attribute.
+ (format nil &quot;~:C&quot; #\Control-Space)
+<span class="roman">→</span> &quot;Control-Space&quot;
+or<span class="roman">→</span> &quot;c-Space&quot;
+</pre></div>
+
+
+<p><code>~:@C</code> prints what <code>~:C</code> would, and then
+if the <i>character</i> requires unusual shift keys on the keyboard to type it,
+this fact is mentioned.  For example,
+</p>
+
+<div class="lisp">
+<pre class="lisp"> (format nil &quot;~:@C&quot; #\Control-Partial) <span class="roman">→</span> &quot;Control-∂ (Top-F)&quot;  
+</pre></div>
+
+
+
+<p>This is the format used for telling the user about a key he is expected to type,
+in prompts, for instance.  The precise output may depend not only
+on the implementation, but on the particular I/O devices in use.
+</p>
+<p><code>~@C</code> 
+prints the <i>character</i> in a way that the <i>Lisp reader</i> can understand,
+using <code>#\</code> syntax.
+</p>
+<p><code>~@C</code>  binds <code>*print-escape*</code> to <code>t</code>.
+</p>
+
+<span id="Tilde-Percent_003a-Newline"></span><h4 class="subsubsection">22.3.1.2 Tilde Percent: Newline</h4>
+<span id="index-Percent-_0028format-directive_0029"></span>
+<span id="index-Tilde-Percent-_0028format-directive_0029"></span>
+
+<p>This outputs a <code>#\Newline</code> character, thereby terminating the current
+output line and beginning a new one.
+<code>~<i>n</i>%</code> outputs <i>n</i> newlines.
+No <i>arg</i> is used.  
+</p>
+
+<span id="Tilde-Ampersand_003a-Fresh_002dLine"></span><h4 class="subsubsection">22.3.1.3 Tilde Ampersand: Fresh-Line</h4>
+<span id="index-Ampersand-_0028format-directive_0029"></span>
+<span id="index-Tilde-Ampersand-_0028format-directive_0029"></span>
+
+<p>Unless it can be determined that the output stream
+is already at the beginning of a line,
+this outputs a newline.
+<code>~<i>n</i>&amp;</code> calls <code>fresh-line</code>
+and then outputs <i>n</i>- 1 newlines.
+<code>~0&amp;</code> does nothing.
+</p>
+
+<span id="Tilde-Vertical_002dBar_003a-Page"></span><h4 class="subsubsection">22.3.1.4 Tilde Vertical-Bar: Page</h4>
+<span id="index-Vertical_002dBar-_0028format-directive_0029"></span>
+<span id="index-Tilde-Vertical_002dBar-_0028format-directive_0029"></span>
+
+<p>This outputs a page separator character, if possible.
+<code>~<i>n</i>|</code> does this <i>n</i> times.
+</p>
+
+<span id="Tilde-Tilde_003a-Tilde"></span><h4 class="subsubsection">22.3.1.5 Tilde Tilde: Tilde</h4>
+<span id="index-Tilde-_0028format-directive_0029"></span>
+<span id="index-Tilde-Tilde-_0028format-directive_0029"></span>
+
+<p>This outputs a <i>tilde</i>.  <code>~<i>n</i>~</code> outputs <i>n</i> tildes.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="FORMAT-Radix-Control.html" accesskey="n" rel="next">FORMAT Radix Control</a>, Up: <a href="Formatted-Output.html" accesskey="u" rel="up">Formatted Output</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

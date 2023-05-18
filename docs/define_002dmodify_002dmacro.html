@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>define-modify-macro (ANSI Common Lisp)</title>
+
+<meta name="description" content="define-modify-macro (ANSI Common Lisp)">
+<meta name="keywords" content="define-modify-macro (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="defsetf.html" rel="next" title="defsetf">
+<link href="progn.html" rel="prev" title="progn">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="define_002dmodify_002dmacro"></span><div class="header">
+<p>
+Next: <a href="defsetf.html" accesskey="n" rel="next">defsetf</a>, Previous: <a href="progn.html" accesskey="p" rel="prev">progn</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">define-modify-macro</h4>
+<span id="define_002dmodify_002dmacro-_0028Macro_0029"></span><h3 class="heading">define-modify-macro (Macro)</h3>
+<span id="index-define_002dmodify_002dmacro-2"></span>
+<span id="index-define_002dmodify_002dmacro"></span>
+
+
+<span id="Syntax_003a-88"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-define_002dmodify_002dmacro-1">Macro: <strong>define-modify-macro</strong> <em>name lambda-list function <tt>[</tt>documentation<tt>]</tt> <span class="roman">→</span> name</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-78"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>name</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>lambda-list</var>&mdash;a <i>define-modify-macro lambda list</i> 
+</p>
+<p><var>function</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>documentation</var>&mdash;a <i>string</i>; not evaluated.
+</p>
+<span id="Description_003a-113"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>define-modify-macro</code> defines a <i>macro</i> named
+<var>name</var> to <i>read</i> and <i>write</i> a <i>place</i>.
+</p>
+<p>The arguments to the new <i>macro</i> are a <i>place</i>,
+followed
+by the arguments that are supplied in <var>lambda-list</var>.
+<i>Macros</i> defined with <code>define-modify-macro</code> 
+correctly pass the <i>environment parameter</i> to 
+<code>get-setf-expansion</code>.
+</p>
+<p>When the <i>macro</i> is invoked, <var>function</var> 
+is applied to the old contents of the <i>place</i>
+and the <var>lambda-list</var> arguments to obtain the new value,
+and the <i>place</i> is updated to contain the result.
+</p>
+<p>Except for the issue of avoiding multiple evaluation (see below), the expansion
+of a <code>define-modify-macro</code> is equivalent to the following:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defmacro <var>name</var> (reference . <var>lambda-list</var>)
+   <var>documentation</var>
+   `(setf ,reference
+          (<var>function</var> ,reference ,<i>arg1</i> ,<i>arg2</i> ...)))
+</pre></div>
+
+
+<p>where <i>arg1</i>, <i>arg2</i>, ..., 
+are the parameters appearing in <var>lambda-list</var>;
+appropriate provision is made for a <i>rest parameter</i>.
+</p>
+<p>The <i>subforms</i> of the macro calls defined by <code>define-modify-macro</code>
+are evaluated as specified in <a href="Overview-of-Places-and-Generalized-Reference.html#GenRefSubFormEval">Section 5.1.1.1 (Evaluation of Subforms to Places)</a>.
+</p>
+<p><var>Documentation</var> is attached as a <i>documentation string</i> 
+to <var>name</var> (as kind <code>function</code>)
+and to the <i>macro function</i>.
+</p>
+<p>If a <code>define-modify-macro</code> <i>form</i> appears as a <i>top level form</i>,
+the <i>compiler</i> must store the <i>macro</i> definition at compile time,
+so that occurrences of the macro later on in the file can be expanded correctly.
+</p>
+<span id="Examples_003a-86"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (define-modify-macro appendf (&amp;rest args) 
+    append &quot;Append onto list&quot;) <span class="roman">→</span> APPENDF
+ (setq x '(a b c) y x) <span class="roman">→</span> (A B C)
+ (appendf x '(d e f) '(1 2 3)) <span class="roman">→</span> (A B C D E F 1 2 3)
+ x <span class="roman">→</span> (A B C D E F 1 2 3)
+ y <span class="roman">→</span> (A B C)
+ (define-modify-macro new-incf (&amp;optional (delta 1)) +)
+ (define-modify-macro unionf (other-set &amp;rest keywords) union)
+</pre></div>
+
+
+<span id="Side-Effects_003a-4"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>A macro definition is assigned to <var>name</var>.
+</p>
+<span id="See-Also_003a-97"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="defsetf.html">defsetf</a>,
+<a href="define_002dsetf_002dexpander.html">define-setf-expander</a>,
+<a href="documentation_003b-setf-documentation.html#documentation">documentation</a>,
+<a href="Syntactic-Interaction-of-Documentation-Strings-and-Declarations.html">Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="defsetf.html" accesskey="n" rel="next">defsetf</a>, Previous: <a href="progn.html" accesskey="p" rel="prev">progn</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

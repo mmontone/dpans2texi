@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>get (ANSI Common Lisp)</title>
+
+<meta name="description" content="get (ANSI Common Lisp)">
+<meta name="keywords" content="get (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Symbols.html" rel="up" title="Symbols">
+<link href="remprop.html" rel="next" title="remprop">
+<link href="symbol_002dvalue.html" rel="prev" title="symbol-value">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="get"></span><div class="header">
+<p>
+Next: <a href="remprop.html" accesskey="n" rel="next">remprop</a>, Previous: <a href="symbol_002dvalue.html" accesskey="p" rel="prev">symbol-value</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">get</h4>
+<span id="get-_0028Accessor_0029"></span><h3 class="heading">get (Accessor)</h3>
+<span id="index-get-2"></span>
+<span id="index-get"></span>
+
+
+<span id="Syntax_003a-180"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-get-1">Function: <strong>get</strong> <em>symbol indicator <tt>&amp;optional</tt> default <span class="roman">→</span> value</em></dt>
+</dl>
+<p><tt>(setf (get symbol indicator <tt>&amp;optional</tt> default) new-value)</tt>
+</p>
+<span id="Arguments-and-Values_003a-169"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>symbol</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>indicator</var>&mdash;an <i>object</i>.
+</p>
+<p><var>default</var>&mdash;an <i>object</i>.
+The default is <code>nil</code>.
+</p>
+<p><var>value</var>&mdash;if the indicated property exists,
+the <i>object</i> that is its <i>value</i>;
+otherwise, the specified <var>default</var>.
+</p>
+<p><var>new-value</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-231"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>get</code> finds a <i>property</i> 
+on the <i>property list</i><sub>2</sub>
+whose <i>property indicator</i> is <i>identical</i> to <var>indicator</var>,
+and returns its corresponding <i>property value</i>.
+If there are multiple <i>properties</i><sub>1</sub>
+<code>get</code> uses the first such <i>property</i>.
+If there is no <i>property</i> with that <i>property indicator</i>,
+<var>default</var> is returned.
+</p>
+<p><code>setf</code> of <code>get</code> may be used to associate a new <i>object</i>
+with an existing indicator already on the <var>symbol</var>&rsquo;s <i>property list</i>,
+or to create a new assocation if none exists.
+If there are multiple <i>properties</i><sub>1</sub>
+<code>setf</code> of <code>get</code> associates the <var>new-value</var> 
+with the first such <i>property</i>.
+When a <code>get</code> <i>form</i> is used as a <code>setf</code> <var>place</var>,
+any <var>default</var> which is supplied is evaluated according to normal
+left-to-right evaluation rules, but its <i>value</i> is ignored.
+</p>
+<span id="Examples_003a-152"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun make-person (first-name last-name)
+   (let ((person (gensym &quot;PERSON&quot;)))
+     (setf (get person 'first-name) first-name)
+     (setf (get person 'last-name) last-name)
+     person)) <span class="roman">→</span> MAKE-PERSON
+ (defvar *john* (make-person &quot;John&quot; &quot;Dow&quot;)) <span class="roman">→</span> *JOHN*
+ *john* <span class="roman">→</span> #:PERSON4603
+ (defvar *sally* (make-person &quot;Sally&quot; &quot;Jones&quot;)) <span class="roman">→</span> *SALLY*
+ (get *john* 'first-name) <span class="roman">→</span> &quot;John&quot;
+ (get *sally* 'last-name) <span class="roman">→</span> &quot;Jones&quot;
+ (defun marry (man woman married-name)
+   (setf (get man 'wife) woman)
+   (setf (get woman 'husband) man)
+   (setf (get man 'last-name) married-name)
+   (setf (get woman 'last-name) married-name)
+   married-name) <span class="roman">→</span> MARRY
+ (marry *john* *sally* &quot;Dow-Jones&quot;) <span class="roman">→</span> &quot;Dow-Jones&quot;
+ (get *john* 'last-name) <span class="roman">→</span> &quot;Dow-Jones&quot;
+ (get (get *john* 'wife) 'first-name) <span class="roman">→</span> &quot;Sally&quot;
+ (symbol-plist *john*)
+<span class="roman">→</span> (WIFE #:PERSON4604 LAST-NAME &quot;Dow-Jones&quot; FIRST-NAME &quot;John&quot;)
+ (defmacro age (person &amp;optional (default ''thirty-something)) 
+   `(get ,person 'age ,default)) <span class="roman">→</span> AGE
+ (age *john*) <span class="roman">→</span> THIRTY-SOMETHING
+ (age *john* 20) <span class="roman">→</span> 20
+ (setf (age *john*) 25) <span class="roman">→</span> 25
+ (age *john*) <span class="roman">→</span> 25
+ (age *john* 20) <span class="roman">→</span> 25
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-59"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>symbol</var> is not a <i>symbol</i>.
+</p>
+<span id="See-Also_003a-204"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="getf.html">getf</a>,
+<a href="symbol_002dplist.html">symbol-plist</a>,
+<a href="remprop.html">remprop</a>
+</p>
+<span id="Notes_003a-124"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (get x y) ≡ (getf (symbol-plist x) y)
+</pre></div>
+
+
+<p><i>Numbers</i> and <i>characters</i> are not recommended for use 
+as <var>indicators</var> in portable code since <code>get</code> tests 
+with <code>eq</code> rather than <code>eql</code>, and consequently 
+the effect of using such <var>indicators</var> is 
+<i>implementation-dependent</i>.
+</p>
+<p>There is no way using <code>get</code> to distinguish an absent property from
+one whose value is <var>default</var>.  However, see <code>get-properties</code>.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="remprop.html" accesskey="n" rel="next">remprop</a>, Previous: <a href="symbol_002dvalue.html" accesskey="p" rel="prev">symbol-value</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

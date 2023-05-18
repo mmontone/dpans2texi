@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>make-pathname (ANSI Common Lisp)</title>
+
+<meta name="description" content="make-pathname (ANSI Common Lisp)">
+<meta name="keywords" content="make-pathname (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Filenames.html" rel="up" title="Filenames">
+<link href="pathnamep.html" rel="next" title="pathnamep">
+<link href="pathname-_0028Function_0029.html" rel="prev" title="pathname (Function)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="make_002dpathname"></span><div class="header">
+<p>
+Next: <a href="pathnamep.html" accesskey="n" rel="next">pathnamep</a>, Previous: <a href="pathname-_0028Function_0029.html" accesskey="p" rel="prev">pathname (Function)</a>, Up: <a href="Filenames.html" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">make-pathname</h4>
+<span id="make_002dpathname-_0028Function_0029"></span><h3 class="heading">make-pathname (Function)</h3>
+<span id="index-make_002dpathname-2"></span>
+<span id="index-make_002dpathname"></span>
+
+
+<span id="Syntax_003a-401"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-make_002dpathname-1">Function: <strong>make-pathname</strong> <em><tt>&amp;key</tt> host device directory name type version defaults case <span class="roman">→</span> pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-390"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>host</var>&mdash;a <i>valid physical pathname host</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>device</var>&mdash;a <i>valid pathname device</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>directory</var>&mdash;a <i>valid pathname directory</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>name</var>&mdash;a <i>valid pathname name</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>type</var>&mdash;a <i>valid pathname type</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>version</var>&mdash;a <i>valid pathname version</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>defaults</var>&mdash;a <i>pathname designator</i>.
+The default is a <i>pathname</i> whose host component is the same as the
+host component of the <i>value</i> of <code>*default-pathname-defaults*</code>,
+and whose other components are all <code>nil</code>.
+</p>
+<p><var>case</var>&mdash;one of <tt>:common</tt> or <tt>:local</tt>.
+The default is <tt>:local</tt>.
+</p>
+<p><var>pathname</var>&mdash;a <i>pathname</i>.
+</p>
+<span id="Description_003a-508"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Constructs and returns a <i>pathname</i> from the supplied keyword arguments.
+</p>
+<p>After the components supplied explicitly by
+<var>host</var>,
+<var>device</var>, 
+<var>directory</var>,
+<var>name</var>,
+<var>type</var>,
+and <var>version</var> 
+are filled in, 
+the merging rules used by <code>merge-pathnames</code> 
+are used to fill in any 
+unsupplied
+components
+from the defaults supplied by <var>defaults</var>.
+</p>
+<p>Whenever a <i>pathname</i> is constructed the components may be 
+canonicalized if appropriate.
+For the explanation of the arguments that can be supplied for each component,
+see <a href="Pathname-Components.html">Section 19.2.1 (Pathname Components)</a>.
+</p>
+<p>If <var>case</var> is supplied,
+it is treated as described in <a href="Interpreting-Pathname-Component-Values.html#PathnameComponentCase">Section 19.2.2.1.2 (Case in Pathname Components)</a>.
+</p>
+<p>The resulting <var>pathname</var> is a <i>logical pathname</i> 
+if and only its host component 
+is
+a <i>logical host</i> 
+or a <i>string</i> that names a defined <i>logical host</i>.
+</p>
+<p>If the <var>directory</var> is a <i>string</i>,
+it should be the name of a top level directory,
+and should not contain any punctuation characters; that is,
+specifying a <i>string</i>, <i>str</i>, is
+equivalent to specifying the list <code>(:absolute <i>str</i>)</code>.
+Specifying the symbol <tt>:wild</tt> is equivalent to specifying the list 
+<code>(:absolute :wild-inferiors)</code>, or <code>(:absolute :wild)</code> 
+in a file system that does not support <tt>:wild-inferiors</tt>.
+</p>
+<span id="Examples_003a-370"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> ;; Implementation A -- an implementation with access to a single
+ ;;  Unix file system.  This implementation happens to never display
+ ;;  the `host' information in a namestring, since there is only one host. 
+ (make-pathname :directory '(:absolute &quot;public&quot; &quot;games&quot;)
+                :name &quot;chess&quot; :type &quot;db&quot;)
+<span class="roman">→</span> #P&quot;/public/games/chess.db&quot; 
+&nbsp;
+&nbsp;
+ ;; Implementation B -- an implementation with access to one or more
+ ;;  VMS file systems.  This implementation displays `host' information
+ ;;  in the namestring only when the host is not the local host.
+ ;;  It uses a double colon to separate a host name from the host's local
+ ;;  file name.
+ (make-pathname :directory '(:absolute &quot;PUBLIC&quot; &quot;GAMES&quot;)
+                :name &quot;CHESS&quot; :type &quot;DB&quot;)
+<span class="roman">→</span> #P&quot;SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot; 
+ (make-pathname :host &quot;BOBBY&quot;
+                :directory '(:absolute &quot;PUBLIC&quot; &quot;GAMES&quot;)
+                :name &quot;CHESS&quot; :type &quot;DB&quot;)
+<span class="roman">→</span> #P&quot;BOBBY::SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot; 
+&nbsp;
+&nbsp;
+ ;; Implementation C -- an implementation with simultaneous access to
+ ;;  multiple file systems from the same Lisp image.  In this 
+ ;;  implementation, there is a convention that any text preceding the
+ ;;  first colon in a pathname namestring is a host name.
+ (dolist (case '(:common :local))
+   (dolist (host '(&quot;MY-LISPM&quot; &quot;MY-VAX&quot; &quot;MY-UNIX&quot;))
+     (print (make-pathname :host host :case case
+                           :directory '(:absolute &quot;PUBLIC&quot; &quot;GAMES&quot;)
+                           :name &quot;CHESS&quot; :type &quot;DB&quot;))))
+▷ #P&quot;MY-LISPM:&gt;public&gt;games&gt;chess.db&quot;
+▷ #P&quot;MY-VAX:SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot;
+▷ #P&quot;MY-UNIX:/public/games/chess.db&quot;
+▷ #P&quot;MY-LISPM:&gt;public&gt;games&gt;chess.db&quot; 
+▷ #P&quot;MY-VAX:SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot; 
+▷ #P&quot;MY-UNIX:/PUBLIC/GAMES/CHESS.DB&quot; 
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Affected-By_003a-72"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>file system</i>.
+</p>
+<span id="See-Also_003a-413"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="merge_002dpathnames.html">merge-pathnames</a>,
+<a href="pathname-_0028System-Class_0029.html">pathname (System Class)</a>,
+<a href="logical_002dpathname-_0028System-Class_0029.html">logical-pathname (System Class)</a>,
+<a href="File-System-Concepts.html">Section 20.1 (File System Concepts)</a>,
+<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-275"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Portable programs should not supply <tt>:unspecific</tt> for any component.
+See <a href="Interpreting-Pathname-Component-Values.html#UnspecificComponent">Section 19.2.2.2.3 (.UNSPECIFIC as a Component Value)</a>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="pathnamep.html" accesskey="n" rel="next">pathnamep</a>, Previous: <a href="pathname-_0028Function_0029.html" accesskey="p" rel="prev">pathname (Function)</a>, Up: <a href="Filenames.html" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

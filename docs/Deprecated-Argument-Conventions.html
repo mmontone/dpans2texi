@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Deprecated Argument Conventions (ANSI Common Lisp)</title>
+
+<meta name="description" content="Deprecated Argument Conventions (ANSI Common Lisp)">
+<meta name="keywords" content="Deprecated Argument Conventions (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Deprecated-Language-Features.html" rel="up" title="Deprecated Language Features">
+<link href="Deprecated-Variables.html" rel="next" title="Deprecated Variables">
+<link href="Deprecated-Functions.html" rel="prev" title="Deprecated Functions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Deprecated-Argument-Conventions"></span><div class="header">
+<p>
+Next: <a href="Deprecated-Variables.html" accesskey="n" rel="next">Deprecated Variables</a>, Previous: <a href="Deprecated-Functions.html" accesskey="p" rel="prev">Deprecated Functions</a>, Up: <a href="Deprecated-Language-Features.html" accesskey="u" rel="up">Deprecated Language Features</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Deprecated-Argument-Conventions-1"></span><h4 class="subsection">1.8.2 Deprecated Argument Conventions</h4>
+
+<p>The ability to pass a numeric <i>argument</i> to <code>gensym</code> has been deprecated.
+</p>
+<p>The <tt>:test-not</tt> <i>argument</i> to the <i>functions</i> in the next figure&nbsp;<!-- /@w -->are deprecated.
+</p>
+
+<div class="float"><span id="fig1_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>adjoin</td><td>nset-difference</td><td>search</td></tr>
+<tr><td>assoc</td><td>nset-exclusive-or</td><td>set-difference</td></tr>
+<tr><td>count</td><td>nsublis</td><td>set-exclusive-or</td></tr>
+<tr><td>delete</td><td>nsubst</td><td>sublis</td></tr>
+<tr><td>delete-duplicates</td><td>nsubstitute</td><td>subsetp</td></tr>
+<tr><td>find</td><td>nunion</td><td>subst</td></tr>
+<tr><td>intersection</td><td>position</td><td>substitute</td></tr>
+<tr><td>member</td><td>rassoc</td><td>tree-equal</td></tr>
+<tr><td>mismatch</td><td>remove</td><td>union</td></tr>
+<tr><td>nintersection</td><td>remove-duplicates</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.3: </strong>Functions with Deprecated :TEST-NOT Arguments</p></div></div>
+
+<p>The use of the situation names <tt>compile</tt>, <tt>load</tt>, and <tt>eval</tt>
+in <code>eval-when</code> is deprecated.
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>char-upcase; char-downcase (ANSI Common Lisp)</title>
+
+<meta name="description" content="char-upcase; char-downcase (ANSI Common Lisp)">
+<meta name="keywords" content="char-upcase; char-downcase (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Characters.html" rel="up" title="Characters">
+<link href="upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp.html" rel="next" title="upper-case-p; lower-case-p; both-case-p">
+<link href="standard_002dchar_002dp.html" rel="prev" title="standard-char-p">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="char_002dupcase_003b-char_002ddowncase"></span><div class="header">
+<p>
+Next: <a href="upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp.html" accesskey="n" rel="next">upper-case-p; lower-case-p; both-case-p</a>, Previous: <a href="standard_002dchar_002dp.html" accesskey="p" rel="prev">standard-char-p</a>, Up: <a href="Characters.html" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">char-upcase; char-downcase</h4>
+<span id="char_002dupcase_002c-char_002ddowncase-_0028Function_0029"></span><h3 class="heading">char-upcase, char-downcase (Function)</h3>
+<span id="index-char_002dupcase-2"></span>
+<span id="index-char_002dupcase"></span>
+<span id="index-char_002ddowncase-2"></span>
+<span id="index-char_002ddowncase"></span>
+<span id="char_002dupcase"></span><span id="char_002ddowncase"></span>
+
+<span id="Syntax_003a-278"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char_002dupcase-1">Function: <strong>char-upcase</strong> <em>character <span class="roman">→</span> corresponding-character</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002ddowncase-1">Function: <strong>char-downcase</strong> <em>character <span class="roman">→</span> corresponding-character</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-267"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>, <var>corresponding-character</var>&mdash;a <i>character</i>.
+</p>
+<span id="Description_003a-363"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If <var>character</var> is a <i>lowercase</i> <i>character</i>,
+<code>char-upcase</code> returns the corresponding <i>uppercase</i> <i>character</i>.
+Otherwise, <code>char-upcase</code> just returns the given <var>character</var>.
+</p>
+<p>If <var>character</var> is an <i>uppercase</i> <i>character</i>,
+<code>char-downcase</code> returns the corresponding <i>lowercase</i> <i>character</i>.
+Otherwise, <code>char-downcase</code> just returns the given <var>character</var>.
+</p>
+<p>The result only ever differs from <var>character</var> 
+in its <i>code</i> <i>attribute</i>;
+all <i>implementation-defined</i> <i>attributes</i> are preserved.
+</p>
+<span id="Examples_003a-251"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (char-upcase #\a) <span class="roman">→</span> #\A
+ (char-upcase #\A) <span class="roman">→</span> #\A
+ (char-downcase #\a) <span class="roman">→</span> #\a
+ (char-downcase #\A) <span class="roman">→</span> #\a
+ (char-upcase #\9) <span class="roman">→</span> #\9
+ (char-downcase #\9) <span class="roman">→</span> #\9
+ (char-upcase #\@) <span class="roman">→</span> #\@
+ (char-downcase #\@) <span class="roman">→</span> #\@
+ ;; Note that this next example might run for a very long time in 
+ ;; some implementations if CHAR-CODE-LIMIT happens to be very large
+ ;; for that implementation.
+ (dotimes (code char-code-limit)
+   (let ((char (code-char code)))
+     (when char
+       (unless (cond ((upper-case-p char) (char= (char-upcase (char-downcase char)) char))
+                     ((lower-case-p char) (char= (char-downcase (char-upcase char)) char))
+                     (t (and (char= (char-upcase (char-downcase char)) char)
+                             (char= (char-downcase (char-upcase char)) char))))
+         (return char)))))
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-113"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-292"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp.html#upper_002dcase_002dp">upper-case-p</a>,
+<a href="alpha_002dchar_002dp.html">alpha-char-p</a>,
+<a href="Character-Categories.html#CharactersWithCase">Section 13.1.4.3 (Characters With Case)</a>,
+<a href="Documentation-of-Implementation_002dDefined-Scripts.html">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+<span id="Notes_003a-192"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If the <var>corresponding-char</var> is <i>different</i> than <var>character</var>,
+then both the <var>character</var> and the <var>corresponding-char</var> have <i>case</i>.
+</p>
+<p>Since <code>char-equal</code> ignores the <i>case</i> of the <i>characters</i> it compares,
+the <var>corresponding-character</var> is always the <i>same</i> as <var>character</var>
+under <code>char-equal</code>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp.html" accesskey="n" rel="next">upper-case-p; lower-case-p; both-case-p</a>, Previous: <a href="standard_002dchar_002dp.html" accesskey="p" rel="prev">standard-char-p</a>, Up: <a href="Characters.html" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>broadcast-stream (ANSI Common Lisp)</title>
+
+<meta name="description" content="broadcast-stream (ANSI Common Lisp)">
+<meta name="keywords" content="broadcast-stream (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="concatenated_002dstream.html" rel="next" title="concatenated-stream">
+<link href="stream.html" rel="prev" title="stream">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="broadcast_002dstream"></span><div class="header">
+<p>
+Next: <a href="concatenated_002dstream.html" accesskey="n" rel="next">concatenated-stream</a>, Previous: <a href="stream.html" accesskey="p" rel="prev">stream</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">broadcast-stream</h4>
+<span id="broadcast_002dstream-_0028System-Class_0029"></span><h3 class="heading">broadcast-stream (System Class)</h3>
+<span id="index-broadcast_002dstream-1"></span>
+<span id="index-broadcast_002dstream"></span>
+
+
+
+<span id="Class-Precedence-List_003a-63"></span><h4 class="subsubheading">Class Precedence List:</h4>
+
+<p><code>broadcast-stream</code>,
+<code>stream</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-533"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>broadcast stream</i> is an <i>output</i> <i>stream</i> which 
+has associated with it a set of zero or more <i>output</i> <i>streams</i> 
+such that any output sent to the <i>broadcast stream</i> gets passed on
+as output to each of the associated <i>output</i> <i>streams</i>.
+(If a <i>broadcast stream</i> has no <i>component streams</i>,
+then all output to the <i>broadcast stream</i> is discarded.)
+</p>
+<p>The set of operations that may be performed on a <i>broadcast stream</i> 
+is the intersection of those for its associated <i>output</i> <i>streams</i>.
+</p>
+<p>Some output operations (<i>e.g.</i>, <code>fresh-line</code>) return <i>values</i> based on the
+state of the <i>stream</i> at the time of the operation.
+Since these <i>values</i> might differ for each of the <i>component streams</i>,
+it is necessary to describe their return value specifically:
+</p>
+
+<ul>
+<li> <code>stream-element-type</code> returns
+the value from the last component stream, 
+or <code>t</code> if there are no component streams.
+
+</li><li> <code>fresh-line</code> returns
+the value from the last component stream, 
+or <code>nil</code>&nbsp;<!-- /@w -->if there are no component streams.
+
+</li><li> The functions
+<code>file-length</code>,
+<code>file-position</code>,
+<code>file-string-length</code>,
+and <code>stream-external-format</code>
+return the value from the last component stream;
+if there are no component streams,
+<code>file-length</code> and <code>file-position</code> return <code>0</code>,
+<code>file-string-length</code> returns <code>1</code>,
+and <code>stream-external-format</code> returns <tt>:default</tt>.
+
+</li><li> The functions <code>streamp</code> and <code>output-stream-p</code> 
+always return <i>true</i> for <i>broadcast streams</i>.
+
+</li><li> The functions <code>open-stream-p</code> tests whether the <i>broadcast stream</i>
+is <i>open</i><sub>2</sub>
+
+</li><li> The functions <code>input-stream-p</code> and <i>interactive-stream-p</i> 
+return an <i>implementation-defined</i>, <i>generalized boolean</i> value.
+
+</li><li> For the input operations
+<code>clear-input</code>
+<code>listen</code>,
+<code>peek-char</code>,
+<code>read-byte</code>,
+<code>read-char-no-hang</code>,
+<code>read-char</code>,
+<code>read-line</code>,
+and <code>unread-char</code>,
+the consequences are undefined if the indicated operation is performed.
+However, an <i>implementation</i> is permitted 
+to define such a behavior as an <i>implementation-dependent</i> extension.
+</li></ul>
+
+
+<p>For any output operations not having their return values explicitly specified above
+or elsewhere in this document, it is defined that
+the <i>values</i> returned by such an operation are 
+the <i>values</i> resulting from performing the operation 
+on the last of its <i>component streams</i>;
+the <i>values</i> resulting from performing the operation
+on all preceding <i>streams</i> are discarded.                    
+If there are no <i>component streams</i>, 
+the value is <i>implementation-dependent</i>.
+</p>
+<span id="See-Also_003a-436"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="broadcast_002dstream_002dstreams.html">broadcast-stream-streams</a>,
+<a href="make_002dbroadcast_002dstream.html">make-broadcast-stream</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="concatenated_002dstream.html" accesskey="n" rel="next">concatenated-stream</a>, Previous: <a href="stream.html" accesskey="p" rel="prev">stream</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

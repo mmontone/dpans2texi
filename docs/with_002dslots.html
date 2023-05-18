@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>with-slots (ANSI Common Lisp)</title>
+
+<meta name="description" content="with-slots (ANSI Common Lisp)">
+<meta name="keywords" content="with-slots (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Objects.html" rel="up" title="Objects">
+<link href="defclass.html" rel="next" title="defclass">
+<link href="with_002daccessors.html" rel="prev" title="with-accessors">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="with_002dslots"></span><div class="header">
+<p>
+Next: <a href="defclass.html" accesskey="n" rel="next">defclass</a>, Previous: <a href="with_002daccessors.html" accesskey="p" rel="prev">with-accessors</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">with-slots</h4>
+<span id="with_002dslots-_0028Macro_0029"></span><h3 class="heading">with-slots (Macro)</h3>
+<span id="index-with_002dslots-2"></span>
+<span id="index-with_002dslots"></span>
+
+
+
+<span id="Syntax_003a-123"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-with_002dslots-1">Macro: <strong>with-slots</strong> <em><tt>(</tt><tt>{</tt>slot-entry<tt>}</tt>*<tt>)</tt> instance-form  <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<dl compact="compact">
+<dt><var>slot-entry</var>::=</dt>
+<dd><p>slot-name | <tt>(</tt>variable-name slot-name<tt>)</tt>
+</p></dd>
+</dl>
+
+<span id="Arguments-and-Values_003a-112"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>slot-name</var>&mdash;a <i>slot</i> <i>name</i>; not evaluated.
+</p>
+<p><var>variable-name</var>&mdash;a <i>variable name</i>; not evaluated.
+</p>
+<p><var>instance-form</var>&mdash;a <i>form</i>; evaluted to produce <var>instance</var>.
+</p>
+<p><var>instance</var>&mdash;an <i>object</i>.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>forms</var>&mdash;an <i>implicit progn</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> returned by the <var>forms</var>.
+</p>
+<span id="Description_003a-151"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The macro <code>with-slots</code> <i>establishes</i> a
+<i>lexical environment</i>
+for referring to the <i>slots</i> in the <var>instance</var> 
+named by the given <var>slot-names</var> 
+as though they were <i>variables</i>.  Within such a context
+the value of the <i>slot</i> can be specified by using its slot name, as if
+it were a lexically bound variable.  Both <code>setf</code> and <code>setq</code>
+can be used to set the value of the <i>slot</i>.
+</p>
+<p>The macro <code>with-slots</code> translates an appearance of the slot 
+name as a <i>variable</i> into a call to <code>slot-value</code>.
+</p>
+<span id="Examples_003a-107"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defclass thing ()
+           ((x :initarg :x :accessor thing-x)
+            (y :initarg :y :accessor thing-y)))
+<span class="roman">→</span> #&lt;STANDARD-CLASS THING 250020173&gt;
+ (defmethod (setf thing-x) :before (new-x (thing thing))
+   (format t &quot;~&amp;Changing X from ~D to ~D in ~S.~%&quot;
+           (thing-x thing) new-x thing))
+ (setq thing (make-instance 'thing :x 0 :y 1)) <span class="roman">→</span> #&lt;THING 62310540&gt;
+ (with-slots (x y) thing (incf x) (incf y)) <span class="roman">→</span> 2
+ (values (thing-x thing) (thing-y thing)) <span class="roman">→</span> 1, 2
+ (setq thing1 (make-instance 'thing :x 1 :y 2)) <span class="roman">→</span> #&lt;THING 43135676&gt;
+ (setq thing2 (make-instance 'thing :x 7 :y 8)) <span class="roman">→</span> #&lt;THING 43147374&gt;
+ (with-slots ((x1 x) (y1 y))
+             thing1
+   (with-slots ((x2 x) (y2 y))
+               thing2
+     (list (list x1 (thing-x thing1) y1 (thing-y thing1)
+                 x2 (thing-x thing2) y2 (thing-y thing2))
+           (setq x1 (+ y1 x2))
+           (list x1 (thing-x thing1) y1 (thing-y thing1)
+                 x2 (thing-x thing2) y2 (thing-y thing2))
+           (setf (thing-x thing2) (list x1))
+           (list x1 (thing-x thing1) y1 (thing-y thing1)
+                 x2 (thing-x thing2) y2 (thing-y thing2)))))
+▷ Changing X from 7 to (9) in #&lt;THING 43147374&gt;.
+<span class="roman">→</span> ((1 1 2 2 7 7 8 8)
+     9
+     (9 9 2 2 7 7 8 8) 
+     (9)
+     (9 9 2 2 (9) (9) 8 8))
+</pre></div>
+
+
+<span id="Affected-By_003a-13"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>defclass</code>
+</p>
+<span id="Exceptional-Situations_003a-36"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The consequences are undefined if any <var>slot-name</var> is not the name
+of a <i>slot</i> in the <var>instance</var>.
+</p>
+<span id="See-Also_003a-133"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="with_002daccessors.html">with-accessors</a>,
+<a href="slot_002dvalue.html">slot-value</a>,
+<a href="symbol_002dmacrolet.html">symbol-macrolet</a>
+</p>
+<span id="Notes_003a-89"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>A <code>with-slots</code> expression of the form:
+</p>
+<div class="lisp">
+<pre class="lisp">(with-accessors (<var>slot-entry</var><sub>1</sub>
+<var>instance-form</var> <var>form</var><sub>1</sub>
+</pre></div>
+
+<p>expands into the equivalent of
+</p>
+<div class="lisp">
+<pre class="lisp">(let ((in <var>instance-form</var>))
+  (symbol-macrolet (<var>Q</var><sub>1</sub>
+</pre></div>
+
+<p>where <var>Q</var><sub>i</sub>
+</p>
+<div class="lisp">
+<pre class="lisp">(<var>slot-entry</var><sub>i</sub>
+</pre></div>
+
+<p>if <var>slot-entry</var><sub>i</sub>
+</p>
+<div class="lisp">
+<pre class="lisp">(<var>variable-name</var><sub>i</sub>
+</pre></div>
+
+<p>if <var>slot-entry</var><sub>i</sub>
+</p>
+<div class="lisp">
+<pre class="lisp">(<var>variable-name</var><sub>i</sub>
+</pre></div>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="defclass.html" accesskey="n" rel="next">defclass</a>, Previous: <a href="with_002daccessors.html" accesskey="p" rel="prev">with-accessors</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

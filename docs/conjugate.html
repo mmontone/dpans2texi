@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>conjugate (ANSI Common Lisp)</title>
+
+<meta name="description" content="conjugate (ANSI Common Lisp)">
+<meta name="keywords" content="conjugate (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="phase.html" rel="next" title="phase">
+<link href="complexp.html" rel="prev" title="complexp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="conjugate"></span><div class="header">
+<p>
+Next: <a href="phase.html" accesskey="n" rel="next">phase</a>, Previous: <a href="complexp.html" accesskey="p" rel="prev">complexp</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">conjugate</h4>
+<span id="conjugate-_0028Function_0029"></span><h3 class="heading">conjugate (Function)</h3>
+<span id="index-conjugate-2"></span>
+<span id="index-conjugate"></span>
+
+
+<span id="Syntax_003a-242"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-conjugate-1">Function: <strong>conjugate</strong> <em>number <span class="roman">→</span> conjugate</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-231"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>number</var>&mdash;a <i>number</i>.
+</p>
+<p><var>conjugate</var>&mdash;a <i>number</i>.
+</p>
+<span id="Description_003a-313"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the complex conjugate of <var>number</var>.
+The conjugate of a 
+<i>real</i>
+number is itself.  
+</p>
+<span id="Examples_003a-216"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (conjugate #c(0 -1)) <span class="roman">→</span> #C(0 1)
+ (conjugate #c(1 1)) <span class="roman">→</span> #C(1 -1)
+ (conjugate 1.5) <span class="roman">→</span> 1.5
+ (conjugate #C(3/5 4/5)) <span class="roman">→</span> #C(3/5 -4/5)
+ (conjugate #C(0.0D0 -1.0D0)) <span class="roman">→</span> #C(0.0D0 1.0D0)
+ (conjugate 3.7) <span class="roman">→</span> 3.7
+</pre></div>
+
+
+<span id="Notes_003a-161"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>For a <i>complex</i> number <code>z</code>,
+</p>
+<div class="lisp">
+<pre class="lisp"> (conjugate z) ≡ (complex (realpart z) (- (imagpart z)))
+</pre></div>
+
+
+
+
+
+
+</body>
+</html>

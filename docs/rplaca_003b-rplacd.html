@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>rplaca; rplacd (ANSI Common Lisp)</title>
+
+<meta name="description" content="rplaca; rplacd (ANSI Common Lisp)">
+<meta name="keywords" content="rplaca; rplacd (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="car_003b-cdr_003b-caar_003b-cadr_003b-cdar_003b-cddr_003b-caaar_003b-caadr_003b-cadar_003b-caddr_003b-cdaar_003b-cd_002b.html" rel="next" title="car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+">
+<link href="atom-_0028Function_0029.html" rel="prev" title="atom (Function)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="rplaca_003b-rplacd"></span><div class="header">
+<p>
+Next: <a href="car_003b-cdr_003b-caar_003b-cadr_003b-cdar_003b-cddr_003b-caaar_003b-caadr_003b-cadar_003b-caddr_003b-cdaar_003b-cd_002b.html" accesskey="n" rel="next">car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+</a>, Previous: <a href="atom-_0028Function_0029.html" accesskey="p" rel="prev">atom (Function)</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">rplaca; rplacd</h4>
+<span id="rplaca_002c-rplacd-_0028Function_0029"></span><h3 class="heading">rplaca, rplacd (Function)</h3>
+<span id="index-rplaca-2"></span>
+<span id="index-rplaca"></span>
+<span id="index-rplacd-2"></span>
+<span id="index-rplacd"></span>
+<span id="rplaca"></span>
+
+<span id="Syntax_003a-288"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-rplaca-1">Function: <strong>rplaca</strong> <em>cons object <span class="roman">→</span> cons</em></dt>
+</dl>
+<dl>
+<dt id="index-rplacd-1">Function: <strong>rplacd</strong> <em>cons object <span class="roman">→</span> cons</em></dt>
+</dl>
+
+
+<span id="Pronunciation_003a-7"></span><h4 class="subsubheading">Pronunciation:</h4>
+
+<p><code>rplaca</code>: [ˌrēˈplakə]
+or [ˌrəˈplakə]
+</p>
+<p><code>rplacd</code>: [ˌrēˈplakdə]
+or [ˌrəˈplakdə]
+or [ˌrēˈplakdē]
+or [ˌrəˈplakdē]
+</p>
+<span id="Arguments-and-Values_003a-277"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>cons</var>&mdash;a <i>cons</i>.
+</p>
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-378"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>rplaca</code> replaces the <i>car</i> of the <var>cons</var> with <var>object</var>.
+</p>
+<p><code>rplacd</code> replaces the <i>cdr</i> of the <var>cons</var> with <var>object</var>.
+</p>
+<span id="Examples_003a-261"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (defparameter *some-list* (list* 'one 'two 'three 'four)) <span class="roman">→</span> *some-list*
+ *some-list* <span class="roman">→</span> (ONE TWO THREE . FOUR)
+ (rplaca *some-list* 'uno) <span class="roman">→</span> (UNO TWO THREE . FOUR)
+ *some-list* <span class="roman">→</span> (UNO TWO THREE . FOUR)
+ (rplacd (last *some-list*) (list 'IV)) <span class="roman">→</span> (THREE IV)
+ *some-list* <span class="roman">→</span> (UNO TWO THREE IV)
+</pre></div>
+
+
+<span id="Side-Effects_003a-35"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <var>cons</var> is modified. 
+</p>
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>cons</var> is not a <i>cons</i>.
+</p>
+
+
+
+
+</body>
+</html>

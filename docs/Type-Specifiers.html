@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Type Specifiers (ANSI Common Lisp)</title>
+
+<meta name="description" content="Type Specifiers (ANSI Common Lisp)">
+<meta name="keywords" content="Type Specifiers (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Types.html" rel="up" title="Types">
+<link href="Classes.html" rel="next" title="Classes">
+<link href="Type-Relationships.html" rel="prev" title="Type Relationships">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Type-Specifiers"></span><div class="header">
+<p>
+Previous: <a href="Type-Relationships.html" accesskey="p" rel="prev">Type Relationships</a>, Up: <a href="Types.html" accesskey="u" rel="up">Types</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Type-Specifiers-1"></span><h4 class="subsection">4.2.3 Type Specifiers</h4>
+
+
+<p><i>Type specifiers</i> can be <i>symbols</i>, <i>classes</i>, or <i>lists</i>.
+<a href="#StandardizedAtomicTypeSpecs">Figure 4.2</a>&nbsp;<!-- /@w -->lists <i>symbols</i> that are
+<i>standardized</i> <i>atomic type specifiers</i>, and
+<a href="#StandardizedCompoundTypeSpecNames">Figure 4.3</a>&nbsp;<!-- /@w -->lists
+<i>standardized</i> <i>compound type specifier</i> <i>names</i>.
+For syntax information, see the dictionary entry for the corresponding <i>type specifier</i>.
+It is possible to define new <i>type specifiers</i> using
+<code>defclass</code>,
+<code>define-condition</code>,
+<code>defstruct</code>, 
+or
+<code>deftype</code>.
+</p>
+
+
+
+<div class="float"><span id="StandardizedAtomicTypeSpecs"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>arithmetic-error</td><td>function</td><td>simple-condition</td></tr>
+<tr><td>array</td><td>generic-function</td><td>simple-error</td></tr>
+<tr><td>atom</td><td>hash-table</td><td>simple-string</td></tr>
+<tr><td>base-char</td><td>integer</td><td>simple-type-error</td></tr>
+<tr><td>base-string</td><td>keyword</td><td>simple-vector</td></tr>
+<tr><td>bignum</td><td>list</td><td>simple-warning</td></tr>
+<tr><td>bit</td><td>logical-pathname</td><td>single-float</td></tr>
+<tr><td>bit-vector</td><td>long-float</td><td>standard-char</td></tr>
+<tr><td>broadcast-stream</td><td>method</td><td>standard-class</td></tr>
+<tr><td>built-in-class</td><td>method-combination</td><td>standard-generic-function</td></tr>
+<tr><td>cell-error</td><td>nil</td><td>standard-method</td></tr>
+<tr><td>character</td><td>null</td><td>standard-object</td></tr>
+<tr><td>class</td><td>number</td><td>storage-condition</td></tr>
+<tr><td>compiled-function</td><td>package</td><td>stream</td></tr>
+<tr><td>complex</td><td>package-error</td><td>stream-error</td></tr>
+<tr><td>concatenated-stream</td><td>parse-error</td><td>string</td></tr>
+<tr><td>condition</td><td>pathname</td><td>string-stream</td></tr>
+<tr><td>cons</td><td>print-not-readable</td><td>structure-class</td></tr>
+<tr><td>control-error</td><td>program-error</td><td>structure-object</td></tr>
+<tr><td>division-by-zero</td><td>random-state</td><td>style-warning</td></tr>
+<tr><td>double-float</td><td>ratio</td><td>symbol</td></tr>
+<tr><td>echo-stream</td><td>rational</td><td>synonym-stream</td></tr>
+<tr><td>end-of-file</td><td>reader-error</td><td>t</td></tr>
+<tr><td>error</td><td>readtable</td><td>two-way-stream</td></tr>
+<tr><td>extended-char</td><td>real</td><td>type-error</td></tr>
+<tr><td>file-error</td><td>restart</td><td>unbound-slot</td></tr>
+<tr><td>file-stream</td><td>sequence</td><td>unbound-variable</td></tr>
+<tr><td>fixnum</td><td>serious-condition</td><td>undefined-function</td></tr>
+<tr><td>float</td><td>short-float</td><td>unsigned-byte</td></tr>
+<tr><td>floating-point-inexact</td><td>signed-byte</td><td>vector</td></tr>
+<tr><td>floating-point-invalid-operation</td><td>simple-array</td><td>warning</td></tr>
+<tr><td>floating-point-overflow</td><td>simple-base-string</td><td></td></tr>
+<tr><td>floating-point-underflow</td><td>simple-bit-vector</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.2: </strong>Standardized Atomic Type Specifiers</p></div></div>
+
+
+               
+<p>If a <i>type specifier</i> is a <i>list</i>, the <i>car</i> of the <i>list</i> 
+is a <i>symbol</i>, and the rest of the <i>list</i> is subsidiary
+<i>type</i> information.  Such a <i>type specifier</i> is called 
+a <span id="index-compound-type-specifier"></span>
+<em>compound type specifier</em>.
+Except as explicitly stated otherwise,
+the subsidiary items can be unspecified.
+The unspecified subsidiary items are indicated
+by writing <code>*</code>.  For example, to completely specify
+a <i>vector</i>, the <i>type</i> of the elements
+and the length of the <i>vector</i> must be present.
+</p>
+<div class="lisp">
+<pre class="lisp"> (vector double-float 100)
+</pre></div>
+
+<p>The following leaves the length unspecified:
+</p>
+<div class="lisp">
+<pre class="lisp"> (vector double-float *)
+</pre></div>
+
+<p>The following leaves the element type unspecified:
+</p>
+<div class="lisp">
+<pre class="lisp"> (vector * 100)                                      
+</pre></div>
+
+<p>Suppose that two <i>type specifiers</i> are the same except that the first
+has a <code>*</code> where the second has a more explicit specification.
+Then the second denotes a <i>subtype</i> 
+of the <i>type</i> denoted by the first.
+</p>
+<p>If a <i>list</i> has one or more unspecified items at the end, 
+those items can be dropped.
+If dropping all occurrences of <code>*</code> results in a <i>singleton</i> <i>list</i>,
+then the parentheses can be dropped as well (the list can be replaced
+by the <i>symbol</i> in its <i>car</i>).  
+For example,                       
+<code>(vector double-float *)</code>                    
+can be abbreviated to <code>(vector double-float)</code>,               
+and <code>(vector * *)</code> can be abbreviated to <code>(vector)</code> 
+and then to 
+<code>vector</code>.
+</p>
+
+
+<div class="float"><span id="StandardizedCompoundTypeSpecNames"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>and</td><td>long-float</td><td>simple-base-string</td></tr>
+<tr><td>array</td><td>member</td><td>simple-bit-vector</td></tr>
+<tr><td>base-string</td><td>mod</td><td>simple-string</td></tr>
+<tr><td>bit-vector</td><td>not</td><td>simple-vector</td></tr>
+<tr><td>complex</td><td>or</td><td>single-float</td></tr>
+<tr><td>cons</td><td>rational</td><td>string</td></tr>
+<tr><td>double-float</td><td>real</td><td>unsigned-byte</td></tr>
+<tr><td>eql</td><td>satisfies</td><td>values</td></tr>
+<tr><td>float</td><td>short-float</td><td>vector</td></tr>
+<tr><td>function</td><td>signed-byte</td><td></td></tr>
+<tr><td>integer</td><td>simple-array</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.3: </strong>Standardized Compound Type Specifier Names</p></div></div>
+
+<p>The next figure&nbsp;<!-- /@w -->show the <i>defined names</i> that can be used as 
+<i>compound type specifier</i> <i>names</i>
+but that cannot be used as <i>atomic type specifiers</i>.
+</p>
+
+<div class="float"><span id="fig4_002e4"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>and</td><td>mod</td><td>satisfies</td></tr>
+<tr><td>eql</td><td>not</td><td>values</td></tr>
+<tr><td>member</td><td>or</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.4: </strong>Standardized Compound-Only Type Specifier Names</p></div></div>
+
+<p>New <i>type specifiers</i> can come into existence in two ways.
+</p>
+<ul>
+<li> Defining a structure by using <code>defstruct</code> without using
+the <tt>:type</tt> specifier or defining a <i>class</i> by using 
+<code>defclass</code> 
+or <code>define-condition</code>
+automatically causes the name of the structure 
+or class to be a new <i>type specifier</i> <i>symbol</i>.
+</li><li> <code>deftype</code> can be used to define 
+<span id="index-derived-type-specifier"></span>
+<em>derived type specifiers</em>,
+which act as &lsquo;abbreviations&rsquo; for other <i>type specifiers</i>.
+</li></ul>
+
+
+<p>A <i>class</i> <i>object</i> can be used as a <i>type specifier</i>. 
+When used this way, it denotes the set of all members of that <i>class</i>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->shows some <i>defined names</i> relating to 
+<i>types</i> and <i>declarations</i>.
+</p>
+
+
+<div class="float"><span id="TypesAndDeclsNames"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>coerce</td><td>defstruct</td><td>subtypep</td></tr>
+<tr><td>declaim</td><td>deftype</td><td>the</td></tr>
+<tr><td>declare</td><td>ftype</td><td>type</td></tr>
+<tr><td>defclass</td><td>locally</td><td>type-of</td></tr>
+<tr><td>define-condition</td><td>proclaim</td><td>typep</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.5: </strong>Defined names relating to types and declarations.</p></div></div>
+
+<p>The next figure&nbsp;<!-- /@w -->shows all <i>defined names</i> that are <i>type specifier</i> <i>names</i>,
+whether for <i>atomic type specifiers</i> or <i>compound type specifiers</i>;
+this list is the union of the lists in <a href="#StandardizedAtomicTypeSpecs">Figure 4.2</a>&nbsp;<!-- /@w -->
+and <a href="#StandardizedCompoundTypeSpecNames">Figure 4.3</a>.
+</p>
+
+
+<div class="float"><span id="StandardizedTypeSpecifierNames"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>and</td><td>function</td><td>simple-array</td></tr>
+<tr><td>arithmetic-error</td><td>generic-function</td><td>simple-base-string</td></tr>
+<tr><td>array</td><td>hash-table</td><td>simple-bit-vector</td></tr>
+<tr><td>atom</td><td>integer</td><td>simple-condition</td></tr>
+<tr><td>base-char</td><td>keyword</td><td>simple-error</td></tr>
+<tr><td>base-string</td><td>list</td><td>simple-string</td></tr>
+<tr><td>bignum</td><td>logical-pathname</td><td>simple-type-error</td></tr>
+<tr><td>bit</td><td>long-float</td><td>simple-vector</td></tr>
+<tr><td>bit-vector</td><td>member</td><td>simple-warning</td></tr>
+<tr><td>broadcast-stream</td><td>method</td><td>single-float</td></tr>
+<tr><td>built-in-class</td><td>method-combination</td><td>standard-char</td></tr>
+<tr><td>cell-error</td><td>mod</td><td>standard-class</td></tr>
+<tr><td>character</td><td>nil</td><td>standard-generic-function</td></tr>
+<tr><td>class</td><td>not</td><td>standard-method</td></tr>
+<tr><td>compiled-function</td><td>null</td><td>standard-object</td></tr>
+<tr><td>complex</td><td>number</td><td>storage-condition</td></tr>
+<tr><td>concatenated-stream</td><td>or</td><td>stream</td></tr>
+<tr><td>condition</td><td>package</td><td>stream-error</td></tr>
+<tr><td>cons</td><td>package-error</td><td>string</td></tr>
+<tr><td>control-error</td><td>parse-error</td><td>string-stream</td></tr>
+<tr><td>division-by-zero</td><td>pathname</td><td>structure-class</td></tr>
+<tr><td>double-float</td><td>print-not-readable</td><td>structure-object</td></tr>
+<tr><td>echo-stream</td><td>program-error</td><td>style-warning</td></tr>
+<tr><td>end-of-file</td><td>random-state</td><td>symbol</td></tr>
+<tr><td>eql</td><td>ratio</td><td>synonym-stream</td></tr>
+<tr><td>error</td><td>rational</td><td>t</td></tr>
+<tr><td>extended-char</td><td>reader-error</td><td>two-way-stream</td></tr>
+<tr><td>file-error</td><td>readtable</td><td>type-error</td></tr>
+<tr><td>file-stream</td><td>real</td><td>unbound-slot</td></tr>
+<tr><td>fixnum</td><td>restart</td><td>unbound-variable</td></tr>
+<tr><td>float</td><td>satisfies</td><td>undefined-function</td></tr>
+<tr><td>floating-point-inexact</td><td>sequence</td><td>unsigned-byte</td></tr>
+<tr><td>floating-point-invalid-operation</td><td>serious-condition</td><td>values</td></tr>
+<tr><td>floating-point-overflow</td><td>short-float</td><td>vector</td></tr>
+<tr><td>floating-point-underflow</td><td>signed-byte</td><td>warning</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.6: </strong>Standardized Type Specifier Names</p></div></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Type-Relationships.html" accesskey="p" rel="prev">Type Relationships</a>, Up: <a href="Types.html" accesskey="u" rel="up">Types</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

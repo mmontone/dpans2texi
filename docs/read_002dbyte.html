@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>read-byte (ANSI Common Lisp)</title>
+
+<meta name="description" content="read-byte (ANSI Common Lisp)">
+<meta name="keywords" content="read-byte (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="write_002dbyte.html" rel="next" title="write-byte">
+<link href="streamp.html" rel="prev" title="streamp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="read_002dbyte"></span><div class="header">
+<p>
+Next: <a href="write_002dbyte.html" accesskey="n" rel="next">write-byte</a>, Previous: <a href="streamp.html" accesskey="p" rel="prev">streamp</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">read-byte</h4>
+<span id="read_002dbyte-_0028Function_0029"></span><h3 class="heading">read-byte (Function)</h3>
+<span id="index-read_002dbyte-2"></span>
+<span id="index-read_002dbyte"></span>
+
+
+<span id="Syntax_003a-428"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-read_002dbyte-1">Function: <strong>read-byte</strong> <em>stream <tt>&amp;optional</tt> eof-error-p eof-value <span class="roman">→</span> byte</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-417"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>stream</var>&mdash;a <i>binary</i> <i>input</i> <i>stream</i>.
+</p>
+<p><var>eof-error-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>true</i>.
+</p>
+<p><var>eof-value</var>&mdash;an <i>object</i>.
+The default is <code>nil</code>.
+</p>
+<p><var>byte</var>&mdash;an <i>integer</i>,
+or the <var>eof-value</var>.
+</p>
+<span id="Description_003a-545"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>read-byte</code> reads and returns one byte from <var>stream</var>.
+</p>
+<p>If an <i>end of file</i><sub>2</sub>
+the <var>eof-value</var> is returned.  
+</p>
+<span id="Examples_003a-392"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (with-open-file (s &quot;temp-bytes&quot; 
+                     :direction :output
+                     :element-type 'unsigned-byte)
+    (write-byte 101 s)) <span class="roman">→</span> 101
+ (with-open-file (s &quot;temp-bytes&quot; :element-type 'unsigned-byte)
+    (format t &quot;~S ~S&quot; (read-byte s) (read-byte s nil 'eof)))
+▷ 101 EOF
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Side-Effects_003a-60"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Modifies <var>stream</var>.
+</p>
+<span id="Exceptional-Situations_003a-196"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>stream</var> is not a <i>stream</i>.
+</p>
+<p>Should signal an error of <i>type</i> <code>error</code> 
+if <var>stream</var> is not  a <i>binary</i> <i>input</i> <i>stream</i>.
+</p>
+<p>If there are no <i>bytes</i> remaining in the <var>stream</var> 
+and <var>eof-error-p</var> is <i>true</i>, an error of <i>type</i> <code>end-of-file</code> is signaled.
+</p>
+<span id="See-Also_003a-444"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="read_002dchar.html">read-char</a>,
+<a href="read_002dsequence.html">read-sequence</a>,
+<a href="write_002dbyte.html">write-byte</a>
+</p>
+
+
+
+
+</body>
+</html>

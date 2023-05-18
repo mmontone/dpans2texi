@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>compute-restarts (ANSI Common Lisp)</title>
+
+<meta name="description" content="compute-restarts (ANSI Common Lisp)">
+<meta name="keywords" content="compute-restarts (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conditions.html" rel="up" title="Conditions">
+<link href="find_002drestart.html" rel="next" title="find-restart">
+<link href="restart.html" rel="prev" title="restart">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="compute_002drestarts"></span><div class="header">
+<p>
+Next: <a href="find_002drestart.html" accesskey="n" rel="next">find-restart</a>, Previous: <a href="restart.html" accesskey="p" rel="prev">restart</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">compute-restarts</h4>
+<span id="compute_002drestarts-_0028Function_0029"></span><h3 class="heading">compute-restarts (Function)</h3>
+<span id="index-compute_002drestarts-2"></span>
+<span id="index-compute_002drestarts"></span>
+
+
+<span id="Syntax_003a-159"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-compute_002drestarts-1">Function: <strong>compute-restarts</strong> <em><tt>&amp;optional</tt> condition <span class="roman">→</span> restarts</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-148"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>condition</var>&mdash;a <i>condition</i> <i>object</i>, or <code>nil</code>.
+</p>
+<p><var>restarts</var>&mdash;a <i>list</i> of <i>restarts</i>.
+</p>
+<span id="Description_003a-202"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>compute-restarts</code> uses the dynamic state of the program to compute 
+a <i>list</i> of the <i>restarts</i> which are currently active.
+</p>
+<p>The resulting <i>list</i> is ordered so that the innermost
+(more-recently established) restarts are nearer the head of the <i>list</i>.
+</p>
+<p>When <var>condition</var> is <i>non-nil</i>, only those <i>restarts</i>
+are considered that are either explicitly associated with that <var>condition</var>,
+or not associated with any <i>condition</i>; that is, the excluded <i>restarts</i> 
+are those that are associated with a non-empty set of <i>conditions</i> of 
+which the given <var>condition</var> is not an <i>element</i>.
+If <var>condition</var> is <code>nil</code>, all <i>restarts</i> are considered.
+</p>
+<p><code>compute-restarts</code> returns all 
+<i>applicable restarts</i>, 
+including anonymous ones, even if some of them have the same name as 
+others and would therefore not be found by <code>find-restart</code> 
+when given a <i>symbol</i> argument.
+</p>
+<p>Implementations are permitted, but not required, to return <i>distinct</i>
+<i>lists</i> from repeated calls to <code>compute-restarts</code> while in
+the same dynamic environment.  
+The consequences are undefined if the <i>list</i> returned by
+<code>compute-restarts</code> is every modified.
+</p>
+<span id="Examples_003a-130"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> ;; One possible way in which an interactive debugger might present
+ ;; restarts to the user.
+ (defun invoke-a-restart ()
+   (let ((restarts (compute-restarts)))
+     (do ((i 0 (+ i 1)) (r restarts (cdr r))) ((null r))
+       (format t &quot;~&amp;~D: ~A~%&quot; i (car r)))
+     (let ((n nil) (k (length restarts)))
+       (loop (when (and (typep n 'integer) (&gt;= n 0) (&lt; n k))
+               (return t))
+             (format t &quot;~&amp;Option: &quot;)
+             (setq n (read))
+             (fresh-line))
+       (invoke-restart-interactively (nth n restarts)))))
+
+ (restart-case (invoke-a-restart)
+   (one () 1)
+   (two () 2)
+   (nil () :report &quot;Who knows?&quot; 'anonymous)
+   (one () 'I)
+   (two () 'II))
+▷ 0: ONE
+▷ 1: TWO
+▷ 2: Who knows?
+▷ 3: ONE
+▷ 4: TWO
+▷ 5: Return to Lisp Toplevel.
+▷ Option: <kbd>4</kbd>
+<span class="roman">→</span> II
+ 
+ ;; Note that in addition to user-defined restart points, COMPUTE-RESTARTS
+ ;; also returns information about any system-supplied restarts, such as
+ ;; the &quot;Return to Lisp Toplevel&quot; restart offered above.
+ 
+</pre></div>
+
+
+
+<span id="Affected-By_003a-30"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>Existing restarts.
+</p>
+<span id="See-Also_003a-176"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="find_002drestart.html">find-restart</a>,
+<a href="invoke_002drestart.html">invoke-restart</a>,
+<a href="restart_002dbind.html">restart-bind</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="find_002drestart.html" accesskey="n" rel="next">find-restart</a>, Previous: <a href="restart.html" accesskey="p" rel="prev">restart</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

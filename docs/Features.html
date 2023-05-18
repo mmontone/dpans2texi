@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Features (ANSI Common Lisp)</title>
+
+<meta name="description" content="Features (ANSI Common Lisp)">
+<meta name="keywords" content="Features (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="System-Construction-Concepts.html" rel="up" title="System Construction Concepts">
+<link href="compile_002dfile.html" rel="next" title="compile-file">
+<link href="Loading.html" rel="prev" title="Loading">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Features"></span><div class="header">
+<p>
+Previous: <a href="Loading.html" accesskey="p" rel="prev">Loading</a>, Up: <a href="System-Construction-Concepts.html" accesskey="u" rel="up">System Construction Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Features-1"></span><h4 class="subsection">24.1.2 Features</h4>
+
+<p>A <span id="index-feature"></span>
+<em>feature</em> is an aspect or attribute
+of <span class="roman">Common Lisp</span>, 
+of the <i>implementation</i>,
+or of the <i>environment</i>.
+A <i>feature</i> is identified by a <i>symbol</i>.
+</p>
+<p>A <i>feature</i> is said to be <span id="index-present-1"></span>
+<em>present</em> in a <i>Lisp image</i>
+if and only if the <i>symbol</i> naming it is an <i>element</i> of the
+<i>list</i> held by the <i>variable</i> <code>*features*</code>, 
+which is called the <span id="index-features-list"></span>
+<em>features list</em>.
+</p>
+<span id="Feature-Expressions"></span><h4 class="subsubsection">24.1.2.1 Feature Expressions</h4>
+<span id="FeatureExpressions"></span>
+<p>Boolean combinations of <i>features</i>, called 
+<span id="index-feature-expression"></span>
+<em>feature expressions</em>,
+are used by the <code>#+</code> and <code>#-</code> <i>reader macros</i> in order to
+direct conditional <i>reading</i> of <i>expressions</i> by the <i>Lisp reader</i>.
+</p>
+<p>The rules for interpreting a <i>feature expression</i> are as follows:
+</p>
+
+<dl compact="compact">
+<dt><i>feature</i></dt>
+<dd>
+
+<p>If a <i>symbol</i> naming a <i>feature</i> is used as a <i>feature expression</i>,
+the <i>feature expression</i> succeeds if that <i>feature</i> is <i>present</i>;
+otherwise it fails.
+</p>
+</dd>
+<dt><code>(not <var>feature-conditional</var>)</code></dt>
+<dd>
+
+<p>A <tt>not</tt> <i>feature expression</i> succeeds 
+if its argument <var>feature-conditional</var> fails;
+otherwise, it succeeds.
+</p>
+</dd>
+<dt><code>(and <tt>{</tt>feature-conditional<tt>}</tt>*)</code></dt>
+<dd>
+
+<p>An <tt>and</tt> <i>feature expression</i> succeeds 
+if all of its argument <var>feature-conditionals</var> succeed;
+otherwise, it fails.
+</p>
+</dd>
+<dt><code>(or <tt>{</tt>feature-conditional<tt>}</tt>*)</code></dt>
+<dd>
+
+<p>An <tt>or</tt> <i>feature expression</i> succeeds 
+if any of its argument <var>feature-conditionals</var> succeed;
+otherwise, it fails.
+</p></dd>
+</dl>
+
+
+<span id="g_t24_002e1_002e2_002e1_002e1-Examples-of-Feature-Expressions"></span><h4 class="unnumberedsubsubsec">24.1.2.1.1 Examples of Feature Expressions</h4>
+
+<span id="FeatureExpExamples"></span><p>For example, suppose that
+in <i>implementation</i> A, the <i>features</i> <code>spice</code> and <code>perq</code> are <i>present</i>,
+but the <i>feature</i> <code>lispm</code> is not <i>present</i>;
+in <i>implementation</i> B, the feature <code>lispm</code> is <i>present</i>,
+but the <i>features</i> <code>spice</code> and <code>perq</code> are
+not <i>present</i>;
+and 
+in <i>implementation</i> C, none of the features <code>spice</code>, <i>lispm</i>, or <code>perq</code> are
+<i>present</i>.
+The next figure&nbsp;<!-- /@w -->shows some sample <i>expressions</i>, and how they would be 
+<i>read</i><sub>2</sub>
+</p>
+
+<div class="float"><span id="fig24_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>(cons #+spice &quot;Spice&quot; #-spice &quot;Lispm&quot; x)</code></td><td></td></tr>
+<tr><td>in <i>implementation</i> A &hellip;</td><td><code>(CONS &quot;Spice&quot; X)</code></td></tr>
+<tr><td>in <i>implementation</i> B &hellip;</td><td><code>(CONS &quot;Lispm&quot; X)</code></td></tr>
+<tr><td>in <i>implementation</i> C &hellip;</td><td><code>(CONS &quot;Lispm&quot; X)</code></td></tr>
+<tr><td><code>(cons #+spice &quot;Spice&quot; #+LispM &quot;Lispm&quot; x)</code></td><td></td></tr>
+<tr><td>in <i>implementation</i> A &hellip;</td><td><code>(CONS &quot;Spice&quot; X)</code></td></tr>
+<tr><td>in <i>implementation</i> B &hellip;</td><td><code>(CONS &quot;Lispm&quot; X)</code></td></tr>
+<tr><td>in <i>implementation</i> C &hellip;</td><td><code>(CONS X)</code></td></tr>
+<tr><td><code>(setq a '(1 2 #+perq 43 #+(not perq) 27))</code></td><td></td></tr>
+<tr><td>in <i>implementation</i> A &hellip;</td><td><code>(SETQ A '(1 2 43))</code></td></tr>
+<tr><td>in <i>implementation</i> B &hellip;</td><td><code>(SETQ A '(1 2 27))</code></td></tr>
+<tr><td>in <i>implementation</i> C &hellip;</td><td><code>(SETQ A '(1 2 27))</code></td></tr>
+<tr><td><code>(let ((a 3) #+(or spice lispm) (b 3)) (foo a))</code></td><td></td></tr>
+<tr><td>in <i>implementation</i> A &hellip;</td><td><code>(LET ((A 3) (B 3)) (FOO A))</code></td></tr>
+<tr><td>in <i>implementation</i> B &hellip;</td><td><code>(LET ((A 3) (B 3)) (FOO A))</code></td></tr>
+<tr><td>in <i>implementation</i> C &hellip;</td><td><code>(LET ((A 3)) (FOO A))</code></td></tr>
+<tr><td><code>(cons #+Lispm &quot;#+Spice&quot; #+Spice &quot;foo&quot; #-(or Lispm Spice) 7 x)</code></td><td></td></tr>
+<tr><td>in <i>implementation</i> A &hellip;</td><td><code>(CONS &quot;foo&quot; X)</code></td></tr>
+<tr><td>in <i>implementation</i> B &hellip;</td><td><code>(CONS &quot;#+Spice&quot; X)</code></td></tr>
+<tr><td>in <i>implementation</i> C &hellip;</td><td><code>(CONS 7 X)</code></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 24.1: </strong>Features examples</p></div></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Loading.html" accesskey="p" rel="prev">Loading</a>, Up: <a href="System-Construction-Concepts.html" accesskey="u" rel="up">System Construction Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>not (Function) (ANSI Common Lisp)</title>
+
+<meta name="description" content="not (Function) (ANSI Common Lisp)">
+<meta name="keywords" content="not (Function) (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="t-_0028Constant-Variable_0029.html" rel="next" title="t (Constant Variable)">
+<link href="nil-_0028Constant-Variable_0029.html" rel="prev" title="nil (Constant Variable)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="not-_0028Function_0029"></span><div class="header">
+<p>
+Next: <a href="t-_0028Constant-Variable_0029.html" accesskey="n" rel="next">t (Constant Variable)</a>, Previous: <a href="nil-_0028Constant-Variable_0029.html" accesskey="p" rel="prev">nil (Constant Variable)</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">not (Function)</h4>
+<span id="not-_0028Function_0029-1"></span><h3 class="heading">not (Function)</h3>
+<span id="index-not-4"></span>
+<span id="index-not-1"></span>
+
+
+
+<span id="Syntax_003a-61"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-not-2">Function: <strong>not</strong> <em>x <span class="roman">→</span> boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-51"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>x</var>&mdash;a <i>generalized boolean</i> (<i>i.e.</i>, any <i>object</i>).
+</p>
+<p><var>boolean</var>&mdash;a <i>boolean</i>.
+</p>
+<span id="Description_003a-84"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <code>t</code> if <var>x</var> is <i>false</i>; otherwise, returns <code>nil</code>.
+</p>
+<span id="Examples_003a-58"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (not nil) <span class="roman">→</span> T
+ (not '()) <span class="roman">→</span> T
+ (not (integerp 'sss)) <span class="roman">→</span> T
+ (not (integerp 1)) <span class="roman">→</span> NIL
+ (not 3.7) <span class="roman">→</span> NIL
+ (not 'apple) <span class="roman">→</span> NIL
+</pre></div>
+
+
+
+<span id="See-Also_003a-69"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="null-_0028Function_0029.html">null (Function)</a>
+</p>
+<span id="Notes_003a-41"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>not</code> is intended to be used to invert the &lsquo;truth value&rsquo; of a <i>boolean</i>
+(or <i>generalized boolean</i>)
+whereas <code>null</code> is intended to be used to test for the <i>empty list</i>.
+Operationally, <code>not</code> and <code>null</code> compute the same result;
+which to use is a matter of style.
+</p>
+
+
+
+
+</body>
+</html>

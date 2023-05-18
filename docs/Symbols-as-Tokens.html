@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Symbols as Tokens (ANSI Common Lisp)</title>
+
+<meta name="description" content="Symbols as Tokens (ANSI Common Lisp)">
+<meta name="keywords" content="Symbols as Tokens (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Interpretation-of-Tokens.html" rel="up" title="Interpretation of Tokens">
+<link href="Valid-Patterns-for-Tokens.html" rel="next" title="Valid Patterns for Tokens">
+<link href="The-Consing-Dot.html" rel="prev" title="The Consing Dot">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Symbols-as-Tokens"></span><div class="header">
+<p>
+Next: <a href="Valid-Patterns-for-Tokens.html" accesskey="n" rel="next">Valid Patterns for Tokens</a>, Previous: <a href="The-Consing-Dot.html" accesskey="p" rel="prev">The Consing Dot</a>, Up: <a href="Interpretation-of-Tokens.html" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Symbols-as-Tokens-1"></span><h4 class="subsection">2.3.4 Symbols as Tokens</h4>
+
+<p>Any <i>token</i> that is not a <i>potential number</i>,
+does not contain a <i>package marker</i>,
+and does not consist entirely of dots
+will always be interpreted as a <i>symbol</i>.
+Any <i>token</i> that is a <i>potential number</i> but does not fit the       
+number syntax is a reserved <i>token</i> and
+has an <i>implementation-dependent</i> interpretation.
+In all other cases, the <i>token</i> is construed to be the name of a <i>symbol</i>.
+</p>
+<p>Examples of the printed representation of <i>symbols</i> are in the next figure. 
+For presentational simplicity,
+these examples assume that
+the <i>readtable case</i> of the <i>current readtable</i> is <tt>:upcase</tt>.
+</p>
+
+<div class="float"><span id="fig2_002e15"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>FROBBOZ</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>FROBBOZ</code>.</td></tr>
+<tr><td><code>frobboz</code></td><td>Another way to notate the same <i>symbol</i>.</td></tr>
+<tr><td><code>fRObBoz</code></td><td>Yet another way to notate it.</td></tr>
+<tr><td><code>unwind-protect</code></td><td>A <i>symbol</i> with a hyphen in its <i>name</i>.</td></tr>
+<tr><td><code>+$</code></td><td>The <i>symbol</i> named <code>+$</code>.</td></tr>
+<tr><td><code>1+</code></td><td>The <i>symbol</i> named <code>1+</code>.</td></tr>
+<tr><td><code>+1</code></td><td>This is the <i>integer</i> <code>1</code>,
+not a <i>symbol</i>.</td></tr>
+<tr><td><code>pascal_style</code></td><td>This <i>symbol</i> has an underscore 
+in its <i>name</i>.</td></tr>
+<tr><td><code>file.rel.43</code></td><td>This <i>symbol</i> has periods in its <i>name</i>.</td></tr>
+<tr><td><code>\(</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>(</code>.</td></tr>
+<tr><td><code>\+1</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>+1</code>.</td></tr>
+<tr><td><code>+\1</code></td><td>Also the <i>symbol</i> whose <i>name</i> is <code>+1</code>.</td></tr>
+<tr><td><code>\frobboz</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>fROBBOZ</code>.</td></tr>
+<tr><td><code>3.14159265\s0</code></td><td>The <i>symbol</i> whose <i>name</i>
+is <code>3.14159265s0</code>.</td></tr>
+<tr><td><code>3.14159265\S0</code></td><td>A different <i>symbol</i>,  whose <i>name</i> is <code>3.14159265S0</code>.</td></tr>
+<tr><td><code>3.14159265s0</code></td><td>A possible <i>short float</i> 
+approximation to π.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.15: </strong>Examples of the printed representation of symbols (Part 1 of 2)</p></div></div>
+
+
+<div class="float"><span id="fig2_002e16"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>APL\\360</code></td><td>The <i>symbol</i> whose <i>name</i> 
+is <code>APL\360</code>.</td></tr>
+<tr><td><code>apl\\360</code></td><td>Also the <i>symbol</i> whose <i>name</i>  is <code>APL\360</code>.</td></tr>
+<tr><td><code>\(b^2\)\&nbsp;<!-- /@w -->-\&nbsp;<!-- /@w -->4*a<code>*c</code></code></td><td>The <i>name</i> is <code>(B^2) - 4*A*C</code>.</td></tr>
+<tr><td></td><td>Parentheses and two spaces in it.</td></tr>
+<tr><td><code>\(\b^2\)\&nbsp;<!-- /@w -->-\4*\a*\c</code></td><td>The <i>name</i> is <code>(b^2) - 4*a*c</code>.</td></tr>
+<tr><td></td><td>Letters explicitly lowercase.</td></tr>
+<tr><td><code>|&quot;|</code></td><td>The same as writing <code>\&quot;</code>.</td></tr>
+<tr><td><code>|(b^2) - 4*a*c|</code></td><td>The <i>name</i> is <code>(b^2) - 4*a*c</code>.</td></tr>
+<tr><td><code>|frobboz|</code></td><td>The <i>name</i> is <code>frobboz</code>, not <code>FROBBOZ</code>.</td></tr>
+<tr><td><code>|APL\360|</code></td><td>The <i>name</i> is <code>APL360</code>.</td></tr>
+<tr><td><code>|APL\\360|</code></td><td>The <i>name</i> is <code>APL\360</code>.</td></tr>
+<tr><td><code>|apl\\360|</code></td><td>The <i>name</i> is <code>apl\360</code>.</td></tr>
+<tr><td><code>|\|\||</code></td><td>Same as <code>\|\|</code> &mdash;the <i>name</i> is <code>||</code>.</td></tr>
+<tr><td><code>|(B^2) - 4*A*C|</code></td><td>The <i>name</i> is <code>(B^2) - 4*A*C</code>.</td></tr>
+<tr><td></td><td>Parentheses and two spaces in it.</td></tr>
+<tr><td><code>|(b^2) - 4*a*c|</code></td><td>The <i>name</i> is <code>(b^2) - 4*a*c</code>.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.16: </strong>Examples of the printed representation of symbols (Part 2 of 2)</p></div></div>
+
+<p>In the process of parsing a <i>symbol</i>,
+it is <i>implementation-dependent</i> which
+<i>implementation-defined</i> <i>attributes</i> are removed
+from the <i>characters</i> forming a <i>token</i> that represents a <i>symbol</i>.
+</p>
+<p>When parsing the syntax for a <i>symbol</i>,
+the <i>Lisp reader</i> looks up the <i>name</i> of that <i>symbol</i> 
+in the <i>current package</i>.
+This lookup may involve looking in other 
+<i>packages</i> whose <i>external symbols</i>
+are inherited by the <i>current package</i>.  If the name is found,
+the corresponding <i>symbol</i> is returned.  If the name is not found
+(that is, there is no <i>symbol</i> 
+of that name <i>accessible</i> in the <i>current package</i>),
+a new <i>symbol</i> is created and is placed in the <i>current package</i>
+as an <i>internal symbol</i>.  The <i>current package</i> becomes the owner
+(<i>home package</i>) of the <i>symbol</i>, 
+and the <i>symbol</i> becomes interned in the <i>current package</i>.
+If the name is later read again while this same <i>package</i> is
+current, the same <i>symbol</i> will be found and returned.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Valid-Patterns-for-Tokens.html" accesskey="n" rel="next">Valid Patterns for Tokens</a>, Previous: <a href="The-Consing-Dot.html" accesskey="p" rel="prev">The Consing Dot</a>, Up: <a href="Interpretation-of-Tokens.html" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

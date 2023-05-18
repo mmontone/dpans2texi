@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>symbol-macrolet (ANSI Common Lisp)</title>
+
+<meta name="description" content="symbol-macrolet (ANSI Common Lisp)">
+<meta name="keywords" content="symbol-macrolet (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="_002amacroexpand_002dhook_002a.html" rel="next" title="*macroexpand-hook*">
+<link href="define_002dsymbol_002dmacro.html" rel="prev" title="define-symbol-macro">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="symbol_002dmacrolet"></span><div class="header">
+<p>
+Next: <a href="_002amacroexpand_002dhook_002a.html" accesskey="n" rel="next">*macroexpand-hook*</a>, Previous: <a href="define_002dsymbol_002dmacro.html" accesskey="p" rel="prev">define-symbol-macro</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">symbol-macrolet</h4>
+<span id="symbol_002dmacrolet-_0028Special-Operator_0029"></span><h3 class="heading">symbol-macrolet (Special Operator)</h3>
+<span id="index-symbol_002dmacrolet-3"></span>
+<span id="index-symbol_002dmacrolet-1"></span>
+
+
+
+<span id="Syntax_003a-13"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-symbol_002dmacrolet-2">Special Form: <strong>symbol-macrolet</strong> <em><tt>(</tt><tt>{</tt><tt>(</tt>symbol expansion<tt>)</tt><tt>}</tt>*<tt>)</tt> <tt>{</tt>declaration<tt>}</tt>*  <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-12"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>symbol</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>expansion</var>&mdash;a <i>form</i>.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>forms</var>&mdash;an <i>implicit progn</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> returned by the <var>forms</var>.
+</p>
+<span id="Description_003a-13"></span><h4 class="subsubheading">Description:</h4>
+
+
+<p><code>symbol-macrolet</code> provides a mechanism for 
+affecting the <i>macro expansion</i> environment for <i>symbols</i>.
+</p>
+<p><code>symbol-macrolet</code> lexically establishes expansion functions
+for each of the <i>symbol macros</i> named by <var>symbols</var>.
+The only guaranteed property of an expansion <i>function</i> for a <i>symbol macro</i>
+is that when it is applied to the <i>form</i> and the <i>environment</i> it returns
+the correct expansion.  (In particular, it is <i>implementation-dependent</i> 
+whether the expansion is conceptually stored in the expansion function,
+the <i>environment</i>, or both.)
+</p>
+<p>Each reference to <var>symbol</var> as a variable within the lexical <i>scope</i>
+of <code>symbol-macrolet</code> is expanded by the normal macro expansion process;
+see <a href="The-Evaluation-Model.html#SymbolsAsForms">Section 3.1.2.1.1 (Symbols as Forms)</a>.
+The expansion of a symbol macro is subject to further macro expansion
+in the same lexical environment as the symbol macro invocation, exactly 
+analogous to normal <i>macros</i>.
+</p>
+<p>Exactly the same <var>declarations</var> are allowed as for <code>let</code>
+with one exception: <code>symbol-macrolet</code> signals an error
+if a <code>special</code> declaration names one of the <i>symbols</i> 
+being defined by <code>symbol-macrolet</code>.  
+</p>
+<p>When the <var>forms</var> of the <code>symbol-macrolet</code> form are expanded, 
+any use of <code>setq</code> to set the value of one of the specified variables 
+is treated as if it were a <code>setf</code>.
+<code>psetq</code> of a <i>symbol</i> defined as a symbol macro 
+is treated as if it were a <code>psetf</code>, and
+<code>multiple-value-setq</code> 
+is treated as if it were a <code>setf</code> of <code>values</code>.
+</p>
+<p>The use of <code>symbol-macrolet</code> can be shadowed by <code>let</code>.
+In other words, <code>symbol-macrolet</code> only substitutes for occurrences
+of <var>symbol</var> that would be in the <i>scope</i> of a lexical binding of
+<var>symbol</var> surrounding the <var>forms</var>.
+</p>
+<span id="Examples_003a-11"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">;;; The following is equivalent to
+;;;   (list 'foo (let ((x 'bar)) x)),
+;;; not
+;;;   (list 'foo (let (('foo 'bar)) 'foo))
+ (symbol-macrolet ((x 'foo))
+   (list x (let ((x 'bar)) x))) 
+<span class="roman">→</span> (foo bar)
+not<span class="roman">→</span> (foo foo) 
+ 
+ (symbol-macrolet ((x '(foo x)))
+   (list x))
+<span class="roman">→</span> ((FOO X))
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-4"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+<p>If an attempt is made to bind a <i>symbol</i> that is defined as a <i>global variable</i>,
+an error of <i>type</i> <code>program-error</code> is signaled.
+</p>
+<p>If <var>declaration</var> contains a <code>special</code> declaration 
+that names one of the <i>symbols</i> being bound by <code>symbol-macrolet</code>,
+an error of <i>type</i> <code>program-error</code> is signaled.
+</p>
+<span id="See-Also_003a-13"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="with_002dslots.html">with-slots</a>, <a href="macroexpand_003b-macroexpand_002d1.html#macroexpand">macroexpand</a>
+</p>
+<span id="Notes_003a-9"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The special form <code>symbol-macrolet</code> is the basic mechanism that is used to
+implement <code>with-slots</code>.
+</p>
+<p>If a <code>symbol-macrolet</code> <i>form</i> is a <i>top level form</i>,
+the <var>forms</var> are also processed as <i>top level forms</i>.
+See <a href="File-Compilation.html">Section 3.2.3 (File Compilation)</a>.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="_002amacroexpand_002dhook_002a.html" accesskey="n" rel="next">*macroexpand-hook*</a>, Previous: <a href="define_002dsymbol_002dmacro.html" accesskey="p" rel="prev">define-symbol-macro</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ignore; ignorable (ANSI Common Lisp)</title>
+
+<meta name="description" content="ignore; ignorable (ANSI Common Lisp)">
+<meta name="keywords" content="ignore; ignorable (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="dynamic_002dextent.html" rel="next" title="dynamic-extent">
+<link href="declare.html" rel="prev" title="declare">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="ignore_003b-ignorable"></span><div class="header">
+<p>
+Next: <a href="dynamic_002dextent.html" accesskey="n" rel="next">dynamic-extent</a>, Previous: <a href="declare.html" accesskey="p" rel="prev">declare</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">ignore; ignorable</h4>
+<span id="ignore_002c-ignorable-_0028Declaration_0029"></span><h3 class="heading">ignore, ignorable (Declaration)</h3>
+<span id="index-ignore-1"></span>
+<span id="index-ignore"></span>
+<span id="index-ignorable-1"></span>
+<span id="index-ignorable"></span>
+<span id="ignore"></span><span id="ignorable"></span>
+
+
+<span id="Syntax_003a-17"></span><h4 class="subsubheading">Syntax:</h4>
+
+<p><code><tt>(</tt>ignore <tt>{</tt><var>var</var> | <tt>(</tt><tt>function</tt> <var>fn</var><tt>)</tt><tt>}</tt>*<tt>)</tt></code>
+</p>
+<p><code><tt>(</tt>ignorable <tt>{</tt><var>var</var> | <tt>(</tt><tt>function</tt> <var>fn</var><tt>)</tt><tt>}</tt>*<tt>)</tt></code>
+</p>
+<span id="Arguments_003a-2"></span><h4 class="subsubheading">Arguments:</h4>
+
+<p><var>var</var>&mdash;a <i>variable</i> <i>name</i>.
+</p>
+<p><var>fn</var>&mdash;a <i>function</i> <i>name</i>.
+</p>
+<span id="Valid-Context_003a"></span><h4 class="subsubheading">Valid Context:</h4>
+
+<p><i>declaration</i>
+</p>
+<span id="Binding-Types-Affected_003a"></span><h4 class="subsubheading">Binding Types Affected:</h4>
+
+<p><i>variable</i>, <i>function</i>
+</p>
+<span id="Description_003a-18"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <code>ignore</code> and <code>ignorable</code> declarations
+refer to <i>for-value</i> <i>references</i> 
+to <i>variable</i> <i>bindings</i> for the <var>vars</var>
+and to <i>function</i> <i>bindings</i> for the <var>fns</var>.
+</p>
+<p>An <code>ignore</code> <i>declaration</i> specifies that
+<i>for-value</i> <i>references</i> to the indicated <i>bindings</i>
+will not
+occur within the scope of the <i>declaration</i>.
+Within the <i>scope</i> of such a <i>declaration</i>,
+it is desirable
+for a compiler to issue a warning about 
+the presence of
+either a <i>for-value</i> <i>reference</i> to any <var>var</var> or <var>fn</var>,
+or a <code>special</code> <i>declaration</i> for any <var>var</var>.
+</p>
+<p>An <code>ignorable</code> <i>declaration</i> specifies that 
+<i>for-value</i> <i>references</i> to the indicated <i>bindings</i>
+might or might not
+occur within the scope of the <i>declaration</i>.
+Within the <i>scope</i> of such a <i>declaration</i>,
+it is not desirable
+for a compiler to issue a warning about
+the presence or absence of
+either a <i>for-value</i> <i>reference</i> to any <var>var</var> or <var>fn</var>,
+or a <code>special</code> <i>declaration</i> for any <var>var</var>.
+</p>
+<p>When not within the <i>scope</i> 
+of a <code>ignore</code> or <code>ignorable</code> <i>declaration</i>,
+it is desirable
+for a compiler to issue a warning about
+any <var>var</var> for which there is 
+neither a <i>for-value</i> <i>reference</i> 
+nor a <code>special</code> <i>declaration</i>,
+or about
+any <var>fn</var> for which there is 
+no <i>for-value</i> <i>reference</i>.
+</p>
+<p>Any warning about a &ldquo;used&rdquo; or &ldquo;unused&rdquo; <i>binding</i> must be of <i>type</i> <code>style-warning</code>,
+and may not affect program semantics.
+</p>
+
+<p>The <i>stream variables</i> established by 
+<code>with-open-file</code>,
+<code>with-open-stream</code>,
+<code>with-input-from-string</code>,
+and <code>with-output-to-string</code>,
+and all <i>iteration variables</i> are, by definition, always &ldquo;used&rdquo;.
+Using <code>(declare (ignore <var>v</var>))</code>, 
+for such a <i>variable</i> <var>v</var> has unspecified consequences.
+</p>
+
+
+<span id="See-Also_003a-18"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="declare.html">declare</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="dynamic_002dextent.html" accesskey="n" rel="next">dynamic-extent</a>, Previous: <a href="declare.html" accesskey="p" rel="prev">declare</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

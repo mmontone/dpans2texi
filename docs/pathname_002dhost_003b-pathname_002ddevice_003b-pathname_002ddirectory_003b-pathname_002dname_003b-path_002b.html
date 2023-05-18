@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>pathname-host; pathname-device; pathname-directory; pathname-name; path+ (ANSI Common Lisp)</title>
+
+<meta name="description" content="pathname-host; pathname-device; pathname-directory; pathname-name; path+ (ANSI Common Lisp)">
+<meta name="keywords" content="pathname-host; pathname-device; pathname-directory; pathname-name; path+ (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Filenames.html" rel="up" title="Filenames">
+<link href="load_002dlogical_002dpathname_002dtranslations.html" rel="next" title="load-logical-pathname-translations">
+<link href="pathnamep.html" rel="prev" title="pathnamep">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="pathname_002dhost_003b-pathname_002ddevice_003b-pathname_002ddirectory_003b-pathname_002dname_003b-path_002b"></span><div class="header">
+<p>
+Next: <a href="load_002dlogical_002dpathname_002dtranslations.html" accesskey="n" rel="next">load-logical-pathname-translations</a>, Previous: <a href="pathnamep.html" accesskey="p" rel="prev">pathnamep</a>, Up: <a href="Filenames.html" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">pathname-host; pathname-device; pathname-directory; pathname-name; path+</h4>
+<span id="pathname_002dhost_002c-pathname_002ddevice_002c-pathname_002ddirectory_002c-pathname_002dname_002c-pathname_002dtype_002c-pathname_002dversion-_0028Function_0029"></span><h3 class="heading">pathname-host, pathname-device, pathname-directory, pathname-name, pathname-type, pathname-version (Function)</h3>
+<span id="index-pathname_002dhost-2"></span>
+<span id="index-pathname_002dhost"></span>
+<span id="index-pathname_002ddevice-2"></span>
+<span id="index-pathname_002ddevice"></span>
+<span id="index-pathname_002ddirectory-2"></span>
+<span id="index-pathname_002ddirectory"></span>
+<span id="index-pathname_002dname-2"></span>
+<span id="index-pathname_002dname"></span>
+<span id="index-pathname_002dtype-2"></span>
+<span id="index-pathname_002dtype"></span>
+<span id="index-pathname_002dversion-2"></span>
+<span id="index-pathname_002dversion"></span>
+<span id="pathname_002dhost"></span>
+
+<span id="Syntax_003a-403"></span><h4 class="subsubheading">Syntax:</h4>
+
+
+<dl>
+<dt id="index-pathname_002dhost-1">Function: <strong>pathname-host</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> host</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002ddevice-1">Function: <strong>pathname-device</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> device</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002ddirectory-1">Function: <strong>pathname-directory</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> directory</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002dname-1">Function: <strong>pathname-name</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> name</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002dtype-1">Function: <strong>pathname-type</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> type</em></dt>
+</dl>
+
+
+<dl>
+<dt id="index-pathname_002dversion-1">Function: <strong>pathname-version</strong> <em>pathname <span class="roman">→</span> version</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-392"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>case</var>&mdash;one of <tt>:local</tt> or <tt>:common</tt>.
+The default is <tt>:local</tt>.
+</p>
+<p><var>host</var>&mdash;a <i>valid pathname host</i>.
+</p>
+<p><var>device</var>&mdash;a <i>valid pathname device</i>.
+</p>
+<p><var>directory</var>&mdash;a <i>valid pathname directory</i>.
+</p>
+<p><var>name</var>&mdash;a <i>valid pathname name</i>.
+</p>
+<p><var>type</var>&mdash;a <i>valid pathname type</i>.
+</p>
+<p><var>version</var>&mdash;a <i>valid pathname version</i>.
+</p>
+
+<span id="Description_003a-510"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These functions return the components of <var>pathname</var>.
+</p>
+<p>If the <var>pathname</var> <i>designator</i> is a <i>pathname</i>,
+it represents the name used to open the file. This may be, but is
+not required to be, the actual name of the file. 
+</p>
+<p>If <var>case</var> is supplied,
+it is treated as described in <a href="Interpreting-Pathname-Component-Values.html#PathnameComponentCase">Section 19.2.2.1.2 (Case in Pathname Components)</a>.
+</p>
+<span id="Examples_003a-372"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq q (make-pathname :host &quot;KATHY&quot;
+                        :directory &quot;CHAPMAN&quot; 
+                        :name &quot;LOGIN&quot; :type &quot;COM&quot;))
+<span class="roman">→</span> #P&quot;KATHY::[CHAPMAN]LOGIN.COM&quot;
+ (pathname-host q) <span class="roman">→</span> &quot;KATHY&quot;
+ (pathname-name q) <span class="roman">→</span> &quot;LOGIN&quot;
+ (pathname-type q) <span class="roman">→</span> &quot;COM&quot;
+
+ ;; Because namestrings are used, the results shown in the remaining
+ ;; examples are not necessarily the only possible results.  Mappings
+ ;; from namestring representation to pathname representation are 
+ ;; dependent both on the file system involved and on the implementation
+ ;; (since there may be several implementations which can manipulate the
+ ;; the same file system, and those implementations are not constrained
+ ;; to agree on all details). Consult the documentation for each
+ ;; implementation for specific information on how namestrings are treated
+ ;; that implementation.
+
+ ;; VMS
+ (pathname-directory (parse-namestring &quot;[FOO.*.BAR]BAZ.LSP&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+ (pathname-directory (parse-namestring &quot;[FOO.*.BAR]BAZ.LSP&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+
+ ;; Unix
+ (pathname-directory &quot;foo.l&quot;) <span class="roman">→</span> NIL
+ (pathname-device &quot;foo.l&quot;) <span class="roman">→</span> :UNSPECIFIC
+ (pathname-name &quot;foo.l&quot;) <span class="roman">→</span> &quot;foo&quot;
+ (pathname-name &quot;foo.l&quot; :case :local) <span class="roman">→</span> &quot;foo&quot;
+ (pathname-name &quot;foo.l&quot; :case :common) <span class="roman">→</span> &quot;FOO&quot;
+ (pathname-type &quot;foo.l&quot;) <span class="roman">→</span> &quot;l&quot;
+ (pathname-type &quot;foo.l&quot; :case :local) <span class="roman">→</span> &quot;l&quot;
+ (pathname-type &quot;foo.l&quot; :case :common) <span class="roman">→</span> &quot;L&quot;
+ (pathname-type &quot;foo&quot;) <span class="roman">→</span> :UNSPECIFIC
+ (pathname-type &quot;foo&quot; :case :common) <span class="roman">→</span> :UNSPECIFIC
+ (pathname-type &quot;foo.&quot;) <span class="roman">→</span> &quot;&quot;
+ (pathname-type &quot;foo.&quot; :case :common) <span class="roman">→</span> &quot;&quot;
+ (pathname-directory (parse-namestring &quot;/foo/bar/baz.lisp&quot;) :case :local)
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;/foo/bar/baz.lisp&quot;) :case :local)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+ (pathname-directory (parse-namestring &quot;../baz.lisp&quot;))
+<span class="roman">→</span> (:RELATIVE :UP)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/BAR/../Mum/baz&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; &quot;BAR&quot; :UP &quot;Mum&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/BAR/../Mum/baz&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;bar&quot; :UP &quot;Mum&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/*/bar/baz.l&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; :WILD &quot;bar&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/*/bar/baz.l&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; :WILD &quot;BAR&quot;)
+
+ ;; Symbolics LMFS
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;**&gt;bar&gt;baz.lisp&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; :WILD-INFERIORS &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;*&gt;bar&gt;baz.lisp&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; :WILD &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;*&gt;bar&gt;baz.lisp&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; :WILD &quot;BAR&quot;)
+ (pathname-device (parse-namestring &quot;&gt;foo&gt;baz.lisp&quot;)) <span class="roman">→</span> :UNSPECIFIC
+</pre></div>
+
+
+<span id="Affected-By_003a-73"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i> and the host <i>file system</i>.
+</p>
+<span id="Exceptional-Situations_003a-174"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its first argument is not a <i>pathname</i>.
+</p>
+<span id="See-Also_003a-414"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="pathname-_0028System-Class_0029.html">pathname (System Class)</a>,
+<a href="logical_002dpathname-_0028System-Class_0029.html">logical-pathname (System Class)</a>,
+<a href="File-System-Concepts.html">Section 20.1 (File System Concepts)</a>,
+<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="load_002dlogical_002dpathname_002dtranslations.html" accesskey="n" rel="next">load-logical-pathname-translations</a>, Previous: <a href="pathnamep.html" accesskey="p" rel="prev">pathnamep</a>, Up: <a href="Filenames.html" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

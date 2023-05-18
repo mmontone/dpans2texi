@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>dpb (ANSI Common Lisp)</title>
+
+<meta name="description" content="dpb (ANSI Common Lisp)">
+<meta name="keywords" content="dpb (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="ldb.html" rel="next" title="ldb">
+<link href="deposit_002dfield.html" rel="prev" title="deposit-field">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="dpb"></span><div class="header">
+<p>
+Next: <a href="ldb.html" accesskey="n" rel="next">ldb</a>, Previous: <a href="deposit_002dfield.html" accesskey="p" rel="prev">deposit-field</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">dpb</h4>
+<span id="dpb-_0028Function_0029"></span><h3 class="heading">dpb (Function)</h3>
+<span id="index-dpb-2"></span>
+<span id="index-dpb"></span>
+
+
+<span id="Syntax_003a-261"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-dpb-1">Function: <strong>dpb</strong> <em>newbyte bytespec integer <span class="roman">→</span> result-integer</em></dt>
+</dl>
+
+<span id="Pronunciation_003a-5"></span><h4 class="subsubheading">Pronunciation:</h4>
+
+<p>[ˌdə ˈpib]
+or [ˌdə ˈpə b]
+or [ˈdēˈpēˈbē]
+</p>
+<span id="Arguments-and-Values_003a-250"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>newbyte</var>&mdash;an <i>integer</i>.
+</p>
+<p><var>bytespec</var>&mdash;a <i>byte specifier</i>.
+</p>
+<p><var>integer</var>&mdash;an <i>integer</i>.
+</p>
+<p><var>result-integer</var>&mdash;an <i>integer</i>.
+</p>
+<span id="Description_003a-333"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>dpb</code> (deposit byte) is used to 
+replace a field of bits within <var>integer</var>.  
+<code>dpb</code> returns an <i>integer</i> that is 
+the same as <var>integer</var> except in the bits specified by <var>bytespec</var>.
+</p>
+<p>Let <code>s</code> be the size specified
+by <var>bytespec</var>; then the low <code>s</code> bits of <var>newbyte</var> appear in
+the result in the byte specified by <var>bytespec</var>.
+<var>Newbyte</var> is interpreted as
+being right-justified, as if it were the result of <code>ldb</code>.
+</p>
+<span id="Examples_003a-235"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (dpb 1 (byte 1 10) 0) <span class="roman">→</span> 1024
+ (dpb -2 (byte 2 10) 0) <span class="roman">→</span> 2048
+ (dpb 1 (byte 2 10) 2048) <span class="roman">→</span> 1024
+</pre></div>
+
+
+<span id="See-Also_003a-275"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="byte_003b-byte_002dsize_003b-byte_002dposition.html#byte">byte</a>, <a href="deposit_002dfield.html">deposit-field</a>, <a href="ldb.html">ldb</a>
+</p>
+<span id="Notes_003a-177"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (logbitp <var>j</var> (dpb <var>m</var> (byte <var>s</var> <var>p</var>) <var>n</var>))
+ ≡ (if (and (&gt;= <var>j</var> <var>p</var>) (&lt; <var>j</var> (+ <var>p</var> <var>s</var>)))
+        (logbitp (- <var>j</var> <var>p</var>) <var>m</var>)
+        (logbitp <var>j</var> <var>n</var>))
+</pre></div>
+
+
+<p>In general,
+</p>
+<div class="lisp">
+<pre class="lisp"> (dpb <var>x</var> (byte 0 <var>y</var>) <var>z</var>) <span class="roman">→</span> <var>z</var>
+</pre></div>
+
+
+<p>for all valid values of <var>x</var>, <var>y</var>, and <var>z</var>.
+</p>
+<p>Historically, the name &ldquo;dpb&rdquo; comes from a DEC PDP-10 assembly language
+instruction meaning &ldquo;deposit byte.&rdquo;
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>software-type; software-version (ANSI Common Lisp)</title>
+
+<meta name="description" content="software-type; software-version (ANSI Common Lisp)">
+<meta name="keywords" content="software-type; software-version (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Environment.html" rel="up" title="Environment">
+<link href="user_002dhomedir_002dpathname.html" rel="next" title="user-homedir-pathname">
+<link href="machine_002dversion.html" rel="prev" title="machine-version">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="software_002dtype_003b-software_002dversion"></span><div class="header">
+<p>
+Next: <a href="user_002dhomedir_002dpathname.html" accesskey="n" rel="next">user-homedir-pathname</a>, Previous: <a href="machine_002dversion.html" accesskey="p" rel="prev">machine-version</a>, Up: <a href="Environment.html" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">software-type; software-version</h4>
+<span id="software_002dtype_002c-software_002dversion-_0028Function_0029"></span><h3 class="heading">software-type, software-version (Function)</h3>
+<span id="index-software_002dtype-2"></span>
+<span id="index-software_002dtype"></span>
+<span id="index-software_002dversion-2"></span>
+<span id="index-software_002dversion"></span>
+
+
+<span id="Syntax_003a-524"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-software_002dtype-1">Function: <strong>software-type</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+<dl>
+<dt id="index-software_002dversion-1">Function: <strong>software-version</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-510"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>description</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-677"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>software-type</code> returns a <i>string</i> that identifies the
+generic name of any relevant supporting software, or <code>nil</code>&nbsp;<!-- /@w -->if no
+appropriate or relevant result can be produced.          
+</p>
+<p><code>software-version</code> returns a <i>string</i> that identifies 
+the version of any relevant supporting software, or <code>nil</code>&nbsp;<!-- /@w -->if no 
+appropriate or relevant result can be produced.          
+</p>
+<span id="Examples_003a-477"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (software-type) <span class="roman">→</span> &quot;Multics&quot;
+ (software-version) <span class="roman">→</span> &quot;1.3x&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-140"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>Operating system environment.
+</p>
+<span id="Notes_003a-336"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>This information should be of use to maintainers of the <i>implementation</i>.
+</p>
+
+
+
+
+</body>
+</html>

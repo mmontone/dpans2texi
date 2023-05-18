@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>storage-condition (ANSI Common Lisp)</title>
+
+<meta name="description" content="storage-condition (ANSI Common Lisp)">
+<meta name="keywords" content="storage-condition (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conditions.html" rel="up" title="Conditions">
+<link href="assert.html" rel="next" title="assert">
+<link href="parse_002derror.html" rel="prev" title="parse-error">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="storage_002dcondition"></span><div class="header">
+<p>
+Next: <a href="assert.html" accesskey="n" rel="next">assert</a>, Previous: <a href="parse_002derror.html" accesskey="p" rel="prev">parse-error</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">storage-condition</h4>
+<span id="storage_002dcondition-_0028Condition-Type_0029"></span><h3 class="heading">storage-condition (Condition Type)</h3>
+<span id="index-storage_002dcondition-1"></span>
+<span id="index-storage_002dcondition"></span>
+
+
+<span id="Class-Precedence-List_003a-26"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>storage-condition</code>,
+<code>serious-condition</code>,
+<code>condition</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-179"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>storage-condition</code> consists of serious conditions that 
+relate to problems with memory management that are potentially due to
+<i>implementation-dependent</i> limits rather than semantic errors
+in <i>conforming programs</i>, and that typically warrant entry to the 
+debugger if not handled.  Depending on the details of the <i>implementation</i>, 
+these might include such problems as 
+stack overflow,
+memory region overflow, 
+and
+storage exhausted.
+</p>
+<span id="Notes_003a-96"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>While some <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->operations might signal <i>storage-condition</i>
+because they are defined to create <i>objects</i>,
+it is unspecified whether operations that are not defined to create
+<i>objects</i> create them anyway 
+and so might also signal <code>storage-condition</code>.
+Likewise, the evaluator itself might create <i>objects</i>
+and so might signal <code>storage-condition</code>.
+(The natural assumption might be that such 
+<i>object</i> creation is naturally inefficient, 
+but even that is <i>implementation-dependent</i>.)
+In general, the entire question of how storage allocation is done is
+<i>implementation-dependent</i>, 
+and so any operation might signal <code>storage-condition</code> at any time.
+Because such a <i>condition</i> is indicative of a limitation 
+of the <i>implementation</i> 
+or of the <i>image</i>
+rather than an error in a <i>program</i>,
+<i>objects</i> of <i>type</i> <code>storage-condition</code> are not of <i>type</i> <code>error</code>.
+</p>
+
+
+
+
+</body>
+</html>

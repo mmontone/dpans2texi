@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>prog; prog* (ANSI Common Lisp)</title>
+
+<meta name="description" content="prog; prog* (ANSI Common Lisp)">
+<meta name="keywords" content="prog; prog* (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="prog1_003b-prog2.html" rel="next" title="prog1; prog2">
+<link href="nth_002dvalue.html" rel="prev" title="nth-value">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="prog_003b-prog_002a"></span><div class="header">
+<p>
+Next: <a href="prog1_003b-prog2.html" accesskey="n" rel="next">prog1; prog2</a>, Previous: <a href="nth_002dvalue.html" accesskey="p" rel="prev">nth-value</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">prog; prog*</h4>
+<span id="prog_002c-prog_002a-_0028Macro_0029"></span><h3 class="heading">prog, prog* (Macro)</h3>
+<span id="index-prog-2"></span>
+<span id="index-prog"></span>
+<span id="index-prog_002a-2"></span>
+<span id="index-prog_002a"></span>
+
+
+
+<span id="Syntax_003a-85"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-prog-1">Macro: <strong>prog</strong> <em><tt>(</tt><tt>{</tt><var>var</var> <span class="roman">|</span>  <tt>(</tt><var>var</var> <tt>[</tt><var>init-form</var><tt>]</tt><tt>)</tt><tt>}</tt>*<tt>)</tt> <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt><var>tag</var> <span class="roman">|</span> <var>statement</var><tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<dl>
+<dt id="index-prog_002a-1">Macro: <strong>prog*</strong> <em><tt>(</tt><tt>{</tt><var>var</var> <span class="roman">|</span>  <tt>(</tt><var>var</var> <tt>[</tt><var>init-form</var><tt>]</tt><tt>)</tt><tt>}</tt>*<tt>)</tt> <tt>{</tt>declaration<tt>}</tt>*  <tt>{</tt><var>tag</var> <span class="roman">|</span> <var>statement</var><tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-75"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>var</var>&mdash;variable name.
+</p>
+<p><var>init-form</var>&mdash;a <i>form</i>.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>tag</var>&mdash;a <i>go tag</i>; not evaluated.
+</p>
+<p><var>statement</var>&mdash;a <i>compound form</i>; evaluated as described below.
+</p>
+<p><var>results</var>&mdash;<code>nil</code>&nbsp;<!-- /@w -->if a <i>normal return</i> occurs,
+or else, if an <i>explicit return</i> occurs, the <i>values</i> that were transferred.
+</p>
+<span id="Description_003a-110"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Three distinct operations are performed by <code>prog</code> and 
+<code>prog*</code>:  
+they bind local variables,
+they permit use of the <code>return</code> 
+statement, and they permit use of the <code>go</code>
+statement.
+A typical <code>prog</code> looks like this:
+</p>
+<div class="lisp">
+<pre class="lisp"> (prog (var1 var2 (var3 init-form-3) var4 (var5 init-form-5))
+       <tt>{</tt>declaration<tt>}</tt>*
+       statement1
+  tag1
+       statement2
+       statement3
+       statement4
+  tag2
+       statement5
+       ...
+       )
+</pre></div>
+
+
+<p>For <code>prog</code>,
+<var>init-forms</var> are evaluated first, in the order in which they are
+supplied. The <var>vars</var> are then bound to the corresponding values in
+parallel.  If no <var>init-form</var> 
+is supplied for a given <var>var</var>, 
+that <var>var</var> is  bound to <code>nil</code>.
+</p>
+<p>The body of <code>prog</code> is executed as if it were a <code>tagbody</code> <i>form</i>;
+the <code>go</code> statement can be used to transfer control
+to a <var>tag</var>.
+<var>Tags</var> label <var>statements</var>.
+</p>
+<p><code>prog</code> implicitly establishes a <code>block</code> named <code>nil</code>&nbsp;<!-- /@w -->around
+the entire <code>prog</code> <i>form</i>, so that <code>return</code> can be used
+at any time to exit from the <code>prog</code> <i>form</i>.
+</p>
+<p>The difference between <code>prog*</code> and <code>prog</code> is that
+in <code>prog*</code> the <i>binding</i> and initialization of the <var>vars</var> 
+is done <i>sequentially</i>, so that the <var>init-form</var> for each
+one can use the values of previous ones.
+</p>
+<span id="Examples_003a-83"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp">(prog* ((y z) (x (car y)))
+       (return x))
+</pre></div>
+
+<p>returns the <i>car</i> of the value of <code>z</code>.
+</p>
+<div class="lisp">
+<pre class="lisp"> (setq a 1) <span class="roman">→</span> 1
+ (prog ((a 2) (b a)) (return (if (= a b) '= '/=))) <span class="roman">→</span> /=
+ (prog* ((a 2) (b a)) (return (if (= a b) '= '/=))) <span class="roman">→</span> =
+ (prog () 'no-return-value) <span class="roman">→</span> NIL
+</pre></div>
+
+<div class="lisp">
+<pre class="lisp"> (defun king-of-confusion (w)
+   &quot;Take a cons of two lists and make a list of conses.
+    Think of this function as being like a zipper.&quot;
+   (prog (x y z)          ;Initialize x, y, z to NIL
+        (setq y (car w) z (cdr w))
+    loop
+        (cond ((null y) (return x))
+              ((null z) (go err)))
+    rejoin
+        (setq x (cons (cons (car y) (car z)) x))
+        (setq y (cdr y) z (cdr z))
+        (go loop)
+    err
+        (cerror &quot;Will self-pair extraneous items&quot;
+                &quot;Mismatch - gleep!  ~S&quot; y)
+        (setq z y)
+        (go rejoin))) <span class="roman">→</span> KING-OF-CONFUSION 
+</pre></div>
+
+<p>This can be accomplished more perspicuously as follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun prince-of-clarity (w)
+   &quot;Take a cons of two lists and make a list of conses.
+    Think of this function as being like a zipper.&quot;
+   (do ((y (car w) (cdr y))
+        (z (cdr w) (cdr z))
+        (x '() (cons (cons (car y) (car z)) x)))
+       ((null y) x)
+     (when (null z)
+       (cerror &quot;Will self-pair extraneous items&quot;
+              &quot;Mismatch - gleep!  ~S&quot; y)
+       (setq z y)))) <span class="roman">→</span> PRINCE-OF-CLARITY 
+</pre></div>
+
+
+<span id="See-Also_003a-94"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="block.html">block</a>, <a href="let_003b-let_002a.html#let">let</a>, <a href="tagbody.html">tagbody</a>, <a href="go.html">go</a>, 
+<a href="return.html">return</a>, <a href="Evaluation.html">Section 3.1 (Evaluation)</a>
+</p>
+<span id="Notes_003a-61"></span><h4 class="subsubheading">Notes:</h4>
+<p><code>prog</code> can be explained in terms of 
+<code>block</code>, <code>let</code>, and <code>tagbody</code> as
+follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (prog <var>variable-list</var> <var>declaration</var> . <var>body</var>)
+    ≡ (block nil (let <var>variable-list</var> <var>declaration</var> (tagbody . <var>body</var>)))
+</pre></div>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="prog1_003b-prog2.html" accesskey="n" rel="next">prog1; prog2</a>, Previous: <a href="nth_002dvalue.html" accesskey="p" rel="prev">nth-value</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

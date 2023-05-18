@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>set-exclusive-or; nset-exclusive-or (ANSI Common Lisp)</title>
+
+<meta name="description" content="set-exclusive-or; nset-exclusive-or (ANSI Common Lisp)">
+<meta name="keywords" content="set-exclusive-or; nset-exclusive-or (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="subsetp.html" rel="next" title="subsetp">
+<link href="set_002ddifference_003b-nset_002ddifference.html" rel="prev" title="set-difference; nset-difference">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="set_002dexclusive_002dor_003b-nset_002dexclusive_002dor"></span><div class="header">
+<p>
+Next: <a href="subsetp.html" accesskey="n" rel="next">subsetp</a>, Previous: <a href="set_002ddifference_003b-nset_002ddifference.html" accesskey="p" rel="prev">set-difference; nset-difference</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">set-exclusive-or; nset-exclusive-or</h4>
+<span id="set_002dexclusive_002dor_002c-nset_002dexclusive_002dor-_0028Function_0029"></span><h3 class="heading">set-exclusive-or, nset-exclusive-or (Function)</h3>
+<span id="index-set_002dexclusive_002dor-2"></span>
+<span id="index-set_002dexclusive_002dor"></span>
+<span id="index-nset_002dexclusive_002dor-2"></span>
+<span id="index-nset_002dexclusive_002dor"></span>
+
+
+<span id="Syntax_003a-327"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-set_002dexclusive_002dor-1">Function: <strong>set-exclusive-or</strong> <em>list-1 list-2 <tt>&amp;key</tt> key test test-not <span class="roman">→</span> result-list</em></dt>
+</dl>
+<dl>
+<dt id="index-nset_002dexclusive_002dor-1">Function: <strong>nset-exclusive-or</strong> <em>list-1 list-2 <tt>&amp;key</tt> key test test-not <span class="roman">→</span> result-list</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-316"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>list-1</var>&mdash;a <i>proper list</i>.
+</p>
+<p><var>list-2</var>&mdash;a <i>proper list</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>result-list</var>&mdash;a <i>list</i>.
+</p>
+<span id="Description_003a-417"></span><h4 class="subsubheading">Description:</h4>
+<p><code>set-exclusive-or</code> returns a <i>list</i> of elements that appear
+in exactly one of <var>list-1</var> and <var>list-2</var>.
+</p>
+<p><code>nset-exclusive-or</code> 
+is the <i>destructive</i> version of <code>set-exclusive-or</code>.
+</p>
+<p>For all possible ordered pairs consisting of
+one element from <var>list-1</var> and one element from <var>list-2</var>, the 
+<tt>:test</tt> or <tt>:test-not</tt> function is
+used to determine whether they <i>satisfy the test</i>.  
+</p>
+<p>If <tt>:key</tt> is supplied, it is used to
+extract the part to be tested from the <var>list-1</var> or <var>list-2</var> element. 
+The first argument to the <tt>:test</tt> or <tt>:test-not</tt> function 
+is the part of an element of <var>list-1</var> extracted by the <tt>:key</tt>
+function (if supplied); the second argument  is the part of an 
+element of <var>list-2</var> extracted by the <tt>:key</tt> function (if supplied).
+If <tt>:key</tt> is not supplied or <code>nil</code>, the <var>list-1</var> or
+<var>list-2</var> element is used.
+</p>
+<p>The result contains precisely
+those elements of <var>list-1</var> and <var>list-2</var> 
+that appear in no matching pair.
+</p>
+<p>The result <i>list</i> of <code>set-exclusive-or</code> 
+might share storage with one of <var>list-1</var> or <var>list-2</var>.
+</p>
+<span id="Examples_003a-300"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq lst1 (list 1 &quot;a&quot; &quot;b&quot;)
+       lst2 (list 1 &quot;A&quot; &quot;b&quot;)) <span class="roman">→</span> (1 &quot;A&quot; &quot;b&quot;)
+ (set-exclusive-or lst1 lst2) <span class="roman">→</span> (&quot;b&quot; &quot;A&quot; &quot;b&quot; &quot;a&quot;)
+ (set-exclusive-or lst1 lst2 :test #'equal) <span class="roman">→</span> (&quot;A&quot; &quot;a&quot;)
+ (set-exclusive-or lst1 lst2 :test 'equalp) <span class="roman">→</span> NIL 
+ (nset-exclusive-or lst1 lst2) <span class="roman">→</span> (&quot;a&quot; &quot;b&quot; &quot;A&quot; &quot;b&quot;) 
+ (setq lst1 (list ((&quot;a&quot; . &quot;b&quot;) (&quot;c&quot; . &quot;d&quot;) (&quot;e&quot; . &quot;f&quot;))))
+<span class="roman">→</span> ((&quot;a&quot; . &quot;b&quot;) (&quot;c&quot; . &quot;d&quot;) (&quot;e&quot; . &quot;f&quot;))
+ (setq lst2 (list ((&quot;c&quot; . &quot;a&quot;) (&quot;e&quot; . &quot;b&quot;) (&quot;d&quot; . &quot;a&quot;))))
+<span class="roman">→</span> ((&quot;c&quot; . &quot;a&quot;) (&quot;e&quot; . &quot;b&quot;) (&quot;d&quot; . &quot;a&quot;)) 
+ (nset-exclusive-or lst1 lst2 :test #'string= :key #'cdr)
+<span class="roman">→</span> ((&quot;c&quot; . &quot;d&quot;) (&quot;e&quot; . &quot;f&quot;) (&quot;c&quot; . &quot;a&quot;) (&quot;d&quot; . &quot;a&quot;)) 
+ lst1 <span class="roman">→</span> ((&quot;a&quot; . &quot;b&quot;) (&quot;c&quot; . &quot;d&quot;) (&quot;e&quot; . &quot;f&quot;))
+ lst2 <span class="roman">→</span> ((&quot;c&quot; . &quot;a&quot;) (&quot;d&quot; . &quot;a&quot;)) 
+</pre></div>
+
+
+<span id="Side-Effects_003a-47"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><code>nset-exclusive-or</code> is permitted to modify any part,
+<i>car</i> or <i>cdr</i>, of the <i>list structure</i> of <var>list-1</var> or <var>list-2</var>.
+</p>
+<span id="Exceptional-Situations_003a-135"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var><var>list-1</var> and <var>list-2</var></var> are not <i>proper lists</i>.
+</p>
+<span id="See-Also_003a-341"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Compiler-Terminology.html">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-226"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> parameter is deprecated.
+</p>
+<p>Since the <code>nset-exclusive-or</code> side effect is not required,
+it should not be used in for-effect-only
+positions in portable code.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="subsetp.html" accesskey="n" rel="next">subsetp</a>, Previous: <a href="set_002ddifference_003b-nset_002ddifference.html" accesskey="p" rel="prev">set-difference; nset-difference</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

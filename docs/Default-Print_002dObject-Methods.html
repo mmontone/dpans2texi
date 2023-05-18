@@ -1,0 +1,756 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Default Print-Object Methods (ANSI Common Lisp)</title>
+
+<meta name="description" content="Default Print-Object Methods (ANSI Common Lisp)">
+<meta name="keywords" content="Default Print-Object Methods (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Lisp-Printer.html" rel="up" title="The Lisp Printer">
+<link href="Examples-of-Printer-Behavior.html" rel="next" title="Examples of Printer Behavior">
+<link href="Printer-Dispatching.html" rel="prev" title="Printer Dispatching">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Default-Print_002dObject-Methods"></span><div class="header">
+<p>
+Next: <a href="Examples-of-Printer-Behavior.html" accesskey="n" rel="next">Examples of Printer Behavior</a>, Previous: <a href="Printer-Dispatching.html" accesskey="p" rel="prev">Printer Dispatching</a>, Up: <a href="The-Lisp-Printer.html" accesskey="u" rel="up">The Lisp Printer</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Default-Print_002dObject-Methods-1"></span><h4 class="subsection">22.1.3 Default Print-Object Methods</h4>
+
+<p>This section describes the default behavior of 
+<code>print-object</code> methods for the <i>standardized</i> <i>types</i>.
+</p>
+<span id="Printing-Numbers"></span><h4 class="subsubsection">22.1.3.1 Printing Numbers</h4>
+
+<span id="g_t22_002e1_002e3_002e1_002e1-Printing-Integers"></span><h4 class="unnumberedsubsubsec">22.1.3.1.1 Printing Integers</h4>
+
+<span id="PrintingIntegers"></span>
+<p><i>Integers</i> are printed in the radix specified by the <i>current output base</i>
+in positional notation, most significant digit first.
+If appropriate, a radix specifier can be printed; see <code>*print-radix*</code>.
+If an <i>integer</i> is negative, a minus sign is printed and then the
+absolute value of the <i>integer</i> is printed.
+The <i>integer</i> zero is represented
+by the single digit <code>0</code> and never has a sign.
+A decimal point might be printed, 
+depending on the <i>value</i> of <code>*print-radix*</code>.
+</p>
+<p>For related information about the syntax of an <i>integer</i>,
+see <a href="Constructing-Numbers-from-Tokens.html#SyntaxOfIntegers">Section 2.3.2.1.1 (Syntax of an Integer)</a>.
+</p>
+<span id="g_t22_002e1_002e3_002e1_002e2-Printing-Ratios"></span><h4 class="unnumberedsubsubsec">22.1.3.1.2 Printing Ratios</h4>
+
+<span id="PrintingRatios"></span><span id="index-ratio-1"></span>
+
+<p><i>Ratios</i> are printed as follows:
+the absolute value of the numerator is printed, as for an <i>integer</i>;
+then a <code>/</code>; then the denominator.  The numerator and denominator are
+both printed in the radix specified by the <i>current output base</i>; 
+they are obtained as if by
+<code>numerator</code> and <code>denominator</code>, and so <i>ratios</i>
+are printed in reduced form (lowest terms).
+If appropriate, a radix specifier can be printed; see 
+<code>*print-radix*</code>.
+If the ratio is negative, a minus sign is printed before the numerator.
+</p>
+<p>For related information about the syntax of a <i>ratio</i>,
+see <a href="Constructing-Numbers-from-Tokens.html#SyntaxOfRatios">Section 2.3.2.1.2 (Syntax of a Ratio)</a>.
+</p>
+<span id="g_t22_002e1_002e3_002e1_002e3-Printing-Floats"></span><h4 class="unnumberedsubsubsec">22.1.3.1.3 Printing Floats</h4>
+
+<span id="PrintingFloats"></span><span id="index-float-2"></span>
+
+<p>If the magnitude of the <i>float</i> is either zero or between 10^-3 (inclusive)
+and 10^7 (exclusive), it is printed as the integer part of the number,
+then a decimal point,
+followed by the fractional part of the number;
+there is always at least one
+digit on each side of the decimal point.    
+If the sign of the number
+(as determined by <code>float-sign</code>)
+is negative, then a minus sign is printed before the number.
+If the format of the number
+does not match that specified by
+<code>*read-default-float-format*</code>, then the <i>exponent marker</i> for
+that format and the digit <code>0</code> are also printed.
+For example, the base of the natural logarithms as a <i>short float</i>
+might be printed as <code>2.71828S0</code>.
+</p>
+<p>For non-zero magnitudes outside of the range 10^-3 to 10^7,
+a <i>float</i> is printed in computerized scientific notation.
+The representation of the number is scaled to be between
+1 (inclusive) and 10 (exclusive) and then printed, with one digit
+before the decimal point and at least one digit after the decimal point.
+Next the <i>exponent marker</i> for the format is printed,
+except that
+if the format of the number matches that specified by 
+<code>*read-default-float-format*</code>, then the <i>exponent marker</i> <code>E</code>
+is used.
+Finally, the power of ten by which the fraction must be multiplied
+to equal the original number is printed as a decimal integer.
+For example, Avogadro&rsquo;s number as a <i>short float</i> 
+is printed as <code>6.02S23</code>.
+</p>
+<p>For related information about the syntax of a <i>float</i>,
+see <a href="Constructing-Numbers-from-Tokens.html#SyntaxOfFloats">Section 2.3.2.2 (Syntax of a Float)</a>.
+</p>
+<span id="g_t22_002e1_002e3_002e1_002e4-Printing-Complexes"></span><h4 class="unnumberedsubsubsec">22.1.3.1.4 Printing Complexes</h4>
+
+<span id="PrintingComplexes"></span><span id="index-complex-3"></span>
+
+<p>A <i>complex</i> is printed as <code>#C</code>, an open parenthesis,
+the printed representation of its real part, a space,
+the printed representation of its imaginary part, and finally
+a close parenthesis.
+</p>
+<p>For related information about the syntax of a <i>complex</i>,
+see <a href="Constructing-Numbers-from-Tokens.html#SyntaxOfComplexes">Section 2.3.2.3 (Syntax of a Complex)</a>&nbsp;<!-- /@w -->and <a href="Sharpsign.html#SharpsignC">Section 2.4.8.11 (Sharpsign C)</a>.
+</p>
+<span id="g_t22_002e1_002e3_002e1_002e5-Note-about-Printing-Numbers"></span><h4 class="unnumberedsubsubsec">22.1.3.1.5 Note about Printing Numbers</h4>
+
+
+<p>The printed representation of a number must not contain <i>escape</i> <i>characters</i>;
+see <a href="Numbers-as-Tokens.html#EscCharsAndPotentialNums">Section 2.3.1.1.1 (Escape Characters and Potential Numbers)</a>.
+</p>
+<span id="Printing-Characters"></span><h4 class="subsubsection">22.1.3.2 Printing Characters</h4>
+<span id="PrintingCharacters"></span>
+<p>When <i>printer escaping</i> is disabled,
+a <i>character</i> prints as itself;
+it is sent directly to the output <i>stream</i>.
+When <i>printer escaping</i> is enabled,
+then <code>#\</code> syntax is used.
+</p>
+<p>When the printer types out the name of a <i>character</i>,
+it uses the same table as the <code>#\</code> <i>reader macro</i> would use;
+therefore any <i>character</i> name that is typed out
+is acceptable as input (in that <i>implementation</i>).
+If a <i>non-graphic</i> <i>character</i> has a <i>standardized</i> <i>name</i><sub>5</sub>
+that <i>name</i> is preferred over non-standard <i>names</i>
+for printing in <code>#\</code> notation.
+For the <i>graphic</i> <i>standard characters</i>,
+the <i>character</i> itself is always used
+for printing in <code>#\</code> notation&mdash;even if 
+the <i>character</i> also has a <i>name</i><sub>5</sub>
+</p>
+<p>For details about the <code>#\</code> <i>reader macro</i>, see <a href="Sharpsign.html#SharpsignBackslash">Section 2.4.8.1 (Sharpsign Backslash)</a>.
+</p>
+<span id="Printing-Symbols"></span><h4 class="subsubsection">22.1.3.3 Printing Symbols</h4>
+<span id="PrintingSymbols"></span>
+<p>When <i>printer escaping</i> is disabled,
+only the characters of the <i>symbol</i>&rsquo;s <i>name</i> are output 
+(but the case in which to print characters in the <i>name</i> is
+controlled by <code>*print-case*</code>;
+see <a href="#ReadtableCasePrintEffect">Section 22.1.3.3.2 (Effect of Readtable Case on the Lisp Printer)</a>).
+</p>
+<p>The remainder of this section&nbsp;<!-- /@w -->applies only 
+when <i>printer escaping</i> is enabled.
+</p>
+<p>When printing a <i>symbol</i>, the printer inserts enough 
+<i>single escape</i> and/or <i>multiple escape</i>
+characters (<i>backslashes</i> and/or <i>vertical-bars</i>) so that if
+<code>read</code> were called with the same <code>*readtable*</code> and
+with <code>*read-base*</code> bound to the <i>current output base</i>, it
+would return the same <i>symbol</i> (if it is not 
+<i>apparently uninterned</i>) or an <i>uninterned</i> <i>symbol</i>
+with the same <i>print name</i> (otherwise).
+</p>
+<p>For example, if the <i>value</i> of <code>*print-base*</code> were <code>16</code> 
+when printing the symbol <code>face</code>, it would have to be printed as
+<code>\FACE</code> or <code>\Face</code> or <code>|FACE|</code>, 
+because the token <code>face</code> would be read as a hexadecimal
+number (decimal value 64206) if the <i>value</i> of <code>*read-base*</code> were <code>16</code>.
+</p>
+<p>For additional restrictions concerning characters with  nonstandard
+<i>syntax types</i> in the <i>current readtable</i>, see the <i>variable</i> <a href="_002aprint_002dreadably_002a.html">*print-readably*</a> 
+</p>
+<p>For information about how the <i>Lisp reader</i> parses <i>symbols</i>,
+see <a href="Symbols-as-Tokens.html">Section 2.3.4 (Symbols as Tokens)</a>&nbsp;<!-- /@w -->and <a href="Sharpsign.html#SharpsignColon">Section 2.4.8.5 (Sharpsign Colon)</a>.
+</p>
+<p><code>nil</code>&nbsp;<!-- /@w -->might be printed as <code>()</code> 
+when <code>*print-pretty*</code> is <i>true</i>
+and <i>printer escaping</i> is enabled.
+</p>
+<span id="g_t22_002e1_002e3_002e3_002e1-Package-Prefixes-for-Symbols"></span><h4 class="unnumberedsubsubsec">22.1.3.3.1 Package Prefixes for Symbols</h4>
+
+
+<p><i>Package prefixes</i> are printed if necessary.
+The rules for <i>package prefixes</i> are as follows.
+When the <i>symbol</i> is printed, if it is in the <code>KEYWORD</code> <i>package</i>, 
+then it is printed with a preceding <i>colon</i>; otherwise, if
+it is <i>accessible</i> in the <i>current package</i>, it is printed without any
+<i>package prefix</i>; otherwise, it is printed with a <i>package prefix</i>.
+</p>
+<p>A <i>symbol</i> that is <i>apparently uninterned</i> is printed
+preceded by &ldquo;<code>#:</code>&rdquo; 
+if <code>*print-gensym*</code> is <i>true</i> and <i>printer escaping</i> is enabled;
+if <code>*print-gensym*</code> is <i>false</i> or <i>printer escaping</i> is disabled,
+then the <i>symbol</i> is printed without a prefix,
+as if it were in the <i>current package</i>.
+</p>
+<p>Because the <code>#:</code> syntax does not intern the
+following symbol, it is necessary to use circular-list syntax
+if <code>*print-circle*</code> is <i>true</i> and
+the same uninterned symbol appears several times in an expression
+to be printed.  For example, the result of
+</p>
+<div class="lisp">
+<pre class="lisp"> (let ((x (make-symbol &quot;FOO&quot;))) (list x x))
+</pre></div>
+
+<p>would be printed as <code>(#:foo #:foo)</code> if <code>*print-circle*</code>
+were <i>false</i>, but as <code>(#1=#:foo #1#)</code> if <code>*print-circle*</code>
+were <i>true</i>.
+</p>
+<p>A summary of the preceding package prefix rules follows:
+</p>
+
+<dl compact="compact">
+<dt><code>foo:bar</code></dt>
+<dd>
+
+<p><code>foo:bar</code> is printed when <i>symbol</i> <code>bar</code> 
+is external in its <i>home package</i> <code>foo</code> 
+and is not <i>accessible</i> in the <i>current package</i>.
+</p>
+</dd>
+<dt><code>foo::bar</code></dt>
+<dd>
+
+<p><code>foo::bar</code> is printed when <code>bar</code> is internal in its <i>home package</i>
+<code>foo</code> and is not <i>accessible</i> in the <i>current package</i>.
+</p>
+</dd>
+<dt><code>:bar</code></dt>
+<dd>
+
+<p><code>:bar</code> is printed when the home package of <code>bar</code> is the <code>KEYWORD</code> <i>package</i>.
+</p>
+</dd>
+<dt><code>#:bar</code></dt>
+<dd>  
+
+<p><code>#:bar</code> is printed when <code>bar</code> is <i>apparently uninterned</i>,
+even in the pathological case that <code>bar</code> 
+has no <i>home package</i> but is nevertheless somehow <i>accessible</i> 
+in the <i>current package</i>.
+</p></dd>
+</dl>
+
+
+
+<span id="g_t22_002e1_002e3_002e3_002e2-Effect-of-Readtable-Case-on-the-Lisp-Printer"></span><h4 class="unnumberedsubsubsec">22.1.3.3.2 Effect of Readtable Case on the Lisp Printer</h4>
+
+<span id="ReadtableCasePrintEffect"></span>
+<p>When 
+<i>printer escaping</i> is disabled,
+or the characters under consideration are not already 
+quoted specifically by <i>single escape</i> or <i>multiple escape</i>
+syntax,
+the <i>readtable case</i> of the <i>current readtable</i> 
+affects the way the <i>Lisp printer</i> writes <i>symbols</i>
+in the following ways:
+</p>
+
+<dl compact="compact">
+<dt><tt>:upcase</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:upcase</tt>,
+<i>uppercase</i> <i>characters</i>
+are printed in the case specified by <code>*print-case*</code>, and
+<i>lowercase</i> <i>characters</i> are printed in their own case.
+</p>
+</dd>
+<dt><tt>:downcase</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:downcase</tt>,
+<i>uppercase</i> <i>characters</i> are printed in their own case, and
+<i>lowercase</i> <i>characters</i>
+are printed in the case specified by <code>*print-case*</code>.
+</p>
+</dd>
+<dt><tt>:preserve</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:preserve</tt>,
+all <i>alphabetic</i> <i>characters</i> are printed in their own case.
+</p>
+</dd>
+<dt><tt>:invert</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:invert</tt>,
+the case of all <i>alphabetic</i> <i>characters</i> 
+in single case symbol names is inverted.
+Mixed-case symbol names are printed as is.
+</p></dd>
+</dl>
+
+
+<p>The rules for escaping <i>alphabetic</i> <i>characters</i> in symbol names are affected by
+the <code>readtable-case</code> 
+if <i>printer escaping</i> is enabled.
+<i>Alphabetic</i> <i>characters</i> are escaped as follows:                
+</p>
+<dl compact="compact">
+<dt><tt>:upcase</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:upcase</tt>,
+all <i>lowercase</i> <i>characters</i> must be escaped.
+</p>
+</dd>
+<dt><tt>:downcase</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:downcase</tt>,
+all <i>uppercase</i> <i>characters</i> must be escaped.
+</p>
+</dd>
+<dt><tt>:preserve</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:preserve</tt>, 
+no <i>alphabetic</i> <i>characters</i> need be escaped.
+</p>
+</dd>
+<dt><tt>:invert</tt></dt>
+<dd>
+
+<p>When the <i>readtable case</i> is <tt>:invert</tt>,
+no <i>alphabetic</i> <i>characters</i> need be escaped.
+</p></dd>
+</dl>
+
+
+<span id="g_t22_002e1_002e3_002e3_002e2_002e1-Examples-of-Effect-of-Readtable-Case-on-the-Lisp-Printer"></span><h4 class="unnumberedsubsubsec">22.1.3.3.2.1 Examples of Effect of Readtable Case on the Lisp Printer</h4>
+
+<span id="ReadtableCasePrintExamples"></span>
+<div class="lisp">
+<pre class="lisp"> (defun test-readtable-case-printing ()
+   (let ((*readtable* (copy-readtable nil))
+         (*print-case* *print-case*))
+     (format t &quot;READTABLE-CASE *PRINT-CASE*  Symbol-name  Output~
+              ~%--------------------------------------------------~
+              ~%&quot;)
+     (dolist (readtable-case '(:upcase :downcase :preserve :invert))
+       (setf (readtable-case *readtable*) readtable-case)
+       (dolist (print-case '(:upcase :downcase :capitalize))
+         (dolist (symbol '(|ZEBRA| |Zebra| |zebra|))
+           (setq *print-case* print-case)
+           (format t &quot;~&amp;:~A~15T:~A~29T~A~42T~A&quot;
+                   (string-upcase readtable-case)
+                   (string-upcase print-case)
+                   (symbol-name symbol)
+                   (prin1-to-string symbol)))))))
+</pre></div>
+
+<p>The output from <code>(test-readtable-case-printing)</code> should be as follows:
+</p>
+<div class="lisp">
+<pre class="lisp">    READTABLE-CASE *PRINT-CASE*  Symbol-name  Output
+    --------------------------------------------------
+    :UPCASE        :UPCASE       ZEBRA        ZEBRA
+    :UPCASE        :UPCASE       Zebra        |Zebra|
+    :UPCASE        :UPCASE       zebra        |zebra|
+    :UPCASE        :DOWNCASE     ZEBRA        zebra
+    :UPCASE        :DOWNCASE     Zebra        |Zebra|
+    :UPCASE        :DOWNCASE     zebra        |zebra|
+    :UPCASE        :CAPITALIZE   ZEBRA        Zebra
+    :UPCASE        :CAPITALIZE   Zebra        |Zebra|
+    :UPCASE        :CAPITALIZE   zebra        |zebra|
+    :DOWNCASE      :UPCASE       ZEBRA        |ZEBRA|
+    :DOWNCASE      :UPCASE       Zebra        |Zebra|
+    :DOWNCASE      :UPCASE       zebra        ZEBRA
+    :DOWNCASE      :DOWNCASE     ZEBRA        |ZEBRA|
+    :DOWNCASE      :DOWNCASE     Zebra        |Zebra|
+    :DOWNCASE      :DOWNCASE     zebra        zebra
+    :DOWNCASE      :CAPITALIZE   ZEBRA        |ZEBRA|
+    :DOWNCASE      :CAPITALIZE   Zebra        |Zebra|
+    :DOWNCASE      :CAPITALIZE   zebra        Zebra
+    :PRESERVE      :UPCASE       ZEBRA        ZEBRA
+    :PRESERVE      :UPCASE       Zebra        Zebra
+    :PRESERVE      :UPCASE       zebra        zebra
+    :PRESERVE      :DOWNCASE     ZEBRA        ZEBRA
+    :PRESERVE      :DOWNCASE     Zebra        Zebra
+    :PRESERVE      :DOWNCASE     zebra        zebra
+    :PRESERVE      :CAPITALIZE   ZEBRA        ZEBRA
+    :PRESERVE      :CAPITALIZE   Zebra        Zebra
+    :PRESERVE      :CAPITALIZE   zebra        zebra
+    :INVERT        :UPCASE       ZEBRA        zebra
+    :INVERT        :UPCASE       Zebra        Zebra
+    :INVERT        :UPCASE       zebra        ZEBRA
+    :INVERT        :DOWNCASE     ZEBRA        zebra
+    :INVERT        :DOWNCASE     Zebra        Zebra
+    :INVERT        :DOWNCASE     zebra        ZEBRA
+    :INVERT        :CAPITALIZE   ZEBRA        zebra
+    :INVERT        :CAPITALIZE   Zebra        Zebra
+    :INVERT        :CAPITALIZE   zebra        ZEBRA
+</pre></div>
+
+
+
+
+<span id="Printing-Strings"></span><h4 class="subsubsection">22.1.3.4 Printing Strings</h4>
+<span id="PrintingStrings"></span>
+<p>The characters of the <i>string</i> are output in order.
+If <i>printer escaping</i> is enabled,
+a <i>double-quote</i> is output before and after, and all
+<i>double-quotes</i> and <i>single escapes</i> are preceded by <i>backslash</i>.
+The printing of <i>strings</i> is not affected by <code>*print-array*</code>.
+Only the <i>active</i> <i>elements</i> of the <i>string</i> are printed.
+</p>
+<p>For information on how the <i>Lisp reader</i> parses <i>strings</i>,
+see <a href="Double_002dQuote.html">Section 2.4.5 (Double-Quote)</a>.
+</p>
+<span id="Printing-Lists-and-Conses"></span><h4 class="subsubsection">22.1.3.5 Printing Lists and Conses</h4>
+<span id="PrintingListsAndConses"></span>
+<p>Wherever possible, list notation is preferred over dot notation.  
+Therefore the following algorithm is used to print a <i>cons</i> x:
+</p>
+
+
+<ol>
+<li> A <i>left-parenthesis</i> is printed.
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</li><li> The <i>car</i> of x is printed. 
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</li><li> If the <i>cdr</i> of x is itself a <i>cons</i>,
+it is made to be the current <i>cons</i> 
+(<i>i.e.</i>, x becomes that <i>cons</i>), 
+a <i>space</i>
+is printed,
+and step 2 is re-entered.
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</li><li> If the <i>cdr</i> of x is not <i>null</i>, 
+a <i>space</i>,
+a <i>dot</i>,
+a <i>space</i>,
+and the <i>cdr</i> of x are printed.
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</li><li> A <i>right-parenthesis</i> is printed.
+</li></ol>
+
+
+<p>Actually, the above algorithm is only used when <code>*print-pretty*</code>
+is <i>false</i>.  When <code>*print-pretty*</code> is <i>true</i> (or 
+when <code>pprint</code> is used),
+additional <i>whitespace</i><sub>1</sub>
+may replace the use of a single <i>space</i>,
+and a more elaborate algorithm with similar goals but more presentational 
+flexibility is used; see <a href="Printer-Dispatching.html">Section 22.1.2 (Printer Dispatching)</a>.
+</p>
+<p>Although the two expressions below are equivalent,
+and the reader accepts
+either one and 
+produces
+the same <i>cons</i>, the printer
+always prints such a <i>cons</i> in the second form.
+</p>
+<div class="lisp">
+<pre class="lisp"> (a . (b . ((c . (d . nil)) . (e . nil))))
+ (a b (c d) e)
+</pre></div>
+
+<p>The printing of <i>conses</i> is affected by <code>*print-level*</code>,
+<code>*print-length*</code>, and <code>*print-circle*</code>.
+</p>
+         
+<p>Following are examples of printed representations of <i>lists</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (a . b)     ;A dotted pair of a and b
+ (a.b)       ;A list of one element, the symbol named a.b
+ (a. b)      ;A list of two elements a. and b
+ (a .b)      ;A list of two elements a and .b
+ (a b . c)   ;A dotted list of a and b with c at the end; two conses
+ .iot        ;The symbol whose name is .iot
+ (. b)       ;Invalid -- an error is signaled if an attempt is made to read 
+             ;this syntax.
+ (a .)       ;Invalid -- an error is signaled.
+ (a .. b)    ;Invalid -- an error is signaled.
+ (a . . b)   ;Invalid -- an error is signaled.
+ (a b c ...) ;Invalid -- an error is signaled.
+ (a \. b)    ;A list of three elements a, ., and b
+ (a |.| b)   ;A list of three elements a, ., and b
+ (a \... b)  ;A list of three elements a, ..., and b
+ (a |...| b) ;A list of three elements a, ..., and b
+</pre></div>
+
+
+<p>For information on how the <i>Lisp reader</i> parses <i>lists</i> and <i>conses</i>,
+see <a href="Left_002dParenthesis.html">Section 2.4.1 (Left-Parenthesis)</a>. 
+</p>
+<span id="Printing-Bit-Vectors"></span><h4 class="subsubsection">22.1.3.6 Printing Bit Vectors</h4>
+<span id="PrintingBitVectors"></span>
+<p>A <i>bit vector</i> is printed as <code>#*</code> followed by the bits of the <i>bit vector</i>
+in order.  If <code>*print-array*</code> is <i>false</i>, then the <i>bit vector</i> is
+printed in a format (using <code>#&lt;</code>) that is concise but not readable.
+Only the <i>active</i> <i>elements</i> of the <i>bit vector</i> are printed.
+</p>
+
+
+<p>For information on <i>Lisp reader</i> parsing of <i>bit vectors</i>,
+see <a href="Sharpsign.html#SharpsignStar">Section 2.4.8.4 (Sharpsign Asterisk)</a>.
+</p>
+<span id="Printing-Other-Vectors"></span><h4 class="subsubsection">22.1.3.7 Printing Other Vectors</h4>
+<span id="PrintingOtherVectors"></span>
+<p>If <code>*print-array*</code> is <i>true</i> 
+and <code>*print-readably*</code> is <i>false</i>,
+any
+<i>vector</i> 
+other than a <i>string</i> or <i>bit vector</i> is printed using
+general-vector syntax; this means that information
+about specialized vector representations does not appear.
+The printed representation of a zero-length <i>vector</i> is <code>#()</code>.
+The printed representation of a non-zero-length <i>vector</i> begins with <code>#(</code>.
+Following that, the first element of the <i>vector</i> is printed.  
+If there are any other elements, they are printed in turn, with 
+each such additional element preceded by
+a <i>space</i> if <code>*print-pretty*</code> is <i>false</i>,
+or <i>whitespace</i><sub>1</sub>
+A <i>right-parenthesis</i> after the last element
+terminates the printed representation of the <i>vector</i>. 
+The printing of <i>vectors</i> 
+is affected by <code>*print-level*</code> and <code>*print-length*</code>.
+If the <i>vector</i> has a <i>fill pointer</i>, 
+then only those elements below
+the <i>fill pointer</i> are printed.
+</p>
+<p>If both <code>*print-array*</code> and <code>*print-readably*</code> are <i>false</i>,
+the <i>vector</i> is not printed as described above,
+but in a format (using <code>#&lt;</code>) that is concise but not readable.
+</p>
+<p>If <code>*print-readably*</code> is <i>true</i>,
+the <i>vector</i> prints in an <i>implementation-defined</i> manner;
+see the <i>variable</i> <a href="_002aprint_002dreadably_002a.html">*print-readably*</a>.
+</p>
+<p>For information on how the <i>Lisp reader</i> parses these &ldquo;other <i>vectors</i>,&rdquo;
+see <a href="Sharpsign.html#SharpsignLeftParen">Section 2.4.8.3 (Sharpsign Left-Parenthesis)</a>.
+</p>
+<span id="Printing-Other-Arrays"></span><h4 class="subsubsection">22.1.3.8 Printing Other Arrays</h4>
+<span id="PrintingOtherArrays"></span>
+<p>If  <code>*print-array*</code> is <i>true</i> 
+and <code>*print-readably*</code> is <i>false</i>,
+any
+<i>array</i> other than a <i>vector</i> is printed
+using <code>#</code><code>n</code><code>A</code> format.
+Let <code>n</code> be the <i>rank</i> of the <i>array</i>.
+Then <code>#</code> is printed, then <code>n</code> as a decimal integer,
+then <code>A</code>, then <code>n</code> open parentheses.  
+Next the <i>elements</i> are scanned in row-major order,
+using <code>write</code> on each <i>element</i>, 
+and separating <i>elements</i> from each other with <i>whitespace</i><sub>1</sub>
+The array&rsquo;s dimensions are numbered 0 to <code>n</code>-1 from left to right,
+and are enumerated with the rightmost index changing fastest.
+Every time the index for dimension <code>j</code> is incremented,
+the following actions are taken:
+</p>
+
+<ul>
+<li> If <code>j</code> &lt; <code>n</code>-1, then a close parenthesis is printed.
+
+</li><li> If incrementing the index for dimension <code>j</code> caused it to equal
+dimension <code>j</code>, that index is reset to zero and the
+index for dimension <code>j</code>-1 is incremented (thereby performing these three steps recursively),
+unless <code>j</code>=0, in which case the entire algorithm is terminated.
+If incrementing the index for dimension <code>j</code> did not cause it to
+equal dimension <code>j</code>, then a space is printed.
+
+</li><li> If <code>j</code> &lt; <code>n</code>-1, then an open parenthesis is printed.
+</li></ul>
+
+
+<p>This causes the contents to be printed in a format suitable for
+<tt>:initial-contents</tt> to <code>make-array</code>.
+The lists effectively printed by this procedure are subject to
+truncation by <code>*print-level*</code> and <code>*print-length*</code>.
+</p>
+<p>If the <i>array</i> 
+is of a specialized <i>type</i>, containing bits or characters,
+then the innermost lists generated by the algorithm given above can instead
+be printed using bit-vector or string syntax, provided that these innermost
+lists would not be subject to truncation by <code>*print-length*</code>.  
+</p>
+<p>If both <code>*print-array*</code> and <code>*print-readably*</code> are <i>false</i>,
+then the <i>array</i> is printed
+in a format (using <code>#&lt;</code>) that is concise but not readable.
+</p>
+<p>If <code>*print-readably*</code> is <i>true</i>,
+the <i>array</i> prints in an <i>implementation-defined</i> manner; 
+see the <i>variable</i> <a href="_002aprint_002dreadably_002a.html">*print-readably*</a>.
+In particular,
+this may be important for arrays having some dimension <code>0</code>.
+</p>
+<p>For information on how the <i>Lisp reader</i> parses these &ldquo;other <i>arrays</i>,&rdquo;
+see <a href="Sharpsign.html#SharpsignA">Section 2.4.8.12 (Sharpsign A)</a>.
+</p>
+<span id="Examples-of-Printing-Arrays"></span><h4 class="subsubsection">22.1.3.9 Examples of Printing Arrays</h4>
+
+<div class="lisp">
+<pre class="lisp"> (let ((a (make-array '(3 3)))
+       (*print-pretty* t)
+       (*print-array* t))
+   (dotimes (i 3) (dotimes (j 3) (setf (aref a i j) (format nil &quot;&lt;~D,~D&gt;&quot; i j))))
+   (print a)
+   (print (make-array 9 :displaced-to a)))
+▷ #2A((&quot;&lt;0,0&gt;&quot; &quot;&lt;0,1&gt;&quot; &quot;&lt;0,2&gt;&quot;) 
+▷     (&quot;&lt;1,0&gt;&quot; &quot;&lt;1,1&gt;&quot; &quot;&lt;1,2&gt;&quot;) 
+▷     (&quot;&lt;2,0&gt;&quot; &quot;&lt;2,1&gt;&quot; &quot;&lt;2,2&gt;&quot;)) 
+▷ #(&quot;&lt;0,0&gt;&quot; &quot;&lt;0,1&gt;&quot; &quot;&lt;0,2&gt;&quot; &quot;&lt;1,0&gt;&quot; &quot;&lt;1,1&gt;&quot; &quot;&lt;1,2&gt;&quot; &quot;&lt;2,0&gt;&quot; &quot;&lt;2,1&gt;&quot; &quot;&lt;2,2&gt;&quot;) 
+<span class="roman">→</span> #&lt;ARRAY 9 indirect 36363476&gt;
+</pre></div>
+
+
+
+<span id="Printing-Random-States"></span><h4 class="subsubsection">22.1.3.10 Printing Random States</h4>
+<span id="PrintingRandomStates"></span>
+<p>A specific syntax for printing <i>objects</i> of <i>type</i> <code>random-state</code> is
+not specified. However, every <i>implementation</i>
+must arrange to print a <i>random state</i> <i>object</i> in such a way that,
+within the same implementation, <code>read</code>
+can construct from the printed representation a copy of the 
+<i>random state</i>
+object as if the copy had been made by <code>make-random-state</code>.
+</p>
+<p>If the type <i>random state</i> is effectively implemented 
+by using the machinery for <code>defstruct</code>,
+the usual structure syntax can then be used for printing 
+<i>random state</i>
+objects; one might look something like
+</p>
+<div class="lisp">
+<pre class="lisp"> #S(RANDOM-STATE :DATA #(14 49 98436589 786345 8734658324 ... ))
+</pre></div>
+
+<p>where the components are <i>implementation-dependent</i>.
+</p>
+<span id="Printing-Pathnames"></span><h4 class="subsubsection">22.1.3.11 Printing Pathnames</h4>
+<span id="PrintingPathnames"></span>
+
+<p>When <i>printer escaping</i> is enabled,
+the syntax <code>#P&quot;...&quot;</code> is how a
+<i>pathname</i> is printed by <code>write</code> and the other functions herein described.
+The <code>&quot;...&quot;</code> is the namestring representation of the pathname.
+</p>
+
+<p>When <i>printer escaping</i> is disabled,
+<code>write</code> writes a <i>pathname</i> <i>P</i>
+by writing <code>(namestring <i>P</i>)</code> instead.
+</p>
+<p>For information on how the <i>Lisp reader</i> parses <i>pathnames</i>,
+see <a href="Sharpsign.html#SharpsignP">Section 2.4.8.14 (Sharpsign P)</a>.
+</p>
+
+<span id="Printing-Structures"></span><h4 class="subsubsection">22.1.3.12 Printing Structures</h4>
+<span id="PrintingStructures"></span>
+<p>By default, a <i>structure</i> of type S is printed using <code>#S</code> syntax.
+This behavior can be customized by specifying a <tt>:print-function</tt> 
+or <tt>:print-object</tt> option to the <code>defstruct</code> <i>form</i> that defines S,
+or by writing a <code>print-object</code> <i>method</i> 
+that is <i>specialized</i> for <i>objects</i> of type S.
+</p>
+<p>Different structures might print out in different ways;
+the default notation for structures is:
+</p>
+<div class="lisp">
+<pre class="lisp"> #S(<var>structure-name</var> <tt>{</tt><var>slot-key</var> <var>slot-value</var><tt>}</tt>*)
+</pre></div>
+
+<p>where <code>#S</code> indicates structure syntax,
+<var>structure-name</var> is a <i>structure name</i>,
+each <var>slot-key</var> is an initialization argument <i>name</i>
+for a <i>slot</i> in the <i>structure</i>,
+and each corresponding <var>slot-value</var> is a representation
+of the <i>object</i> in that <i>slot</i>.
+</p>
+<p>For information on how the <i>Lisp reader</i> parses <i>structures</i>,
+see <a href="Sharpsign.html#SharpsignS">Section 2.4.8.13 (Sharpsign S)</a>.
+</p>
+<span id="Printing-Other-Objects"></span><h4 class="subsubsection">22.1.3.13 Printing Other Objects</h4>
+<span id="PrintingOtherObjects"></span>
+<p>Other <i>objects</i> are printed in an <i>implementation-dependent</i> manner.
+It is not required that an <i>implementation</i> print those <i>objects</i>
+<i>readably</i>.
+</p>
+<p>For example, <i>hash tables</i>, 
+<i>readtables</i>,
+<i>packages</i>,
+<i>streams</i>,
+and <i>functions</i>
+might not print <i>readably</i>.
+</p>
+<p>A common notation to use in this circumstance is <code>#&lt;...&gt;</code>.
+Since <code>#&lt;</code> is not readable by the <i>Lisp reader</i>,
+the precise format of the text which follows is not important,
+but a common format to use is that provided by the <code>print-unreadable-object</code> <i>macro</i>.
+</p>
+<p>For information on how the <i>Lisp reader</i> treats this notation,
+see <a href="Sharpsign.html#SharpsignLeftAngle">Section 2.4.8.20 (Sharpsign Less-Than-Sign)</a>.
+For information on how to notate <i>objects</i> that cannot be printed <i>readably</i>,
+see <a href="Sharpsign.html#SharpsignDot">Section 2.4.8.6 (Sharpsign Dot)</a>.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Examples-of-Printer-Behavior.html" accesskey="n" rel="next">Examples of Printer Behavior</a>, Previous: <a href="Printer-Dispatching.html" accesskey="p" rel="prev">Printer Dispatching</a>, Up: <a href="The-Lisp-Printer.html" accesskey="u" rel="up">The Lisp Printer</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

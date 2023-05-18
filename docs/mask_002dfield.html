@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>mask-field (ANSI Common Lisp)</title>
+
+<meta name="description" content="mask-field (ANSI Common Lisp)">
+<meta name="keywords" content="mask-field (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="most_002dpositive_002dfixnum_003b-most_002dnegative_002dfixnum.html" rel="next" title="most-positive-fixnum; most-negative-fixnum">
+<link href="ldb_002dtest.html" rel="prev" title="ldb-test">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="mask_002dfield"></span><div class="header">
+<p>
+Next: <a href="most_002dpositive_002dfixnum_003b-most_002dnegative_002dfixnum.html" accesskey="n" rel="next">most-positive-fixnum; most-negative-fixnum</a>, Previous: <a href="ldb_002dtest.html" accesskey="p" rel="prev">ldb-test</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">mask-field</h4>
+<span id="mask_002dfield-_0028Accessor_0029"></span><h3 class="heading">mask-field (Accessor)</h3>
+<span id="index-mask_002dfield-2"></span>
+<span id="index-mask_002dfield"></span>
+
+
+<span id="Syntax_003a-264"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-mask_002dfield-1">Function: <strong>mask-field</strong> <em>bytespec integer <span class="roman">→</span> masked-integer</em></dt>
+</dl>
+<p><tt>(setf (mask-field bytespec place) new-masked-integer)</tt>
+</p>
+<span id="Arguments-and-Values_003a-253"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>bytespec</var>&mdash;a <i>byte specifier</i>.
+</p>
+<p><var>integer</var>&mdash;an <i>integer</i>.
+</p>
+<p><var>masked-integer</var>, <var>new-masked-integer</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-336"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>mask-field</code> performs a &ldquo;mask&rdquo; operation on <var>integer</var>.
+It returns an <i>integer</i> that has the same bits as <var>integer</var> in 
+the <i>byte</i> specified by <var>bytespec</var>, but that has zero-bits everywhere else.
+</p>
+<p><code>setf</code> may be used with <code>mask-field</code>
+to modify a byte within the <i>integer</i> that is stored
+in a given <var>place</var>.
+The effect is to perform a <code>deposit-field</code> operation
+and then store the result back into the <var>place</var>.
+</p>
+<span id="Examples_003a-238"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (mask-field (byte 1 5) -1) <span class="roman">→</span> 32
+ (setq a 15) <span class="roman">→</span> 15
+ (mask-field (byte 2 0) a) <span class="roman">→</span> 3
+ a <span class="roman">→</span> 15
+ (setf (mask-field (byte 2 0) a) 1) <span class="roman">→</span> 1
+ a <span class="roman">→</span> 13
+</pre></div>
+
+
+<span id="See-Also_003a-278"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="byte_003b-byte_002dsize_003b-byte_002dposition.html#byte">byte</a>,
+<a href="ldb.html">ldb</a>
+</p>
+<span id="Notes_003a-180"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (ldb <var>bs</var> (mask-field <var>bs</var> <var>n</var>)) ≡ (ldb <var>bs</var> <var>n</var>)
+ (logbitp <var>j</var> (mask-field (byte <var>s</var> <var>p</var>) <var>n</var>))
+   ≡ (and (&gt;= <var>j</var> <var>p</var>) (&lt; <var>j</var> <var>s</var>) (logbitp <var>j</var> <var>n</var>))
+ (mask-field <var>bs</var> <var>n</var>) ≡ (logand <var>n</var> (dpb -1 <var>bs</var> 0))
+</pre></div>
+
+
+
+
+
+
+</body>
+</html>

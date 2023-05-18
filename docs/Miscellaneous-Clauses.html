@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Miscellaneous Clauses (ANSI Common Lisp)</title>
+
+<meta name="description" content="Miscellaneous Clauses (ANSI Common Lisp)">
+<meta name="keywords" content="Miscellaneous Clauses (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-LOOP-Facility.html" rel="up" title="The LOOP Facility">
+<link href="Examples-of-Miscellaneous-Loop-Features.html" rel="next" title="Examples of Miscellaneous Loop Features">
+<link href="Conditional-Execution-Clauses.html" rel="prev" title="Conditional Execution Clauses">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Miscellaneous-Clauses"></span><div class="header">
+<p>
+Next: <a href="Examples-of-Miscellaneous-Loop-Features.html" accesskey="n" rel="next">Examples of Miscellaneous Loop Features</a>, Previous: <a href="Conditional-Execution-Clauses.html" accesskey="p" rel="prev">Conditional Execution Clauses</a>, Up: <a href="The-LOOP-Facility.html" accesskey="u" rel="up">The LOOP Facility</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Miscellaneous-Clauses-1"></span><h4 class="subsection">6.1.7 Miscellaneous Clauses</h4>
+
+<span id="Control-Transfer-Clauses"></span><h4 class="subsubsection">6.1.7.1 Control Transfer Clauses</h4>
+
+<p>The <code>named</code> construct
+establishes a name for an <i>implicit block</i> surrounding the 
+entire
+<code>loop</code> so that the <code>return-from</code> <i>special operator</i> can be used to return 
+values from or to exit <code>loop</code>.   
+Only one name per <code>loop</code> <i>form</i> can be assigned.
+If used, the <code>named</code> construct must be the first clause in the loop expression.
+</p>
+<p>The <code>return</code> construct takes one <i>form</i>. 
+Any <i>values</i> returned by the <i>form</i> 
+are immediately returned by the <code>loop</code> form.
+This construct is similar to the <code>return-from</code> <i>special operator</i> and the <code>return</code> <i>macro</i>.
+The <code>return</code> construct 
+does not execute any <code>finally</code> clause that 
+the <code>loop</code> <i>form</i>
+is given.
+</p>
+<span id="g_t6_002e1_002e7_002e1_002e1-Examples-of-NAMED-clause"></span><h4 class="unnumberedsubsubsec">6.1.7.1.1 Examples of NAMED clause</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;; Just name and return.
+ (loop named max
+       for i from 1 to 10
+       do (print i)
+       do (return-from max 'done))
+▷ 1 
+<span class="roman">→</span> DONE
+</pre></div>
+
+
+
+
+<span id="Initial-and-Final-Execution"></span><h4 class="subsubsection">6.1.7.2 Initial and Final Execution</h4>
+
+<p>The <code>initially</code> and <code>finally</code> constructs
+evaluate forms that occur before and after the loop body.
+</p>
+<p>The <code>initially</code> construct causes the supplied
+<var>compound-forms</var>
+to be evaluated
+in the loop prologue, which precedes all loop code except for 
+initial settings supplied by constructs <code>with</code>, <code>for</code>, or
+<code>as</code>.
+The code for any <code>initially</code> clauses is 
+executed
+in the order in which the clauses appeared in
+the <code>loop</code>.  
+</p>
+<p>The <code>finally</code> construct causes the supplied
+<var>compound-forms</var>
+to be evaluated
+in the loop epilogue after normal iteration terminates.
+The code for any <code>finally</code> clauses is 
+executed
+in the order in which the clauses appeared in
+the <code>loop</code>.  The collected code is executed once in the loop epilogue
+before any implicit values are returned from the accumulation clauses.
+An explicit transfer of control (<i>e.g.</i>, by <code>return</code>, <code>go</code>, or <code>throw</code>)
+from the loop body, however, will exit the 
+<code>loop</code> without executing the epilogue code.
+</p>
+<p>Clauses such as <code>return</code>, <code>always</code>, <code>never</code>, and 
+<code>thereis</code>
+can bypass the <code>finally</code> clause.
+<code>return</code> (or <code>return-from</code>, if the <code>named</code> option was supplied)
+can be used after <code>finally</code> to return values from a <code>loop</code>.  
+Such an <i>explicit return</i>
+inside the
+<code>finally</code> clause takes precedence over returning the accumulation
+from clauses supplied by such keywords as <code>collect</code>, <code>nconc</code>, 
+<code>append</code>, <code>sum</code>, <code>count</code>, <code>maximize</code>, and 
+<code>minimize</code>; 
+the accumulation values for these preempted clauses are not returned by 
+<code>loop</code> if <code>return</code> or <code>return-from</code> is used.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Examples-of-Miscellaneous-Loop-Features.html" accesskey="n" rel="next">Examples of Miscellaneous Loop Features</a>, Previous: <a href="Conditional-Execution-Clauses.html" accesskey="p" rel="prev">Conditional Execution Clauses</a>, Up: <a href="The-LOOP-Facility.html" accesskey="u" rel="up">The LOOP Facility</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

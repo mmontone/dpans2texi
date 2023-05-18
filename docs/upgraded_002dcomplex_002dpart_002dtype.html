@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>upgraded-complex-part-type (ANSI Common Lisp)</title>
+
+<meta name="description" content="upgraded-complex-part-type (ANSI Common Lisp)">
+<meta name="keywords" content="upgraded-complex-part-type (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="realp.html" rel="next" title="realp">
+<link href="realpart_003b-imagpart.html" rel="prev" title="realpart; imagpart">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="upgraded_002dcomplex_002dpart_002dtype"></span><div class="header">
+<p>
+Next: <a href="realp.html" accesskey="n" rel="next">realp</a>, Previous: <a href="realpart_003b-imagpart.html" accesskey="p" rel="prev">realpart; imagpart</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">upgraded-complex-part-type</h4>
+<span id="upgraded_002dcomplex_002dpart_002dtype-_0028Function_0029"></span><h3 class="heading">upgraded-complex-part-type (Function)</h3>
+<span id="index-upgraded_002dcomplex_002dpart_002dtype-2"></span>
+<span id="index-upgraded_002dcomplex_002dpart_002dtype"></span>
+
+
+
+<span id="Syntax_003a-245"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-upgraded_002dcomplex_002dpart_002dtype-1">Function: <strong>upgraded-complex-part-type</strong> <em>typespec <tt>&amp;optional</tt> environment <span class="roman">→</span> upgraded-typespec</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-234"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>environment</var>&mdash;an <i>environment</i> <i>object</i>.
+The default is <code>nil</code>, denoting the <i>null lexical environment</i>
+and the and current <i>global environment</i>.
+</p>
+<p><var>upgraded-typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Description_003a-316"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>upgraded-complex-part-type</code> returns the part type of the
+most specialized <i>complex</i> number representation that can
+hold parts of <i>type</i> <i>typespec</i>.
+</p>
+<p>The <var>typespec</var> is a <i>subtype</i> of 
+(and possibly <i>type equivalent</i> to)
+the <var>upgraded-typespec</var>.
+</p>
+<p>The purpose of <code>upgraded-complex-part-type</code>
+is to reveal how an implementation does its <i>upgrading</i>.
+</p>
+<span id="See-Also_003a-267"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="complex-_0028Function_0029.html">complex (Function)</a> (<i>function</i> and <i>type</i>)
+</p>
+<span id="Notes_003a-162"></span><h4 class="subsubheading">Notes:</h4>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Compilation Semantics (ANSI Common Lisp)</title>
+
+<meta name="description" content="Compilation Semantics (ANSI Common Lisp)">
+<meta name="keywords" content="Compilation Semantics (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Compilation.html" rel="up" title="Compilation">
+<link href="File-Compilation.html" rel="next" title="File Compilation">
+<link href="Compiler-Terminology.html" rel="prev" title="Compiler Terminology">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Compilation-Semantics"></span><div class="header">
+<p>
+Next: <a href="File-Compilation.html" accesskey="n" rel="next">File Compilation</a>, Previous: <a href="Compiler-Terminology.html" accesskey="p" rel="prev">Compiler Terminology</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Compilation-Semantics-1"></span><h4 class="subsection">3.2.2 Compilation Semantics</h4>
+
+<p>Conceptually, compilation is a process that traverses code, performs
+certain kinds of syntactic and semantic analyses using information
+(such as proclamations and <i>macro</i> definitions) present in the
+<i>compilation environment</i>, and produces equivalent, possibly
+more efficient code.
+</p>
+
+<span id="Compiler-Macros"></span><h4 class="subsubsection">3.2.2.1 Compiler Macros</h4>
+<span id="CompilerMacros"></span>
+<p>A <i>compiler macro</i> can be defined for a <i>name</i>
+that also names a <i>function</i> or <i>macro</i>.
+That is, it is possible for a
+<i>function name</i> to name both a <i>function</i> and a <i>compiler macro</i>.
+</p>
+<p>A <i>function name</i> names a <i>compiler macro</i> if <code>compiler-macro-function</code>
+is <i>true</i> of the <i>function name</i> in the <i>lexical environment</i> in which
+it appears.  Creating a <i>lexical binding</i> for the <i>function name</i>
+not only creates a new local <i>function</i> or
+<i>macro</i> definition, but also <i>shadows</i><sub>2</sub>
+</p>
+<p>The <i>function</i> returned by <code>compiler-macro-function</code>
+is a <i>function</i> of two arguments, called the
+expansion function.  To expand a <i>compiler macro</i>,
+the expansion function is invoked by calling the <i>macroexpand hook</i> with
+the expansion function as its first argument,
+the entire compiler macro <i>form</i> as its second argument,
+and the current compilation <i>environment</i> 
+(or with the current lexical <i>environment</i>,
+if the <i>form</i> is being processed by something
+other than <code>compile-file</code>) 
+as its third argument.
+The <i>macroexpand hook</i>, in turn, calls the expansion function with the
+<i>form</i> as its first argument and the <i>environment</i> as its second argument.
+The return value from the expansion function, which is passed through
+by the <i>macroexpand hook</i>, might either be the <i>same</i> <i>form</i>, 
+or else a form that can, at the discretion of the <i>code</i> doing the expansion, 
+be used in place of the original <i>form</i>.
+</p>
+
+<div class="float"><span id="fig3_002e6"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*macroexpand-hook*</td><td>compiler-macro-function</td><td>define-compiler-macro</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 3.6: </strong>Defined names applicable to compiler macros</p></div></div>
+
+<span id="g_t3_002e2_002e2_002e1_002e1-Purpose-of-Compiler-Macros"></span><h4 class="unnumberedsubsubsec">3.2.2.1.1 Purpose of Compiler Macros</h4>
+
+
+<p>The purpose of the <i>compiler macro</i> facility is to permit 
+selective source code transformations as optimization advice 
+to the <i>compiler</i>.  When a <i>compound form</i> is being
+processed (as by the compiler), if the <i>operator</i> names a
+<i>compiler macro</i> then the <i>compiler macro function</i> may be
+invoked on the form, and the resulting expansion recursively processed
+in preference to performing the usual processing on the original <i>form</i>
+according to its normal interpretation as a <i>function form</i> or
+<i>macro form</i>.
+</p>
+<p>A <i>compiler macro function</i>, like a <i>macro function</i>,
+is a <i>function</i> of two <i>arguments</i>: the entire call <i>form</i>
+and the <i>environment</i>. Unlike an ordinary <i>macro function</i>, a 
+<i>compiler macro function</i> can decline to provide an expansion merely by
+returning a value that is the <i>same</i> as the original <i>form</i>.
+The consequences are undefined if a <i>compiler macro function</i>
+destructively modifies any part of its <i>form</i> argument.
+</p>
+<p>The <i>form</i> passed to the compiler macro function can either be a <i>list</i>
+whose <i>car</i> is the function name, or a <i>list</i> whose <i>car</i> is
+<code>funcall</code> and whose <i>cadr</i> is a list <code>(function <var>name</var>)</code>;
+note that this affects destructuring of the form argument by the 
+<i>compiler macro function</i>.
+<code>define-compiler-macro</code> arranges for destructuring of arguments to be
+performed correctly for both possible formats.
+</p>
+<p>When <code>compile-file</code> chooses to expand a <i>top level form</i> that is
+a <i>compiler macro</i> <i>form</i>, the expansion is also treated as a <i>top level form</i>
+for the purposes of <code>eval-when</code> processing; see <a href="File-Compilation.html#TopLevelForms">Section 3.2.3.1 (Processing of Top Level Forms)</a>.
+</p>
+
+<span id="g_t3_002e2_002e2_002e1_002e2-Naming-of-Compiler-Macros"></span><h4 class="unnumberedsubsubsec">3.2.2.1.2 Naming of Compiler Macros</h4>
+
+
+<p><i>Compiler macros</i> may be defined for <i>function names</i> that name
+<i>macros</i> as well as <i>functions</i>.  
+</p>
+<p><i>Compiler macro</i> definitions are strictly global.  There is no provision
+for defining local <i>compiler macros</i> in the way that <code>macrolet</code>
+defines local <i>macros</i>.  Lexical bindings of a function name shadow any
+compiler macro definition associated with the name as well as its 
+global <i>function</i> or <i>macro</i> definition.
+</p>
+<p>Note that the presence of a compiler macro definition does not affect
+the values returned by
+functions that access <i>function</i> definitions (<i>e.g.</i>, <code>fboundp</code>)
+or <i>macro</i> definitions (<i>e.g.</i>, <code>macroexpand</code>).
+Compiler macros are global, and the function
+<code>compiler-macro-function</code> is sufficient to resolve their interaction
+with other lexical and global definitions.
+</p>
+
+<span id="g_t3_002e2_002e2_002e1_002e3-When-Compiler-Macros-Are-Used"></span><h4 class="unnumberedsubsubsec">3.2.2.1.3 When Compiler Macros Are Used</h4>
+
+
+<p>The presence of a <i>compiler macro</i> definition for a <i>function</i> or <i>macro</i>
+indicates that it is desirable for the <i>compiler</i> to use the expansion
+of the <i>compiler macro</i> instead of the original <i>function form</i> or
+<i>macro form</i>.  However, no language processor
+(compiler, evaluator, or other code walker) is ever required to actually
+invoke <i>compiler macro functions</i>, or to 
+make use of the resulting expansion if it does invoke 
+a <i>compiler macro function</i>.
+</p>
+<p>When the <i>compiler</i> encounters a <i>form</i> during processing that represents
+a call to a <i>compiler macro</i> <i>name</i> (that is not declared <code>notinline</code>),
+the <i>compiler</i> might expand the <i>compiler macro</i>, 
+and might use the expansion in place of the original <i>form</i>.
+</p>
+<p>When <code>eval</code> encounters a <i>form</i> during processing that represents 
+a call to a <i>compiler macro</i> <i>name</i> (that is not declared <code>notinline</code>),
+<code>eval</code> might expand the <i>compiler macro</i>,
+and might use the expansion in place of the original <i>form</i>.
+</p>
+<p>There are two situations in which a <i>compiler macro</i> definition must not be
+applied by any language processor:
+</p>
+
+<ul>
+<li> The global function name binding associated with the compiler
+macro is shadowed by a lexical binding of the function name.
+
+</li><li> The function name has been declared or proclaimed <code>notinline</code> and
+the call form appears within the scope of the declaration.
+</li></ul>
+
+
+<p>It is unspecified whether <i>compiler macros</i> are expanded or used in any other
+situations.
+</p>
+<span id="g_t3_002e2_002e2_002e1_002e3_002e1-Notes-about-the-Implementation-of-Compiler-Macros"></span><h4 class="unnumberedsubsubsec">3.2.2.1.3.1 Notes about the Implementation of Compiler Macros</h4>
+
+
+<p>Although it is technically permissible, as described above,
+for <code>eval</code> to treat <i>compiler macros</i> in the same situations
+as <i>compiler</i> might, this is not necessarily a good idea in
+<i>interpreted implementations</i>.
+</p>
+<p><i>Compiler macros</i> exist for the purpose of trading compile-time speed
+for run-time speed.  Programmers who write <i>compiler macros</i> tend to
+assume that the <i>compiler macros</i> can take more time than normal <i>functions</i>
+and <i>macros</i> in order to produce code which is especially optimal for use
+at run time.  Since <code>eval</code> in an <i>interpreted implementation</i>
+might perform semantic analysis of the same form multiple times, it might be 
+inefficient in general for the <i>implementation</i> to choose to call
+<i>compiler macros</i> on every such <i>evaluation</i>.
+</p>
+<p>Nevertheless, the decision about what to do in these situations is left to
+each <i>implementation</i>.
+</p>
+
+
+
+
+<span id="Minimal-Compilation"></span><h4 class="subsubsection">3.2.2.2 Minimal Compilation</h4>
+<span id="MinimalCompilation"></span>
+<p><i>Minimal compilation</i> is defined as follows:
+</p>
+
+<ul>
+<li> All <i>compiler macro</i>
+<span id="index-compiler-macro"></span>
+calls appearing in the
+<i>source code</i> being compiled are expanded, if at all, at compile time;
+they will not be expanded at run time.
+
+</li><li> All <i>macro</i>
+<span id="index-macro"></span>
+and 
+<i>symbol macro</i>
+<span id="index-symbol-macro"></span>
+calls
+appearing in the source code being compiled are expanded at compile time
+in such a way that they will not be expanded again at run time.
+<code>macrolet</code>
+<span id="index-macrolet"></span>
+and
+<code>symbol-macrolet</code>
+<span id="index-symbol_002dmacrolet"></span>
+are effectively replaced by
+<i>forms</i> corresponding to their bodies in which calls to 
+<i>macros</i> are replaced by their expansions.
+
+</li><li> The first <i>argument</i> in a <code>load-time-value</code>
+<span id="index-load_002dtime_002dvalue"></span>
+<i>form</i> 
+in <i>source code</i> processed by <code>compile</code>
+<span id="index-compile"></span>
+is <i>evaluated</i> at <i>compile time</i>;
+in <i>source code</i> processed by <code>compile-file</code>
+<span id="index-compile_002dfile"></span>
+, 
+the compiler arranges for it to be <i>evaluated</i> at <i>load time</i>.
+In either case, the result of the <i>evaluation</i>
+is remembered and used later as the value of the 
+<code>load-time-value</code> <i>form</i> at <i>execution time</i>.
+</li></ul>
+
+
+
+<span id="Semantic-Constraints"></span><h4 class="subsubsection">3.2.2.3 Semantic Constraints</h4>
+<span id="SemanticConstraints"></span>
+<p>All <i>conforming programs</i> must obey the following constraints,
+which are designed to minimize the observable differences 
+between compiled and interpreted programs:
+</p>
+
+<ul>
+<li> Definitions of any referenced <i>macros</i>
+must be present in the <i>compilation environment</i>.  
+Any <i>form</i> that is a <i>list</i>
+beginning with a <i>symbol</i> that does not name a
+<i>special operator</i> or a <i>macro</i> defined in the 
+<i>compilation environment</i> is treated by the compiler as a 
+function call.
+
+</li><li> <code>Special</code> proclamations for <i>dynamic variables</i>
+must be made in the <i>compilation environment</i>.  Any <i>binding</i>
+for which there is no <code>special</code> declaration or proclamation in
+the <i>compilation environment</i> is treated by the compiler as
+a <i>lexical binding</i>.
+
+</li><li> The definition of a function that is defined and
+declared <code>inline</code> in the <i>compilation environment</i> must be
+the same at run time.
+
+
+</li><li> Within a <i>function</i> named F, the compiler may
+(but is not required to)
+assume that an apparent recursive call to a <i>function</i> named F 
+refers to the same definition of F,
+unless that function has been declared <code>notinline</code>.
+The consequences of redefining such a recursively defined <i>function</i> F 
+while it is executing are undefined.
+
+</li><li> A call within a file to a named function that is
+defined in the same file refers to that function, unless that function
+has been declared <code>notinline</code>.  The consequences are unspecified
+if functions are redefined individually at run time or multiply
+defined in the same file.
+
+
+</li><li> The argument syntax and number of return values for
+all functions whose <code>ftype</code> is declared at compile time must
+remain the same at run time.
+
+</li><li> <i>Constant variables</i> defined in
+the <i>compilation environment</i> must have a <i>similar</i> value at
+run time.  A reference to 
+a <i>constant variable</i> 
+in <i>source code</i> is equivalent to a reference to 
+a <i>literal</i> <i>object</i> that is the <i>value</i> of the <i>constant variable</i>.
+
+</li><li> Type definitions made with <code>deftype</code> or
+<code>defstruct</code> in the <i>compilation environment</i> must
+retain the same definition at run time.  Classes defined by <code>defclass</code>
+in the <i>compilation environment</i> must be defined
+at run time to have the same <i>superclasses</i> and same 
+<i>metaclass</i>.
+
+<p>This implies that <i>subtype</i>/<i>supertype</i> relationships of 
+<i>type specifiers</i> must not change between <i>compile time</i> and <i>run time</i>.  
+</p>
+</li><li> Type declarations present in the compilation 
+<i>environment</i> must accurately describe the corresponding values at run time;
+otherwise, the consequences are undefined.  It is permissible
+for an unknown <i>type</i> to appear in a declaration at 
+compile time, though a warning might be signaled in such a case.
+
+</li><li> Except in the situations explicitly listed above, a
+<i>function</i> defined in the <i>evaluation environment</i>
+is permitted to have a different definition or a different <i>signature</i>
+at run time, and the run-time definition prevails.
+</li></ul>
+
+
+<p><i>Conforming programs</i> should not be written using any additional
+assumptions about consistency between the run-time 
+<i>environment</i> and the startup, evaluation, and compilation 
+<i>environments</i>.
+</p>
+<p>Except where noted, when a compile-time and a run-time definition are
+different, one of the following occurs at run time:
+</p>
+
+<ul>
+<li> an error of <i>type</i> <code>error</code> is signaled
+</li><li> the compile-time definition prevails
+</li><li> the run-time definition prevails
+</li></ul>
+
+
+<p>If the <i>compiler</i> processes a <i>function form</i> whose <i>operator</i> 
+is not defined at compile time, no error is signaled at compile time.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="File-Compilation.html" accesskey="n" rel="next">File Compilation</a>, Previous: <a href="Compiler-Terminology.html" accesskey="p" rel="prev">Compiler Terminology</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

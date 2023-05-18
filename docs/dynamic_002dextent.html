@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>dynamic-extent (ANSI Common Lisp)</title>
+
+<meta name="description" content="dynamic-extent (ANSI Common Lisp)">
+<meta name="keywords" content="dynamic-extent (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
+<link href="type.html" rel="next" title="type">
+<link href="ignore_003b-ignorable.html" rel="prev" title="ignore; ignorable">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="dynamic_002dextent"></span><div class="header">
+<p>
+Next: <a href="type.html" accesskey="n" rel="next">type</a>, Previous: <a href="ignore_003b-ignorable.html" accesskey="p" rel="prev">ignore; ignorable</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">dynamic-extent</h4>
+<span id="dynamic_002dextent-_0028Declaration_0029"></span><h3 class="heading">dynamic-extent (Declaration)</h3>
+<span id="index-dynamic_002dextent-1"></span>
+<span id="index-dynamic_002dextent"></span>
+
+
+<span id="Syntax_003a-18"></span><h4 class="subsubheading">Syntax:</h4>
+
+<p><code>(dynamic-extent 〚<tt>{</tt>var<tt>}</tt>* |
+<tt>(</tt><tt>function</tt> <var>fn</var><tt>)</tt>*〛)</code>
+</p>
+<span id="Arguments_003a-3"></span><h4 class="subsubheading">Arguments:</h4>
+
+<p><var>var</var>&mdash;a <i>variable</i> <i>name</i>.
+</p>
+<p><var>fn</var>&mdash;a <i>function</i> <i>name</i>.
+</p>
+<span id="Valid-Context_003a-1"></span><h4 class="subsubheading">Valid Context:</h4>
+
+<p><i>declaration</i>
+</p>
+<span id="Binding-Types-Affected_003a-1"></span><h4 class="subsubheading">Binding Types Affected:</h4>
+
+<p><i>variable</i>, <i>function</i>
+</p>
+<span id="Description_003a-19"></span><h4 class="subsubheading">Description:</h4>
+
+
+<p>In some containing <i>form</i>, <var>F</var>, this declaration
+asserts for each <var>var<sub>i</sub>
+and for each <i>value</i> <var>v<sub>ij</sub>
+and for each <i>object</i> <var>x<sub>ijk</sub>
+is
+an <i>otherwise inaccessible part</i> of <var>v<sub>ij</sub>
+<var>v<sub>ij</sub>
+becomes the value of <var>var<sub>i</sub>
+that just after the execution of <var>F</var> terminates, 
+<var>x<sub>ijk</sub>
+(if <var>F</var> established a <i>binding</i> for <var>var<sub>i</sub>
+or still an <i>otherwise inaccessible part</i> of the current value of 
+<var>var<sub>i</sub>
+for <var>var<sub>i</sub>
+The same relation holds for each <var>fn<sub>i</sub>
+except that the <i>bindings</i> are in the <i>function</i> <i>namespace</i>.
+
+</var></var></var></var></var></var></var></var></var></var></var></p><p>The compiler is permitted to use
+this information in any way that is appropriate to the <i>implementation</i>
+and that does not conflict with the semantics of <span class="roman">Common Lisp</span>.
+</p>
+<p><code>dynamic-extent</code> declarations can be <i>free declarations</i>
+or <i>bound declarations</i>.
+</p>
+<p>The <var>vars</var> and <var>fns</var> named in a <code>dynamic-extent</code> 
+declaration must not refer to <i>symbol macro</i> or <i>macro</i> bindings.
+</p>
+<span id="Examples_003a-16"></span><h4 class="subsubheading">Examples:</h4>
+
+<p>Since stack allocation of the initial value entails knowing at the
+<i>object</i>&rsquo;s creation time that the <i>object</i> can be 
+<i>stack-allocated</i>,  it is not generally useful to make a 
+<code>dynamic-extent</code> <i>declaration</i> for <i>variables</i>
+which have no lexically apparent initial value. 
+For example, it is probably useful to write:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun f ()
+   (let ((x (list 1 2 3)))
+     (declare (dynamic-extent x))
+         ...))
+</pre></div>
+
+
+<p>This would permit those compilers that wish to do so to <i>stack allocate</i>
+the list held by the local variable <code>x</code>.  It is permissible,
+but in practice probably not as useful, to write:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun g (x) (declare (dynamic-extent x)) ...)
+ (defun f () (g (list 1 2 3)))
+</pre></div>
+
+
+<p>Most compilers would probably not <i>stack allocate</i> the <i>argument</i>
+to <code>g</code> in <code>f</code> because it would be a modularity violation for the compiler
+to assume facts about <code>g</code> from within <code>f</code>.   Only an implementation that 
+was willing to be responsible for recompiling <code>f</code> if the definition of <code>g</code> 
+changed incompatibly could legitimately <i>stack allocate</i> the <i>list</i> 
+argument to <code>g</code> in <code>f</code>.
+</p>
+<p>Here is another example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (declaim (inline g))
+ (defun g (x) (declare (dynamic-extent x)) ...)
+ (defun f () (g (list 1 2 3)))
+ 
+ (defun f ()
+   (flet ((g (x) (declare (dynamic-extent x)) ...))
+     (g (list 1 2 3))))
+ 
+</pre></div>
+
+<p>In the previous example, some compilers might determine that optimization was 
+possible and others might not.
+</p>
+<p>A variant of this is the so-called &ldquo;stack allocated rest list&rdquo;
+that can be achieved (in implementations supporting the optimization) by:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun f (&amp;rest x)
+   (declare (dynamic-extent x))
+   ...)
+</pre></div>
+
+
+<p>Note that although the initial value of <code>x</code> is not explicit, the <code>f</code>
+function is responsible for assembling the list <code>x</code> from the passed arguments,
+so the <code>f</code> function can be optimized by the compiler to construct a 
+<i>stack-allocated</i> list instead of a heap-allocated list in implementations
+that support such.
+</p>
+<p>In the following example,
+</p>
+<div class="lisp">
+<pre class="lisp"> (let ((x (list 'a1 'b1 'c1))
+       (y (cons 'a2 (cons 'b2 (cons 'c2 nil)))))
+   (declare (dynamic-extent x y))
+   ...)
+</pre></div>
+
+<p>The <i>otherwise inaccessible parts</i> of <code>x</code> are three 
+<i>conses</i>,  and the <i>otherwise inaccessible parts</i>
+of <code>y</code> are three other <i>conses</i>.  
+None of the symbols <code>a1</code>,  <code>b1</code>,  <code>c1</code>,  <code>a2</code>,
+<code>b2</code>,  <code>c2</code>,  or <code>nil</code>&nbsp;<!-- /@w -->is an
+<i>otherwise inaccessible part</i> of <code>x</code> or <code>y</code> because each
+is <i>interned</i> and hence <i>accessible</i> by the <i>package</i>
+(or <i>packages</i>) in which it is <i>interned</i>.
+However, if a freshly allocated <i>uninterned</i> <i>symbol</i> had
+been used, it would have been an <i>otherwise inaccessible part</i> of
+the <i>list</i> which contained it.
+</p>
+<div class="lisp">
+<pre class="lisp">;; In this example, the implementation is permitted to <i>stack allocate</i>
+;; the list that is bound to X.
+ (let ((x (list 1 2 3)))
+   (declare (dynamic-extent x))
+   (print x)
+   :done)
+▷ (1 2 3)
+<span class="roman">→</span> :DONE
+ 
+;; In this example, the list to be bound to L can be <i>stack-allocated</i>.
+ (defun zap (x y z)
+   (do ((l (list x y z) (cdr l)))
+       ((null l))
+     (declare (dynamic-extent l))
+     (prin1 (car l)))) <span class="roman">→</span> ZAP
+ (zap 1 2 3)
+▷ 123
+<span class="roman">→</span> NIL
+
+;; Some implementations might open-code LIST-ALL-PACKAGES in a way
+;; that permits using <i>stack allocation</i> of the list to be bound to L.
+ (do ((l (list-all-packages) (cdr l)))
+     ((null l))
+   (declare (dynamic-extent l))
+   (let ((name (package-name (car l))))
+     (when (string-search &quot;COMMON-LISP&quot; name) (print name))))
+▷ &quot;COMMON-LISP&quot;
+▷ &quot;COMMON-LISP-USER&quot;
+<span class="roman">→</span> NIL
+
+;; Some implementations might have the ability to <i>stack allocate</i> 
+;; rest lists.  A declaration such as the following should be a cue
+;; to such implementations that stack-allocation of the rest list
+;; would be desirable.
+ (defun add (&amp;rest x)
+   (declare (dynamic-extent x))
+   (apply #'+ x)) <span class="roman">→</span> ADD
+ (add 1 2 3) <span class="roman">→</span> 6
+
+ (defun zap (n m)
+   ;; Computes (RANDOM (+ M 1)) at relative speed of roughly O(N).
+   ;; It may be slow, but with a good compiler at least it
+   ;; doesn't waste much heap storage.  :-<tt>}</tt>
+   (let ((a (make-array n)))
+     (declare (dynamic-extent a))
+     (dotimes (i n) 
+       (declare (dynamic-extent i))
+       (setf (aref a i) (random (+ i 1))))
+     (aref a m))) <span class="roman">→</span> ZAP
+ (&lt; (zap 5 3) 3) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<p>The following are in error, since the value of <code>x</code> is used outside of its
+<i>extent</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (length (list (let ((x (list 1 2 3)))  ; Invalid
+                (declare (dynamic-extent x))
+                x)))
+
+ (progn (let ((x (list 1 2 3)))  ; Invalid
+          (declare (dynamic-extent x))
+          x)
+        nil)
+</pre></div>
+
+
+<span id="See-Also_003a-19"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="declare.html">declare</a>
+</p>
+<span id="Notes_003a-12"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The most common optimization is to <i>stack allocate</i> the 
+initial value of the <i>objects</i> named by the <var>vars</var>. 
+</p>
+<p>It is permissible for an implementation to simply ignore this declaration.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="type.html" accesskey="n" rel="next">type</a>, Previous: <a href="ignore_003b-ignorable.html" accesskey="p" rel="prev">ignore; ignorable</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

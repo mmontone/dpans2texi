@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>check-type (ANSI Common Lisp)</title>
+
+<meta name="description" content="check-type (ANSI Common Lisp)">
+<meta name="keywords" content="check-type (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conditions.html" rel="up" title="Conditions">
+<link href="simple_002derror.html" rel="next" title="simple-error">
+<link href="cerror.html" rel="prev" title="cerror">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="check_002dtype"></span><div class="header">
+<p>
+Next: <a href="simple_002derror.html" accesskey="n" rel="next">simple-error</a>, Previous: <a href="cerror.html" accesskey="p" rel="prev">cerror</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">check-type</h4>
+<span id="check_002dtype-_0028Macro_0029"></span><h3 class="heading">check-type (Macro)</h3>
+<span id="index-check_002dtype-2"></span>
+<span id="index-check_002dtype"></span>
+
+
+<span id="Syntax_003a-146"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-check_002dtype-1">Macro: <strong>check-type</strong> <em>place typespec <tt>[</tt><var>string</var><tt>]</tt> <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-135"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>place</var>&mdash;a <i>place</i>.
+</p>
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>string</var>&mdash;a <i>string</i>; evaluated. 
+</p>
+<span id="Description_003a-183"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>check-type</code> signals a <i>correctable</i> <i>error</i> 
+of <i>type</i> <code>type-error</code> if the contents of <var>place</var> are not 
+of the type <var>typespec</var>.
+</p>
+<p><code>check-type</code> can return only if the <code>store-value</code> restart is invoked,
+either explicitly from a handler 
+or implicitly as one of the options offered by the debugger.
+If the <code>store-value</code> restart is invoked,
+<code>check-type</code> stores the new value 
+that is the argument to the <i>restart</i> invocation 
+(or that is prompted for interactively by the debugger)
+in <var>place</var> and starts over, 
+checking the type of the new value
+and signaling another error if it is still not of the desired <i>type</i>.
+</p>
+<p>The first time <var>place</var> is <i>evaluated</i>, 
+it is <i>evaluated</i> by normal evaluation rules.
+It is later <i>evaluated</i> as a <i>place</i> 
+if the type check fails and the <code>store-value</code> restart is used;
+see <a href="Overview-of-Places-and-Generalized-Reference.html#GenRefSubFormEval">Section 5.1.1.1 (Evaluation of Subforms to Places)</a>.
+</p>
+<p><i>string</i> should be an English description of the type, 
+starting with an indefinite article (&ldquo;a&rdquo; or &ldquo;an&rdquo;).
+If <i>string</i> is not supplied,
+it is computed automatically from <var>typespec</var>.
+The automatically generated message mentions
+<var>place</var>,
+its contents,
+and the desired type.
+An implementation may choose to generate 
+a somewhat differently worded error message 
+if it recognizes that <var>place</var> is of a particular form, 
+such as one of the arguments to the function that called <code>check-type</code>.
+<i>string</i> is allowed because some applications of <code>check-type</code> 
+may require a more specific description of what is wanted
+than can be generated automatically from <var>typespec</var>.
+</p>
+<span id="Examples_003a-117"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq aardvarks '(sam harry fred))
+<span class="roman">→</span> (SAM HARRY FRED)
+ (check-type aardvarks (array * (3)))
+▷ Error: The value of AARDVARKS, (SAM HARRY FRED),
+▷        is not a 3-long array.
+▷ To continue, type :CONTINUE followed by an option number:
+▷  1: Specify a value to use instead.
+▷  2: Return to Lisp Toplevel.
+▷ Debug&gt; <kbd>:CONTINUE 1</kbd>
+▷ Use Value: <kbd>#(SAM FRED HARRY)</kbd>
+<span class="roman">→</span> NIL
+ aardvarks
+<span class="roman">→</span> #&lt;ARRAY-T-3 13571&gt;
+ (map 'list #'identity aardvarks)
+<span class="roman">→</span> (SAM FRED HARRY)
+ (setq aardvark-count 'foo)
+<span class="roman">→</span> FOO
+ (check-type aardvark-count (integer 0 *) &quot;A positive integer&quot;)
+▷ Error: The value of AARDVARK-COUNT, FOO, is not a positive integer.
+▷ To continue, type :CONTINUE followed by an option number:
+▷  1: Specify a value to use instead.
+▷  2: Top level.
+▷ Debug&gt; <kbd>:CONTINUE 2</kbd>
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (defmacro define-adder (name amount)
+   (check-type name (and symbol (not null)) &quot;a name for an adder function&quot;)
+   (check-type amount integer)
+   `(defun ,name (x) (+ x ,amount)))
+  
+ (macroexpand '(define-adder add3 3))
+<span class="roman">→</span> (defun add3 (x) (+ x 3))
+ 
+ (macroexpand '(define-adder 7 7))
+▷ Error: The value of NAME, 7, is not a name for an adder function.
+▷ To continue, type :CONTINUE followed by an option number:
+▷  1: Specify a value to use instead.
+▷  2: Top level.
+▷ Debug&gt; <kbd>:Continue 1</kbd>
+▷ Specify a value to use instead.
+▷ Type a form to be evaluated and used instead: <kbd>'ADD7</kbd>
+<span class="roman">→</span> (defun add7 (x) (+ x 7))
+ 
+ (macroexpand '(define-adder add5 something))
+▷ Error: The value of AMOUNT, SOMETHING, is not an integer.
+▷ To continue, type :CONTINUE followed by an option number:
+▷  1: Specify a value to use instead.
+▷  2: Top level.
+▷ Debug&gt; <kbd>:Continue 1</kbd>
+▷ Type a form to be evaluated and used instead: <kbd>5</kbd>
+<span class="roman">→</span> (defun add5 (x) (+ x 5))
+ 
+</pre></div>
+
+
+<p>Control is transferred to a handler.
+</p>
+<span id="Side-Effects_003a-9"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The debugger might be entered.
+</p>
+<span id="Affected-By_003a-21"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*break-on-signals*</code>
+</p>
+<p>The implementation.
+</p>
+<span id="See-Also_003a-161"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Condition-System-Concepts.html">Section 9.1 (Condition System Concepts)</a>
+</p>
+<span id="Notes_003a-100"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (check-type <var>place</var> <var>typespec</var>)
+ ≡ (assert (typep <var>place</var> '<var>typespec</var>) (<var>place</var>)
+            'type-error :datum <var>place</var> :expected-type '<var>typespec</var>)
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="simple_002derror.html" accesskey="n" rel="next">simple-error</a>, Previous: <a href="cerror.html" accesskey="p" rel="prev">cerror</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

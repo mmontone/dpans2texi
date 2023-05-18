@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>fill (ANSI Common Lisp)</title>
+
+<meta name="description" content="fill (ANSI Common Lisp)">
+<meta name="keywords" content="fill (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Sequences.html" rel="up" title="Sequences">
+<link href="make_002dsequence.html" rel="next" title="make-sequence">
+<link href="elt.html" rel="prev" title="elt">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="fill"></span><div class="header">
+<p>
+Next: <a href="make_002dsequence.html" accesskey="n" rel="next">make-sequence</a>, Previous: <a href="elt.html" accesskey="p" rel="prev">elt</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">fill</h4>
+<span id="fill-_0028Function_0029"></span><h3 class="heading">fill (Function)</h3>
+<span id="index-fill-2"></span>
+<span id="index-fill"></span>
+
+
+<span id="Syntax_003a-367"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-fill-1">Function: <strong>fill</strong> <em>sequence item <tt>&amp;key</tt> start end <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-356"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>item</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<span id="Description_003a-471"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Replaces the <i>elements</i> of <var>sequence</var> 
+<i>bounded</i> by <var>start</var> and <var>end</var>
+with <var>item</var>.
+</p>
+<span id="Examples_003a-338"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (fill (list 0 1 2 3 4 5) '(444)) <span class="roman">→</span> ((444) (444) (444) (444) (444) (444))
+ (fill (copy-seq &quot;01234&quot;) #\e :start 3) <span class="roman">→</span> &quot;012ee&quot;
+ (setq x (vector 'a 'b 'c 'd 'e)) <span class="roman">→</span> #(A B C D E)
+ (fill x 'z :start 1 :end 3) <span class="roman">→</span> #(A Z Z D E)
+ x <span class="roman">→</span> #(A Z Z D E)
+ (fill x 'p) <span class="roman">→</span> #(P P P P P)
+ x <span class="roman">→</span> #(P P P P P)
+</pre></div>
+
+
+<span id="Side-Effects_003a-51"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><var>Sequence</var> is destructively modified.
+</p>
+<span id="Exceptional-Situations_003a-152"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>. 
+Should signal an error of <i>type</i> <code>type-error</code> if <var>start</var> is not a non-negative <i>integer</i>.
+Should signal an error of <i>type</i> <code>type-error</code> if <var>end</var> is not a non-negative <i>integer</i> or <code>nil</code>.
+</p>
+<span id="See-Also_003a-383"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="replace.html">replace</a>, <a href="substitute_003b-substitute_002dif_003b-substitute_002dif_002dnot_003b-nsubstitute_003b-nsubstitute_002d_002b.html#nsubstitute">nsubstitute</a>
+</p>
+<span id="Notes_003a-257"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>(fill <var>sequence</var> <var>item</var>) ≡ 
+(nsubstitute-if <var>item</var> (constantly t) <var>sequence</var>)</code>
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>pairlis (ANSI Common Lisp)</title>
+
+<meta name="description" content="pairlis (ANSI Common Lisp)">
+<meta name="keywords" content="pairlis (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="rassoc_003b-rassoc_002dif_003b-rassoc_002dif_002dnot.html" rel="next" title="rassoc; rassoc-if; rassoc-if-not">
+<link href="copy_002dalist.html" rel="prev" title="copy-alist">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="pairlis"></span><div class="header">
+<p>
+Next: <a href="rassoc_003b-rassoc_002dif_003b-rassoc_002dif_002dnot.html" accesskey="n" rel="next">rassoc; rassoc-if; rassoc-if-not</a>, Previous: <a href="copy_002dalist.html" accesskey="p" rel="prev">copy-alist</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">pairlis</h4>
+<span id="pairlis-_0028Function_0029"></span><h3 class="heading">pairlis (Function)</h3>
+<span id="index-pairlis-2"></span>
+<span id="index-pairlis"></span>
+
+
+<span id="Syntax_003a-318"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-pairlis-1">Function: <strong>pairlis</strong> <em>keys data <tt>&amp;optional</tt> alist <span class="roman">→</span> new-alist</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-307"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>keys</var>&mdash;a <i>proper list</i>.
+</p>
+<p><var>data</var>&mdash;a <i>proper list</i>.
+</p>
+<p><var>alist</var>&mdash;an <i>association list</i>.
+The default is the <i>empty list</i>.
+</p>
+<p><var>new-alist</var>&mdash;an <i>association list</i>.
+</p>
+<span id="Description_003a-408"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns an <i>association list</i> that associates
+elements of <var>keys</var> to corresponding elements of <var>data</var>.
+The consequences are undefined if <var>keys</var> and <var>data</var> are 
+not of the same <i>length</i>.  
+</p>
+<p>If <var>alist</var> is supplied, <code>pairlis</code> returns
+a modified <var>alist</var> with the
+new pairs prepended to it.
+The new pairs may appear in the resulting <i>association list</i> in 
+either forward or backward order.
+The result of 
+</p>
+<div class="lisp">
+<pre class="lisp"> (pairlis '(one two) '(1 2) '((three . 3) (four . 19)))
+</pre></div>
+
+<p>might be
+</p>
+<div class="lisp">
+<pre class="lisp"> ((one . 1) (two . 2) (three . 3) (four . 19))
+</pre></div>
+
+<p>or
+</p>
+<div class="lisp">
+<pre class="lisp"> ((two . 2) (one . 1) (three . 3) (four . 19))
+</pre></div>
+
+
+<span id="Examples_003a-291"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (setq keys '(1 2 3)
+        data '(&quot;one&quot; &quot;two&quot; &quot;three&quot;)
+        alist '((4 . &quot;four&quot;))) <span class="roman">→</span> ((4 . &quot;four&quot;))
+ (pairlis keys data) <span class="roman">→</span> ((3 . &quot;three&quot;) (2 . &quot;two&quot;) (1 . &quot;one&quot;))
+ (pairlis keys data alist)
+<span class="roman">→</span> ((3 . &quot;three&quot;) (2 . &quot;two&quot;) (1 . &quot;one&quot;) (4 . &quot;four&quot;))
+ alist <span class="roman">→</span> ((4 . &quot;four&quot;))
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-131"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var><var>keys</var> and <var>data</var></var> are not <i>proper lists</i>.
+</p>
+<span id="See-Also_003a-332"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="acons.html">acons</a>
+</p>
+
+
+
+
+</body>
+</html>

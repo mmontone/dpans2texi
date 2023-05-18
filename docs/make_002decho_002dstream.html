@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>make-echo-stream (ANSI Common Lisp)</title>
+
+<meta name="description" content="make-echo-stream (ANSI Common Lisp)">
+<meta name="keywords" content="make-echo-stream (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="concatenated_002dstream_002dstreams.html" rel="next" title="concatenated-stream-streams">
+<link href="echo_002dstream_002dinput_002dstream_003b-echo_002dstream_002doutput_002dstream.html" rel="prev" title="echo-stream-input-stream; echo-stream-output-stream">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="make_002decho_002dstream"></span><div class="header">
+<p>
+Next: <a href="concatenated_002dstream_002dstreams.html" accesskey="n" rel="next">concatenated-stream-streams</a>, Previous: <a href="echo_002dstream_002dinput_002dstream_003b-echo_002dstream_002doutput_002dstream.html" accesskey="p" rel="prev">echo-stream-input-stream; echo-stream-output-stream</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">make-echo-stream</h4>
+<span id="make_002decho_002dstream-_0028Function_0029"></span><h3 class="heading">make-echo-stream (Function)</h3>
+<span id="index-make_002decho_002dstream-2"></span>
+<span id="index-make_002decho_002dstream"></span>
+
+
+<span id="Syntax_003a-459"></span><h4 class="subsubheading">Syntax:</h4>
+
+
+<dl>
+<dt id="index-make_002decho_002dstream-1">Function: <strong>make-echo-stream</strong> <em>input-stream output-stream <span class="roman">→</span> echo-stream</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-446"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>input-stream</var>&mdash;an <i>input</i> <i>stream</i>.
+</p>
+<p><var>output-stream</var>&mdash;an <i>output</i> <i>stream</i>.
+</p>
+<p><var>echo-stream</var>&mdash;an <i>echo stream</i>.
+</p>
+<span id="Description_003a-576"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Creates and returns an <i>echo stream</i> 
+that takes input  from <var>input-stream</var>
+and  sends output to   <var>output-stream</var>.
+</p>
+
+<span id="Examples_003a-418"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (let ((out (make-string-output-stream)))
+    (with-open-stream 
+        (s (make-echo-stream
+            (make-string-input-stream &quot;this-is-read-and-echoed&quot;)
+            out))
+      (read s)
+      (format s &quot; * this-is-direct-output&quot;)
+      (get-output-stream-string out)))
+<span class="roman">→</span> &quot;this-is-read-and-echoed * this-is-direct-output&quot;
+</pre></div>
+
+
+<span id="See-Also_003a-468"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="echo_002dstream_002dinput_002dstream_003b-echo_002dstream_002doutput_002dstream.html#echo_002dstream_002dinput_002dstream">echo-stream-input-stream</a>,
+<a href="echo_002dstream_002dinput_002dstream_003b-echo_002dstream_002doutput_002dstream.html#echo_002dstream_002doutput_002dstream">echo-stream-output-stream</a>,
+<a href="make_002dtwo_002dway_002dstream.html">make-two-way-stream</a>
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>clear-input (ANSI Common Lisp)</title>
+
+<meta name="description" content="clear-input (ANSI Common Lisp)">
+<meta name="keywords" content="clear-input (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="finish_002doutput_003b-force_002doutput_003b-clear_002doutput.html" rel="next" title="finish-output; force-output; clear-output">
+<link href="listen.html" rel="prev" title="listen">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="clear_002dinput"></span><div class="header">
+<p>
+Next: <a href="finish_002doutput_003b-force_002doutput_003b-clear_002doutput.html" accesskey="n" rel="next">finish-output; force-output; clear-output</a>, Previous: <a href="listen.html" accesskey="p" rel="prev">listen</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">clear-input</h4>
+<span id="clear_002dinput-_0028Function_0029"></span><h3 class="heading">clear-input (Function)</h3>
+<span id="index-clear_002dinput-2"></span>
+<span id="index-clear_002dinput"></span>
+
+
+<span id="Syntax_003a-449"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-clear_002dinput-1">Function: <strong>clear-input</strong> <em><tt>&amp;optional</tt> input-stream <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-436"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>input-stream</var>&mdash;an <i>input</i> <i>stream designator</i>.
+The default is <i>standard input</i>.
+</p>
+<span id="Description_003a-566"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Clears any available input from <var>input-stream</var>.
+</p>
+<p>If <code>clear-input</code> does not make sense for <var>input-stream</var>, 
+then <code>clear-input</code> does nothing. 
+</p>
+<span id="Examples_003a-412"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp">;; The exact I/O behavior of this example might vary from implementation
+;; to implementation depending on the kind of interactive buffering that
+;; occurs.  (The call to SLEEP here is intended to help even out the 
+;; differences in implementations which do not do line-at-a-time buffering.)
+
+(defun read-sleepily (&amp;optional (clear-p nil) (zzz 0))
+  (list (progn (print '&gt;) (read))
+        ;; Note that input typed within the first ZZZ seconds 
+        ;; will be discarded.
+        (progn (print '&gt;) 
+               (if zzz (sleep zzz))
+               (print '&gt;&gt;)
+               (if clear-p (clear-input))
+               (read))))
+
+(read-sleepily)
+▷ &gt; <kbd>10</kbd>
+▷ &gt;
+▷ &gt;&gt; <kbd>20</kbd>
+<span class="roman">→</span> (10 20)
+
+(read-sleepily t)
+▷ &gt; <kbd>10</kbd>
+▷ &gt;
+▷ &gt;&gt; <kbd>20</kbd>
+<span class="roman">→</span> (10 20)
+
+(read-sleepily t 10)
+▷ &gt; <kbd>10</kbd>
+▷ &gt; <kbd>20</kbd>  ; Some implementations won't echo typeahead here.
+▷ &gt;&gt; <kbd>30</kbd>
+<span class="roman">→</span> (10 30)
+</pre></div>
+
+
+<span id="Side-Effects_003a-70"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <var>input-stream</var> is modified.
+</p>
+<span id="Affected-By_003a-94"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-input*</code>
+</p>
+<span id="Exceptional-Situations_003a-209"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>input-stream</var> is not a <i>stream designator</i>.
+</p>
+<span id="See-Also_003a-462"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="finish_002doutput_003b-force_002doutput_003b-clear_002doutput.html#clear_002doutput">clear-output</a>
+</p>
+
+
+
+
+</body>
+</html>

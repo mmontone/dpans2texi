@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>unuse-package (ANSI Common Lisp)</title>
+
+<meta name="description" content="unuse-package (ANSI Common Lisp)">
+<meta name="keywords" content="unuse-package (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Packages.html" rel="up" title="Packages">
+<link href="use_002dpackage.html" rel="next" title="use-package">
+<link href="in_002dpackage.html" rel="prev" title="in-package">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="unuse_002dpackage"></span><div class="header">
+<p>
+Next: <a href="use_002dpackage.html" accesskey="n" rel="next">use-package</a>, Previous: <a href="in_002dpackage.html" accesskey="p" rel="prev">in-package</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">unuse-package</h4>
+<span id="unuse_002dpackage-_0028Function_0029"></span><h3 class="heading">unuse-package (Function)</h3>
+<span id="index-unuse_002dpackage-2"></span>
+<span id="index-unuse_002dpackage"></span>
+
+
+<span id="Syntax_003a-200"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-unuse_002dpackage-1">Function: <strong>unuse-package</strong> <em>packages-to-unuse <tt>&amp;optional</tt> package <span class="roman">→</span> <code>t</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-189"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>packages-to-unuse</var>&mdash;a <i>designator</i> for
+a <i>list</i> of <i>package designators</i>.
+</p>
+<p><var>package</var>&mdash;a <i>package designator</i>.
+The default is the <i>current package</i>.
+</p>
+<span id="Description_003a-253"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>unuse-package</code> causes <var>package</var> to cease inheriting
+all the <i>external symbols</i> of 
+<var>packages-to-unuse</var>; <code>unuse-package</code> undoes
+the effects of <code>use-package</code>.   The 
+<var>packages-to-unuse</var> 
+are removed from the <i>use list</i> of <var>package</var>.
+</p>
+<p>Any <i>symbols</i> that have been
+<i>imported</i> into <var>package</var> continue to be <i>present</i> in <var>package</var>.
+</p>
+<span id="Examples_003a-171"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (in-package &quot;COMMON-LISP-USER&quot;) <span class="roman">→</span> #&lt;PACKAGE &quot;COMMON-LISP-USER&quot;&gt;
+ (export (intern &quot;SHOES&quot; (make-package 'temp)) 'temp) <span class="roman">→</span> T
+ (find-symbol &quot;SHOES&quot;) <span class="roman">→</span> NIL, NIL
+ (use-package 'temp) <span class="roman">→</span> T
+ (find-symbol &quot;SHOES&quot;) <span class="roman">→</span> SHOES, :INHERITED
+ (find (find-package 'temp) (package-use-list 'common-lisp-user)) <span class="roman">→</span> #&lt;PACKAGE &quot;TEMP&quot;&gt;
+ (unuse-package 'temp) <span class="roman">→</span> T
+ (find-symbol &quot;SHOES&quot;) <span class="roman">→</span> NIL, NIL
+</pre></div>
+
+
+<span id="Side-Effects_003a-31"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <i>use list</i> of <var>package</var> is modified.
+</p>
+<span id="Affected-By_003a-52"></span><h4 class="subsubheading">Affected By:</h4>
+<p>Current state of the package system.
+</p><span id="See-Also_003a-225"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="use_002dpackage.html">use-package</a>, <a href="package_002duse_002dlist.html">package-use-list</a>
+</p>
+
+
+
+
+</body>
+</html>

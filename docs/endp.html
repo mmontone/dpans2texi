@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>endp (ANSI Common Lisp)</title>
+
+<meta name="description" content="endp (ANSI Common Lisp)">
+<meta name="keywords" content="endp (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="null-_0028Function_0029.html" rel="next" title="null (Function)">
+<link href="nth.html" rel="prev" title="nth">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="endp"></span><div class="header">
+<p>
+Next: <a href="null-_0028Function_0029.html" accesskey="n" rel="next">null (Function)</a>, Previous: <a href="nth.html" accesskey="p" rel="prev">nth</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">endp</h4>
+<span id="endp-_0028Function_0029"></span><h3 class="heading">endp (Function)</h3>
+<span id="index-endp-2"></span>
+<span id="index-endp"></span>
+
+
+<span id="Syntax_003a-303"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-endp-1">Function: <strong>endp</strong> <em>list <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-292"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>list</var>&mdash;a <i>list</i>,
+which might be a <i>dotted list</i> or a <i>circular list</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-393"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i>  if <var>list</var> is the <i>empty list</i>.
+Returns <i>false</i> if <var>list</var> is a <i>cons</i>.
+</p>
+<span id="Examples_003a-276"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (endp nil) <span class="roman">→</span> <i>true</i>
+ (endp '(1 2)) <span class="roman">→</span> <i>false</i>
+ (endp (cddr '(1 2))) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-123"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>list</var> is not a <i>list</i>.
+</p>
+<span id="Notes_003a-210"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The purpose of <code>endp</code> is to test for the end of <var>proper list</var>.
+Since <code>endp</code> does not descend into a <i>cons</i>, 
+it is well-defined to pass it a <i>dotted list</i>.
+However, if shorter &ldquo;lists&rdquo; are iteratively produced 
+by calling <code>cdr</code> on such a <i>dotted list</i> 
+and those &ldquo;lists&rdquo; are tested with <code>endp</code>,
+a situation that has undefined consequences will eventually result 
+when the <i>non-nil</i> <i>atom</i> (which is not in fact a <i>list</i>)
+finally becomes the argument to <code>endp</code>.
+Since this is the usual way in which <code>endp</code> is used,
+it is conservative programming style 
+and consistent with the intent of <code>endp</code>
+to treat <code>endp</code> as simply a function on <i>proper lists</i> 
+which happens not to enforce an argument type of <i>proper list</i> except
+when the argument is <i>atomic</i>.
+</p>
+
+
+
+
+</body>
+</html>

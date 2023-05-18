@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>string-trim; string-left-trim; string-right-trim (ANSI Common Lisp)</title>
+
+<meta name="description" content="string-trim; string-left-trim; string-right-trim (ANSI Common Lisp)">
+<meta name="keywords" content="string-trim; string-left-trim; string-right-trim (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Strings.html" rel="up" title="Strings">
+<link href="string_003d_003b-string_002f_003d_003b-string_003c_003b-string_003e_003b-string_003c_003d_003b-string_003e_003d_003b-string_002dequal_003b-_002b.html" rel="next" title="string=; string/=; string&lt;; string&gt;; string&lt;=; string&gt;=; string-equal; +">
+<link href="string_002dupcase_003b-string_002ddowncase_003b-string_002dcapitalize_003b-nstring_002dupcase_003b-nstr_002b.html" rel="prev" title="string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="string_002dtrim_003b-string_002dleft_002dtrim_003b-string_002dright_002dtrim"></span><div class="header">
+<p>
+Next: <a href="string_003d_003b-string_002f_003d_003b-string_003c_003b-string_003e_003b-string_003c_003d_003b-string_003e_003d_003b-string_002dequal_003b-_002b.html" accesskey="n" rel="next">string=; string/=; string&lt;; string&gt;; string&lt;=; string&gt;=; string-equal; +</a>, Previous: <a href="string_002dupcase_003b-string_002ddowncase_003b-string_002dcapitalize_003b-nstring_002dupcase_003b-nstr_002b.html" accesskey="p" rel="prev">string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+</a>, Up: <a href="Strings.html" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">string-trim; string-left-trim; string-right-trim</h4>
+<span id="string_002dtrim_002c-string_002dleft_002dtrim_002c-string_002dright_002dtrim-_0028Function_0029"></span><h3 class="heading">string-trim, string-left-trim, string-right-trim (Function)</h3>
+<span id="index-string_002dtrim-2"></span>
+<span id="index-string_002dtrim"></span>
+<span id="index-string_002dleft_002dtrim-2"></span>
+<span id="index-string_002dleft_002dtrim"></span>
+<span id="index-string_002dright_002dtrim-2"></span>
+<span id="index-string_002dright_002dtrim"></span>
+
+
+<span id="Syntax_003a-361"></span><h4 class="subsubheading">Syntax:</h4>
+<dl>
+<dt id="index-string_002dtrim-1">Function: <strong>string-trim</strong> <em>character-bag string <span class="roman">→</span> trimmed-string</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dleft_002dtrim-1">Function: <strong>string-left-trim</strong> <em>character-bag string <span class="roman">→</span> trimmed-string</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dright_002dtrim-1">Function: <strong>string-right-trim</strong> <em>character-bag string <span class="roman">→</span> trimmed-string</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-350"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character-bag</var>&mdash;a <i>sequence</i> containing <i>characters</i>.
+</p>
+<p><var>string</var>&mdash;a <i>string designator</i>.
+</p>
+<p><var>trimmed-string</var>&mdash;a <i>string</i>.
+</p>
+<span id="Description_003a-464"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>string-trim</code> returns a substring of <var>string</var>, 
+with all characters in <var>character-bag</var> stripped off the beginning and end.
+<code>string-left-trim</code> is similar but strips characters off only the beginning; 
+<code>string-right-trim</code> strips off only the end.
+</p>
+<p>If no <i>characters</i> need to be trimmed from the <var>string</var>,
+then either <var>string</var> itself or a copy of it may be returned,
+at the discretion of the implementation.
+</p>
+<p>All of these <i>functions</i> observe the <i>fill pointer</i>.
+</p>
+<span id="Examples_003a-332"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (string-trim &quot;abc&quot; &quot;abcaakaaakabcaaa&quot;) <span class="roman">→</span> &quot;kaaak&quot;
+ (string-trim '(#\Space #\Tab #\Newline) &quot; garbanzo beans
+        &quot;) <span class="roman">→</span> &quot;garbanzo beans&quot;
+ (string-trim &quot; (*)&quot; &quot; ( *three (silly) words* ) &quot;)
+<span class="roman">→</span> &quot;three (silly) words&quot;
+
+ (string-left-trim &quot;abc&quot; &quot;labcabcabc&quot;) <span class="roman">→</span> &quot;labcabcabc&quot;
+ (string-left-trim &quot; (*)&quot; &quot; ( *three (silly) words* ) &quot;)
+<span class="roman">→</span> &quot;three (silly) words* ) &quot;
+
+ (string-right-trim &quot; (*)&quot; &quot; ( *three (silly) words* ) &quot;) 
+<span class="roman">→</span> &quot; ( *three (silly) words&quot;
+</pre></div>
+
+<span id="Affected-By_003a-67"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ldiff; tailp (ANSI Common Lisp)</title>
+
+<meta name="description" content="ldiff; tailp (ANSI Common Lisp)">
+<meta name="keywords" content="ldiff; tailp (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="nthcdr.html" rel="next" title="nthcdr">
+<link href="last.html" rel="prev" title="last">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="ldiff_003b-tailp"></span><div class="header">
+<p>
+Next: <a href="nthcdr.html" accesskey="n" rel="next">nthcdr</a>, Previous: <a href="last.html" accesskey="p" rel="prev">last</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">ldiff; tailp</h4>
+<span id="ldiff_002c-tailp-_0028Function_0029"></span><h3 class="heading">ldiff, tailp (Function)</h3>
+<span id="index-ldiff-2"></span>
+<span id="index-ldiff"></span>
+<span id="index-tailp-2"></span>
+<span id="index-tailp"></span>
+
+
+<span id="Syntax_003a-310"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-ldiff-1">Function: <strong>ldiff</strong> <em>list object <span class="roman">→</span> result-list</em></dt>
+</dl>
+<dl>
+<dt id="index-tailp-1">Function: <strong>tailp</strong> <em>object list <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-299"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>list</var>&mdash;a <i>list</i>,
+which might be a <i>dotted list</i>.
+</p>
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>result-list</var>&mdash;a <i>list</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-400"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If <var>object</var> is the <i>same</i> as some <i>tail</i> of <var>list</var>,
+<code>tailp</code> returns <i>true</i>;
+otherwise, it returns <i>false</i>.
+</p>
+<p>If <var>object</var> is the <i>same</i> as some <i>tail</i> of <var>list</var>,
+<code>ldiff</code> returns a <i>fresh</i> <i>list</i> 
+of the <i>elements</i> of <i>list</i> 
+that precede <code>object</code> in the <i>list structure</i> of <var>list</var>;
+otherwise, it returns a <i>copy</i><sub>2</sub>
+</p>
+<span id="Examples_003a-283"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (let ((lists '#((a b c) (a b c . d))))
+   (dotimes (i (length lists)) ()
+     (let ((list (aref lists i)))
+       (format t &quot;~2&amp;list=~S ~21T(tailp object list)~
+                  ~44T(ldiff list object)~%&quot; list)
+         (let ((objects (vector list (cddr list) (copy-list (cddr list))
+                                '(f g h) '() 'd 'x)))
+           (dotimes (j (length objects)) ()
+             (let ((object (aref objects j)))
+               (format t &quot;~&amp; object=~S ~21T~S ~44T~S&quot;
+                       object (tailp object list) (ldiff list object))))))))
+▷ 
+▷ list=(A B C)         (tailp object list)    (ldiff list object)
+▷  object=(A B C)      T                      NIL
+▷  object=(C)          T                      (A B)
+▷  object=(C)          NIL                    (A B C)
+▷  object=(F G H)      NIL                    (A B C)
+▷  object=NIL          T                      (A B C)
+▷  object=D            NIL                    (A B C)
+▷  object=X            NIL                    (A B C)
+▷ 
+▷ list=(A B C . D)     (tailp object list)    (ldiff list object)
+▷  object=(A B C . D)  T                      NIL
+▷  object=(C . D)      T                      (A B)
+▷  object=(C . D)      NIL                    (A B C . D)
+▷  object=(F G H)      NIL                    (A B C . D)
+▷  object=NIL          NIL                    (A B C . D)
+▷  object=D            T                      (A B C)
+▷  object=X            NIL                    (A B C . D)
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Side-Effects_003a-42"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Neither <code>ldiff</code> nor <code>tailp</code> modifies either of its <i>arguments</i>.
+</p>
+<span id="Exceptional-Situations_003a-126"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>list</var> is not a <i>proper list</i> or a <i>dotted list</i>.
+</p>
+<span id="See-Also_003a-324"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="set_002ddifference_003b-nset_002ddifference.html#set_002ddifference">set-difference</a>
+</p>
+<span id="Notes_003a-215"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If the <var>list</var> is a <i>circular list</i>,
+<code>tailp</code> will reliably <i>yield</i> a <i>value</i> 
+only if the given <var>object</var> is in fact a <i>tail</i> of <var>list</var>.
+Otherwise, the consequences are unspecified:
+a given <i>implementation</i> which detects the circularity must return <i>false</i>,
+but since an <i>implementation</i> is not obliged to detect such a <i>situation</i>,
+<code>tailp</code> might just loop indefinitely without returning in that case.
+</p>
+
+<p><code>tailp</code> could be defined as follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun tailp (object list)
+   (do ((list list (cdr list)))
+       ((atom list) (eql list object))
+      (if (eql object list)
+          (return t))))
+</pre></div>
+
+
+<p>and <code>ldiff</code> could be defined by:
+</p>
+<div class="lisp">
+<pre class="lisp">(defun ldiff (list object)
+  (do ((list list (cdr list))
+       (r '() (cons (car list) r)))
+      ((atom list)
+       (if (eql list object) (nreverse r) (nreconc r list)))
+    (when (eql object list)
+      (return (nreverse r)))))
+</pre></div>
+
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="nthcdr.html" accesskey="n" rel="next">nthcdr</a>, Previous: <a href="last.html" accesskey="p" rel="prev">last</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

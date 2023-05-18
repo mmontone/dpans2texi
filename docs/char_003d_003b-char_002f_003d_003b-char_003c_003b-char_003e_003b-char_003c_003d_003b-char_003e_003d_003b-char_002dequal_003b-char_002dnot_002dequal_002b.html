@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+ (ANSI Common Lisp)</title>
+
+<meta name="description" content="char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+ (ANSI Common Lisp)">
+<meta name="keywords" content="char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+ (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Characters.html" rel="up" title="Characters">
+<link href="character-_0028Function_0029.html" rel="next" title="character (Function)">
+<link href="extended_002dchar.html" rel="prev" title="extended-char">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="char_003d_003b-char_002f_003d_003b-char_003c_003b-char_003e_003b-char_003c_003d_003b-char_003e_003d_003b-char_002dequal_003b-char_002dnot_002dequal_002b"></span><div class="header">
+<p>
+Next: <a href="character-_0028Function_0029.html" accesskey="n" rel="next">character (Function)</a>, Previous: <a href="extended_002dchar.html" accesskey="p" rel="prev">extended-char</a>, Up: <a href="Characters.html" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+</h4>
+<span id="char_003d_002c-char_002f_003d_002c-char_003c_002c-char_003e_002c-char_003c_003d_002c-char_003e_003d_002c-char_002dequal_002c-char_002dnot_002dequal_002c-char_002dlessp_002c-char_002dgreaterp_002c-char_002dnot_002dgreaterp_002c-char_002dnot_002dlessp-_0028Function_0029"></span><h3 class="heading">char=, char/=, char&lt;, char&gt;, char&lt;=, char&gt;=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)</h3>
+<span id="index-char_003d-2"></span>
+<span id="index-char_003d"></span>
+<span id="index-char_002f_003d-2"></span>
+<span id="index-char_002f_003d"></span>
+<span id="index-char_003c-2"></span>
+<span id="index-char_003c"></span>
+<span id="index-char_003e-2"></span>
+<span id="index-char_003e"></span>
+<span id="index-char_003c_003d-2"></span>
+<span id="index-char_003c_003d"></span>
+<span id="index-char_003e_003d-2"></span>
+<span id="index-char_003e_003d"></span>
+<span id="index-char_002dequal-2"></span>
+<span id="index-char_002dequal"></span>
+<span id="index-char_002dnot_002dequal-2"></span>
+<span id="index-char_002dnot_002dequal"></span>
+<span id="index-char_002dlessp-2"></span>
+<span id="index-char_002dlessp"></span>
+<span id="index-char_002dgreaterp-2"></span>
+<span id="index-char_002dgreaterp"></span>
+<span id="index-char_002dnot_002dgreaterp-2"></span>
+<span id="index-char_002dnot_002dgreaterp"></span>
+<span id="index-char_002dnot_002dlessp-2"></span>
+<span id="index-char_002dnot_002dlessp"></span>
+<span id="char_003d"></span><span id="char_002dequal"></span>
+
+<span id="Syntax_003a-269"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char_003d-1">Function: <strong>char=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002f_003d-1">Function: <strong>char/=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003c-1">Function: <strong>char&lt;</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003e-1">Function: <strong>char&gt;</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003c_003d-1">Function: <strong>char&lt;=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003e_003d-1">Function: <strong>char&gt;=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dequal-1">Function: <strong>char-equal</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dnot_002dequal-1">Function: <strong>char-not-equal</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dlessp-1">Function: <strong>char-lessp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dgreaterp-1">Function: <strong>char-greaterp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dnot_002dgreaterp-1">Function: <strong>char-not-greaterp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dnot_002dlessp-1">Function: <strong>char-not-lessp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-258"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-354"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These predicates compare <i>characters</i>.
+</p>
+<p><code>char=</code> returns <i>true</i> if all <var>characters</var> are the <i>same</i>;
+otherwise, it returns <i>false</i>.
+If two <var>characters</var> differ 
+in any <i>implementation-defined</i> <i>attributes</i>,
+then they are not <code>char=</code>.
+</p>
+<p><code>char/=</code> returns <i>true</i> if all <var>characters</var> are different;
+otherwise, it returns <i>false</i>.
+</p>
+<p><code>char&lt;</code> returns <i>true</i> if the <var>characters</var> are monotonically increasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> 
+have <i>identical</i> <i>implementation-defined</i> <i>attributes</i>, 
+then their ordering by <code>char&lt;</code> is 
+consistent with the numerical ordering by the predicate <code>&lt;</code> on their <i>codes</i>.
+</p>
+<p><code>char&gt;</code> returns <i>true</i> if the <var>characters</var> are monotonically decreasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> have 
+<i>identical</i> <i>implementation-defined</i> <i>attributes</i>,
+then their ordering by <code>char&gt;</code> is 
+consistent with the numerical ordering by the predicate <code>&gt;</code> on their <i>codes</i>. 
+</p>
+<p><code>char&lt;=</code> returns <i>true</i> 
+if the <var>characters</var> are monotonically nondecreasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> have
+<i>identical</i> <i>implementation-defined</i> <i>attributes</i>,
+then their ordering by <code>char&lt;=</code> is
+consistent with the numerical ordering by the predicate <code>&lt;=</code> on their <i>codes</i>. 
+</p>
+<p><code>char&gt;=</code> returns <i>true</i> 
+if the <var>characters</var> are monotonically nonincreasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> have
+<i>identical</i> <i>implementation-defined</i> <i>attributes</i>,
+then their ordering by <code>char&gt;=</code> is 
+consistent with the numerical ordering by the predicate <code>&gt;=</code> on their <i>codes</i>. 
+</p>
+<p><code>char-equal</code>,
+<code>char-not-equal</code>,
+<code>char-lessp</code>,
+<code>char-greaterp</code>,
+<code>char-not-greaterp</code>,
+and <code>char-not-lessp</code>
+are similar to 
+<code>char=</code>,
+<code>char/=</code>,
+<code>char&lt;</code>,
+<code>char&gt;</code>,
+<code>char&lt;=</code>,
+<code>char&gt;=</code>,
+respectively,
+except that they ignore differences in <i>case</i> and
+might have an <i>implementation-defined</i> behavior 
+for <i>non-simple</i> <i>characters</i>.
+For example, an <i>implementation</i> might define that 
+<code>char-equal</code>, <i>etc.</i> ignore certain 
+<i>implementation-defined</i> <i>attributes</i>.
+The effect, if any, 
+of each <i>implementation-defined</i> <i>attribute</i>
+upon these functions must be specified as part of the definition of that <i>attribute</i>.
+</p>
+<span id="Examples_003a-242"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (char= #\d #\d) <span class="roman">→</span> <i>true</i>
+ (char= #\A #\a) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\x) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\D) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\d) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\x) <span class="roman">→</span> <i>true</i>
+ (char/= #\d #\D) <span class="roman">→</span> <i>true</i>
+ (char= #\d #\d #\d #\d) <span class="roman">→</span> <i>true</i>
+ (char/= #\d #\d #\d #\d) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\d #\x #\d) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\d #\x #\d) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\y #\x #\c) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\y #\x #\c) <span class="roman">→</span> <i>true</i>
+ (char= #\d #\c #\d) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\c #\d) <span class="roman">→</span> <i>false</i>
+ (char&lt; #\d #\x) <span class="roman">→</span> <i>true</i>
+ (char&lt;= #\d #\x) <span class="roman">→</span> <i>true</i>
+ (char&lt; #\d #\d) <span class="roman">→</span> <i>false</i>
+ (char&lt;= #\d #\d) <span class="roman">→</span> <i>true</i>
+ (char&lt; #\a #\e #\y #\z) <span class="roman">→</span> <i>true</i>
+ (char&lt;= #\a #\e #\y #\z) <span class="roman">→</span> <i>true</i>
+ (char&lt; #\a #\e #\e #\y) <span class="roman">→</span> <i>false</i>
+ (char&lt;= #\a #\e #\e #\y) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\e #\d) <span class="roman">→</span> <i>true</i>
+ (char&gt;= #\e #\d) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\d #\c #\b #\a) <span class="roman">→</span> <i>true</i>
+ (char&gt;= #\d #\c #\b #\a) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\d #\d #\c #\a) <span class="roman">→</span> <i>false</i>
+ (char&gt;= #\d #\d #\c #\a) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\e #\d #\b #\c #\a) <span class="roman">→</span> <i>false</i>
+ (char&gt;= #\e #\d #\b #\c #\a) <span class="roman">→</span> <i>false</i>
+ (char&gt; #\z #\A) <span class="roman">→</span> <i>implementation-dependent</i>
+ (char&gt; #\Z #\a) <span class="roman">→</span> <i>implementation-dependent</i>
+ (char-equal #\A #\a) <span class="roman">→</span> <i>true</i>
+ (stable-sort (list #\b #\A #\B #\a #\c #\C) #'char-lessp)
+<span class="roman">→</span> (#\A #\a #\b #\B #\c #\C)
+ (stable-sort (list #\b #\A #\B #\a #\c #\C) #'char&lt;)
+<span class="roman">→</span> (#\A #\B #\C #\a #\b #\c) ;Implementation A
+<span class="roman">→</span> (#\a #\b #\c #\A #\B #\C) ;Implementation B
+<span class="roman">→</span> (#\a #\A #\b #\B #\c #\C) ;Implementation C
+<span class="roman">→</span> (#\A #\a #\B #\b #\C #\c) ;Implementation D
+<span class="roman">→</span> (#\A #\B #\a #\b #\C #\c) ;Implementation E
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-107"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>program-error</code> if at least one
+<var>character</var> is not supplied.
+</p>
+<span id="See-Also_003a-284"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Character-Syntax.html">Section 2.1 (Character Syntax)</a>,
+<a href="Documentation-of-Implementation_002dDefined-Scripts.html">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+<span id="Notes_003a-186"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If characters differ in their <i>code</i> <i>attribute</i> 
+or any <i>implementation-defined</i> <i>attribute</i>,
+they are considered to be different by <code>char=</code>.
+</p>
+<p>There is no requirement that <code>(eq c1 c2)</code> be true merely because
+<code>(char= c1 c2)</code> is <i>true</i>.  While <code>eq</code> can distinguish two 
+<i>characters</i>
+that <code>char=</code> does not, it is distinguishing them not
+as <i>characters</i>, but in some sense on the basis of a lower level
+implementation characteristic.
+If <code>(eq c1 c2)</code> is <i>true</i>,
+then <code>(char= c1 c2)</code> is also true.
+<code>eql</code> and <code>equal</code>
+compare <i>characters</i> in the same
+way that <code>char=</code> does.
+</p>
+<p>The manner in which <i>case</i> is used by 
+<code>char-equal</code>,
+<code>char-not-equal</code>,
+<code>char-lessp</code>,
+<code>char-greaterp</code>,
+<code>char-not-greaterp</code>,
+and <code>char-not-lessp</code>
+implies an ordering for <i>standard characters</i> such that
+<code>A=a</code>, <code>B=b</code>, and so on, up to <code>Z=z</code>, and furthermore either
+<code>9&lt;A</code> or <code>Z&lt;0</code>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="character-_0028Function_0029.html" accesskey="n" rel="next">character (Function)</a>, Previous: <a href="extended_002dchar.html" accesskey="p" rel="prev">extended-char</a>, Up: <a href="Characters.html" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

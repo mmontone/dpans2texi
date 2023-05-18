@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>multiple-value-prog1 (ANSI Common Lisp)</title>
+
+<meta name="description" content="multiple-value-prog1 (ANSI Common Lisp)">
+<meta name="keywords" content="multiple-value-prog1 (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="multiple_002dvalue_002dsetq.html" rel="next" title="multiple-value-setq">
+<link href="multiple_002dvalue_002dlist.html" rel="prev" title="multiple-value-list">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="multiple_002dvalue_002dprog1"></span><div class="header">
+<p>
+Next: <a href="multiple_002dvalue_002dsetq.html" accesskey="n" rel="next">multiple-value-setq</a>, Previous: <a href="multiple_002dvalue_002dlist.html" accesskey="p" rel="prev">multiple-value-list</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">multiple-value-prog1</h4>
+<span id="multiple_002dvalue_002dprog1-_0028Special-Operator_0029"></span><h3 class="heading">multiple-value-prog1 (Special Operator)</h3>
+<span id="index-multiple_002dvalue_002dprog1-2"></span>
+<span id="index-multiple_002dvalue_002dprog1"></span>
+
+
+<span id="Syntax_003a-80"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-multiple_002dvalue_002dprog1-1">Special Form: <strong>multiple-value-prog1</strong> <em>first-form <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> first-form-results</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-70"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>first-form</var>&mdash;a <i>form</i>; evaluated as described below.
+</p>
+<p><var>form</var>&mdash;a <i>form</i>; evaluated as described below.
+</p>
+<p><var>first-form-results</var>&mdash;the <i>values</i> resulting from
+the <i>evaluation</i> of <var>first-form</var>.      
+</p>
+<span id="Description_003a-104"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>multiple-value-prog1</code> evaluates <var>first-form</var> and saves
+all the values produced by that <i>form</i>. It then evaluates each 
+<var>form</var> from left to right, discarding their values.  
+</p>
+<span id="Examples_003a-78"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq temp '(1 2 3)) <span class="roman">→</span> (1 2 3)
+ (multiple-value-prog1
+    (values-list temp)
+    (setq temp nil)
+    (values-list temp)) <span class="roman">→</span> 1, 2, 3
+</pre></div>
+
+
+<span id="See-Also_003a-88"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="prog1_003b-prog2.html#prog1">prog1</a>
+</p>
+
+
+
+
+</body>
+</html>

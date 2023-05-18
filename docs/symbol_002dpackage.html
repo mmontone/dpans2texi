@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>symbol-package (ANSI Common Lisp)</title>
+
+<meta name="description" content="symbol-package (ANSI Common Lisp)">
+<meta name="keywords" content="symbol-package (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Symbols.html" rel="up" title="Symbols">
+<link href="symbol_002dplist.html" rel="next" title="symbol-plist">
+<link href="symbol_002dname.html" rel="prev" title="symbol-name">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="symbol_002dpackage"></span><div class="header">
+<p>
+Next: <a href="symbol_002dplist.html" accesskey="n" rel="next">symbol-plist</a>, Previous: <a href="symbol_002dname.html" accesskey="p" rel="prev">symbol-name</a>, Up: <a href="Symbols.html" accesskey="u" rel="up">Symbols</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">symbol-package</h4>
+<span id="symbol_002dpackage-_0028Function_0029"></span><h3 class="heading">symbol-package (Function)</h3>
+<span id="index-symbol_002dpackage-2"></span>
+<span id="index-symbol_002dpackage"></span>
+
+
+<span id="Syntax_003a-177"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-symbol_002dpackage-1">Function: <strong>symbol-package</strong> <em>symbol <span class="roman">→</span> contents</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-166"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>symbol</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>contents</var>&mdash;a <i>package</i> <i>object</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-228"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>home package</i> of <var>symbol</var>.
+</p>
+<span id="Examples_003a-149"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (in-package &quot;CL-USER&quot;) <span class="roman">→</span> #&lt;PACKAGE &quot;COMMON-LISP-USER&quot;&gt;
+ (symbol-package 'car) <span class="roman">→</span> #&lt;PACKAGE &quot;COMMON-LISP&quot;&gt;
+ (symbol-package 'bus) <span class="roman">→</span> #&lt;PACKAGE &quot;COMMON-LISP-USER&quot;&gt;
+ (symbol-package :optional) <span class="roman">→</span> #&lt;PACKAGE &quot;KEYWORD&quot;&gt;
+ ;; Gensyms are uninterned, so have no home package.
+ (symbol-package (gensym)) <span class="roman">→</span> NIL
+ (make-package 'pk1) <span class="roman">→</span> #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (intern &quot;SAMPLE1&quot; &quot;PK1&quot;) <span class="roman">→</span> PK1::SAMPLE1, NIL
+ (export (find-symbol &quot;SAMPLE1&quot; &quot;PK1&quot;) &quot;PK1&quot;) <span class="roman">→</span> T
+ (make-package 'pk2 :use '(pk1)) <span class="roman">→</span> #&lt;PACKAGE &quot;PK2&quot;&gt;
+ (find-symbol &quot;SAMPLE1&quot; &quot;PK2&quot;) <span class="roman">→</span> PK1:SAMPLE1, :INHERITED
+ (symbol-package 'pk1::sample1) <span class="roman">→</span> #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (symbol-package 'pk2::sample1) <span class="roman">→</span> #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (symbol-package 'pk1::sample2) <span class="roman">→</span> #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (symbol-package 'pk2::sample2) <span class="roman">→</span> #&lt;PACKAGE &quot;PK2&quot;&gt;
+ ;; The next several forms create a scenario in which a symbol
+ ;; is not really uninterned, but is &quot;apparently uninterned&quot;,
+ ;; and so SYMBOL-PACKAGE still returns NIL.
+ (setq s3 'pk1::sample3) <span class="roman">→</span> PK1::SAMPLE3
+ (import s3 'pk2) <span class="roman">→</span> T
+ (unintern s3 'pk1) <span class="roman">→</span> T
+ (symbol-package s3) <span class="roman">→</span> NIL
+ (eq s3 'pk2::sample3) <span class="roman">→</span> T
+</pre></div>
+
+
+<span id="Affected-By_003a-40"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>import</code>,
+<code>intern</code>,
+<code>unintern</code>
+</p>
+<span id="Exceptional-Situations_003a-56"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>symbol</var> is not a <i>symbol</i>.
+</p>
+<span id="See-Also_003a-201"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="intern.html">intern</a>
+</p>
+
+
+
+
+</body>
+</html>

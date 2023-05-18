@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>when; unless (ANSI Common Lisp)</title>
+
+<meta name="description" content="when; unless (ANSI Common Lisp)">
+<meta name="keywords" content="when; unless (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="case_003b-ccase_003b-ecase.html" rel="next" title="case; ccase; ecase">
+<link href="or-_0028Macro_0029.html" rel="prev" title="or (Macro)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="when_003b-unless"></span><div class="header">
+<p>
+Next: <a href="case_003b-ccase_003b-ecase.html" accesskey="n" rel="next">case; ccase; ecase</a>, Previous: <a href="or-_0028Macro_0029.html" accesskey="p" rel="prev">or (Macro)</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">when; unless</h4>
+<span id="when_002c-unless-_0028Macro_0029"></span><h3 class="heading">when, unless (Macro)</h3>
+<span id="index-when-2"></span>
+<span id="index-when"></span>
+<span id="index-unless-2"></span>
+<span id="index-unless"></span>
+<span id="when"></span><span id="unless"></span>
+
+<span id="Syntax_003a-74"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-when-1">Macro: <strong>when</strong> <em>test-form <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<dl>
+<dt id="index-unless-1">Macro: <strong>unless</strong> <em>test-form <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-64"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>test-form</var>&mdash;a <i>form</i>.
+</p>
+<p><var>forms</var>&mdash;an <i>implicit progn</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> of the <i>forms</i>
+in a  <code>when</code>   <i>form</i> if the <var>test-form</var> <i>yields</i> <i>true</i> 
+or in an <code>unless</code> <i>form</i> if the <var>test-form</var> <i>yields</i> <i>false</i>;
+otherwise <code>nil</code>.
+</p>
+<span id="Description_003a-98"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>when</code> and <code>unless</code> allow the execution of <var>forms</var> 
+to be dependent on a single <var>test-form</var>.
+</p>
+<p>In a <code>when</code> <i>form</i>,
+if the <var>test-form</var> <i>yields</i> <i>true</i>,
+the <var>forms</var> are <i>evaluated</i> in order from left to right
+and the <i>values</i> returned by the <var>forms</var> 
+are returned from the <code>when</code> <i>form</i>. 
+Otherwise, if the <var>test-form</var> <i>yields</i> <i>false</i>,
+the <var>forms</var> are not <i>evaluated</i>,
+and the <code>when</code> <i>form</i> returns <code>nil</code>.
+</p>
+<p>In an <code>unless</code> <i>form</i>,
+if the <var>test-form</var> <i>yields</i> <i>false</i>,
+the <var>forms</var> are <i>evaluated</i> in order from left to right
+and the <i>values</i> returned by the <var>forms</var> 
+are returned from the <code>unless</code> <i>form</i>. 
+Otherwise, if the <var>test-form</var> <i>yields</i> <i>false</i>,
+the <var>forms</var> are not <i>evaluated</i>,
+and the <code>unless</code> <i>form</i> returns <code>nil</code>.
+</p>
+<span id="Examples_003a-72"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (when t 'hello) <span class="roman">→</span> HELLO
+ (unless t 'hello) <span class="roman">→</span> NIL
+ (when nil 'hello) <span class="roman">→</span> NIL
+ (unless nil 'hello) <span class="roman">→</span> HELLO
+ (when t) <span class="roman">→</span> NIL
+ (unless nil) <span class="roman">→</span> NIL
+ (when t (prin1 1) (prin1 2) (prin1 3))
+▷ 123
+<span class="roman">→</span> 3
+ (unless t (prin1 1) (prin1 2) (prin1 3)) <span class="roman">→</span> NIL
+ (when nil (prin1 1) (prin1 2) (prin1 3)) <span class="roman">→</span> NIL
+ (unless nil (prin1 1) (prin1 2) (prin1 3))
+▷ 123
+<span class="roman">→</span> 3
+ (let ((x 3))
+   (list (when (oddp x) (incf x) (list x))
+         (when (oddp x) (incf x) (list x))
+         (unless (oddp x) (incf x) (list x))
+         (unless (oddp x) (incf x) (list x))
+         (if (oddp x) (incf x) (list x)) 
+         (if (oddp x) (incf x) (list x)) 
+         (if (not (oddp x)) (incf x) (list x)) 
+         (if (not (oddp x)) (incf x) (list x))))
+<span class="roman">→</span> ((4) NIL (5) NIL 6 (6) 7 (7))
+</pre></div>
+
+
+<span id="See-Also_003a-82"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="and-_0028Macro_0029.html">and (Macro)</a>,
+<a href="cond.html">cond</a>,
+<a href="if.html">if</a>,
+<a href="or-_0028Macro_0029.html">or (Macro)</a>
+</p>
+<span id="Notes_003a-52"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (when <var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+) ≡ (and <var>test</var> (progn <tt>{</tt><var>form</var><tt>}</tt>+))
+ (when <var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+) ≡ (cond (<var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+))
+ (when <var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+) ≡ (if <var>test</var> (progn <tt>{</tt><var>form</var><tt>}</tt>+) nil)
+ (when <var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+) ≡ (unless (not <var>test</var>) <tt>{</tt><var>form</var><tt>}</tt>+)
+ (unless <var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+) ≡ (cond ((not <var>test</var>) <tt>{</tt><var>form</var><tt>}</tt>+))
+ (unless <var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+) ≡ (if <var>test</var> nil (progn <tt>{</tt><var>form</var><tt>}</tt>+))
+ (unless <var>test</var> <tt>{</tt><var>form</var><tt>}</tt>+) ≡ (when (not <var>test</var>) <tt>{</tt><var>form</var><tt>}</tt>+)
+</pre></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="case_003b-ccase_003b-ecase.html" accesskey="n" rel="next">case; ccase; ecase</a>, Previous: <a href="or-_0028Macro_0029.html" accesskey="p" rel="prev">or (Macro)</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

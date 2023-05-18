@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>File System Concepts (ANSI Common Lisp)</title>
+
+<meta name="description" content="File System Concepts (ANSI Common Lisp)">
+<meta name="keywords" content="File System Concepts (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Files.html" rel="up" title="Files">
+<link href="Coercion-of-Streams-to-Pathnames.html" rel="next" title="Coercion of Streams to Pathnames">
+<link href="Files.html" rel="prev" title="Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="File-System-Concepts"></span><div class="header">
+<p>
+Next: <a href="directory.html" accesskey="n" rel="next">directory</a>, Up: <a href="Files.html" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="File-System-Concepts-1"></span><h3 class="section">20.1 File System Concepts</h3>
+
+<p>This section describes the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->interface to file systems.
+The model used by this interface assumes 
+that 
+<span id="index-file"></span>
+<em>files</em> are named by 
+<span id="index-filename"></span>
+<em>filenames</em>,
+that a <i>filename</i> can be represented by a <i>pathname</i> <i>object</i>, 
+and that given a <i>pathname</i> a <span id="index-stream"></span>
+<em>stream</em> can be constructed 
+that connects to a <i>file</i> whose <i>filename</i> it represents.
+</p>
+<p>For information about opening and closing <i>files</i>,
+and manipulating their contents, see <a href="Streams.html">Chapter 21 (Streams)</a>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>operators</i> 
+that are applicable to <i>files</i> and directories.
+</p>
+
+<div class="float"><span id="fig20_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>compile-file</td><td>file-length</td><td>open</td></tr>
+<tr><td>delete-file</td><td>file-position</td><td>probe-file</td></tr>
+<tr><td>directory</td><td>file-write-date</td><td>rename-file</td></tr>
+<tr><td>file-author</td><td>load</td><td>with-open-file</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 20.1: </strong>File and Directory Operations</p></div></div>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Coercion-of-Streams-to-Pathnames.html" accesskey="1">Coercion of Streams to Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="File-Operations-on-Open-and-Closed-Streams.html" accesskey="2">File Operations on Open and Closed Streams</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Truenames.html" accesskey="3">Truenames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+</body>
+</html>

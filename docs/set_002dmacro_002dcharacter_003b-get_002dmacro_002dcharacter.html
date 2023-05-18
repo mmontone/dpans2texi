@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>set-macro-character; get-macro-character (ANSI Common Lisp)</title>
+
+<meta name="description" content="set-macro-character; get-macro-character (ANSI Common Lisp)">
+<meta name="keywords" content="set-macro-character; get-macro-character (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reader.html" rel="up" title="Reader">
+<link href="set_002dsyntax_002dfrom_002dchar.html" rel="next" title="set-syntax-from-char">
+<link href="set_002ddispatch_002dmacro_002dcharacter_003b-get_002ddispatch_002dmacro_002dcharacter.html" rel="prev" title="set-dispatch-macro-character; get-dispatch-macro-character">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="set_002dmacro_002dcharacter_003b-get_002dmacro_002dcharacter"></span><div class="header">
+<p>
+Next: <a href="set_002dsyntax_002dfrom_002dchar.html" accesskey="n" rel="next">set-syntax-from-char</a>, Previous: <a href="set_002ddispatch_002dmacro_002dcharacter_003b-get_002ddispatch_002dmacro_002dcharacter.html" accesskey="p" rel="prev">set-dispatch-macro-character; get-dispatch-macro-character</a>, Up: <a href="Reader.html" accesskey="u" rel="up">Reader</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">set-macro-character; get-macro-character</h4>
+<span id="set_002dmacro_002dcharacter_002c-get_002dmacro_002dcharacter-_0028Function_0029"></span><h3 class="heading">set-macro-character, get-macro-character (Function)</h3>
+<span id="index-set_002dmacro_002dcharacter-2"></span>
+<span id="index-set_002dmacro_002dcharacter"></span>
+<span id="index-get_002dmacro_002dcharacter-2"></span>
+<span id="index-get_002dmacro_002dcharacter"></span>
+<span id="set_002dmacro_002dcharacter"></span>
+
+<span id="Syntax_003a-493"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-get_002dmacro_002dcharacter-1">Function: <strong>get-macro-character</strong> <em>char <tt>&amp;optional</tt> readtable <span class="roman">→</span> function, non-terminating-p</em></dt>
+</dl>
+
+<dl>
+<dt id="index-set_002dmacro_002dcharacter-1">Function: <strong>set-macro-character</strong> <em>char new-function <tt>&amp;optional</tt> non-terminating-p readtable <span class="roman">→</span> <code>t</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-479"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>char</var>&mdash;a <i>character</i>.
+</p>
+<p><var>non-terminating-p</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>readtable</var>&mdash;a <i>readtable designator</i>.
+The default is the <i>current readtable</i>.
+</p>
+<p><var>function</var>&mdash;<code>nil</code>, 
+or a <i>designator</i> for a <i>function</i> of two <i>arguments</i>.
+</p>
+<p><var>new-function</var>&mdash;a <i>function designator</i>.
+</p>
+<span id="Description_003a-629"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>get-macro-character</code> returns as its <i>primary value</i>, <var>function</var>,
+the <i>reader macro function</i> associated with <var>char</var> in <var>readtable</var> (if any),
+or else <code>nil</code>&nbsp;<!-- /@w -->if <var>char</var> is not a <i>macro character</i> in <var>readtable</var>.
+The <i>secondary value</i>, <var>non-terminating-p</var>, is <i>true</i> 
+if <var>char</var> is a <i>non-terminating</i> <i>macro character</i>;
+otherwise, it is <i>false</i>.
+</p>
+<p><code>set-macro-character</code> causes <var>char</var> to be a <i>macro character</i>
+associated with the <i>reader macro function</i> <var>new-function</var> 
+(or the <i>designator</i> for <var>new-function</var>) in <var>readtable</var>.
+If <var>non-terminating-p</var> is <i>true</i>,
+<var>char</var> becomes a <i>non-terminating</i> <i>macro character</i>;
+otherwise it becomes a     <i>terminating</i> <i>macro character</i>.
+</p>
+<span id="Examples_003a-450"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (get-macro-character #\{) <span class="roman">→</span> NIL, <i>false</i>
+ (not (get-macro-character #\;)) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<p>The following is a possible definition for the <i>single-quote</i> <i>reader macro</i> 
+in <i>standard syntax</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun single-quote-reader (stream char)
+   (declare (ignore char))
+   (list 'quote (read stream t nil t))) <span class="roman">→</span> SINGLE-QUOTE-READER
+ (set-macro-character #\' #'single-quote-reader) <span class="roman">→</span> T
+</pre></div>
+
+
+<p>Here <code>single-quote-reader</code> reads an <i>object</i> following the <i>single-quote</i>
+and returns a <i>list</i> of <code>quote</code> and that <i>object</i>.
+The <var>char</var> argument is ignored.
+</p>
+<p>The following is a possible definition for the <i>semicolon</i> <i>reader macro</i>
+in <i>standard syntax</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun semicolon-reader (stream char)
+   (declare (ignore char))
+   ;; First swallow the rest of the current input line.
+   ;; End-of-file is acceptable for terminating the comment.
+   (do () ((char= (read-char stream nil #\Newline t) #\Newline)))
+   ;; Return zero values.
+   (values)) <span class="roman">→</span> SEMICOLON-READER
+ (set-macro-character #\; #'semicolon-reader) <span class="roman">→</span> T
+</pre></div>
+
+
+<span id="Side-Effects_003a-79"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <var>readtable</var> is modified.
+</p>
+<span id="See-Also_003a-512"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="_002areadtable_002a.html">*readtable*</a>
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="set_002dsyntax_002dfrom_002dchar.html" accesskey="n" rel="next">set-syntax-from-char</a>, Previous: <a href="set_002ddispatch_002dmacro_002dcharacter_003b-get_002ddispatch_002dmacro_002dcharacter.html" accesskey="p" rel="prev">set-dispatch-macro-character; get-dispatch-macro-character</a>, Up: <a href="Reader.html" accesskey="u" rel="up">Reader</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>finish-output; force-output; clear-output (ANSI Common Lisp)</title>
+
+<meta name="description" content="finish-output; force-output; clear-output (ANSI Common Lisp)">
+<meta name="keywords" content="finish-output; force-output; clear-output (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Streams.html" rel="up" title="Streams">
+<link href="y_002dor_002dn_002dp_003b-yes_002dor_002dno_002dp.html" rel="next" title="y-or-n-p; yes-or-no-p">
+<link href="clear_002dinput.html" rel="prev" title="clear-input">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="finish_002doutput_003b-force_002doutput_003b-clear_002doutput"></span><div class="header">
+<p>
+Next: <a href="y_002dor_002dn_002dp_003b-yes_002dor_002dno_002dp.html" accesskey="n" rel="next">y-or-n-p; yes-or-no-p</a>, Previous: <a href="clear_002dinput.html" accesskey="p" rel="prev">clear-input</a>, Up: <a href="Streams.html" accesskey="u" rel="up">Streams</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">finish-output; force-output; clear-output</h4>
+<span id="finish_002doutput_002c-force_002doutput_002c-clear_002doutput-_0028Function_0029"></span><h3 class="heading">finish-output, force-output, clear-output (Function)</h3>
+<span id="index-finish_002doutput-2"></span>
+<span id="index-finish_002doutput"></span>
+<span id="index-force_002doutput-2"></span>
+<span id="index-force_002doutput"></span>
+<span id="index-clear_002doutput-2"></span>
+<span id="index-clear_002doutput"></span>
+<span id="clear_002doutput"></span>
+
+<span id="Syntax_003a-450"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-finish_002doutput-1">Function: <strong>finish-output</strong> <em><tt>&amp;optional</tt> output-stream <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+<dl>
+<dt id="index-force_002doutput-1">Function: <strong>force-output</strong> <em><tt>&amp;optional</tt> output-stream <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+<dl>
+<dt id="index-clear_002doutput-1">Function: <strong>clear-output</strong> <em><tt>&amp;optional</tt> output-stream <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-437"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>output-stream</var>&mdash;an <i>output</i> <i>stream designator</i>.
+The default is <i>standard output</i>.
+</p>
+<span id="Description_003a-567"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>finish-output</code>, <code>force-output</code>, and <code>clear-output</code>
+exercise control over the internal handling of buffered stream output.  
+</p>
+<p><code>finish-output</code> attempts to ensure that any buffered output
+sent to <var>output-stream</var> has reached its destination, and then returns.
+</p>
+<p><code>force-output</code> initiates the emptying of any
+internal buffers but does not wait for completion
+or acknowledgment to return.
+</p>
+<p><code>clear-output</code> attempts to abort any
+outstanding output operation in progress in order
+to allow as little output as possible
+to continue to the destination.  
+</p>
+<p>If any of these operations does not make sense for <var>output-stream</var>, 
+then it does nothing. 
+The precise actions of these <i>functions</i> are <i>implementation-dependent</i>.
+</p>
+<span id="Examples_003a-413"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp">;; Implementation A
+ (progn (princ &quot;am i seen?&quot;) (clear-output))
+<span class="roman">→</span> NIL
+
+;; Implementation B
+ (progn (princ &quot;am i seen?&quot;) (clear-output))
+▷ am i seen?
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Affected-By_003a-95"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-output*</code>
+</p>
+<span id="Exceptional-Situations_003a-210"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>output-stream</var> is not a <i>stream designator</i>.
+</p>
+<span id="See-Also_003a-463"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="clear_002dinput.html">clear-input</a>
+</p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>short-float; single-float; double-float; long-float (ANSI Common Lisp)</title>
+
+<meta name="description" content="short-float; single-float; double-float; long-float (ANSI Common Lisp)">
+<meta name="keywords" content="short-float; single-float; double-float; long-float (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="rational-_0028System-Class_0029.html" rel="next" title="rational (System Class)">
+<link href="float-_0028System-Class_0029.html" rel="prev" title="float (System Class)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="short_002dfloat_003b-single_002dfloat_003b-double_002dfloat_003b-long_002dfloat"></span><div class="header">
+<p>
+Next: <a href="rational-_0028System-Class_0029.html" accesskey="n" rel="next">rational (System Class)</a>, Previous: <a href="float-_0028System-Class_0029.html" accesskey="p" rel="prev">float (System Class)</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">short-float; single-float; double-float; long-float</h4>
+<span id="short_002dfloat_002c-single_002dfloat_002c-double_002dfloat_002c-long_002dfloat-_0028Type_0029"></span><h3 class="heading">short-float, single-float, double-float, long-float (Type)</h3>
+<span id="index-short_002dfloat-1"></span>
+<span id="index-short_002dfloat"></span>
+<span id="index-single_002dfloat-1"></span>
+<span id="index-single_002dfloat"></span>
+<span id="index-double_002dfloat-1"></span>
+<span id="index-double_002dfloat"></span>
+<span id="index-long_002dfloat-1"></span>
+<span id="index-long_002dfloat"></span>
+
+
+<span id="Supertypes_003a-4"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>short-float</code>: 
+<code>short-float</code>,
+<code>float</code>, 
+<code>real</code>,
+<code>number</code>,
+<code>t</code>
+</p>
+<p><code>single-float</code>: 
+<code>single-float</code>,
+<code>float</code>, 
+<code>real</code>,
+<code>number</code>,
+<code>t</code>
+</p>
+<p><code>double-float</code>: 
+<code>double-float</code>,
+<code>float</code>, 
+<code>real</code>,
+<code>number</code>,
+<code>t</code>
+</p>
+<p><code>long-float</code>: 
+<code>long-float</code>,
+<code>float</code>, 
+<code>real</code>,
+<code>number</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-271"></span><h4 class="subsubheading">Description:</h4>
+
+<p>For the four defined subtypes of <i>type</i> <code>float</code>, it is true that
+intermediate between the <i>type</i> <code>short-float</code> and the <i>type</i> <code>long-float</code> are
+the <i>type</i> <code>single-float</code> and the <i>type</i> <code>double-float</code>.
+The precise definition of these categories is 
+<i>implementation-defined</i>.
+The precision (measured in &ldquo;bits&rdquo;, computed as plog<sub>2</sub>
+and the exponent size (also measured in ``bits,'' computed as
+log<sub>2</sub>
+to be at least as great
+as the values in the next figure. 
+Each of the defined subtypes of <i>type</i> <code>float</code> might or might not have a minus zero.
+
+
+<div class="float"><span id="fig12_002e12"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><b>Format</b></td><td><b>Minimum Precision</b></td><td><b>Minimum Exponent Size</b></td></tr>
+<tr><td>Short</td><td>13 bits</td><td>5 bits</td></tr>
+<tr><td>Single</td><td>24 bits</td><td>8 bits</td></tr>
+<tr><td>Double</td><td>50 bits</td><td>8 bits</td></tr>
+<tr><td>Long</td><td>50 bits</td><td>8 bits</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 12.12: </strong>Recommended Minimum Floating-Point Precision and Exponent Size</p></div></div>
+
+There can be fewer than four internal 
+representations for <i>floats</i>. 
+If there are fewer distinct representations, the following rules apply:
+
+<ul class="no-bullet">
+<li>&ndash; If there is only one, it is 
+the <i>type</i> <code>single-float</code>.
+In this representation, an <i>object</i> is simultaneously of <i>types</i> 
+<code>single-float</code>, <code>double-float</code>, <code>short-float</code>, 
+and <code>long-float</code>.
+</li><li>&ndash; Two internal representations can be arranged in either of the
+following ways:
+
+<ul>
+<li> Two <i>types</i> are provided: <code>single-float</code> and
+<code>short-float</code>.  An <i>object</i> is simultaneously 
+of <i>types</i> <code>single-float</code>, <code>double-float</code>, and <code>long-float</code>.
+</li><li> Two <i>types</i> are provided: <code>single-float</code> and
+<code>double-float</code>. An <i>object</i> is simultaneously of <i>types</i>
+<code>single-float</code> and <code>short-float</code>, or
+<code>double-float</code> and <code>long-float</code>.
+</li></ul>
+
+</li><li>&ndash; Three internal representations can be arranged in either
+of the following ways:
+
+<ul>
+<li> Three <i>types</i> are provided: <code>short-float</code>, 
+<code>single-float</code>, and <code>double-float</code>.
+An <i>object</i> can simultaneously be of <i>type</i> <code>double-float</code>
+and <code>long-float</code>.
+</li><li> Three <i>types</i> are provided: 
+<code>single-float</code>, <code>double-float</code>,
+and <code>long-float</code>. An <i>object</i> can simultaneously
+be of <i>types</i> <code>single-float</code> and <code>short-float</code>.
+</li></ul>
+</li></ul>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-11"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+Abbreviating.
+
+<span id="Compound-Type-Specifier-Syntax_003a-11"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+(short-float <tt>[</tt>short-lower-limit   <tt>[</tt>short-upper-limit<tt>]</tt><tt>]</tt>)
+(single-float <tt>[</tt>single-lower-limit <tt>[</tt>single-upper-limit<tt>]</tt><tt>]</tt>)
+(double-float <tt>[</tt>double-lower-limit <tt>[</tt>double-upper-limit<tt>]</tt><tt>]</tt>)
+(long-float <tt>[</tt>long-lower-limit     <tt>[</tt>long-upper-limit<tt>]</tt><tt>]</tt>)
+
+<span id="Compound-Type-Specifier-Arguments_003a-11"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<var>short-lower-limit</var>, <var>short-upper-limit</var>---<i>interval designators</i> 
+for <i>type</i> <code>short-float</code>.
+The defaults for each of <var>lower-limit</var> and <var>upper-limit</var> is the <i>symbol</i> <tt>*</tt>.
+
+<var>single-lower-limit</var>, <var>single-upper-limit</var>---<i>interval designators</i> 
+for <i>type</i> <code>single-float</code>.
+The defaults for each of <var>lower-limit</var> and <var>upper-limit</var> is the <i>symbol</i> <tt>*</tt>.
+
+<var>double-lower-limit</var>, <var>double-upper-limit</var>---<i>interval designators</i> 
+for <i>type</i> <code>double-float</code>.
+The defaults for each of <var>lower-limit</var> and <var>upper-limit</var> is the <i>symbol</i> <tt>*</tt>.
+
+<var>long-lower-limit</var>, <var>long-upper-limit</var>---<i>interval designators</i> 
+for <i>type</i> <code>long-float</code>.
+The defaults for each of <var>lower-limit</var> and <var>upper-limit</var> is the <i>symbol</i> <tt>*</tt>.
+
+<span id="Compound-Type-Specifier-Description_003a-11"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+Each of these denotes the set of <i>floats</i> of the indicated <i>type</i> 
+that are on the interval specified by the <i>interval designators</i>.
+
+</p><hr>
+<div class="header">
+<p>
+Next: <a href="rational-_0028System-Class_0029.html" accesskey="n" rel="next">rational (System Class)</a>, Previous: <a href="float-_0028System-Class_0029.html" accesskey="p" rel="prev">float (System Class)</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

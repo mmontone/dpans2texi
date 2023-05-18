@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>simple-vector (ANSI Common Lisp)</title>
+
+<meta name="description" content="simple-vector (ANSI Common Lisp)">
+<meta name="keywords" content="simple-vector (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Arrays.html" rel="up" title="Arrays">
+<link href="bit_002dvector.html" rel="next" title="bit-vector">
+<link href="vector-_0028System-Class_0029.html" rel="prev" title="vector (System Class)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="simple_002dvector"></span><div class="header">
+<p>
+Next: <a href="bit_002dvector.html" accesskey="n" rel="next">bit-vector</a>, Previous: <a href="vector-_0028System-Class_0029.html" accesskey="p" rel="prev">vector (System Class)</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">simple-vector</h4>
+<span id="simple_002dvector-_0028Type_0029"></span><h3 class="heading">simple-vector (Type)</h3>
+<span id="index-simple_002dvector-2"></span>
+<span id="index-simple_002dvector-1"></span>
+
+
+<span id="Supertypes_003a-15"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>simple-vector</code>,
+<code>vector</code>,
+<code>simple-array</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-423"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> of a <i>vector</i> that is not displaced to another
+<i>array</i>, has no <i>fill pointer</i>, is not 
+<i>expressly adjustable</i>
+and is able to hold 
+elements of any <i>type</i> is a subtype of <i>type</i> <code>simple-vector</code>.
+</p>
+<p>The <i>type</i> <code>simple-vector</code> is a subtype of <i>type</i> <code>vector</code>,
+and is a <i>subtype</i> of <i>type</i> <code>(vector t)</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(simple-vector <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+The default is the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This is the same as <code>(simple-array t (<var>size</var>))</code>.
+</p>
+
+
+
+</body>
+</html>

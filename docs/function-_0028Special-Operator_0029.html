@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>function (Special Operator) (ANSI Common Lisp)</title>
+
+<meta name="description" content="function (Special Operator) (ANSI Common Lisp)">
+<meta name="keywords" content="function (Special Operator) (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="function_002dlambda_002dexpression.html" rel="next" title="function-lambda-expression">
+<link href="funcall.html" rel="prev" title="funcall">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="function-_0028Special-Operator_0029"></span><div class="header">
+<p>
+Next: <a href="function_002dlambda_002dexpression.html" accesskey="n" rel="next">function-lambda-expression</a>, Previous: <a href="funcall.html" accesskey="p" rel="prev">funcall</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">function (Special Operator)</h4>
+<span id="function-_0028Special-Operator_0029-1"></span><h3 class="heading">function (Special Operator)</h3>
+<span id="index-function-5"></span>
+<span id="index-function-2"></span>
+
+
+
+<span id="Syntax_003a-42"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-function-3">Special Form: <strong>function</strong> <em>name <span class="roman">→</span> function</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-32"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>name</var>&mdash;a <i>function name</i> or <i>lambda expression</i>.
+</p>
+<p><var>function</var>&mdash;a <i>function</i> <i>object</i>.
+</p>
+<span id="Description_003a-61"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>value</i> of <code>function</code> is the <i>functional value</i> of <var>name</var>
+in the current <i>lexical environment</i>.
+</p>
+<p>If <var>name</var> is a <i>function name</i>, the functional definition of that name
+is that
+established by the innermost lexically enclosing
+<code>flet</code>, <code>labels</code>, or <code>macrolet</code> <i>form</i>,
+if there is one.  Otherwise the global functional definition of the
+<i>function name</i>
+is returned.
+</p>
+<p>If <var>name</var> is a <i>lambda expression</i>, then a <i>lexical closure</i>
+is returned.  In situations where a <i>closure</i> over the same set of
+<i>bindings</i> might be produced more than once, the various resulting
+<i>closures</i> might or might not be <code>eq</code>.
+</p>
+<p>It is an error to use <code>function</code> on a <i>function name</i> 
+that does not denote a <i>function</i> in the lexical environment in
+which the <code>function</code> form appears. 
+Specifically, it is an error to use <code>function</code> on a <i>symbol</i> 
+that denotes a <i>macro</i> or <i>special form</i>.
+An implementation may choose not to signal this error for
+performance reasons, but implementations are forbidden from
+defining the failure to signal an error as a useful behavior.
+</p>
+<span id="Examples_003a-38"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun adder (x) (function (lambda (y) (+ x y))))
+</pre></div>
+
+<p>The result of <code>(adder 3)</code> is a function that adds <code>3</code> to its argument:
+</p>
+<div class="lisp">
+<pre class="lisp"> (setq add3 (adder 3))
+ (funcall add3 5) <span class="roman">→</span> 8
+</pre></div>
+
+<p>This works because <code>function</code> creates a <i>closure</i> of
+the <i>lambda expression</i> that is able to refer to the <i>value</i> <code>3</code>
+of the variable <code>x</code> even after control has returned from the function <code>adder</code>.
+</p>
+<span id="See-Also_003a-48"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="defun.html">defun</a>,
+<a href="fdefinition.html">fdefinition</a>,
+<a href="flet_003b-labels_003b-macrolet.html#flet">flet</a>,
+<a href="flet_003b-labels_003b-macrolet.html#labels">labels</a>,
+<a href="symbol_002dfunction.html">symbol-function</a>,
+<a href="The-Evaluation-Model.html#SymbolsAsForms">Section 3.1.2.1.1 (Symbols as Forms)</a>,
+<a href="Sharpsign.html#SharpsignQuote">Section 2.4.8.2 (Sharpsign Single-Quote)</a>,
+<a href="Default-Print_002dObject-Methods.html#PrintingOtherObjects">Section 22.1.3.13 (Printing Other Objects)</a>
+</p>
+<span id="Notes_003a-29"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The notation <code>#'<var>name</var></code> may be used as an abbreviation
+for <code>(function <var>name</var>)</code>.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="function_002dlambda_002dexpression.html" accesskey="n" rel="next">function-lambda-expression</a>, Previous: <a href="funcall.html" accesskey="p" rel="prev">funcall</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

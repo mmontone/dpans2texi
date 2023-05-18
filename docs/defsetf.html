@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>defsetf (ANSI Common Lisp)</title>
+
+<meta name="description" content="defsetf (ANSI Common Lisp)">
+<meta name="keywords" content="defsetf (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="define_002dsetf_002dexpander.html" rel="next" title="define-setf-expander">
+<link href="define_002dmodify_002dmacro.html" rel="prev" title="define-modify-macro">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="defsetf"></span><div class="header">
+<p>
+Next: <a href="define_002dsetf_002dexpander.html" accesskey="n" rel="next">define-setf-expander</a>, Previous: <a href="define_002dmodify_002dmacro.html" accesskey="p" rel="prev">define-modify-macro</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">defsetf</h4>
+<span id="defsetf-_0028Macro_0029"></span><h3 class="heading">defsetf (Macro)</h3>
+<span id="index-defsetf-3"></span>
+<span id="index-defsetf"></span>
+
+
+
+<span id="Syntax_003a-89"></span><h4 class="subsubheading">Syntax:</h4>
+
+<p>The &ldquo;short form&rdquo;:
+</p>
+<dl>
+<dt id="index-defsetf-1">Macro: <strong>defsetf</strong> <em>access-fn update-fn <tt>[</tt>documentation<tt>]</tt> <span class="roman">→</span> access-fn</em></dt>
+</dl>
+
+<p>The &ldquo;long form&rdquo;:
+</p>
+<dl>
+<dt id="index-defsetf-2">Macro: <strong>defsetf</strong> <em>access-fn lambda-list <tt>(</tt><tt>{</tt>store-variable<tt>}</tt>*<tt>)</tt> 〚<tt>{</tt>declaration<tt>}</tt>* <span class="roman">|</span> documentation〛 <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> access-fn</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-79"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>access-fn</var>&mdash;a <i>symbol</i> which names a <i>function</i> or a <i>macro</i>.
+</p>
+<p><var>update-fn</var>&mdash;a <i>symbol</i> naming a <i>function</i> or <i>macro</i>.
+</p>
+<p><var>lambda-list</var>&mdash;a <i>defsetf lambda list</i>.
+</p>
+<p><var>store-variable</var>&mdash;a <i>symbol</i> (a <i>variable</i> <i>name</i>).
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>documentation</var>&mdash;a <i>string</i>; not evaluated.
+</p>
+<p><var>form</var>&mdash;a <i>form</i>.
+</p>
+<span id="Description_003a-114"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>defsetf</code> defines how to 
+<code>setf</code> a <i>place</i>
+of the form <code>(<i>access-fn</i> ...)</code> for relatively simple cases.
+(See <code>define-setf-expander</code> for more general access to this facility.)
+It must be the case that the <i>function</i> or <i>macro</i> named by <var>access-fn</var> 
+evaluates all of its arguments.
+</p>
+<p><code>defsetf</code> may take one of two forms, called the &ldquo;short form&rdquo; and the &ldquo;long form,&rdquo;
+which are distinguished by the <i>type</i> of the second <i>argument</i>.
+</p>
+<p>When the short form is used, 
+<var>update-fn</var> must name 
+a <i>function</i> (or <i>macro</i>) that takes one more argument
+than <var>access-fn</var> takes.  When <code>setf</code> is given a <i>place</i>
+that is a call on <var>access-fn</var>, it expands into
+a call on <var>update-fn</var> that is given all the arguments to
+<var>access-fn</var> and also, as its last argument, the new value
+(which must be returned by <var>update-fn</var> as its value).
+</p>
+<p>The long form <code>defsetf</code> 
+resembles <code>defmacro</code>.
+The <var>lambda-list</var> describes the arguments of <var>access-fn</var>. 
+The <var>store-variables</var> describe the
+value 
+or values 
+to be stored into the <i>place</i>.
+The <var>body</var> must
+compute the expansion of a <code>setf</code> of a call on <var>access-fn</var>.
+The expansion function is defined in the same <i>lexical environment</i>
+in which the <code>defsetf</code> <i>form</i> appears.
+</p>
+<p>During the evaluation of the
+<var>forms</var>, the variables in the <var>lambda-list</var> and the
+<var>store-variables</var>
+are bound to names of temporary variables,
+generated as if by <code>gensym</code>
+or <code>gentemp</code>,
+that will be bound by the
+expansion of <code>setf</code> 
+to the values of those <i>subforms</i>.  This binding
+permits the
+<var>forms</var> to be written without regard for order-of-evaluation
+issues.  <code>defsetf</code> arranges for the temporary variables to be
+optimized out of the final result in cases where that is possible.  
+</p>
+<p>The body code in <code>defsetf</code> is implicitly enclosed in a 
+<i>block</i> whose name is 
+<var>access-fn</var>
+</p>
+<p><code>defsetf</code> 
+ensures that <i>subforms</i> 
+of the <i>place</i> are evaluated exactly once.
+</p>
+<p><var>Documentation</var> is attached to <var>access-fn</var> as a <i>documentation string</i>
+of kind <tt>setf</tt>.
+</p>
+<p>If a <code>defsetf</code> <i>form</i> appears as a <i>top level form</i>,
+the <i>compiler</i> must make the <i>setf expander</i> available so that
+it may be used to expand calls to <code>setf</code> later on in the <i>file</i>.
+Users must ensure that the <var>forms</var>, if any, can be evaluated
+at compile time if the <var>access-fn</var> is used in a <i>place</i>
+later in the same <i>file</i>.
+The <i>compiler</i> must make these <i>setf expanders</i> available to 
+compile-time calls to <code>get-setf-expansion</code> when its <var>environment</var> 
+argument is a value received as the <i>environment parameter</i> of a <i>macro</i>.
+</p>
+<span id="Examples_003a-87"></span><h4 class="subsubheading">Examples:</h4>
+<p>The effect of
+</p>
+<div class="lisp">
+<pre class="lisp"> (defsetf symbol-value set)
+</pre></div>
+
+<p>is built into the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->system.
+This causes the form <code>(setf (symbol-value foo) fu)</code>
+to expand into <code>(set foo fu)</code>.
+</p>
+<p>Note that
+</p>
+<div class="lisp">
+<pre class="lisp"> (defsetf car rplaca)
+</pre></div>
+
+<p>would be incorrect because <code>rplaca</code> does not return its last argument.
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun middleguy (x) (nth (truncate (1- (list-length x)) 2) x)) <span class="roman">→</span> MIDDLEGUY
+ (defun set-middleguy (x v)
+    (unless (null x)
+      (rplaca (nthcdr (truncate (1- (list-length x)) 2) x) v))
+    v) <span class="roman">→</span> SET-MIDDLEGUY
+ (defsetf middleguy set-middleguy) <span class="roman">→</span> MIDDLEGUY
+ (setq a (list 'a 'b 'c 'd)
+       b (list 'x)
+       c (list 1 2 3 (list 4 5 6) 7 8 9)) <span class="roman">→</span> (1 2 3 (4 5 6) 7 8 9)
+ (setf (middleguy a) 3) <span class="roman">→</span> 3
+ (setf (middleguy b) 7) <span class="roman">→</span> 7
+ (setf (middleguy (middleguy c)) 'middleguy-symbol) <span class="roman">→</span> MIDDLEGUY-SYMBOL
+ a <span class="roman">→</span> (A 3 C D)
+ b <span class="roman">→</span> (7)
+ c <span class="roman">→</span> (1 2 3 (4 MIDDLEGUY-SYMBOL 6) 7 8 9)
+</pre></div>
+
+
+<p>An example of the use of the long form of <code>defsetf</code>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defsetf subseq (sequence start &amp;optional end) (new-sequence)
+   `(progn (replace ,sequence ,new-sequence
+                    :start1 ,start :end1 ,end)
+           ,new-sequence)) <span class="roman">→</span> SUBSEQ
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (defvar *xy* (make-array '(10 10)))
+ (defun xy (&amp;key ((x x) 0) ((y y) 0)) (aref *xy* x y)) <span class="roman">→</span> XY
+ (defun set-xy (new-value &amp;key ((x x) 0) ((y y) 0))
+   (setf (aref *xy* x y) new-value)) <span class="roman">→</span> SET-XY
+ (defsetf xy (&amp;key ((x x) 0) ((y y) 0)) (store)
+   `(set-xy ,store 'x ,x 'y ,y)) <span class="roman">→</span> XY
+ (get-setf-expansion '(xy a b))
+<span class="roman">→</span> (#:t0 #:t1),
+   (a b),
+   (#:store),
+   ((lambda (&amp;key ((x #:x)) ((y #:y))) 
+      (set-xy #:store 'x #:x 'y #:y))
+    #:t0 #:t1),
+   (xy #:t0 #:t1)
+ (xy 'x 1) <span class="roman">→</span> NIL
+ (setf (xy 'x 1) 1) <span class="roman">→</span> 1
+ (xy 'x 1) <span class="roman">→</span> 1
+ (let ((a 'x) (b 'y))
+   (setf (xy a 1 b 2) 3)
+   (setf (xy b 5 a 9) 14))
+<span class="roman">→</span> 14
+ (xy 'y 0 'x 1) <span class="roman">→</span> 1
+ (xy 'x 1 'y 2) <span class="roman">→</span> 3
+</pre></div>
+
+
+<span id="See-Also_003a-98"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="documentation_003b-setf-documentation.html#documentation">documentation</a>,
+<a href="setf_003b-psetf.html#setf">setf</a>,
+<a href="define_002dsetf_002dexpander.html">define-setf-expander</a>,
+<a href="get_002dsetf_002dexpansion.html">get-setf-expansion</a>,
+<a href="Generalized-Reference.html">Section 5.1 (Generalized Reference)</a>,
+<a href="Syntactic-Interaction-of-Documentation-Strings-and-Declarations.html">Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)</a>
+</p>
+<span id="Notes_003a-64"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><var>forms</var> must include provision
+for returning the correct value (the value 
+or values 
+of <var>store-variable</var>).  
+This is
+handled by <var>forms</var> rather than by <code>defsetf</code> because
+in many cases this value can be returned at no extra cost, by calling a
+function that simultaneously stores into the <i>place</i> and 
+returns the correct value.
+</p>
+<p>A <code>setf</code> of a call on <var>access-fn</var> also evaluates
+all of <var>access-fn</var>&rsquo;s arguments; it cannot treat any of them specially.
+This means that <code>defsetf</code> 
+cannot be used to describe how to store into
+a <i>generalized reference</i> to a byte, such as <code>(ldb field reference)</code>.
+<code>define-setf-expander</code>
+is used to handle situations that 
+do not fit the restrictions imposed by <code>defsetf</code>
+and gives the user additional control.
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="define_002dsetf_002dexpander.html" accesskey="n" rel="next">define-setf-expander</a>, Previous: <a href="define_002dmodify_002dmacro.html" accesskey="p" rel="prev">define-modify-macro</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

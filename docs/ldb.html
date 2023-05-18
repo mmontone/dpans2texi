@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ldb (ANSI Common Lisp)</title>
+
+<meta name="description" content="ldb (ANSI Common Lisp)">
+<meta name="keywords" content="ldb (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Numbers.html" rel="up" title="Numbers">
+<link href="ldb_002dtest.html" rel="next" title="ldb-test">
+<link href="dpb.html" rel="prev" title="dpb">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="ldb"></span><div class="header">
+<p>
+Next: <a href="ldb_002dtest.html" accesskey="n" rel="next">ldb-test</a>, Previous: <a href="dpb.html" accesskey="p" rel="prev">dpb</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">ldb</h4>
+<span id="ldb-_0028Accessor_0029"></span><h3 class="heading">ldb (Accessor)</h3>
+<span id="index-ldb-2"></span>
+<span id="index-ldb"></span>
+
+
+<span id="Syntax_003a-262"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-ldb-1">Function: <strong>ldb</strong> <em>bytespec integer <span class="roman">→</span> byte</em></dt>
+</dl>
+
+<p><tt>(setf (ldb bytespec place) new-byte)</tt>
+</p>
+<span id="Pronunciation_003a-6"></span><h4 class="subsubheading">Pronunciation:</h4>
+
+<p>[ˈlidib]
+or [ˈlidə b]
+or [ˈelˈdēˈbē]
+</p>
+<span id="Arguments-and-Values_003a-251"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>bytespec</var>&mdash;a <i>byte specifier</i>.
+</p>
+<p><var>integer</var>&mdash;an <i>integer</i>.
+</p>
+<p><var>byte</var>, <var>new-byte</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-334"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>ldb</code> extracts and returns the <i>byte</i> of <var>integer</var>
+specified by <var>bytespec</var>.
+</p>
+<p><code>ldb</code> returns an <i>integer</i> in which the bits with weights 
+2^(<i>s</i>-1) through 2^0 are the same as those in 
+<var>integer</var> with weights 2^(<i>p</i>+<i>s</i>-1) 
+through 2^<i>p</i>, and all other bits zero; <i>s</i> is
+<code>(byte-size <var>bytespec</var>)</code> 
+and <i>p</i> is <code>(byte-position <var>bytespec</var>)</code>.
+</p>
+<p><code>setf</code> may be used with <code>ldb</code> to modify
+a byte within the <var>integer</var> that is stored
+in a given <var>place</var>.
+The order of evaluation, when an <code>ldb</code> form is supplied
+to <code>setf</code>, is exactly left-to-right.
+<span id="index-order-of-evaluation-8"></span>
+<span id="index-evaluation-order-8"></span>
+The effect is to perform a <code>dpb</code> operation
+and then store the result back into the <var>place</var>.
+</p>
+<span id="Examples_003a-236"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (ldb (byte 2 1) 10) <span class="roman">→</span> 1
+ (setq a (list 8)) <span class="roman">→</span> (8)
+ (setf (ldb (byte 2 1) (car a)) 1) <span class="roman">→</span> 1
+ a <span class="roman">→</span> (10)
+</pre></div>
+
+
+<span id="See-Also_003a-276"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="byte_003b-byte_002dsize_003b-byte_002dposition.html#byte">byte</a>,
+<a href="byte_003b-byte_002dsize_003b-byte_002dposition.html#byte_002dposition">byte-position</a>,
+<a href="byte_003b-byte_002dsize_003b-byte_002dposition.html#byte_002dsize">byte-size</a>,
+<a href="dpb.html">dpb</a>
+</p>
+<span id="Notes_003a-178"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (logbitp <var>j</var> (ldb (byte <var>s</var> <var>p</var>) <var>n</var>))
+    ≡ (and (&lt; <var>j</var> <var>s</var>) (logbitp (+ <var>j</var> <var>p</var>) <var>n</var>))
+</pre></div>
+
+
+<p>In general,
+</p>
+<div class="lisp">
+<pre class="lisp"> (ldb (byte 0 <var>x</var>) <var>y</var>) <span class="roman">→</span> 0
+</pre></div>
+
+
+<p>for all valid values of <var>x</var> and <var>y</var>.
+</p>
+<p>Historically, the name &ldquo;ldb&rdquo; comes from a DEC PDP-10 assembly language
+instruction meaning &ldquo;load byte.&rdquo;
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="ldb_002dtest.html" accesskey="n" rel="next">ldb-test</a>, Previous: <a href="dpb.html" accesskey="p" rel="prev">dpb</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Compiler Terminology (ANSI Common Lisp)</title>
+
+<meta name="description" content="Compiler Terminology (ANSI Common Lisp)">
+<meta name="keywords" content="Compiler Terminology (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Compilation.html" rel="up" title="Compilation">
+<link href="Compilation-Semantics.html" rel="next" title="Compilation Semantics">
+<link href="Compilation.html" rel="prev" title="Compilation">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="Compiler-Terminology"></span><div class="header">
+<p>
+Next: <a href="Compilation-Semantics.html" accesskey="n" rel="next">Compilation Semantics</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<span id="Compiler-Terminology-1"></span><h4 class="subsection">3.2.1 Compiler Terminology</h4>
+
+
+<p>The following terminology is used in this section.
+</p>
+<p>The <span id="index-compiler"></span>
+<em>compiler</em> is a utility that translates code into an
+<i>implementation-dependent</i> form that might be represented or
+executed efficiently.
+The term <span id="index-compiler-1"></span>
+<em>compiler</em> refers to both of the <i>functions</i>
+<code>compile</code> and <code>compile-file</code>.
+</p>
+<p>The term <span id="index-compiled-code"></span>
+<em>compiled code</em> refers to 
+<i>objects</i> representing compiled programs, such as <i>objects</i> constructed
+by <code>compile</code> or by <code>load</code> when <i>loading</i> a <i>compiled file</i>.
+</p>
+<p>The term <span id="index-implicit-compilation"></span>
+<em>implicit compilation</em> refers to <i>compilation</i>
+performed during <i>evaluation</i>.
+</p>
+<p>The term <span id="index-literal-object"></span>
+<em>literal object</em> refers to 
+a quoted <i>object</i> 
+or a <i>self-evaluating object</i> 
+or an <i>object</i> that is a substructure of such an <i>object</i>.
+A <i>constant variable</i> is not itself a <i>literal object</i>.
+</p>
+<p>The term <span id="index-coalesce"></span>
+<em>coalesce</em> is defined as follows.
+Suppose <code>A</code> and <code>B</code> are two <i>literal constants</i> in the <i>source code</i>,
+and that <code>A'</code> and <code>B'</code> are the corresponding <i>objects</i> in the <i>compiled code</i>.
+If <code>A'</code> and <code>B'</code> are <code>eql</code> but
+<code>A</code> and <code>B</code> are not <code>eql</code>, then it is said
+that <code>A</code> and <code>B</code> have been coalesced by the compiler.
+</p>
+<p>The term <span id="index-minimal-compilation"></span>
+<em>minimal compilation</em> refers to actions the compiler
+must take at <i>compile time</i>. These actions are specified in 
+<a href="Compilation-Semantics.html">Section 3.2.2 (Compilation Semantics)</a>.
+</p>
+<p>The verb <span id="index-process"></span>
+<em>process</em> refers to performing <i>minimal compilation</i>,
+determining the time of evaluation for a <i>form</i>,
+and possibly <i>evaluating</i> that <i>form</i> (if required).
+</p>
+<p>The term <span id="index-further-compilation"></span>
+<em>further compilation</em> refers to
+<i>implementation-dependent</i> compilation beyond <i>minimal compilation</i>.
+That is, <i>processing</i> does not imply complete compilation.
+Block compilation and generation of machine-specific instructions are 
+examples of further compilation.
+Further compilation is permitted to take place at <i>run time</i>.
+</p>
+<p>Four different <i>environments</i> relevant to compilation are
+distinguished:
+the <i>startup environment</i>,
+the <i>compilation environment</i>,
+the <i>evaluation environment</i>, and
+the <i>run-time environment</i>.
+</p>
+<p>The <span id="index-startup-environment"></span>
+<em>startup environment</em> is
+the <i>environment</i> of the <i>Lisp image</i> 
+from which the <i>compiler</i> was invoked.
+</p>
+<p>The <span id="index-compilation-environment"></span>
+<em>compilation environment</em> is maintained by the compiler
+and is used to hold definitions and declarations to be used internally
+by the compiler.  Only those parts of a definition needed for correct
+compilation are saved. The <i>compilation environment</i> is used
+as the <i>environment</i> <i>argument</i> to macro expanders called by
+the compiler. It is unspecified whether a definition available in the
+<i>compilation environment</i> can be used in an <i>evaluation</i>
+initiated in the <i>startup environment</i> or <i>evaluation environment</i>.
+</p>
+<p>The <span id="index-evaluation-environment"></span>
+<em>evaluation environment</em> is a <i>run-time environment</i>
+in which macro expanders and code specified by <code>eval-when</code>
+to be evaluated are evaluated.  All evaluations initiated by the
+<i>compiler</i> take place in the <i>evaluation environment</i>.
+</p>
+<p>The <span id="index-run_002dtime-environment"></span>
+<em>run-time environment</em> is the 
+<i>environment</i> in which the program being compiled will be executed.
+</p>
+<p>The <i>compilation environment</i> inherits from
+the <i>evaluation environment</i>,
+and the <i>compilation environment</i> and <i>evaluation environment</i> 
+might be <i>identical</i>.
+The <i>evaluation environment</i> inherits from
+the <i>startup environment</i>, 
+and the <i>startup environment</i> and <i>evaluation environment</i> 
+might be <i>identical</i>.
+</p>
+<p>The term <span id="index-compile-time"></span>
+<em>compile time</em> refers to the duration of time that
+the compiler is processing <i>source code</i>.
+At <i>compile time</i>,
+only the <i>compilation environment</i> 
+and  the <i>evaluation environment</i>
+are available.
+</p>
+<p>The term <span id="index-compile_002dtime-definition"></span>
+<em>compile-time definition</em> refers to a definition in
+the <i>compilation environment</i>.
+For example, when compiling a file, 
+the definition of a function might be retained in the <i>compilation environment</i> 
+if it is declared <code>inline</code>. 
+This definition might not be available in the <i>evaluation environment</i>.
+</p>
+<p>The term <span id="index-run-time"></span>
+<em>run time</em> refers to the duration of time that the
+loader is loading compiled code or compiled code is being executed.
+At run time, only the <i>run-time environment</i> is available.
+</p>
+<p>The term <span id="index-run_002dtime-definition"></span>
+<em>run-time definition</em> refers to a definition in the
+<i>run-time environment</i>.
+</p>
+<p>The term <span id="index-run_002dtime-compiler"></span>
+<em>run-time compiler</em> refers to the <i>function</i> <code>compile</code>
+or <i>implicit compilation</i>, for which the compilation and run-time 
+<i>environments</i> are maintained in the same <i>Lisp image</i>.
+Note that when the <i>run-time compiler</i> is used,
+the <i>run-time environment</i> 
+and <i>startup environment</i> 
+are the same.
+</p>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Compilation-Semantics.html" accesskey="n" rel="next">Compilation Semantics</a>, Up: <a href="Compilation.html" accesskey="u" rel="up">Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

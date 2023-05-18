@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>function-lambda-expression (ANSI Common Lisp)</title>
+
+<meta name="description" content="function-lambda-expression (ANSI Common Lisp)">
+<meta name="keywords" content="function-lambda-expression (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
+<link href="functionp.html" rel="next" title="functionp">
+<link href="function-_0028Special-Operator_0029.html" rel="prev" title="function (Special Operator)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="function_002dlambda_002dexpression"></span><div class="header">
+<p>
+Next: <a href="functionp.html" accesskey="n" rel="next">functionp</a>, Previous: <a href="function-_0028Special-Operator_0029.html" accesskey="p" rel="prev">function (Special Operator)</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">function-lambda-expression</h4>
+<span id="function_002dlambda_002dexpression-_0028Function_0029"></span><h3 class="heading">function-lambda-expression (Function)</h3>
+<span id="index-function_002dlambda_002dexpression-2"></span>
+<span id="index-function_002dlambda_002dexpression"></span>
+
+
+
+<span id="Syntax_003a-43"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-function_002dlambda_002dexpression-1">Function: <strong>function-lambda-expression</strong> <em>function <span class="roman">→</span> lambda-expression, closure-p, name</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-33"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>function</var>&mdash;a <i>function</i>.
+</p>
+<p><var>lambda-expression</var>&mdash;a <i>lambda expression</i> or <code>nil</code>.
+</p>
+<p><var>closure-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<p><var>name</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-62"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns information about <var>function</var> as follows:
+</p>
+<p>The <i>primary value</i>, <var>lambda-expression</var>,
+is <var>function</var>&rsquo;s defining <i>lambda expression</i>, 
+or <code>nil</code>&nbsp;<!-- /@w -->if the information is not available.  The <i>lambda expression</i>
+may have been pre-processed in some ways, but it should remain a suitable 
+argument to <code>compile</code> or <code>function</code>.
+Any <i>implementation</i> may legitimately return <code>nil</code>&nbsp;<!-- /@w -->
+as the <var>lambda-expression</var> of any <var>function</var>.
+</p>
+<p>The <i>secondary value</i>, <var>closure-p</var>,
+is <code>nil</code>&nbsp;<!-- /@w -->if <var>function</var>&rsquo;s definition was enclosed
+in the <i>null lexical environment</i> or something <i>non-nil</i> if
+<var>function</var>&rsquo;s definition might have been enclosed in some 
+<i>non-null lexical environment</i>.
+Any <i>implementation</i> may legitimately return <i>true</i>
+as the <var>closure-p</var> of any <var>function</var>.
+</p>
+<p>The <i>tertiary value</i>, <var>name</var>,
+is the &ldquo;name&rdquo; of <var>function</var>. 
+The name is intended for debugging only and is not necessarily one that would
+be valid for use as a name in <code>defun</code> or <code>function</code>, for example.
+By convention, <code>nil</code>&nbsp;<!-- /@w -->is used to mean that <var>function</var> has no name.
+Any <i>implementation</i> may legitimately return <code>nil</code>&nbsp;<!-- /@w -->
+as the <var>name</var> of any <var>function</var>.
+</p>
+
+<span id="Examples_003a-39"></span><h4 class="subsubheading">Examples:</h4>
+
+<p>The following examples illustrate some possible return values, but
+are not intended to be exhaustive:
+</p>
+<div class="lisp">
+<pre class="lisp"> (function-lambda-expression #'(lambda (x) x))
+<span class="roman">→</span> NIL, <i>false</i>, NIL
+or<span class="roman">→</span> NIL, <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) X), <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) X), <i>false</i>, NIL
+
+ (function-lambda-expression
+    (funcall #'(lambda () #'(lambda (x) x))))
+<span class="roman">→</span> NIL, <i>false</i>, NIL
+or<span class="roman">→</span> NIL, <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) X), <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) X), <i>false</i>, NIL
+ 
+ (function-lambda-expression 
+    (funcall #'(lambda (x) #'(lambda () x)) nil))
+<span class="roman">→</span> NIL, <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA () X), <i>true</i>, NIL
+not<span class="roman">→</span> NIL, <i>false</i>, NIL
+not<span class="roman">→</span> (LAMBDA () X), <i>false</i>, NIL
+  
+ (flet ((foo (x) x))
+   (setf (symbol-function 'bar) #'foo)
+   (function-lambda-expression #'bar))
+<span class="roman">→</span> NIL, <i>false</i>, NIL
+or<span class="roman">→</span> NIL, <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) (BLOCK FOO X)), <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) (BLOCK FOO X)), <i>false</i>, FOO
+or<span class="roman">→</span> (SI::BLOCK-LAMBDA FOO (X) X), <i>false</i>, FOO
+ 
+ (defun foo ()
+   (flet ((bar (x) x))
+     #'bar))
+ (function-lambda-expression (foo))
+<span class="roman">→</span> NIL, <i>false</i>, NIL
+or<span class="roman">→</span> NIL, <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) (BLOCK BAR X)), <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA (X) (BLOCK BAR X)), <i>true</i>, (:INTERNAL FOO 0 BAR)
+or<span class="roman">→</span> (LAMBDA (X) (BLOCK BAR X)), <i>false</i>, &quot;BAR in FOO&quot;
+</pre></div>
+
+
+<span id="Notes_003a-30"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Although <i>implementations</i> are free to return &ldquo;<code>nil</code>, <i>true</i>, <code>nil</code>&rdquo; in all cases, 
+they are encouraged to return a <i>lambda expression</i> as the <i>primary value</i>
+in the case where the argument was created by a call to <code>compile</code> 
+or <code>eval</code> (as opposed to being created by <i>loading</i> a <i>compiled file</i>).
+</p>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="functionp.html" accesskey="n" rel="next">functionp</a>, Previous: <a href="function-_0028Special-Operator_0029.html" accesskey="p" rel="prev">function (Special Operator)</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

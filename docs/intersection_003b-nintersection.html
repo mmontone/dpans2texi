@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>intersection; nintersection (ANSI Common Lisp)</title>
+
+<meta name="description" content="intersection; nintersection (ANSI Common Lisp)">
+<meta name="keywords" content="intersection; nintersection (ANSI Common Lisp)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="index.html" rel="start" title="Top">
+<link href="Index.html" rel="index" title="Index">
+<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Conses.html" rel="up" title="Conses">
+<link href="adjoin.html" rel="next" title="adjoin">
+<link href="remf.html" rel="prev" title="remf">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+body {font-family: century schoolbook, serif;
+      line-height: 1.3;
+      padding-left: 5em; padding-right: 1em;
+      padding-bottom: 1em; max-width: 60em;}
+table {border-collapse: collapse}
+span.roman { font-family: century schoolbook, serif; font-weight: normal; }
+h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
+dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
+kbd {font-family: monospace; text-decoration: underline}
+var {font-family: Helvetica, sans-serif; font-variant: slanted}
+td  {padding-right: 1em; padding-left: 1em}
+sub {font-size: smaller}
+.node {padding: 0; margin: 0}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<span id="intersection_003b-nintersection"></span><div class="header">
+<p>
+Next: <a href="adjoin.html" accesskey="n" rel="next">adjoin</a>, Previous: <a href="remf.html" accesskey="p" rel="prev">remf</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="node-heading">intersection; nintersection</h4>
+<span id="intersection_002c-nintersection-_0028Function_0029"></span><h3 class="heading">intersection, nintersection (Function)</h3>
+<span id="index-intersection-2"></span>
+<span id="index-intersection"></span>
+<span id="index-nintersection-2"></span>
+<span id="index-nintersection"></span>
+<span id="intersection"></span>
+
+<span id="Syntax_003a-323"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-intersection-1">Function: <strong>intersection</strong> <em>list-1 list-2 <tt>&amp;key</tt> key test test-not <span class="roman">→</span> result-list</em></dt>
+</dl>
+<dl>
+<dt id="index-nintersection-1">Function: <strong>nintersection</strong> <em>list-1 list-2 <tt>&amp;key</tt> key test test-not <span class="roman">→</span> result-list</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-312"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>list-1</var>&mdash;a <i>proper list</i>.
+</p>
+<p><var>list-2</var>&mdash;a <i>proper list</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>result-list</var>&mdash;a <i>list</i>.
+</p>
+<span id="Description_003a-413"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>intersection</code> and <code>nintersection</code> return a <i>list</i>
+that contains every element that occurs in both <var>list-1</var> and <var>list-2</var>.
+</p>
+<p><code>nintersection</code> is the destructive version of <code>intersection</code>.
+It performs the same operation,
+but may destroy <var>list-1</var> using its cells to construct the result.
+<var>list-2</var> is not destroyed.
+</p>
+<p>The intersection operation is described as follows.
+For all possible ordered pairs consisting of 
+one <i>element</i> from <var>list-1</var> 
+and one <i>element</i> from <var>list-2</var>,
+<tt>:test</tt> or <tt>:test-not</tt> are used 
+to determine whether they <i>satisfy the test</i>.  
+The first argument to the <tt>:test</tt> or <tt>:test-not</tt>
+function is an element of <var>list-1</var>; the second argument is an
+element of <var>list-2</var>.
+If <tt>:test</tt> or <tt>:test-not</tt> is not supplied, <code>eql</code>
+is used.
+It is an error if <tt>:test</tt> and <tt>:test-not</tt> are supplied in
+the same function call.
+</p>
+<p>If <tt>:key</tt> is supplied (and not <code>nil</code>), it is used to
+extract the part to be tested from the <var>list</var> element. 
+The argument to the <tt>:key</tt> function
+is an element of either <var>list-1</var> or <var>list-2</var>;
+the <tt>:key</tt> function typically returns part of the supplied element.
+If <tt>:key</tt> is not supplied or <code>nil</code>, the <var>list-1</var> and
+<var>list-2</var> elements are used.
+</p>
+<p>For every pair that <i>satifies the test</i>,
+exactly one of the two elements of the pair will be put in the result.
+No element from either <i>list</i> appears in the result that does not 
+<i>satisfy the test</i> for
+an element from the other <i>list</i>.
+If one of the <i>lists</i> contains duplicate
+elements, there may be duplication in the result.
+</p>
+<p>There is no guarantee that the order of elements in the result will
+reflect the ordering of the arguments in any particular way.
+The result <i>list</i> may share cells with, 
+or be <code>eq</code> to, either <var>list-1</var> or <var>list-2</var>
+if appropriate.
+</p>
+<span id="Examples_003a-296"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq list1 (list 1 1 2 3 4 a b c &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;d&quot;)
+       list2 (list 1 4 5 b c d &quot;a&quot; &quot;B&quot; &quot;c&quot; &quot;D&quot;)) 
+  <span class="roman">→</span> (1 4 5 B C D &quot;a&quot; &quot;B&quot; &quot;c&quot; &quot;D&quot;)
+ (intersection list1 list2) <span class="roman">→</span> (C B 4 1 1)
+ (intersection list1 list2 :test 'equal) <span class="roman">→</span> (&quot;B&quot; C B 4 1 1)
+ (intersection list1 list2 :test #'equalp) <span class="roman">→</span> (&quot;d&quot; &quot;C&quot; &quot;B&quot; &quot;A&quot; C B 4 1 1) 
+ (nintersection list1 list2) <span class="roman">→</span> (1 1 4 B C)
+ list1 <span class="roman">→</span> <i>implementation-dependent</i> ;<i>e.g.</i>, (1 1 4 B C)
+ list2 <span class="roman">→</span> <i>implementation-dependent</i> ;<i>e.g.</i>, (1 4 5 B C D &quot;a&quot; &quot;B&quot; &quot;c&quot; &quot;D&quot;)
+ (setq list1 (copy-list '((1 . 2) (2 . 3) (3 . 4) (4 . 5))))
+<span class="roman">→</span> ((1 . 2) (2 . 3) (3 . 4) (4 . 5)) 
+ (setq list2 (copy-list '((1 . 3) (2 . 4) (3 . 6) (4 . 8))))
+<span class="roman">→</span> ((1 . 3) (2 . 4) (3 . 6) (4 . 8)) 
+ (nintersection list1 list2 :key #'cdr) <span class="roman">→</span> ((2 . 3) (3 . 4)) 
+ list1 <span class="roman">→</span> <i>implementation-dependent</i> ;<i>e.g.</i>, ((1 . 2) (2 . 3) (3 . 4)) 
+ list2 <span class="roman">→</span> <i>implementation-dependent</i> ;<i>e.g.</i>, ((1 . 3) (2 . 4) (3 . 6) (4 . 8)) 
+</pre></div>
+
+
+<span id="Side-Effects_003a-44"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><code>nintersection</code> can modify <var>list-1</var>, 
+but not <var>list-2</var>.
+</p>
+<span id="Exceptional-Situations_003a-132"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var><var>list-1</var> and <var>list-2</var></var> are not <i>proper lists</i>.
+</p>
+<span id="See-Also_003a-337"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="union_003b-nunion.html#union">union</a>,
+<a href="Compiler-Terminology.html">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-222"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> parameter is deprecated.
+</p>
+<p>Since the <code>nintersection</code> side effect is not required,
+it should not be used in for-effect-only
+positions in portable code.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="adjoin.html" accesskey="n" rel="next">adjoin</a>, Previous: <a href="remf.html" accesskey="p" rel="prev">remf</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
