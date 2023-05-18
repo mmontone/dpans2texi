@@ -1,13 +1,7 @@
 @c -*- Mode: Texinfo; -*-
 @c ----- diverse.
 
-@ifinfo
 @include dpi.texi
-@end ifinfo
-
-@ifnotinfo
-@include dph.texi
-@end ifnotinfo
 
 @macro spc {}
 @w{ }
