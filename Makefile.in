@@ -698,6 +698,10 @@ docbook: temp.texi
 wget: 
 	wget -r -np -nd -A tex http://quimby.gnus.org/circus/cl/dpANS3/
 	wget -r -np -nd -A tex http://quimby.gnus.org/circus/cl/dpANS3R/
+
+release-info:
+	tar czf ansicl.info.tar.gz ansicl ansicl-1 ansicl-10 ansicl-2 ansicl-3 ansicl-4 ansicl-5 ansicl-6 ansicl-7 ansicl-8 ansicl-9
+
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
