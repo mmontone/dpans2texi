@@ -225,8 +225,15 @@ samp {
 
 /* @env{} will result in <p><code>X</code></p> */
 p code {
-  color: #532c14;
+	border-radius: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
+	background-color: rgba(175,184,193,0.2);
 }
+
+/* p code { */
+/*   color: #532c14; */
+/* } */
 
 /* @option{} */
 span.nocodebreak {
