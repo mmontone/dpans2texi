@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Standard Characters (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Character-Syntax.html" rel="up" title="Character Syntax">
-<link href="Character-Syntax-Types.html" rel="next" title="Character Syntax Types">
-<link href="Variables-that-affect-the-Lisp-Reader.html" rel="prev" title="Variables that affect the Lisp Reader">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,155 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Syntax.html#Standard-Characters">
 
 </head>
 
 <body lang="en">
-<span id="Standard-Characters"></span><div class="header">
-<p>
-Next: <a href="Character-Syntax-Types.html" accesskey="n" rel="next">Character Syntax Types</a>, Previous: <a href="Variables-that-affect-the-Lisp-Reader.html" accesskey="p" rel="prev">Variables that affect the Lisp Reader</a>, Up: <a href="Character-Syntax.html" accesskey="u" rel="up">Character Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Standard-Characters-1"></span><h4 class="subsection">2.1.3 Standard Characters</h4>
 
-<p>All <i>implementations</i> must support a <i>character</i> <i>repertoire</i>
-called <code>standard-char</code>; <i>characters</i> that are members of that
-<i>repertoire</i> are called 
-<span id="index-standard-character"></span>
-<em>standard characters</em>.
-</p>
-<p>The <code>standard-char</code> <i>repertoire</i> consists of
-the <i>non-graphic</i> <i>character</i> <i>newline</i>,
-the <i>graphic</i> <i>character</i> <i>space</i>,
-and the following additional
-ninety-four <i>graphic</i> <i>characters</i> or their equivalents:
-</p>
-
-<div class="float"><span id="fig2_002e3"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>Graphic ID</th><th>Glyph</th><th>Description</th><th>Graphic ID</th><th>Glyph</th><th>Description</th></tr></thead>
-<tr><td>LA01</td><td><code>a</code></td><td>small a</td><td>LN01</td><td><code>n</code></td><td>small n</td></tr>
-<tr><td>LA02</td><td><code>A</code></td><td>capital A</td><td>LN02</td><td><code>N</code></td><td>capital N</td></tr>
-<tr><td>LB01</td><td><code>b</code></td><td>small b</td><td>LO01</td><td><code>o</code></td><td>small o</td></tr>
-<tr><td>LB02</td><td><code>B</code></td><td>capital B</td><td>LO02</td><td><code>O</code></td><td>capital O</td></tr>
-<tr><td>LC01</td><td><code>c</code></td><td>small c</td><td>LP01</td><td><code>p</code></td><td>small p</td></tr>
-<tr><td>LC02</td><td><code>C</code></td><td>capital C</td><td>LP02</td><td><code>P</code></td><td>capital P</td></tr>
-<tr><td>LD01</td><td><code>d</code></td><td>small d</td><td>LQ01</td><td><code>q</code></td><td>small q</td></tr>
-<tr><td>LD02</td><td><code>D</code></td><td>capital D</td><td>LQ02</td><td><code>Q</code></td><td>capital Q</td></tr>
-<tr><td>LE01</td><td><code>e</code></td><td>small e</td><td>LR01</td><td><code>r</code></td><td>small r</td></tr>
-<tr><td>LE02</td><td><code>E</code></td><td>capital E</td><td>LR02</td><td><code>R</code></td><td>capital R</td></tr>
-<tr><td>LF01</td><td><code>f</code></td><td>small f</td><td>LS01</td><td><code>s</code></td><td>small s</td></tr>
-<tr><td>LF02</td><td><code>F</code></td><td>capital F</td><td>LS02</td><td><code>S</code></td><td>capital S</td></tr>
-<tr><td>LG01</td><td><code>g</code></td><td>small g</td><td>LT01</td><td><code>t</code></td><td>small t</td></tr>
-<tr><td>LG02</td><td><code>G</code></td><td>capital G</td><td>LT02</td><td><code>T</code></td><td>capital T</td></tr>
-<tr><td>LH01</td><td><code>h</code></td><td>small h</td><td>LU01</td><td><code>u</code></td><td>small u</td></tr>
-<tr><td>LH02</td><td><code>H</code></td><td>capital H</td><td>LU02</td><td><code>U</code></td><td>capital U</td></tr>
-<tr><td>LI01</td><td><code>i</code></td><td>small i</td><td>LV01</td><td><code>v</code></td><td>small v</td></tr>
-<tr><td>LI02</td><td><code>I</code></td><td>capital I</td><td>LV02</td><td><code>V</code></td><td>capital V</td></tr>
-<tr><td>LJ01</td><td><code>j</code></td><td>small j</td><td>LW01</td><td><code>w</code></td><td>small w</td></tr>
-<tr><td>LJ02</td><td><code>J</code></td><td>capital J</td><td>LW02</td><td><code>W</code></td><td>capital W</td></tr>
-<tr><td>LK01</td><td><code>k</code></td><td>small k</td><td>LX01</td><td><code>x</code></td><td>small x</td></tr>
-<tr><td>LK02</td><td><code>K</code></td><td>capital K</td><td>LX02</td><td><code>X</code></td><td>capital X</td></tr>
-<tr><td>LL01</td><td><code>l</code></td><td>small l</td><td>LY01</td><td><code>y</code></td><td>small y</td></tr>
-<tr><td>LL02</td><td><code>L</code></td><td>capital L</td><td>LY02</td><td><code>Y</code></td><td>capital Y</td></tr>
-<tr><td>LM01</td><td><code>m</code></td><td>small m</td><td>LZ01</td><td><code>z</code></td><td>small z</td></tr>
-<tr><td>LM02</td><td><code>M</code></td><td>capital M</td><td>LZ02</td><td><code>Z</code></td><td>capital Z</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 2.3: </strong>Standard Character Subrepertoire (Part 1 of 3: Latin Characters)</p></div></div>
-
-
-<div class="float"><span id="fig2_002e4"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>Graphic ID</th><th>Glyph</th><th>Description</th><th>Graphic ID</th><th>Glyph</th><th>Description</th></tr></thead>
-<tr><td>ND01</td><td><code>1</code></td><td>digit 1</td><td>ND06</td><td><code>6</code></td><td>digit 6</td></tr>
-<tr><td>ND02</td><td><code>2</code></td><td>digit 2</td><td>ND07</td><td><code>7</code></td><td>digit 7</td></tr>
-<tr><td>ND03</td><td><code>3</code></td><td>digit 3</td><td>ND08</td><td><code>8</code></td><td>digit 8</td></tr>
-<tr><td>ND04</td><td><code>4</code></td><td>digit 4</td><td>ND09</td><td><code>9</code></td><td>digit 9</td></tr>
-<tr><td>ND05</td><td><code>5</code></td><td>digit 5</td><td>ND10</td><td><code>0</code></td><td>digit 0</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 2.4: </strong>Standard Character Subrepertoire (Part 2 of 3: Numeric Characters)</p></div></div>
-
-
-
-<div class="float"><span id="StdCharsThree"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>Graphic ID</th><th>Glyph</th><th>Description</th></tr></thead>
-<tr><td>SP02</td><td><code>!</code></td><td>exclamation mark</td></tr>
-<tr><td>SC03</td><td><code>$</code></td><td>dollar sign</td></tr>
-<tr><td>SP04</td><td><code>&quot;</code></td><td>quotation mark, or double quote</td></tr>
-<tr><td>SP05</td><td><code>'</code></td><td>apostrophe, or <tt>[</tt>single<tt>]</tt> quote</td></tr>
-<tr><td>SP06</td><td><code>(</code></td><td>left parenthesis, or open parenthesis</td></tr>
-<tr><td>SP07</td><td><code>)</code></td><td>right parenthesis, or close parenthesis</td></tr>
-<tr><td>SP08</td><td><code>,</code></td><td>comma</td></tr>
-<tr><td>SP09</td><td><code>_</code></td><td>low line, or underscore</td></tr>
-<tr><td>SP10</td><td><code>-</code></td><td>hyphen, or minus <tt>[</tt>sign<tt>]</tt></td></tr>
-<tr><td>SP11</td><td><code>.</code></td><td>full stop, period, or dot</td></tr>
-<tr><td>SP12</td><td><code>/</code></td><td>solidus, or slash</td></tr>
-<tr><td>SP13</td><td><code>:</code></td><td>colon</td></tr>
-<tr><td>SP14</td><td><code>;</code></td><td>semicolon</td></tr>
-<tr><td>SP15</td><td><code>?</code></td><td>question mark</td></tr>
-<tr><td>SA01</td><td><code>+</code></td><td>plus <tt>[</tt>sign<tt>]</tt></td></tr>
-<tr><td>SA03</td><td><code>&lt;</code></td><td>less-than <tt>[</tt>sign<tt>]</tt></td></tr>
-<tr><td>SA04</td><td><code>=</code></td><td>equals <tt>[</tt>sign<tt>]</tt></td></tr>
-<tr><td>SA05</td><td><code>&gt;</code></td><td>greater-than <tt>[</tt>sign<tt>]</tt></td></tr>
-<tr><td>SM01</td><td><code>#</code></td><td>number sign, or sharp<tt>[</tt>sign<tt>]</tt></td></tr>
-<tr><td>SM02</td><td><code>%</code></td><td>percent <tt>[</tt>sign<tt>]</tt></td></tr>
-<tr><td>SM03</td><td><code>&amp;</code></td><td>ampersand</td></tr>
-<tr><td>SM04</td><td><code>*</code></td><td>asterisk, or star</td></tr>
-<tr><td>SM05</td><td><code>@</code></td><td>commercial at, or at-sign</td></tr>
-<tr><td>SM06</td><td><code>[</code></td><td>left <tt>[</tt>square<tt>]</tt> bracket</td></tr>
-<tr><td>SM07</td><td><code>\</code></td><td>reverse solidus, or backslash</td></tr>
-<tr><td>SM08</td><td><code>]</code></td><td>right <tt>[</tt>square<tt>]</tt> bracket</td></tr>
-<tr><td>SM11</td><td><code><tt>{</tt></code></td><td>left curly bracket, or left brace</td></tr>
-<tr><td>SM13</td><td><code>|</code></td><td>vertical bar</td></tr>
-<tr><td>SM14</td><td><code><tt>}</tt></code></td><td>right curly bracket, or right brace</td></tr>
-<tr><td>SD13</td><td><code>`</code></td><td>grave accent, or backquote</td></tr>
-<tr><td>SD15</td><td><code>^</code></td><td>circumflex accent</td></tr>
-<tr><td>SD19</td><td><code>~</code></td><td>tilde</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 2.5: </strong>Standard Character Subrepertoire (Part 3 of 3: Special Characters)</p></div></div>
-
-<p>The graphic IDs are not used within <span class="roman">Common Lisp</span>,
-but are provided for cross reference purposes with <cite>ISO 6937/2</cite>.
-Note that the first letter of the graphic ID 
-categorizes the character as follows:
-L&mdash;Latin, N&mdash;Numeric, S&mdash;Special.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Character-Syntax-Types.html" accesskey="n" rel="next">Character Syntax Types</a>, Previous: <a href="Variables-that-affect-the-Lisp-Reader.html" accesskey="p" rel="prev">Variables that affect the Lisp Reader</a>, Up: <a href="Character-Syntax.html" accesskey="u" rel="up">Character Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Syntax.html#Standard-Characters">Standard Characters</a>.</p>
 </body>
-</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>dotimes (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Iteration.html" rel="up" title="Iteration">
-<link href="dolist.html" rel="next" title="dolist">
-<link href="do_003b-do_002a.html" rel="prev" title="do; do*">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,163 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Iteration.html#dotimes">
 
 </head>
 
 <body lang="en">
-<span id="dotimes"></span><div class="header">
-<p>
-Next: <a href="dolist.html" accesskey="n" rel="next">dolist</a>, Previous: <a href="do_003b-do_002a.html" accesskey="p" rel="prev">do; do*</a>, Up: <a href="Iteration.html" accesskey="u" rel="up">Iteration</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">dotimes</h4>
-<span id="dotimes-_0028Macro_0029"></span><h3 class="heading">dotimes (Macro)</h3>
-<span id="index-dotimes-2"></span>
-<span id="index-dotimes"></span>
 
-
-
-<span id="Syntax_003a-96"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-dotimes-1">Macro: <strong>dotimes</strong> <em><tt>(</tt>var count-form <tt>[</tt>result-form<tt>]</tt><tt>)</tt> <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>tag | statement<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-86"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>var</var>&mdash;a <i>symbol</i>.
-</p>
-<p><var>count-form</var>&mdash;a <i>form</i>.
-</p>
-<p><var>result-form</var>&mdash;a <i>form</i>.
-</p>
-<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
-</p>
-<p><var>tag</var>&mdash;a <i>go tag</i>; not evaluated.
-</p>
-<p><var>statement</var>&mdash;a <i>compound form</i>; evaluated as described below.
-</p>
-<p><var>results</var>&mdash;if a <code>return</code> or <code>return-from</code> form is executed,
-the <i>values</i> passed from that <i>form</i>;
-otherwise, the <i>values</i> returned by the <var>result-form</var>
-or <code>nil</code>&nbsp;<!-- /@w -->if there is no <var>result-form</var>.
-</p>
-<span id="Description_003a-124"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>dotimes</code> iterates over a series of <i>integers</i>.
-</p>
-<p><code>dotimes</code> evaluates <var>count-form</var>,
-which should produce an <i>integer</i>. 
-If <var>count-form</var> is zero or negative,
-the body is not executed.
-<code>dotimes</code> then executes the body once for each <i>integer</i> from 0 up to
-but not including
-the value of <var>count-form</var>,
-in the order in which the
-<var>tags</var> and <var>statements</var> occur, with
-<var>var</var> bound to each <i>integer</i>.
-Then <var>result-form</var> 
-is evaluated.
-At the time <var>result-form</var> is processed, <var>var</var> is bound to
-the number of times the body was executed.
-<var>Tags</var> label
-<var>statements</var>.
-</p>
-<p>An <i>implicit block</i>  
-named <code>nil</code>&nbsp;<!-- /@w -->surrounds <code>dotimes</code>.
-<code>return</code> may be used to terminate the loop immediately without
-performing any further iterations, returning zero or more <i>values</i>.
-</p>
-<p>The body of the loop is an <i>implicit tagbody</i>; 
-it may contain tags to serve as the targets of <code>go</code> statements.
-Declarations may appear before the body of the loop.
-</p>
-<p>The <i>scope</i> of the binding of <var>var</var>
-does not include the <var>count-form</var>,
-but the <var>result-form</var> is included.
-</p>
-<p>It is <i>implementation-dependent</i> whether <code>dotimes</code>
-<i>establishes</i> a new <i>binding</i> of <var>var</var> on each iteration
-or whether it <i>establishes</i> a binding for <var>var</var> once at the
-beginning and then <var>assigns</var> it on any subsequent iterations.
-</p>
-<span id="Examples_003a-94"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (dotimes (temp-one 10 temp-one)) <span class="roman">→</span> 10
- (setq temp-two 0) <span class="roman">→</span> 0
- (dotimes (temp-one 10 t) (incf temp-two)) <span class="roman">→</span> T
- temp-two <span class="roman">→</span> 10
-</pre></div>
-
-
-<p>Here is an example of the use of <code>dotimes</code> in processing strings:
-</p>
-<div class="lisp">
-<pre class="lisp">;;; True if the specified subsequence of the string is a
-;;; palindrome (reads the same forwards and backwards).
- (defun palindromep (string <tt>&amp;optional</tt>
-                           (start 0)
-                           (end (length string)))
-   (dotimes (k (floor (- end start) 2) t)
-    (unless (char-equal (char string (+ start k))
-                        (char string (- end k 1)))
-      (return nil))))
- (palindromep &quot;Able was I ere I saw Elba&quot;) <span class="roman">→</span> T
- (palindromep &quot;A man, a plan, a canal--Panama!&quot;) <span class="roman">→</span> NIL
- (remove-if-not #'alpha-char-p          ;Remove punctuation.
-               &quot;A man, a plan, a canal--Panama!&quot;)
-<span class="roman">→</span> &quot;AmanaplanacanalPanama&quot;
- (palindromep
-  (remove-if-not #'alpha-char-p
-                &quot;A man, a plan, a canal--Panama!&quot;)) <span class="roman">→</span> T
- (palindromep
-  (remove-if-not
-   #'alpha-char-p
-   &quot;Unremarkable was I ere I saw Elba Kramer, nu?&quot;)) <span class="roman">→</span> T
- (palindromep
-  (remove-if-not
-   #'alpha-char-p
-   &quot;A man, a plan, a cat, a ham, a yak,
-                  a yam, a hat, a canal--Panama!&quot;)) <span class="roman">→</span> T
-</pre></div>
-
-
-<span id="See-Also_003a-106"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="do_003b-do_002a.html#do">do</a>, <a href="dolist.html">dolist</a>, <a href="tagbody.html">tagbody</a>
-</p>
-<span id="Notes_003a-70"></span><h4 class="subsubheading">Notes:</h4>
-
-<p><code>go</code> may be used within the body of
-<code>dotimes</code> to transfer control to a statement labeled by a <var>tag</var>.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="dolist.html" accesskey="n" rel="next">dolist</a>, Previous: <a href="do_003b-do_002a.html" accesskey="p" rel="prev">do; do*</a>, Up: <a href="Iteration.html" accesskey="u" rel="up">Iteration</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Iteration.html#dotimes">dotimes</a>.</p>
 </body>
-</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Condition System Concepts (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Conditions.html" rel="up" title="Conditions">
-<link href="Condition-Types.html" rel="next" title="Condition Types">
-<link href="Conditions.html" rel="prev" title="Conditions">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,143 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Conditions.html#Condition-System-Concepts">
 
 </head>
 
 <body lang="en">
-<span id="Condition-System-Concepts"></span><div class="header">
-<p>
-Next: <a href="condition.html" accesskey="n" rel="next">condition</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Condition-System-Concepts-1"></span><h3 class="section">9.1 Condition System Concepts</h3>
 
-<p>Common Lisp constructs are described not only in terms of their
-behavior in situations during which they are intended to be used (see
-the &ldquo;Description&rdquo; part of each <i>operator</i> specification),
-but in all other situations (see the &ldquo;Exceptional Situations&rdquo;
-part of each <i>operator</i> specification).
-</p>
-<p>A situation is the evaluation of an expression in a specific context.
-A <i>condition</i> is an <i>object</i> that
-represents a specific situation that has been detected.  
-<i>Conditions</i> are <i>generalized instances</i> of the <i>class</i> <code>condition</code>.
-A hierarchy of <i>condition</i> classes is defined in <span class="roman">Common Lisp</span>.  
-A <i>condition</i> has <i>slots</i> that contain data 
-relevant to the situation that the <i>condition</i> represents.
-</p>
-<p>An error is a situation in which normal program execution cannot
-continue correctly without some form of intervention (either
-interactively by the user or under program control).  Not all errors
-are detected.  When an error goes undetected, the effects can be
-<i>implementation-dependent</i>, <i>implementation-defined</i>, unspecified, or
-undefined. See <a href="Definitions.html">Section 1.4 (Definitions)</a>.  All detected errors can
-be represented by <i>conditions</i>, but not all 
-<i>conditions</i> represent errors.
-</p>
-<p>Signaling is the process by which a <i>condition</i> can alter
-the flow of control in a program by raising the 
-<i>condition</i> which can then be <i>handled</i>.  The functions
-<code>error</code>, <code>cerror</code>, <code>signal</code>, and
-<code>warn</code> are used to signal <i>conditions</i>.
-</p>
-<p>The process of signaling involves the selection and invocation of a
-<i>handler</i> from a set of <i>active</i> <i>handlers</i>.  
-A <i>handler</i> is a <i>function</i> of one argument (the 
-<i>condition</i>) that is invoked to handle a <i>condition</i>.
-Each <i>handler</i> is associated with a <i>condition</i> <i>type</i>,
-and a <i>handler</i> will be invoked only on a <i>condition</i> of the
-<i>handler</i>&rsquo;s associated <i>type</i>.
-</p>
-<p><i>Active</i> <i>handlers</i> are <i>established</i> dynamically
-(see <code>handler-bind</code> or <code>handler-case</code>).
-<i>Handlers</i> are invoked in a <i>dynamic environment</i> 
-equivalent to that of the signaler,
-except that the set of <i>active</i> <i>handlers</i> 
-is bound in such a way as to include only those that were <i>active</i> 
-at the time the <i>handler</i> being invoked was <i>established</i>.
-Signaling a <i>condition</i> has no side-effect on the <i>condition</i>, 
-and there is no dynamic state contained in a <i>condition</i>.
-</p>
-<p>If a <i>handler</i> is invoked, it can address the <i>situation</i> 
-in one of three ways:
-</p>
-
-<dl compact="compact">
-<dt><b>Decline</b></dt>
-<dd>
-
-<p>It can decline to <i>handle</i> the <i>condition</i>.  It does this by
-simply returning rather than transferring control.
-When this happens, any values returned by the handler are
-ignored and the next most recently established handler is invoked.
-If there is no such handler and the signaling function is <code>error</code>
-or <code>cerror</code>, the debugger is entered in the
-<i>dynamic environment</i> of the signaler. If there is no such
-handler and the signaling function is either <code>signal</code> or
-<code>warn</code>, the signaling function simply returns&nbsp;<code>nil</code>.
-</p>
-</dd>
-<dt><b>Handle</b></dt>
-<dd>
-
-<p>It can <i>handle</i> the <i>condition</i> by performing a non-local
-transfer of control.  This can be done either primitively by using
-<code>go</code>, <code>return</code>, <code>throw</code> or more
-abstractly by using a function such as <code>abort</code> or
-<code>invoke-restart</code>.
-</p>
-</dd>
-<dt><b>Defer</b></dt>
-<dd>
-
-<p>It can put off a decision about whether to <i>handle</i> or <i>decline</i>,
-by any of a number of actions, but most commonly by 
-signaling another condition,
-resignaling the same condition,
-or forcing entry into the debugger.
-</p></dd>
-</dl>
-
-
-<table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Condition-Types.html" accesskey="1">Condition Types</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Creating-Conditions.html" accesskey="2">Creating Conditions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Printing-Conditions.html" accesskey="3">Printing Conditions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Signaling-and-Handling-Conditions.html" accesskey="4">Signaling and Handling Conditions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Assertions.html" accesskey="5">Assertions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Notes-about-the-Condition-System_0027s-Background.html" accesskey="6">Notes about the Condition System's Background</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-</table>
-<hr>
-<div class="header">
-<p>
-Next: <a href="condition.html" accesskey="n" rel="next">condition</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Conditions.html#Condition-System-Concepts">Condition System Concepts</a>.</p>
 </body>
-</html>

@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="String-Concepts.html" rel="next" title="String Concepts">
-<link href="simple_002dbit_002dvector_002dp.html" rel="prev" title="simple-bit-vector-p">
+<link href="Sequences.html#Sequences" rel="next" title="Sequences">
+<link href="Arrays.html#simple_002dbit_002dvector_002dp" rel="prev" title="simple-bit-vector-p">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,43 +277,1025 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Strings"></span><div class="header">
 <p>
-Next: <a href="Sequences.html" accesskey="n" rel="next">Sequences</a>, Previous: <a href="Arrays.html" accesskey="p" rel="prev">Arrays</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Sequences.html#Sequences" accesskey="n" rel="next">Sequences</a>, Previous: <a href="Arrays.html#Arrays" accesskey="p" rel="prev">Arrays</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Strings-1"></span><h2 class="chapter">16 Strings</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="String-Concepts.html" accesskey="1">String Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#String-Concepts" accesskey="1">String Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="string-_0028System-Class_0029.html" accesskey="2">string (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#string-_0028System-Class_0029" accesskey="2">string (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="base_002dstring.html" accesskey="3">base-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#base_002dstring" accesskey="3">base-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dstring.html" accesskey="4">simple-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dstring" accesskey="4">simple-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dbase_002dstring.html" accesskey="5">simple-base-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dbase_002dstring" accesskey="5">simple-base-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dstring_002dp.html" accesskey="6">simple-string-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dstring_002dp" accesskey="6">simple-string-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="char_003b-schar.html" accesskey="7">char; schar</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#char_003b-schar" accesskey="7">char; schar</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="string-_0028Function_0029.html" accesskey="8">string (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#string-_0028Function_0029" accesskey="8">string (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="string_002dupcase_003b-string_002ddowncase_003b-string_002dcapitalize_003b-nstring_002dupcase_003b-nstr_002b.html" accesskey="9">string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#string_002dupcase_003b-string_002ddowncase_003b-string_002dcapitalize_003b-nstring_002dupcase_003b-nstr_002b" accesskey="9">string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="string_002dtrim_003b-string_002dleft_002dtrim_003b-string_002dright_002dtrim.html">string-trim; string-left-trim; string-right-trim</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#string_002dtrim_003b-string_002dleft_002dtrim_003b-string_002dright_002dtrim">string-trim; string-left-trim; string-right-trim</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="string_003d_003b-string_002f_003d_003b-string_003c_003b-string_003e_003b-string_003c_003d_003b-string_003e_003d_003b-string_002dequal_003b-_002b.html">string=; string/=; string&lt;; string&gt;; string&lt;=; string&gt;=; string-equal; +</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#string_003d_003b-string_002f_003d_003b-string_003c_003b-string_003e_003b-string_003c_003d_003b-string_003e_003d_003b-string_002dequal_003b-_002b">string=; string/=; string&lt;; string&gt;; string&lt;=; string&gt;=; string-equal; +</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="stringp.html">stringp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#stringp">stringp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="make_002dstring.html">make-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#make_002dstring">make-string</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="String-Concepts"></span><div class="header">
+<p>
+Next: <a href="#string-_0028System-Class_0029" accesskey="n" rel="next">string (System Class)</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="String-Concepts-1"></span><h3 class="section">16.1 String Concepts</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Implications-of-Strings-Being-Arrays" accesskey="1">Implications of Strings Being Arrays</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Subtypes-of-STRING" accesskey="2">Subtypes of STRING</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Implications-of-Strings-Being-Arrays"></span><div class="header">
+<p>
+Next: <a href="#Subtypes-of-STRING" accesskey="n" rel="next">Subtypes of STRING</a>, Up: <a href="#String-Concepts" accesskey="u" rel="up">String Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Implications-of-Strings-Being-Arrays-1"></span><h4 class="subsection">16.1.1 Implications of Strings Being Arrays</h4>
+
+<p>Since all <i>strings</i> are <i>arrays</i>, all rules which apply
+generally to <i>arrays</i> also apply to <i>strings</i>.
+See <a href="Arrays.html#Array-Concepts">Section 15.1 (Array Concepts)</a>.
+</p>
+<p>For example,
+<i>strings</i> can have <i>fill pointers</i>,
+and <i>strings</i> are also subject to the rules of <i>element type</i> <i>upgrading</i>
+that apply to <i>arrays</i>.
+</p>
+
+<hr>
+<span id="Subtypes-of-STRING"></span><div class="header">
+<p>
+Previous: <a href="#Implications-of-Strings-Being-Arrays" accesskey="p" rel="prev">Implications of Strings Being Arrays</a>, Up: <a href="#String-Concepts" accesskey="u" rel="up">String Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Subtypes-of-STRING-1"></span><h4 class="subsection">16.1.2 Subtypes of STRING</h4>
+<p>All functions that operate on <i>strings</i> 
+will operate on <i>subtypes</i> of <i>string</i> as well.
+</p>
+<p>However,
+the consequences are undefined if a <i>character</i> is inserted into a <i>string</i>
+for which the <i>element type</i> of the <i>string</i> does not include that <i>character</i>.
+</p>
+
+<hr>
+<span id="string-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="#base_002dstring" accesskey="n" rel="next">base-string</a>, Previous: <a href="#String-Concepts" accesskey="p" rel="prev">String Concepts</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">string (System Class)</h4>
+<span id="string-_0028System-Class_0029-1"></span><h3 class="heading">string (System Class)</h3>
+<span id="index-string-5"></span>
+<span id="index-string-2"></span>
+
+
+<span id="Class-Precedence-List_003a-56"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>string</code>,
+<code>vector</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-456"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>string</i> is a <i>specialized</i> <i>vector</i> 
+whose <i>elements</i> are of <i>type</i> <code>character</code> or a <i>suptype</i> of <i>type</i> <code>character</code>.  
+When used as a <i>type specifier</i> for object creation,
+<code>string</code> means <code>(vector character)</code>.
+</p>
+
+<span id="Compound-Type-Specifier-Kind_003a-24"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Abbreviating.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-24"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(string <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-24"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-24"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the union of all <i>types</i>
+<code>(array <i>c</i> (<var>size</var>))</code>
+for all <i>subtypes</i> <i>c</i> of <code>character</code>;
+that is, the set of <i>strings</i> of size <var>size</var>.
+</p>
+<span id="See-Also_003a-375"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#String-Concepts">Section 16.1 (String Concepts)</a>,
+<a href="Syntax.html#Double_002dQuote">Section 2.4.5 (Double-Quote)</a>,
+<a href="Printer.html#PrintingStrings">Section 22.1.3.4 (Printing Strings)</a>
+</p>
+<hr>
+<span id="base_002dstring"></span><div class="header">
+<p>
+Next: <a href="#simple_002dstring" accesskey="n" rel="next">simple-string</a>, Previous: <a href="#string-_0028System-Class_0029" accesskey="p" rel="prev">string (System Class)</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">base-string</h4>
+<span id="base_002dstring-_0028Type_0029"></span><h3 class="heading">base-string (Type)</h3>
+<span id="index-base_002dstring-1"></span>
+<span id="index-base_002dstring"></span>
+
+
+
+<span id="Supertypes_003a-17"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>base-string</code>,
+<code>string</code>,
+<code>vector</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-457"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>base-string</code> is equivalent to 
+<code>(vector base-char)</code>.
+The <i>base string</i> representation is the most efficient <i>string</i> representation
+that can hold an arbitrary sequence of <i>standard characters</i>.
+</p>
+
+<span id="Compound-Type-Specifier-Kind_003a-25"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Abbreviating.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-25"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(base-string <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-25"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-25"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This is equivalent to the type <code>(vector base-char <var>size</var>)</code>;
+that is, the set of <i>base strings</i> of size <var>size</var>.
+</p>
+<hr>
+<span id="simple_002dstring"></span><div class="header">
+<p>
+Next: <a href="#simple_002dbase_002dstring" accesskey="n" rel="next">simple-base-string</a>, Previous: <a href="#base_002dstring" accesskey="p" rel="prev">base-string</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-string</h4>
+<span id="simple_002dstring-_0028Type_0029"></span><h3 class="heading">simple-string (Type)</h3>
+<span id="index-simple_002dstring-1"></span>
+<span id="index-simple_002dstring"></span>
+
+
+<span id="Supertypes_003a-18"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>simple-string</code>,
+<code>string</code>,
+<code>vector</code>,
+<code>simple-array</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-458"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>simple string</i> is a specialized one-dimensional
+<i>simple array</i> whose <i>elements</i> are of <i>type</i> <code>character</code> or a <i>suptype</i> of <i>type</i> <code>character</code>.
+When used as a <i>type specifier</i> for object creation,
+<code>simple-string</code> means <code>(simple-array character (<i>size</i>))</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-26"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Abbreviating.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-26"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(simple-string <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-26"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-26"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the union of all <i>types</i>
+<code>(simple-array <i>c</i> (<var>size</var>))</code> for all <i>subtypes</i> <i>c</i> of
+<code>character</code>; that is, the set of <i>simple strings</i> of size <var>size</var>.
+</p>
+<hr>
+<span id="simple_002dbase_002dstring"></span><div class="header">
+<p>
+Next: <a href="#simple_002dstring_002dp" accesskey="n" rel="next">simple-string-p</a>, Previous: <a href="#simple_002dstring" accesskey="p" rel="prev">simple-string</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-base-string</h4>
+<span id="simple_002dbase_002dstring-_0028Type_0029"></span><h3 class="heading">simple-base-string (Type)</h3>
+<span id="index-simple_002dbase_002dstring-1"></span>
+<span id="index-simple_002dbase_002dstring"></span>
+
+
+<span id="Supertypes_003a-19"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>simple-base-string</code>,
+<code>base-string</code>,
+<code>simple-string</code>,
+<code>string</code>,
+<code>vector</code>,
+<code>simple-array</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-459"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>simple-base-string</code> is equivalent to 
+<code>(simple-array base-char (*))</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-27"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Abbreviating.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-27"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(simple-base-string <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-27"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-27"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This is equivalent to the type <code>(simple-array base-char (<var>size</var>))</code>;
+that is, the set of <i>simple base strings</i> of size <var>size</var>.
+</p>
+
+<hr>
+<span id="simple_002dstring_002dp"></span><div class="header">
+<p>
+Next: <a href="#char_003b-schar" accesskey="n" rel="next">char; schar</a>, Previous: <a href="#simple_002dbase_002dstring" accesskey="p" rel="prev">simple-base-string</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-string-p</h4>
+<span id="simple_002dstring_002dp-_0028Function_0029"></span><h3 class="heading">simple-string-p (Function)</h3>
+<span id="index-simple_002dstring_002dp-2"></span>
+<span id="index-simple_002dstring_002dp"></span>
+
+
+<span id="Syntax_003a-357"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-simple_002dstring_002dp-1">Function: <strong>simple-string-p</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-346"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-460"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>simple-string</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-328"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (simple-string-p &quot;aaaaaa&quot;) <span class="roman">→</span> <i>true</i>
+ (simple-string-p (make-array 6 
+                              :element-type 'character 
+                              :fill-pointer t)) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Notes_003a-249"></span><h4 class="subsubheading">Notes:</h4>
+<div class="lisp">
+<pre class="lisp"> (simple-string-p <var>object</var>) ≡ (typep <var>object</var> 'simple-string)
+</pre></div>
+
+
+
+<hr>
+<span id="char_003b-schar"></span><div class="header">
+<p>
+Next: <a href="#string-_0028Function_0029" accesskey="n" rel="next">string (Function)</a>, Previous: <a href="#simple_002dstring_002dp" accesskey="p" rel="prev">simple-string-p</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">char; schar</h4>
+<span id="char_002c-schar-_0028Accessor_0029"></span><h3 class="heading">char, schar (Accessor)</h3>
+<span id="index-char-2"></span>
+<span id="index-char"></span>
+<span id="index-schar-2"></span>
+<span id="index-schar"></span>
+<span id="char"></span><span id="schar"></span>
+
+<span id="Syntax_003a-358"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char-1">Function: <strong>char</strong> <em>string index <span class="roman">→</span> character</em></dt>
+</dl>
+<dl>
+<dt id="index-schar-1">Function: <strong>schar</strong> <em>string index <span class="roman">→</span> character</em></dt>
+</dl>
+
+
+
+
+<span id="Arguments-and-Values_003a-347"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>string</var>&mdash;for <code>char</code>,  a <i>string</i>;
+for <code>schar</code>, a <i>simple string</i>.
+</p>
+<p><var>index</var>&mdash;a <i>valid array index</i> for the <var>string</var>.
+</p>
+<p><var>character</var>, <var>new-character</var>&mdash;a <i>character</i>.
+</p>
+<span id="Description_003a-461"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>char</code> and <code>schar</code> <i>access</i> the <i>element</i> of <var>string</var>
+specified by <var>index</var>.
+</p>
+<p><code>char</code> ignores <i>fill pointers</i> when <i>accessing</i> <i>elements</i>.
+</p>
+<span id="Examples_003a-329"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq my-simple-string (make-string 6 :initial-element #\A)) <span class="roman">→</span> &quot;AAAAAA&quot;
+ (schar my-simple-string 4) <span class="roman">→</span> #\A
+ (setf (schar my-simple-string 4) #\B) <span class="roman">→</span> #\B
+ my-simple-string <span class="roman">→</span> &quot;AAAABA&quot;
+ (setq my-filled-string
+       (make-array 6 :element-type 'character
+                     :fill-pointer 5
+                     :initial-contents my-simple-string))
+<span class="roman">→</span> &quot;AAAAB&quot;
+ (char my-filled-string 4) <span class="roman">→</span> #\B
+ (char my-filled-string 5) <span class="roman">→</span> #\A
+ (setf (char my-filled-string 3) #\C) <span class="roman">→</span> #\C
+ (setf (char my-filled-string 5) #\D) <span class="roman">→</span> #\D
+ (setf (fill-pointer my-filled-string) 6) <span class="roman">→</span> 6
+ my-filled-string <span class="roman">→</span> &quot;AAACBD&quot;
+</pre></div>
+
+
+<span id="See-Also_003a-376"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Arrays.html#aref">aref</a>,
+<a href="Sequences.html#elt">elt</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>
+</p>
+<span id="Notes_003a-250"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (char s j) ≡ (aref (the string s) j)
+</pre></div>
+
+
+
+<hr>
+<span id="string-_0028Function_0029"></span><div class="header">
+<p>
+Next: <a href="#string_002dupcase_003b-string_002ddowncase_003b-string_002dcapitalize_003b-nstring_002dupcase_003b-nstr_002b" accesskey="n" rel="next">string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+</a>, Previous: <a href="#char_003b-schar" accesskey="p" rel="prev">char; schar</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">string (Function)</h4>
+<span id="string-_0028Function_0029-1"></span><h3 class="heading">string (Function)</h3>
+<span id="index-string-6"></span>
+<span id="index-string-3"></span>
+
+
+<span id="Syntax_003a-359"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-string-4">Function: <strong>string</strong> <em>x <span class="roman">→</span> string</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-348"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>x</var>&mdash;a <i>string</i>, a <i>symbol</i>, or a <i>character</i>.
+</p>
+<p><var>string</var>&mdash;a <i>string</i>.
+</p>
+<span id="Description_003a-462"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>string</i> described by <var>x</var>; specifically:
+</p>
+
+<ul>
+<li> If <var>x</var> is a <i>string</i>, it is returned.
+</li><li> If <var>x</var> is a <i>symbol</i>, its <i>name</i> is returned.
+</li><li> If <var>x</var> is a <i>character</i>,
+then a <i>string</i> containing that one <i>character</i> is returned.
+</li><li> <code>string</code> might perform additional, <i>implementation-defined</i> conversions.
+</li></ul>
+
+
+<span id="Examples_003a-330"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (string &quot;already a string&quot;) <span class="roman">→</span> &quot;already a string&quot;
+ (string 'elm) <span class="roman">→</span> &quot;ELM&quot;
+ (string #\c) <span class="roman">→</span> &quot;c&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-149"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>In the case where a conversion is defined neither by this specification nor
+by the <i>implementation</i>, an error of <i>type</i> <code>type-error</code> is signaled.
+</p>
+<span id="See-Also_003a-377"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Types-and-Classes.html#coerce">coerce</a>,
+<a href="#string-_0028System-Class_0029">string (System Class)</a> (<i>type</i>).
+</p>
+<span id="Notes_003a-251"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>coerce</code> can be used to convert a <i>sequence</i> of <i>characters</i>
+to a <i>string</i>.
+</p>
+<p><code>prin1-to-string</code>, <code>princ-to-string</code>, <code>write-to-string</code>,
+or <code>format</code> (with a first argument of <code>nil</code>) can be used to get a
+<i>string</i> representation of a <i>number</i> or any other <i>object</i>.
+</p>
+
+<hr>
+<span id="string_002dupcase_003b-string_002ddowncase_003b-string_002dcapitalize_003b-nstring_002dupcase_003b-nstr_002b"></span><div class="header">
+<p>
+Next: <a href="#string_002dtrim_003b-string_002dleft_002dtrim_003b-string_002dright_002dtrim" accesskey="n" rel="next">string-trim; string-left-trim; string-right-trim</a>, Previous: <a href="#string-_0028Function_0029" accesskey="p" rel="prev">string (Function)</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+</h4>
+<span id="string_002dupcase_002c-string_002ddowncase_002c-string_002dcapitalize_002c-nstring_002dupcase_002c-nstring_002ddowncase_002c-nstring_002dcapitalize-_0028Function_0029"></span><h3 class="heading">string-upcase, string-downcase, string-capitalize, nstring-upcase, nstring-downcase, nstring-capitalize (Function)</h3>
+<span id="index-string_002dupcase-2"></span>
+<span id="index-string_002dupcase"></span>
+<span id="index-string_002ddowncase-2"></span>
+<span id="index-string_002ddowncase"></span>
+<span id="index-string_002dcapitalize-2"></span>
+<span id="index-string_002dcapitalize"></span>
+<span id="index-nstring_002dupcase-2"></span>
+<span id="index-nstring_002dupcase"></span>
+<span id="index-nstring_002ddowncase-2"></span>
+<span id="index-nstring_002ddowncase"></span>
+<span id="index-nstring_002dcapitalize-2"></span>
+<span id="index-nstring_002dcapitalize"></span>
+
+
+<span id="Syntax_003a-360"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-string_002dupcase-1">Function: <strong>string-upcase</strong> <em>string <tt>&amp;key</tt> start end <span class="roman">→</span> cased-string</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002ddowncase-1">Function: <strong>string-downcase</strong> <em>string <tt>&amp;key</tt> start end <span class="roman">→</span> cased-string</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dcapitalize-1">Function: <strong>string-capitalize</strong> <em>string <tt>&amp;key</tt> start end <span class="roman">→</span> cased-string</em></dt>
+</dl>
+
+
+<dl>
+<dt id="index-nstring_002dupcase-1">Function: <strong>nstring-upcase</strong> <em>string <tt>&amp;key</tt> start end <span class="roman">→</span> string</em></dt>
+</dl>
+<dl>
+<dt id="index-nstring_002ddowncase-1">Function: <strong>nstring-downcase</strong> <em>string <tt>&amp;key</tt> start end <span class="roman">→</span> string</em></dt>
+</dl>
+<dl>
+<dt id="index-nstring_002dcapitalize-1">Function: <strong>nstring-capitalize</strong> <em>string <tt>&amp;key</tt> start end <span class="roman">→</span> string</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-349"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>string</var>&mdash;a <i>string designator</i>.
+For <code>nstring-upcase</code>,
+<code>nstring-downcase</code>,
+and <code>nstring-capitalize</code>,
+the <var>string</var> <i>designator</i> must be a <i>string</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>string</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>cased-string</var>&mdash;a <i>string</i>.
+</p>
+<span id="Description_003a-463"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>string-upcase</code>,  <code>string-downcase</code>,  <code>string-capitalize</code>,
+<code>nstring-upcase</code>, <code>nstring-downcase</code>, <code>nstring-capitalize</code>
+change the case of the subsequence of <var>string</var> 
+<i>bounded</i> by <var>start</var> and <var>end</var> 
+as follows:
+</p>
+
+<dl compact="compact">
+<dt><b>string-upcase</b></dt>
+<dd> 
+
+<p><code>string-upcase</code> returns a <i>string</i> just like <var>string</var> 
+with all lowercase characters replaced by the corresponding uppercase 
+characters.  More precisely, each character of the result <i>string</i> 
+is produced by applying the <i>function</i> <code>char-upcase</code> to the corresponding
+character of <var>string</var>.
+</p>
+</dd>
+<dt><b>string-downcase</b></dt>
+<dd> 
+
+<p><code>string-downcase</code> is like <code>string-upcase</code> 
+except that all uppercase characters are replaced by the corresponding 
+lowercase characters (using <code>char-downcase</code>).
+</p>
+</dd>
+<dt><b>string-capitalize</b></dt>
+<dd>
+
+<p><code>string-capitalize</code> produces a copy of <var>string</var> such that,
+for every word in the copy, the first <i>character</i> of the &ldquo;word,&rdquo;
+if it has <i>case</i>, is <i>uppercase</i> and
+any other <i>characters</i> with <i>case</i> in the word are <i>lowercase</i>.
+For the purposes of <code>string-capitalize</code>,
+a &ldquo;word&rdquo; is defined to be a
+consecutive subsequence consisting of <i>alphanumeric</i> <i>characters</i>,
+delimited at each end either by a non-<i>alphanumeric</i> <i>character</i>
+or by an end of the <i>string</i>.
+</p>
+</dd>
+<dt><b>nstring-upcase, nstring-downcase, nstring-capitalize </b></dt>
+<dd>  
+
+<p><code>nstring-upcase</code>, <code>nstring-downcase</code>,
+and <code>nstring-capitalize</code> are identical to <code>string-upcase</code>, 
+<code>string-downcase</code>, and <code>string-capitalize</code>
+respectively except that they  modify <var>string</var>.
+</p></dd>
+</dl>
+
+
+<p>For <code>string-upcase</code>, <code>string-downcase</code>, and <code>string-capitalize</code>,
+<var>string</var> is not modified.  However, if no characters in <var>string</var> 
+require conversion, the result may be either <var>string</var> or a copy of it,
+at the implementation&rsquo;s discretion.
+</p>
+<span id="Examples_003a-331"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (string-upcase &quot;abcde&quot;) <span class="roman">→</span> &quot;ABCDE&quot;
+ (string-upcase &quot;Dr. Livingston, I presume?&quot;)
+<span class="roman">→</span> &quot;DR. LIVINGSTON, I PRESUME?&quot;
+ (string-upcase &quot;Dr. Livingston, I presume?&quot; :start 6 :end 10)
+<span class="roman">→</span> &quot;Dr. LiVINGston, I presume?&quot;
+ (string-downcase &quot;Dr. Livingston, I presume?&quot;)
+<span class="roman">→</span> &quot;dr. livingston, i presume?&quot;
+
+ (string-capitalize &quot;elm 13c arthur;fig don't&quot;) <span class="roman">→</span> &quot;Elm 13c Arthur;Fig Don'T&quot;
+ (string-capitalize &quot; hello &quot;) <span class="roman">→</span> &quot; Hello &quot;
+ (string-capitalize &quot;occlUDeD cASEmenTs FOreSTAll iNADVertent DEFenestraTION&quot;)
+<span class="roman">→</span>  &quot;Occluded Casements Forestall Inadvertent Defenestration&quot;
+ (string-capitalize 'kludgy-hash-search) <span class="roman">→</span> &quot;Kludgy-Hash-Search&quot;
+ (string-capitalize &quot;DON'T!&quot;) <span class="roman">→</span> &quot;Don'T!&quot;    ;not &quot;Don't!&quot;
+ (string-capitalize &quot;pipe 13a, foo16c&quot;) <span class="roman">→</span> &quot;Pipe 13a, Foo16c&quot;
+
+ (setq str (copy-seq &quot;0123ABCD890a&quot;)) <span class="roman">→</span> &quot;0123ABCD890a&quot;
+ (nstring-downcase str :start 5 :end 7) <span class="roman">→</span> &quot;0123AbcD890a&quot;
+ str <span class="roman">→</span> &quot;0123AbcD890a&quot;
+</pre></div>
+
+
+<span id="Side-Effects_003a-50"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><code>nstring-upcase</code>,
+<code>nstring-downcase</code>, 
+and <code>nstring-capitalize</code> modify <var>string</var> as appropriate
+rather than constructing a new <i>string</i>.
+</p>
+<span id="See-Also_003a-378"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Characters.html#char_002dupcase">char-upcase</a>, <a href="Characters.html#char_002ddowncase">char-downcase</a>
+</p>
+<span id="Notes_003a-252"></span><h4 class="subsubheading">Notes:</h4>
+<p>The result is always of the same length
+as <var>string</var>.
+</p>
+
+<hr>
+<span id="string_002dtrim_003b-string_002dleft_002dtrim_003b-string_002dright_002dtrim"></span><div class="header">
+<p>
+Next: <a href="#string_003d_003b-string_002f_003d_003b-string_003c_003b-string_003e_003b-string_003c_003d_003b-string_003e_003d_003b-string_002dequal_003b-_002b" accesskey="n" rel="next">string=; string/=; string&lt;; string&gt;; string&lt;=; string&gt;=; string-equal; +</a>, Previous: <a href="#string_002dupcase_003b-string_002ddowncase_003b-string_002dcapitalize_003b-nstring_002dupcase_003b-nstr_002b" accesskey="p" rel="prev">string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">string-trim; string-left-trim; string-right-trim</h4>
+<span id="string_002dtrim_002c-string_002dleft_002dtrim_002c-string_002dright_002dtrim-_0028Function_0029"></span><h3 class="heading">string-trim, string-left-trim, string-right-trim (Function)</h3>
+<span id="index-string_002dtrim-2"></span>
+<span id="index-string_002dtrim"></span>
+<span id="index-string_002dleft_002dtrim-2"></span>
+<span id="index-string_002dleft_002dtrim"></span>
+<span id="index-string_002dright_002dtrim-2"></span>
+<span id="index-string_002dright_002dtrim"></span>
+
+
+<span id="Syntax_003a-361"></span><h4 class="subsubheading">Syntax:</h4>
+<dl>
+<dt id="index-string_002dtrim-1">Function: <strong>string-trim</strong> <em>character-bag string <span class="roman">→</span> trimmed-string</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dleft_002dtrim-1">Function: <strong>string-left-trim</strong> <em>character-bag string <span class="roman">→</span> trimmed-string</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dright_002dtrim-1">Function: <strong>string-right-trim</strong> <em>character-bag string <span class="roman">→</span> trimmed-string</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-350"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character-bag</var>&mdash;a <i>sequence</i> containing <i>characters</i>.
+</p>
+<p><var>string</var>&mdash;a <i>string designator</i>.
+</p>
+<p><var>trimmed-string</var>&mdash;a <i>string</i>.
+</p>
+<span id="Description_003a-464"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>string-trim</code> returns a substring of <var>string</var>, 
+with all characters in <var>character-bag</var> stripped off the beginning and end.
+<code>string-left-trim</code> is similar but strips characters off only the beginning; 
+<code>string-right-trim</code> strips off only the end.
+</p>
+<p>If no <i>characters</i> need to be trimmed from the <var>string</var>,
+then either <var>string</var> itself or a copy of it may be returned,
+at the discretion of the implementation.
+</p>
+<p>All of these <i>functions</i> observe the <i>fill pointer</i>.
+</p>
+<span id="Examples_003a-332"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (string-trim &quot;abc&quot; &quot;abcaakaaakabcaaa&quot;) <span class="roman">→</span> &quot;kaaak&quot;
+ (string-trim '(#\Space #\Tab #\Newline) &quot; garbanzo beans
+        &quot;) <span class="roman">→</span> &quot;garbanzo beans&quot;
+ (string-trim &quot; (*)&quot; &quot; ( *three (silly) words* ) &quot;)
+<span class="roman">→</span> &quot;three (silly) words&quot;
+
+ (string-left-trim &quot;abc&quot; &quot;labcabcabc&quot;) <span class="roman">→</span> &quot;labcabcabc&quot;
+ (string-left-trim &quot; (*)&quot; &quot; ( *three (silly) words* ) &quot;)
+<span class="roman">→</span> &quot;three (silly) words* ) &quot;
+
+ (string-right-trim &quot; (*)&quot; &quot; ( *three (silly) words* ) &quot;) 
+<span class="roman">→</span> &quot; ( *three (silly) words&quot;
+</pre></div>
+
+<span id="Affected-By_003a-67"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+
+<hr>
+<span id="string_003d_003b-string_002f_003d_003b-string_003c_003b-string_003e_003b-string_003c_003d_003b-string_003e_003d_003b-string_002dequal_003b-_002b"></span><div class="header">
+<p>
+Next: <a href="#stringp" accesskey="n" rel="next">stringp</a>, Previous: <a href="#string_002dtrim_003b-string_002dleft_002dtrim_003b-string_002dright_002dtrim" accesskey="p" rel="prev">string-trim; string-left-trim; string-right-trim</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">string=; string/=; string&lt;; string&gt;; string&lt;=; string&gt;=; string-equal; +</h4>
+<span id="string_003d_002c-string_002f_003d_002c-string_003c_002c-string_003e_002c-string_003c_003d_002c-string_003e_003d_002c-string_002dequal_002c-string_002dnot_002dequal_002c-string_002dlessp_002c-string_002dgreaterp_002c-string_002dnot_002dgreaterp_002c-string_002dnot_002dlessp-_0028Function_0029"></span><h3 class="heading">string=, string/=, string&lt;, string&gt;, string&lt;=, string&gt;=, string-equal, string-not-equal, string-lessp, string-greaterp, string-not-greaterp, string-not-lessp (Function)</h3>
+<span id="index-string_003d-2"></span>
+<span id="index-string_003d"></span>
+<span id="index-string_002f_003d-2"></span>
+<span id="index-string_002f_003d"></span>
+<span id="index-string_003c-2"></span>
+<span id="index-string_003c"></span>
+<span id="index-string_003e-2"></span>
+<span id="index-string_003e"></span>
+<span id="index-string_003c_003d-2"></span>
+<span id="index-string_003c_003d"></span>
+<span id="index-string_003e_003d-2"></span>
+<span id="index-string_003e_003d"></span>
+<span id="index-string_002dequal-2"></span>
+<span id="index-string_002dequal"></span>
+<span id="index-string_002dnot_002dequal-2"></span>
+<span id="index-string_002dnot_002dequal"></span>
+<span id="index-string_002dlessp-2"></span>
+<span id="index-string_002dlessp"></span>
+<span id="index-string_002dgreaterp-2"></span>
+<span id="index-string_002dgreaterp"></span>
+<span id="index-string_002dnot_002dgreaterp-2"></span>
+<span id="index-string_002dnot_002dgreaterp"></span>
+<span id="index-string_002dnot_002dlessp-2"></span>
+<span id="index-string_002dnot_002dlessp"></span>
+<span id="string_003d"></span><span id="string_002dequal"></span>
+
+<span id="Syntax_003a-362"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-string_003d-1">Function: <strong>string=</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<dl>
+<dt id="index-string_002f_003d-1">Function: <strong>string/=</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_003c-1">Function: <strong>string&lt;</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_003e-1">Function: <strong>string&gt;</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_003c_003d-1">Function: <strong>string&lt;=</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_003e_003d-1">Function: <strong>string&gt;=</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+
+
+<dl>
+<dt id="index-string_002dequal-1">Function: <strong>string-equal</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<dl>
+<dt id="index-string_002dnot_002dequal-1">Function: <strong>string-not-equal</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dlessp-1">Function: <strong>string-lessp</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dgreaterp-1">Function: <strong>string-greaterp</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dnot_002dgreaterp-1">Function: <strong>string-not-greaterp</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+<dl>
+<dt id="index-string_002dnot_002dlessp-1">Function: <strong>string-not-lessp</strong> <em>string1 string2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> mismatch-index</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-351"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>string1</var>&mdash;a <i>string designator</i>.
+</p>
+<p><var>string2</var>&mdash;a <i>string designator</i>.
+</p>
+<p><var>start1</var>, <var>end1</var>&mdash;<i>bounding index designators</i> of <var>string1</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>start2</var>, <var>end2</var>&mdash;<i>bounding index designators</i> of <var>string2</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<p><var>mismatch-index</var>&mdash;a <i>bounding index</i> of <var>string1</var>, or <code>nil</code>.
+</p>
+<span id="Description_003a-465"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These functions perform lexicographic comparisons on <var>string1</var> and <var>string2</var>.
+<code>string=</code> and <code>string-equal</code> are called equality functions;
+the others are called inequality functions.
+The comparison operations these <i>functions</i> perform are restricted
+to the subsequence of <var>string1</var> <i>bounded</i> by <i>start1</i> and <var>end1</var>
+and to the subsequence of <var>string2</var> <i>bounded</i> by <i>start2</i> and <var>end2</var>.
+</p>
+<p>A string <i>a</i> is equal to a string <i>b</i> if it contains the same number
+of characters, and the corresponding characters are the <i>same</i>
+under <code>char=</code> or <code>char-equal</code>, as appropriate.
+</p>
+<p>A string <i>a</i> is less than a string <i>b</i> if in the first position in
+which they differ the character of <i>a</i> is less than the corresponding
+character of <i>b</i> according to <code>char&lt;</code> or <code>char-lessp</code> 
+as appropriate, or if string <i>a</i> is a proper prefix of string <i>b</i>
+(of shorter length and matching in all the characters of <i>a</i>).
+</p>
+<p>The equality functions return a <var>generalized boolean</var> 
+that is <i>true</i> if the strings are equal, 
+or <i>false</i> otherwise.
+</p>
+<p>The inequality functions return a <var>mismatch-index</var>
+that is <i>true</i> if the strings are not equal,
+or <i>false</i> otherwise.
+When the <var>mismatch-index</var> is <i>true</i>,
+it is an <i>integer</i> representing the first character position at which the 
+two substrings differ, as an offset from the beginning of <var>string1</var>.
+</p>
+<p>The comparison has one of the following results:
+</p>
+
+<dl compact="compact">
+<dt><code>string=</code></dt>
+<dd>
+
+<p><code>string=</code> is <i>true</i> if the supplied substrings are of
+the same length and contain the <i>same</i> characters in corresponding
+positions; otherwise it is <i>false</i>.
+</p>
+</dd>
+<dt><code>string/=</code></dt>
+<dd>
+
+<p><code>string/=</code> is <i>true</i> if the supplied substrings are 
+different; otherwise it is <i>false</i>.
+</p>
+</dd>
+<dt><code>string-equal</code></dt>
+<dd>
+
+<p><code>string-equal</code> is just like <code>string=</code> 
+except that differences in case are ignored; 
+two characters are considered to be the same if <code>char-equal</code> is <i>true</i> of them.
+</p>
+</dd>
+<dt><code>string&lt;</code></dt>
+<dd>
+
+<p><code>string&lt;</code> is <i>true</i> if substring1 is less than substring2;
+otherwise it is <i>false</i>.
+</p>
+</dd>
+<dt><code>string&gt;</code></dt>
+<dd>
+
+<p><code>string&gt;</code> is <i>true</i> if substring1 is greater than substring2;
+otherwise it is <i>false</i>.
+</p>
+</dd>
+<dt><code>string-lessp</code>, <code>string-greaterp</code></dt>
+<dd>
+
+<p><code>string-lessp</code> and <code>string-greaterp</code> 
+are exactly like <code>string&lt;</code> and <code>string&gt;</code>, respectively,
+except that distinctions between uppercase and lowercase letters are ignored.
+It is as if <code>char-lessp</code> were used instead of <code>char&lt;</code>
+for comparing characters.
+</p>
+</dd>
+<dt><code>string&lt;=</code></dt>
+<dd>
+
+<p><code>string&lt;=</code> is <i>true</i> if substring1 is less than or equal to substring2;
+otherwise it is <i>false</i>.
+</p>
+</dd>
+<dt><code>string&gt;=</code></dt>
+<dd>
+
+<p><code>string&gt;=</code> is <i>true</i> if substring1 is greater than or equal to substring2;
+otherwise it is <i>false</i>.
+</p>
+</dd>
+<dt><code>string-not-greaterp</code>, <code>string-not-lessp</code></dt>
+<dd>
+
+<p><code>string-not-greaterp</code> and <code>string-not-lessp</code>
+are exactly like <code>string&lt;=</code> and <code>string&gt;=</code>, respectively, 
+except that distinctions between uppercase and lowercase letters are ignored.
+It is as if <code>char-lessp</code> were used instead of <code>char&lt;</code>
+for comparing characters.
+</p></dd>
+</dl>
+
+
+
+<span id="Examples_003a-333"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (string= &quot;foo&quot; &quot;foo&quot;) <span class="roman">→</span> <i>true</i>
+ (string= &quot;foo&quot; &quot;Foo&quot;) <span class="roman">→</span> <i>false</i>
+ (string= &quot;foo&quot; &quot;bar&quot;) <span class="roman">→</span> <i>false</i>
+ (string= &quot;together&quot; &quot;frog&quot; :start1 1 :end1 3 :start2 2) <span class="roman">→</span> <i>true</i>
+ (string-equal &quot;foo&quot; &quot;Foo&quot;) <span class="roman">→</span> <i>true</i>
+ (string= &quot;abcd&quot; &quot;01234abcd9012&quot; :start2 5 :end2 9) <span class="roman">→</span> <i>true</i>
+ (string&lt; &quot;aaaa&quot; &quot;aaab&quot;) <span class="roman">→</span> 3
+ (string&gt;= &quot;aaaaa&quot; &quot;aaaa&quot;) <span class="roman">→</span> 4
+ (string-not-greaterp &quot;Abcde&quot; &quot;abcdE&quot;) <span class="roman">→</span> 5
+ (string-lessp &quot;012AAAA789&quot; &quot;01aaab6&quot; :start1 3 :end1 7
+                                      :start2 2 :end2 6) <span class="roman">→</span> 6
+ (string-not-equal &quot;AAAA&quot; &quot;aaaA&quot;) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="See-Also_003a-379"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Characters.html#char_003d">char=</a>
+</p>
+<span id="Notes_003a-253"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>equal</code> calls <code>string=</code> if applied to two <i>strings</i>.
+</p>
+
+<hr>
+<span id="stringp"></span><div class="header">
+<p>
+Next: <a href="#make_002dstring" accesskey="n" rel="next">make-string</a>, Previous: <a href="#string_003d_003b-string_002f_003d_003b-string_003c_003b-string_003e_003b-string_003c_003d_003b-string_003e_003d_003b-string_002dequal_003b-_002b" accesskey="p" rel="prev">string=; string/=; string&lt;; string&gt;; string&lt;=; string&gt;=; string-equal; +</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">stringp</h4>
+<span id="stringp-_0028Function_0029"></span><h3 class="heading">stringp (Function)</h3>
+<span id="index-stringp-2"></span>
+<span id="index-stringp"></span>
+
+
+<span id="Syntax_003a-363"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-stringp-1">Function: <strong>stringp</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-352"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-466"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>string</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-334"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (stringp &quot;aaaaaa&quot;) <span class="roman">→</span> <i>true</i>
+ (stringp #\a) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="See-Also_003a-380"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Types-and-Classes.html#typep">typep</a>,
+<a href="#string-_0028System-Class_0029">string (System Class)</a> (<i>type</i>)
+</p>
+<span id="Notes_003a-254"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (stringp <var>object</var>) ≡ (typep <var>object</var> 'string)
+</pre></div>
+
+
+
+<hr>
+<span id="make_002dstring"></span><div class="header">
+<p>
+Previous: <a href="#stringp" accesskey="p" rel="prev">stringp</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">make-string</h4>
+<span id="make_002dstring-_0028Function_0029"></span><h3 class="heading">make-string (Function)</h3>
+<span id="index-make_002dstring-2"></span>
+<span id="index-make_002dstring"></span>
+
+
+<span id="Syntax_003a-364"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-make_002dstring-1">Function: <strong>make-string</strong> <em>size <tt>&amp;key</tt> initial-element element-type <span class="roman">→</span> string</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-353"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>size</var>&mdash;a <i>valid array dimension</i>.
+</p>
+<p><var>initial-element</var>&mdash;a <i>character</i>.
+The default is <i>implementation-dependent</i>.
+</p>
+<p><var>element-type</var>&mdash;a <i>type specifier</i>.
+The default is <code>character</code>.
+</p>
+<p><var>string</var>&mdash;a <i>simple string</i>.
+</p>
+<span id="Description_003a-467"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>make-string</code> returns a <i>simple string</i> of length <var>size</var>
+whose elements have been initialized to <var>initial-element</var>.
+</p>
+<p>The <var>element-type</var> names the <i>type</i> of the <i>elements</i> of the <i>string</i>;
+a <i>string</i> is constructed of the most <i>specialized</i>
+<i>type</i> that can accommodate <i>elements</i> of the given <i>type</i>.  
+</p>
+<span id="Examples_003a-335"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (make-string 10 :initial-element #\5) <span class="roman">→</span> &quot;5555555555&quot;
+ (length (make-string 10)) <span class="roman">→</span> 10
+</pre></div>
+
+
+<span id="Affected-By_003a-68"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#stringp" accesskey="p" rel="prev">stringp</a>, Up: <a href="#Strings" accesskey="u" rel="up">Strings</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

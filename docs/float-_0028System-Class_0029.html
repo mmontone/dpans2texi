@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>float (System Class) (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Numbers.html" rel="up" title="Numbers">
-<link href="short_002dfloat_003b-single_002dfloat_003b-double_002dfloat_003b-long_002dfloat.html" rel="next" title="short-float; single-float; double-float; long-float">
-<link href="real.html" rel="prev" title="real">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,122 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Numbers.html#float-_0028System-Class_0029">
 
 </head>
 
 <body lang="en">
-<span id="float-_0028System-Class_0029"></span><div class="header">
-<p>
-Next: <a href="short_002dfloat_003b-single_002dfloat_003b-double_002dfloat_003b-long_002dfloat.html" accesskey="n" rel="next">short-float; single-float; double-float; long-float</a>, Previous: <a href="real.html" accesskey="p" rel="prev">real</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">float (System Class)</h4>
-<span id="float-_0028System-Class_0029-1"></span><h3 class="heading">float (System Class)</h3>
-<span id="index-float-4"></span>
-<span id="index-float"></span>
 
-
-<span id="Class-Precedence-List_003a-38"></span><h4 class="subsubheading">Class Precedence List:</h4>
-<p><code>float</code>,
-<code>real</code>,
-<code>number</code>,
-<code>t</code>
-</p>
-<span id="Description_003a-270"></span><h4 class="subsubheading">Description:</h4>
-
-<p>A <i>float</i>
-is a mathematical rational (but <i>not</i> a <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>rational</i>)
-of the form
-s· f· b^e-p,
-where s is +1 or -1, the <i>sign</i>;
-b is an <i>integer</i> 
-greater than&nbsp;1, the <i>base</i> or <i>radix</i> of the representation;
-p is a positive <i>integer</i>, 
-the <i>precision</i> (in base-b digits) of the <i>float</i>;
-f is a positive <i>integer</i> 
-between b^p-1 and
-b^p-1 (inclusive), the significand;
-and e is an <i>integer</i>, the exponent.
-The value of p and the range of&nbsp;e
-depends on the implementation and on the type of <i>float</i> 
-within that implementation. In addition, there is a floating-point zero;
-depending on the implementation, there can also be a &ldquo;minus zero&rdquo;. If there
-is no minus zero, then 0.0 and&nbsp;-0.0 are both interpreted as simply a
-floating-point zero.
-<code>(= 0.0 -0.0)</code> is always true.  
-If there is a minus zero, <code>(eql -0.0 0.0)</code> is <i>false</i>,
-otherwise it is <i>true</i>.
-</p>
-
-
-
-
-<p>The <i>types</i> <code>short-float</code>, <code>single-float</code>, <code>double-float</code>, 
-and <code>long-float</code> are subtypes of <i>type</i> <code>float</code>.  Any two of them must be
-either <i>disjoint</i> <i>types</i> or the <i>same</i> <i>type</i>;
-if the <i>same</i> <i>type</i>, then any other <i>types</i> between them in the
-above ordering must also be the <i>same</i> <i>type</i>.  For example, 
-if the <i>type</i> <code>single-float</code> and the <i>type</i> <code>long-float</code> are the <i>same</i> <i>type</i>,
-then the <i>type</i> <code>double-float</code> must be the <i>same</i> <i>type</i> also.
-</p>
-<span id="Compound-Type-Specifier-Kind_003a-10"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
-
-<p>Abbreviating.
-</p>
-<span id="Compound-Type-Specifier-Syntax_003a-10"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
-
-<p>(float <tt>[</tt>lower-limit <tt>[</tt>upper-limit<tt>]</tt><tt>]</tt>)
-</p>
-<span id="Compound-Type-Specifier-Arguments_003a-10"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
-
-<p><var>lower-limit</var>, <var>upper-limit</var>&mdash;<i>interval designators</i> 
-for <i>type</i> <code>float</code>.
-The defaults for each of <var>lower-limit</var> and <var>upper-limit</var> is the <i>symbol</i> <code>*</code>.
-</p>
-<span id="Compound-Type-Specifier-Description_003a-10"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
-
-<p>This denotes the <i>floats</i> on the interval described by
-<var>lower-limit</var> and <var>upper-limit</var>.
-</p>
-<span id="See-Also_003a-237"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="Numbers-as-Tokens.html#SyntaxForNumericTokens">Figure 2.9</a>,
-<a href="Constructing-Numbers-from-Tokens.html">Section 2.3.2 (Constructing Numbers from Tokens)</a>,
-<a href="Default-Print_002dObject-Methods.html#PrintingFloats">Section 22.1.3.1.3 (Printing Floats)</a>
-</p>
-<span id="Notes_003a-138"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>Note that all mathematical integers are representable not only as
-<span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>reals</i>, but also as <i>complex floats</i>.  For example,
-possible representations of the mathematical number 1 
-include the <i>integer</i> <code>1</code>,
-the <i>float</i> <code>1.0</code>,
-or the <i>complex</i> <code>#C(1.0 0.0)</code>.  
-</p>
-<hr>
-<div class="header">
-<p>
-Next: <a href="short_002dfloat_003b-single_002dfloat_003b-double_002dfloat_003b-long_002dfloat.html" accesskey="n" rel="next">short-float; single-float; double-float; long-float</a>, Previous: <a href="real.html" accesskey="p" rel="prev">real</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Numbers.html#float-_0028System-Class_0029">float (System Class)</a>.</p>
 </body>
-</html>

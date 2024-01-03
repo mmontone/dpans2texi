@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>eval-when (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Evaluation-and-Compilation.html" rel="up" title="Evaluation and Compilation">
-<link href="load_002dtime_002dvalue.html" rel="next" title="load-time-value">
-<link href="eval.html" rel="prev" title="eval">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,267 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Evaluation-and-Compilation.html#eval_002dwhen">
 
 </head>
 
 <body lang="en">
-<span id="eval_002dwhen"></span><div class="header">
-<p>
-Next: <a href="load_002dtime_002dvalue.html" accesskey="n" rel="next">load-time-value</a>, Previous: <a href="eval.html" accesskey="p" rel="prev">eval</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">eval-when</h4>
-<span id="eval_002dwhen-_0028Special-Operator_0029"></span><h3 class="heading">eval-when (Special Operator)</h3>
-<span id="index-eval_002dwhen-3"></span>
-<span id="index-eval_002dwhen-1"></span>
-      
 
-<span id="Syntax_003a-4"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-eval_002dwhen-2">Special Form: <strong>eval-when</strong> <em><tt>(</tt><tt>{</tt>situation<tt>}</tt>*<tt>)</tt> <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-3"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>situation</var>&mdash;One of the <i>symbols</i> 
-<tt>:compile-toplevel</tt>
-<span id="index-_003acompile_002dtoplevel"></span>
-,
-<tt>:load-toplevel</tt>
-<span id="index-_003aload_002dtoplevel"></span>
-,
-<tt>:execute</tt>
-<span id="index-_003aexecute"></span>
-,
-<tt>compile</tt>
-<span id="index-compile-2"></span>
-,
-<tt>load</tt>
-<span id="index-load"></span>
-, or
-<tt>eval</tt>
-<span id="index-eval-2"></span>
-.
-</p>
-<p>The use of <tt>eval</tt>, <tt>compile</tt>, and <tt>load</tt> is deprecated.
-</p>
-<p><var>forms</var>&mdash;an <i>implicit progn</i>.
-</p>
-<p><var>results</var>&mdash;the <i>values</i> of the <i>forms</i> if they are executed,
-or <code>nil</code>&nbsp;<!-- /@w -->if they are not. 
-</p>
-<span id="Description_003a-4"></span><h4 class="subsubheading">Description:</h4>
-
-<p>The body of an <code>eval-when</code> form is processed as an <i>implicit progn</i>, 
-but only in the <var>situations</var> listed.  
-</p>
-
-
-<p>The use of the <var>situations</var> <tt>:compile-toplevel</tt> (or <code>compile</code>) and
-<tt>:load-toplevel</tt> (or <code>load</code>) controls whether and when <i>evaluation</i>
-occurs when <code>eval-when</code> appears as a <i>top level form</i> in
-code processed by <code>compile-file</code>.  See <a href="File-Compilation.html">Section 3.2.3 (File Compilation)</a>.
-</p>
-<p>The use of the <var>situation</var> <tt>:execute</tt> (or <code>eval</code>) controls whether
-evaluation occurs for other <code>eval-when</code> <i>forms</i>; that is, 
-those that are not <i>top level forms</i>, or those in code processed by
-<code>eval</code> or <code>compile</code>.  If the <tt>:execute</tt> situation is
-specified in such a <i>form</i>, then the body <var>forms</var> are processed as 
-an <i>implicit progn</i>; otherwise, the <code>eval-when</code> <i>form</i>
-returns <code>nil</code>.
-</p>
-
-
-<p><code>eval-when</code> 
-normally appears as a <i>top level form</i>, but it is meaningful
-for it to appear as a <i>non-top-level form</i>.
-However, the compile-time side
-effects described in <a href="Compilation.html">Section 3.2 (Compilation)</a>
-only take place when <code>eval-when</code> appears as a  
-<i>top level form</i>.
-</p>
-
-<span id="Examples_003a-3"></span><h4 class="subsubheading">Examples:</h4>
-
-<p>One example of the use of <code>eval-when</code> is that for the 
-compiler to be able to read a file properly when it uses user-defined
-<i>reader macros</i>, it is necessary to write
-</p>
-<div class="lisp">
-<pre class="lisp"> (eval-when (:compile-toplevel :load-toplevel :execute)
-   (set-macro-character #\$ #'(lambda (stream char)
-                                (declare (ignore char))
-                                (list 'dollar (read stream))))) <span class="roman">→</span> T
-</pre></div>
-
-<p>This causes the call to <code>set-macro-character</code> to be executed
-in the compiler&rsquo;s execution environment, thereby modifying its
-reader syntax table.
-</p>
-<div class="lisp">
-<pre class="lisp">;;;     The EVAL-WHEN in this case is not at toplevel, so only the :EXECUTE
-;;;     keyword is considered. At compile time, this has no effect.
-;;;     At load time (if the LET is at toplevel), or at execution time
-;;;     (if the LET is embedded in some other form which does not execute
-;;;     until later) this sets (SYMBOL-FUNCTION 'FOO1) to a function which
-;;;     returns 1.
- (let ((x 1))
-   (eval-when (:execute :load-toplevel :compile-toplevel)
-     (setf (symbol-function 'foo1) #'(lambda () x))))
-
-;;;     If this expression occurs at the toplevel of a file to be compiled,
-;;;     it has BOTH a compile time AND a load-time effect of setting
-;;;     (SYMBOL-FUNCTION 'FOO2) to a function which returns 2.
- (eval-when (:execute :load-toplevel :compile-toplevel)
-   (let ((x 2))
-     (eval-when (:execute :load-toplevel :compile-toplevel)
-       (setf (symbol-function 'foo2) #'(lambda () x)))))
-
-;;;     If this expression occurs at the toplevel of a file to be compiled,
-;;;     it has BOTH a compile time AND a load-time effect of setting the
-;;;     function cell of FOO3 to a function which returns 3.
- (eval-when (:execute :load-toplevel :compile-toplevel)
-   (setf (symbol-function 'foo3) #'(lambda () 3)))
- 
-;;; #4: This always does nothing. It simply returns NIL.
- (eval-when (:compile-toplevel)
-   (eval-when (:compile-toplevel) 
-     (print 'foo4)))
-
-;;;     If this form occurs at toplevel of a file to be compiled, FOO5 is
-;;;     printed at compile time. If this form occurs in a non-top-level
-;;;     position, nothing is printed at compile time. Regardless of context,
-;;;     nothing is ever printed at load time or execution time.
- (eval-when (:compile-toplevel) 
-   (eval-when (:execute)
-     (print 'foo5)))
- 
-;;;     If this form occurs at toplevel of a file to be compiled, FOO6 is
-;;;     printed at compile time.  If this form occurs in a non-top-level
-;;;     position, nothing is printed at compile time. Regardless of context,
-;;;     nothing is ever printed at load time or execution time.
- (eval-when (:execute :load-toplevel)
-   (eval-when (:compile-toplevel)
-     (print 'foo6)))
-</pre></div>
-
-
-<span id="See-Also_003a-4"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="compile_002dfile.html">compile-file</a>, <a href="Compilation.html">Section 3.2 (Compilation)</a>
-</p>
-<span id="Notes_003a-3"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>The following effects are logical consequences of the definition of 
-<code>eval-when</code>:
-</p>
-
-<ul>
-<li> Execution of a single <code>eval-when</code>
-expression executes the body code at most once.
-
-</li><li> <i>Macros</i> intended for use in <i>top level forms</i> 
-should be written so that side-effects are done by the <i>forms</i>
-in the macro expansion.  The macro-expander itself should not do 
-the side-effects.
-
-<p>For example:
-</p>
-<p>Wrong:  
-</p>
-<div class="lisp">
-<pre class="lisp"> (defmacro foo ()
-   (really-foo)
-   `(really-foo))
-</pre></div>
-
-
-<p>Right:  
-</p>
-<div class="lisp">
-<pre class="lisp"> (defmacro foo ()
-   `(eval-when (:compile-toplevel :execute :load-toplevel) (really-foo)))
-</pre></div>
-
-
-<p>Adherence to this convention means that such <i>macros</i> behave
-intuitively when appearing as <i>non-top-level forms</i>.
-</p>
-</li><li> Placing a variable binding around an <code>eval-when</code> reliably 
-captures the binding because the compile-time-too mode cannot occur 
-(<i>i.e.</i>, introducing a variable binding means that the <code>eval-when</code>
-is not a <i>top level form</i>).
-For example,
-
-<div class="lisp">
-<pre class="lisp"> (let ((x 3))
-   (eval-when (:execute :load-toplevel :compile-toplevel) (print x)))
-</pre></div>
-
-
-<p>prints <code>3</code> 
-at execution (<i>i.e.</i>, load) time, and does not print anything at
-compile time.  This is important so that expansions of 
-<code>defun</code> and 
-<code>defmacro</code> 
-can be done in terms of <code>eval-when</code> and can correctly capture
-the <i>lexical environment</i>.
-</p>
-<div class="lisp">
-<pre class="lisp"> (defun bar (x) (defun foo () (+ x 3)))
-</pre></div>
-
-
-<p>might expand into
-</p>
-<div class="lisp">
-<pre class="lisp"> (defun bar (x) 
-   (progn (eval-when (:compile-toplevel) 
-            (compiler::notice-function-definition 'foo '(x)))
-          (eval-when (:execute :load-toplevel)
-            (setf (symbol-function 'foo) #'(lambda () (+ x 3))))))
-</pre></div>
-
-
-<p>which would be treated by the above rules the same as
-</p>
-<div class="lisp">
-<pre class="lisp"> (defun bar (x) 
-   (setf (symbol-function 'foo) #'(lambda () (+ x 3))))
-</pre></div>
-
-
-<p>when the definition of <code>bar</code> is not a <i>top level form</i>.
-</p></li></ul>
-
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="load_002dtime_002dvalue.html" accesskey="n" rel="next">load-time-value</a>, Previous: <a href="eval.html" accesskey="p" rel="prev">eval</a>, Up: <a href="Evaluation-and-Compilation.html" accesskey="u" rel="up">Evaluation and Compilation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Evaluation-and-Compilation.html#eval_002dwhen">eval-when</a>.</p>
 </body>
-</html>

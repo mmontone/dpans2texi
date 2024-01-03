@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Notational Conventions (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Definitions.html" rel="up" title="Definitions">
-<link href="Error-Terminology.html" rel="next" title="Error Terminology">
-<link href="Definitions.html" rel="prev" title="Definitions">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,665 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Introduction.html#Notational-Conventions">
 
 </head>
 
 <body lang="en">
-<span id="Notational-Conventions"></span><div class="header">
-<p>
-Next: <a href="Error-Terminology.html" accesskey="n" rel="next">Error Terminology</a>, Up: <a href="Definitions.html" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Notational-Conventions-1"></span><h4 class="subsection">1.4.1 Notational Conventions</h4>
 
-<p>The following notational conventions are used throughout this document.
-</p>
-<span id="Font-Key"></span><h4 class="subsubsection">1.4.1.1 Font Key</h4>
-
-<p>Fonts are used in this document to convey information.
-</p>
-
-<dl compact="compact">
-<dt><i>name</i></dt>
-<dd> 
-
-<p>Denotes a formal term whose meaning is defined in the Glossary.
-When this font is used, the Glossary definition takes precedence 
-over normal English usage.
-</p>
-<p>Sometimes a glossary term appears subscripted, 
-as in &ldquo;<i>whitespace</i><sub>2</sub>
-Such a notation selects one particular Glossary definition out of several,
-in this case the second.
-The subscript notation for Glossary terms is generally used where the
-context might be insufficient to disambiguate among the available definitions.
-</p>
-</dd>
-<dt><span id="index-name"></span>
-</dt>
-<dd><p><em>name</em>
-</p> 
-
-<p>Denotes the introduction of a formal term locally to the current text.
-There is still a corresponding glossary entry, and is formally equivalent
-to a use of &ldquo;<i>name</i>,&rdquo; but the hope is that making such uses 
-conspicuous will save the reader a trip to the glossary in some cases.
-</p>
-</dd>
-<dt><tt>name</tt></dt>
-<dd>
-
-<p>Denotes a symbol in the <code>COMMON-LISP</code> <i>package</i>.
-For information about <i>case</i> conventions,
-see <a href="#CaseInSymbols">Section 1.4.1.4.1 (Case in Symbols)</a>.
-</p>
-</dd>
-<dt><code>name</code></dt>
-<dd> 
-
-<p>Denotes a sample <i>name</i> or piece of <i>code</i> that a programmer
-might write in <span class="roman">Common Lisp</span>.
-</p>
-<p>This font is also used for certain <i>standardized</i> names that are not
-names of <i>external symbols</i> of the <code>COMMON-LISP</code> <i>package</i>, 
-such as <i>keywords</i><sub>1</sub>
-<i>package</i> <i>names</i>,
-and <i>loop keywords</i>.
-</p>
-</dd>
-<dt><var>name</var></dt>
-<dd> 
-
-<p>Denotes the name of a <i>parameter</i> or <i>value</i>.
-</p>
-<p>In some situations the notation &ldquo;«<var>name</var>»&rdquo; (<i>i.e.</i>, the same font,
-but with surrounding &ldquo;angle brackets&rdquo;) is used instead in order to
-provide better visual separation from surrounding characters.  These
-&ldquo;angle brackets&rdquo; are metasyntactic, and never actually appear in program
-input or output.
-</p></dd>
-</dl>
-
-
-<span id="Modified-BNF-Syntax"></span><h4 class="subsubsection">1.4.1.2 Modified BNF Syntax</h4>
-<span id="ModifiedBNF"></span>
-<p>This specification uses an extended Backus Normal Form (BNF) to
-describe the syntax of <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>macro forms</i> and <i>special forms</i>.
-This section discusses the syntax of BNF expressions.
-</p>
-<span id="g_t1_002e4_002e1_002e2_002e1-Splicing-in-Modified-BNF-Syntax"></span><h4 class="unnumberedsubsubsec">1.4.1.2.1 Splicing in Modified BNF Syntax</h4>
-
-
-<p>The primary extension used is the following:
-</p>
-
-<blockquote>
-<p>〚O〛<!-- /@w -->
-</p></blockquote>
-
-
-<p>An expression of this form appears whenever a list of elements is
-to be spliced into a larger structure and the elements can appear in
-any order. The symbol O represents a description of the syntax of
-some number of syntactic elements to be spliced; that description must
-be of the form
-</p>
-
-<blockquote>
-<p>O<sub>1</sub>
-</p></blockquote>
-
-
-<p> where each O<sub>i</sub>
-the form S* or of the form S¹.
-The expression 〚O〛 means that a list of the form
-</p>
-
-<blockquote>
-<p>(O<sub>i<sub>1</sub>
-</p></blockquote>
-
-
-<p> is spliced into the enclosing expression,
-such that if n ≠ m and 1≤ n,m≤ j,
-then either O<sub>i<sub>n</sub>
-or O<sub>i<sub>n</sub>
-where for some 1≤ k ≤ n, O<sub>k</sub>
-Furthermore, for each O<sub>i<sub>n</sub>
-that element is required to appear somewhere in the list to be spliced.
-</p>
-<p>For example, the expression
-</p>
-<p><code>(x 〚A | B* | C〛 y)</code>
-</p>
-<p> means that at most one <code>A</code>, any number of <code>B</code>&rsquo;s, and
-at most one <code>C</code> can occur in any order.
-It is a description of any of these:
-</p>
-<div class="lisp">
-<pre class="lisp"> (x y)
- (x B A C y)
- (x A B B B B B C y)
- (x C B A B B B y)
-</pre></div>
-
-
-<p> but not any of these:
-</p>
-<div class="lisp">
-<pre class="lisp"> (x B B A A C C y)
- (x C B C y)
-</pre></div>
-
-
-<p> In the first case, both <code>A</code> and <code>C</code> appear too often,
-and in the second case <code>C</code> appears too often.
-</p>
-
-<p>The notation 〚O<sub>1</sub>
-adds the additional restriction that at least one item from among the possible
-choices must be used.  For example:
-</p>
-<p><code>(x 〚A | B* | C〛+ y)</code>
-</p>
-<p> means that at most one <code>A</code>, any number of <code>B</code>&rsquo;s, and
-at most one <code>C</code> can occur in any order, but that in any case at least
-one of these options must be selected.
-It is a description of any of these:
-</p>
-<div class="lisp">
-<pre class="lisp"> (x B y)
- (x B A C y)
- (x A B B B B B C y)
- (x C B A B B B y)
-</pre></div>
-
-
-<p> but not any of these:
-</p>
-<div class="lisp">
-<pre class="lisp"> (x y)
- (x B B A A C C y)
- (x C B C y)
-</pre></div>
-
-
-<p> In the first case, no item was used;
-in the second case, both <code>A</code> and <code>C</code> appear too often;
-and in the third case <code>C</code> appears too often.
-</p>
-<p>Also, the expression:
-</p>
-<p><code>(x 〚A¹ | B¹ | C〛 y)</code>
-</p>
-<p> can generate exactly these and no others:
-</p>
-<div class="lisp">
-<pre class="lisp"> (x A B C y)
- (x A C B y)
- (x A B y)
- (x B A C y)
- (x B C A y)
- (x B A y)
- (x C A B y)
- (x C B A y)
-</pre></div>
-
-
-
-
-<span id="g_t1_002e4_002e1_002e2_002e2-Indirection-in-Modified-BNF-Syntax"></span><h4 class="unnumberedsubsubsec">1.4.1.2.2 Indirection in Modified BNF Syntax</h4>
-
-
-<p>An indirection extension is introduced in order to make this
-new syntax more readable:
-</p>
-
-<blockquote>
-<p><tt>↓</tt>O<!-- /@w -->
-</p></blockquote>
-
-
-<p> If <var>O</var> is a non-terminal symbol, the right-hand side
-of its definition is substituted for the entire expression 
-<tt>↓</tt>O.  For example, the following BNF is equivalent to
-the BNF in the previous example:
-</p>
-<p><code>(x 〚<tt>↓</tt>O〛 y)</code>
-</p>
-<dl compact="compact">
-<dt><var>O</var>::=</dt>
-<dd><p><code>A</code> | <code>B</code>* | <code>C</code>
-</p></dd>
-</dl>
-
-
-
-<span id="g_t1_002e4_002e1_002e2_002e3-Additional-Uses-for-Indirect-Definitions-in-Modified-BNF-Syntax"></span><h4 class="unnumberedsubsubsec">1.4.1.2.3 Additional Uses for Indirect Definitions in Modified BNF Syntax</h4>
-
-
-<p>In some cases, an auxiliary definition in the BNF might appear to be unused
-within the BNF, but might still be useful elsewhere.  For example, consider the
-following definitions:
-</p>
-<dl>
-<dt id="index-case-1">Macro: <strong>case</strong> <em>keyform  <tt>{</tt><tt>↓</tt>normal-clause<tt>}</tt>* <tt>[</tt><tt>↓</tt>otherwise-clause<tt>]</tt> <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-<dl>
-<dt id="index-ccase-1">Macro: <strong>ccase</strong> <em>keyplace <tt>{</tt><tt>↓</tt>normal-clause<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-<dl>
-<dt id="index-ecase-1">Macro: <strong>ecase</strong> <em>keyform  <tt>{</tt><tt>↓</tt>normal-clause<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<dl compact="compact">
-<dt><var>normal-clause</var>::=</dt>
-<dd><p><tt>(</tt>keys <tt>{</tt>form<tt>}</tt>*<tt>)</tt>
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>otherwise-clause</var>::=</dt>
-<dd><p><tt>(</tt><tt>{</tt>otherwise | t<tt>}</tt> <tt>{</tt>form<tt>}</tt>*<tt>)</tt>
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>clause</var>::=</dt>
-<dd><p>normal-clause | otherwise-clause
-</p></dd>
-</dl>
-
-
-<p>Here the term &ldquo;<var>clause</var>&rdquo; might appear to be &ldquo;dead&rdquo; in that it
-is not used in the BNF.  However, the purpose of the BNF is not just to guide parsing,
-but also to define useful terms for reference in the descriptive text which follows.
-As such, the term &ldquo;<var>clause</var>&rdquo; might appear in text that follows,
-as shorthand for &ldquo;<var>normal-clause</var> or <var>otherwise-clause</var>.&rdquo;
-</p>
-
-<span id="Special-Symbols"></span><h4 class="subsubsection">1.4.1.3 Special Symbols</h4>
-
-<p>The special symbols described here are used as a notational convenience
-within this document, and are part of neither the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->language nor
-its environment.
-</p>
-
-<dl compact="compact">
-<dt><span class="roman">→</span></dt>
-<dd>
-
-<p>This indicates evaluation.
-For example:
-</p>
-<div class="lisp">
-<pre class="lisp"> (+ 4 5) <span class="roman">→</span> 9 
-</pre></div>
-
-<p>This means that the result of
-evaluating the <i>form</i> <code>(+ 4 5)</code> is <code>9</code>.
-</p>
-<p>If a <i>form</i> returns <i>multiple values</i>, those values might
-be shown separated by spaces, line breaks, or commas.
-For example:
-</p>
-<div class="lisp">
-<pre class="lisp"> (truncate 7 5)
-<span class="roman">→</span> 1 2
- (truncate 7 5) 
-<span class="roman">→</span> 1
-   2
- (truncate 7 5)
-<span class="roman">→</span> 1, 2
-</pre></div>
-
-
-<p>Each of the above three examples is equivalent, and specifies
-that <code>(truncate 7 5)</code> returns two values, which are <code>1</code> and <code>2</code>.
-</p>
-<p>Some <i>conforming implementations</i> actually type an arrow (or some
-other indicator) before showing return values, while others do not.
-</p>
-</dd>
-<dt>or<span class="roman">→</span></dt>
-<dd>
-
-<p>The notation &ldquo;or<span class="roman">→</span>&rdquo; is used to denote one of several possible
-alternate results.  The example
-</p>
-<div class="lisp">
-<pre class="lisp"> (char-name #\a)
-<span class="roman">→</span> NIL
-or<span class="roman">→</span> &quot;LOWERCASE-a&quot;
-or<span class="roman">→</span> &quot;Small-A&quot;
-or<span class="roman">→</span> &quot;LA01&quot;
-</pre></div>
-
-
-<p>indicates that <code>nil</code>, <code>&quot;LOWERCASE-a&quot;</code>, <code>&quot;Small-A&quot;</code>, <code>&quot;LA01&quot;</code> are
-among the possible results of <code>(char-name #\a)</code>&mdash;each with equal preference.
-Unless explicitly specified otherwise, it should not be assumed that the set of possible 
-results shown is exhaustive.
-Formally, the above example is equivalent to
-</p>
-<div class="lisp">
-<pre class="lisp"> (char-name #\a) <span class="roman">→</span> <i>implementation-dependent</i>
-</pre></div>
-
-
-<p>but it is intended to provide additional information to illustrate some
-of the ways in which it is permitted for implementations to diverge.
-</p>
-</dd>
-<dt>not<span class="roman">→</span></dt>
-<dd>
-
-<p>The notation &ldquo;not<span class="roman">→</span>&rdquo; is used to denote a result which is not possible.
-This might be used, for example, in order to emphasize a situation where
-some anticipated misconception might lead the reader to falsely believe
-that the result might be possible.  For example,
-</p>
-<div class="lisp">
-<pre class="lisp"> (function-lambda-expression 
-    (funcall #'(lambda (x) #'(lambda () x)) nil))
-<span class="roman">→</span> NIL, <i>true</i>, NIL
-or<span class="roman">→</span> (LAMBDA () X), <i>true</i>, NIL
-not<span class="roman">→</span> NIL, <i>false</i>, NIL
-not<span class="roman">→</span> (LAMBDA () X), <i>false</i>, NIL
-</pre></div>
-
-
-</dd>
-<dt>≡</dt>
-<dd> 
-
-<p>This indicates code equivalence. For example:
-</p>
-<div class="lisp">
-<pre class="lisp"> (gcd x (gcd y z)) ≡ (gcd (gcd x y) z)
-</pre></div>
-
-<p>This means that the results and observable side-effects of evaluating
-the <i>form</i>
-<code>(gcd&nbsp;x&nbsp;(gcd&nbsp;y&nbsp;z))</code>&nbsp;<!-- /@w --> are always the same as the results
-and observable side-effects of
-<code>(gcd&nbsp;(gcd&nbsp;x&nbsp;y)&nbsp;z)</code>&nbsp;<!-- /@w --> for any 
-<code>x</code>, <code>y</code>, and <code>z</code>.
-</p>
-
-</dd>
-<dt>▷</dt>
-<dd>
-
-<p><span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->specifies input and output with respect to a non-interactive stream model.
-The specific details of how interactive input and output are mapped onto that
-non-interactive model are <i>implementation-defined</i>.
-</p>
-<p>For example, <i>conforming implementations</i> are permitted to differ in issues 
-of how interactive input is terminated.  For example, the <i>function</i> <code>read</code>
-terminates when the final delimiter is typed on a non-interactive stream.
-In some <i>implementations</i>, an interactive call to <code>read</code> returns
-as soon as the final delimiter is typed, even if that delimiter is not a <i>newline</i>.
-In other <i>implementations</i>, a final <i>newline</i> is always required.
-In still other <i>implementations</i>, there might be a command which &ldquo;activates&rdquo;
-a buffer full of input without the command itself being visible on the program&rsquo;s
-input stream.
-</p>
-<p>In the examples in this document, the notation &ldquo;▷&rdquo; precedes 
-lines where interactive input and output occurs.  Within such a scenario,
-&ldquo;<kbd>this notation</kbd>&rdquo; notates user input.
-</p>
-<p>For example, the notation
-</p>
-<div class="lisp">
-<pre class="lisp"> (+ 1 (print (+ (sqrt (read)) (sqrt (read)))))
-▷ <kbd>9 16 </kbd>
-▷ 7
-<span class="roman">→</span> 8
-</pre></div>
-
-
-<p>shows an interaction in which
-&ldquo;<code>(+ 1 (print (+ (sqrt (read)) (sqrt (read)))))</code>&rdquo;
-is a <i>form</i> to be <i>evaluated</i>,
-&ldquo;<code>9 16 </code>&rdquo; is interactive input,
-&ldquo;<code>7</code>&rdquo; is interactive output, and 
-&ldquo;<code>8</code>&rdquo; is the <i>value</i> <i>yielded</i> from the <i>evaluation</i>.
-</p>
-<p>The use of this notation is intended to disguise small differences 
-in interactive input and output behavior between <i>implementations</i>.
-</p>
-<p>Sometimes, the non-interactive stream model calls for a <i>newline</i>.
-How that <i>newline</i> character is interactively entered is an 
-<i>implementation-defined</i> detail of the user interface, but in that
-case, either the notation &ldquo;&lt;Newline&gt;&rdquo; or &ldquo;↩&rdquo; might be used.
-</p>
-<div class="lisp">
-<pre class="lisp"> (progn (format t &quot;~&amp;Who? &quot;) (read-line))
-▷ Who? <kbd>Fred, Mary, and Sally↩</kbd>
-<span class="roman">→</span> &quot;Fred, Mary, and Sally&quot;, <i>false</i>
-</pre></div>
-
-</dd>
-</dl>
-
-
-<span id="Objects-with-Multiple-Notations"></span><h4 class="subsubsection">1.4.1.4 Objects with Multiple Notations</h4>
-
-<p>Some <i>objects</i> in <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->can be notated in more than one way.
-In such situations, the choice of which notation to use is technically arbitrary,
-but conventions may exist which convey a &ldquo;point of view&rdquo; or &ldquo;sense of intent.&rdquo;
-</p>
-<span id="g_t1_002e4_002e1_002e4_002e1-Case-in-Symbols"></span><h4 class="unnumberedsubsubsec">1.4.1.4.1 Case in Symbols</h4>
-<span id="index-case-in-symbol-names"></span>
-<span id="CaseInSymbols"></span>
-<p>While <i>case</i> is significant in the process of <i>interning</i> a <i>symbol</i>,
-the <i>Lisp reader</i>, by default, attempts to canonicalize the case of a
-<i>symbol</i> prior to interning; see <a href="Effect-of-Readtable-Case-on-the-Lisp-Reader.html">Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)</a>.
-As such, case in <i>symbols</i> is not, by default, significant.
-Throughout this document, except as explicitly noted otherwise,
-the case in which a <i>symbol</i> appears is not significant; 
-that is, <code>HELLO</code>, <code>Hello</code>, <code>hElLo</code>, and <code>hello</code> are
-all equivalent ways to denote a symbol whose name is <code>&quot;HELLO&quot;</code>.
-</p>
-<p>The characters <i>backslash</i> and <i>vertical-bar</i> are used to explicitly
-quote the <i>case</i> and other parsing-related 
-aspects
-of characters.  As such,
-the notations <code>|hello|</code> and <code>\h\e\l\l\o</code> are equivalent ways
-to refer to a symbol whose name is <code>&quot;hello&quot;</code>, and which is <i>distinct</i> from
-any symbol whose name is <code>&quot;HELLO&quot;</code>.
-</p>
-<p>The <i>symbols</i> that correspond to <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>defined names</i>
-have <i>uppercase</i> names even though their names generally appear
-in <i>lowercase</i> in this document.
-</p>
-<span id="g_t1_002e4_002e1_002e4_002e2-Numbers"></span><h4 class="unnumberedsubsubsec">1.4.1.4.2 Numbers</h4>
-
-
-<p>Although <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->provides a variety of ways for programs to manipulate the
-input and output radix for rational numbers, all numbers in this document
-are in decimal notation unless explicitly noted otherwise.
-</p>
-<span id="g_t1_002e4_002e1_002e4_002e3-Use-of-the-Dot-Character"></span><h4 class="unnumberedsubsubsec">1.4.1.4.3 Use of the Dot Character</h4>
-
-
-<p>The dot appearing by itself in an <i>expression</i> such as
-</p>
-<p><code>(<var>item1</var> <var>item2</var> . <var>tail</var>)</code>
-</p>
-<p>means that <var>tail</var> represents a <i>list</i> of <i>objects</i> 
-at the end of a list.  For example,
-</p>
-<p><code>(A B C . (D E F))</code>
-</p>
-<p>is notationally equivalent to:
-</p>
-<p><code>(A B C D E F)</code>
-</p>
-<p>Although <i>dot</i> is a valid constituent character in a symbol, no 
-<i>standardized</i> <i>symbols</i> contain the character <i>dot</i>,
-so a period that follows a reference to a <i>symbol</i> at the end of
-a sentence in this document should always be interpreted as a period
-and never as part of the <i>symbol</i>&rsquo;s <i>name</i>.
-For example, within this document, a sentence such as
-&ldquo;This sample sentence refers to the symbol <code>car</code>.&rdquo; 
-refers to a symbol whose name is <code>&quot;CAR&quot;</code> (with three letters),
-and never to a four-letter symbol <code>&quot;CAR.&quot;</code>
-</p>
-<span id="g_t1_002e4_002e1_002e4_002e4-NIL"></span><h4 class="unnumberedsubsubsec">1.4.1.4.4 NIL</h4>
-<span id="index-nil"></span>
-<span id="index-_0028_0029"></span>
-<span id="index-nil-1"></span>
-
-<p><code>nil</code>&nbsp;<!-- /@w -->has a variety of meanings.
-It is a <i>symbol</i> in the <code>COMMON-LISP</code> <i>package</i> with the <i>name</i> <code>&quot;NIL&quot;</code>,
-it is <i>boolean</i> (and <i>generalized boolean</i>) <i>false</i>,
-it is the <i>empty list</i>,
-and it is the <i>name</i> of the <i>empty type</i> (a <i>subtype</i> of all <i>types</i>).
-</p>
-<p>Within <span class="roman">Common Lisp</span>, <code>nil</code>&nbsp;<!-- /@w -->can be notated interchangeably as either <code>NIL</code> or <code>()</code>.
-By convention, the choice of notation offers a hint as to which of its many
-roles it is playing.
-</p>
-
-<div class="float"><span id="fig1_002e1"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<tr><td><b>For Evaluation?</b></td><td><b>Notation</b></td><td><b>Typically Implied Role</b></td></tr>
-<tr><td>Yes</td><td><code>nil</code></td><td>use as a <i>boolean</i>.</td></tr>
-<tr><td>Yes</td><td><code>'nil</code></td><td>use as a <i>symbol</i>.</td></tr>
-<tr><td>Yes</td><td><code>'()</code></td><td>use as an <i>empty list</i></td></tr>
-<tr><td>No</td><td><code>nil</code></td><td>use as a <i>symbol</i> or <i>boolean</i>.</td></tr>
-<tr><td>No</td><td><code>()</code></td><td>use as an <i>empty list</i>.</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 1.1: </strong>Notations for NIL</p></div></div>
-
-<p>Within this document only, <code>nil</code>&nbsp;<!-- /@w -->is also sometimes notated as <i>false</i> to
-emphasize its role as a <i>boolean</i>.
-</p>
-<p>For example:
-</p>
-<div class="lisp">
-<pre class="lisp"> (print ())                          ;avoided
- (defun three nil 3)                 ;avoided 
- '(nil nil)                          ;list of two symbols
- '(() ())                            ;list of empty lists
- (defun three () 3)                  ;Emphasize empty parameter list.
- (append '() '()) <span class="roman">→</span> ()              ;Emphasize use of empty lists
- (not nil) <span class="roman">→</span> <i>true</i>                   ;Emphasize use as Boolean false
- (get 'nil 'color)                   ;Emphasize use as a symbol
-</pre></div>
-
-
-<p>A <i>function</i> is sometimes said to &ldquo;be <i>false</i>&rdquo; or &ldquo;be <i>true</i>&rdquo;
-in some circumstance.
-Since no <i>function</i> object can be the same as <code>nil</code>&nbsp;<!-- /@w -->
-and all <i>function</i> <i>objects</i> represent <i>true</i> when viewed as <i>booleans</i>,
-it would be meaningless to say that the <i>function</i> was literally <i>false</i> 
-and uninteresting to say that it was literally <i>true</i>.
-Instead, these phrases are just traditional alternative ways of saying that the
-<i>function</i> &ldquo;returns <i>false</i>&rdquo; or &ldquo;returns <i>true</i>,&rdquo; respectively.
-</p>
-
-
-<span id="Designators-1"></span><h4 class="subsubsection">1.4.1.5 Designators</h4>
-<span id="Designators"></span>
-<p>A <span id="index-designator"></span>
-<em>designator</em> is an <i>object</i> that denotes another <i>object</i>.
-</p>
-<p>Where a <i>parameter</i> of an <i>operator</i> is described as a <i>designator</i>,
-the description of the <i>operator</i> is written in a way that assumes that
-the value of the <i>parameter</i> is the denoted <i>object</i>;
-that is, that the <i>parameter</i> is already of the denoted <i>type</i>.
-(The specific nature of the <i>object</i> denoted by
-a &ldquo;«type» <i>designator</i>&rdquo;
-or a &ldquo;<i>designator</i> for a «type»&rdquo; 
-can be found in the Glossary entry for &ldquo;«type» <i>designator</i>.&rdquo;)
-</p>
-<p>For example, &ldquo;<code>nil</code>&rdquo; and &ldquo;the <i>value</i> of <code>*standard-output*</code>&rdquo; are operationally
-indistinguishable as <i>stream designators</i>.  Similarly, 
-the <i>symbol</i> <code>foo</code> and the <i>string</i> <code>&quot;FOO&quot;</code> 
-are operationally indistinguishable as <i>string designators</i>.  
-</p>
-<p>Except as otherwise noted, in a situation where the denoted <i>object</i> 
-might be used multiple times, it is <i>implementation-dependent</i>
-whether the <i>object</i> is coerced only once or whether the coercion occurs
-each time the <i>object</i> must be used.
-</p>
-<p>For example, <code>mapcar</code> receives a <i>function designator</i> as an argument,
-and its description is written as if this were simply a function.  In fact, it
-is <i>implementation-dependent</i> whether the <i>function designator</i> is 
-coerced right away or whether it is carried around internally in the form that
-it was given as an <i>argument</i> and re-coerced each time it is needed.  In most
-cases, <i>conforming programs</i> cannot detect the distinction, but there are some 
-pathological situations (particularly those involving self-redefining or 
-mutually-redefining functions) which do conform and which can detect this difference.
-The following program is a <i>conforming program</i>, but might or might not have
-portably correct results, depending on whether its correctness depends on one or
-the other of the results:
-</p>
-<div class="lisp">
-<pre class="lisp"> (defun add-some (x) 
-   (defun add-some (x) (+ x 2))
-   (+ x 1)) <span class="roman">→</span> ADD-SOME
- (mapcar 'add-some '(1 2 3 4))
-<span class="roman">→</span> (2 3 4 5)
-or<span class="roman">→</span> (2 4 5 6)
-</pre></div>
-
-
-<p>In a few rare situations, there may be a need in a dictionary entry
-to refer to the <i>object</i> that was the original <i>designator</i>
-for a <i>parameter</i>.
-Since naming the <i>parameter</i> would refer to the denoted <i>object</i>,
-the phrase &ldquo;the «parameter-name» <i>designator</i>&rdquo; 
-can be used to refer to the <i>designator</i> which was the <i>argument</i>
-from which the <i>value</i> of «parameter-name» was computed.
-</p>
-<span id="Nonsense-Words"></span><h4 class="subsubsection">1.4.1.6 Nonsense Words</h4>
-
-<p>When a word having no pre-attached semantics is required (<i>e.g.</i>, in an
-example), it is common in the Lisp community to use one of the words
-&ldquo;foo,&rdquo; &ldquo;bar,&rdquo; &ldquo;baz,&rdquo; and &ldquo;quux.&rdquo;  For example, in
-</p>
-<div class="lisp">
-<pre class="lisp"> (defun foo (x) (+ x 1))
-</pre></div>
-
-<p>the use of the name <code>foo</code> is just a shorthand way of saying 
-&ldquo;please substitute your favorite name here.&rdquo;
-</p>
-<p>These nonsense words have gained such prevalance of usage, that it is
-commonplace for newcomers to the community to begin to wonder if there
-is an attached semantics which they are overlooking&mdash;there is not.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Error-Terminology.html" accesskey="n" rel="next">Error Terminology</a>, Up: <a href="Definitions.html" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Introduction.html#Notational-Conventions">Notational Conventions</a>.</p>
 </body>
-</html>

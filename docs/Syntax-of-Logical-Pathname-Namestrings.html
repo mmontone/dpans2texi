@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Syntax of Logical Pathname Namestrings (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Logical-Pathnames.html" rel="up" title="Logical Pathnames">
-<link href="Logical-Pathname-Components.html" rel="next" title="Logical Pathname Components">
-<link href="Logical-Pathnames.html" rel="prev" title="Logical Pathnames">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,184 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Filenames.html#Syntax-of-Logical-Pathname-Namestrings">
 
 </head>
 
 <body lang="en">
-<span id="Syntax-of-Logical-Pathname-Namestrings"></span><div class="header">
-<p>
-Next: <a href="Logical-Pathname-Components.html" accesskey="n" rel="next">Logical Pathname Components</a>, Up: <a href="Logical-Pathnames.html" accesskey="u" rel="up">Logical Pathnames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Syntax-of-Logical-Pathname-Namestrings-1"></span><h4 class="subsection">19.3.1 Syntax of Logical Pathname Namestrings</h4>
 
-<p>The syntax of a <i>logical pathname</i> <i>namestring</i> is as follows.
-(Note that unlike many notational descriptions in this document,
-this is a syntactic description of character sequences,
-not a structural description of <i>objects</i>.)
-</p>
-<dl compact="compact">
-<dt><var>logical-pathname</var>::=</dt>
-<dd><p><tt>[</tt><tt>↓</tt>host <var>host-marker</var><tt>]</tt> <br> <tt>[</tt><tt>↓</tt><var>relative-directory-marker</var><tt>]</tt> <tt>{</tt><tt>↓</tt>directory <var>directory-marker</var><tt>}</tt>* <br> <tt>[</tt><tt>↓</tt>name<tt>]</tt> <tt>[</tt><var>type-marker</var> <tt>↓</tt>type <tt>[</tt><var>version-marker</var> <tt>↓</tt>version<tt>]</tt><tt>]</tt>
-</p></dd>
-</dl>
-
-<dl compact="compact">
-<dt><var>host</var>::=</dt>
-<dd><p><tt>↓</tt>word
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>directory</var>::=</dt>
-<dd><p><tt>↓</tt>word | <tt>↓</tt>wildcard-word | <tt>↓</tt>wild-inferiors-word
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>name</var>::=</dt>
-<dd><p><tt>↓</tt>word | <tt>↓</tt>wildcard-word
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>type</var>::=</dt>
-<dd><p><tt>↓</tt>word | <tt>↓</tt>wildcard-word
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>version</var>::=</dt>
-<dd><p><tt>↓</tt>pos-int | <var>newest-word</var> | <var>wildcard-version</var>
-</p></dd>
-</dl>
-
-<p><var>host-marker</var>&mdash;a <i>colon</i>.
-</p>
-<p><var>relative-directory-marker</var>&mdash;a <i>semicolon</i>.
-</p>
-<p><var>directory-marker</var>&mdash;a <i>semicolon</i>.
-</p>
-<p><var>type-marker</var>&mdash;a <i>dot</i>.
-</p>
-<p><var>version-marker</var>&mdash;a <i>dot</i>.
-</p>
-<p><var>wild-inferiors-word</var>&mdash;The two character sequence &ldquo;<code>**</code>&rdquo; (two <i>asterisks</i>).
-</p>
-<p><var>newest-word</var>&mdash;The six character sequence &ldquo;<code>newest</code>&rdquo; 
-or the six character sequence &ldquo;<code>NEWEST</code>&rdquo;.
-</p>
-<p><var>wildcard-version</var>&mdash;an <i>asterisk</i>.
-</p>
-<p><var>wildcard-word</var>&mdash;one or more <i>asterisks</i>, uppercase letters,
-digits, and hyphens, including at least one <i>asterisk</i>, 
-with no two <i>asterisks</i> adjacent.
-</p>
-<p><var>word</var>&mdash;one or more uppercase letters, digits, and hyphens.
-</p>
-<p><var>pos-int</var>&mdash;a positive <i>integer</i>.
-</p>
-<span id="Additional-Information-about-Parsing-Logical-Pathname-Namestrings"></span><h4 class="subsubsection">19.3.1.1 Additional Information about Parsing Logical Pathname Namestrings</h4>
-
-<span id="g_t19_002e3_002e1_002e1_002e1-The-Host-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.1 The Host part of a Logical Pathname Namestring</h4>
-
-
-<p>The <var>host</var> must have been defined as a <i>logical pathname</i> host;
-this can be done by using <code>setf</code> of <code>logical-pathname-translations</code>.
-</p>
-<p>The <i>logical pathname</i> host name <code>&quot;SYS&quot;</code> is reserved for the implementation.
-The existence and meaning of <code>SYS:</code> <i>logical pathnames</i> 
-is <i>implementation-defined</i>.
-</p>
-
-<span id="g_t19_002e3_002e1_002e1_002e2-The-Device-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.2 The Device part of a Logical Pathname Namestring</h4>
-
-
-<p>There is no syntax for a <i>logical pathname</i> device since
-the device component of a <i>logical pathname</i> is always <tt>:unspecific</tt>;
-see <a href="Logical-Pathname-Components.html#LogicalPathCompUnspecific">Section 19.3.2.1 (Unspecific Components of a Logical Pathname)</a>.
-</p>
-
-<span id="g_t19_002e3_002e1_002e1_002e3-The-Directory-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.3 The Directory part of a Logical Pathname Namestring</h4>
-
-
-<p>If a <var>relative-directory-marker</var> precedes the <var>directories</var>,
-the directory component parsed is as <i>relative</i>;
-otherwise, the directory component is parsed as <i>absolute</i>.
-</p>
-<p>If a <var>wild-inferiors-marker</var> is specified,
-it parses into <tt>:wild-inferiors</tt>.
-</p>
-
-<span id="g_t19_002e3_002e1_002e1_002e4-The-Type-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.4 The Type part of a Logical Pathname Namestring</h4>
-
-
-<p>The <var>type</var> of a <i>logical pathname</i> for a <i>source file</i>
-is <code>&quot;LISP&quot;</code>.   This should be translated into whatever type is 
-appropriate in a physical pathname.
-</p>
-
-<span id="g_t19_002e3_002e1_002e1_002e5-The-Version-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.5 The Version part of a Logical Pathname Namestring</h4>
-
-
-<p>Some <i>file systems</i> do not have <var>versions</var>. 
-<i>Logical pathname</i> translation to such a <i>file system</i>
-ignores the <var>version</var>.
-This implies that a program cannot rely on being able to store
-more than one version of a file named by a <i>logical pathname</i>.
-</p>
-<p>If a <var>wildcard-version</var> is specified,
-it parses into <tt>:wild</tt>.
-</p>
-
-<span id="g_t19_002e3_002e1_002e1_002e6-Wildcard-Words-in-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.6 Wildcard Words in a Logical Pathname Namestring</h4>
-
-
-<p>Each <i>asterisk</i> in a <var>wildcard-word</var> matches a sequence of 
-zero or more characters.  The <var>wildcard-word</var> &ldquo;<code>*</code>&rdquo; 
-parses into <tt>:wild</tt>; other <i>wildcard-words</i> parse into <i>strings</i>.
-</p>
-
-<span id="g_t19_002e3_002e1_002e1_002e7-Lowercase-Letters-in-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.7 Lowercase Letters in a Logical Pathname Namestring</h4>
-
-
-<p>When parsing <var>words</var> and <var>wildcard-words</var>,
-lowercase letters are translated to uppercase.
-</p>
-
-<span id="g_t19_002e3_002e1_002e1_002e8-Other-Syntax-in-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.8 Other Syntax in a Logical Pathname Namestring</h4>
-
-
-<p>The consequences of using characters other than those specified here
-in a <i>logical pathname</i> <i>namestring</i> are unspecified.
-</p>
-<p>The consequences of using any value not specified here as a 
-<i>logical pathname</i> component are unspecified.
-</p>
-
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Logical-Pathname-Components.html" accesskey="n" rel="next">Logical Pathname Components</a>, Up: <a href="Logical-Pathnames.html" accesskey="u" rel="up">Logical Pathnames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Filenames.html#Syntax-of-Logical-Pathname-Namestrings">Syntax of Logical Pathname Namestrings</a>.</p>
 </body>
-</html>

@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Array-Concepts.html" rel="next" title="Array Concepts">
-<link href="union_003b-nunion.html" rel="prev" title="union; nunion">
+<link href="Strings.html#Strings" rel="next" title="Strings">
+<link href="Conses.html#union_003b-nunion" rel="prev" title="union; nunion">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,95 +277,2951 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Arrays"></span><div class="header">
 <p>
-Next: <a href="Strings.html" accesskey="n" rel="next">Strings</a>, Previous: <a href="Conses.html" accesskey="p" rel="prev">Conses</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Strings.html#Strings" accesskey="n" rel="next">Strings</a>, Previous: <a href="Conses.html#Conses" accesskey="p" rel="prev">Conses</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Arrays-1"></span><h2 class="chapter">15 Arrays</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Array-Concepts.html" accesskey="1">Array Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Array-Concepts" accesskey="1">Array Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="array.html" accesskey="2">array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#array" accesskey="2">array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002darray.html" accesskey="3">simple-array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002darray" accesskey="3">simple-array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="vector-_0028System-Class_0029.html" accesskey="4">vector (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#vector-_0028System-Class_0029" accesskey="4">vector (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dvector.html" accesskey="5">simple-vector</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dvector" accesskey="5">simple-vector</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="bit_002dvector.html" accesskey="6">bit-vector</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#bit_002dvector" accesskey="6">bit-vector</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dbit_002dvector.html" accesskey="7">simple-bit-vector</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dbit_002dvector" accesskey="7">simple-bit-vector</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="make_002darray.html" accesskey="8">make-array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#make_002darray" accesskey="8">make-array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="adjust_002darray.html" accesskey="9">adjust-array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#adjust_002darray" accesskey="9">adjust-array</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="adjustable_002darray_002dp.html">adjustable-array-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#adjustable_002darray_002dp">adjustable-array-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="aref.html">aref</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#aref">aref</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002ddimension.html">array-dimension</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002ddimension">array-dimension</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002ddimensions.html">array-dimensions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002ddimensions">array-dimensions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002delement_002dtype.html">array-element-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002delement_002dtype">array-element-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002dhas_002dfill_002dpointer_002dp.html">array-has-fill-pointer-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002dhas_002dfill_002dpointer_002dp">array-has-fill-pointer-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002ddisplacement.html">array-displacement</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002ddisplacement">array-displacement</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002din_002dbounds_002dp.html">array-in-bounds-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002din_002dbounds_002dp">array-in-bounds-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002drank.html">array-rank</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002drank">array-rank</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002drow_002dmajor_002dindex.html">array-row-major-index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002drow_002dmajor_002dindex">array-row-major-index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002dtotal_002dsize.html">array-total-size</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002dtotal_002dsize">array-total-size</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="arrayp.html">arrayp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#arrayp">arrayp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="fill_002dpointer.html">fill-pointer</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#fill_002dpointer">fill-pointer</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="row_002dmajor_002daref.html">row-major-aref</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#row_002dmajor_002daref">row-major-aref</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="upgraded_002darray_002delement_002dtype.html">upgraded-array-element-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#upgraded_002darray_002delement_002dtype">upgraded-array-element-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002ddimension_002dlimit.html">array-dimension-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002ddimension_002dlimit">array-dimension-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002drank_002dlimit.html">array-rank-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002drank_002dlimit">array-rank-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="array_002dtotal_002dsize_002dlimit.html">array-total-size-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#array_002dtotal_002dsize_002dlimit">array-total-size-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dvector_002dp.html">simple-vector-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dvector_002dp">simple-vector-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="svref.html">svref</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#svref">svref</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="vector-_0028Function_0029.html">vector (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#vector-_0028Function_0029">vector (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="vector_002dpop.html">vector-pop</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#vector_002dpop">vector-pop</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="vector_002dpush_003b-vector_002dpush_002dextend.html">vector-push; vector-push-extend</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#vector_002dpush_003b-vector_002dpush_002dextend">vector-push; vector-push-extend</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="vectorp.html">vectorp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#vectorp">vectorp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="bit_003b-sbit.html">bit; sbit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#bit_003b-sbit">bit; sbit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="bit_002dand_003b-bit_002dandc1_003b-bit_002dandc2_003b-bit_002deqv_003b-bit_002dior_003b-bit_002dnand_003b-bit_002dnor_003b-bit_002b.html">bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#bit_002dand_003b-bit_002dandc1_003b-bit_002dandc2_003b-bit_002deqv_003b-bit_002dior_003b-bit_002dnand_003b-bit_002dnor_003b-bit_002b">bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="bit_002dvector_002dp.html">bit-vector-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#bit_002dvector_002dp">bit-vector-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dbit_002dvector_002dp.html">simple-bit-vector-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dbit_002dvector_002dp">simple-bit-vector-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
+<span id="Array-Concepts"></span><div class="header">
+<p>
+Next: <a href="#array" accesskey="n" rel="next">array</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Array-Concepts-1"></span><h3 class="section">15.1 Array Concepts</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Array-Elements" accesskey="1">Array Elements</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Specialized-Arrays" accesskey="2">Specialized Arrays</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Array-Elements"></span><div class="header">
+<p>
+Next: <a href="#Specialized-Arrays" accesskey="n" rel="next">Specialized Arrays</a>, Up: <a href="#Array-Concepts" accesskey="u" rel="up">Array Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Array-Elements-1"></span><h4 class="subsection">15.1.1 Array Elements</h4>
+
+<p>An <i>array</i> contains a set of <i>objects</i> called <i>elements</i>
+that can be referenced individually according to a rectilinear coordinate system.
+</p>
+<span id="Array-Indices"></span><h4 class="subsubsection">15.1.1.1 Array Indices</h4>
+
+<p>An <i>array</i> <i>element</i> is referred to by a (possibly empty) series of indices.
+The length of the series must equal the <i>rank</i> of the <i>array</i>.
+Each index must be a non-negative <i>fixnum</i> 
+less than the corresponding <i>array</i> <i>dimension</i>.
+<i>Array</i> indexing is zero-origin.
+</p>
+
+<span id="Array-Dimensions"></span><h4 class="subsubsection">15.1.1.2 Array Dimensions</h4>
+
+<p>An axis of an <i>array</i> is called a <span id="index-dimension"></span>
+<em>dimension</em>.
+</p>
+<p>Each <i>dimension</i> is a non-negative 
+<i>fixnum</i>;
+if any dimension of an <i>array</i> is zero, the <i>array</i> has no elements.
+It is permissible for a <i>dimension</i> to be zero, 
+in which case the <i>array</i> has no elements, 
+and any attempt to <i>access</i> an <i>element</i>
+is an error.  However, other properties of the <i>array</i>,  
+such as the <i>dimensions</i> themselves, may be used.
+</p>
+<span id="g_t15_002e1_002e1_002e2_002e1-Implementation-Limits-on-Individual-Array-Dimensions"></span><h4 class="unnumberedsubsubsec">15.1.1.2.1 Implementation Limits on Individual Array Dimensions</h4>
+
+
+<p>An <i>implementation</i> may impose a limit on <i>dimensions</i> of an <i>array</i>,
+but there is a minimum requirement on that limit.  See the <i>variable</i> <a href="#array_002ddimension_002dlimit">array-dimension-limit</a>.
+</p>
+
+
+<span id="Array-Rank"></span><h4 class="subsubsection">15.1.1.3 Array Rank</h4>
+
+<p>An <i>array</i> can have any number of <i>dimensions</i> (including zero).
+The number of <i>dimensions</i> is called the <span id="index-rank"></span>
+<em>rank</em>.
+</p>
+<p>If the rank of an <i>array</i> is zero then the <i>array</i> is said to have
+no <i>dimensions</i>, and the product of the dimensions (see <code>array-total-size</code>)
+is then 1; a zero-rank <i>array</i> therefore has a single element.
+</p>
+<span id="g_t15_002e1_002e1_002e3_002e1-Vectors"></span><h4 class="unnumberedsubsubsec">15.1.1.3.1 Vectors</h4>
+
+
+<p>An <i>array</i> of <i>rank</i> one (<i>i.e.</i>, a one-dimensional <i>array</i>)
+is called a <span id="index-vector-1"></span>
+<em>vector</em>.
+</p>
+<span id="g_t15_002e1_002e1_002e3_002e1_002e1-Fill-Pointers"></span><h4 class="unnumberedsubsubsec">15.1.1.3.1.1 Fill Pointers</h4>
+
+
+<p>A <span id="index-fill-pointer"></span>
+<em>fill pointer</em> is a non-negative <i>integer</i> no
+larger than the total number of <i>elements</i> in a <i>vector</i>.
+Not all <i>vectors</i> have <i>fill pointers</i>.
+See the <i>functions</i> <a href="#make_002darray">make-array</a> and <code>adjust-array</code>.
+</p>
+<p>An <i>element</i> of a <i>vector</i> is said to be <span id="index-active"></span>
+<em>active</em> if it has
+an index that is greater than or equal to zero, 
+but less than the <i>fill pointer</i> (if any).
+For an <i>array</i> that has no <i>fill pointer</i>,
+all <i>elements</i> are considered <i>active</i>.
+</p>
+<p>Only <i>vectors</i> may have <i>fill pointers</i>; 
+multidimensional <i>arrays</i> may not.
+A multidimensional <i>array</i> that is displaced to a <i>vector</i> 
+that has a <i>fill pointer</i> can be created.
+</p>
+
+
+<span id="g_t15_002e1_002e1_002e3_002e2-Multidimensional-Arrays"></span><h4 class="unnumberedsubsubsec">15.1.1.3.2 Multidimensional Arrays</h4>
+
+
+<span id="g_t15_002e1_002e1_002e3_002e2_002e1-Storage-Layout-for-Multidimensional-Arrays"></span><h4 class="unnumberedsubsubsec">15.1.1.3.2.1 Storage Layout for Multidimensional Arrays</h4>
+
+
+<p>Multidimensional <i>arrays</i> store their components in row-major order;
+that is, internally a multidimensional <i>array</i> is stored as a
+one-dimensional <i>array</i>, with the multidimensional index sets
+ordered lexicographically, last index varying fastest.  
+</p>
+
+<span id="g_t15_002e1_002e1_002e3_002e2_002e2-Implementation-Limits-on-Array-Rank"></span><h4 class="unnumberedsubsubsec">15.1.1.3.2.2 Implementation Limits on Array Rank</h4>
+
+
+<p>An <i>implementation</i> may impose a limit on the <i>rank</i> of an <i>array</i>,
+but there is a minimum requirement on that limit.  See the <i>variable</i> <a href="#array_002drank_002dlimit">array-rank-limit</a>.
+</p>
+
+
+
+
+<hr>
+<span id="Specialized-Arrays"></span><div class="header">
+<p>
+Previous: <a href="#Array-Elements" accesskey="p" rel="prev">Array Elements</a>, Up: <a href="#Array-Concepts" accesskey="u" rel="up">Array Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Specialized-Arrays-1"></span><h4 class="subsection">15.1.2 Specialized Arrays</h4>
+
+<p>An <i>array</i> can be a <i>general</i> <i>array</i>, 
+meaning each <i>element</i> may be any <i>object</i>,
+or it may be a <i>specialized</i> <i>array</i>,
+meaning that each <i>element</i> must be of a restricted <i>type</i>.
+</p>
+<p>The phrasing &ldquo;an <i>array</i> <i>specialized</i> to <i>type</i> «type»&rdquo;
+is sometimes used to emphasize the <i>element type</i> of an <i>array</i>.
+This phrasing is tolerated even when the «type» is <code>t</code>,
+even though an <i>array</i> <i>specialized</i> to <i>type</i> <i>t</i>
+is a <i>general</i> <i>array</i>, not a <i>specialized</i> <i>array</i>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> that are applicable to <i>array</i> 
+creation, <i>access</i>, and information operations.
+</p>
+
+<div class="float"><span id="fig15_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>adjust-array</td><td>array-has-fill-pointer-p</td><td>make-array</td></tr>
+<tr><td>adjustable-array-p</td><td>array-in-bounds-p</td><td>svref</td></tr>
+<tr><td>aref</td><td>array-rank</td><td>upgraded-array-element-type</td></tr>
+<tr><td>array-dimension</td><td>array-rank-limit</td><td>upgraded-complex-part-type</td></tr>
+<tr><td>array-dimension-limit</td><td>array-row-major-index</td><td>vector</td></tr>
+<tr><td>array-dimensions</td><td>array-total-size</td><td>vector-pop</td></tr>
+<tr><td>array-displacement</td><td>array-total-size-limit</td><td>vector-push</td></tr>
+<tr><td>array-element-type</td><td>fill-pointer</td><td>vector-push-extend</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 15.1: </strong>General Purpose Array-Related Defined Names</p></div></div>
+
+<span id="Array-Upgrading"></span><h4 class="subsubsection">15.1.2.1 Array Upgrading</h4>
+<span id="ArrayUpgrading"></span>
+
+<p>The <span id="index-upgraded-array-element-type"></span>
+<em>upgraded array element type</em> of a <i>type</i> T<sub>1</sub>
+is a <i>type</i> T<sub>2</sub>
+and that is used instead of T<sub>1</sub>
+is used as an <i>array element type</i> 
+for object creation or type discrimination.
+</p>
+<p>During creation of an <i>array</i>,
+the <i>element type</i> that was requested 
+is called the <span id="index-expressed-array-element-type"></span>
+<em>expressed array element type</em>.
+The <i>upgraded array element type</i> of the <i>expressed array element type</i>
+becomes the <span id="index-actual-array-element-type"></span>
+<em>actual array element type</em> of the <i>array</i> that is created.
+</p>
+<p><i>Type</i> <i>upgrading</i> implies a movement upwards in the type hierarchy lattice.
+A <i>type</i> is always a <i>subtype</i> of its <i>upgraded array element type</i>.
+Also, if a <i>type</i> T<sub>x</sub>
+then
+the <i>upgraded array element type</i> of T<sub>x</sub>
+must be a <i>subtype</i> of
+the <i>upgraded array element type</i> of T<sub>y</sub>
+Two <i>disjoint</i> <i>types</i> can be <i>upgraded</i> to the same <i>type</i>.
+</p>
+<p>The <i>upgraded array element type</i> T<sub>2</sub>
+is a function only of T<sub>1</sub>
+that is, it is independent of any other property of the <i>array</i> 
+for which T<sub>2</sub>
+such as <i>rank</i>, <i>adjustability</i>, <i>fill pointers</i>, or displacement.
+The <i>function</i> <code>upgraded-array-element-type</code> 
+can be used by <i>conforming programs</i> to predict how the <i>implementation</i>
+will <i>upgrade</i> a given <i>type</i>.
+</p>
+
+
+<span id="Required-Kinds-of-Specialized-Arrays"></span><h4 class="subsubsection">15.1.2.2 Required Kinds of Specialized Arrays</h4>
+<span id="RequiredSpecializedArrays"></span>
+<p><i>Vectors</i> whose <i>elements</i> are restricted to <i>type</i>
+<code>character</code> or a <i>subtype</i> of <code>character</code>
+are called 
+<span id="index-string-1"></span>
+<em>strings</em>. 
+<i>Strings</i> are of <i>type</i> <code>string</code>.
+The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> related to <i>strings</i>.
+</p>
+<p><i>Strings</i> are <i>specialized</i> <i>arrays</i> 
+and might logically have been included in this chapter.
+However, for purposes of readability
+most information about <i>strings</i> does not appear in this chapter;
+see instead <a href="Strings.html#Strings">Chapter 16 (Strings)</a>.
+</p>
+
+<div class="float"><span id="fig15_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>char</td><td>string-equal</td><td>string-upcase</td></tr>
+<tr><td>make-string</td><td>string-greaterp</td><td>string<code>/=</code></td></tr>
+<tr><td>nstring-capitalize</td><td>string-left-trim</td><td>string<code>&lt;</code></td></tr>
+<tr><td>nstring-downcase</td><td>string-lessp</td><td>string<code>&lt;=</code></td></tr>
+<tr><td>nstring-upcase</td><td>string-not-equal</td><td>string<code>=</code></td></tr>
+<tr><td>schar</td><td>string-not-greaterp</td><td>string<code>&gt;</code></td></tr>
+<tr><td>string</td><td>string-not-lessp</td><td>string<code>&gt;=</code></td></tr>
+<tr><td>string-capitalize</td><td>string-right-trim</td><td></td></tr>
+<tr><td>string-downcase</td><td>string-trim</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 15.2: </strong>Operators that Manipulate Strings</p></div></div>
+
+<p><i>Vectors</i> whose <i>elements</i> are restricted to <i>type</i>
+<code>bit</code> are called 
+<span id="index-bit-vector"></span>
+<em>bit vectors</em>.
+<i>Bit vectors</i> are of <i>type</i> <code>bit-vector</code>.
+The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> for operations on <i>bit arrays</i>.
+</p>
+
+<div class="float"><span id="fig15_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>bit</td><td>bit-ior</td><td>bit-orc2</td></tr>
+<tr><td>bit-and</td><td>bit-nand</td><td>bit-xor</td></tr>
+<tr><td>bit-andc1</td><td>bit-nor</td><td>sbit</td></tr>
+<tr><td>bit-andc2</td><td>bit-not</td><td></td></tr>
+<tr><td>bit-eqv</td><td>bit-orc1</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 15.3: </strong>Operators that Manipulate Bit Arrays</p></div></div>
+
+
+
+<hr>
+<span id="array"></span><div class="header">
+<p>
+Next: <a href="#simple_002darray" accesskey="n" rel="next">simple-array</a>, Previous: <a href="#Array-Concepts" accesskey="p" rel="prev">Array Concepts</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array</h4>
+<span id="array-_0028System-Class_0029"></span><h3 class="heading">array (System Class)</h3>
+<span id="index-array-2"></span>
+<span id="index-array-1"></span>
+
+
+<span id="Class-Precedence-List_003a-53"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>array</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-420"></span><h4 class="subsubheading">Description:</h4>
+
+<p>An <i>array</i> contains <i>objects</i> arranged according to a
+Cartesian coordinate system.
+An <i>array</i> provides mappings from a set of
+<i>fixnums</i>
+<tt>{</tt>i<sub>0</sub>
+of the <i>array</i>, 
+where 0 ≤ i<sub>j</sub>
+r is the rank of the array, and d<sub>j</sub>
+the array.
+</p>
+<p>When an <i>array</i> is created, the program requesting its creation may
+declare that all <i>elements</i> are of a particular <i>type</i>, 
+called the <i>expressed array element type</i>.
+The implementation is permitted to <i>upgrade</i> this type in order to 
+produce the <i>actual array element type</i>,
+which is the <i>element type</i> for the <i>array</i> is actually <i>specialized</i>.
+See the <i>function</i> <a href="#upgraded_002darray_002delement_002dtype">upgraded-array-element-type</a>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(array <tt>[</tt><tt>{</tt>element-type | <tt>*</tt><tt>}</tt> <tt>[</tt>dimension-spec<tt>]</tt><tt>]</tt>)
+</p>
+<dl compact="compact">
+<dt><var>dimension-spec</var>::=</dt>
+<dd><p>rank | <tt>*</tt> | <tt>(</tt><tt>{</tt>dimension | <tt>*</tt><tt>}</tt>*<tt>)</tt>
+</p></dd>
+</dl>
+
+<span id="Compound-Type-Specifier-Arguments_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>dimension</var>&mdash;a <i>valid array dimension</i>.
+</p>
+<p><var>element-type</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>rank</var>&mdash;a non-negative <i>fixnum</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set of <i>arrays</i> whose
+<i>element type</i>,  <i>rank</i>,  and <i>dimensions</i>
+match any given
+<var>element-type</var>, <var>rank</var>, and <var>dimensions</var>.
+Specifically:
+</p>
+<p>If <var>element-type</var> is the <i>symbol</i> <tt>*</tt>,
+<i>arrays</i> are not excluded on the basis of their <i>element type</i>.
+Otherwise, only those <var>arrays</var> are included whose <i>actual array element type</i>
+is the result of <i>upgrading</i> <var>element-type</var>;
+see <a href="#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
+</p>
+<p>If the <var>dimension-spec</var> is a <var>rank</var>,
+the set includes only those <var>arrays</var> having that <i>rank</i>.
+If the <var>dimension-spec</var> is a <i>list</i> of <var>dimensions</var>,
+the set includes only those <var>arrays</var> having a <i>rank</i>
+given by the <i>length</i> of the <var>dimensions</var>,
+and having the indicated <var>dimensions</var>; 
+in this case, <tt>*</tt> matches any value for the corresponding <i>dimension</i>.
+If the <var>dimension-spec</var> is the <i>symbol</i> <tt>*</tt>,
+the set is not restricted on the basis of <i>rank</i> or <i>dimension</i>.
+</p>
+
+<span id="See-Also_003a-344"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Printer.html#g_t_002aprint_002darray_002a">*print-array*</a>,
+<a href="#aref">aref</a>,
+<a href="#make_002darray">make-array</a>,
+<a href="#vector-_0028System-Class_0029">vector (System Class)</a>,
+<a href="Syntax.html#SharpsignA">Section 2.4.8.12 (Sharpsign A)</a>,
+<a href="Printer.html#PrintingOtherArrays">Section 22.1.3.8 (Printing Other Arrays)</a>
+</p>
+<span id="Notes_003a-229"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Note that the type <code>(array t)</code>     
+is a proper <i>subtype</i> of the type <code>(array *)</code>.
+The reason is that the type <code>(array t)</code> is the set of <i>arrays</i> 
+that can
+hold any <i>object</i> (the <i>elements</i> are of <i>type</i> <code>t</code>,  which includes
+all <i>objects</i>).
+On the other hand, the type <code>(array *)</code>
+is the set of all <i>arrays</i> whatsoever, including for example
+<i>arrays</i> that can hold only <i>characters</i>. 
+The type <code>(array character)</code> 
+is not a <i>subtype</i> of the type <code>(array t)</code>; 
+the two sets                                              
+are <i>disjoint</i> because the type <code>(array character)</code> is not the
+set of all <i>arrays</i> that can hold 
+<i>characters</i>, but rather the set of
+<i>arrays</i> 
+that are specialized to hold precisely <i>characters</i> and no
+other <i>objects</i>. 
+</p>
+<hr>
+<span id="simple_002darray"></span><div class="header">
+<p>
+Next: <a href="#vector-_0028System-Class_0029" accesskey="n" rel="next">vector (System Class)</a>, Previous: <a href="#array" accesskey="p" rel="prev">array</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-array</h4>
+<span id="simple_002darray-_0028Type_0029"></span><h3 class="heading">simple-array (Type)</h3>
+<span id="index-simple_002darray-1"></span>
+<span id="index-simple_002darray"></span>
+
+
+<span id="Supertypes_003a-14"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>simple-array</code>,
+<code>array</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-421"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> of an <i>array</i> that is not displaced 
+to another <i>array</i>, has no <i>fill pointer</i>, and is
+not
+<i>expressly adjustable</i> is a subtype of <i>type</i> <code>simple-array</code>.
+The concept of a <i>simple array</i>
+exists to allow the implementation to use a specialized representation
+and to allow the user to declare that certain values will always be
+<i>simple arrays</i>. 
+</p>
+<p>The <i>types</i> <code>simple-vector</code>,
+<code>simple-string</code>,
+and <code>simple-bit-vector</code>
+are <i>disjoint</i> subtypes of <i>type</i> <code>simple-array</code>, 
+for they respectively mean <code>(simple-array t (*))</code>,
+the union of all <code>(simple-array <i>c</i> (*))</code> 
+for any <i>c</i> being a subtype of <i>type</i> <code>character</code>,
+and <code>(simple-array bit (*))</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-19"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-19"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(simple-array <tt>[</tt><tt>{</tt>element-type | <tt>*</tt><tt>}</tt> <tt>[</tt>dimension-spec<tt>]</tt><tt>]</tt>)
+</p>
+<dl compact="compact">
+<dt><var>dimension-spec</var>::=</dt>
+<dd><p>rank | <tt>*</tt> | <tt>(</tt><tt>{</tt>dimension | <tt>*</tt><tt>}</tt>*<tt>)</tt>
+</p></dd>
+</dl>
+
+<span id="Compound-Type-Specifier-Arguments_003a-19"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>dimension</var>&mdash;a <i>valid array dimension</i>.
+</p>
+<p><var>element-type</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>rank</var>&mdash;a non-negative <i>fixnum</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-19"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This <i>compound type specifier</i> is treated exactly as the corresponding
+<i>compound type specifier</i> for <i>type</i> <code>array</code> would be treated,
+except that the set is further constrained to include only <i>simple arrays</i>.
+</p>
+<span id="Notes_003a-230"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>It is <i>implementation-dependent</i> 
+whether <i>displaced arrays</i>,
+<i>vectors</i> with <i>fill pointers</i>,
+or arrays that are <i>actually adjustable</i>
+are <i>simple arrays</i>.
+</p>
+<p><code>(simple-array *)</code> refers to all <i>simple arrays</i> 
+regardless of element type, <code>(simple-array <var>type-specifier</var>)</code>
+refers only to those <i>simple arrays</i>
+that can result from giving <var>type-specifier</var> as the
+<tt>:element-type</tt> argument to <code>make-array</code>.  
+</p>
+<hr>
+<span id="vector-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="#simple_002dvector" accesskey="n" rel="next">simple-vector</a>, Previous: <a href="#simple_002darray" accesskey="p" rel="prev">simple-array</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">vector (System Class)</h4>
+<span id="vector-_0028System-Class_0029-1"></span><h3 class="heading">vector (System Class)</h3>
+<span id="index-vector-5"></span>
+<span id="index-vector-2"></span>
+
+
+<span id="Class-Precedence-List_003a-54"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>vector</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-422"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Any one-dimensional <i>array</i> is a <i>vector</i>.
+</p>
+<p>The <i>type</i> <code>vector</code> is a subtype of <i>type</i> <code>array</code>; 
+for all <i>types</i> <code>x</code>, <code>(vector x)</code> is the same as <code>(array x (*))</code>.
+</p>
+<p>The <i>type</i> <code>(vector t)</code>, the <i>type</i> <code>string</code>, and the <i>type</i> <code>bit-vector</code>
+are <i>disjoint</i> subtypes of <i>type</i> <code>vector</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(vector <tt>[</tt><tt>{</tt>element-type | <tt>*</tt><tt>}</tt> <tt>[</tt><tt>{</tt>size | <tt>*</tt><tt>}</tt><tt>]</tt><tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>.
+</p>
+<p><var>element-type</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-20"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set of specialized <i>vectors</i>
+whose <i>element type</i> and <var>dimension</var> match the specified values.
+Specifically:
+</p>
+<p>If <var>element-type</var> is the <i>symbol</i> <tt>*</tt>,
+<i>vectors</i> are not excluded on the basis of their <i>element type</i>.
+Otherwise, only those <var>vectors</var> are included whose <i>actual array element type</i>
+is the result of <i>upgrading</i> <var>element-type</var>;
+see <a href="#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
+</p>
+<p>If a <var>size</var> is specified,
+the set includes only those <var>vectors</var> whose only <i>dimension</i>
+is <var>size</var>.
+If the <i>symbol</i> <tt>*</tt> is specified instead of a <var>size</var>,
+the set is not restricted on the basis of <i>dimension</i>.
+</p>
+<span id="See-Also_003a-345"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#RequiredSpecializedArrays">Section 15.1.2.2 (Required Kinds of Specialized Arrays)</a>,
+<a href="Syntax.html#SharpsignLeftParen">Section 2.4.8.3 (Sharpsign Left-Parenthesis)</a>,
+<a href="Printer.html#PrintingOtherVectors">Section 22.1.3.7 (Printing Other Vectors)</a>,
+<a href="Syntax.html#SharpsignA">Section 2.4.8.12 (Sharpsign A)</a>
+</p>
+<span id="Notes_003a-231"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <i>type</i> <code>(vector <var>e</var> <var>s</var>)</code> 
+is equivalent to the <i>type</i> <code>(array <var>e</var> (<var>s</var>))</code>.
+</p>
+<p>The type <code>(vector bit)</code> has the name <code>bit-vector</code>.
+</p>
+<p>The union of all <i>types</i> <code>(vector C)</code>, 
+where C is any <i>subtype</i> of <code>character</code>,
+has the name <code>string</code>.
+</p>
+<p><code>(vector *)</code> refers to all <i>vectors</i> 
+regardless of element type, <code>(vector <var>type-specifier</var>)</code>
+refers only to those <i>vectors</i> 
+that can result from giving <var>type-specifier</var> as the
+<tt>:element-type</tt> argument to <code>make-array</code>.  
+</p>
+<hr>
+<span id="simple_002dvector"></span><div class="header">
+<p>
+Next: <a href="#bit_002dvector" accesskey="n" rel="next">bit-vector</a>, Previous: <a href="#vector-_0028System-Class_0029" accesskey="p" rel="prev">vector (System Class)</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-vector</h4>
+<span id="simple_002dvector-_0028Type_0029"></span><h3 class="heading">simple-vector (Type)</h3>
+<span id="index-simple_002dvector-2"></span>
+<span id="index-simple_002dvector-1"></span>
+
+
+<span id="Supertypes_003a-15"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>simple-vector</code>,
+<code>vector</code>,
+<code>simple-array</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-423"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> of a <i>vector</i> that is not displaced to another
+<i>array</i>, has no <i>fill pointer</i>, is not 
+<i>expressly adjustable</i>
+and is able to hold 
+elements of any <i>type</i> is a subtype of <i>type</i> <code>simple-vector</code>.
+</p>
+<p>The <i>type</i> <code>simple-vector</code> is a subtype of <i>type</i> <code>vector</code>,
+and is a <i>subtype</i> of <i>type</i> <code>(vector t)</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(simple-vector <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+The default is the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-21"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This is the same as <code>(simple-array t (<var>size</var>))</code>.
+</p>
+<hr>
+<span id="bit_002dvector"></span><div class="header">
+<p>
+Next: <a href="#simple_002dbit_002dvector" accesskey="n" rel="next">simple-bit-vector</a>, Previous: <a href="#simple_002dvector" accesskey="p" rel="prev">simple-vector</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">bit-vector</h4>
+<span id="bit_002dvector-_0028System-Class_0029"></span><h3 class="heading">bit-vector (System Class)</h3>
+<span id="index-bit_002dvector-2"></span>
+<span id="index-bit_002dvector-1"></span>
+
+
+<span id="Class-Precedence-List_003a-55"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>bit-vector</code>,
+<code>vector</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-424"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>bit vector</i> is a <i>vector</i> the <i>element type</i> of which is <i>bit</i>.
+</p>
+<p>The <i>type</i> <code>bit-vector</code> is a subtype of <i>type</i> <code>vector</code>, 
+for <code>bit-vector</code> means <code>(vector bit)</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-22"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Abbreviating.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-22"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(bit-vector <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-22"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-22"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the same <i>type</i> as the <i>type</i> <code>(array bit (<var>size</var>))</code>;
+that is, the set of <i>bit vectors</i> of size <var>size</var>.
+</p>
+<span id="See-Also_003a-346"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Syntax.html#SharpsignStar">Section 2.4.8.4 (Sharpsign Asterisk)</a>,
+<a href="Printer.html#PrintingBitVectors">Section 22.1.3.6 (Printing Bit Vectors)</a>,
+<a href="#RequiredSpecializedArrays">Section 15.1.2.2 (Required Kinds of Specialized Arrays)</a>
+</p>
+<hr>
+<span id="simple_002dbit_002dvector"></span><div class="header">
+<p>
+Next: <a href="#make_002darray" accesskey="n" rel="next">make-array</a>, Previous: <a href="#bit_002dvector" accesskey="p" rel="prev">bit-vector</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-bit-vector</h4>
+<span id="simple_002dbit_002dvector-_0028Type_0029"></span><h3 class="heading">simple-bit-vector (Type)</h3>
+<span id="index-simple_002dbit_002dvector-2"></span>
+<span id="index-simple_002dbit_002dvector-1"></span>
+
+
+<span id="Supertypes_003a-16"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>simple-bit-vector</code>,
+<code>bit-vector</code>,
+<code>vector</code>,
+<code>simple-array</code>,
+<code>array</code>,
+<code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-425"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> of a <i>bit vector</i> that is not displaced
+to another <i>array</i>, has no <i>fill pointer</i>, and is 
+not
+<i>expressly adjustable</i>
+is a
+subtype of <i>type</i> <code>simple-bit-vector</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a-23"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Abbreviating.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-23"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(simple-bit-vector <tt>[</tt>size<tt>]</tt>)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-23"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>size</var>&mdash;a non-negative <i>fixnum</i>,
+or the <i>symbol</i> <tt>*</tt>.
+The default is the <i>symbol</i> <tt>*</tt>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-23"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the same type as the <i>type</i>
+<code>(simple-array bit (<var>size</var>))</code>; 
+that is, the set of <i>simple bit vectors</i> of size <var>size</var>.
+</p>
+
+<hr>
+<span id="make_002darray"></span><div class="header">
+<p>
+Next: <a href="#adjust_002darray" accesskey="n" rel="next">adjust-array</a>, Previous: <a href="#simple_002dbit_002dvector" accesskey="p" rel="prev">simple-bit-vector</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">make-array</h4>
+<span id="make_002darray-_0028Function_0029"></span><h3 class="heading">make-array (Function)</h3>
+<span id="index-make_002darray-2"></span>
+<span id="index-make_002darray"></span>
+
+
+<span id="Syntax_003a-330"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-make_002darray-1">Function: <strong>make-array</strong> <em>dimensions <tt>&amp;key</tt> <span class="nolinebreak">element-type</span><!-- /@w --> <span class="nolinebreak">initial-element</span><!-- /@w --> <span class="nolinebreak">initial-contents</span><!-- /@w --> adjustable<!-- /@w --> <span class="nolinebreak">fill-pointer</span><!-- /@w --> <span class="nolinebreak">displaced-to</span><!-- /@w --> <span class="nolinebreak">displaced-index-offset</span><!-- /@w --> <span class="roman">→</span> new-array</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-319"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>dimensions</var>&mdash;a <i>designator</i> for a <i>list</i> of <i>valid array dimensions</i>.
+</p>
+<p><var>element-type</var>&mdash;a <i>type specifier</i>. 
+The default is <code>t</code>.
+</p>
+<p><var>initial-element</var>&mdash;an <i>object</i>.
+</p>
+<p><var>initial-contents</var>&mdash;an <i>object</i>.
+</p>
+<p><var>adjustable</var>&mdash;a <i>generalized boolean</i>.
+The default is <code>nil</code>.
+</p>
+<p><var>fill-pointer</var>&mdash;a <i>valid fill pointer</i> for the <i>array</i> to be created,
+or <code>t</code>&nbsp;<!-- /@w -->or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>displaced-to</var>&mdash;an <i>array</i> or <code>nil</code>.
+The default is <code>nil</code>.
+This option must not be supplied if either <var>initial-element</var>
+or <var>initial-contents</var> is supplied.
+</p>
+<p><var>displaced-index-offset</var>&mdash;a <i>valid array row-major index</i> 
+for <var>displaced-to</var>. The default is <code>0</code>.
+This option must not be supplied unless a <i>non-nil</i> <var>displaced-to</var> is supplied.
+</p>
+<p><var>new-array</var>&mdash;an <i>array</i>.
+</p>
+<span id="Description_003a-426"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Creates and returns an <i>array</i> constructed of the most <i>specialized</i>
+<i>type</i> that can accommodate elements of <i>type</i> given by <var>element-type</var>.
+If <var>dimensions</var> is <code>nil</code>&nbsp;<!-- /@w -->then a zero-dimensional <i>array</i> is created.
+</p>
+<p><var>Dimensions</var> represents the dimensionality of the new <i>array</i>.
+</p>
+<p><var>element-type</var> indicates the <i>type</i> of the elements intended to be stored
+in the <var>new-array</var>.  The <var>new-array</var> can actually store any <i>objects</i>
+of the <i>type</i> which results from <i>upgrading</i> <var>element-type</var>;
+see <a href="#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
+</p>
+<p>If <var>initial-element</var> is supplied, 
+it is used to initialize each <i>element</i> of <var>new-array</var>. 
+If <var>initial-element</var> is supplied,
+it must be of the <i>type</i> given by <var>element-type</var>.
+<var>initial-element</var> cannot be supplied if either the <tt>:initial-contents</tt> option
+is supplied or <var>displaced-to</var> is <i>non-nil</i>.
+If <var>initial-element</var> is not supplied,
+the consequences of later reading an uninitialized <i>element</i> of <var>new-array</var>
+are undefined
+unless either <var>initial-contents</var> is supplied 
+or <var>displaced-to</var> is <i>non-nil</i>.
+</p>
+<p><var>initial-contents</var> is used to initialize the contents of <i>array</i>.
+For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (make-array '(4 2 3) :initial-contents
+             '(((a b c) (1 2 3))
+              ((d e f) (3 1 2))
+              ((g h i) (2 3 1))
+              ((j k l) (0 0 0))))
+</pre></div>
+
+
+<p><var>initial-contents</var> is composed of a nested structure of <i>sequences</i>. 
+The numbers of levels in the structure must equal the rank of <i>array</i>.
+Each leaf of the nested structure must be of the <i>type</i> given by <var>element-type</var>. 
+If <i>array</i> is zero-dimensional, then <var>initial-contents</var> specifies the single
+<i>element</i>.  Otherwise, <var>initial-contents</var> must be a <i>sequence</i>
+whose length is equal to the first dimension; each element must be a nested 
+structure for an <i>array</i> whose dimensions are the remaining dimensions, 
+and so on.
+<var>Initial-contents</var> cannot be supplied if either 
+<var>initial-element</var> is supplied
+or <var>displaced-to</var> is <i>non-nil</i>.
+If <var>initial-contents</var> is not supplied,
+the consequences of later reading an uninitialized <i>element</i> of <var>new-array</var>
+are undefined
+unless either <var>initial-element</var> is supplied
+or <var>displaced-to</var> is <i>non-nil</i>.
+</p>
+<p>If <var>adjustable</var> is <i>non-nil</i>,
+the array is <i>expressly adjustable</i> 
+(and so <i>actually adjustable</i>);
+otherwise, the array is not <i>expressly adjustable</i> 
+(and it is <i>implementation-dependent</i> whether 
+the array is <i>actually adjustable</i>).
+</p>
+<p>If <var>fill-pointer</var> is <i>non-nil</i>,
+the <i>array</i> must be one-dimensional;
+that is, the <i>array</i> must be a <i>vector</i>.
+If <var>fill-pointer</var> is <code>t</code>,
+the length of the <i>vector</i> is used to initialize the <i>fill pointer</i>.
+If <var>fill-pointer</var> is an <i>integer</i>,
+it becomes the initial <i>fill pointer</i> for the <i>vector</i>.
+</p>
+<p>If <var>displaced-to</var> is <i>non-nil</i>,
+<code>make-array</code> will create a <i>displaced array</i> 
+and <var>displaced-to</var> is the <i>target</i> of that <i>displaced array</i>. 
+In that case, the consequences are undefined if the <i>actual array element type</i> of 
+<var>displaced-to</var> is not <i>type equivalent</i> to the <i>actual array element type</i>
+of the <i>array</i> being created.
+If <var>displaced-to</var> is <code>nil</code>, the <i>array</i> is not a <i>displaced array</i>.
+</p>
+<p>The <var>displaced-index-offset</var> is made to be the index offset of the <i>array</i>.
+When an array A is given as
+the <tt>:displaced-to</tt> <i>argument</i> to <code>make-array</code> 
+when creating array B,
+then array B is said to be displaced to array A.  The
+total number of elements in an <i>array</i>, 
+called the total size of the <i>array</i>,
+is calculated as the product of all the dimensions.
+It is required that the total size of A be no smaller than the sum
+of the total size of B plus the offset <code>n</code> supplied by
+the <var>displaced-index-offset</var>.
+The effect of displacing is that array B does not have any
+elements of its own, but instead maps <i>accesses</i> to itself into
+<i>accesses</i> to array A.  The mapping treats both <i>arrays</i> as if they
+were one-dimensional by taking the elements in row-major order,
+and then maps an <i>access</i> to element <code>k</code> of array B to an <i>access</i> to element
+<code>k</code>+<code>n</code> of array A.
+</p>
+<p>If <code>make-array</code> is called with <var>adjustable</var>, <var>fill-pointer</var>,
+and <var>displaced-to</var> each <code>nil</code>, 
+then the result is a <i>simple array</i>.
+If <code>make-array</code> is called with one or more of <var>adjustable</var>,
+<var>fill-pointer</var>, or <var>displaced-to</var> being <i>true</i>, whether the
+resulting <i>array</i> is a <i>simple array</i> is <i>implementation-dependent</i>.
+</p>
+<p>When an array A is given as the <tt>:displaced-to</tt> <i>argument</i> to
+<code>make-array</code> when creating array B, then array B is said to
+be displaced to array A.  The total number of elements in an <i>array</i>, 
+called the total size of the <i>array</i>, is calculated as the product
+of all the dimensions.
+The consequences are unspecified if
+the total size of A is smaller than the sum
+of the total size of B plus the offset <code>n</code> supplied by
+the <var>displaced-index-offset</var>.
+The effect of displacing is that array B does not have any
+elements of its own, but instead maps <i>accesses</i> to itself into
+<i>accesses</i> to array A.  The mapping treats both <i>arrays</i> as if they
+were one-dimensional by taking the elements in row-major order,
+and then maps an <i>access</i> to element <code>k</code> of array B to an <i>access</i> 
+to <i>element</i> <code>k</code>+<code>n</code> of array A.
+</p>
+<span id="Examples_003a-303"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp">
+
+ (make-array 5) ;; Creates a one-dimensional array of five elements.
+ (make-array '(3 4) :element-type '(mod 16)) ;; Creates a 
+                ;;two-dimensional array, 3 by 4, with four-bit elements.
+ (make-array 5 :element-type 'single-float) ;; Creates an array of single-floats.
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (make-array nil :initial-element nil) <span class="roman">→</span> #0ANIL
+ (make-array 4 :initial-element nil) <span class="roman">→</span> #(NIL NIL NIL NIL)
+ (make-array '(2 4) 
+              :element-type '(unsigned-byte 2) 
+              :initial-contents '((0 1 2 3) (3 2 1 0)))
+<span class="roman">→</span> #2A((0 1 2 3) (3 2 1 0))
+ (make-array 6
+              :element-type 'character 
+              :initial-element #\a 
+              :fill-pointer 3) <span class="roman">→</span> &quot;aaa&quot;
+</pre></div>
+
+
+<p>The following is an example of making a <i>displaced array</i>.
+</p>
+<div class="lisp">
+<pre class="lisp"> (setq a (make-array '(4 3))) 
+<span class="roman">→</span> #&lt;ARRAY 4x3 simple 32546632&gt;
+ (dotimes (i 4)
+   (dotimes (j 3)
+     (setf (aref a i j) (list i 'x j '= (* i j)))))
+<span class="roman">→</span> NIL
+ (setq b (make-array 8 :displaced-to a
+                       :displaced-index-offset 2))
+<span class="roman">→</span> #&lt;ARRAY 8 indirect 32550757&gt;
+ (dotimes (i 8)
+   (print (list i (aref b i))))
+▷ (0 (0 X 2 = 0)) 
+▷ (1 (1 X 0 = 0)) 
+▷ (2 (1 X 1 = 1)) 
+▷ (3 (1 X 2 = 2)) 
+▷ (4 (2 X 0 = 0)) 
+▷ (5 (2 X 1 = 2)) 
+▷ (6 (2 X 2 = 4)) 
+▷ (7 (3 X 0 = 0)) 
+<span class="roman">→</span> NIL
+</pre></div>
+
+<p>The last example depends on the fact that <i>arrays</i> are, in effect,
+stored in row-major order. 
+</p>
+<div class="lisp">
+<pre class="lisp"> (setq a1 (make-array 50))
+<span class="roman">→</span> #&lt;ARRAY 50 simple 32562043&gt;
+ (setq b1 (make-array 20 :displaced-to a1 :displaced-index-offset 10))
+<span class="roman">→</span> #&lt;ARRAY 20 indirect 32563346&gt;
+ (length b1) <span class="roman">→</span> 20
+
+ (setq a2 (make-array 50 :fill-pointer 10))
+<span class="roman">→</span> #&lt;ARRAY 50 fill-pointer 10 46100216&gt;
+ (setq b2 (make-array 20 :displaced-to a2 :displaced-index-offset 10))
+<span class="roman">→</span> #&lt;ARRAY 20 indirect 46104010&gt;
+ (length a2) <span class="roman">→</span> 10
+ (length b2) <span class="roman">→</span> 20
+
+ (setq a3 (make-array 50 :fill-pointer 10))
+<span class="roman">→</span> #&lt;ARRAY 50 fill-pointer 10 46105663&gt;
+ (setq b3 (make-array 20 :displaced-to a3 :displaced-index-offset 10
+                         :fill-pointer 5))
+<span class="roman">→</span> #&lt;ARRAY 20 indirect, fill-pointer 5 46107432&gt;
+ (length a3) <span class="roman">→</span> 10
+ (length b3) <span class="roman">→</span> 5
+</pre></div>
+
+
+
+<span id="See-Also_003a-347"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#adjustable_002darray_002dp">adjustable-array-p</a>,
+<a href="#aref">aref</a>,
+<a href="#arrayp">arrayp</a>,
+<a href="#array_002delement_002dtype">array-element-type</a>,
+<a href="#array_002drank_002dlimit">array-rank-limit</a>,
+<a href="#array_002ddimension_002dlimit">array-dimension-limit</a>,
+<a href="#fill_002dpointer">fill-pointer</a>,
+<a href="#upgraded_002darray_002delement_002dtype">upgraded-array-element-type</a>
+</p>
+<span id="Notes_003a-232"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>There is no specified way to create an <i>array</i> 
+for which <code>adjustable-array-p</code> definitely
+returns <i>false</i>.
+There is no specified way to create an <i>array</i> 
+that is not a <i>simple array</i>.
+</p>
+
+<hr>
+<span id="adjust_002darray"></span><div class="header">
+<p>
+Next: <a href="#adjustable_002darray_002dp" accesskey="n" rel="next">adjustable-array-p</a>, Previous: <a href="#make_002darray" accesskey="p" rel="prev">make-array</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">adjust-array</h4>
+<span id="adjust_002darray-_0028Function_0029"></span><h3 class="heading">adjust-array (Function)</h3>
+<span id="index-adjust_002darray-2"></span>
+<span id="index-adjust_002darray"></span>
+
+
+<span id="Syntax_003a-331"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-adjust_002darray-1">Function: <strong>adjust-array</strong> <em>array new-dimensions <tt>&amp;key</tt> <span class="nolinebreak">element-type</span><!-- /@w --> <span class="nolinebreak">initial-element</span><!-- /@w --> <span class="nolinebreak">initial-contents</span><!-- /@w --> <span class="nolinebreak">fill-pointer</span><!-- /@w --> <span class="nolinebreak">displaced-to</span><!-- /@w --> <span class="nolinebreak">displaced-index-offset</span><!-- /@w --> <span class="roman">→</span> adjusted-array</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-320"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>new-dimensions</var>&mdash;a <i>valid array dimension</i> 
+or a <i>list</i> of <i>valid array dimensions</i>.
+</p>
+<p><var>element-type</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>initial-element</var>&mdash;an <i>object</i>.
+<var>Initial-element</var> must not be supplied if either 
+<var>initial-contents</var> or <var>displaced-to</var> is supplied.
+</p>
+<p><var>initial-contents</var>&mdash;an <i>object</i>.
+If <i>array</i> has rank greater than zero, then <var>initial-contents</var>
+is composed of nested <i>sequences</i>, the depth of which must equal
+the rank of <var>array</var>.  Otherwise, <i>array</i> is zero-dimensional and
+<var>initial-contents</var> supplies the single element.
+<var>initial-contents</var> must not be supplied if either 
+<var>initial-element</var> or <var>displaced-to</var> is given.
+</p>
+<p><var>fill-pointer</var>&mdash;a <i>valid fill pointer</i> for the
+<i>array</i> to be created, or <code>t</code>, or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>displaced-to</var>&mdash;an <i>array</i> or <code>nil</code>.
+<var>initial-elements</var> and <var>initial-contents</var> must not be supplied
+if <var>displaced-to</var> is supplied.
+</p>
+<p><var>displaced-index-offset</var>&mdash;an <i>object</i> of <i>type</i> <code>(fixnum 0 <i>n</i>)</code> 
+where <i>n</i> is <code>(array-total-size <var>displaced-to</var>)</code>.
+<var>displaced-index-offset</var> may be supplied only if <var>displaced-to</var> is supplied.
+</p>
+<p><var>adjusted-array</var>&mdash;an <i>array</i>.
+</p>
+<span id="Description_003a-427"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>adjust-array</code> changes the dimensions or elements of <var>array</var>.
+The result is an <i>array</i> of the same <i>type</i> and rank as <var>array</var>,
+that is either the modified <var>array</var>,
+or a newly created <i>array</i> to which
+<var>array</var> can be displaced, and that has 
+the given <var>new-dimensions</var>.
+</p>
+<p><var>New-dimensions</var> specify the size of each <i>dimension</i> of <var>array</var>. 
+</p>
+<p><var>Element-type</var> specifies the <i>type</i> of the <i>elements</i>
+of the resulting <i>array</i>.  If <var>element-type</var> is supplied,
+the consequences are unspecified if
+the <i>upgraded array element type</i> of <var>element-type</var>
+is not the same as the <i>actual array element type</i> of <var>array</var>.
+</p>
+<p>If <var>initial-contents</var> is supplied, it is treated as for
+<code>make-array</code>.  In this case none of the original contents of
+<var>array</var> appears in the resulting <i>array</i>.
+</p>
+<p>If <var>fill-pointer</var> is an <i>integer</i>,
+it becomes the <i>fill pointer</i> for the resulting <i>array</i>.
+If <var>fill-pointer</var> is the symbol <code>t</code>,
+it indicates that the size of the resulting <i>array</i> 
+should be used as the <i>fill pointer</i>.
+If <var>fill-pointer</var> is <code>nil</code>,
+it indicates that the <i>fill pointer</i> should be left as it is.
+</p>
+<p>If <var>displaced-to</var>
+<i>non-nil</i>, a <i>displaced array</i>
+is created. The resulting <i>array</i> shares its contents with the <i>array</i> given by
+<var>displaced-to</var>.
+The resulting <i>array</i> cannot contain more elements than the <i>array</i>
+it is displaced to.  
+If <var>displaced-to</var> is not supplied or <code>nil</code>,
+the resulting <i>array</i> is not a <i>displaced array</i>.
+If array A is created displaced to array B and subsequently
+array B is given to <code>adjust-array</code>, array A will still be
+displaced to array B.
+Although <var>array</var> might be a <i>displaced array</i>, 
+the resulting <i>array</i> is not a <i>displaced array</i> unless
+<var>displaced-to</var> is supplied and not <code>nil</code>.
+The interaction between <code>adjust-array</code> and 
+displaced <i>arrays</i> 
+is as follows given three <i>arrays</i>, <code>A</code>, <code>B</code>, and&nbsp;<code>C</code>:
+</p>
+
+<dl compact="compact">
+<dt><code>A</code> is not displaced before or after the call</dt>
+<dd>
+
+<div class="lisp">
+<pre class="lisp"> (adjust-array A ...)
+</pre></div>
+
+
+<p>The dimensions of <code>A</code> are altered, and the
+contents rearranged as appropriate.  
+Additional elements of <code>A</code> are taken from
+<var>initial-element</var>.  
+The use of <var>initial-contents</var> causes all old contents to be
+discarded.
+</p>
+</dd>
+<dt><code>A</code> is not displaced before, but is displaced to  <code>C</code> after the call</dt>
+<dd>  
+
+<div class="lisp">
+<pre class="lisp"> (adjust-array A ... :displaced-to C)
+</pre></div>
+
+
+<p>None of the original contents of <code>A</code> appears in 
+<code>A</code> afterwards; <code>A</code> now contains
+the contents of <code>C</code>, without any rearrangement of <code>C</code>.
+</p>
+</dd>
+<dt><code>A</code> is displaced to <code>B</code>  before the call, and is displaced to <code>C</code> after  the call</dt>
+<dd>
+
+<div class="lisp">
+<pre class="lisp"> (adjust-array A ... :displaced-to B)
+ (adjust-array A ... :displaced-to C)
+</pre></div>
+
+
+<p><code>B</code> and <code>C</code> might be the same. The contents of <code>B</code> do not appear in 
+<code>A</code> afterward unless such contents also happen to be in <code>C</code>  If
+<var>displaced-index-offset</var> 
+is not supplied in the <code>adjust-array</code> call, it defaults
+to zero; the old offset into <code>B</code> is not retained.
+</p>
+</dd>
+<dt><code>A</code> is displaced to <code>B</code> before the call, but not displaced afterward.</dt>
+<dd>  
+
+<div class="lisp">
+<pre class="lisp"> (adjust-array A ... :displaced-to B)
+ (adjust-array A ... :displaced-to nil)
+</pre></div>
+
+<p><code>A</code> gets a
+new &ldquo;data region,&rdquo; and contents of <code>B</code> are copied into it as appropriate to
+maintain the existing old contents; additional elements of <code>A</code> 
+are taken from
+<var>initial-element</var> if supplied.  However, 
+the use of <var>initial-contents</var> causes all old contents
+to be discarded.
+</p></dd>
+</dl>
+
+
+<p>If <var>displaced-index-offset</var> is supplied,
+it specifies the offset
+of the resulting <i>array</i> from the beginning of 
+the <i>array</i> that it is displaced to.           
+If <var>displaced-index-offset</var> is not supplied, the offset is&nbsp;0.  
+The size of the resulting <i>array</i> plus the 
+offset value cannot exceed the size of
+the <i>array</i> that it is displaced to.
+</p>
+<p>If only <var>new-dimensions</var>
+and an <var>initial-element</var> argument are supplied,
+those elements of <var>array</var> that
+are still in bounds appear in the resulting <i>array</i>. The elements of
+the resulting <i>array</i> that are not in the bounds of 
+<i>array</i> are initialized
+to <var>initial-element</var>; if <var>initial-element</var> is not provided,
+the consequences of later reading any such new <i>element</i> of <var>new-array</var>
+before it has been initialized
+are undefined.
+</p>
+<p>If <var>initial-contents</var> or <var>displaced-to</var> is supplied,
+then none of the original contents of <var>array</var> appears in the new <i>array</i>.
+</p>
+
+<p>The consequences are unspecified if <var>array</var> is adjusted 
+to a size smaller than its <i>fill pointer</i> without supplying
+the <var>fill-pointer</var> argument so that its <i>fill-pointer</i>
+is properly adjusted in the process.
+</p>
+<p>If <code>A</code> is displaced to <code>B</code>, the consequences are unspecified 
+if <code>B</code> is adjusted in such a way that it no longer has enough elements
+to satisfy <code>A</code>.  
+</p>
+
+<p>If <code>adjust-array</code> is applied to an <i>array</i> that is <i>actually adjustable</i>,
+the <i>array</i> returned is <i>identical</i> to <var>array</var>.
+If the <i>array</i> returned by <code>adjust-array</code> 
+is <i>distinct</i> from <var>array</var>, then the argument <var>array</var> is unchanged.
+</p>
+<p>Note that if an <i>array</i> A is displaced to another <i>array</i> B,
+and B is displaced to another <i>array</i> C, and B is altered by
+<code>adjust-array</code>, A must now refer to the adjust contents of B.
+This means that an implementation cannot collapse the chain to make A
+refer to C directly and forget that the chain of reference passes through
+B.  However, caching techniques are permitted as long as they preserve the 
+semantics specified here.
+</p>
+<span id="Examples_003a-304"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (adjustable-array-p
+  (setq ada (adjust-array
+              (make-array '(2 3)
+                          :adjustable t
+                          :initial-contents '((a b c) (1 2 3)))
+              '(4 6)))) <span class="roman">→</span> T 
+ (array-dimensions ada) <span class="roman">→</span> (4 6) 
+ (aref ada 1 1) <span class="roman">→</span> 2 
+ (setq beta (make-array '(2 3) :adjustable t))
+<span class="roman">→</span> #2A((NIL NIL NIL) (NIL NIL NIL)) 
+ (adjust-array beta '(4 6) :displaced-to ada)
+<span class="roman">→</span> #2A((A B C NIL NIL NIL)
+       (1 2 3 NIL NIL NIL)
+       (NIL NIL NIL NIL NIL NIL) 
+       (NIL NIL NIL NIL NIL NIL))
+ (array-dimensions beta) <span class="roman">→</span> (4 6)
+ (aref beta 1 1) <span class="roman">→</span> 2 
+</pre></div>
+
+
+<p>Suppose that the 4-by-4 array in <code>m</code> looks like this:
+</p>
+<div class="lisp">
+<pre class="lisp">#2A(( alpha     beta      gamma     delta )
+    ( epsilon   zeta      eta       theta )
+    ( iota      kappa     lambda    mu    )
+    ( nu        xi        omicron   pi    ))
+</pre></div>
+
+<p>Then the result of
+</p>
+<div class="lisp">
+<pre class="lisp"> (adjust-array m '(3 5) :initial-element 'baz)
+</pre></div>
+
+<p>is a 3-by-5 array with contents       
+</p>
+<div class="lisp">
+<pre class="lisp">#2A(( alpha     beta      gamma     delta     baz )
+    ( epsilon   zeta      eta       theta     baz )
+    ( iota      kappa     lambda    mu        baz ))
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-138"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>error</code> is signaled if <var>fill-pointer</var> is supplied
+and <i>non-nil</i> but <var>array</var> has no <i>fill pointer</i>.
+</p>
+<span id="See-Also_003a-348"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#adjustable_002darray_002dp">adjustable-array-p</a>,    <a href="#make_002darray">make-array</a>,
+<a href="#array_002ddimension_002dlimit">array-dimension-limit</a>, <a href="#array_002dtotal_002dsize_002dlimit">array-total-size-limit</a>,
+<a href="#array">array</a>
+</p>
+
+<hr>
+<span id="adjustable_002darray_002dp"></span><div class="header">
+<p>
+Next: <a href="#aref" accesskey="n" rel="next">aref</a>, Previous: <a href="#adjust_002darray" accesskey="p" rel="prev">adjust-array</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">adjustable-array-p</h4>
+<span id="adjustable_002darray_002dp-_0028Function_0029"></span><h3 class="heading">adjustable-array-p (Function)</h3>
+<span id="index-adjustable_002darray_002dp-2"></span>
+<span id="index-adjustable_002darray_002dp"></span>
+
+
+<span id="Syntax_003a-332"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-adjustable_002darray_002dp-1">Function: <strong>adjustable-array-p</strong> <em>array <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-321"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-428"></span><h4 class="subsubheading">Description:</h4>
+
+
+<p>Returns true if and only if <code>adjust-array</code> could return a <i>value</i>
+which is <i>identical</i> to <var>array</var> when given that <i>array</i> as its
+first <i>argument</i>.
+</p>
+<span id="Examples_003a-305"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (adjustable-array-p 
+   (make-array 5
+               :element-type 'character 
+               :adjustable t 
+               :fill-pointer 3)) <span class="roman">→</span> <i>true</i>
+ (adjustable-array-p (make-array 4)) <span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-139"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its argument is not an <i>array</i>.
+</p>
+<span id="See-Also_003a-349"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#adjust_002darray">adjust-array</a>, <a href="#make_002darray">make-array</a>
+</p>
+
+<hr>
+<span id="aref"></span><div class="header">
+<p>
+Next: <a href="#array_002ddimension" accesskey="n" rel="next">array-dimension</a>, Previous: <a href="#adjustable_002darray_002dp" accesskey="p" rel="prev">adjustable-array-p</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">aref</h4>
+<span id="aref-_0028Accessor_0029"></span><h3 class="heading">aref (Accessor)</h3>
+<span id="index-aref-2"></span>
+<span id="index-aref"></span>
+
+
+<span id="Syntax_003a-333"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-aref-1">Function: <strong>aref</strong> <em>array <tt>&amp;rest</tt> subscripts <span class="roman">→</span> element</em></dt>
+</dl>
+<p><tt>(setf (aref array <tt>&amp;rest</tt> subscripts) new-element)</tt>
+</p>
+<span id="Arguments-and-Values_003a-322"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>subscripts</var>&mdash;a <i>list</i> of <i>valid array indices</i> for the <var>array</var>.
+</p>
+<p><var>element</var>, <var>new-element</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-429"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Accesses</i> the <var>array</var> <i>element</i> specified by the <var>subscripts</var>.
+If no <var>subscripts</var> are supplied and <var>array</var> is zero rank,
+<code>aref</code> <i>accesses</i> the sole element of <var>array</var>.
+</p>
+<p><code>aref</code> ignores <i>fill pointers</i>.
+It is permissible to use <code>aref</code> 
+to <i>access</i> any <var>array</var> <i>element</i>,
+whether <i>active</i> or not.
+</p>
+<span id="Examples_003a-306"></span><h4 class="subsubheading">Examples:</h4>
+
+<p>If the variable <code>foo</code> names a 3-by-5 array,
+then the first index could be 0, 1, or 2, and then second index
+could be 0, 1, 2, 3, or 4.  The array elements can be referred to by using
+the <i>function</i> <code>aref</code>; for example, <code>(aref foo 2 1)</code>
+refers to element (2, 1) of the array.  
+</p>
+<div class="lisp">
+<pre class="lisp"> (aref (setq alpha (make-array 4)) 3) <span class="roman">→</span> <i>implementation-dependent</i>
+ (setf (aref alpha 3) 'sirens) <span class="roman">→</span> SIRENS
+ (aref alpha 3) <span class="roman">→</span> SIRENS
+ (aref (setq beta (make-array '(2 4) 
+                    :element-type '(unsigned-byte 2)
+                    :initial-contents '((0 1 2 3) (3 2 1 0))))
+        1 2) <span class="roman">→</span> 1
+ (setq gamma '(0 2))
+ (apply #'aref beta gamma) <span class="roman">→</span> 2
+ (setf (apply #'aref beta gamma) 3) <span class="roman">→</span> 3
+ (apply #'aref beta gamma) <span class="roman">→</span> 3
+ (aref beta 0 2) <span class="roman">→</span> 3
+</pre></div>
+
+
+<span id="See-Also_003a-350"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#bit">bit</a>,
+<a href="Strings.html#char">char</a>,
+<a href="Sequences.html#elt">elt</a>,
+<a href="#row_002dmajor_002daref">row-major-aref</a>,
+<a href="#svref">svref</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>
+</p>
+
+<hr>
+<span id="array_002ddimension"></span><div class="header">
+<p>
+Next: <a href="#array_002ddimensions" accesskey="n" rel="next">array-dimensions</a>, Previous: <a href="#aref" accesskey="p" rel="prev">aref</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-dimension</h4>
+<span id="array_002ddimension-_0028Function_0029"></span><h3 class="heading">array-dimension (Function)</h3>
+<span id="index-array_002ddimension-2"></span>
+<span id="index-array_002ddimension"></span>
+
+
+<span id="Syntax_003a-334"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002ddimension-1">Function: <strong>array-dimension</strong> <em>array axis-number <span class="roman">→</span> dimension</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-323"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>axis-number</var>&mdash;an <i>integer</i> greater than or equal to zero
+and less than the <i>rank</i> of the <var>array</var>.
+</p>
+<p><var>dimension</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-430"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>array-dimension</code> returns the <var>axis-number</var> 
+<i>dimension</i><sub>1</sub>
+(Any <i>fill pointer</i> is ignored.)
+</p>
+<span id="Examples_003a-307"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (array-dimension (make-array 4) 0) <span class="roman">→</span> 4
+ (array-dimension (make-array '(2 3)) 1) <span class="roman">→</span> 3
+</pre></div>
+
+
+<span id="Affected-By_003a-63"></span><h4 class="subsubheading">Affected By:</h4>
+<p>None.
+</p><span id="See-Also_003a-351"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#array_002ddimensions">array-dimensions</a>, <a href="Sequences.html#length">length</a>
+</p>
+<span id="Notes_003a-233"></span><h4 class="subsubheading">Notes:</h4>
+<div class="lisp">
+<pre class="lisp"> (array-dimension array n) ≡ (nth n (array-dimensions array))
+</pre></div>
+
+
+<hr>
+<span id="array_002ddimensions"></span><div class="header">
+<p>
+Next: <a href="#array_002delement_002dtype" accesskey="n" rel="next">array-element-type</a>, Previous: <a href="#array_002ddimension" accesskey="p" rel="prev">array-dimension</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-dimensions</h4>
+<span id="array_002ddimensions-_0028Function_0029"></span><h3 class="heading">array-dimensions (Function)</h3>
+<span id="index-array_002ddimensions-2"></span>
+<span id="index-array_002ddimensions"></span>
+
+
+<span id="Syntax_003a-335"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002ddimensions-1">Function: <strong>array-dimensions</strong> <em>array <span class="roman">→</span> dimensions</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-324"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>dimensions</var>&mdash;a <i>list</i> of <i>integers</i>.
+</p>
+<span id="Description_003a-431"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>list</i> of the <i>dimensions</i> of <var>array</var>.
+(If <var>array</var> is a <i>vector</i> with a <i>fill pointer</i>, 
+that <i>fill pointer</i> is ignored.)
+</p>
+<span id="Examples_003a-308"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (array-dimensions (make-array 4)) <span class="roman">→</span> (4)
+ (array-dimensions (make-array '(2 3))) <span class="roman">→</span> (2 3)
+ (array-dimensions (make-array 4 :fill-pointer 2)) <span class="roman">→</span> (4)
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-140"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its argument is not an <i>array</i>.
+</p>
+<span id="See-Also_003a-352"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#array_002ddimension">array-dimension</a>
+</p>
+
+<hr>
+<span id="array_002delement_002dtype"></span><div class="header">
+<p>
+Next: <a href="#array_002dhas_002dfill_002dpointer_002dp" accesskey="n" rel="next">array-has-fill-pointer-p</a>, Previous: <a href="#array_002ddimensions" accesskey="p" rel="prev">array-dimensions</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-element-type</h4>
+<span id="array_002delement_002dtype-_0028Function_0029"></span><h3 class="heading">array-element-type (Function)</h3>
+<span id="index-array_002delement_002dtype-2"></span>
+<span id="index-array_002delement_002dtype"></span>
+
+
+<span id="Syntax_003a-336"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002delement_002dtype-1">Function: <strong>array-element-type</strong> <em>array <span class="roman">→</span> typespec</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-325"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Description_003a-432"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>type specifier</i> which represents the <i>actual array element type</i>
+of the array, which is the set of <i>objects</i> that such an <var>array</var> can hold.
+(Because of <i>array</i> <i>upgrading</i>, this <i>type specifier</i> can in
+some cases denote a <i>supertype</i> of the <i>expressed array element type</i>
+of the <var>array</var>.)
+</p>
+<span id="Examples_003a-309"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (array-element-type (make-array 4)) <span class="roman">→</span> T
+ (array-element-type (make-array 12 :element-type '(unsigned-byte 8))) 
+<span class="roman">→</span> <i>implementation-dependent</i>
+ (array-element-type (make-array 12 :element-type '(unsigned-byte 5)))
+<span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (array-element-type (make-array 5 :element-type '(mod 5)))
+</pre></div>
+
+<p>could be <code>(mod 5)</code>, <code>(mod 8)</code>, <code>fixnum</code>, <code>t</code>, or any other
+type of which <code>(mod 5)</code> is a <i>subtype</i>.
+</p>
+<span id="Affected-By_003a-64"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+<span id="Exceptional-Situations_003a-141"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its argument is not an <i>array</i>.
+</p>
+<span id="See-Also_003a-353"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#array">array</a>,
+<a href="#make_002darray">make-array</a>,
+<a href="Types-and-Classes.html#subtypep">subtypep</a>,
+<a href="#upgraded_002darray_002delement_002dtype">upgraded-array-element-type</a>
+</p>
+
+<hr>
+<span id="array_002dhas_002dfill_002dpointer_002dp"></span><div class="header">
+<p>
+Next: <a href="#array_002ddisplacement" accesskey="n" rel="next">array-displacement</a>, Previous: <a href="#array_002delement_002dtype" accesskey="p" rel="prev">array-element-type</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-has-fill-pointer-p</h4>
+<span id="array_002dhas_002dfill_002dpointer_002dp-_0028Function_0029"></span><h3 class="heading">array-has-fill-pointer-p (Function)</h3>
+<span id="index-array_002dhas_002dfill_002dpointer_002dp-2"></span>
+<span id="index-array_002dhas_002dfill_002dpointer_002dp"></span>
+
+
+<span id="Syntax_003a-337"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002dhas_002dfill_002dpointer_002dp-1">Function: <strong>array-has-fill-pointer-p</strong> <em>array <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-326"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-433"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>array</var> has a <i>fill pointer</i>;
+otherwise returns <i>false</i>.
+</p>
+<span id="Examples_003a-310"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (array-has-fill-pointer-p (make-array 4)) <span class="roman">→</span> <i>implementation-dependent</i>
+ (array-has-fill-pointer-p (make-array '(2 3))) <span class="roman">→</span> <i>false</i>
+ (array-has-fill-pointer-p
+   (make-array 8 
+               :fill-pointer 2 
+               :initial-element 'filler)) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-142"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its argument is not an <i>array</i>.
+</p>
+<span id="See-Also_003a-354"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>, <a href="#fill_002dpointer">fill-pointer</a>
+</p>
+<span id="Notes_003a-234"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Since <i>arrays</i> of <i>rank</i> other than one cannot have a <i>fill pointer</i>,
+<code>array-has-fill-pointer-p</code> always returns <code>nil</code>&nbsp;<!-- /@w -->when its argument
+is such an array.
+</p>
+
+<hr>
+<span id="array_002ddisplacement"></span><div class="header">
+<p>
+Next: <a href="#array_002din_002dbounds_002dp" accesskey="n" rel="next">array-in-bounds-p</a>, Previous: <a href="#array_002dhas_002dfill_002dpointer_002dp" accesskey="p" rel="prev">array-has-fill-pointer-p</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-displacement</h4>
+<span id="array_002ddisplacement-_0028Function_0029"></span><h3 class="heading">array-displacement (Function)</h3>
+<span id="index-array_002ddisplacement-2"></span>
+<span id="index-array_002ddisplacement"></span>
+
+
+
+<span id="Syntax_003a-338"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002ddisplacement-1">Function: <strong>array-displacement</strong> <em>array <span class="roman">→</span> displaced-to, displaced-index-offset</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-327"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>displaced-to</var>&mdash;an <var>array</var> or <code>nil</code>.
+</p>
+<p><var>displaced-index-offset</var>&mdash;a non-negative <i>fixnum</i>.
+</p>
+<span id="Description_003a-434"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If the <var>array</var> is a <i>displaced array</i>,
+returns the <i>values</i> of the <tt>:displaced-to</tt> and <tt>:displaced-index-offset</tt>
+options
+for the <i>array</i> (see the <i>functions</i> <a href="#make_002darray">make-array</a> and <code>adjust-array</code>).
+If the <var>array</var> is not a <i>displaced array</i>,
+<code>nil</code>&nbsp;<!-- /@w -->and <code>0</code> are returned.
+</p>
+<p>If <code>array-displacement</code> is called on an <var>array</var>
+for which a <i>non-nil</i> <i>object</i> was provided as the
+<tt>:displaced-to</tt> <i>argument</i> to <code>make-array</code> 
+or <code>adjust-array</code>, it must return that <i>object</i>
+as its first value. It is <i>implementation-dependent</i>
+whether <code>array-displacement</code> returns a <i>non-nil</i>
+<i>primary value</i> for any other <var>array</var>.
+</p>
+<span id="Examples_003a-311"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq a1 (make-array 5)) <span class="roman">→</span> #&lt;ARRAY 5 simple 46115576&gt;
+ (setq a2 (make-array 4 :displaced-to a1
+                        :displaced-index-offset 1))
+<span class="roman">→</span> #&lt;ARRAY 4 indirect 46117134&gt;
+ (array-displacement a2)
+<span class="roman">→</span> #&lt;ARRAY 5 simple 46115576&gt;, 1
+ (setq a3 (make-array 2 :displaced-to a2
+                        :displaced-index-offset 2))
+<span class="roman">→</span> #&lt;ARRAY 2 indirect 46122527&gt;
+ (array-displacement a3)
+<span class="roman">→</span> #&lt;ARRAY 4 indirect 46117134&gt;, 2
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-143"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>array</var> is not an <i>array</i>.
+</p>
+<span id="See-Also_003a-355"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>
+</p>
+
+
+<hr>
+<span id="array_002din_002dbounds_002dp"></span><div class="header">
+<p>
+Next: <a href="#array_002drank" accesskey="n" rel="next">array-rank</a>, Previous: <a href="#array_002ddisplacement" accesskey="p" rel="prev">array-displacement</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-in-bounds-p</h4>
+<span id="array_002din_002dbounds_002dp-_0028Function_0029"></span><h3 class="heading">array-in-bounds-p (Function)</h3>
+<span id="index-array_002din_002dbounds_002dp-2"></span>
+<span id="index-array_002din_002dbounds_002dp"></span>
+
+
+<span id="Syntax_003a-339"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002din_002dbounds_002dp-1">Function: <strong>array-in-bounds-p</strong> <em>array <tt>&amp;rest</tt> subscripts <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-328"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>subscripts</var>&mdash;a list of <i>integers</i> 
+of length equal to the <i>rank</i> of the <i>array</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-435"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if the <var>subscripts</var> are all in bounds for <var>array</var>;
+otherwise returns <i>false</i>.
+(If <var>array</var> is a <i>vector</i> with a <i>fill pointer</i>, 
+that <i>fill pointer</i> is ignored.)
+</p>
+<span id="Examples_003a-312"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (setq a (make-array '(7 11) :element-type 'string-char))
+ (array-in-bounds-p a 0  0) <span class="roman">→</span> <i>true</i>
+ (array-in-bounds-p a 6 10) <span class="roman">→</span> <i>true</i>
+ (array-in-bounds-p a 0 -1) <span class="roman">→</span> <i>false</i>
+ (array-in-bounds-p a 0 11) <span class="roman">→</span> <i>false</i>
+ (array-in-bounds-p a 7  0) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="See-Also_003a-356"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#array_002ddimensions">array-dimensions</a>
+</p>
+<span id="Notes_003a-235"></span><h4 class="subsubheading">Notes:</h4>
+<div class="lisp">
+<pre class="lisp"> (array-in-bounds-p array subscripts)   
+ ≡ (and (not (some #'minusp (list subscripts)))
+         (every #'&lt; (list subscripts) (array-dimensions array)))
+</pre></div>
+
+
+<hr>
+<span id="array_002drank"></span><div class="header">
+<p>
+Next: <a href="#array_002drow_002dmajor_002dindex" accesskey="n" rel="next">array-row-major-index</a>, Previous: <a href="#array_002din_002dbounds_002dp" accesskey="p" rel="prev">array-in-bounds-p</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-rank</h4>
+<span id="array_002drank-_0028Function_0029"></span><h3 class="heading">array-rank (Function)</h3>
+<span id="index-array_002drank-2"></span>
+<span id="index-array_002drank"></span>
+
+
+<span id="Syntax_003a-340"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002drank-1">Function: <strong>array-rank</strong> <em>array <span class="roman">→</span> rank</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-329"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>rank</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-436"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the number of <i>dimensions</i> of <var>array</var>.
+</p>
+<span id="Examples_003a-313"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (array-rank (make-array '())) <span class="roman">→</span> 0
+ (array-rank (make-array 4)) <span class="roman">→</span> 1
+ (array-rank (make-array '(4))) <span class="roman">→</span> 1
+ (array-rank (make-array '(2 3))) <span class="roman">→</span> 2
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-144"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its argument is not an <i>array</i>.
+</p>
+<span id="See-Also_003a-357"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#array_002drank_002dlimit">array-rank-limit</a>, <a href="#make_002darray">make-array</a>
+</p>
+
+<hr>
+<span id="array_002drow_002dmajor_002dindex"></span><div class="header">
+<p>
+Next: <a href="#array_002dtotal_002dsize" accesskey="n" rel="next">array-total-size</a>, Previous: <a href="#array_002drank" accesskey="p" rel="prev">array-rank</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-row-major-index</h4>
+<span id="array_002drow_002dmajor_002dindex-_0028Function_0029"></span><h3 class="heading">array-row-major-index (Function)</h3>
+<span id="index-array_002drow_002dmajor_002dindex-2"></span>
+<span id="index-array_002drow_002dmajor_002dindex"></span>
+
+
+<span id="Syntax_003a-341"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002drow_002dmajor_002dindex-1">Function: <strong>array-row-major-index</strong> <em>array <tt>&amp;rest</tt> subscripts <span class="roman">→</span> index</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-330"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>subscripts</var>&mdash;a <i>list</i> of <i>valid array indices</i> for the <var>array</var>.
+</p>
+<p><var>index</var>&mdash;a <i>valid array row-major index</i> for the <var>array</var>.
+</p>
+<span id="Description_003a-437"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Computes the position according to the row-major ordering of <var>array</var>
+for the element that is specified by <var>subscripts</var>, and returns the
+offset of the element in the computed position from the beginning of <var>array</var>.
+</p>
+<p>For a one-dimensional <var>array</var>, 
+the result of <code>array-row-major-index</code>
+equals <var>subscript</var>.
+</p>
+<p><code>array-row-major-index</code> ignores <i>fill pointers</i>.
+</p>
+<span id="Examples_003a-314"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq a (make-array '(4 7) :element-type '(unsigned-byte 8)))
+ (array-row-major-index a 1 2) <span class="roman">→</span> 9
+ (array-row-major-index 
+    (make-array '(2 3 4) 
+                :element-type '(unsigned-byte 8)
+                :displaced-to a
+                :displaced-index-offset 4)
+    0 2 1) <span class="roman">→</span> 9
+</pre></div>
+
+
+<span id="Notes_003a-236"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>A possible definition of <code>array-row-major-index</code>, 
+with no error-checking, is
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun array-row-major-index (a &amp;rest subscripts)
+   (apply #'+ (maplist #'(lambda (x y)
+                            (* (car x) (apply #'* (cdr y))))
+                       subscripts
+                       (array-dimensions a))))
+</pre></div>
+
+
+
+<hr>
+<span id="array_002dtotal_002dsize"></span><div class="header">
+<p>
+Next: <a href="#arrayp" accesskey="n" rel="next">arrayp</a>, Previous: <a href="#array_002drow_002dmajor_002dindex" accesskey="p" rel="prev">array-row-major-index</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-total-size</h4>
+<span id="array_002dtotal_002dsize-_0028Function_0029"></span><h3 class="heading">array-total-size (Function)</h3>
+<span id="index-array_002dtotal_002dsize-2"></span>
+<span id="index-array_002dtotal_002dsize"></span>
+
+
+<span id="Syntax_003a-342"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-array_002dtotal_002dsize-1">Function: <strong>array-total-size</strong> <em>array <span class="roman">→</span> size</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-331"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>size</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-438"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>array total size</i> of the <var>array</var>.
+</p>
+<span id="Examples_003a-315"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (array-total-size (make-array 4)) <span class="roman">→</span> 4
+ (array-total-size (make-array 4 :fill-pointer 2)) <span class="roman">→</span> 4
+ (array-total-size (make-array 0)) <span class="roman">→</span> 0
+ (array-total-size (make-array '(4 2))) <span class="roman">→</span> 8
+ (array-total-size (make-array '(4 0))) <span class="roman">→</span> 0
+ (array-total-size (make-array '())) <span class="roman">→</span> 1
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-145"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its argument is not an <i>array</i>.
+</p>
+<span id="See-Also_003a-358"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>, <a href="#array_002ddimensions">array-dimensions</a>
+</p>
+<span id="Notes_003a-237"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If the <var>array</var> is a <i>vector</i> with a <i>fill pointer</i>,
+the <i>fill pointer</i> is ignored when calculating the <i>array total size</i>.
+</p>
+<p>Since the product of no arguments is one, the <i>array total size</i> of a
+zero-dimensional <i>array</i> is one.
+</p>
+<div class="lisp">
+<pre class="lisp"> (array-total-size x)
+    ≡ (apply #'* (array-dimensions x))
+    ≡ (reduce #'* (array-dimensions x))
+</pre></div>
+
+
+
+<hr>
+<span id="arrayp"></span><div class="header">
+<p>
+Next: <a href="#fill_002dpointer" accesskey="n" rel="next">fill-pointer</a>, Previous: <a href="#array_002dtotal_002dsize" accesskey="p" rel="prev">array-total-size</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">arrayp</h4>
+<span id="arrayp-_0028Function_0029"></span><h3 class="heading">arrayp (Function)</h3>
+<span id="index-arrayp-2"></span>
+<span id="index-arrayp"></span>
+
+
+<span id="Syntax_003a-343"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-arrayp-1">Function: <strong>arrayp</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-332"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-439"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>array</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-316"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (arrayp (make-array '(2 3 4) :adjustable t)) <span class="roman">→</span> <i>true</i>
+ (arrayp (make-array 6)) <span class="roman">→</span> <i>true</i>
+ (arrayp #*1011) <span class="roman">→</span> <i>true</i>
+ (arrayp &quot;hi&quot;) <span class="roman">→</span> <i>true</i>
+ (arrayp 'hi) <span class="roman">→</span> <i>false</i>
+ (arrayp 12) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="See-Also_003a-359"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Types-and-Classes.html#typep">typep</a>
+</p>
+<span id="Notes_003a-238"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (arrayp <var>object</var>) ≡ (typep <var>object</var> 'array)
+</pre></div>
+
+
+
+<hr>
+<span id="fill_002dpointer"></span><div class="header">
+<p>
+Next: <a href="#row_002dmajor_002daref" accesskey="n" rel="next">row-major-aref</a>, Previous: <a href="#arrayp" accesskey="p" rel="prev">arrayp</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">fill-pointer</h4>
+<span id="fill_002dpointer-_0028Accessor_0029"></span><h3 class="heading">fill-pointer (Accessor)</h3>
+<span id="index-fill_002dpointer-2"></span>
+<span id="index-fill_002dpointer"></span>
+
+
+<span id="Syntax_003a-344"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-fill_002dpointer-1">Function: <strong>fill-pointer</strong> <em>vector <span class="roman">→</span> fill-pointer</em></dt>
+</dl>
+<p><tt>(setf (fill-pointer vector) new-fill-pointer)</tt>
+</p>
+<span id="Arguments-and-Values_003a-333"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>vector</var>&mdash;a <i>vector</i> with a <i>fill pointer</i>.
+</p>
+<p><var>fill-pointer</var>, <var>new-fill-pointer</var>&mdash;a <i>valid fill pointer</i> 
+for the <var>vector</var>.
+</p>
+<span id="Description_003a-440"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Accesses</i> the <i>fill pointer</i> of <var>vector</var>.
+</p>
+<span id="Examples_003a-317"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq a (make-array 8 :fill-pointer 4)) <span class="roman">→</span> #(NIL NIL NIL NIL)
+ (fill-pointer a) <span class="roman">→</span> 4
+ (dotimes (i (length a)) (setf (aref a i) (* i i))) <span class="roman">→</span> NIL
+ a <span class="roman">→</span> #(0 1 4 9)
+ (setf (fill-pointer a) 3) <span class="roman">→</span> 3
+ (fill-pointer a) <span class="roman">→</span> 3
+ a <span class="roman">→</span> #(0 1 4)
+ (setf (fill-pointer a) 8) <span class="roman">→</span> 8
+ a <span class="roman">→</span> #(0 1 4 9 NIL NIL NIL NIL)
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-146"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>vector</var> is not a <i>vector</i> with a <i>fill pointer</i>.
+</p>
+<span id="See-Also_003a-360"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>, <a href="Sequences.html#length">length</a>
+</p>
+<span id="Notes_003a-239"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>There is no <i>operator</i> that will remove a <i>vector</i>&rsquo;s <i>fill pointer</i>.
+</p>
+
+<hr>
+<span id="row_002dmajor_002daref"></span><div class="header">
+<p>
+Next: <a href="#upgraded_002darray_002delement_002dtype" accesskey="n" rel="next">upgraded-array-element-type</a>, Previous: <a href="#fill_002dpointer" accesskey="p" rel="prev">fill-pointer</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">row-major-aref</h4>
+<span id="row_002dmajor_002daref-_0028Accessor_0029"></span><h3 class="heading">row-major-aref (Accessor)</h3>
+<span id="index-row_002dmajor_002daref-2"></span>
+<span id="index-row_002dmajor_002daref"></span>
+
+
+<span id="Syntax_003a-345"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-row_002dmajor_002daref-1">Function: <strong>row-major-aref</strong> <em>array index <span class="roman">→</span> element</em></dt>
+</dl>
+<p><tt>(setf (row-major-aref array index) new-element)</tt>
+</p>
+<span id="Arguments-and-Values_003a-334"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>array</var>&mdash;an <i>array</i>.
+</p>
+<p><var>index</var>&mdash;a <i>valid array row-major index</i> for the <var>array</var>.
+</p>
+<p><var>element</var>, <var>new-element</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-441"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Considers <i>array</i> as a <i>vector</i> by viewing its <i>elements</i>
+in row-major order, and returns the <i>element</i> of that <i>vector</i> 
+which is referred to by the given <var>index</var>.
+</p>
+<p><code>row-major-aref</code> is valid for use with <code>setf</code>.
+</p>
+<span id="See-Also_003a-361"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#aref">aref</a>,
+<a href="#array_002drow_002dmajor_002dindex">array-row-major-index</a>
+</p>
+<span id="Notes_003a-240"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (row-major-aref array index) ≡
+   (aref (make-array (array-total-size array)
+                     :displaced-to array
+                     :element-type (array-element-type array))
+         index)
+
+ (aref array i1 i2 ...) ≡
+     (row-major-aref array (array-row-major-index array i1 i2))
+</pre></div>
+
+
+
+
+<hr>
+<span id="upgraded_002darray_002delement_002dtype"></span><div class="header">
+<p>
+Next: <a href="#array_002ddimension_002dlimit" accesskey="n" rel="next">array-dimension-limit</a>, Previous: <a href="#row_002dmajor_002daref" accesskey="p" rel="prev">row-major-aref</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">upgraded-array-element-type</h4>
+<span id="upgraded_002darray_002delement_002dtype-_0028Function_0029"></span><h3 class="heading">upgraded-array-element-type (Function)</h3>
+<span id="index-upgraded_002darray_002delement_002dtype-2"></span>
+<span id="index-upgraded_002darray_002delement_002dtype"></span>
+
+
+<span id="Syntax_003a-346"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-upgraded_002darray_002delement_002dtype-1">Function: <strong>upgraded-array-element-type</strong> <em>typespec <tt>&amp;optional</tt> environment <span class="roman">→</span> upgraded-typespec</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-335"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>environment</var>&mdash;an <i>environment</i> <i>object</i>.
+The default is <code>nil</code>, denoting the <i>null lexical environment</i>
+and the current <i>global environment</i>.
+</p>
+<p><var>upgraded-typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Description_003a-442"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>element type</i> of 
+the most <i>specialized</i> <i>array</i> representation capable of 
+holding items of the <i>type</i> denoted by <var>typespec</var>.
+</p>
+<p>The <var>typespec</var> is a <i>subtype</i> of 
+(and possibly <i>type equivalent</i> to)
+the <var>upgraded-typespec</var>.
+</p>
+<p>If <var>typespec</var> is <code>bit</code>,
+the result is <i>type equivalent</i> to <code>bit</code>.
+If <var>typespec</var> is <code>base-char</code>,
+the result is <i>type equivalent</i> to <code>base-char</code>.
+If <var>typespec</var> is <code>character</code>,
+the result is <i>type equivalent</i> to <code>character</code>.
+</p>
+<p>The purpose of <code>upgraded-array-element-type</code> is to reveal how
+an implementation does its <i>upgrading</i>.
+</p>
+<p>The <var>environment</var> is used to expand any <i>derived type specifiers</i>
+that are mentioned in the <var>typespec</var>.
+</p>
+<span id="See-Also_003a-362"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#array_002delement_002dtype">array-element-type</a>,
+<a href="#make_002darray">make-array</a>
+</p>
+<span id="Notes_003a-241"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Except for storage allocation consequences and dealing correctly with the
+optional <var>environment</var> <i>argument</i>,
+<code>upgraded-array-element-type</code> could be defined as:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun upgraded-array-element-type (type &amp;optional environment)
+   (array-element-type (make-array 0 :element-type type)))
+</pre></div>
+
+
+
+
+<hr>
+<span id="array_002ddimension_002dlimit"></span><div class="header">
+<p>
+Next: <a href="#array_002drank_002dlimit" accesskey="n" rel="next">array-rank-limit</a>, Previous: <a href="#upgraded_002darray_002delement_002dtype" accesskey="p" rel="prev">upgraded-array-element-type</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-dimension-limit</h4>
+<span id="array_002ddimension_002dlimit-_0028Constant-Variable_0029"></span><h3 class="heading">array-dimension-limit (Constant Variable)</h3>
+<span id="index-array_002ddimension_002dlimit-1"></span>
+<span id="index-array_002ddimension_002dlimit"></span>
+
+
+<span id="Constant-Value_003a-11"></span><h4 class="subsubheading">Constant Value:</h4>
+
+<p>A positive
+<i>fixnum</i>,
+the exact magnitude of which is <i>implementation-dependent</i>,
+but which is not less than <code>1024</code>.
+</p>
+<span id="Description_003a-443"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The upper exclusive bound on each individual <i>dimension</i> of an <i>array</i>.
+</p>
+<span id="See-Also_003a-363"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>
+</p>
+
+<hr>
+<span id="array_002drank_002dlimit"></span><div class="header">
+<p>
+Next: <a href="#array_002dtotal_002dsize_002dlimit" accesskey="n" rel="next">array-total-size-limit</a>, Previous: <a href="#array_002ddimension_002dlimit" accesskey="p" rel="prev">array-dimension-limit</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-rank-limit</h4>
+<span id="array_002drank_002dlimit-_0028Constant-Variable_0029"></span><h3 class="heading">array-rank-limit (Constant Variable)</h3>
+<span id="index-array_002drank_002dlimit-1"></span>
+<span id="index-array_002drank_002dlimit"></span>
+
+
+<span id="Constant-Value_003a-12"></span><h4 class="subsubheading">Constant Value:</h4>
+
+<p>A positive
+<i>fixnum</i>,
+the exact magnitude of which is <i>implementation-dependent</i>,
+but which is not less than <code>8</code>.
+</p>
+<span id="Description_003a-444"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The upper exclusive bound on the <i>rank</i> of an <i>array</i>.
+</p>
+<span id="See-Also_003a-364"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>
+</p>
+
+<hr>
+<span id="array_002dtotal_002dsize_002dlimit"></span><div class="header">
+<p>
+Next: <a href="#simple_002dvector_002dp" accesskey="n" rel="next">simple-vector-p</a>, Previous: <a href="#array_002drank_002dlimit" accesskey="p" rel="prev">array-rank-limit</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">array-total-size-limit</h4>
+<span id="array_002dtotal_002dsize_002dlimit-_0028Constant-Variable_0029"></span><h3 class="heading">array-total-size-limit (Constant Variable)</h3>
+<span id="index-array_002dtotal_002dsize_002dlimit-1"></span>
+<span id="index-array_002dtotal_002dsize_002dlimit"></span>
+
+
+<span id="Constant-Value_003a-13"></span><h4 class="subsubheading">Constant Value:</h4>
+
+<p>A positive
+<i>fixnum</i>,
+the exact magnitude of which is <i>implementation-dependent</i>,
+but which is not less than <code>1024</code>.
+</p>
+<span id="Description_003a-445"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The upper exclusive bound on the <i>array total size</i> of an <i>array</i>.
+</p>
+<p>The actual limit on the <i>array total size</i> 
+imposed by the <i>implementation</i>
+might vary according the <i>element type</i> of the <i>array</i>;
+in this case, the value of <code>array-total-size-limit</code> 
+will be the smallest of these possible limits.
+</p>
+<span id="See-Also_003a-365"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>, <a href="#array_002delement_002dtype">array-element-type</a>
+</p>
+
+<hr>
+<span id="simple_002dvector_002dp"></span><div class="header">
+<p>
+Next: <a href="#svref" accesskey="n" rel="next">svref</a>, Previous: <a href="#array_002dtotal_002dsize_002dlimit" accesskey="p" rel="prev">array-total-size-limit</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-vector-p</h4>
+<span id="simple_002dvector_002dp-_0028Function_0029"></span><h3 class="heading">simple-vector-p (Function)</h3>
+<span id="index-simple_002dvector_002dp-2"></span>
+<span id="index-simple_002dvector_002dp"></span>
+
+
+<span id="Syntax_003a-347"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-simple_002dvector_002dp-1">Function: <strong>simple-vector-p</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-336"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-446"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>simple-vector</code>;
+otherwise, returns <i>false</i>..
+</p>
+<span id="Examples_003a-318"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (simple-vector-p (make-array 6)) <span class="roman">→</span> <i>true</i>
+ (simple-vector-p &quot;aaaaaa&quot;) <span class="roman">→</span> <i>false</i>
+ (simple-vector-p (make-array 6 :fill-pointer t)) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="See-Also_003a-366"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#simple_002dvector">simple-vector</a>
+</p>
+<span id="Notes_003a-242"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (simple-vector-p <var>object</var>) ≡ (typep <var>object</var> 'simple-vector)
+</pre></div>
+
+
+
+<hr>
+<span id="svref"></span><div class="header">
+<p>
+Next: <a href="#vector-_0028Function_0029" accesskey="n" rel="next">vector (Function)</a>, Previous: <a href="#simple_002dvector_002dp" accesskey="p" rel="prev">simple-vector-p</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">svref</h4>
+<span id="svref-_0028Accessor_0029"></span><h3 class="heading">svref (Accessor)</h3>
+<span id="index-svref-2"></span>
+<span id="index-svref"></span>
+
+
+<span id="Syntax_003a-348"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-svref-1">Function: <strong>svref</strong> <em>simple-vector index <span class="roman">→</span> element</em></dt>
+</dl>
+<p><tt>(setf (svref simple-vector index) new-element)</tt>
+</p>
+<span id="Arguments-and-Values_003a-337"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>simple-vector</var>&mdash;a <i>simple vector</i>.
+</p>
+<p><var>index</var>&mdash;a <i>valid array index</i> for the <var>simple-vector</var>.
+</p>
+<p><var>element</var>, <var>new-element</var>&mdash;an <i>object</i>
+(whose <i>type</i> is a <i>subtype</i> 
+of the <i>array element type</i> of the <var>simple-vector</var>).
+</p>
+<span id="Description_003a-447"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Accesses</i> the <i>element</i> of <var>simple-vector</var> specified by <var>index</var>.
+</p>
+<span id="Examples_003a-319"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (simple-vector-p (setq v (vector 1 2 'sirens))) <span class="roman">→</span> <i>true</i>
+ (svref v 0) <span class="roman">→</span> 1
+ (svref v 2) <span class="roman">→</span> SIRENS
+ (setf (svref v 1) 'newcomer) <span class="roman">→</span> NEWCOMER               
+ v <span class="roman">→</span> #(1 NEWCOMER SIRENS)
+</pre></div>
+
+
+<span id="See-Also_003a-367"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#aref">aref</a>,
+<a href="#sbit">sbit</a>,
+<a href="Strings.html#schar">schar</a>,
+<a href="#vector-_0028Function_0029">vector (Function)</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>
+</p>
+<span id="Notes_003a-243"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>svref</code> is identical to <code>aref</code> 
+except that it requires its first argument to be a <i>simple vector</i>.  
+</p>
+<div class="lisp">
+<pre class="lisp"> (svref <var>v</var> <var>i</var>) ≡ (aref (the simple-vector <var>v</var>) <var>i</var>)
+</pre></div>
+
+
+
+<hr>
+<span id="vector-_0028Function_0029"></span><div class="header">
+<p>
+Next: <a href="#vector_002dpop" accesskey="n" rel="next">vector-pop</a>, Previous: <a href="#svref" accesskey="p" rel="prev">svref</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">vector (Function)</h4>
+<span id="vector-_0028Function_0029-1"></span><h3 class="heading">vector (Function)</h3>
+<span id="index-vector-6"></span>
+<span id="index-vector-3"></span>
+
+
+<span id="Syntax_003a-349"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-vector-4">Function: <strong>vector</strong> <em><tt>&amp;rest</tt> objects <span class="roman">→</span> vector</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-338"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>vector</var>&mdash;a <i>vector</i> of <i>type</i> <code>(vector t <code>*</code>)</code>.
+</p>
+<span id="Description_003a-448"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Creates a <i>fresh</i> <i>simple general vector</i> whose size
+corresponds to the number of <var>objects</var>. 
+</p>
+<p>The <i>vector</i> is initialized to contain the <var>objects</var>.
+</p>
+<span id="Examples_003a-320"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (arrayp (setq v (vector 1 2 'sirens))) <span class="roman">→</span> <i>true</i>
+ (vectorp v) <span class="roman">→</span> <i>true</i>
+ (simple-vector-p v) <span class="roman">→</span> <i>true</i>         
+ (length v) <span class="roman">→</span> 3
+</pre></div>
+
+
+<span id="See-Also_003a-368"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002darray">make-array</a>
+</p>
+<span id="Notes_003a-244"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>vector</code> is analogous to <code>list</code>.
+</p>
+<div class="lisp">
+<pre class="lisp"> (vector a<sub>1</sub>
+  ≡ (make-array (list <i>n</i>) :element-type t
+                          :initial-contents 
+                            (list a<sub>1</sub>
+</pre></div>
+
+
+<hr>
+<span id="vector_002dpop"></span><div class="header">
+<p>
+Next: <a href="#vector_002dpush_003b-vector_002dpush_002dextend" accesskey="n" rel="next">vector-push; vector-push-extend</a>, Previous: <a href="#vector-_0028Function_0029" accesskey="p" rel="prev">vector (Function)</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">vector-pop</h4>
+<span id="vector_002dpop-_0028Function_0029"></span><h3 class="heading">vector-pop (Function)</h3>
+<span id="index-vector_002dpop-2"></span>
+<span id="index-vector_002dpop"></span>
+
+
+<span id="Syntax_003a-350"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-vector_002dpop-1">Function: <strong>vector-pop</strong> <em>vector <span class="roman">→</span> element</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-339"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>vector</var>&mdash;a <i>vector</i> with a <i>fill pointer</i>.
+</p>
+<p><var>element</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-449"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Decreases the <i>fill pointer</i> of <var>vector</var> by one, 
+and retrieves the <i>element</i> of <var>vector</var> that is
+designated by the new <i>fill pointer</i>.
+</p>
+<span id="Examples_003a-321"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (vector-push (setq fable (list 'fable))
+              (setq fa (make-array 8
+                                   :fill-pointer 2
+                                   :initial-element 'sisyphus))) <span class="roman">→</span> 2 
+ (fill-pointer fa) <span class="roman">→</span> 3 
+ (eq (vector-pop fa) fable) <span class="roman">→</span> <i>true</i>
+ (vector-pop fa) <span class="roman">→</span> SISYPHUS 
+ (fill-pointer fa) <span class="roman">→</span> 1 
+</pre></div>
+
+
+<span id="Side-Effects_003a-49"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <i>fill pointer</i> is decreased by one.
+</p>
+<span id="Affected-By_003a-65"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The value of the <i>fill pointer</i>.
+</p>
+<span id="Exceptional-Situations_003a-147"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>type-error</code> is signaled if <var>vector</var> does not have a <i>fill pointer</i>.
+</p>
+<p>If the <i>fill pointer</i> is zero, <code>vector-pop</code> signals an error of <i>type</i> <code>error</code>.
+</p>
+<span id="See-Also_003a-369"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#vector_002dpush">vector-push</a>, <a href="#vector_002dpush_002dextend">vector-push-extend</a>, <a href="#fill_002dpointer">fill-pointer</a>
+</p>
+
+<hr>
+<span id="vector_002dpush_003b-vector_002dpush_002dextend"></span><div class="header">
+<p>
+Next: <a href="#vectorp" accesskey="n" rel="next">vectorp</a>, Previous: <a href="#vector_002dpop" accesskey="p" rel="prev">vector-pop</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">vector-push; vector-push-extend</h4>
+<span id="vector_002dpush_002c-vector_002dpush_002dextend-_0028Function_0029"></span><h3 class="heading">vector-push, vector-push-extend (Function)</h3>
+<span id="index-vector_002dpush-2"></span>
+<span id="index-vector_002dpush"></span>
+<span id="index-vector_002dpush_002dextend-2"></span>
+<span id="index-vector_002dpush_002dextend"></span>
+<span id="vector_002dpush"></span><span id="vector_002dpush_002dextend"></span>
+
+<span id="Syntax_003a-351"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-vector_002dpush-1">Function: <strong>vector-push</strong> <em>new-element vector <span class="roman">→</span> new-index-p</em></dt>
+</dl>
+
+<dl>
+<dt id="index-vector_002dpush_002dextend-1">Function: <strong>vector-push-extend</strong> <em>new-element vector <tt>&amp;optional</tt> extension <span class="roman">→</span> new-index</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-340"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>new-element</var>&mdash;an <i>object</i>.
+</p>
+<p><var>vector</var>&mdash;a <i>vector</i> with a <i>fill pointer</i>.
+</p>
+<p><var>extension</var>&mdash;a positive <i>integer</i>.
+The default is <i>implementation-dependent</i>.
+</p>
+<p><var>new-index-p</var>&mdash;a <i>valid array index</i> for <var>vector</var>, or <code>nil</code>.
+</p>
+<p><var>new-index</var>&mdash;a <i>valid array index</i> for <var>vector</var>.
+</p>
+<span id="Description_003a-450"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>vector-push</code> and <code>vector-push-extend</code> store 
+<var>new-element</var> in <var>vector</var>.
+<code>vector-push</code> attempts to store
+<var>new-element</var> 
+in the element of <var>vector</var> designated by the <i>fill pointer</i>,
+and to increase the <i>fill pointer</i> by one.  If the 
+<code>(&gt;= (fill-pointer <var>vector</var>) (array-dimension <var>vector</var> 0))</code>,
+neither <var>vector</var> nor its <i>fill pointer</i> are affected.
+Otherwise, the store and increment take
+place and <code>vector-push</code> 
+returns the former value of the <i>fill pointer</i>
+which is one less than the one it leaves in <var>vector</var>.
+</p>
+<p><code>vector-push-extend</code> is just like <code>vector-push</code> except
+that if the <i>fill pointer</i> gets too large, <var>vector</var> is extended using
+<code>adjust-array</code> so that it can contain more elements.
+<var>Extension</var>
+is the minimum number of elements to be added to <var>vector</var> if it
+must be extended.
+</p>
+<p><code>vector-push</code> and 
+<code>vector-push-extend</code> return the index of <var>new-element</var> in <var>vector</var>.
+If <code>(&gt;= (fill-pointer <var>vector</var>) (array-dimension <var>vector</var> 0))</code>,
+<code>vector-push</code> returns <code>nil</code>.
+</p>
+<span id="Examples_003a-322"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (vector-push (setq fable (list 'fable))
+              (setq fa (make-array 8 
+                                   :fill-pointer 2
+                                   :initial-element 'first-one))) <span class="roman">→</span> 2 
+ (fill-pointer fa) <span class="roman">→</span> 3 
+ (eq (aref fa 2) fable) <span class="roman">→</span> <i>true</i>
+ (vector-push-extend #\X
+                    (setq aa 
+                          (make-array 5
+                                      :element-type 'character
+                                      :adjustable t
+                                      :fill-pointer 3))) <span class="roman">→</span> 3 
+ (fill-pointer aa) <span class="roman">→</span> 4 
+ (vector-push-extend #\Y aa 4) <span class="roman">→</span> 4 
+ (array-total-size aa) <span class="roman">→</span> at least 5 
+ (vector-push-extend #\Z aa 4) <span class="roman">→</span> 5 
+ (array-total-size aa) <span class="roman">→</span> 9 ;(or more)
+</pre></div>
+
+
+<span id="Affected-By_003a-66"></span><h4 class="subsubheading">Affected By:</h4>
+<p>The value of the <i>fill pointer</i>.
+</p>
+<p>How <var>vector</var> was created.
+</p>
+<span id="Exceptional-Situations_003a-148"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>error</code> is signaled by <code>vector-push-extend</code>
+if it tries to extend <var>vector</var> and <var>vector</var> is not <i>actually adjustable</i>.
+</p>
+<p>An error of <i>type</i> <code>error</code> is signaled if <var>vector</var> does not 
+have a <i>fill pointer</i>.
+</p>
+<span id="See-Also_003a-370"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#adjustable_002darray_002dp">adjustable-array-p</a>, <a href="#fill_002dpointer">fill-pointer</a>, <a href="#vector_002dpop">vector-pop</a>
+</p>
+
+<hr>
+<span id="vectorp"></span><div class="header">
+<p>
+Next: <a href="#bit_003b-sbit" accesskey="n" rel="next">bit; sbit</a>, Previous: <a href="#vector_002dpush_003b-vector_002dpush_002dextend" accesskey="p" rel="prev">vector-push; vector-push-extend</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">vectorp</h4>
+<span id="vectorp-_0028Function_0029"></span><h3 class="heading">vectorp (Function)</h3>
+<span id="index-vectorp-2"></span>
+<span id="index-vectorp"></span>
+
+
+<span id="Syntax_003a-352"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-vectorp-1">Function: <strong>vectorp</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-341"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-451"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>vector</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-323"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (vectorp &quot;aaaaaa&quot;) <span class="roman">→</span> <i>true</i>
+ (vectorp (make-array 6 :fill-pointer t)) <span class="roman">→</span> <i>true</i>
+ (vectorp (make-array '(2 3 4))) <span class="roman">→</span> <i>false</i>
+ (vectorp #*11) <span class="roman">→</span> <i>true</i>
+ (vectorp #b11) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Notes_003a-245"></span><h4 class="subsubheading">Notes:</h4>
+<div class="lisp">
+<pre class="lisp"> (vectorp <var>object</var>) ≡ (typep <var>object</var> 'vector)
+</pre></div>
+
+
+
+<hr>
+<span id="bit_003b-sbit"></span><div class="header">
+<p>
+Next: <a href="#bit_002dand_003b-bit_002dandc1_003b-bit_002dandc2_003b-bit_002deqv_003b-bit_002dior_003b-bit_002dnand_003b-bit_002dnor_003b-bit_002b" accesskey="n" rel="next">bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+</a>, Previous: <a href="#vectorp" accesskey="p" rel="prev">vectorp</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">bit; sbit</h4>
+<span id="bit_002c-sbit-_0028Accessor_0029"></span><h3 class="heading">bit, sbit (Accessor)</h3>
+<span id="index-bit-4"></span>
+<span id="index-bit-1"></span>
+<span id="index-sbit-2"></span>
+<span id="index-sbit"></span>
+<span id="bit"></span><span id="sbit"></span>
+
+<span id="Syntax_003a-353"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-bit-2">Function: <strong>bit</strong> <em>bit-array <tt>&amp;rest</tt> subscripts <span class="roman">→</span> bit</em></dt>
+</dl>
+<dl>
+<dt id="index-sbit-1">Function: <strong>sbit</strong> <em>bit-array <tt>&amp;rest</tt> subscripts <span class="roman">→</span> bit</em></dt>
+</dl>
+
+
+
+<span id="Arguments-and-Values_003a-342"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>bit-array</var>&mdash;for <code>bit</code>,  a <i>bit array</i>;
+for <code>sbit</code>, a <i>simple bit array</i>.
+</p>
+<p><var>subscripts</var>&mdash;a <i>list</i> of <i>valid array indices</i> 
+for the <var>bit-array</var>.
+</p>
+<p><var>bit</var>&mdash;a <i>bit</i>.
+</p>
+<span id="Description_003a-452"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>bit</code> and <code>sbit</code> <i>access</i> the <var>bit-array</var> 
+<i>element</i> specified by <var>subscripts</var>.
+</p>
+<p>These <i>functions</i> ignore the <i>fill pointer</i> when <i>accessing</i> <i>elements</i>.
+</p>
+<span id="Examples_003a-324"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (bit (setq ba (make-array 8 
+                            :element-type 'bit 
+                            :initial-element 1))
+       3) <span class="roman">→</span> 1
+ (setf (bit ba 3) 0) <span class="roman">→</span> 0
+ (bit ba 3) <span class="roman">→</span> 0
+ (sbit ba 5) <span class="roman">→</span> 1
+ (setf (sbit ba 5) 1) <span class="roman">→</span> 1
+ (sbit ba 5) <span class="roman">→</span> 1
+</pre></div>
+
+
+<span id="See-Also_003a-371"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#aref">aref</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>
+</p>
+<span id="Notes_003a-246"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>bit</code> and <code>sbit</code> are like <code>aref</code>
+except that they require <var>arrays</var> to be
+a <i>bit array</i> and a <i>simple bit array</i>, respectively.
+</p>
+<p><code>bit</code> and <code>sbit</code>, unlike <code>char</code> and <code>schar</code>,
+allow the first argument to be an <i>array</i> of any <i>rank</i>.
+</p>
+
+<hr>
+<span id="bit_002dand_003b-bit_002dandc1_003b-bit_002dandc2_003b-bit_002deqv_003b-bit_002dior_003b-bit_002dnand_003b-bit_002dnor_003b-bit_002b"></span><div class="header">
+<p>
+Next: <a href="#bit_002dvector_002dp" accesskey="n" rel="next">bit-vector-p</a>, Previous: <a href="#bit_003b-sbit" accesskey="p" rel="prev">bit; sbit</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+</h4>
+<span id="bit_002dand_002c-bit_002dandc1_002c-bit_002dandc2_002c-bit_002deqv_002c-bit_002dior_002c-bit_002dnand_002c-bit_002dnor_002c-bit_002dnot_002c-bit_002dorc1_002c-bit_002dorc2_002c-bit_002dxor-_0028Function_0029"></span><h3 class="heading">bit-and, bit-andc1, bit-andc2, bit-eqv, bit-ior, bit-nand, bit-nor, bit-not, bit-orc1, bit-orc2, bit-xor (Function)</h3>
+<span id="index-bit_002dand-2"></span>
+<span id="index-bit_002dand"></span>
+<span id="index-bit_002dandc1-2"></span>
+<span id="index-bit_002dandc1"></span>
+<span id="index-bit_002dandc2-2"></span>
+<span id="index-bit_002dandc2"></span>
+<span id="index-bit_002deqv-2"></span>
+<span id="index-bit_002deqv"></span>
+<span id="index-bit_002dior-2"></span>
+<span id="index-bit_002dior"></span>
+<span id="index-bit_002dnand-2"></span>
+<span id="index-bit_002dnand"></span>
+<span id="index-bit_002dnor-2"></span>
+<span id="index-bit_002dnor"></span>
+<span id="index-bit_002dnot-2"></span>
+<span id="index-bit_002dnot"></span>
+<span id="index-bit_002dorc1-2"></span>
+<span id="index-bit_002dorc1"></span>
+<span id="index-bit_002dorc2-2"></span>
+<span id="index-bit_002dorc2"></span>
+<span id="index-bit_002dxor-2"></span>
+<span id="index-bit_002dxor"></span>
+
+
+<span id="Syntax_003a-354"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-bit_002dand-1">Function: <strong>bit-and</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dandc1-1">Function: <strong>bit-andc1</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dandc2-1">Function: <strong>bit-andc2</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002deqv-1">Function: <strong>bit-eqv</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dior-1">Function: <strong>bit-ior</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dnand-1">Function: <strong>bit-nand</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dnor-1">Function: <strong>bit-nor</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dorc1-1">Function: <strong>bit-orc1</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dorc2-1">Function: <strong>bit-orc2</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+<dl>
+<dt id="index-bit_002dxor-1">Function: <strong>bit-xor</strong> <em>bit-array1 bit-array2 <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+
+
+<dl>
+<dt id="index-bit_002dnot-1">Function: <strong>bit-not</strong> <em>bit-array <tt>&amp;optional</tt> opt-arg <span class="roman">→</span> resulting-bit-array</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-343"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>bit-array</var>, <var>bit-array1</var>, <var>bit-array2</var>&mdash;a <i>bit array</i>.
+</p>
+<p><var>Opt-arg</var>&mdash;a <i>bit array</i>, or <code>t</code>, or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>Bit-array</var>, <var>bit-array1</var>, <var>bit-array2</var>, and <var>opt-arg</var>
+(if an <i>array</i>) must all be of the same <i>rank</i> and <i>dimensions</i>.  
+</p>
+<p><var>resulting-bit-array</var>&mdash;a <i>bit array</i>.
+</p>
+<span id="Description_003a-453"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These functions perform 
+bit-wise logical operations on <var>bit-array1</var> and <var>bit-array2</var>
+and return an <i>array</i> 
+of matching <i>rank</i> and <i>dimensions</i>,
+such that any given bit of the result
+is produced by operating on corresponding bits from each of the arguments.
+</p>
+<p>In the case of <code>bit-not</code>, an <i>array</i>
+of <i>rank</i> and <i>dimensions</i> matching <var>bit-array</var>
+is returned that contains a copy of <var>bit-array</var> 
+with all the bits inverted.
+</p>
+<p>If <var>opt-arg</var> is of type <code>(array bit)</code> the contents of the 
+result are destructively placed into <var>opt-arg</var>.
+If <var>opt-arg</var> is the symbol <code>t</code>,
+<var>bit-array</var> or <var>bit-array1</var> is replaced with the result; 
+if <var>opt-arg</var> is <code>nil</code>&nbsp;<!-- /@w -->or omitted, a new <i>array</i> is created
+to contain the result.  
+</p>
+<p>The next figure&nbsp;<!-- /@w -->indicates the logical operation
+performed by each of the <i>functions</i>.
+</p>
+
+<div class="float"><span id="fig15_002e4"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Function</th><th>Operation</th></tr></thead>
+<tr><td><code>bit-nor</code></td><td>complement of <var>bit-array1</var> or <var>bit-array2</var></td></tr>
+<tr><td><code>bit-andc1</code></td><td>and complement of <var>bit-array1</var> with <var>bit-array2</var></td></tr>
+<tr><td><code>bit-andc2</code></td><td>and <var>bit-array1</var> with complement of <var>bit-array2</var></td></tr>
+<tr><td><code>bit-orc1</code></td><td>or complement of <var>bit-array1</var> with <var>bit-array2</var></td></tr>
+<tr><td><code>bit-orc2</code></td><td>or <var>bit-array1</var> with complement of <var>bit-array2</var></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 15.4: </strong>Bit-wise Logical Operations on Bit Arrays</p></div></div>
+<span id="Examples_003a-325"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (bit-and (setq ba #*11101010) #*01101011) <span class="roman">→</span> #*01101010
+ (bit-and #*1100 #*1010) <span class="roman">→</span> #*1000      
+ (bit-andc1 #*1100 #*1010) <span class="roman">→</span> #*0010
+ (setq rba (bit-andc2 ba #*00110011 t)) <span class="roman">→</span> #*11001000
+ (eq rba ba) <span class="roman">→</span> <i>true</i>
+ (bit-not (setq ba #*11101010)) <span class="roman">→</span> #*00010101
+ (setq rba (bit-not ba 
+                     (setq tba (make-array 8 
+                                           :element-type 'bit))))
+<span class="roman">→</span> #*00010101
+ (equal rba tba) <span class="roman">→</span> <i>true</i>
+ (bit-xor #*1100 #*1010) <span class="roman">→</span> #*0110
+</pre></div>
+
+
+<span id="See-Also_003a-372"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Numbers.html#lognot">lognot</a>, <a href="Numbers.html#logand">logand</a>
+</p>
+
+<hr>
+<span id="bit_002dvector_002dp"></span><div class="header">
+<p>
+Next: <a href="#simple_002dbit_002dvector_002dp" accesskey="n" rel="next">simple-bit-vector-p</a>, Previous: <a href="#bit_002dand_003b-bit_002dandc1_003b-bit_002dandc2_003b-bit_002deqv_003b-bit_002dior_003b-bit_002dnand_003b-bit_002dnor_003b-bit_002b" accesskey="p" rel="prev">bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">bit-vector-p</h4>
+<span id="bit_002dvector_002dp-_0028Function_0029"></span><h3 class="heading">bit-vector-p (Function)</h3>
+<span id="index-bit_002dvector_002dp-2"></span>
+<span id="index-bit_002dvector_002dp"></span>
+
+
+<span id="Syntax_003a-355"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-bit_002dvector_002dp-1">Function: <strong>bit-vector-p</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-344"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-454"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>bit-vector</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-326"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (bit-vector-p (make-array 6 
+                           :element-type 'bit 
+                           :fill-pointer t)) <span class="roman">→</span> <i>true</i>
+ (bit-vector-p #*) <span class="roman">→</span> <i>true</i>
+ (bit-vector-p (make-array 6)) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="See-Also_003a-373"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Types-and-Classes.html#typep">typep</a>
+</p>
+<span id="Notes_003a-247"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (bit-vector-p <var>object</var>) ≡ (typep <var>object</var> 'bit-vector)
+</pre></div>
+
+
+
+<hr>
+<span id="simple_002dbit_002dvector_002dp"></span><div class="header">
+<p>
+Previous: <a href="#bit_002dvector_002dp" accesskey="p" rel="prev">bit-vector-p</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-bit-vector-p</h4>
+<span id="simple_002dbit_002dvector_002dp-_0028Function_0029"></span><h3 class="heading">simple-bit-vector-p (Function)</h3>
+<span id="index-simple_002dbit_002dvector_002dp-2"></span>
+<span id="index-simple_002dbit_002dvector_002dp"></span>
+
+
+<span id="Syntax_003a-356"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-simple_002dbit_002dvector_002dp-1">Function: <strong>simple-bit-vector-p</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-345"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-455"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>simple-bit-vector</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-327"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (simple-bit-vector-p (make-array 6)) <span class="roman">→</span> <i>false</i>
+ (simple-bit-vector-p #*) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="See-Also_003a-374"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#simple_002dvector_002dp">simple-vector-p</a>
+</p>
+<span id="Notes_003a-248"></span><h4 class="subsubheading">Notes:</h4>
+<div class="lisp">
+<pre class="lisp"> (simple-bit-vector-p <var>object</var>) ≡ (typep <var>object</var> 'simple-bit-vector)
+</pre></div>
+
+
+
+
+
+<hr>
 <div class="header">
 <p>
-Next: <a href="Strings.html" accesskey="n" rel="next">Strings</a>, Previous: <a href="Conses.html" accesskey="p" rel="prev">Conses</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="#bit_002dvector_002dp" accesskey="p" rel="prev">bit-vector-p</a>, Up: <a href="#Arrays" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="File-System-Concepts.html" rel="next" title="File System Concepts">
-<link href="merge_002dpathnames.html" rel="prev" title="merge-pathnames">
+<link href="Streams.html#Streams" rel="next" title="Streams">
+<link href="Filenames.html#merge_002dpathnames" rel="prev" title="merge-pathnames">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,39 +277,852 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Files"></span><div class="header">
 <p>
-Next: <a href="Streams.html" accesskey="n" rel="next">Streams</a>, Previous: <a href="Filenames.html" accesskey="p" rel="prev">Filenames</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Streams.html#Streams" accesskey="n" rel="next">Streams</a>, Previous: <a href="Filenames.html#Filenames" accesskey="p" rel="prev">Filenames</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Files-1"></span><h2 class="chapter">20 Files</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="File-System-Concepts.html" accesskey="1">File System Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#File-System-Concepts" accesskey="1">File System Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="directory.html" accesskey="2">directory</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#directory" accesskey="2">directory</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="probe_002dfile.html" accesskey="3">probe-file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#probe_002dfile" accesskey="3">probe-file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="ensure_002ddirectories_002dexist.html" accesskey="4">ensure-directories-exist</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ensure_002ddirectories_002dexist" accesskey="4">ensure-directories-exist</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="truename.html" accesskey="5">truename</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#truename" accesskey="5">truename</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="file_002dauthor.html" accesskey="6">file-author</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#file_002dauthor" accesskey="6">file-author</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="file_002dwrite_002ddate.html" accesskey="7">file-write-date</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#file_002dwrite_002ddate" accesskey="7">file-write-date</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="rename_002dfile.html" accesskey="8">rename-file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#rename_002dfile" accesskey="8">rename-file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="delete_002dfile.html" accesskey="9">delete-file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#delete_002dfile" accesskey="9">delete-file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="file_002derror.html">file-error</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#file_002derror">file-error</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="file_002derror_002dpathname.html">file-error-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#file_002derror_002dpathname">file-error-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="File-System-Concepts"></span><div class="header">
+<p>
+Next: <a href="#directory" accesskey="n" rel="next">directory</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="File-System-Concepts-1"></span><h3 class="section">20.1 File System Concepts</h3>
+
+<p>This section describes the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->interface to file systems.
+The model used by this interface assumes 
+that 
+<span id="index-file"></span>
+<em>files</em> are named by 
+<span id="index-filename"></span>
+<em>filenames</em>,
+that a <i>filename</i> can be represented by a <i>pathname</i> <i>object</i>, 
+and that given a <i>pathname</i> a <span id="index-stream"></span>
+<em>stream</em> can be constructed 
+that connects to a <i>file</i> whose <i>filename</i> it represents.
+</p>
+<p>For information about opening and closing <i>files</i>,
+and manipulating their contents, see <a href="Streams.html#Streams">Chapter 21 (Streams)</a>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>operators</i> 
+that are applicable to <i>files</i> and directories.
+</p>
+
+<div class="float"><span id="fig20_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>compile-file</td><td>file-length</td><td>open</td></tr>
+<tr><td>delete-file</td><td>file-position</td><td>probe-file</td></tr>
+<tr><td>directory</td><td>file-write-date</td><td>rename-file</td></tr>
+<tr><td>file-author</td><td>load</td><td>with-open-file</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 20.1: </strong>File and Directory Operations</p></div></div>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Coercion-of-Streams-to-Pathnames" accesskey="1">Coercion of Streams to Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#File-Operations-on-Open-and-Closed-Streams" accesskey="2">File Operations on Open and Closed Streams</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Truenames" accesskey="3">Truenames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Coercion-of-Streams-to-Pathnames"></span><div class="header">
+<p>
+Next: <a href="#File-Operations-on-Open-and-Closed-Streams" accesskey="n" rel="next">File Operations on Open and Closed Streams</a>, Up: <a href="#File-System-Concepts" accesskey="u" rel="up">File System Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Coercion-of-Streams-to-Pathnames-1"></span><h4 class="subsection">20.1.1 Coercion of Streams to Pathnames</h4>
+
+<p>A <span id="index-stream-associated-with-a-file"></span>
+<em>stream associated with a file</em> is either a <i>file stream</i>
+or a <i>synonym stream</i> whose target is a <span id="index-stream-associated-with-a-file-1"></span>
+<em>stream associated with a file</em>.
+Such streams can be used as <i>pathname designators</i>.
+</p>
+<p>Normally, when a <i>stream associated with a file</i> is used as a
+<i>pathname designator</i>, it denotes the <i>pathname</i> used to 
+open the <i>file</i>; this may be, but is not required to be, the
+actual name of the <i>file</i>.
+</p>
+<p>Some functions, such as <code>truename</code> and <code>delete-file</code>,
+coerce <i>streams</i> to <i>pathnames</i> in a different way that 
+involves referring to the actual <i>file</i> that is open, which might
+or might not be the file whose name was opened originally.  Such special
+situations are always notated specifically and are not the default.
+</p>
+
+<hr>
+<span id="File-Operations-on-Open-and-Closed-Streams"></span><div class="header">
+<p>
+Next: <a href="#Truenames" accesskey="n" rel="next">Truenames</a>, Previous: <a href="#Coercion-of-Streams-to-Pathnames" accesskey="p" rel="prev">Coercion of Streams to Pathnames</a>, Up: <a href="#File-System-Concepts" accesskey="u" rel="up">File System Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="File-Operations-on-Open-and-Closed-Streams-1"></span><h4 class="subsection">20.1.2 File Operations on Open and Closed Streams</h4>
+
+
+<p>Many <i>functions</i> that perform <i>file</i> operations accept either
+<i>open</i> or <i>closed</i> <i>streams</i> as <i>arguments</i>;
+see <a href="Streams.html#Stream-Arguments-to-Standardized-Functions">Section 21.1.3 (Stream Arguments to Standardized Functions)</a>.
+</p>
+<p>Of these, the <i>functions</i> in the next figure&nbsp;<!-- /@w -->treat <i>open</i> and 
+<i>closed</i> <i>streams</i> differently.
+</p>
+
+<div class="float"><span id="fig20_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>delete-file</td><td>file-author</td><td>probe-file</td></tr>
+<tr><td>directory</td><td>file-write-date</td><td>truename</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 20.2: </strong>File Functions that Treat Open and Closed Streams Differently</p></div></div>
+
+<p>Since treatment of <i>open</i> <i>streams</i> by the <i>file system</i> 
+may vary considerably between <i>implementations</i>, however, 
+a <i>closed</i> <i>stream</i> might be the most reliable kind of
+<i>argument</i> for some of these functions&mdash;in particular, those in
+the next figure.  For example, in some <i>file systems</i>, 
+<i>open</i> <i>files</i> are written under temporary names 
+and not renamed until <i>closed</i>
+and/or are held invisible until <i>closed</i>.
+In general, any code that is intended to be portable should
+use such <i>functions</i> carefully.
+</p>
+
+<div class="float"><span id="fig20_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>directory</td><td>probe-file</td><td>truename</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 20.3: </strong>File Functions where Closed Streams Might Work Best</p></div></div>
+
+
+<hr>
+<span id="Truenames"></span><div class="header">
+<p>
+Previous: <a href="#File-Operations-on-Open-and-Closed-Streams" accesskey="p" rel="prev">File Operations on Open and Closed Streams</a>, Up: <a href="#File-System-Concepts" accesskey="u" rel="up">File System Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Truenames-1"></span><h4 class="subsection">20.1.3 Truenames</h4>
+
+<p>Many <i>file systems</i> permit more than one <i>filename</i> to designate 
+a particular <i>file</i>.
+</p>
+<p>Even where multiple names are possible, most <i>file systems</i> have a convention
+for generating a canonical <i>filename</i> in such situations.  Such a canonical
+<i>filename</i> (or the <i>pathname</i> representing such a <i>filename</i>) is
+called a <span id="index-truename"></span>
+<em>truename</em>.  
+</p>
+<p>The <i>truename</i> of a <i>file</i> may differ from other <i>filenames</i>
+for the file because of
+symbolic links,
+version numbers,
+logical device translations in the <i>file system</i>,
+<i>logical pathname</i> translations within <span class="roman">Common Lisp</span>,
+or other artifacts of the <i>file system</i>.
+</p>
+<p>The <i>truename</i> for a <i>file</i> is often, but not necessarily, unique for
+each <i>file</i>.  For instance, a Unix <i>file</i> with multiple hard links 
+could have several <i>truenames</i>.
+</p>
+<span id="Examples-of-Truenames"></span><h4 class="subsubsection">20.1.3.1 Examples of Truenames</h4>
+
+<p>For example, a DEC TOPS-20 system with <i>files</i> <code>PS:&lt;JOE&gt;FOO.TXT.1</code> 
+and <code>PS:&lt;JOE&gt;FOO.TXT.2</code> might permit the second <i>file</i> to be referred
+to as <code>PS:&lt;JOE&gt;FOO.TXT.0</code>, since the &ldquo;<code>.0</code>&rdquo; notation denotes &ldquo;newest&rdquo;
+version of several <i>files</i>.
+In the same <i>file system</i>, a &ldquo;logical device&rdquo; &ldquo;<code>JOE:</code>&rdquo; might be 
+taken to refer to <code>PS:&lt;JOE&gt;</code>&rdquo; and so the names <code>JOE:FOO.TXT.2</code> or
+<code>JOE:FOO.TXT.0</code> might refer to <code>PS:&lt;JOE&gt;FOO.TXT.2</code>.
+In all of these cases, the <i>truename</i> of the file would probably be
+<code>PS:&lt;JOE&gt;FOO.TXT.2</code>.
+</p>
+<p>If a <i>file</i> is a symbolic link to another <i>file</i> (in a <i>file system</i>
+permitting such a thing), it is conventional for the <i>truename</i> to be
+the canonical name of the <i>file</i> after any symbolic links have been followed;
+that is, it is the canonical name of the <i>file</i> whose contents would
+become available if an <i>input</i> <i>stream</i> to that <i>file</i> were 
+opened.
+</p>
+<p>In the case of a <i>file</i> still being created (that is, of an <i>output</i>
+<i>stream</i> open to such a <i>file</i>), the exact <i>truename</i> of the file
+might not be known until the <i>stream</i> is closed.  In this case, 
+the <i>function</i> <code>truename</code> might return different values for such a <i>stream</i>
+before and after it was closed.  In fact, before it is closed, the name returned
+might not even be a valid name in the <i>file system</i>&mdash;for example, while a
+file is being written, it might have version <tt>:newest</tt> and might only take on 
+a specific numeric value later when the file is closed even in a <i>file system</i>
+where all files have numeric versions.
+</p>
+
+
+<hr>
+<span id="directory"></span><div class="header">
+<p>
+Next: <a href="#probe_002dfile" accesskey="n" rel="next">probe-file</a>, Previous: <a href="#File-System-Concepts" accesskey="p" rel="prev">File System Concepts</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">directory</h4>
+<span id="directory-_0028Function_0029"></span><h3 class="heading">directory (Function)</h3>
+<span id="index-directory-2"></span>
+<span id="index-directory"></span>
+
+
+<span id="Syntax_003a-414"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-directory-1">Function: <strong>directory</strong> <em>pathspec <tt>&amp;key</tt> <span class="roman">→</span> pathnames</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-403"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>,
+which may contain <i>wild</i> components.
+</p>
+<p><var>pathnames</var>&mdash;a <i>list</i> of
+<i>physical pathnames</i>.
+</p>
+<span id="Description_003a-522"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Determines which, if any, <i>files</i> that are present
+in the file system have names matching <var>pathspec</var>,
+and returns a 
+<i>fresh</i>
+<i>list</i> of <i>pathnames</i> corresponding to the <i>truenames</i> of
+those <i>files</i>.
+</p>
+<p>An <i>implementation</i> may be extended to accept 
+<i>implementation-defined</i> keyword arguments to <code>directory</code>.  
+</p>
+<span id="Affected-By_003a-75"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The host computer&rsquo;s file system.
+</p>
+<span id="Exceptional-Situations_003a-183"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If the attempt to obtain a directory listing is not successful,
+an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+<span id="See-Also_003a-425"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Filenames.html#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="Filenames.html#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#ensure_002ddirectories_002dexist">ensure-directories-exist</a>,
+<a href="#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#File-Operations-on-Open-and-Closed-Streams">Section 21.1.1.1.2 (Open and Closed Streams)</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-282"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If the <var>pathspec</var> is not <i>wild</i>,
+the resulting list will contain either zero or one elements.
+</p>
+<p><span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->specifies &ldquo;<tt>&amp;key</tt>&rdquo; in the argument list to <code>directory</code> 
+even though no <i>standardized</i> keyword arguments to <code>directory</code> are defined.
+&ldquo;<code>:allow-other-keys t</code>&rdquo;
+may be used in <i>conforming programs</i> in order to quietly ignore any
+additional keywords which are passed by the program but not supported
+by the <i>implementation</i>.
+</p>
+
+<hr>
+<span id="probe_002dfile"></span><div class="header">
+<p>
+Next: <a href="#ensure_002ddirectories_002dexist" accesskey="n" rel="next">ensure-directories-exist</a>, Previous: <a href="#directory" accesskey="p" rel="prev">directory</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">probe-file</h4>
+<span id="probe_002dfile-_0028Function_0029"></span><h3 class="heading">probe-file (Function)</h3>
+<span id="index-probe_002dfile-2"></span>
+<span id="index-probe_002dfile"></span>
+
+
+<span id="Syntax_003a-415"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-probe_002dfile-1">Function: <strong>probe-file</strong> <em>pathspec <span class="roman">→</span> truename</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-404"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>truename</var>&mdash;a <i>physical pathname</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-523"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>probe-file</code> tests whether a file exists.
+</p>
+<p><code>probe-file</code> returns <i>false</i> if there is no file named <var>pathspec</var>,
+and otherwise returns the <i>truename</i> of <var>pathspec</var>.
+</p>
+<p>If the <var>pathspec</var> <i>designator</i> is an open <i>stream</i>,
+then <code>probe-file</code> produces the <i>truename</i> of its associated <i>file</i>.
+If <var>pathspec</var> is a <i>stream</i>, whether open or closed,
+it is coerced to a <i>pathname</i> as if by the <i>function</i> <code>pathname</code>.
+</p>
+<span id="Affected-By_003a-76"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The host computer&rsquo;s file system.
+</p>
+<span id="Exceptional-Situations_003a-184"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>file-error</code> is signaled if <var>pathspec</var> is <i>wild</i>.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> is signaled
+if the <i>file system</i> cannot perform the requested operation.
+</p>
+<span id="See-Also_003a-426"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#truename">truename</a>,
+<a href="Streams.html#open">open</a>,
+<a href="#ensure_002ddirectories_002dexist">ensure-directories-exist</a>,
+<a href="Filenames.html#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="Filenames.html#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#File-Operations-on-Open-and-Closed-Streams">Section 21.1.1.1.2 (Open and Closed Streams)</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="ensure_002ddirectories_002dexist"></span><div class="header">
+<p>
+Next: <a href="#truename" accesskey="n" rel="next">truename</a>, Previous: <a href="#probe_002dfile" accesskey="p" rel="prev">probe-file</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">ensure-directories-exist</h4>
+<span id="ensure_002ddirectories_002dexist-_0028Function_0029"></span><h3 class="heading">ensure-directories-exist (Function)</h3>
+<span id="index-ensure_002ddirectories_002dexist-2"></span>
+<span id="index-ensure_002ddirectories_002dexist"></span>
+
+
+<span id="Syntax_003a-416"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-ensure_002ddirectories_002dexist-1">Function: <strong>ensure-directories-exist</strong> <em>pathspec <tt>&amp;key</tt> verbose <span class="roman">→</span> pathspec, created</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-405"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>verbose</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<p><var>created</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-524"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Tests whether the directories containing the specified <i>file</i> actually exist,
+and attempts to create them if they do not.
+</p>
+<p>If the containing directories do not exist and if <var>verbose</var> is <i>true</i>, 
+then the <i>implementation</i> is permitted (but not required) 
+to perform output to <i>standard output</i> saying what directories were created.
+If the containing directories exist, or if <var>verbose</var> is <i>false</i>,
+this function performs no output.
+</p>
+<p>The <i>primary value</i> is the given <i>pathspec</i> so that this operation can
+be straightforwardly composed with other file manipulation expressions.
+The <i>secondary value</i>, <var>created</var>, is <i>true</i> if any directories were
+created.
+</p>
+<span id="Affected-By_003a-77"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The host computer&rsquo;s file system.
+</p>
+<span id="Exceptional-Situations_003a-185"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>file-error</code> is signaled if the host, device, or directory
+part of <var>pathspec</var> is <i>wild</i>.
+</p>
+<p>If the directory creation attempt is not successful,
+an error of <i>type</i> <code>file-error</code> is signaled;
+if this occurs, 
+it might be the case that none, some, or all
+of the requested creations have actually occurred 
+within the <i>file system</i>.
+</p>
+<span id="See-Also_003a-427"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#probe_002dfile">probe-file</a>,
+<a href="Streams.html#open">open</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="truename"></span><div class="header">
+<p>
+Next: <a href="#file_002dauthor" accesskey="n" rel="next">file-author</a>, Previous: <a href="#ensure_002ddirectories_002dexist" accesskey="p" rel="prev">ensure-directories-exist</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">truename</h4>
+<span id="truename-_0028Function_0029"></span><h3 class="heading">truename (Function)</h3>
+<span id="index-truename-3"></span>
+<span id="index-truename-1"></span>
+
+
+<span id="Syntax_003a-417"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-truename-2">Function: <strong>truename</strong> <em>filespec <span class="roman">→</span> truename</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-406"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>filespec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>truename</var>&mdash;a <i>physical pathname</i>.
+</p>
+<span id="Description_003a-525"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>truename</code> tries to find the <i>file</i> indicated by 
+<var>filespec</var> and returns its <i>truename</i>.
+If the <var>filespec</var> <i>designator</i> is an open <i>stream</i>,
+its associated <i>file</i> is used.
+If <var>filespec</var> is a <i>stream</i>,
+<code>truename</code> can be used whether the <i>stream</i>
+is open or closed. It is permissible for <code>truename</code> 
+to return more specific information after the <i>stream</i>
+is closed than when the <i>stream</i> was open.
+If <var>filespec</var> is a <i>pathname</i> 
+it represents the name used to open the file. This may be, but is
+not required to be, the actual name of the file. 
+</p>
+<span id="Examples_003a-382"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">;; An example involving version numbers.  Note that the precise nature of
+;; the truename is implementation-dependent while the file is still open.
+ (with-open-file (stream &quot;&gt;vistor&gt;test.text.newest&quot;)
+   (values (pathname stream)
+           (truename stream)))
+<span class="roman">→</span> #P&quot;S:&gt;vistor&gt;test.text.newest&quot;, #P&quot;S:&gt;vistor&gt;test.text.1&quot;
+or<span class="roman">→</span> #P&quot;S:&gt;vistor&gt;test.text.newest&quot;, #P&quot;S:&gt;vistor&gt;test.text.newest&quot;
+or<span class="roman">→</span> #P&quot;S:&gt;vistor&gt;test.text.newest&quot;, #P&quot;S:&gt;vistor&gt;_temp_._temp_.1&quot;
+
+;; In this case, the file is closed when the truename is tried, so the
+;; truename information is reliable.
+ (with-open-file (stream &quot;&gt;vistor&gt;test.text.newest&quot;)
+   (close stream)
+   (values (pathname stream)
+           (truename stream)))
+<span class="roman">→</span> #P&quot;S:&gt;vistor&gt;test.text.newest&quot;, #P&quot;S:&gt;vistor&gt;test.text.1&quot;
+
+;; An example involving TOP-20's implementation-dependent concept 
+;; of logical devices -- in this case, &quot;DOC:&quot; is shorthand for
+;; &quot;PS:&lt;DOCUMENTATION&gt;&quot; ...
+ (with-open-file (stream &quot;CMUC::DOC:DUMPER.HLP&quot;)
+   (values (pathname stream)
+           (truename stream)))
+<span class="roman">→</span> #P&quot;CMUC::DOC:DUMPER.HLP&quot;, #P&quot;CMUC::PS:&lt;DOCUMENTATION&gt;DUMPER.HLP.13&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-186"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>file-error</code> is signaled if an appropriate <i>file</i>
+cannot be located within the <i>file system</i> for the given <var>filespec</var>,
+or if the <i>file system</i> cannot perform the requested operation.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> is signaled if <var>pathname</var> is <i>wild</i>.
+</p>
+<span id="See-Also_003a-428"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Filenames.html#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="Filenames.html#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-283"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>truename</code> may be used to account for any <i>filename</i> translations 
+performed by the <i>file system</i>.
+</p>
+
+<hr>
+<span id="file_002dauthor"></span><div class="header">
+<p>
+Next: <a href="#file_002dwrite_002ddate" accesskey="n" rel="next">file-write-date</a>, Previous: <a href="#truename" accesskey="p" rel="prev">truename</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">file-author</h4>
+<span id="file_002dauthor-_0028Function_0029"></span><h3 class="heading">file-author (Function)</h3>
+<span id="index-file_002dauthor-2"></span>
+<span id="index-file_002dauthor"></span>
+
+
+<span id="Syntax_003a-418"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-file_002dauthor-1">Function: <strong>file-author</strong> <em>pathspec <span class="roman">→</span> author</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-407"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>author</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-526"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>string</i> naming the author of the <i>file</i> specified by <var>pathspec</var>,
+or <code>nil</code>&nbsp;<!-- /@w -->if the author&rsquo;s name cannot be determined.
+</p>
+<span id="Examples_003a-383"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (with-open-file (stream &quot;&gt;relativity&gt;general.text&quot;)
+   (file-author s))
+<span class="roman">→</span> &quot;albert&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-78"></span><h4 class="subsubheading">Affected By:</h4>
+<p>The host computer&rsquo;s file system.
+</p>
+<p>Other users of the <i>file</i> named by <var>pathspec</var>.
+</p><span id="Exceptional-Situations_003a-187"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>file-error</code> is signaled if <var>pathspec</var> is <i>wild</i>.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> is signaled
+if the <i>file system</i> cannot perform the requested operation.
+</p>
+<span id="See-Also_003a-429"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Filenames.html#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="Filenames.html#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="file_002dwrite_002ddate"></span><div class="header">
+<p>
+Next: <a href="#rename_002dfile" accesskey="n" rel="next">rename-file</a>, Previous: <a href="#file_002dauthor" accesskey="p" rel="prev">file-author</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">file-write-date</h4>
+<span id="file_002dwrite_002ddate-_0028Function_0029"></span><h3 class="heading">file-write-date (Function)</h3>
+<span id="index-file_002dwrite_002ddate-2"></span>
+<span id="index-file_002dwrite_002ddate"></span>
+
+
+<span id="Syntax_003a-419"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-file_002dwrite_002ddate-1">Function: <strong>file-write-date</strong> <em>pathspec <span class="roman">→</span> date</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-408"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>date</var>&mdash;a <i>universal time</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-527"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>universal time</i> representing the time at which the <i>file</i> 
+specified by <var>pathspec</var> was last written (or created), 
+or returns <code>nil</code>&nbsp;<!-- /@w -->if such a time cannot be determined.
+</p>
+<span id="Examples_003a-384"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (with-open-file (s &quot;noel.text&quot; 
+                    :direction :output :if-exists :error)
+   (format s &quot;~&amp;Dear Santa,~2%I was good this year.  ~
+                Please leave lots of toys.~2%Love, Sue~
+             ~2%attachments: milk, cookies~%&quot;)
+   (truename s))
+<span class="roman">→</span> #P&quot;CUPID:/susan/noel.text&quot;
+ (with-open-file (s &quot;noel.text&quot;)
+   (file-write-date s))
+<span class="roman">→</span> 2902600800
+</pre></div>
+
+
+<span id="Affected-By_003a-79"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The host computer&rsquo;s file system.
+</p>
+<span id="Exceptional-Situations_003a-188"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>file-error</code> is signaled if <var>pathspec</var> is <i>wild</i>.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> is signaled
+if the <i>file system</i> cannot perform the requested operation.
+</p>
+<span id="See-Also_003a-430"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Environment.html#UniversalTime">Section 25.1.4.2 (Universal Time)</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="rename_002dfile"></span><div class="header">
+<p>
+Next: <a href="#delete_002dfile" accesskey="n" rel="next">delete-file</a>, Previous: <a href="#file_002dwrite_002ddate" accesskey="p" rel="prev">file-write-date</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">rename-file</h4>
+<span id="rename_002dfile-_0028Function_0029"></span><h3 class="heading">rename-file (Function)</h3>
+<span id="index-rename_002dfile-2"></span>
+<span id="index-rename_002dfile"></span>
+
+
+<span id="Syntax_003a-420"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-rename_002dfile-1">Function: <strong>rename-file</strong> <em>filespec new-name <span class="roman">→</span> defaulted-new-name, old-truename, new-truename</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-409"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>filespec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>new-name</var>&mdash;a <i>pathname designator</i> 
+other than a <i>stream</i>.
+</p>
+<p><var>defaulted-new-name</var>&mdash;a <i>pathname</i>
+</p>
+<p><var>old-truename</var>&mdash;a <i>physical pathname</i>.
+</p>
+<p><var>new-truename</var>&mdash;a <i>physical pathname</i>.
+</p>
+<span id="Description_003a-528"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>rename-file</code> modifies the file system in such a way
+that the file indicated by <var>filespec</var> is renamed to
+<var>defaulted-new-name</var>.
+</p>
+<p>It is an error to specify a filename containing a <i>wild</i> component,
+for <var>filespec</var> to contain a <code>nil</code>&nbsp;<!-- /@w -->component where the file system does
+not permit a <code>nil</code>&nbsp;<!-- /@w -->component, or for the result of defaulting missing
+components of <var>new-name</var> from <var>filespec</var> to contain a <code>nil</code>&nbsp;<!-- /@w -->component
+where the file system does not permit a <code>nil</code>&nbsp;<!-- /@w -->component.
+</p>
+<p>If <var>new-name</var> is a <i>logical pathname</i>, 
+<code>rename-file</code> returns a <i>logical pathname</i> as its <i>primary value</i>.
+</p>
+<p><code>rename-file</code> 
+returns three values if successful.  The <i>primary value</i>, <var>defaulted-new-name</var>,
+is the resulting name which is composed of
+<var>new-name</var> with any missing components filled in by performing
+a <code>merge-pathnames</code> operation using <var>filespec</var> as the defaults.
+The <i>secondary value</i>, <var>old-truename</var>,
+is the <i>truename</i> of the <i>file</i> before it was renamed.
+The <i>tertiary value</i>, <var>new-truename</var>,
+is the <i>truename</i> of the <i>file</i> after it was renamed.
+</p>
+<p>If the <var>filespec</var> <i>designator</i> is an open <i>stream</i>,
+then the <i>stream</i> itself and the file associated with it are 
+affected (if the <i>file system</i> permits).
+</p>
+<span id="Examples_003a-385"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">;; An example involving logical pathnames.
+ (with-open-file (stream &quot;sys:chemistry;lead.text&quot;
+                         :direction :output :if-exists :error)
+   (princ &quot;eureka&quot; stream)
+   (values (pathname stream) (truename stream)))
+<span class="roman">→</span> #P&quot;SYS:CHEMISTRY;LEAD.TEXT.NEWEST&quot;, #P&quot;Q:&gt;sys&gt;chem&gt;lead.text.1&quot;
+ (rename-file &quot;sys:chemistry;lead.text&quot; &quot;gold.text&quot;)
+<span class="roman">→</span> #P&quot;SYS:CHEMISTRY;GOLD.TEXT.NEWEST&quot;,
+   #P&quot;Q:&gt;sys&gt;chem&gt;lead.text.1&quot;,
+   #P&quot;Q:&gt;sys&gt;chem&gt;gold.text.1&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-189"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If the renaming operation is not successful, an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> might be signaled if <var>filespec</var> is <i>wild</i>.
+</p>
+<span id="See-Also_003a-431"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#truename">truename</a>,
+<a href="Filenames.html#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="Filenames.html#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="delete_002dfile"></span><div class="header">
+<p>
+Next: <a href="#file_002derror" accesskey="n" rel="next">file-error</a>, Previous: <a href="#rename_002dfile" accesskey="p" rel="prev">rename-file</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">delete-file</h4>
+<span id="delete_002dfile-_0028Function_0029"></span><h3 class="heading">delete-file (Function)</h3>
+<span id="index-delete_002dfile-2"></span>
+<span id="index-delete_002dfile"></span>
+
+
+<span id="Syntax_003a-421"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-delete_002dfile-1">Function: <strong>delete-file</strong> <em>filespec <span class="roman">→</span> <code>t</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-410"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>filespec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<span id="Description_003a-529"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Deletes the <i>file</i> specified by <var>filespec</var>.
+</p>
+<p>If the <var>filespec</var> <i>designator</i> is an open <i>stream</i>,
+then <var>filespec</var> and the file associated with it are affected 
+(if the file system permits),
+in which case <var>filespec</var> might be closed immediately,
+and the deletion might be immediate or delayed until <var>filespec</var> is explicitly closed,
+depending on the requirements of the file system.
+</p>
+<p>It is <i>implementation-dependent</i> whether an attempt
+to delete a nonexistent file is considered to be successful.
+</p>
+<p><code>delete-file</code> returns <i>true</i> if it succeeds,
+or signals an error of <i>type</i> <code>file-error</code> if it does not.
+</p>
+<p>The consequences are undefined 
+if <var>filespec</var> has a <i>wild</i> component,
+or if <var>filespec</var> has a <code>nil</code>&nbsp;<!-- /@w -->component 
+and the file system does not permit a <code>nil</code>&nbsp;<!-- /@w -->component.
+</p>
+<span id="Examples_003a-386"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (with-open-file (s &quot;delete-me.text&quot; :direction :output :if-exists :error))
+<span class="roman">→</span> NIL
+ (setq p (probe-file &quot;delete-me.text&quot;)) <span class="roman">→</span> #P&quot;R:&gt;fred&gt;delete-me.text.1&quot;
+ (delete-file p) <span class="roman">→</span> T
+ (probe-file &quot;delete-me.text&quot;) <span class="roman">→</span> <i>false</i>
+ (with-open-file (s &quot;delete-me.text&quot; :direction :output :if-exists :error)
+   (delete-file s))
+<span class="roman">→</span> T
+ (probe-file &quot;delete-me.text&quot;) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-190"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If the deletion operation is not successful, an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> might be signaled if <var>filespec</var> is <i>wild</i>.
+</p>
+<span id="See-Also_003a-432"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Filenames.html#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="Filenames.html#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="file_002derror"></span><div class="header">
+<p>
+Next: <a href="#file_002derror_002dpathname" accesskey="n" rel="next">file-error-pathname</a>, Previous: <a href="#delete_002dfile" accesskey="p" rel="prev">delete-file</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">file-error</h4>
+<span id="file_002derror-_0028Condition-Type_0029"></span><h3 class="heading">file-error (Condition Type)</h3>
+<span id="index-file_002derror-1"></span>
+<span id="index-file_002derror"></span>
+
+
+<span id="Class-Precedence-List_003a-61"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>file-error</code>,
+<code>error</code>,
+<code>serious-condition</code>,
+<code>condition</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-530"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>file-error</code> consists of error conditions that occur during 
+an attempt to open or close a file, or during some low-level transactions 
+with a file system.  The &ldquo;offending pathname&rdquo; is initialized by 
+the <tt>:pathname</tt> initialization argument to <code>make-condition</code>, and is <i>accessed</i>
+by the <i>function</i> <code>file-error-pathname</code>.
+</p>
+<span id="See-Also_003a-433"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#file_002derror_002dpathname">file-error-pathname</a>,
+<a href="Streams.html#open">open</a>,
+<a href="#probe_002dfile">probe-file</a>,
+<a href="#directory">directory</a>,
+<a href="#ensure_002ddirectories_002dexist">ensure-directories-exist</a>
+</p>
+
+<hr>
+<span id="file_002derror_002dpathname"></span><div class="header">
+<p>
+Previous: <a href="#file_002derror" accesskey="p" rel="prev">file-error</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">file-error-pathname</h4>
+<span id="file_002derror_002dpathname-_0028Function_0029"></span><h3 class="heading">file-error-pathname (Function)</h3>
+<span id="index-file_002derror_002dpathname-2"></span>
+<span id="index-file_002derror_002dpathname"></span>
+
+
+<span id="Syntax_003a-422"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-file_002derror_002dpathname-1">Function: <strong>file-error-pathname</strong> <em>condition <span class="roman">→</span> pathspec</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-411"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>condition</var>&mdash;a <i>condition</i> of <i>type</i> <code>file-error</code>.
+</p>
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<span id="Description_003a-531"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the &ldquo;offending pathname&rdquo; of a <i>condition</i> of <i>type</i> <code>file-error</code>.
+</p>
+<span id="Exceptional-Situations_003a-191"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<span id="See-Also_003a-434"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#file_002derror">file-error</a>,
+<a href="Conditions.html#Conditions">Chapter 9 (Conditions)</a>
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#file_002derror" accesskey="p" rel="prev">file-error</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

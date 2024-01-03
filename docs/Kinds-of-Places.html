@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Kinds of Places (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Generalized-Reference.html" rel="up" title="Generalized Reference">
-<link href="Treatment-of-Other-Macros-Based-on-SETF.html" rel="next" title="Treatment of Other Macros Based on SETF">
-<link href="Overview-of-Places-and-Generalized-Reference.html" rel="prev" title="Overview of Places and Generalized Reference">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,419 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Data-and-Control-Flow.html#Kinds-of-Places">
 
 </head>
 
 <body lang="en">
-<span id="Kinds-of-Places"></span><div class="header">
-<p>
-Next: <a href="Treatment-of-Other-Macros-Based-on-SETF.html" accesskey="n" rel="next">Treatment of Other Macros Based on SETF</a>, Previous: <a href="Overview-of-Places-and-Generalized-Reference.html" accesskey="p" rel="prev">Overview of Places and Generalized Reference</a>, Up: <a href="Generalized-Reference.html" accesskey="u" rel="up">Generalized Reference</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Kinds-of-Places-1"></span><h4 class="subsection">5.1.2 Kinds of Places</h4>
 
-<p>Several kinds of <i>places</i> are defined by <span class="roman">Common Lisp</span>; 
-this section enumerates them.
-This set can be extended by <i>implementations</i> and by <i>programmer code</i>.
-</p>
-<span id="Variable-Names-as-Places"></span><h4 class="subsubsection">5.1.2.1 Variable Names as Places</h4>
-
-<p>The name of a <i>lexical variable</i> or <i>dynamic variable</i> 
-can be used as a <i>place</i>.
-</p>
-
-<span id="Function-Call-Forms-as-Places"></span><h4 class="subsubsection">5.1.2.2 Function Call Forms as Places</h4>
-<span id="FnFormsAsGenRefs"></span>
-<p>A <i>function form</i> can be used as a <i>place</i> if it falls
-into one of the following categories:
-</p>
-
-<ul>
-<li> A function call form whose first element is the name of
-any one of the functions in the next figure.
-
-
-
-
-
-<div class="float"><span id="fig5_002e7"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<tr><td>aref</td><td>cdadr</td><td>get</td></tr>
-<tr><td>bit</td><td>cdar</td><td>gethash</td></tr>
-<tr><td>caaaar</td><td>cddaar</td><td>logical-pathname-translations</td></tr>
-<tr><td>caaadr</td><td>cddadr</td><td>macro-function</td></tr>
-<tr><td>caaar</td><td>cddar</td><td>ninth</td></tr>
-<tr><td>caadar</td><td>cdddar</td><td>nth</td></tr>
-<tr><td>caaddr</td><td>cddddr</td><td>readtable-case</td></tr>
-<tr><td>caadr</td><td>cdddr</td><td>rest</td></tr>
-<tr><td>caar</td><td>cddr</td><td>row-major-aref</td></tr>
-<tr><td>cadaar</td><td>cdr</td><td>sbit</td></tr>
-<tr><td>cadadr</td><td>char</td><td>schar</td></tr>
-<tr><td>cadar</td><td>class-name</td><td>second</td></tr>
-<tr><td>caddar</td><td>compiler-macro-function</td><td>seventh</td></tr>
-<tr><td>cadddr</td><td>documentation</td><td>sixth</td></tr>
-<tr><td>caddr</td><td>eighth</td><td>slot-value</td></tr>
-<tr><td>cadr</td><td>elt</td><td>subseq</td></tr>
-<tr><td>car</td><td>fdefinition</td><td>svref</td></tr>
-<tr><td>cdaaar</td><td>fifth</td><td>symbol-function</td></tr>
-<tr><td>cdaadr</td><td>fill-pointer</td><td>symbol-plist</td></tr>
-<tr><td>cdaar</td><td>find-class</td><td>symbol-value</td></tr>
-<tr><td>cdadar</td><td>first</td><td>tenth</td></tr>
-<tr><td>cdaddr</td><td>fourth</td><td>third</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 5.7: </strong>Functions that setf can be used with&mdash;1</p></div></div>
-
-<p>In the case of <code>subseq</code>, the replacement value must be a <i>sequence</i>
-whose elements might be contained by the sequence argument to <code>subseq</code>,
-but does not have to be a <i>sequence</i> of the same <i>type</i> 
-as the <i>sequence</i> of which the subsequence is specified.
-If the length of the replacement value does not equal the length of
-the subsequence to be replaced, then the shorter length determines
-the number of elements to be stored, as for <code>replace</code>.
-</p>
-
-</li><li> A function call form whose first element is the name of
-a selector function constructed by <code>defstruct</code>.
-The function name must refer to the global function definition,
-rather than a locally defined <i>function</i>.
-
-</li><li> A function call form whose first element is the name of
-any one of the functions in the next figure, 
-provided that the supplied argument
-to that function is in turn a <i>place</i> form;
-in this case the new <i>place</i> has stored back into it the
-result of applying the supplied &ldquo;update&rdquo; function.
-
-
-<div class="float"><span id="fig5_002e8"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>Function name</th><th>Argument that is a <var>place</var></th><th>Update function used</th></tr></thead>
-<tr><td><code>ldb</code></td><td>second</td><td><code>dpb</code></td></tr>
-<tr><td><code>mask-field</code></td><td>second</td><td><code>deposit-field</code></td></tr>
-<tr><td><code>getf</code></td><td>first</td><td><i>implementation-dependent</i></td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 5.8: </strong>Functions that setf can be used with&mdash;2</p></div></div>
-<p>During the <code>setf</code> expansion of these <i>forms</i>, it is necessary to call 
-<code>get-setf-expansion</code> 
-in order to figure out how the inner, nested generalized variable must be treated.  
-</p>
-<p>The information from
-<code>get-setf-expansion</code>
-is used as follows.
-</p>
-<dl compact="compact">
-<dt><code>ldb</code></dt>
-<dd>
-
-<p>In a form such as:
-</p>
-<p><code>(setf (ldb <var>byte-spec</var> <var>place-form</var>) <var>value-form</var>)</code>
-</p>
-<p>the place referred to by the <var>place-form</var> must always be both <i>read</i> 
-and <i>written</i>;  note that the update is to the generalized variable 
-specified by <var>place-form</var>, not to any object of <i>type</i> <code>integer</code>.
-</p>
-<p>Thus this <code>setf</code> should generate code to do the following:
-</p>
-
-<ol>
-<li> Evaluate <var>byte-spec</var> (and bind it into a temporary variable).
-</li><li> Bind the temporary variables for <var>place-form</var>.
-</li><li> Evaluate <var>value-form</var>  (and bind 
-its value or values into the store variable).
-</li><li> Do the <i>read</i> from <var>place-form</var>.
-</li><li> Do the <i>write</i> into <var>place-form</var> with 
-the given bits of the <i>integer</i>
-fetched in step 4 replaced with the value from step 3.
-</li></ol>
-
-<p>If the evaluation of <var>value-form</var> 
-in step 3 alters what is found in <var>place-form</var>,
-such as setting different bits of <i>integer</i>,
-then the change of the bits denoted by 
-<var>byte-spec</var> is to that 
-altered <i>integer</i>, 
-because step 4 is done after the <var>value-form</var>
-evaluation.  Nevertheless, the 
-evaluations required for <i>binding</i> 
-the temporary variables are done in steps 1 and 
-2, and thus the expected left-to-right evaluation order is seen.
-For example:
-</p>
-<div class="lisp">
-<pre class="lisp"> (setq integer #x69) <span class="roman">→</span> #x69
- (rotatef (ldb (byte 4 4) integer) 
-          (ldb (byte 4 0) integer))
- integer <span class="roman">→</span> #x96
-;;; This example is trying to swap two independent bit fields 
-;;; in an integer.  Note that the generalized variable of 
-;;; interest here is just the (possibly local) program variable
-;;; integer.
-</pre></div>
-
-
-</dd>
-<dt><code>mask-field</code></dt>
-<dd>
-
-<p>This case is the same as <code>ldb</code> in all essential aspects.
-</p>
-</dd>
-<dt><code>getf</code></dt>
-<dd>
-
-<p>In a form such as:
-</p>
-<p><code>(setf (getf <var>place-form</var> <var>ind-form</var>) <var>value-form</var>)</code>
-</p>
-<p>the place referred to by <var>place-form</var> must always be both <i>read</i>
-and <i>written</i>;  note that the update is to the generalized variable 
-specified by <var>place-form</var>, not necessarily to the particular 
-<i>list</i>
-that is the property list in question.
-</p>
-<p>Thus this <code>setf</code> should generate code to do the following:
-</p>
-<ol>
-<li> Bind the temporary variables for <var>place-form</var>.
-</li><li> Evaluate <var>ind-form</var> (and bind it into a temporary variable).
-</li><li> Evaluate <var>value-form</var> (and bind 
-its value or values into the store variable).
-</li><li> Do the <i>read</i> from <var>place-form</var>.
-</li><li> Do the <i>write</i> into <var>place-form</var> with a possibly-new property list
-obtained by combining the values from steps 2, 3, and 4.  
-(Note that the phrase &ldquo;possibly-new property list&rdquo; can mean that 
-the former property list is somehow destructively re-used, or it can 
-mean partial or full copying of it.  
-Since either copying or destructive re-use can occur, 
-the treatment of the resultant value for the 
-possibly-new property list must proceed as if it were a different copy
-needing to be stored back into the generalized variable.)
-</li></ol>
-
-<p>If the evaluation of <var>value-form</var> 
-in step 3 alters what is found in
-<var>place-form</var>, such as setting a different named property in the list,
-then the change of the property denoted by <var>ind-form</var> 
-is to that 
-altered list, because step 4 is done after the 
-<var>value-form</var>
-evaluation.  Nevertheless, the 
-evaluations required for <i>binding</i> 
-the temporary variables  are done in steps 1 and 
-2,  and thus the expected left-to-right evaluation order is seen.
-</p>
-<p>For example:
-</p>
-<div class="lisp">
-<pre class="lisp"> (setq s (setq r (list (list 'a 1 'b 2 'c 3)))) <span class="roman">→</span> ((a 1 b 2 c 3))
- (setf (getf (car r) 'b) 
-       (progn (setq r nil) 6)) <span class="roman">→</span> 6
- r <span class="roman">→</span> NIL
- s <span class="roman">→</span> ((A 1 B 6 C 3))
-;;; Note that the (setq r nil) does not affect the actions of 
-;;; the SETF because the value of R had already been saved in 
-;;; a temporary variable as part of the step 1. Only the CAR
-;;; of this value will be retrieved, and subsequently modified 
-;;; after the value computation.
-</pre></div>
-
-</dd>
-</dl>
-</li></ul>
-
-
-
-
-<span id="VALUES-Forms-as-Places"></span><h4 class="subsubsection">5.1.2.3 VALUES Forms as Places</h4>
-<span id="SETFofVALUES"></span>
-<p>A <code>values</code> <i>form</i> can be used as a <i>place</i>,
-provided that each of its <i>subforms</i> is also a <i>place</i> form.
-</p>
-<p>A form such as
-</p>
-<p><code>(setf (values <var>place-1</var> &hellip; <var>place-n</var>) <var>values-form</var>)</code>
-</p>
-<p>does the following:
-</p>
-
-<ol>
-<li> The <i>subforms</i> of each nested <var>place</var> are evaluated
-in left-to-right order.
-</li><li> The <var>values-form</var> is evaluated, and the first store
-variable from each <var>place</var> is bound to its return values as if by 
-<code>multiple-value-bind</code>.  
-</li><li> If the <i>setf expansion</i> for any <var>place</var> 
-involves more than one store variable, then the additional
-store variables are bound to <code>nil</code>.
-</li><li> The storing forms for each <var>place</var> are evaluated in
-left-to-right order.
-</li></ol>
-
-
-<p>The storing form in the <i>setf expansion</i> of <code>values</code>
-returns as <i>multiple values</i><sub>2</sub>
-variables in step 2.  That is, the number of values returned is the
-same as the number of <i>place</i> forms.  This may be more or fewer
-values than are produced by the <var>values-form</var>.
-</p>
-
-<span id="THE-Forms-as-Places"></span><h4 class="subsubsection">5.1.2.4 THE Forms as Places</h4>
-
-<p>A <code>the</code> <i>form</i> can be used as a <i>place</i>,
-in which case the declaration is transferred to the <var>newvalue</var> form,
-and the resulting <code>setf</code> is analyzed.  For example,
-</p>
-<div class="lisp">
-<pre class="lisp"> (setf (the integer (cadr x)) (+ y 3))
-</pre></div>
-
-<p>is processed as if it were
-</p>
-<div class="lisp">
-<pre class="lisp"> (setf (cadr x) (the integer (+ y 3)))
-</pre></div>
-
-
-
-<span id="APPLY-Forms-as-Places"></span><h4 class="subsubsection">5.1.2.5 APPLY Forms as Places</h4>
-<span id="SETFofAPPLY"></span>
-<p>The following situations involving <code>setf</code> of <code>apply</code> must be supported:
-</p>
-
-<ul>
-<li> <code>(setf (apply #'aref <var>array</var>
-<tt>{</tt>subscript<tt>}</tt>*
-<var>more-subscripts</var>)
-<var>new-element</var>)</code>
-</li><li> <code>(setf (apply #'bit <var>array</var> 
-<tt>{</tt>subscript<tt>}</tt>*
-<var>more-subscripts</var>)
-<var>new-element</var>)</code>
-</li><li> <code>(setf (apply #'sbit <var>array</var> 
-<tt>{</tt>subscript<tt>}</tt>*
-<var>more-subscripts</var>) 
-<var>new-element</var>)</code>
-</li></ul>
-
-
-<p>In all three cases, the <i>element</i> of <var>array</var> designated
-by the concatenation of <var>subscripts</var> and <var>more-subscripts</var>
-(<i>i.e.</i>, the same <i>element</i> which would be <i>read</i> by the call to
-<i>apply</i> if it were not part of a <code>setf</code> <i>form</i>)
-is changed to have the <i>value</i> given by <var>new-element</var>.
-For these usages, the function name (<code>aref</code>, <code>bit</code>, or <code>sbit</code>)
-must refer to the global function definition, rather than a locally defined
-<i>function</i>.
-</p>
-<p>No other <i>standardized</i> <i>function</i> is required to be supported,
-but an <i>implementation</i> may define such support.
-An <i>implementation</i> may also define support 
-for <i>implementation-defined</i> <i>operators</i>.
-</p>
-<p>If a user-defined <i>function</i> is used in this context,
-the following equivalence is true, except that care is taken
-to preserve proper left-to-right evaluation of argument <i>subforms</i>:
-</p>
-<div class="lisp">
-<pre class="lisp"> (setf (apply #'<var>name</var> <tt>{</tt>arg<tt>}</tt>*) <var>val</var>)
- ≡ (apply #'(setf <var>name</var>) <var>val</var> <tt>{</tt>arg<tt>}</tt>*)
-</pre></div>
-
-
-
-<span id="Setf-Expansions-and-Places"></span><h4 class="subsubsection">5.1.2.6 Setf Expansions and Places</h4>
-
-<p>Any <i>compound form</i> for which the <i>operator</i> has a
-<i>setf expander</i>
-defined can be used as a <i>place</i>.
-The 
-<i>operator</i>
-must refer to the global function definition,
-rather than a locally defined <i>function</i> or <i>macro</i>.
-</p>
-
-
-<span id="Macro-Forms-as-Places"></span><h4 class="subsubsection">5.1.2.7 Macro Forms as Places</h4>
-
-<p>A <i>macro form</i> can be used as a <i>place</i>, 
-in which case <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->expands the <i>macro form</i>
-as if by <code>macroexpand-1</code>
-and then uses the <i>macro expansion</i> in place of the original <i>place</i>.
-Such <i>macro expansion</i> is attempted only after exhausting all other possibilities
-other than expanding into a call to a function named <code>(setf <var>reader</var>)</code>.
-</p>
-
-<span id="Symbol-Macros-as-Places"></span><h4 class="subsubsection">5.1.2.8 Symbol Macros as Places</h4>
-
-<p>A reference to a <i>symbol</i> that has been <i>established</i> as a <i>symbol macro</i> 
-can be used as a <i>place</i>.  In this case,
-<code>setf</code> expands the reference and then analyzes the resulting <i>form</i>.
-</p>
-
-<span id="Other-Compound-Forms-as-Places"></span><h4 class="subsubsection">5.1.2.9 Other Compound Forms as Places</h4>
-
-<p>For any other <i>compound form</i> for which the <i>operator</i> is a
-<i>symbol</i> <var>f</var>,
-the <code>setf</code> <i>form</i> expands into a call 
-to the <i>function</i> named <code>(setf <var>f</var>)</code>.
-The first <i>argument</i> in the newly constructed <i>function form</i>
-is <var>newvalue</var> and the
-remaining <i>arguments</i> are the remaining <i>elements</i> of
-<var>place</var>.
-This expansion occurs regardless of whether <var>f</var> or <code>(setf <var>f</var>)</code>
-is defined as a <i>function</i> locally, globally, or not at all.
-For example,
-</p>
-<p><code>(setf (<var>f</var> <var>arg1</var> <var>arg2</var> ...) <var>new-value</var>)</code>
-</p>
-<p>expands into a form with the same effect and value as
-</p>
-<div class="lisp">
-<pre class="lisp"> (let ((#:temp-1 arg1)          ;force correct order of evaluation
-       (#:temp-2 arg2)
-       ...
-       (#:temp-0 <var>new-value</var>))
-   (funcall (function (setf <var>f</var>)) #:temp-0 #:temp-1 #:temp-2...))
-</pre></div>
-
-
-<p>A <i>function</i> named <code>(setf <var>f</var>)</code> must return its first argument
-as its only value in order to preserve the semantics of <code>setf</code>.
-</p>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Treatment-of-Other-Macros-Based-on-SETF.html" accesskey="n" rel="next">Treatment of Other Macros Based on SETF</a>, Previous: <a href="Overview-of-Places-and-Generalized-Reference.html" accesskey="p" rel="prev">Overview of Places and Generalized Reference</a>, Up: <a href="Generalized-Reference.html" accesskey="u" rel="up">Generalized Reference</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Data-and-Control-Flow.html#Kinds-of-Places">Kinds of Places</a>.</p>
 </body>
-</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Introduction to Generic Functions (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Generic-Functions-and-Methods.html" rel="up" title="Generic Functions and Methods">
-<link href="Introduction-to-Methods.html" rel="next" title="Introduction to Methods">
-<link href="Generic-Functions-and-Methods.html" rel="prev" title="Generic Functions and Methods">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,138 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Objects.html#Introduction-to-Generic-Functions">
 
 </head>
 
 <body lang="en">
-<span id="Introduction-to-Generic-Functions"></span><div class="header">
-<p>
-Next: <a href="Introduction-to-Methods.html" accesskey="n" rel="next">Introduction to Methods</a>, Up: <a href="Generic-Functions-and-Methods.html" accesskey="u" rel="up">Generic Functions and Methods</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Introduction-to-Generic-Functions-1"></span><h4 class="subsection">7.6.1 Introduction to Generic Functions</h4>
 
-<p>A <span id="index-generic-function-1"></span>
-<em>generic function</em> is a function whose behavior depends on
-the <i>classes</i> or identities of the <i>arguments</i> supplied to it.
-A <i>generic function</i> <i>object</i> 
-is associated with 
-a set of <i>methods</i>,
-a <i>lambda list</i>,
-a <i>method combination</i><sub>2</sub>
-and other information.
-</p>
-<p>Like an <i>ordinary function</i>, a <i>generic function</i> takes <i>arguments</i>,
-performs a series of operations, and perhaps returns useful <i>values</i>.
-An <i>ordinary function</i> has a single body of <i>code</i> that is always <i>executed</i>
-when the <i>function</i> is called.  A <i>generic function</i> has a set of bodies
-of <i>code</i> of which a subset is selected for <i>execution</i>. The selected
-bodies of <i>code</i> and the manner of their combination are determined by
-the <i>classes</i> or identities of one or more of the <i>arguments</i> to the
-<i>generic function</i> and by its <i>method combination</i>.
-</p>
-<p><i>Ordinary functions</i> and <i>generic functions</i> are called with identical syntax.
-</p>
-<p><i>Generic functions</i> are true <i>functions</i> that can be passed as <i>arguments</i>
-and used as the first <i>argument</i> to <code>funcall</code> and <code>apply</code>.
-</p>
-<p>A <i>binding</i> of a <i>function name</i> to a <i>generic function</i>
-can be <i>established</i> in one of several ways.  It can be
-<i>established</i> in the <i>global environment</i> by 
-<code>ensure-generic-function</code>,
-<code>defmethod</code> (implicitly, due to <code>ensure-generic-function</code>)
-or
-<code>defgeneric</code> (also implicitly, due to <code>ensure-generic-function</code>).
-No <i>standardized</i> mechanism is provided for <i>establishing</i> a
-<i>binding</i> of a <i>function name</i> to a <i>generic function</i>
-in the <i>lexical environment</i>.
-</p>
-
-
-<p>When a <code>defgeneric</code> form is evaluated, one of three actions
-is taken (due to <code>ensure-generic-function</code>):
-</p>
-
-<ul>
-<li> If a generic function of the given name already exists,
-the existing generic function object is modified.  Methods specified
-by the current <code>defgeneric</code> form are added, and any methods in the
-existing generic function that were defined by a previous <code>defgeneric</code>
-form are removed.  Methods added by the current <code>defgeneric</code> 
-form might replace methods defined by <code>defmethod</code>, 
-<code>defclass</code>, <code>define-condition</code>, or <code>defstruct</code>.  
-No other methods in the generic function are affected
-or replaced.
-
-</li><li> If the given name names 
-an <i>ordinary function</i>, 
-a  <i>macro</i>,
-or a <i>special operator</i>, 
-an error is signaled.
-
-</li><li> Otherwise a generic function is created with the
-methods specified by the method definitions in the <code>defgeneric</code>
-form.
-</li></ul>
-
-
-<p>Some <i>operators</i> permit specification of the options of a
-<i>generic function</i>, such as 
-the <i>type</i> of <i>method combination</i> it uses 
-or its <i>argument precedence order</i>.
-These <i>operators</i> will be referred to as
-&ldquo;operators that specify generic function options.&rdquo;
-The only <i>standardized</i> <i>operator</i> in this category is <code>defgeneric</code>.
-</p>
-<p>Some <i>operators</i> define <i>methods</i> for a <i>generic function</i>.
-These <i>operators</i> will be referred to as
-<span id="index-method_002ddefining-operator"></span>
-<em>method-defining operators</em>;
-their associated <i>forms</i> are called <i>method-defining forms</i>.
-The <i>standardized</i> <i>method-defining operators</i> are listed in the next figure.
-</p>
-
-<div class="float"><span id="StdMethDefOps"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<tr><td>defgeneric</td><td>defmethod</td><td>defclass</td></tr>
-<tr><td>define-condition</td><td>defstruct</td><td></td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 7.1: </strong>Standardized Method-Defining Operators</p></div></div>
-<p>Note that of the <i>standardized</i> <i>method-defining operators</i>
-only <code>defgeneric</code>
-can specify <i>generic function</i> options.
-<code>defgeneric</code> and any <i>implementation-defined</i> <i>operators</i>
-that can specify <i>generic function</i> options
-are also referred to as &ldquo;operators that specify generic function options.&rdquo;
-</p>
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Introduction-to-Methods.html" accesskey="n" rel="next">Introduction to Methods</a>, Up: <a href="Generic-Functions-and-Methods.html" accesskey="u" rel="up">Generic Functions and Methods</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Objects.html#Introduction-to-Generic-Functions">Introduction to Generic Functions</a>.</p>
 </body>
-</html>

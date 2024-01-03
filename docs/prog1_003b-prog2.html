@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>prog1; prog2 (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
-<link href="progn.html" rel="next" title="progn">
-<link href="prog_003b-prog_002a.html" rel="prev" title="prog; prog*">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,131 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Data-and-Control-Flow.html#prog1_003b-prog2">
 
 </head>
 
 <body lang="en">
-<span id="prog1_003b-prog2"></span><div class="header">
-<p>
-Next: <a href="progn.html" accesskey="n" rel="next">progn</a>, Previous: <a href="prog_003b-prog_002a.html" accesskey="p" rel="prev">prog; prog*</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">prog1; prog2</h4>
-<span id="prog1_002c-prog2-_0028Macro_0029"></span><h3 class="heading">prog1, prog2 (Macro)</h3>
-<span id="index-prog1-2"></span>
-<span id="index-prog1"></span>
-<span id="index-prog2-2"></span>
-<span id="index-prog2"></span>
-<span id="prog1"></span><span id="prog2"></span>
 
-<span id="Syntax_003a-86"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-prog1-1">Macro: <strong>prog1</strong> <em>first-form             <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> result-1</em></dt>
-</dl>
-<dl>
-<dt id="index-prog2-1">Macro: <strong>prog2</strong> <em>first-form second-form <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> result-2</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-76"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>first-form</var>&mdash;a <i>form</i>; evaluated as described below.
-</p>
-<p><var>second-form</var>&mdash;a <i>form</i>; evaluated as described below.
-</p>
-<p><var>forms</var>&mdash;an <i>implicit progn</i>; evaluated as described below.
-</p>
-<p><var>result-1</var>&mdash;the <i>primary value</i> resulting from 
-the <i>evaluation</i> of <var>first-form</var>.
-</p>
-<p><var>result-2</var>&mdash;the <i>primary value</i> resulting from 
-the <i>evaluation</i> of <var>second-form</var>.
-</p>
-<span id="Description_003a-111"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>prog1</code> <i>evaluates</i> <var>first-form</var> 
-and then <var>forms</var>,
-<i>yielding</i> as its only <i>value</i>
-the <i>primary value</i> <i>yielded</i> by <var>first-form</var>.
-</p>
-<p><code>prog2</code> <i>evaluates</i> <var>first-form</var>,
-then <var>second-form</var>,
-and then <var>forms</var>,
-<i>yielding</i> as its only <i>value</i>
-the <i>primary value</i> <i>yielded</i> by <var>first-form</var>.
-</p>
-<span id="Examples_003a-84"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (setq temp 1) <span class="roman">→</span> 1
- (prog1 temp (print temp) (incf temp) (print temp))
-▷ 1
-▷ 2
-<span class="roman">→</span> 1
- (prog1 temp (setq temp nil)) <span class="roman">→</span> 2
- temp <span class="roman">→</span> NIL
- (prog1 (values 1 2 3) 4) <span class="roman">→</span> 1 
- (setq temp (list 'a 'b 'c))
- (prog1 (car temp) (setf (car temp) 'alpha)) <span class="roman">→</span> A
- temp <span class="roman">→</span> (ALPHA B C)
- (flet ((swap-symbol-values (x y)
-          (setf (symbol-value x) 
-                (prog1 (symbol-value y)
-                       (setf (symbol-value y) (symbol-value x))))))
-   (let ((*foo* 1) (*bar* 2))
-     (declare (special *foo* *bar*))
-     (swap-symbol-values '*foo* '*bar*)
-     (values *foo* *bar*)))
-<span class="roman">→</span> 2, 1
- (setq temp 1) <span class="roman">→</span> 1
- (prog2 (incf temp) (incf temp) (incf temp)) <span class="roman">→</span> 3
- temp <span class="roman">→</span> 4
- (prog2 1 (values 2 3 4) 5) <span class="roman">→</span> 2
-</pre></div>
-
-
-<span id="See-Also_003a-95"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="multiple_002dvalue_002dprog1.html">multiple-value-prog1</a>,
-<a href="progn.html">progn</a>
-</p>
-<span id="Notes_003a-62"></span><h4 class="subsubheading">Notes:</h4>
-
-<p><code>prog1</code> and <code>prog2</code> are typically used to <i>evaluate</i> 
-one or more <i>forms</i> with side effects and return a <i>value</i> that
-must be computed before some or all of the side effects happen.
-</p>
-<div class="lisp">
-<pre class="lisp"> (prog1 <tt>{</tt>form<tt>}</tt>*) ≡ (values (multiple-value-prog1 <tt>{</tt>form<tt>}</tt>*))
- (prog2 <var>form1</var> <tt>{</tt>form<tt>}</tt>*) ≡ (let () <var>form1</var> (prog1 <tt>{</tt>form<tt>}</tt>*))
-</pre></div>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="progn.html" accesskey="n" rel="next">progn</a>, Previous: <a href="prog_003b-prog_002a.html" accesskey="p" rel="prev">prog; prog*</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Data-and-Control-Flow.html#prog1_003b-prog2">prog1; prog2</a>.</p>
 </body>
-</html>

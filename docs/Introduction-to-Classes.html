@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Introduction to Classes (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Classes.html" rel="up" title="Classes">
-<link href="Defining-Classes.html" rel="next" title="Defining Classes">
-<link href="Classes.html" rel="prev" title="Classes">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,176 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Types-and-Classes.html#Introduction-to-Classes">
 
 </head>
 
 <body lang="en">
-<span id="Introduction-to-Classes"></span><div class="header">
-<p>
-Next: <a href="Defining-Classes.html" accesskey="n" rel="next">Defining Classes</a>, Up: <a href="Classes.html" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Introduction-to-Classes-1"></span><h4 class="subsection">4.3.1 Introduction to Classes</h4>
 
-<p>A <span id="index-class"></span>
-<em>class</em> is an <i>object</i> that determines the structure and behavior 
-of a set of other <i>objects</i>, which are called its 
-<span id="index-instance"></span>
-<em>instances</em>.   
-</p>
-<p>A <i>class</i> can inherit structure and behavior from other <i>classes</i>.
-A <i>class</i> whose definition refers to other <i>classes</i> for the purpose 
-of inheriting from them is said to be a <i>subclass</i> of each of
-those <i>classes</i>. The <i>classes</i> that are designated for purposes of
-inheritance are said to be <i>superclasses</i> of the inheriting <i>class</i>.
-</p>
-<p>A <i>class</i> can have a <i>name</i>. The <i>function</i> <code>class-name</code> 
-takes a <i>class</i> <i>object</i> and returns its <i>name</i>. 
-The <i>name</i> of an anonymous <i>class</i> is <code>nil</code>.  A <i>symbol</i> 
-can <i>name</i> a <i>class</i>. The <i>function</i> <code>find-class</code> takes a
-<i>symbol</i> and returns the <i>class</i> that the <i>symbol</i> names.
-A <i>class</i> has a <i>proper name</i> if the <i>name</i> is a <i>symbol</i>
-and if the <i>name</i> of the <i>class</i> names that <i>class</i>.
-That is, a <i>class</i>&nbsp;C has the <i>proper name</i>&nbsp;S if S=
-<code>(class-name C)</code> and C= <code>(find-class S)</code>.
-Notice that it is possible for 
-<code>(find-class S<sub>1</sub>
-and S<sub>1</sub>
-If C= <code>(find-class S)</code>, we say that C is the <i>class</i> <i>named</i> S.
-
-</code></p><p>A <i>class</i> C<sub>1</sub>
-a <span id="index-direct-superclass"></span>
-<em>direct superclass</em> of a <i>class</i> C<sub>2</sub>
-if C<sub>2</sub>
-as a <i>superclass</i> in its definition.
-In this case C<sub>2</sub>
-<em>direct subclass</em> of C<sub>1</sub>
-A <i>class</i> C<sub>n</sub>
-<em>superclass</em> of 
-a <i>class</i> C<sub>1</sub>
-<i>classes</i> C<sub>2</sub>
-C<sub>i+1</sub>
-In this case, C<sub>1</sub>
-<em>subclass</em> of C<sub>n</sub>
-A <i>class</i> is considered neither a <i>superclass</i> nor a <i>subclass</i> of itself.
-That is, if C<sub>1</sub>
-then C<sub>1</sub>
-The set of <i>classes</i> consisting of some given <i>class</i> C 
-along with all of its <i>superclasses</i> is called &ldquo;C and its superclasses.&rdquo;
-</p>
-<p>Each <i>class</i> has a <span id="index-class-precedence-list"></span>
-<em>class precedence list</em>,
-which is a total ordering on the set of the given <i>class</i> and its <i>superclasses</i>.
-The total ordering is expressed as a list ordered from most specific to least specific.
-The <i>class precedence list</i> is used in several ways.  In general, more
-specific <i>classes</i> can <span id="index-shadow-1"></span>
-<em>shadow</em><sub>1</sub>
-otherwise be inherited from less specific <i>classes</i>.
-The <i>method</i> selection and combination process uses 
-the <i>class precedence list</i> to order <i>methods</i> 
-from most specific to least specific. 
-</p>
-<p>When a <i>class</i> is defined, the order in which its direct <i>superclasses</i>
-are mentioned in the defining form is important.  Each <i>class</i> has a
-<span id="index-local-precedence-order"></span>
-<em>local precedence order</em>, which is a <i>list</i> consisting of the
-<i>class</i> followed by its <i>direct superclasses</i> in the order mentioned
-in the defining <i>form</i>.
-</p>
-<p>A <i>class precedence list</i> is always consistent with the
-<i>local precedence order</i> of each <i>class</i> in the list.  
-The <i>classes</i> in each <i>local precedence order</i> appear
-within the <i>class precedence list</i> in the same order.  
-If the <i>local precedence orders</i> are inconsistent with each other, 
-no <i>class precedence list</i> can be constructed, and an error is signaled.
-The <i>class precedence list</i> and its computation is discussed
-in <a href="Determining-the-Class-Precedence-List.html">Section 4.3.5 (Determining the Class Precedence List)</a>.
-</p>
-<p><i>classes</i> are organized into a directed acyclic graph.
-There are two distinguished <i>classes</i>, named <code>t</code> and <code>standard-object</code>.
-The <i>class</i> named <code>t</code> has no <i>superclasses</i>. 
-It is a <i>superclass</i> of every <i>class</i> except itself.  
-The <i>class</i> named <code>standard-object</code> is an <i>instance</i> of 
-the <i>class</i> <code>standard-class</code> and is a <i>superclass</i> of
-every <i>class</i> that is an <i>instance</i> of the <i>class</i> <code>standard-class</code> except itself.
-</p>
-
-<p>There is a mapping from the object system <i>class</i> space into
-the <i>type</i> space.  Many of the standard <i>types</i> specified 
-in this document have a corresponding <i>class</i> that has the same 
-<i>name</i> as the <i>type</i>. Some <i>types</i> do not have a
-corresponding <i>class</i>. The integration of the <i>type</i> and <i>class</i>
-systems is discussed in <a href="Integrating-Types-and-Classes.html">Section 4.3.7 (Integrating Types and Classes)</a>.
-</p>
-<p><i>Classes</i> are represented by <i>objects</i> that are themselves
-<i>instances</i> of <i>classes</i>. 
-The <i>class</i> of the <i>class</i> of an <i>object</i> is termed
-the <span id="index-metaclass-1"></span>
-<em>metaclass</em> of that <i>object</i>. When no misinterpretation is
-possible, the term <i>metaclass</i> is used to refer to a <i>class</i>
-that has <i>instances</i> that are themselves <i>classes</i>. The <i>metaclass</i>
-determines the form of inheritance used by the <i>classes</i> that are its
-<i>instances</i> and the representation of the <i>instances</i> of those <i>classes</i>.
-The object system&nbsp;<!-- /@w -->provides a default <i>metaclass</i>, <code>standard-class</code>, that is
-appropriate for most programs.
-</p>
-<p>Except where otherwise specified, all <i>classes</i> mentioned in this
-standard are <i>instances</i> of the <i>class</i> <code>standard-class</code>,
-all <i>generic functions</i> are <i>instances</i> 
-of the <i>class</i> <code>standard-generic-function</code>,
-and all <i>methods</i> are <i>instances</i> of the <i>class</i> <code>standard-method</code>.
-</p>
-
-<span id="Standard-Metaclasses"></span><h4 class="subsubsection">4.3.1.1 Standard Metaclasses</h4>
-
-<p>The object system&nbsp;<!-- /@w -->provides a number of predefined <i>metaclasses</i>. 
-These include the <i>classes</i> <code>standard-class</code>, 
-<code>built-in-class</code>, and <code>structure-class</code>:
-</p>
-
-<ul>
-<li> The <i>class</i> <code>standard-class</code> is the default <i>class</i> of 
-<i>classes</i> defined by <code>defclass</code>.
-
-</li><li> The <i>class</i> <code>built-in-class</code> is the <i>class</i> whose
-<i>instances</i> are <i>classes</i> that have special implementations with
-restricted capabilities.  Any <i>class</i> that corresponds to a standard
-<i>type</i> might be an <i>instance</i> of <code>built-in-class</code>.
-The predefined <i>type</i> specifiers that are required to have
-corresponding <i>classes</i> are listed in <a href="Integrating-Types-and-Classes.html#ClassTypeCorrespondence">Figure 4.8</a>.  
-It is <i>implementation-dependent</i> whether each of these <i>classes</i> 
-is implemented as a <i>built-in class</i>.
-
-</li><li> All <i>classes</i> defined by means of <code>defstruct</code> are
-<i>instances</i> of the <i>class</i> <code>structure-class</code>.
-</li></ul>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Defining-Classes.html" accesskey="n" rel="next">Defining Classes</a>, Up: <a href="Classes.html" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Types-and-Classes.html#Introduction-to-Classes">Introduction to Classes</a>.</p>
 </body>
-</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>boole (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Numbers.html" rel="up" title="Numbers">
-<link href="boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b.html" rel="next" title="boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+">
-<link href="parse_002dinteger.html" rel="prev" title="parse-integer">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,186 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Numbers.html#boole">
 
 </head>
 
 <body lang="en">
-<span id="boole"></span><div class="header">
-<p>
-Next: <a href="boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b.html" accesskey="n" rel="next">boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+</a>, Previous: <a href="parse_002dinteger.html" accesskey="p" rel="prev">parse-integer</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">boole</h4>
-<span id="boole-_0028Function_0029"></span><h3 class="heading">boole (Function)</h3>
-<span id="index-boole-2"></span>
-<span id="index-boole"></span>
 
-
-<span id="Syntax_003a-254"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-boole-1">Function: <strong>boole</strong> <em>op integer-1 integer-2 <span class="roman">→</span> result-integer</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-243"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>Op</var>&mdash;a <i>bit-wise logical operation specifier</i>.
-</p>
-<p><var>integer-1</var>&mdash;an <i>integer</i>.
-</p>
-<p><var>integer-2</var>&mdash;an <i>integer</i>.
-</p>
-<p><var>result-integer</var>&mdash;an <i>integer</i>.
-</p>
-<span id="Description_003a-325"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>boole</code> performs bit-wise logical operations on
-<var>integer-1</var> and <var>integer-2</var>, which are treated as if
-they were binary and in two&rsquo;s complement representation.
-</p>
-<p>The operation to be performed and the return value are determined by 
-<var>op</var>.  
-</p>
-<p><code>boole</code> returns the values 
-specified for any <var>op</var> in the next figure.
-</p>
-
-<div class="float"><span id="fig12_002e17"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>Op</th><th>Result</th></tr></thead>
-<tr><td><code>boole-1</code></td><td><var>integer-1</var></td></tr>
-<tr><td><code>boole-2</code></td><td><var>integer-2</var></td></tr>
-<tr><td><code>boole-andc1</code></td><td>and complement of <var>integer-1</var> with <var>integer-2</var></td></tr>
-<tr><td><code>boole-andc2</code></td><td>and <var>integer-1</var> with complement of <var>integer-2</var></td></tr>
-<tr><td><code>boole-and</code></td><td>and</td></tr>
-<tr><td><code>boole-c1</code></td><td>complement of <var>integer-1</var></td></tr>
-<tr><td><code>boole-c2</code></td><td>complement of <var>integer-2</var></td></tr>
-<tr><td><code>boole-clr</code></td><td>always 0 (all zero bits)</td></tr>
-<tr><td><code>boole-eqv</code></td><td>equivalence (exclusive nor)</td></tr>
-<tr><td><code>boole-ior</code></td><td>inclusive or</td></tr>
-<tr><td><code>boole-nand</code></td><td>not-and</td></tr>
-<tr><td><code>boole-nor</code></td><td>not-or</td></tr>
-<tr><td><code>boole-orc1</code></td><td>or complement of <var>integer-1</var> with <var>integer-2</var></td></tr>
-<tr><td><code>boole-orc2</code></td><td>or <var>integer-1</var> with complement of <var>integer-2</var></td></tr>
-<tr><td><code>boole-set</code></td><td>always -1 (all one bits)</td></tr>
-<tr><td><code>boole-xor</code></td><td>exclusive or</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 12.17: </strong>Bit-Wise Logical Operations</p></div></div>
-
-<span id="Examples_003a-227"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (boole boole-ior 1 16) <span class="roman">→</span> 17
- (boole boole-and -2 5) <span class="roman">→</span> 4
- (boole boole-eqv 17 15) <span class="roman">→</span> -31
-
-;;; These examples illustrate the result of applying BOOLE and each
-;;; of the possible values of OP to each possible combination of bits.
- (progn
-   (format t &quot;~&amp;Results of (BOOLE &lt;op&gt; #b0011 #b0101) ...~
-           ~%---Op-------Decimal-----Binary----Bits---~%&quot;)
-   (dolist (symbol '(boole-1     boole-2    boole-and  boole-andc1
-                     boole-andc2 boole-c1   boole-c2   boole-clr
-                     boole-eqv   boole-ior  boole-nand boole-nor
-                     boole-orc1  boole-orc2 boole-set  boole-xor))
-     (let ((result (boole (symbol-value symbol) #b0011 #b0101)))
-       (format t &quot;~&amp; ~A~13T~3,' D~23T~:*~5,' B~31T ...~4,'0B~%&quot; 
-               symbol result (logand result #b1111)))))
-▷ Results of (BOOLE &lt;op&gt; #b0011 #b0101) ...
-▷ ---Op-------Decimal-----Binary----Bits---
-▷  BOOLE-1       3          11    ...0011
-▷  BOOLE-2       5         101    ...0101
-▷  BOOLE-AND     1           1    ...0001
-▷  BOOLE-ANDC1   4         100    ...0100
-▷  BOOLE-ANDC2   2          10    ...0010
-▷  BOOLE-C1     -4        -100    ...1100
-▷  BOOLE-C2     -6        -110    ...1010
-▷  BOOLE-CLR     0           0    ...0000
-▷  BOOLE-EQV    -7        -111    ...1001
-▷  BOOLE-IOR     7         111    ...0111
-▷  BOOLE-NAND   -2         -10    ...1110
-▷  BOOLE-NOR    -8       -1000    ...1000
-▷  BOOLE-ORC1   -3         -11    ...1101
-▷  BOOLE-ORC2   -5        -101    ...1011
-▷  BOOLE-SET    -1          -1    ...1111
-▷  BOOLE-XOR     6         110    ...0110
-<span class="roman">→</span> NIL
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-101"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>Should signal <code>type-error</code> if its first argument is not a 
-<i>bit-wise logical operation specifier</i> or if any subsequent argument is not
-an <i>integer</i>.
-</p>
-<span id="See-Also_003a-270"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="logand_003b-logandc1_003b-logandc2_003b-logeqv_003b-logior_003b-lognand_003b-lognor_003b-lognot_003b-lo_002b.html#logand">logand</a>
-</p>
-<span id="Notes_003a-170"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>In general,
-</p>
-<div class="lisp">
-<pre class="lisp"> (boole boole-and x y) ≡ (logand x y)
-</pre></div>
-
-
-<p><i>Programmers</i> who would prefer to use numeric indices rather than 
-<i>bit-wise logical operation specifiers</i> can get an equivalent effect
-by a technique such as the following:
-</p>
-<div class="lisp">
-<pre class="lisp">;; The order of the values in this `table' are such that
-;; (logand (boole (elt boole-n-vector n) #b0101 #b0011) #b1111) =&gt; n
- (defconstant boole-n-vector
-    (vector boole-clr   boole-and  boole-andc1 boole-2
-            boole-andc2 boole-1    boole-xor   boole-ior
-            boole-nor   boole-eqv  boole-c1    boole-orc1
-            boole-c2    boole-orc2 boole-nand  boole-set))
-<span class="roman">→</span> BOOLE-N-VECTOR
- (proclaim '(inline boole-n))
-<span class="roman">→</span> <i>implementation-dependent</i>
- (defun boole-n (n integer &amp;rest more-integers)
-   (apply #'boole (elt boole-n-vector n) integer more-integers))
-<span class="roman">→</span> BOOLE-N
- (boole-n #b0111 5 3) <span class="roman">→</span> 7
- (boole-n #b0001 5 3) <span class="roman">→</span> 1
- (boole-n #b1101 5 3) <span class="roman">→</span> -3
- (loop for n from #b0000 to #b1111 collect (boole-n n 5 3))
-<span class="roman">→</span> (0 1 2 3 4 5 6 7 -8 -7 -6 -5 -4 -3 -2 -1)
-</pre></div>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b.html" accesskey="n" rel="next">boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+</a>, Previous: <a href="parse_002dinteger.html" accesskey="p" rel="prev">parse-integer</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Numbers.html#boole">boole</a>.</p>
 </body>
-</html>

@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Overview-of-Filenames.html" rel="next" title="Overview of Filenames">
-<link href="sxhash.html" rel="prev" title="sxhash">
+<link href="Files.html#Files" rel="next" title="Files">
+<link href="Hash-Tables.html#sxhash" rel="prev" title="sxhash">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,57 +277,2741 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Filenames"></span><div class="header">
 <p>
-Next: <a href="Files.html" accesskey="n" rel="next">Files</a>, Previous: <a href="Hash-Tables.html" accesskey="p" rel="prev">Hash Tables</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Files.html#Files" accesskey="n" rel="next">Files</a>, Previous: <a href="Hash-Tables.html#Hash-Tables" accesskey="p" rel="prev">Hash Tables</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Filenames-1"></span><h2 class="chapter">19 Filenames</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Overview-of-Filenames.html" accesskey="1">Overview of Filenames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Overview-of-Filenames" accesskey="1">Overview of Filenames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Pathnames.html" accesskey="2">Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Pathnames" accesskey="2">Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Logical-Pathnames.html" accesskey="3">Logical Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Logical-Pathnames" accesskey="3">Logical Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="pathname-_0028System-Class_0029.html" accesskey="4">pathname (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#pathname-_0028System-Class_0029" accesskey="4">pathname (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="logical_002dpathname-_0028System-Class_0029.html" accesskey="5">logical-pathname (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#logical_002dpathname-_0028System-Class_0029" accesskey="5">logical-pathname (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="pathname-_0028Function_0029.html" accesskey="6">pathname (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#pathname-_0028Function_0029" accesskey="6">pathname (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="make_002dpathname.html" accesskey="7">make-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#make_002dpathname" accesskey="7">make-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="pathnamep.html" accesskey="8">pathnamep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#pathnamep" accesskey="8">pathnamep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="pathname_002dhost_003b-pathname_002ddevice_003b-pathname_002ddirectory_003b-pathname_002dname_003b-path_002b.html" accesskey="9">pathname-host; pathname-device; pathname-directory; pathname-name; path+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#pathname_002dhost_003b-pathname_002ddevice_003b-pathname_002ddirectory_003b-pathname_002dname_003b-path_002b" accesskey="9">pathname-host; pathname-device; pathname-directory; pathname-name; path+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="load_002dlogical_002dpathname_002dtranslations.html">load-logical-pathname-translations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#load_002dlogical_002dpathname_002dtranslations">load-logical-pathname-translations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="logical_002dpathname_002dtranslations.html">logical-pathname-translations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#logical_002dpathname_002dtranslations">logical-pathname-translations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="logical_002dpathname-_0028Function_0029.html">logical-pathname (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#logical_002dpathname-_0028Function_0029">logical-pathname (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="_002adefault_002dpathname_002ddefaults_002a.html">*default-pathname-defaults*</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_002adefault_002dpathname_002ddefaults_002a">*default-pathname-defaults*</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="namestring_003b-file_002dnamestring_003b-directory_002dnamestring_003b-host_002dnamestring_003b-eno_002b.html">namestring; file-namestring; directory-namestring; host-namestring; eno+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#namestring_003b-file_002dnamestring_003b-directory_002dnamestring_003b-host_002dnamestring_003b-eno_002b">namestring; file-namestring; directory-namestring; host-namestring; eno+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="parse_002dnamestring.html">parse-namestring</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#parse_002dnamestring">parse-namestring</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="wild_002dpathname_002dp.html">wild-pathname-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#wild_002dpathname_002dp">wild-pathname-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="pathname_002dmatch_002dp.html">pathname-match-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#pathname_002dmatch_002dp">pathname-match-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="translate_002dlogical_002dpathname.html">translate-logical-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#translate_002dlogical_002dpathname">translate-logical-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="translate_002dpathname.html">translate-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#translate_002dpathname">translate-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="merge_002dpathnames.html">merge-pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#merge_002dpathnames">merge-pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="Overview-of-Filenames"></span><div class="header">
+<p>
+Next: <a href="#Pathnames" accesskey="n" rel="next">Pathnames</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Overview-of-Filenames-1"></span><h3 class="section">19.1 Overview of Filenames</h3>
+
+<p>There are many kinds of <i>file systems</i>,
+varying widely both in their superficial syntactic details,
+and in their underlying power and structure.
+The facilities provided by <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->for referring to and manipulating <i>files</i>
+has been chosen to be compatible with many kinds of <i>file systems</i>,
+while at the same time minimizing the program-visible differences 
+between kinds of <i>file systems</i>.
+</p>
+<p>Since <i>file systems</i> vary in their conventions for naming <i>files</i>,
+there are two distinct ways to represent <i>filenames</i>:
+as <i>namestrings</i> and as <i>pathnames</i>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Namestrings-as-Filenames" accesskey="1">Namestrings as Filenames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Pathnames-as-Filenames" accesskey="2">Pathnames as Filenames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Parsing-Namestrings-Into-Pathnames" accesskey="3">Parsing Namestrings Into Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Namestrings-as-Filenames"></span><div class="header">
+<p>
+Next: <a href="#Pathnames-as-Filenames" accesskey="n" rel="next">Pathnames as Filenames</a>, Up: <a href="#Overview-of-Filenames" accesskey="u" rel="up">Overview of Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Namestrings-as-Filenames-1"></span><h4 class="subsection">19.1.1 Namestrings as Filenames</h4>
+
+<p>A <span id="index-namestring"></span>
+<em>namestring</em> is a <i>string</i> that represents a <i>filename</i>.
+</p>
+<p>In general, the syntax of <i>namestrings</i> involves the use of 
+<i>implementation-defined</i> conventions, 
+usually those customary for the <i>file system</i> in which the named <i>file</i> resides.
+The only exception is the syntax of a <i>logical pathname</i> <i>namestring</i>,
+which is defined in this specification; see <a href="#Syntax-of-Logical-Pathname-Namestrings">Section 19.3.1 (Syntax of Logical Pathname Namestrings)</a>.
+</p>
+<p>A <i>conforming program</i> must never unconditionally use a
+<i>literal</i> <i>namestring</i> other than a <i>logical pathname</i> <i>namestring</i>
+because <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->does not define any <i>namestring</i> syntax 
+other than that for <i>logical pathnames</i>
+that would be guaranteed to be portable.
+However, a <i>conforming program</i> can, if it is careful, 
+successfully manipulate user-supplied data 
+which contains or refers to non-portable <i>namestrings</i>.
+</p>
+<p>A <i>namestring</i> can be <i>coerced</i> to a <i>pathname</i> by the <i>functions</i> <code>pathname</code>
+or <code>parse-namestring</code>.
+</p>
+
+<hr>
+<span id="Pathnames-as-Filenames"></span><div class="header">
+<p>
+Next: <a href="#Parsing-Namestrings-Into-Pathnames" accesskey="n" rel="next">Parsing Namestrings Into Pathnames</a>, Previous: <a href="#Namestrings-as-Filenames" accesskey="p" rel="prev">Namestrings as Filenames</a>, Up: <a href="#Overview-of-Filenames" accesskey="u" rel="up">Overview of Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Pathnames-as-Filenames-1"></span><h4 class="subsection">19.1.2 Pathnames as Filenames</h4>
+
+<span id="index-pathname-1"></span>
+<p><em>Pathnames</em> are structured <i>objects</i> that can represent,
+in an <i>implementation-independent</i> way,
+the <i>filenames</i> that are used natively by an underlying <i>file system</i>.
+</p>
+<p>In addition, <i>pathnames</i> can also represent certain partially composed 
+<i>filenames</i> for which an underlying <i>file system</i> 
+might not have a specific <i>namestring</i> representation.
+</p>
+<p>A <i>pathname</i> need not correspond to any file that actually exists, 
+and more than one <i>pathname</i> can refer to the same file.
+For example, the <i>pathname</i> with a version of <tt>:newest</tt> 
+might refer to the same file as a <i>pathname</i> 
+with the same components except a certain number as the version.
+Indeed, a <i>pathname</i> with version <tt>:newest</tt> might refer to
+different files as time passes, because the meaning of such a <i>pathname</i>
+depends on the state of the file system.  
+</p>
+<p>Some <i>file systems</i> naturally use a structural model for their
+<i>filenames</i>, while others do not.  Within the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>pathname</i> model, 
+all <i>filenames</i> are seen as having a particular structure,
+even if that structure is not reflected in the underlying <i>file system</i>.
+The nature of the mapping between structure imposed by <i>pathnames</i>
+and the structure, if any, that is used by the underlying <i>file system</i>
+is <i>implementation-defined</i>.
+</p>
+<p>Every <i>pathname</i> has six components:
+a host,
+a device,
+a directory,
+a name,
+a type,
+and a version.
+By naming <i>files</i> with <i>pathnames</i>, 
+<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->programs can work in essentially the same way even in <i>file systems</i>
+that seem superficially quite different.
+For a detailed description of these components, see <a href="#Pathname-Components">Section 19.2.1 (Pathname Components)</a>.
+</p>
+<p>The mapping of the <i>pathname</i> components into the concepts peculiar to
+each <i>file system</i> is <i>implementation-defined</i>.
+There exist conceivable <i>pathnames</i>
+for which there is no mapping to a syntactically valid <i>filename</i>
+in a particular <i>implementation</i>.
+An <i>implementation</i> may use various strategies in an attempt to find a mapping;
+for example, 
+an <i>implementation</i> may quietly truncate <i>filenames</i>
+that exceed length limitations imposed by the underlying <i>file system</i>,
+or ignore certain <i>pathname</i> components
+for which the <i>file system</i> provides no support.
+If such a mapping cannot be found,
+an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+<p>The time at which this mapping and associated error signaling 
+occurs is <i>implementation-dependent</i>.
+Specifically, it may occur 
+at the time the <i>pathname</i> is constructed,
+when coercing a <i>pathname</i> to a <i>namestring</i>,
+or when an attempt is made to <i>open</i> or otherwise access the <i>file</i> 
+designated by the <i>pathname</i>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> that are applicable to <i>pathnames</i>.
+</p>
+
+<div class="float"><span id="fig19_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*default-pathname-defaults*</td><td>namestring</td><td>pathname-name</td></tr>
+<tr><td>directory-namestring</td><td>open</td><td>pathname-type</td></tr>
+<tr><td>enough-namestring</td><td>parse-namestring</td><td>pathname-version</td></tr>
+<tr><td>file-namestring</td><td>pathname</td><td>pathnamep</td></tr>
+<tr><td>file-string-length</td><td>pathname-device</td><td>translate-pathname</td></tr>
+<tr><td>host-namestring</td><td>pathname-directory</td><td>truename</td></tr>
+<tr><td>make-pathname</td><td>pathname-host</td><td>user-homedir-pathname</td></tr>
+<tr><td>merge-pathnames</td><td>pathname-match-p</td><td>wild-pathname-p</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 19.1: </strong>Pathname Operations</p></div></div>
+
+<hr>
+<span id="Parsing-Namestrings-Into-Pathnames"></span><div class="header">
+<p>
+Previous: <a href="#Pathnames-as-Filenames" accesskey="p" rel="prev">Pathnames as Filenames</a>, Up: <a href="#Overview-of-Filenames" accesskey="u" rel="up">Overview of Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Parsing-Namestrings-Into-Pathnames-1"></span><h4 class="subsection">19.1.3 Parsing Namestrings Into Pathnames</h4>
+
+<p>Parsing is the operation used to convert a <i>namestring</i> into a <i>pathname</i>.
+Except in the case of parsing <i>logical pathname</i> <i>namestrings</i>,
+this operation is <i>implementation-dependent</i>,
+because the format of <i>namestrings</i> is <i>implementation-dependent</i>.
+</p>
+<p>A <i>conforming implementation</i> is free to accommodate other <i>file system</i>
+features in its <i>pathname</i> representation and provides a parser that can process 
+such specifications in <i>namestrings</i>.  
+<i>Conforming programs</i> must not depend on any such features, 
+since those features will not be portable.
+</p>
+
+<hr>
+<span id="Pathnames"></span><div class="header">
+<p>
+Next: <a href="#Logical-Pathnames" accesskey="n" rel="next">Logical Pathnames</a>, Previous: <a href="#Overview-of-Filenames" accesskey="p" rel="prev">Overview of Filenames</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Pathnames-1"></span><h3 class="section">19.2 Pathnames</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Pathname-Components" accesskey="1">Pathname Components</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Interpreting-Pathname-Component-Values" accesskey="2">Interpreting Pathname Component Values</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Merging-Pathnames" accesskey="3">Merging Pathnames</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Pathname-Components"></span><div class="header">
+<p>
+Next: <a href="#Interpreting-Pathname-Component-Values" accesskey="n" rel="next">Interpreting Pathname Component Values</a>, Up: <a href="#Pathnames" accesskey="u" rel="up">Pathnames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Pathname-Components-1"></span><h4 class="subsection">19.2.1 Pathname Components</h4>
+
+<p>A <i>pathname</i> has six components:
+a host,
+a device,
+a directory,
+a name,
+a type,
+and a version.
+</p>
+<span id="The-Pathname-Host-Component"></span><h4 class="subsubsection">19.2.1.1 The Pathname Host Component</h4>
+
+<p>The name of the file system on which the file resides,
+or the name of a <i>logical host</i>.
+</p>
+
+<span id="The-Pathname-Device-Component"></span><h4 class="subsubsection">19.2.1.2 The Pathname Device Component</h4>
+
+<p>Corresponds to the &ldquo;device&rdquo; or &ldquo;file structure&rdquo; concept in many
+host file systems: the name of a logical or physical device containing files.
+</p>
+
+<span id="The-Pathname-Directory-Component"></span><h4 class="subsubsection">19.2.1.3 The Pathname Directory Component</h4>
+
+<p>Corresponds to the &ldquo;directory&rdquo; concept in many host file systems:
+the name of a group of related files.
+</p>
+
+<span id="The-Pathname-Name-Component"></span><h4 class="subsubsection">19.2.1.4 The Pathname Name Component</h4>
+
+<p>The &ldquo;name&rdquo; part of a group of <i>files</i> that can be thought of
+as conceptually related.
+</p>
+
+<span id="The-Pathname-Type-Component"></span><h4 class="subsubsection">19.2.1.5 The Pathname Type Component</h4>
+
+<p>Corresponds to the &ldquo;filetype&rdquo; or &ldquo;extension&rdquo; concept in many host
+file systems.  This says what kind of file this is.  
+This component is always a <i>string</i>, <code>nil</code>, <tt>:wild</tt>, or <tt>:unspecific</tt>.
+</p>
+
+<span id="The-Pathname-Version-Component"></span><h4 class="subsubsection">19.2.1.6 The Pathname Version Component</h4>
+
+<p>Corresponds to the &ldquo;version number&rdquo; concept in many host file systems.
+</p>
+<p>The version is either a positive <i>integer</i> 
+or a <i>symbol</i> from the following list:
+<code>nil</code>, <tt>:wild</tt>, <tt>:unspecific</tt>, or <tt>:newest</tt>
+(refers to the largest version number that already exists in 
+the file system when reading a file, or to
+a version number
+greater than any already existing in the file system
+when writing a new file).  Implementations 
+can define other special version <i>symbols</i>.
+</p>
+
+
+<hr>
+<span id="Interpreting-Pathname-Component-Values"></span><div class="header">
+<p>
+Next: <a href="#Merging-Pathnames" accesskey="n" rel="next">Merging Pathnames</a>, Previous: <a href="#Pathname-Components" accesskey="p" rel="prev">Pathname Components</a>, Up: <a href="#Pathnames" accesskey="u" rel="up">Pathnames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Interpreting-Pathname-Component-Values-1"></span><h4 class="subsection">19.2.2 Interpreting Pathname Component Values</h4>
+
+<span id="Strings-in-Component-Values"></span><h4 class="subsubsection">19.2.2.1 Strings in Component Values</h4>
+
+
+<span id="g_t19_002e2_002e2_002e1_002e1-Special-Characters-in-Pathname-Components"></span><h4 class="unnumberedsubsubsec">19.2.2.1.1 Special Characters in Pathname Components</h4>
+
+
+<p><i>Strings</i> in <i>pathname</i> component values 
+never contain special <i>characters</i> that represent
+separation between <i>pathname</i> fields, 
+such as <i>slash</i> in <span class="roman">Unix</span>&nbsp;<!-- /@w --><i>filenames</i>.
+Whether separator <i>characters</i> are permitted as 
+part of a <i>string</i> in a <i>pathname</i> component
+is <i>implementation-defined</i>; 
+however, if the <i>implementation</i> does permit it, 
+it must arrange to properly &ldquo;quote&rdquo; the character for the 
+<i>file system</i> when constructing a <i>namestring</i>.
+For example,
+</p>
+<div class="lisp">
+<pre class="lisp"> ;; In a TOPS-20 implementation, which uses ^V to quote 
+ (NAMESTRING (MAKE-PATHNAME :HOST &quot;OZ&quot; :NAME &quot;&lt;TEST&gt;&quot;))
+<span class="roman">→</span> #P&quot;OZ:PS:^V&lt;TEST^V&gt;&quot;
+not<span class="roman">→</span> #P&quot;OZ:PS:&lt;TEST&gt;&quot;
+</pre></div>
+
+
+
+
+
+<span id="g_t19_002e2_002e2_002e1_002e2-Case-in-Pathname-Components"></span><h4 class="unnumberedsubsubsec">19.2.2.1.2 Case in Pathname Components</h4>
+
+<span id="PathnameComponentCase"></span>
+<p><i>Namestrings</i> always use local file system <i>case</i> conventions, 
+but <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>functions</i> that manipulate <i>pathname</i> components
+allow the caller to select either of two conventions for representing
+<i>case</i> in component values by supplying a value for the
+<tt>:case</tt> keyword argument.
+The next figure&nbsp;<!-- /@w -->lists the functions 
+relating to <i>pathnames</i> that permit a <tt>:case</tt> argument:
+</p>
+
+
+<div class="float"><span id="PathnameCaseFuns"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>make-pathname</td><td>pathname-directory</td><td>pathname-name</td></tr>
+<tr><td>pathname-device</td><td>pathname-host</td><td>pathname-type</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 19.2: </strong>Pathname functions using a :CASE argument</p></div></div>
+
+<span id="g_t19_002e2_002e2_002e1_002e2_002e1-Local-Case-in-Pathname-Components"></span><h4 class="unnumberedsubsubsec">19.2.2.1.2.1 Local Case in Pathname Components</h4>
+
+
+<p>For the functions in <a href="#PathnameCaseFuns">Figure 19.2</a>,
+a value of <tt>:local</tt>
+<span id="index-_003alocal"></span>
+for the <tt>:case</tt> argument 
+(the default for these functions)
+indicates that the functions should receive and yield <i>strings</i> in component values
+as if they were already represented according to the host <i>file system</i>&rsquo;s 
+convention for <i>case</i>.
+</p>
+<p>If the <i>file system</i> supports both <i>cases</i>, <i>strings</i> given or received
+as <i>pathname</i> component values under this protocol are to be used exactly
+as written.  If the file system only supports one <i>case</i>, 
+the <i>strings</i> will be translated to that <i>case</i>.
+</p>
+
+<span id="g_t19_002e2_002e2_002e1_002e2_002e2-Common-Case-in-Pathname-Components"></span><h4 class="unnumberedsubsubsec">19.2.2.1.2.2 Common Case in Pathname Components</h4>
+
+
+<p>For the functions in <a href="#PathnameCaseFuns">Figure 19.2</a>,
+a value of <tt>:common</tt>
+<span id="index-_003acommon"></span>
+for the <tt>:case</tt> argument 
+that these <i>functions</i> should receive 
+and yield <i>strings</i> in component values according to the following conventions:
+</p>
+
+<ul>
+<li> All <i>uppercase</i> means to use a file system&rsquo;s customary <i>case</i>.
+</li><li> All <i>lowercase</i> means to use the opposite of the customary <i>case</i>.
+</li><li> Mixed <i>case</i> represents itself.
+</li></ul>
+
+<p>Note that these conventions have been chosen in such a way that translation
+from <tt>:local</tt> to <tt>:common</tt> and back to <tt>:local</tt> is information-preserving.
+</p>
+
+
+
+<span id="Special-Pathname-Component-Values"></span><h4 class="subsubsection">19.2.2.2 Special Pathname Component Values</h4>
+<span id="SpecialComponentValues"></span>
+<span id="g_t19_002e2_002e2_002e2_002e1-NIL-as-a-Component-Value"></span><h4 class="unnumberedsubsubsec">19.2.2.2.1 NIL as a Component Value</h4>
+
+
+<p>As a <i>pathname</i> component value,
+<code>nil</code> represents that the component is &ldquo;unfilled&rdquo;;
+see <a href="#Merging-Pathnames">Section 19.2.3 (Merging Pathnames)</a>.
+</p>
+<p>The value of any <i>pathname</i> component can be <code>nil</code>.
+</p>
+<p>When constructing a <i>pathname</i>,
+<code>nil</code>&nbsp;<!-- /@w -->in the host component might mean a default host
+rather than an actual <code>nil</code>&nbsp;<!-- /@w -->in some <i>implementations</i>.
+</p>
+
+<span id="g_t19_002e2_002e2_002e2_002e2-_003aWILD-as-a-Component-Value"></span><h4 class="unnumberedsubsubsec">19.2.2.2.2 :WILD as a Component Value</h4>
+
+<span id="WildComponents"></span>
+<p>If <tt>:wild</tt>
+<span id="index-_003awild"></span>
+is the value of a <i>pathname</i> component,
+that component is considered to be a wildcard, which matches anything.
+</p>
+<p>A <i>conforming program</i> must be prepared to encounter a value of <tt>:wild</tt>
+as the value of any <i>pathname</i> component,
+or as an <i>element</i> of a <i>list</i> that is the value of the directory component.
+</p>
+<p>When constructing a <i>pathname</i>,
+a <i>conforming program</i> may use <tt>:wild</tt> as the value of any or all of
+the directory, name, type, 
+or version component, but must not use <tt>:wild</tt> as the value of the host,
+or device component.
+</p>
+<p>If <tt>:wild</tt> is used as the value of the directory component in the construction
+of a <i>pathname</i>, the effect is equivalent to specifying the list
+<code>(:absolute :wild-inferiors)</code>,
+or the same as <code>(:absolute :wild)</code> in a <i>file system</i> that does not support
+<tt>:wild-inferiors</tt>.
+<span id="index-_003awild_002dinferiors"></span>
+</p>
+
+<span id="g_t19_002e2_002e2_002e2_002e3-_003aUNSPECIFIC-as-a-Component-Value"></span><h4 class="unnumberedsubsubsec">19.2.2.2.3 :UNSPECIFIC as a Component Value</h4>
+
+<span id="UnspecificComponent"></span>
+<p>If <tt>:unspecific</tt>
+<span id="index-_003aunspecific"></span>
+is the value of a <i>pathname</i> component,
+the component is considered to be &ldquo;absent&rdquo; 
+or to &ldquo;have no meaning&rdquo;
+in the <i>filename</i> being represented by the <i>pathname</i>.
+</p>
+<p>Whether a value of <tt>:unspecific</tt> is permitted for any component
+on any given <i>file system</i> accessible to the <i>implementation</i>
+is <i>implementation-defined</i>.
+A <i>conforming program</i> must never unconditionally use a
+<tt>:unspecific</tt> as the value of a <i>pathname</i> component because
+such a value is not guaranteed to be permissible in all implementations.
+However, a <i>conforming program</i> can, if it is careful, 
+successfully manipulate user-supplied data 
+which contains or refers to non-portable <i>pathname</i> components.
+And certainly a <i>conforming program</i> should be prepared for the
+possibility that any components of a <i>pathname</i> could be <tt>:unspecific</tt>.
+</p>
+<p>When <i>reading</i><sub>1</sub>
+<i>conforming programs</i> should be prepared for the value to be <tt>:unspecific</tt>.
+</p>
+<p>When <i>writing</i><sub>1</sub>
+the consequences are undefined if <tt>:unspecific</tt> is given 
+for a <i>pathname</i> in a <i>file system</i> for which it does not make sense.
+</p>
+<span id="g_t19_002e2_002e2_002e2_002e3_002e1-Relation-between-component-values-NIL-and-_003aUNSPECIFIC"></span><h4 class="unnumberedsubsubsec">19.2.2.2.3.1 Relation between component values NIL and :UNSPECIFIC</h4>
+
+
+<p>If a <i>pathname</i> is converted to a <i>namestring</i>, 
+the <i>symbols</i> <code>nil</code>&nbsp;<!-- /@w -->and <tt>:unspecific</tt>
+cause the field to be treated as if it were empty.
+That is,
+both <code>nil</code>&nbsp;<!-- /@w -->and <tt>:unspecific</tt> 
+cause the component not to appear in the <i>namestring</i>.
+</p>
+<p>However, when merging a <i>pathname</i> with a set of defaults,
+only a <code>nil</code>&nbsp;<!-- /@w -->value for a component 
+will be replaced with the default for that component, 
+while a value of <tt>:unspecific</tt>
+will be left alone as if the field were &ldquo;filled&rdquo;;
+see the <i>function</i> <a href="#merge_002dpathnames">merge-pathnames</a> and <a href="#Merging-Pathnames">Section 19.2.3 (Merging Pathnames)</a>.
+</p>
+
+
+
+
+<span id="Restrictions-on-Wildcard-Pathnames"></span><h4 class="subsubsection">19.2.2.3 Restrictions on Wildcard Pathnames</h4>
+<span id="WildcardRestrictions"></span>
+<p>Wildcard <i>pathnames</i> can be used with <code>directory</code> but not with 
+<code>open</code>,
+and return true from <code>wild-pathname-p</code>. When examining
+wildcard components of a wildcard <i>pathname</i>, conforming programs
+must be prepared to encounter any of the following additional values
+in any component or any element of a <i>list</i> that is the directory component:
+</p>
+
+<ul>
+<li> The <i>symbol</i> <tt>:wild</tt>, which matches anything.
+
+</li><li> A <i>string</i> containing <i>implementation-dependent</i> 
+special wildcard <i>characters</i>.
+
+</li><li> Any <i>object</i>,
+representing an <i>implementation-dependent</i> wildcard pattern.
+</li></ul>
+
+
+
+
+<span id="Restrictions-on-Examining-Pathname-Components"></span><h4 class="subsubsection">19.2.2.4 Restrictions on Examining Pathname Components</h4>
+
+<p>The space of possible <i>objects</i> that a <i>conforming program</i> 
+must be prepared to <i>read</i><sub>1</sub>
+as the value of a <i>pathname</i> component
+is substantially larger than the space of possible <i>objects</i> 
+that a <i>conforming program</i> is permitted to <i>write</i><sub>1</sub>
+into such a component.
+</p>
+<p>While the values discussed 
+in the subsections of this section,
+in <a href="#SpecialComponentValues">Section 19.2.2.2 (Special Pathname Component Values)</a>,
+and in <a href="#WildcardRestrictions">Section 19.2.2.3 (Restrictions on Wildcard Pathnames)</a> 
+apply to values that might be seen when 
+reading the component values,
+substantially more restrictive rules apply to constructing pathnames;
+see <a href="#ConstructingPathnames">Section 19.2.2.5 (Restrictions on Constructing Pathnames)</a>.
+</p>
+<p>When examining <i>pathname</i> components,
+<i>conforming programs</i> should be aware of the following restrictions.
+</p>
+<span id="g_t19_002e2_002e2_002e4_002e1-Restrictions-on-Examining-a-Pathname-Host-Component"></span><h4 class="unnumberedsubsubsec">19.2.2.4.1 Restrictions on Examining a Pathname Host Component</h4>
+
+
+<p>It is <i>implementation-dependent</i> what <i>object</i> is used to represent the host. 
+</p>
+
+<span id="g_t19_002e2_002e2_002e4_002e2-Restrictions-on-Examining-a-Pathname-Device-Component"></span><h4 class="unnumberedsubsubsec">19.2.2.4.2 Restrictions on Examining a Pathname Device Component</h4>
+
+
+<p>The device might be a <i>string</i>,
+<tt>:wild</tt>, <tt>:unspecific</tt>, or <code>nil</code>.
+</p>
+<p>Note that <tt>:wild</tt> might result from an attempt to <i>read</i><sub>1</sub>
+the <i>pathname</i> component, even though portable programs are restricted
+from <i>writing</i><sub>1</sub>
+see <a href="#WildcardRestrictions">Section 19.2.2.3 (Restrictions on Wildcard Pathnames)</a>&nbsp;<!-- /@w -->and <a href="#ConstructingPathnames">Section 19.2.2.5 (Restrictions on Constructing Pathnames)</a>.
+</p>
+
+<span id="g_t19_002e2_002e2_002e4_002e3-Restrictions-on-Examining-a-Pathname-Directory-Component"></span><h4 class="unnumberedsubsubsec">19.2.2.4.3 Restrictions on Examining a Pathname Directory Component</h4>
+
+
+<p>The directory might be a <i>string</i>,
+<tt>:wild</tt>, <tt>:unspecific</tt>, or <code>nil</code>.
+</p>
+<p>The directory can be a <i>list</i> of <i>strings</i> and <i>symbols</i>. 
+The <i>car</i> of the <i>list</i> is one of the symbols <tt>:absolute</tt>
+<span id="index-_003aabsolute"></span>
+or 
+<tt>:relative</tt>
+<span id="index-_003arelative"></span>
+, meaning:
+</p>
+
+<dl compact="compact">
+<dt><tt>:absolute</tt></dt>
+<dd>
+
+<p>A <i>list</i> whose <i>car</i> is the symbol <tt>:absolute</tt> represents 
+a directory path starting from the root directory.  The list 
+<code>(:absolute)</code> represents the root directory.  The list 
+<code>(:absolute &quot;foo&quot; &quot;bar&quot; &quot;baz&quot;)</code> represents the directory called
+<code>&quot;/foo/bar/baz&quot;</code> in Unix (except possibly for <i>case</i>).
+</p>
+</dd>
+<dt><tt>:relative</tt></dt>
+<dd>
+
+<p>A <i>list</i> whose <i>car</i> is the symbol <tt>:relative</tt> represents 
+a directory path starting from a default directory.  
+The list <code>(:relative)</code> has the same meaning as <code>nil</code>&nbsp;<!-- /@w -->and hence is not used.
+The list <code>(:relative &quot;foo&quot; &quot;bar&quot;)</code> represents the directory named <code>&quot;bar&quot;</code> 
+in the directory named <code>&quot;foo&quot;</code> in the default directory.
+</p></dd>
+</dl>
+
+
+<p>Each remaining element of the <i>list</i> is a <i>string</i> or a <i>symbol</i>.
+</p>
+<p>Each <i>string</i> names a single level of directory structure.
+The <i>strings</i> should contain only the directory names 
+themselves&mdash;no punctuation characters.
+</p>
+<p>In place of a <i>string</i>, at any point in the <i>list</i>, <i>symbols</i> 
+can occur to indicate special file notations.
+The next figure&nbsp;<!-- /@w -->lists the <i>symbols</i> that have standard meanings.
+Implementations are permitted to add additional <i>objects</i> 
+of any <i>type</i> that is disjoint from <code>string</code>
+if necessary to represent features of their file systems that cannot be
+represented with the standard <i>strings</i> and <i>symbols</i>.
+</p>
+<p>Supplying any non-<i>string</i>, including any of the <i>symbols</i> listed below, 
+to a file system for which it does not make sense
+signals an error of <i>type</i> <code>file-error</code>.
+For example, Unix does not support <tt>:wild-inferiors</tt> in most implementations.
+</p>
+<span id="index-_003awild-1"></span>
+<span id="index-_003awild_002dinferiors-1"></span>
+<span id="index-_003aup"></span>
+<span id="index-_003aback"></span>
+
+<div class="float"><span id="fig19_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Symbol</th><th>Meaning</th></tr></thead>
+<tr><td><tt>:wild</tt></td><td>Wildcard match of one level of directory structure</td></tr>
+<tr><td><tt>:wild-inferiors</tt></td><td>Wildcard match of any number of directory levels</td></tr>
+<tr><td><tt>:up</tt></td><td>Go upward in directory structure (semantic)</td></tr>
+<tr><td><tt>:back</tt></td><td>Go upward in directory structure (syntactic)</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 19.3: </strong>Special Markers In Directory Component</p></div></div>
+
+<p>The following notes apply to the previous figure:
+</p>
+
+<dl compact="compact">
+<dt>Invalid Combinations</dt>
+<dd>
+
+<p>Using <tt>:absolute</tt> or <tt>:wild-inferiors</tt> 
+immediately followed by <tt>:up</tt> or <tt>:back</tt>
+signals an error of <i>type</i> <code>file-error</code>.
+</p>
+</dd>
+<dt>Syntactic vs Semantic</dt>
+<dd>
+
+<p>&ldquo;Syntactic&rdquo; means that the action of <tt>:back</tt> 
+depends only on the <i>pathname</i>
+and not on the contents of the file system.  
+</p>
+<p>&ldquo;Semantic&rdquo; means that the action of <tt>:up</tt> 
+depends on the contents of the file system; 
+to resolve a <i>pathname</i> containing 
+<tt>:up</tt> to a <i>pathname</i> whose directory component
+contains only <tt>:absolute</tt> and 
+<i>strings</i> requires probing the file system.
+</p>
+<p><tt>:up</tt> differs from 
+<tt>:back</tt> only in file systems that support multiple
+names for directories, perhaps via symbolic links.  For example,
+suppose that there is a directory
+<code>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Z&quot;)</code>
+linked to 
+<code>(:absolute &quot;A&quot; &quot;B&quot; &quot;C&quot;)</code>
+and there also exist directories
+<code>(:absolute &quot;A&quot; &quot;B&quot; &quot;Q&quot;)</code> and 
+<code>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Q&quot;)</code>.
+Then
+<code>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Z&quot; :up &quot;Q&quot;)</code>
+designates
+<code>(:absolute &quot;A&quot; &quot;B&quot; &quot;Q&quot;)</code>
+while
+<code>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Z&quot; :back &quot;Q&quot;)</code>
+designates
+<code>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Q&quot;)</code>
+</p></dd>
+</dl>
+
+
+
+<span id="g_t19_002e2_002e2_002e4_002e3_002e1-Directory-Components-in-Non_002dHierarchical-File-Systems"></span><h4 class="unnumberedsubsubsec">19.2.2.4.3.1 Directory Components in Non-Hierarchical File Systems</h4>
+
+
+<p>In non-hierarchical <i>file systems</i>,
+the only valid <i>list</i> values for the directory component of a <i>pathname</i>
+are <code>(:absolute <i>string</i>)</code> and <code>(:absolute :wild)</code>.
+<tt>:relative</tt> directories and the keywords
+<tt>:wild-inferiors</tt>, <tt>:up</tt>, and <tt>:back</tt> are not used 
+in non-hierarchical <i>file systems</i>.
+</p>
+
+
+<span id="g_t19_002e2_002e2_002e4_002e4-Restrictions-on-Examining-a-Pathname-Name-Component"></span><h4 class="unnumberedsubsubsec">19.2.2.4.4 Restrictions on Examining a Pathname Name Component</h4>
+
+
+<p>The name might be a <i>string</i>,
+<tt>:wild</tt>, <tt>:unspecific</tt>, or <code>nil</code>.
+</p>
+
+<span id="g_t19_002e2_002e2_002e4_002e5-Restrictions-on-Examining-a-Pathname-Type-Component"></span><h4 class="unnumberedsubsubsec">19.2.2.4.5 Restrictions on Examining a Pathname Type Component</h4>
+
+
+<p>The type might be a <i>string</i>,
+<tt>:wild</tt>, <tt>:unspecific</tt>, or <code>nil</code>.
+</p>
+
+<span id="g_t19_002e2_002e2_002e4_002e6-Restrictions-on-Examining-a-Pathname-Version-Component"></span><h4 class="unnumberedsubsubsec">19.2.2.4.6 Restrictions on Examining a Pathname Version Component</h4>
+
+
+<p>The version can be any <i>symbol</i> or any <i>integer</i>.  
+</p>
+<p>The symbol <tt>:newest</tt> refers to the largest version number 
+that already exists in the <i>file system</i>
+when reading, overwriting, appending, superseding, or directory listing 
+an existing <i>file</i>.
+The symbol <tt>:newest</tt> refers to the smallest version number
+greater than any existing version number when creating a new file.
+</p>
+<p>The symbols <code>nil</code>, <tt>:unspecific</tt>, and <tt>:wild</tt> have special meanings and
+restrictions; see <a href="#SpecialComponentValues">Section 19.2.2.2 (Special Pathname Component Values)</a>&nbsp;<!-- /@w -->and <a href="#ConstructingPathnames">Section 19.2.2.5 (Restrictions on Constructing Pathnames)</a>.
+</p>
+<p>Other <i>symbols</i> and <i>integers</i>
+have <i>implementation-defined</i> meaning.
+</p>
+<span id="g_t19_002e2_002e2_002e4_002e7-Notes-about-the-Pathname-Version-Component"></span><h4 class="unnumberedsubsubsec">19.2.2.4.7 Notes about the Pathname Version Component</h4>
+
+
+<p>It is suggested, but not required, that implementations do the following:
+</p>
+
+<ul>
+<li> Use positive <i>integers</i> starting at 1 as version numbers.
+
+</li><li> Recognize the symbol <tt>:oldest</tt>
+to designate the smallest existing version number.
+
+</li><li> Use <i>keywords</i> for other special versions.
+</li></ul>
+
+
+
+<span id="Restrictions-on-Constructing-Pathnames"></span><h4 class="subsubsection">19.2.2.5 Restrictions on Constructing Pathnames</h4>
+<span id="ConstructingPathnames"></span>
+<p>When constructing a <i>pathname</i> from components, conforming programs
+must follow these rules:
+</p>
+
+<ul>
+<li> Any component can be <code>nil</code>.
+<code>nil</code>&nbsp;<!-- /@w -->in the host might mean a default host 
+rather than an actual <code>nil</code>&nbsp;<!-- /@w -->in some implementations.
+
+</li><li> The host, device, directory, name, and type can be <i>strings</i>.  There
+are <i>implementation-dependent</i> limits on the number and type of
+<i>characters</i> in these <i>strings</i>.
+
+</li><li> The directory can be a <i>list</i> of <i>strings</i> and <i>symbols</i>.
+There are <i>implementation-dependent</i> limits on the <i>list</i>&rsquo;s
+length and contents.
+
+</li><li> The version can be <tt>:newest</tt>.
+
+</li><li> Any component can be taken 
+from the corresponding component of another <i>pathname</i>.
+When the two <i>pathnames</i> are for different file systems
+(in implementations that support multiple file systems),
+an appropriate translation occurs.
+If no meaningful translation is possible,
+an error is signaled.
+The definitions of &ldquo;appropriate&rdquo; and &ldquo;meaningful&rdquo; 
+are <i>implementation-dependent</i>.
+
+</li><li> An implementation might support other values for some components,
+but a portable program cannot use those values.
+A conforming program can use <i>implementation-dependent</i> values
+but this can make it non-portable;
+for example, it might work only with <span class="roman">Unix</span>&nbsp;<!-- /@w -->file systems.
+</li></ul>
+
+
+
+
+
+<hr>
+<span id="Merging-Pathnames"></span><div class="header">
+<p>
+Previous: <a href="#Interpreting-Pathname-Component-Values" accesskey="p" rel="prev">Interpreting Pathname Component Values</a>, Up: <a href="#Pathnames" accesskey="u" rel="up">Pathnames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Merging-Pathnames-1"></span><h4 class="subsection">19.2.3 Merging Pathnames</h4>
+
+<p>Merging takes a <i>pathname</i> with unfilled components
+and supplies values for those components from a source of defaults.
+</p>
+<p>If a component&rsquo;s value is <code>nil</code>, that component is considered to be unfilled.
+If a component&rsquo;s value is any <i>non-nil</i> <i>object</i>, 
+including <tt>:unspecific</tt>, that component is considered to be filled.
+</p>
+<p>Except as explicitly specified otherwise,
+for functions that manipulate or inquire about <i>files</i> in the <i>file system</i>,
+the pathname argument to such a function
+is merged with <code>*default-pathname-defaults*</code> before accessing the <i>file system</i>
+(as if by <code>merge-pathnames</code>).
+</p>
+<span id="Examples-of-Merging-Pathnames"></span><h4 class="subsubsection">19.2.3.1 Examples of Merging Pathnames</h4>
+
+<p>Although the following examples are possible to execute only in
+<i>implementations</i> which permit <tt>:unspecific</tt> in the indicated
+position andwhich permit four-letter type components, they serve to illustrate
+the basic concept of <i>pathname</i> merging.
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="lisp">
+<pre class="lisp"> (pathname-type 
+   (merge-pathnames (make-pathname :type &quot;LISP&quot;)
+                    (make-pathname :type &quot;TEXT&quot;)))
+<span class="roman">→</span> &quot;LISP&quot;
+&nbsp;
+ (pathname-type 
+   (merge-pathnames (make-pathname :type nil)
+                    (make-pathname :type &quot;LISP&quot;)))
+<span class="roman">→</span> &quot;LISP&quot;
+&nbsp;
+ (pathname-type 
+   (merge-pathnames (make-pathname :type :unspecific)
+                    (make-pathname :type &quot;LISP&quot;)))
+<span class="roman">→</span> :UNSPECIFIC
+</pre></div>
+
+
+
+
+
+<hr>
+<span id="Logical-Pathnames"></span><div class="header">
+<p>
+Next: <a href="#pathname-_0028System-Class_0029" accesskey="n" rel="next">pathname (System Class)</a>, Previous: <a href="#Pathnames" accesskey="p" rel="prev">Pathnames</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Logical-Pathnames-1"></span><h3 class="section">19.3 Logical Pathnames</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Syntax-of-Logical-Pathname-Namestrings" accesskey="1">Syntax of Logical Pathname Namestrings</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Logical-Pathname-Components" accesskey="2">Logical Pathname Components</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Syntax-of-Logical-Pathname-Namestrings"></span><div class="header">
+<p>
+Next: <a href="#Logical-Pathname-Components" accesskey="n" rel="next">Logical Pathname Components</a>, Up: <a href="#Logical-Pathnames" accesskey="u" rel="up">Logical Pathnames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Syntax-of-Logical-Pathname-Namestrings-1"></span><h4 class="subsection">19.3.1 Syntax of Logical Pathname Namestrings</h4>
+
+<p>The syntax of a <i>logical pathname</i> <i>namestring</i> is as follows.
+(Note that unlike many notational descriptions in this document,
+this is a syntactic description of character sequences,
+not a structural description of <i>objects</i>.)
+</p>
+<dl compact="compact">
+<dt><var>logical-pathname</var>::=</dt>
+<dd><p><tt>[</tt><tt>↓</tt>host <var>host-marker</var><tt>]</tt> <br> <tt>[</tt><tt>↓</tt><var>relative-directory-marker</var><tt>]</tt> <tt>{</tt><tt>↓</tt>directory <var>directory-marker</var><tt>}</tt>* <br> <tt>[</tt><tt>↓</tt>name<tt>]</tt> <tt>[</tt><var>type-marker</var> <tt>↓</tt>type <tt>[</tt><var>version-marker</var> <tt>↓</tt>version<tt>]</tt><tt>]</tt>
+</p></dd>
+</dl>
+
+<dl compact="compact">
+<dt><var>host</var>::=</dt>
+<dd><p><tt>↓</tt>word
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>directory</var>::=</dt>
+<dd><p><tt>↓</tt>word | <tt>↓</tt>wildcard-word | <tt>↓</tt>wild-inferiors-word
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>name</var>::=</dt>
+<dd><p><tt>↓</tt>word | <tt>↓</tt>wildcard-word
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>type</var>::=</dt>
+<dd><p><tt>↓</tt>word | <tt>↓</tt>wildcard-word
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>version</var>::=</dt>
+<dd><p><tt>↓</tt>pos-int | <var>newest-word</var> | <var>wildcard-version</var>
+</p></dd>
+</dl>
+
+<p><var>host-marker</var>&mdash;a <i>colon</i>.
+</p>
+<p><var>relative-directory-marker</var>&mdash;a <i>semicolon</i>.
+</p>
+<p><var>directory-marker</var>&mdash;a <i>semicolon</i>.
+</p>
+<p><var>type-marker</var>&mdash;a <i>dot</i>.
+</p>
+<p><var>version-marker</var>&mdash;a <i>dot</i>.
+</p>
+<p><var>wild-inferiors-word</var>&mdash;The two character sequence &ldquo;<code>**</code>&rdquo; (two <i>asterisks</i>).
+</p>
+<p><var>newest-word</var>&mdash;The six character sequence &ldquo;<code>newest</code>&rdquo; 
+or the six character sequence &ldquo;<code>NEWEST</code>&rdquo;.
+</p>
+<p><var>wildcard-version</var>&mdash;an <i>asterisk</i>.
+</p>
+<p><var>wildcard-word</var>&mdash;one or more <i>asterisks</i>, uppercase letters,
+digits, and hyphens, including at least one <i>asterisk</i>, 
+with no two <i>asterisks</i> adjacent.
+</p>
+<p><var>word</var>&mdash;one or more uppercase letters, digits, and hyphens.
+</p>
+<p><var>pos-int</var>&mdash;a positive <i>integer</i>.
+</p>
+<span id="Additional-Information-about-Parsing-Logical-Pathname-Namestrings"></span><h4 class="subsubsection">19.3.1.1 Additional Information about Parsing Logical Pathname Namestrings</h4>
+
+<span id="g_t19_002e3_002e1_002e1_002e1-The-Host-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.1 The Host part of a Logical Pathname Namestring</h4>
+
+
+<p>The <var>host</var> must have been defined as a <i>logical pathname</i> host;
+this can be done by using <code>setf</code> of <code>logical-pathname-translations</code>.
+</p>
+<p>The <i>logical pathname</i> host name <code>&quot;SYS&quot;</code> is reserved for the implementation.
+The existence and meaning of <code>SYS:</code> <i>logical pathnames</i> 
+is <i>implementation-defined</i>.
+</p>
+
+<span id="g_t19_002e3_002e1_002e1_002e2-The-Device-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.2 The Device part of a Logical Pathname Namestring</h4>
+
+
+<p>There is no syntax for a <i>logical pathname</i> device since
+the device component of a <i>logical pathname</i> is always <tt>:unspecific</tt>;
+see <a href="#LogicalPathCompUnspecific">Section 19.3.2.1 (Unspecific Components of a Logical Pathname)</a>.
+</p>
+
+<span id="g_t19_002e3_002e1_002e1_002e3-The-Directory-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.3 The Directory part of a Logical Pathname Namestring</h4>
+
+
+<p>If a <var>relative-directory-marker</var> precedes the <var>directories</var>,
+the directory component parsed is as <i>relative</i>;
+otherwise, the directory component is parsed as <i>absolute</i>.
+</p>
+<p>If a <var>wild-inferiors-marker</var> is specified,
+it parses into <tt>:wild-inferiors</tt>.
+</p>
+
+<span id="g_t19_002e3_002e1_002e1_002e4-The-Type-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.4 The Type part of a Logical Pathname Namestring</h4>
+
+
+<p>The <var>type</var> of a <i>logical pathname</i> for a <i>source file</i>
+is <code>&quot;LISP&quot;</code>.   This should be translated into whatever type is 
+appropriate in a physical pathname.
+</p>
+
+<span id="g_t19_002e3_002e1_002e1_002e5-The-Version-part-of-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.5 The Version part of a Logical Pathname Namestring</h4>
+
+
+<p>Some <i>file systems</i> do not have <var>versions</var>. 
+<i>Logical pathname</i> translation to such a <i>file system</i>
+ignores the <var>version</var>.
+This implies that a program cannot rely on being able to store
+more than one version of a file named by a <i>logical pathname</i>.
+</p>
+<p>If a <var>wildcard-version</var> is specified,
+it parses into <tt>:wild</tt>.
+</p>
+
+<span id="g_t19_002e3_002e1_002e1_002e6-Wildcard-Words-in-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.6 Wildcard Words in a Logical Pathname Namestring</h4>
+
+
+<p>Each <i>asterisk</i> in a <var>wildcard-word</var> matches a sequence of 
+zero or more characters.  The <var>wildcard-word</var> &ldquo;<code>*</code>&rdquo; 
+parses into <tt>:wild</tt>; other <i>wildcard-words</i> parse into <i>strings</i>.
+</p>
+
+<span id="g_t19_002e3_002e1_002e1_002e7-Lowercase-Letters-in-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.7 Lowercase Letters in a Logical Pathname Namestring</h4>
+
+
+<p>When parsing <var>words</var> and <var>wildcard-words</var>,
+lowercase letters are translated to uppercase.
+</p>
+
+<span id="g_t19_002e3_002e1_002e1_002e8-Other-Syntax-in-a-Logical-Pathname-Namestring"></span><h4 class="unnumberedsubsubsec">19.3.1.1.8 Other Syntax in a Logical Pathname Namestring</h4>
+
+
+<p>The consequences of using characters other than those specified here
+in a <i>logical pathname</i> <i>namestring</i> are unspecified.
+</p>
+<p>The consequences of using any value not specified here as a 
+<i>logical pathname</i> component are unspecified.
+</p>
+
+
+
+
+<hr>
+<span id="Logical-Pathname-Components"></span><div class="header">
+<p>
+Previous: <a href="#Syntax-of-Logical-Pathname-Namestrings" accesskey="p" rel="prev">Syntax of Logical Pathname Namestrings</a>, Up: <a href="#Logical-Pathnames" accesskey="u" rel="up">Logical Pathnames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Logical-Pathname-Components-1"></span><h4 class="subsection">19.3.2 Logical Pathname Components</h4>
+
+<span id="Unspecific-Components-of-a-Logical-Pathname"></span><h4 class="subsubsection">19.3.2.1 Unspecific Components of a Logical Pathname</h4>
+<span id="LogicalPathCompUnspecific"></span>
+<p>The device component of a <i>logical pathname</i> is always <tt>:unspecific</tt>;
+no other component of a <i>logical pathname can be <tt>:unspecific</tt>.  </i>
+</p>
+
+<span id="Null-Strings-as-Components-of-a-Logical-Pathname"></span><h4 class="subsubsection">19.3.2.2 Null Strings as Components of a Logical Pathname</h4>
+
+<p>The null string, <code>&quot;&quot;</code>, is not a valid value for any component of a <i>logical pathname</i>.
+</p>
+
+
+<hr>
+<span id="pathname-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="#logical_002dpathname-_0028System-Class_0029" accesskey="n" rel="next">logical-pathname (System Class)</a>, Previous: <a href="#Logical-Pathnames" accesskey="p" rel="prev">Logical Pathnames</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">pathname (System Class)</h4>
+<span id="pathname-_0028System-Class_0029-1"></span><h3 class="heading">pathname (System Class)</h3>
+<span id="index-pathname-5"></span>
+<span id="index-pathname-2"></span>
+
+
+<span id="Class-Precedence-List_003a-59"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>pathname</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-505"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>pathname</i> is a structured <i>object</i> which represents a <i>filename</i>.
+</p>
+<p>There are two kinds of <i>pathnames</i>&mdash;<i>physical pathnames</i> and
+<i>logical pathnames</i>.
+</p>
+<hr>
+<span id="logical_002dpathname-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="#pathname-_0028Function_0029" accesskey="n" rel="next">pathname (Function)</a>, Previous: <a href="#pathname-_0028System-Class_0029" accesskey="p" rel="prev">pathname (System Class)</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">logical-pathname (System Class)</h4>
+<span id="logical_002dpathname-_0028System-Class_0029-1"></span><h3 class="heading">logical-pathname (System Class)</h3>
+<span id="index-logical_002dpathname-3"></span>
+<span id="index-logical_002dpathname"></span>
+
+
+
+<span id="Class-Precedence-List_003a-60"></span><h4 class="subsubheading">Class Precedence List:</h4>
+
+<p><code>logical-pathname</code>,
+<code>pathname</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-506"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>pathname</i> that uses a <i>namestring</i> syntax that is 
+<i>implementation-independent</i>, 
+and that has component values that are <i>implementation-independent</i>.
+<i>Logical pathnames</i> do not refer directly to <i>filenames</i>
+</p>
+<span id="See-Also_003a-411"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="Syntax.html#SharpsignP">Section 2.4.8.14 (Sharpsign P)</a>,
+<a href="Printer.html#PrintingPathnames">Section 22.1.3.11 (Printing Pathnames)</a>
+</p>
+
+
+<hr>
+<span id="pathname-_0028Function_0029"></span><div class="header">
+<p>
+Next: <a href="#make_002dpathname" accesskey="n" rel="next">make-pathname</a>, Previous: <a href="#logical_002dpathname-_0028System-Class_0029" accesskey="p" rel="prev">logical-pathname (System Class)</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">pathname (Function)</h4>
+<span id="pathname-_0028Function_0029-1"></span><h3 class="heading">pathname (Function)</h3>
+<span id="index-pathname-6"></span>
+<span id="index-pathname-3"></span>
+
+
+<span id="Syntax_003a-400"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-pathname-4">Function: <strong>pathname</strong> <em>pathspec <span class="roman">→</span> pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-389"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>pathname</var>&mdash;a <i>pathname</i>.
+</p>
+<span id="Description_003a-507"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>pathname</i> denoted by <var>pathspec</var>.
+</p>
+<p>If the <var>pathspec</var> <i>designator</i> is a <i>stream</i>,
+the <i>stream</i> can be either open or closed;
+in both cases, the <code>pathname</code> returned 
+corresponds to the <i>filename</i> used to open the <i>file</i>.
+<code>pathname</code> returns the same <i>pathname</i> for a <i>file stream</i>
+after it is closed as it did when it was open.
+</p>
+<p>If the <var>pathspec</var> <i>designator</i> is
+a <i>file stream</i> created by opening a <i>logical pathname</i>,
+a <i>logical pathname</i> is returned.
+</p>
+<span id="Examples_003a-369"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> ;; There is a great degree of variability permitted here.  The next
+ ;; several examples are intended to illustrate just a few of the many
+ ;; possibilities.  Whether the name is canonicalized to a particular
+ ;; case (either upper or lower) depends on both the file system and the
+ ;; implementation since two different implementations using the same
+ ;; file system might differ on many issues.  How information is stored
+ ;; internally (and possibly presented in #S notation) might vary,
+ ;; possibly requiring `accessors' such as PATHNAME-NAME to perform case
+ ;; conversion upon access.  The format of a namestring is dependent both
+ ;; on the file system and the implementation since, for example, one
+ ;; implementation might include the host name in a namestring, and
+ ;; another might not.  #S notation would generally only be used in a
+ ;; situation where no appropriate namestring could be constructed for use
+ ;; with #P.
+ (setq p1 (pathname &quot;test&quot;))
+<span class="roman">→</span> #P&quot;CHOCOLATE:TEST&quot; ; with case canonicalization (e.g., VMS)
+or<span class="roman">→</span> #P&quot;VANILLA:test&quot;   ; without case canonicalization (e.g., Unix)
+or<span class="roman">→</span> #P&quot;test&quot;
+or<span class="roman">→</span> #S(PATHNAME :HOST &quot;STRAWBERRY&quot; :NAME &quot;TEST&quot;)
+or<span class="roman">→</span> #S(PATHNAME :HOST &quot;BELGIAN-CHOCOLATE&quot; :NAME &quot;test&quot;)
+ (setq p2 (pathname &quot;test&quot;))
+<span class="roman">→</span> #P&quot;CHOCOLATE:TEST&quot;
+or<span class="roman">→</span> #P&quot;VANILLA:test&quot;
+or<span class="roman">→</span> #P&quot;test&quot;
+or<span class="roman">→</span> #S(PATHNAME :HOST &quot;STRAWBERRY&quot; :NAME &quot;TEST&quot;)
+or<span class="roman">→</span> #S(PATHNAME :HOST &quot;BELGIAN-CHOCOLATE&quot; :NAME &quot;test&quot;)
+ (pathnamep p1) <span class="roman">→</span> <i>true</i>
+ (eq p1 (pathname p1)) <span class="roman">→</span> <i>true</i>
+ (eq p1 p2)
+<span class="roman">→</span> <i>true</i>
+or<span class="roman">→</span> <i>false</i>
+ (with-open-file (stream &quot;test&quot; :direction :output)
+   (pathname stream))
+<span class="roman">→</span> #P&quot;ORANGE-CHOCOLATE:&gt;Gus&gt;test.lisp.newest&quot;
+</pre></div>
+
+
+<span id="See-Also_003a-412"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="make_002dpathname"></span><div class="header">
+<p>
+Next: <a href="#pathnamep" accesskey="n" rel="next">pathnamep</a>, Previous: <a href="#pathname-_0028Function_0029" accesskey="p" rel="prev">pathname (Function)</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">make-pathname</h4>
+<span id="make_002dpathname-_0028Function_0029"></span><h3 class="heading">make-pathname (Function)</h3>
+<span id="index-make_002dpathname-2"></span>
+<span id="index-make_002dpathname"></span>
+
+
+<span id="Syntax_003a-401"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-make_002dpathname-1">Function: <strong>make-pathname</strong> <em><tt>&amp;key</tt> host device directory name type version defaults case <span class="roman">→</span> pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-390"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>host</var>&mdash;a <i>valid physical pathname host</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>device</var>&mdash;a <i>valid pathname device</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>directory</var>&mdash;a <i>valid pathname directory</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>name</var>&mdash;a <i>valid pathname name</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>type</var>&mdash;a <i>valid pathname type</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>version</var>&mdash;a <i>valid pathname version</i>.
+Complicated defaulting behavior; see below.
+</p>
+<p><var>defaults</var>&mdash;a <i>pathname designator</i>.
+The default is a <i>pathname</i> whose host component is the same as the
+host component of the <i>value</i> of <code>*default-pathname-defaults*</code>,
+and whose other components are all <code>nil</code>.
+</p>
+<p><var>case</var>&mdash;one of <tt>:common</tt> or <tt>:local</tt>.
+The default is <tt>:local</tt>.
+</p>
+<p><var>pathname</var>&mdash;a <i>pathname</i>.
+</p>
+<span id="Description_003a-508"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Constructs and returns a <i>pathname</i> from the supplied keyword arguments.
+</p>
+<p>After the components supplied explicitly by
+<var>host</var>,
+<var>device</var>, 
+<var>directory</var>,
+<var>name</var>,
+<var>type</var>,
+and <var>version</var> 
+are filled in, 
+the merging rules used by <code>merge-pathnames</code> 
+are used to fill in any 
+unsupplied
+components
+from the defaults supplied by <var>defaults</var>.
+</p>
+<p>Whenever a <i>pathname</i> is constructed the components may be 
+canonicalized if appropriate.
+For the explanation of the arguments that can be supplied for each component,
+see <a href="#Pathname-Components">Section 19.2.1 (Pathname Components)</a>.
+</p>
+<p>If <var>case</var> is supplied,
+it is treated as described in <a href="#PathnameComponentCase">Section 19.2.2.1.2 (Case in Pathname Components)</a>.
+</p>
+<p>The resulting <var>pathname</var> is a <i>logical pathname</i> 
+if and only its host component 
+is
+a <i>logical host</i> 
+or a <i>string</i> that names a defined <i>logical host</i>.
+</p>
+<p>If the <var>directory</var> is a <i>string</i>,
+it should be the name of a top level directory,
+and should not contain any punctuation characters; that is,
+specifying a <i>string</i>, <i>str</i>, is
+equivalent to specifying the list <code>(:absolute <i>str</i>)</code>.
+Specifying the symbol <tt>:wild</tt> is equivalent to specifying the list 
+<code>(:absolute :wild-inferiors)</code>, or <code>(:absolute :wild)</code> 
+in a file system that does not support <tt>:wild-inferiors</tt>.
+</p>
+<span id="Examples_003a-370"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> ;; Implementation A -- an implementation with access to a single
+ ;;  Unix file system.  This implementation happens to never display
+ ;;  the `host' information in a namestring, since there is only one host. 
+ (make-pathname :directory '(:absolute &quot;public&quot; &quot;games&quot;)
+                :name &quot;chess&quot; :type &quot;db&quot;)
+<span class="roman">→</span> #P&quot;/public/games/chess.db&quot; 
+&nbsp;
+&nbsp;
+ ;; Implementation B -- an implementation with access to one or more
+ ;;  VMS file systems.  This implementation displays `host' information
+ ;;  in the namestring only when the host is not the local host.
+ ;;  It uses a double colon to separate a host name from the host's local
+ ;;  file name.
+ (make-pathname :directory '(:absolute &quot;PUBLIC&quot; &quot;GAMES&quot;)
+                :name &quot;CHESS&quot; :type &quot;DB&quot;)
+<span class="roman">→</span> #P&quot;SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot; 
+ (make-pathname :host &quot;BOBBY&quot;
+                :directory '(:absolute &quot;PUBLIC&quot; &quot;GAMES&quot;)
+                :name &quot;CHESS&quot; :type &quot;DB&quot;)
+<span class="roman">→</span> #P&quot;BOBBY::SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot; 
+&nbsp;
+&nbsp;
+ ;; Implementation C -- an implementation with simultaneous access to
+ ;;  multiple file systems from the same Lisp image.  In this 
+ ;;  implementation, there is a convention that any text preceding the
+ ;;  first colon in a pathname namestring is a host name.
+ (dolist (case '(:common :local))
+   (dolist (host '(&quot;MY-LISPM&quot; &quot;MY-VAX&quot; &quot;MY-UNIX&quot;))
+     (print (make-pathname :host host :case case
+                           :directory '(:absolute &quot;PUBLIC&quot; &quot;GAMES&quot;)
+                           :name &quot;CHESS&quot; :type &quot;DB&quot;))))
+▷ #P&quot;MY-LISPM:&gt;public&gt;games&gt;chess.db&quot;
+▷ #P&quot;MY-VAX:SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot;
+▷ #P&quot;MY-UNIX:/public/games/chess.db&quot;
+▷ #P&quot;MY-LISPM:&gt;public&gt;games&gt;chess.db&quot; 
+▷ #P&quot;MY-VAX:SYS$DISK:[PUBLIC.GAMES]CHESS.DB&quot; 
+▷ #P&quot;MY-UNIX:/PUBLIC/GAMES/CHESS.DB&quot; 
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Affected-By_003a-72"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>file system</i>.
+</p>
+<span id="See-Also_003a-413"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#merge_002dpathnames">merge-pathnames</a>,
+<a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-275"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Portable programs should not supply <tt>:unspecific</tt> for any component.
+See <a href="#UnspecificComponent">Section 19.2.2.2.3 (.UNSPECIFIC as a Component Value)</a>.
+</p>
+
+<hr>
+<span id="pathnamep"></span><div class="header">
+<p>
+Next: <a href="#pathname_002dhost_003b-pathname_002ddevice_003b-pathname_002ddirectory_003b-pathname_002dname_003b-path_002b" accesskey="n" rel="next">pathname-host; pathname-device; pathname-directory; pathname-name; path+</a>, Previous: <a href="#make_002dpathname" accesskey="p" rel="prev">make-pathname</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">pathnamep</h4>
+<span id="pathnamep-_0028Function_0029"></span><h3 class="heading">pathnamep (Function)</h3>
+<span id="index-pathnamep-2"></span>
+<span id="index-pathnamep"></span>
+
+
+<span id="Syntax_003a-402"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-pathnamep-1">Function: <strong>pathnamep</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-391"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-509"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>pathname</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-371"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq q &quot;test&quot;)  <span class="roman">→</span> &quot;test&quot;
+ (pathnamep q) <span class="roman">→</span> <i>false</i>
+ (setq q (pathname &quot;test&quot;))
+<span class="roman">→</span> #S(PATHNAME :HOST NIL :DEVICE NIL :DIRECTORY NIL :NAME &quot;test&quot; :TYPE NIL
+       :VERSION NIL)
+ (pathnamep q) <span class="roman">→</span> <i>true</i> 
+ (setq q (logical-pathname &quot;SYS:SITE;FOO.SYSTEM&quot;))
+<span class="roman">→</span> #P&quot;SYS:SITE;FOO.SYSTEM&quot;
+ (pathnamep q) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Notes_003a-276"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (pathnamep <var>object</var>) ≡ (typep <var>object</var> 'pathname)
+</pre></div>
+
+
+
+<hr>
+<span id="pathname_002dhost_003b-pathname_002ddevice_003b-pathname_002ddirectory_003b-pathname_002dname_003b-path_002b"></span><div class="header">
+<p>
+Next: <a href="#load_002dlogical_002dpathname_002dtranslations" accesskey="n" rel="next">load-logical-pathname-translations</a>, Previous: <a href="#pathnamep" accesskey="p" rel="prev">pathnamep</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">pathname-host; pathname-device; pathname-directory; pathname-name; path+</h4>
+<span id="pathname_002dhost_002c-pathname_002ddevice_002c-pathname_002ddirectory_002c-pathname_002dname_002c-pathname_002dtype_002c-pathname_002dversion-_0028Function_0029"></span><h3 class="heading">pathname-host, pathname-device, pathname-directory, pathname-name, pathname-type, pathname-version (Function)</h3>
+<span id="index-pathname_002dhost-2"></span>
+<span id="index-pathname_002dhost"></span>
+<span id="index-pathname_002ddevice-2"></span>
+<span id="index-pathname_002ddevice"></span>
+<span id="index-pathname_002ddirectory-2"></span>
+<span id="index-pathname_002ddirectory"></span>
+<span id="index-pathname_002dname-2"></span>
+<span id="index-pathname_002dname"></span>
+<span id="index-pathname_002dtype-2"></span>
+<span id="index-pathname_002dtype"></span>
+<span id="index-pathname_002dversion-2"></span>
+<span id="index-pathname_002dversion"></span>
+<span id="pathname_002dhost"></span>
+
+<span id="Syntax_003a-403"></span><h4 class="subsubheading">Syntax:</h4>
+
+
+<dl>
+<dt id="index-pathname_002dhost-1">Function: <strong>pathname-host</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> host</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002ddevice-1">Function: <strong>pathname-device</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> device</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002ddirectory-1">Function: <strong>pathname-directory</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> directory</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002dname-1">Function: <strong>pathname-name</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> name</em></dt>
+</dl>
+
+<dl>
+<dt id="index-pathname_002dtype-1">Function: <strong>pathname-type</strong> <em>pathname <tt>&amp;key</tt> case <span class="roman">→</span> type</em></dt>
+</dl>
+
+
+<dl>
+<dt id="index-pathname_002dversion-1">Function: <strong>pathname-version</strong> <em>pathname <span class="roman">→</span> version</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-392"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>case</var>&mdash;one of <tt>:local</tt> or <tt>:common</tt>.
+The default is <tt>:local</tt>.
+</p>
+<p><var>host</var>&mdash;a <i>valid pathname host</i>.
+</p>
+<p><var>device</var>&mdash;a <i>valid pathname device</i>.
+</p>
+<p><var>directory</var>&mdash;a <i>valid pathname directory</i>.
+</p>
+<p><var>name</var>&mdash;a <i>valid pathname name</i>.
+</p>
+<p><var>type</var>&mdash;a <i>valid pathname type</i>.
+</p>
+<p><var>version</var>&mdash;a <i>valid pathname version</i>.
+</p>
+
+<span id="Description_003a-510"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These functions return the components of <var>pathname</var>.
+</p>
+<p>If the <var>pathname</var> <i>designator</i> is a <i>pathname</i>,
+it represents the name used to open the file. This may be, but is
+not required to be, the actual name of the file. 
+</p>
+<p>If <var>case</var> is supplied,
+it is treated as described in <a href="#PathnameComponentCase">Section 19.2.2.1.2 (Case in Pathname Components)</a>.
+</p>
+<span id="Examples_003a-372"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq q (make-pathname :host &quot;KATHY&quot;
+                        :directory &quot;CHAPMAN&quot; 
+                        :name &quot;LOGIN&quot; :type &quot;COM&quot;))
+<span class="roman">→</span> #P&quot;KATHY::[CHAPMAN]LOGIN.COM&quot;
+ (pathname-host q) <span class="roman">→</span> &quot;KATHY&quot;
+ (pathname-name q) <span class="roman">→</span> &quot;LOGIN&quot;
+ (pathname-type q) <span class="roman">→</span> &quot;COM&quot;
+
+ ;; Because namestrings are used, the results shown in the remaining
+ ;; examples are not necessarily the only possible results.  Mappings
+ ;; from namestring representation to pathname representation are 
+ ;; dependent both on the file system involved and on the implementation
+ ;; (since there may be several implementations which can manipulate the
+ ;; the same file system, and those implementations are not constrained
+ ;; to agree on all details). Consult the documentation for each
+ ;; implementation for specific information on how namestrings are treated
+ ;; that implementation.
+
+ ;; VMS
+ (pathname-directory (parse-namestring &quot;[FOO.*.BAR]BAZ.LSP&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+ (pathname-directory (parse-namestring &quot;[FOO.*.BAR]BAZ.LSP&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+
+ ;; Unix
+ (pathname-directory &quot;foo.l&quot;) <span class="roman">→</span> NIL
+ (pathname-device &quot;foo.l&quot;) <span class="roman">→</span> :UNSPECIFIC
+ (pathname-name &quot;foo.l&quot;) <span class="roman">→</span> &quot;foo&quot;
+ (pathname-name &quot;foo.l&quot; :case :local) <span class="roman">→</span> &quot;foo&quot;
+ (pathname-name &quot;foo.l&quot; :case :common) <span class="roman">→</span> &quot;FOO&quot;
+ (pathname-type &quot;foo.l&quot;) <span class="roman">→</span> &quot;l&quot;
+ (pathname-type &quot;foo.l&quot; :case :local) <span class="roman">→</span> &quot;l&quot;
+ (pathname-type &quot;foo.l&quot; :case :common) <span class="roman">→</span> &quot;L&quot;
+ (pathname-type &quot;foo&quot;) <span class="roman">→</span> :UNSPECIFIC
+ (pathname-type &quot;foo&quot; :case :common) <span class="roman">→</span> :UNSPECIFIC
+ (pathname-type &quot;foo.&quot;) <span class="roman">→</span> &quot;&quot;
+ (pathname-type &quot;foo.&quot; :case :common) <span class="roman">→</span> &quot;&quot;
+ (pathname-directory (parse-namestring &quot;/foo/bar/baz.lisp&quot;) :case :local)
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;/foo/bar/baz.lisp&quot;) :case :local)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+ (pathname-directory (parse-namestring &quot;../baz.lisp&quot;))
+<span class="roman">→</span> (:RELATIVE :UP)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/BAR/../Mum/baz&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; &quot;BAR&quot; :UP &quot;Mum&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/BAR/../Mum/baz&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; &quot;bar&quot; :UP &quot;Mum&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/*/bar/baz.l&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; :WILD &quot;bar&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/*/bar/baz.l&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; :WILD &quot;BAR&quot;)
+
+ ;; Symbolics LMFS
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;**&gt;bar&gt;baz.lisp&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; :WILD-INFERIORS &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;*&gt;bar&gt;baz.lisp&quot;))
+<span class="roman">→</span> (:ABSOLUTE &quot;foo&quot; :WILD &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;*&gt;bar&gt;baz.lisp&quot;) :case :common)
+<span class="roman">→</span> (:ABSOLUTE &quot;FOO&quot; :WILD &quot;BAR&quot;)
+ (pathname-device (parse-namestring &quot;&gt;foo&gt;baz.lisp&quot;)) <span class="roman">→</span> :UNSPECIFIC
+</pre></div>
+
+
+<span id="Affected-By_003a-73"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i> and the host <i>file system</i>.
+</p>
+<span id="Exceptional-Situations_003a-174"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if its first argument is not a <i>pathname</i>.
+</p>
+<span id="See-Also_003a-414"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="load_002dlogical_002dpathname_002dtranslations"></span><div class="header">
+<p>
+Next: <a href="#logical_002dpathname_002dtranslations" accesskey="n" rel="next">logical-pathname-translations</a>, Previous: <a href="#pathname_002dhost_003b-pathname_002ddevice_003b-pathname_002ddirectory_003b-pathname_002dname_003b-path_002b" accesskey="p" rel="prev">pathname-host; pathname-device; pathname-directory; pathname-name; path+</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">load-logical-pathname-translations</h4>
+<span id="load_002dlogical_002dpathname_002dtranslations-_0028Function_0029"></span><h3 class="heading">load-logical-pathname-translations (Function)</h3>
+<span id="index-load_002dlogical_002dpathname_002dtranslations-2"></span>
+<span id="index-load_002dlogical_002dpathname_002dtranslations"></span>
+
+
+
+<span id="Syntax_003a-404"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-load_002dlogical_002dpathname_002dtranslations-1">Function: <strong>load-logical-pathname-translations</strong> <em>host <span class="roman">→</span> just-loaded</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-393"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>host</var>&mdash;a <i>string</i>.
+</p>
+<p><i>just-loaded</i>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-511"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Searches for and loads the definition of a <i>logical host</i> named <var>host</var>,
+if it is not already defined.
+The specific nature of the search is <i>implementation-defined</i>.
+</p>
+<p>If the <var>host</var> is already defined, 
+no attempt to find or load a definition is attempted,
+and <i>false</i> is returned.
+If the <var>host</var> is not already defined,
+but a definition is successfully found and loaded,
+<i>true</i> is returned.
+Otherwise, an error is signaled.
+</p>
+<span id="Examples_003a-373"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (translate-logical-pathname &quot;hacks:weather;barometer.lisp.newest&quot;)
+▷ Error: The logical host HACKS is not defined.
+ (load-logical-pathname-translations &quot;HACKS&quot;)
+▷ ;; Loading SYS:SITE;HACKS.TRANSLATIONS
+▷ ;; Loading done.
+<span class="roman">→</span> <i>true</i>
+ (translate-logical-pathname &quot;hacks:weather;barometer.lisp.newest&quot;)
+<span class="roman">→</span> #P&quot;HELIUM:[SHARED.HACKS.WEATHER]BAROMETER.LSP;0&quot;
+ (load-logical-pathname-translations &quot;HACKS&quot;)
+<span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-175"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If no definition is found, an error of <i>type</i> <code>error</code> is signaled.
+</p>
+<span id="See-Also_003a-415"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>
+</p>
+<span id="Notes_003a-277"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><i>Logical pathname</i> definitions will be created not just by 
+<i>implementors</i> but also by <i>programmers</i>.  As such,
+it is important that the search strategy be documented.
+For example, an <i>implementation</i> might define that the
+definition of a <var>host</var> is to be found in a file called
+&ldquo;<var>host</var>.translations&rdquo; in some specifically named directory.
+</p>
+
+
+<hr>
+<span id="logical_002dpathname_002dtranslations"></span><div class="header">
+<p>
+Next: <a href="#logical_002dpathname-_0028Function_0029" accesskey="n" rel="next">logical-pathname (Function)</a>, Previous: <a href="#load_002dlogical_002dpathname_002dtranslations" accesskey="p" rel="prev">load-logical-pathname-translations</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">logical-pathname-translations</h4>
+<span id="logical_002dpathname_002dtranslations-_0028Accessor_0029"></span><h3 class="heading">logical-pathname-translations (Accessor)</h3>
+<span id="index-logical_002dpathname_002dtranslations-2"></span>
+<span id="index-logical_002dpathname_002dtranslations"></span>
+
+
+
+<span id="Syntax_003a-405"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-logical_002dpathname_002dtranslations-1">Function: <strong>logical-pathname-translations</strong> <em>host <span class="roman">→</span> translations</em></dt>
+</dl>
+<p><tt>(setf (logical-pathname-translations host) new-translations)</tt>
+</p>
+<span id="Arguments-and-Values_003a-394"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>host</var>&mdash;a <i>logical host designator</i>.
+</p>
+<p><var>translations</var>, <var>new-translations</var>&mdash;a <i>list</i>.
+</p>
+<span id="Description_003a-512"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the host&rsquo;s <i>list</i> of translations.
+Each translation is a <i>list</i> of at least two elements: 
+<i>from-wildcard</i> and <i>to-wildcard</i>.  Any
+additional elements are <i>implementation-defined</i>.  
+<i>From-wildcard</i> is a
+<i>logical pathname</i> whose host is <var>host</var>.  
+<i>To-wildcard</i> is a <i>pathname</i>.    
+</p>
+
+<p><code>(setf (logical-pathname-translations <var>host</var>) <i>translations</i>)</code> sets a 
+<i>logical pathname</i> host&rsquo;s
+<i>list</i> of <i>translations</i>.  If <var>host</var> 
+is a <i>string</i> that has
+not been previously used as 
+a <i>logical pathname</i> host, a new 
+<i>logical pathname</i> host is defined; 
+otherwise an existing host&rsquo;s translations are
+replaced.  <i>logical pathname</i> host names are compared with <code>string-equal</code>.
+</p>
+<p>When setting the translations list, each <i>from-wildcard</i> 
+can be a <i>logical pathname</i> whose
+host is <var>host</var> or a <i>logical pathname</i> namestring
+parseable by <code>(parse-namestring <i>string</i> <i>host</i>)</code>, 
+where <i>host</i>
+represents the appropriate <i>object</i> as defined 
+by <code>parse-namestring</code>. Each
+<i>to-wildcard</i> can be anything coercible to a 
+<i>pathname</i> by
+<code>(pathname <i>to-wildcard</i>)</code>.  
+If <i>to-wildcard</i> coerces to a <i>logical pathname</i>,
+<code>translate-logical-pathname</code> 
+will perform repeated translation steps when
+it uses it.
+</p>
+<p><var>host</var> is either the host component of a 
+<i>logical pathname</i> or a
+<i>string</i> that has been defined 
+as a <i>logical pathname</i> host name by <code>setf</code> of
+<code>logical-pathname-translations</code>. 
+</p>
+<span id="Examples_003a-374"></span><h4 class="subsubheading">Examples:</h4>
+
+
+
+<div class="lisp">
+<pre class="lisp"> ;;;A very simple example of setting up a logical pathname host.  No
+ ;;;translations are necessary to get around file system restrictions, so
+ ;;;all that is necessary is to specify the root of the physical directory
+ ;;;tree that contains the logical file system.
+ ;;;The namestring syntax on the right-hand side is implementation-dependent.
+ (setf (logical-pathname-translations &quot;foo&quot;)
+       '((&quot;**;*.*.*&quot;              &quot;MY-LISPM:&gt;library&gt;foo&gt;**&gt;&quot;)))
+&nbsp; 
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;foo:bar;baz;mum.quux.3&quot;)
+<span class="roman">→</span> #P&quot;MY-LISPM:&gt;library&gt;foo&gt;bar&gt;baz&gt;mum.quux.3&quot;
+&nbsp;
+&nbsp; 
+ ;;;A more complex example, dividing the files among two file servers
+ ;;;and several different directories.  This Unix doesn't support
+ ;;;:WILD-INFERIORS in the directory, so each directory level must
+ ;;;be translated individually.  No file name or type translations
+ ;;;are required except for .MAIL to .MBX.
+ ;;;The namestring syntax on the right-hand side is implementation-dependent.
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       '((&quot;RELEASED;*.*.*&quot;        &quot;MY-UNIX:/sys/bin/my-prog/&quot;)
+         (&quot;RELEASED;*;*.*.*&quot;      &quot;MY-UNIX:/sys/bin/my-prog/*/&quot;)
+         (&quot;EXPERIMENTAL;*.*.*&quot;    &quot;MY-UNIX:/usr/Joe/development/prog/&quot;)
+         (&quot;EXPERIMENTAL;DOCUMENTATION;*.*.*&quot;
+                                  &quot;MY-VAX:SYS$DISK:[JOE.DOC]&quot;)
+         (&quot;EXPERIMENTAL;*;*.*.*&quot;  &quot;MY-UNIX:/usr/Joe/development/prog/*/&quot;)
+         (&quot;MAIL;**;*.MAIL&quot;        &quot;MY-VAX:SYS$DISK:[JOE.MAIL.PROG...]*.MBX&quot;)))
+&nbsp;
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:mail;save;ideas.mail.3&quot;)
+<span class="roman">→</span> #P&quot;MY-VAX:SYS$DISK:[JOE.MAIL.PROG.SAVE]IDEAS.MBX.3&quot;
+&nbsp;
+&nbsp;
+ ;;;Example translations for a program that uses three files main.lisp,
+ ;;;auxiliary.lisp, and documentation.lisp.  These translations might be
+ ;;;supplied by a software supplier as examples.
+&nbsp;
+ ;;;For Unix with long file names
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       '((&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
+&nbsp;
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+<span class="roman">→</span> #P&quot;/lib/prog/documentation.lisp&quot;
+&nbsp;
+ ;;;For Unix with 14-character file names, using .lisp as the type
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       '((&quot;CODE;DOCUMENTATION.*.*&quot; &quot;/lib/prog/docum.*&quot;)
+         (&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
+
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+<span class="roman">→</span> #P&quot;/lib/prog/docum.lisp&quot;
+&nbsp;
+&nbsp;
+ ;;;For Unix with 14-character file names, using .l as the type
+ ;;;The second translation shortens the compiled file type to .b
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       `((&quot;**;*.LISP.*&quot;            ,(logical-pathname &quot;PROG:**;*.L.*&quot;))
+         (,(compile-file-pathname (logical-pathname &quot;PROG:**;*.LISP.*&quot;))
+                                   ,(logical-pathname &quot;PROG:**;*.B.*&quot;))
+         (&quot;CODE;DOCUMENTATION.*.*&quot; &quot;/lib/prog/documentatio.*&quot;)
+         (&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
+&nbsp;
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+<span class="roman">→</span> #P&quot;/lib/prog/documentatio.l&quot;
+&nbsp;
+&nbsp;
+ ;;;For a Cray with 6 character names and no directories, types, or versions.
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       (let ((l '((&quot;MAIN&quot; &quot;PGMN&quot;)
+                  (&quot;AUXILIARY&quot; &quot;PGAUX&quot;)
+                  (&quot;DOCUMENTATION&quot; &quot;PGDOC&quot;)))
+             (logpath (logical-pathname &quot;prog:code;&quot;))
+             (phypath (pathname &quot;XXX&quot;)))
+         (append
+           ;; Translations for source files
+           (mapcar #'(lambda (x)
+                       (let ((log (first x))
+                             (phy (second x)))
+                         (list (make-pathname :name log
+                                              :type &quot;LISP&quot;
+                                              :version :wild
+                                              :defaults logpath)
+                               (make-pathname :name phy
+                                              :defaults phypath))))
+                   l)
+           ;; Translations for compiled files
+           (mapcar #'(lambda (x)
+                       (let* ((log (first x))
+                              (phy (second x))
+                              (com (compile-file-pathname
+                                     (make-pathname :name log
+                                                    :type &quot;LISP&quot;
+                                                    :version :wild
+                                                    :defaults logpath))))
+                         (setq phy (concatenate 'string phy &quot;B&quot;))
+                         (list com
+                               (make-pathname :name phy
+                                              :defaults phypath))))
+                   l))))
+
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+<span class="roman">→</span> #P&quot;PGDOC&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-176"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If <var>host</var> is incorrectly supplied, 
+an error of <i>type</i> <code>type-error</code> is signaled.
+</p>
+<span id="See-Also_003a-416"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-278"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Implementations can define additional <i>functions</i>
+that operate on <i>logical pathname</i> hosts,
+for example to specify additional translation rules or options.
+</p>
+
+
+<hr>
+<span id="logical_002dpathname-_0028Function_0029"></span><div class="header">
+<p>
+Next: <a href="#g_t_002adefault_002dpathname_002ddefaults_002a" accesskey="n" rel="next">*default-pathname-defaults*</a>, Previous: <a href="#logical_002dpathname_002dtranslations" accesskey="p" rel="prev">logical-pathname-translations</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">logical-pathname (Function)</h4>
+<span id="logical_002dpathname-_0028Function_0029-1"></span><h3 class="heading">logical-pathname (Function)</h3>
+<span id="index-logical_002dpathname-4"></span>
+<span id="index-logical_002dpathname-1"></span>
+
+
+
+<span id="Syntax_003a-406"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-logical_002dpathname-2">Function: <strong>logical-pathname</strong> <em>pathspec <span class="roman">→</span> logical-pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-395"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathspec</var>&mdash;a <i>logical pathname</i>, 
+a <i>logical pathname</i> <i>namestring</i>,
+or a <i>stream</i>.
+</p>
+<p><var>logical-pathname</var>&mdash;a <i>logical pathname</i>.
+</p>
+<span id="Description_003a-513"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>logical-pathname</code> converts <var>pathspec</var> to a
+<i>logical pathname</i> and returns the new <i>logical pathname</i>.
+If <var>pathspec</var> is a <i>logical pathname</i> <i>namestring</i>,
+it should contain a host component and its following <i>colon</i>.
+If <var>pathspec</var> is a <i>stream</i>, it should be one
+for which <code>pathname</code> returns a <i>logical pathname</i>.  
+</p>
+<p>If <var>pathspec</var> is a <i>stream</i>, the <i>stream</i> can be either open or closed.
+<code>logical-pathname</code> returns the same <i>logical pathname</i> after a
+file is closed as it did when the file was open.
+It is an error if <var>pathspec</var> is a <i>stream</i> that is 
+created with
+<code>make-two-way-stream</code>, 
+<code>make-echo-stream</code>,             
+<code>make-broadcast-stream</code>, 
+<code>make-concatenated-stream</code>,
+<code>make-string-input-stream</code>,
+or
+<code>make-string-output-stream</code>.
+</p>
+<span id="Exceptional-Situations_003a-177"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Signals an error of <i>type</i> <code>type-error</code> if <var>pathspec</var> isn&rsquo;t supplied correctly.
+</p>
+<span id="See-Also_003a-417"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="#translate_002dlogical_002dpathname">translate-logical-pathname</a>,
+<a href="#Logical-Pathnames">Section 19.3 (Logical Pathnames)</a>
+</p>
+
+
+<hr>
+<span id="g_t_002adefault_002dpathname_002ddefaults_002a"></span><div class="header">
+<p>
+Next: <a href="#namestring_003b-file_002dnamestring_003b-directory_002dnamestring_003b-host_002dnamestring_003b-eno_002b" accesskey="n" rel="next">namestring; file-namestring; directory-namestring; host-namestring; eno+</a>, Previous: <a href="#logical_002dpathname-_0028Function_0029" accesskey="p" rel="prev">logical-pathname (Function)</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">*default-pathname-defaults*</h4>
+<span id="g_t_002adefault_002dpathname_002ddefaults_002a-_0028Variable_0029"></span><h3 class="heading">*default-pathname-defaults* (Variable)</h3>
+<span id="index-_002adefault_002dpathname_002ddefaults_002a-1"></span>
+<span id="index-_002adefault_002dpathname_002ddefaults_002a"></span>
+
+
+<span id="Value-Type_003a-6"></span><h4 class="subsubheading">Value Type:</h4>
+
+<p>a <i>pathname</i> <i>object</i>.
+</p>
+<span id="Initial-Value_003a-6"></span><h4 class="subsubheading">Initial Value:</h4>
+
+<p>An <i>implementation-dependent</i> <i>pathname</i>, 
+typically in the working directory that was current when <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->was started up.
+</p>
+<span id="Description_003a-514"></span><h4 class="subsubheading">Description:</h4>
+
+<p>a <i>pathname</i>, used as the default whenever a <i>function</i>
+needs a default <i>pathname</i> and one is not supplied.
+</p>
+<span id="Examples_003a-375"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> ;; This example illustrates a possible usage for a hypothetical Lisp running on a
+ ;; DEC TOPS-20 file system.  Since pathname conventions vary between Lisp 
+ ;; implementations and host file system types, it is not possible to provide a
+ ;; general-purpose, conforming example.
+ *default-pathname-defaults* <span class="roman">→</span> #P&quot;PS:&lt;FRED&gt;&quot;
+ (merge-pathnames (make-pathname :name &quot;CALENDAR&quot;))
+<span class="roman">→</span> #P&quot;PS:&lt;FRED&gt;CALENDAR&quot;
+ (let ((*default-pathname-defaults* (pathname &quot;&lt;MARY&gt;&quot;)))
+   (merge-pathnames (make-pathname :name &quot;CALENDAR&quot;)))
+<span class="roman">→</span> #P&quot;&lt;MARY&gt;CALENDAR&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-74"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+
+<hr>
+<span id="namestring_003b-file_002dnamestring_003b-directory_002dnamestring_003b-host_002dnamestring_003b-eno_002b"></span><div class="header">
+<p>
+Next: <a href="#parse_002dnamestring" accesskey="n" rel="next">parse-namestring</a>, Previous: <a href="#g_t_002adefault_002dpathname_002ddefaults_002a" accesskey="p" rel="prev">*default-pathname-defaults*</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">namestring; file-namestring; directory-namestring; host-namestring; eno+</h4>
+<span id="namestring_002c-file_002dnamestring_002c-directory_002dnamestring_002c-host_002dnamestring_002c-enough_002dnamestring-_0028Function_0029"></span><h3 class="heading">namestring, file-namestring, directory-namestring, host-namestring, enough-namestring (Function)</h3>
+<span id="index-namestring-3"></span>
+<span id="index-namestring-1"></span>
+<span id="index-file_002dnamestring-2"></span>
+<span id="index-file_002dnamestring"></span>
+<span id="index-directory_002dnamestring-2"></span>
+<span id="index-directory_002dnamestring"></span>
+<span id="index-host_002dnamestring-2"></span>
+<span id="index-host_002dnamestring"></span>
+<span id="index-enough_002dnamestring-2"></span>
+<span id="index-enough_002dnamestring"></span>
+<span id="namestring"></span>
+
+<span id="Syntax_003a-407"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-namestring-2">Function: <strong>namestring</strong> <em>pathname <span class="roman">→</span> namestring</em></dt>
+</dl>
+
+<dl>
+<dt id="index-file_002dnamestring-1">Function: <strong>file-namestring</strong> <em>pathname <span class="roman">→</span> namestring</em></dt>
+</dl>
+<dl>
+<dt id="index-directory_002dnamestring-1">Function: <strong>directory-namestring</strong> <em>pathname <span class="roman">→</span> namestring</em></dt>
+</dl>
+<dl>
+<dt id="index-host_002dnamestring-1">Function: <strong>host-namestring</strong> <em>pathname <span class="roman">→</span> namestring</em></dt>
+</dl>
+
+<dl>
+<dt id="index-enough_002dnamestring-1">Function: <strong>enough-namestring</strong> <em>pathname <tt>&amp;optional</tt> defaults <span class="roman">→</span> namestring</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-396"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>defaults</var>&mdash;a <i>pathname designator</i>.
+The default is the <i>value</i> of <code>*default-pathname-defaults*</code>.
+</p>
+<p><var>namestring</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+
+<span id="Description_003a-515"></span><h4 class="subsubheading">Description:</h4>
+
+
+<p>These functions convert <var>pathname</var> into a namestring.
+The name represented by <var>pathname</var> is returned as a <i>namestring</i>
+in an <i>implementation-dependent</i> canonical form.
+</p>
+<p><code>namestring</code> returns the full form of <var>pathname</var>.
+</p>
+<p><code>file-namestring</code> returns just the name, type, and version
+components of <var>pathname</var>.
+</p>
+<p><code>directory-namestring</code> returns the directory name portion.
+</p>
+<p><code>host-namestring</code> returns the host name. 
+</p>
+<p><code>enough-namestring</code> returns an abbreviated namestring 
+that is just sufficient to identify the file named by <var>pathname</var>
+when considered relative to the <var>defaults</var>.
+It is required that
+</p>
+<div class="lisp">
+<pre class="lisp"> (merge-pathnames (enough-namestring pathname defaults) defaults)
+≡ (merge-pathnames (parse-namestring pathname nil defaults) defaults)
+</pre></div>
+
+<p>in all cases, and the result of <code>enough-namestring</code> is
+the shortest reasonable <i>string</i> that will satisfy this criterion.
+</p>
+<p>It is not necessarily possible to construct a valid <i>namestring</i> 
+by concatenating some of the three shorter <i>namestrings</i> in some order.
+</p>
+<span id="Examples_003a-376"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (namestring &quot;getty&quot;)            
+<span class="roman">→</span> &quot;getty&quot;
+ (setq q (make-pathname :host &quot;kathy&quot; 
+                         :directory 
+                           (pathname-directory *default-pathname-defaults*)
+                         :name &quot;getty&quot;)) 
+<span class="roman">→</span> #S(PATHNAME :HOST &quot;kathy&quot; :DEVICE NIL :DIRECTORY <i>directory-name</i> 
+       :NAME &quot;getty&quot; :TYPE NIL :VERSION NIL)
+ (file-namestring q) <span class="roman">→</span> &quot;getty&quot;
+ (directory-namestring q) <span class="roman">→</span> <i>directory-name</i>
+ (host-namestring q) <span class="roman">→</span> &quot;kathy&quot; 
+</pre></div>
+
+<div class="lisp">
+<pre class="lisp"> ;;;Using Unix syntax and the wildcard conventions used by the
+ ;;;particular version of Unix on which this example was created:
+ (namestring
+   (translate-pathname &quot;/usr/dmr/hacks/frob.l&quot;
+                       &quot;/usr/d*/hacks/*.l&quot;
+                       &quot;/usr/d*/backup/hacks/backup-*.*&quot;))
+<span class="roman">→</span> &quot;/usr/dmr/backup/hacks/backup-frob.l&quot;
+ (namestring
+   (translate-pathname &quot;/usr/dmr/hacks/frob.l&quot;
+                       &quot;/usr/d*/hacks/fr*.l&quot;
+                       &quot;/usr/d*/backup/hacks/backup-*.*&quot;))
+<span class="roman">→</span> &quot;/usr/dmr/backup/hacks/backup-ob.l&quot;
+ 
+ ;;;This is similar to the above example but uses two different hosts,
+ ;;;U: which is a Unix and V: which is a VMS.  Note the translation
+ ;;;of file type and alphabetic case conventions.
+ (namestring
+   (translate-pathname &quot;U:/usr/dmr/hacks/frob.l&quot;
+                       &quot;U:/usr/d*/hacks/*.l&quot;
+                       &quot;V:SYS$DISK:[D*.BACKUP.HACKS]BACKUP-*.*&quot;))
+<span class="roman">→</span> &quot;V:SYS$DISK:[DMR.BACKUP.HACKS]BACKUP-FROB.LSP&quot;
+ (namestring
+   (translate-pathname &quot;U:/usr/dmr/hacks/frob.l&quot;
+                       &quot;U:/usr/d*/hacks/fr*.l&quot;
+                       &quot;V:SYS$DISK:[D*.BACKUP.HACKS]BACKUP-*.*&quot;))
+<span class="roman">→</span> &quot;V:SYS$DISK:[DMR.BACKUP.HACKS]BACKUP-OB.LSP&quot;
+</pre></div>
+
+
+<span id="See-Also_003a-418"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Files.html#truename">truename</a>,
+<a href="#merge_002dpathnames">merge-pathnames</a>,
+<a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="parse_002dnamestring"></span><div class="header">
+<p>
+Next: <a href="#wild_002dpathname_002dp" accesskey="n" rel="next">wild-pathname-p</a>, Previous: <a href="#namestring_003b-file_002dnamestring_003b-directory_002dnamestring_003b-host_002dnamestring_003b-eno_002b" accesskey="p" rel="prev">namestring; file-namestring; directory-namestring; host-namestring; eno+</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">parse-namestring</h4>
+<span id="parse_002dnamestring-_0028Function_0029"></span><h3 class="heading">parse-namestring (Function)</h3>
+<span id="index-parse_002dnamestring-2"></span>
+<span id="index-parse_002dnamestring"></span>
+
+
+<span id="Syntax_003a-408"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-parse_002dnamestring-1">Function: <strong>parse-namestring</strong> <em>thing <tt>&amp;optional</tt> host default-pathname <tt>&amp;key</tt> start end junk-allowed <span class="roman">→</span> pathname, position</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-397"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>thing</var>&mdash;a <i>string</i>,
+a <i>pathname</i>,
+or a <i>stream associated with a file</i>.
+</p>
+<p><var>host</var>&mdash;a <i>valid pathname host</i>, a <i>logical host</i>, or <code>nil</code>.
+</p>
+<p><var>default-pathname</var>&mdash;a <i>pathname designator</i>.
+The default is the <i>value</i> of <code>*default-pathname-defaults*</code>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>thing</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>junk-allowed</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>pathname</var>&mdash;a <i>pathname</i>, or <code>nil</code>.
+</p>
+<p><var>position</var>&mdash;a <i>bounding index designator</i> for <var>thing</var>.
+</p>
+<span id="Description_003a-516"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Converts <var>thing</var> into a <i>pathname</i>.
+</p>
+<p>The <var>host</var> supplies a host name with respect to which the parsing occurs.
+</p>
+<p>If <var>thing</var> is a <i>stream associated with a file</i>,
+processing proceeds as if the <i>pathname</i> used to open that <i>file</i>
+had been supplied instead.
+</p>
+<p>If <var>thing</var> is a <i>pathname</i>,
+the <var>host</var> and the host component of <var>thing</var> are compared.
+If they match, 
+two values are immediately returned: <var>thing</var> and <var>start</var>;
+otherwise (if they do not match), an error is signaled.
+</p>
+
+<p>Otherwise (if <var>thing</var> is a <i>string</i>),
+<code>parse-namestring</code> parses the name of a <i>file</i> within
+the substring of <var>thing</var> bounded by <var>start</var> and <var>end</var>.
+</p>
+<p>If <var>thing</var> is a <i>string</i> then 
+the substring of <var>thing</var> <i>bounded</i> by <var>start</var> and <var>end</var>
+is parsed into a <i>pathname</i> 
+as follows:
+</p>
+
+<ul>
+<li> If <var>host</var> is a <i>logical host</i> then <var>thing</var> is parsed
+as a <i>logical pathname</i> <i>namestring</i> 
+on the <var>host</var>.
+
+</li><li> If <var>host</var> is <code>nil</code>&nbsp;<!-- /@w -->and <var>thing</var> is a syntactically valid 
+<i>logical pathname</i> <i>namestring</i> containing an explicit host,
+then it is parsed as a <i>logical pathname</i> <i>namestring</i>.
+
+</li><li> If  <var>host</var> is <code>nil</code>,
+<var>default-pathname</var> is a <i>logical pathname</i>,
+and <var>thing</var> is a syntactically valid <i>logical pathname</i> <i>namestring</i>
+without an explicit host,
+then it is parsed as a <i>logical pathname</i> <i>namestring</i>
+on the host that is the host component of <var>default-pathname</var>.
+
+</li><li> Otherwise, the parsing of <var>thing</var> is <i>implementation-defined</i>.
+</li></ul>
+
+
+<p>In the first 
+of these
+cases,
+the host portion of the <i>logical pathname</i> namestring
+and its following <i>colon</i> are optional.
+</p>
+<p>If the host portion of the namestring and <var>host</var> 
+are both present and do not match,
+an error is signaled.               
+</p>
+<p>If <var>junk-allowed</var> is <i>true</i>,
+then the <i>primary value</i> is the <i>pathname</i> parsed 
+or, if no syntactically correct <i>pathname</i> was seen, <code>nil</code>.
+If <var>junk-allowed</var> is <i>false</i>,
+then the entire substring is scanned, 
+and the <i>primary value</i> is the <i>pathname</i> parsed.
+</p>
+<p>In either case, the <i>secondary value</i>
+is the index into <var>thing</var> of the delimiter that terminated the parse,
+or the index beyond the substring if the parse terminated at the end of the substring
+(as will always be the case if <var>junk-allowed</var> is <i>false</i>).
+</p>
+<p>Parsing a <i>null</i> <i>string</i> always succeeds,
+producing a <i>pathname</i> with all components (except the host) equal to <code>nil</code>.
+</p>
+<p>If <var>thing</var> contains an explicit host name and no explicit device name,
+then it is <i>implementation-defined</i> whether <code>parse-namestring</code>
+will supply the standard default device for that host as the device component
+of the resulting <i>pathname</i>.
+</p>
+<span id="Examples_003a-377"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq q (parse-namestring &quot;test&quot;))  
+<span class="roman">→</span> #S(PATHNAME :HOST NIL :DEVICE NIL :DIRECTORY NIL :NAME &quot;test&quot; 
+       :TYPE NIL :VERSION NIL)
+ (pathnamep q) <span class="roman">→</span> <i>true</i>
+ (parse-namestring &quot;test&quot;) 
+<span class="roman">→</span> #S(PATHNAME :HOST NIL :DEVICE NIL :DIRECTORY NIL :NAME &quot;test&quot;
+       :TYPE NIL :VERSION NIL), 4
+ (setq s (open <i>xxx</i>)) <span class="roman">→</span> #&lt;Input File Stream...&gt;
+ (parse-namestring s) 
+<span class="roman">→</span> #S(PATHNAME :HOST NIL :DEVICE NIL :DIRECTORY NIL :NAME <i>xxx</i> 
+       :TYPE NIL :VERSION NIL), 0
+ (parse-namestring &quot;test&quot; nil nil :start 2 :end 4 )
+ <span class="roman">→</span> #S(PATHNAME ...), 15
+ (parse-namestring &quot;foo.lisp&quot;)
+<span class="roman">→</span> #P&quot;foo.lisp&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-178"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If <var>junk-allowed</var> is <i>false</i>,
+an error of <i>type</i> <code>parse-error</code> is signaled if <var>thing</var> 
+does not consist entirely of the representation of a <i>pathname</i>, 
+possibly surrounded on either side by <i>whitespace</i><sub>1</sub>
+appropriate to the cultural conventions of the implementation.
+</p>
+<p>If <var>host</var> is supplied and not <code>nil</code>,
+and <var>thing</var> contains a manifest host name, 
+an error of <i>type</i> <code>error</code> is signaled if the hosts do not match.
+</p>
+<p>If <var>thing</var> is a <i>logical pathname</i> namestring
+and if the host portion of the namestring and <var>host</var> 
+are both present and do not match,
+an error of <i>type</i> <code>error</code> is signaled.               
+</p>
+<span id="See-Also_003a-419"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#UnspecificComponent">Section 19.2.2.2.3 (.UNSPECIFIC as a Component Value)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="wild_002dpathname_002dp"></span><div class="header">
+<p>
+Next: <a href="#pathname_002dmatch_002dp" accesskey="n" rel="next">pathname-match-p</a>, Previous: <a href="#parse_002dnamestring" accesskey="p" rel="prev">parse-namestring</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">wild-pathname-p</h4>
+<span id="wild_002dpathname_002dp-_0028Function_0029"></span><h3 class="heading">wild-pathname-p (Function)</h3>
+<span id="index-wild_002dpathname_002dp-2"></span>
+<span id="index-wild_002dpathname_002dp"></span>
+
+
+
+<span id="Syntax_003a-409"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-wild_002dpathname_002dp-1">Function: <strong>wild-pathname-p</strong> <em>pathname <tt>&amp;optional</tt> field-key <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-398"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>Field-key</var>&mdash;one of <tt>:host</tt>,
+<tt>:device</tt>
+<tt>:directory</tt>,
+<tt>:name</tt>,
+<tt>:type</tt>,
+<tt>:version</tt>,
+or <code>nil</code>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-517"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>wild-pathname-p</code> tests <var>pathname</var> for the presence of wildcard components.  
+</p>
+<p>If <var>pathname</var> is a <i>pathname</i> (as returned by <code>pathname</code>)
+it represents the name used to open the file. This may be, but is
+not required to be, the actual name of the file. 
+</p>
+<p>If <var>field-key</var> is not supplied or <code>nil</code>, <code>wild-pathname-p</code>    
+returns true if <var>pathname</var> has any wildcard components, <code>nil</code>&nbsp;<!-- /@w -->
+if <var>pathname</var> has none.
+If <var>field-key</var> is <i>non-nil</i>, <code>wild-pathname-p</code>    
+returns true if the indicated component of <var>pathname</var> is a wildcard, 
+<code>nil</code>&nbsp;<!-- /@w -->if the component is not a wildcard.  
+</p>
+<span id="Examples_003a-378"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> ;;;The following examples are not portable.  They are written to run
+ ;;;with particular file systems and particular wildcard conventions.
+ ;;;Other implementations will behave differently.  These examples are
+ ;;;intended to be illustrative, not to be prescriptive.
+ 
+ (wild-pathname-p (make-pathname :name :wild)) <span class="roman">→</span> <i>true</i>
+ (wild-pathname-p (make-pathname :name :wild) :name) <span class="roman">→</span> <i>true</i>
+ (wild-pathname-p (make-pathname :name :wild) :type) <span class="roman">→</span> <i>false</i>
+ (wild-pathname-p (pathname &quot;s:&gt;foo&gt;**&gt;&quot;)) <span class="roman">→</span> <i>true</i> ;Lispm
+ (wild-pathname-p (pathname :name &quot;F*O&quot;)) <span class="roman">→</span> <i>true</i> ;Most places
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-179"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If <var>pathname</var> is not a <i>pathname</i>, a <i>string</i>, 
+or a <i>stream associated with a file</i> an error of <i>type</i> <code>type-error</code> is signaled.
+</p>
+<span id="See-Also_003a-420"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-279"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Not all implementations support wildcards in all fields.
+See <a href="#WildComponents">Section 19.2.2.2.2 (.WILD as a Component Value)</a>&nbsp;<!-- /@w -->and <a href="#WildcardRestrictions">Section 19.2.2.3 (Restrictions on Wildcard Pathnames)</a>.
+</p>
+
+<hr>
+<span id="pathname_002dmatch_002dp"></span><div class="header">
+<p>
+Next: <a href="#translate_002dlogical_002dpathname" accesskey="n" rel="next">translate-logical-pathname</a>, Previous: <a href="#wild_002dpathname_002dp" accesskey="p" rel="prev">wild-pathname-p</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">pathname-match-p</h4>
+<span id="pathname_002dmatch_002dp-_0028Function_0029"></span><h3 class="heading">pathname-match-p (Function)</h3>
+<span id="index-pathname_002dmatch_002dp-2"></span>
+<span id="index-pathname_002dmatch_002dp"></span>
+
+
+
+<span id="Syntax_003a-410"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-pathname_002dmatch_002dp-1">Function: <strong>pathname-match-p</strong> <em>pathname wildcard <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-399"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>wildcard</var>&mdash;a <i>designator</i> for a <i>wild</i> <i>pathname</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-518"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>pathname-match-p</code> returns true if 
+<var>pathname</var> matches <var>wildcard</var>, otherwise <code>nil</code>.  The 
+matching rules are <i>implementation-defined</i> but should be consistent with 
+<code>directory</code>. Missing components of <var>wildcard</var> default to <tt>:wild</tt>.
+</p>
+<p>It is valid for <var>pathname</var> to be a wild <i>pathname</i>; 
+a wildcard field in <var>pathname</var> only matches a
+wildcard field in <var>wildcard</var> (<i>i.e.</i>, 
+<code>pathname-match-p</code> is not commutative).
+It is valid for <var>wildcard</var> to be a non-wild <i>pathname</i>.
+</p>
+<span id="Exceptional-Situations_003a-180"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If <var>pathname</var> or <var>wildcard</var> is not a <i>pathname</i>, <i>string</i>, 
+or <i>stream associated with a file</i> an error of <i>type</i> <code>type-error</code> is signaled.
+</p>
+<span id="See-Also_003a-421"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Files.html#directory">directory</a>,
+<a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+<hr>
+<span id="translate_002dlogical_002dpathname"></span><div class="header">
+<p>
+Next: <a href="#translate_002dpathname" accesskey="n" rel="next">translate-pathname</a>, Previous: <a href="#pathname_002dmatch_002dp" accesskey="p" rel="prev">pathname-match-p</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">translate-logical-pathname</h4>
+<span id="translate_002dlogical_002dpathname-_0028Function_0029"></span><h3 class="heading">translate-logical-pathname (Function)</h3>
+<span id="index-translate_002dlogical_002dpathname-2"></span>
+<span id="index-translate_002dlogical_002dpathname"></span>
+
+
+
+<span id="Syntax_003a-411"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-translate_002dlogical_002dpathname-1">Function: <strong>translate-logical-pathname</strong> <em>pathname <tt>&amp;key</tt> <span class="roman">→</span> physical-pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-400"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>,
+or a <i>logical pathname</i> <i>namestring</i>.
+</p>
+<p><var>physical-pathname</var>&mdash;a <i>physical pathname</i>.
+</p>
+<span id="Description_003a-519"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Translates <var>pathname</var> to a <i>physical pathname</i>, which it returns.
+</p>
+<p>If <var>pathname</var> is a <i>stream</i>, the
+<i>stream</i> can be either open or closed.
+<code>translate-logical-pathname</code> returns the same 
+physical pathname after a
+file is closed as it did when the file was open.
+It is an error if <var>pathname</var> is a <i>stream</i> that is 
+created with <code>make-two-way-stream</code>, 
+<code>make-echo-stream</code>,             
+<code>make-broadcast-stream</code>, 
+<code>make-concatenated-stream</code>, <code>make-string-input-stream</code>,
+<code>make-string-output-stream</code>.
+</p>
+<p>If <var>pathname</var> is a <i>logical pathname</i> namestring,
+the host portion of the 
+<i>logical pathname</i> namestring and its following <i>colon</i> are required.
+</p>
+
+<p><var>Pathname</var> is first coerced to a <i>pathname</i>.
+If the coerced <var>pathname</var> is a physical pathname, it is returned.
+If the coerced <var>pathname</var> is a <i>logical pathname</i>,
+the first matching translation (according to <code>pathname-match-p</code>)
+of the <i>logical pathname</i> host is applied, as if by calling 
+<code>translate-pathname</code>.  If the result is
+a <i>logical pathname</i>, this process is repeated.  
+When the result is
+finally a physical pathname, it is returned.
+If no translation matches, an error 
+is signaled.
+</p>
+<p><code>translate-logical-pathname</code> might perform additional translations,
+typically to provide translation of file types to local naming
+conventions, to accomodate physical file systems with limited length
+names, or to deal with special character requirements such as
+translating hyphens to underscores or uppercase letters to lowercase.
+Any such additional translations are <i>implementation-defined</i>.  Some
+implementations do no additional translations.
+</p>
+<p>There are no specified keyword arguments for
+<code>translate-logical-pathname</code>, 
+but implementations are permitted to extend
+it by adding keyword arguments.  
+</p>
+
+
+<span id="Examples_003a-379"></span><h4 class="subsubheading">Examples:</h4>
+
+<p>See <code>logical-pathname-translations</code>.
+</p>
+<span id="Exceptional-Situations_003a-181"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If <var>pathname</var> is incorrectly supplied, an error of <i>type</i> <code>type-error</code> is signaled.
+</p>
+<p>If no translation matches, an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+
+<span id="See-Also_003a-422"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#logical_002dpathname-_0028Function_0029">logical-pathname (Function)</a>,
+<a href="#logical_002dpathname_002dtranslations">logical-pathname-translations</a>, 
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+
+<hr>
+<span id="translate_002dpathname"></span><div class="header">
+<p>
+Next: <a href="#merge_002dpathnames" accesskey="n" rel="next">merge-pathnames</a>, Previous: <a href="#translate_002dlogical_002dpathname" accesskey="p" rel="prev">translate-logical-pathname</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">translate-pathname</h4>
+<span id="translate_002dpathname-_0028Function_0029"></span><h3 class="heading">translate-pathname (Function)</h3>
+<span id="index-translate_002dpathname-2"></span>
+<span id="index-translate_002dpathname"></span>
+
+
+
+<span id="Syntax_003a-412"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-translate_002dpathname-1">Function: <strong>translate-pathname</strong> <em>source from-wildcard to-wildcard <tt>&amp;key</tt> <span class="roman">→</span> translated-pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-401"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>source</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>from-wildcard</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>to-wildcard</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>translated-pathname</var>&mdash;a <i>pathname</i>.
+</p>
+<span id="Description_003a-520"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>translate-pathname</code> translates <var>source</var> 
+(that matches <var>from-wildcard</var>) into a corresponding <i>pathname</i> 
+that matches <var>to-wildcard</var>, and returns the corresponding <i>pathname</i>.
+</p>
+<p>The resulting <i>pathname</i> is <var>to-wildcard</var> with each wildcard or missing
+field replaced by a portion of <var>source</var>.  A &ldquo;wildcard field&rdquo; is a
+<i>pathname</i> component with a value of <tt>:wild</tt>, a <tt>:wild</tt> element of a
+<i>list</i>-valued directory component, or an <i>implementation-defined</i> portion
+of a component, such as the <code>&quot;*&quot;</code> in the complex wildcard string
+<code>&quot;foo*bar&quot;</code> that some implementations support.  An implementation that
+adds other wildcard features, such as regular expressions, must define
+how <code>translate-pathname</code> extends to those features.  
+A &ldquo;missing field&rdquo; is a <i>pathname</i> component with a value of <code>nil</code>.
+</p>
+<p>The portion of <var>source</var> 
+that is copied into the resulting <i>pathname</i> is 
+<i>implementation-defined</i>.  Typically 
+it is determined by the user interface conventions
+of the file systems involved.  Usually it is the portion of <var>source</var>
+that matches a wildcard field of 
+<var>from-wildcard</var> that is in the same
+position as the wildcard or missing field of 
+<var>to-wildcard</var>.  If there
+is no wildcard field in 
+<var>from-wildcard</var> at that position, then usually
+it is the entire corresponding 
+<i>pathname</i> component of <var>source</var>, or in
+the case of a 
+<i>list</i>-valued directory component, the entire corresponding
+<i>list</i> element.  
+</p>
+<p>During the copying of a portion of <var>source</var> into 
+the resulting <i>pathname</i>, additional
+<i>implementation-defined</i> translations of <i>case</i> or file naming
+conventions might occur, especially when 
+<var>from-wildcard</var> and
+<var>to-wildcard</var> are for different hosts.
+</p>
+<p>It is valid for
+<var>source</var> to be a wild 
+<i>pathname</i>; in general this will produce a wild
+result.  It 
+is valid for <var>from-wildcard</var> and/or <var>to-wildcard</var> to be
+non-wild <i>pathnames</i>.  
+</p>
+<p>There are no specified keyword arguments for 
+<code>translate-pathname</code>, but
+implementations are permitted to extend it by adding keyword arguments.
+</p>
+<p><code>translate-pathname</code> maps customary case in
+<var>source</var> into customary case in the output <i>pathname</i>.
+</p>
+
+<span id="Examples_003a-380"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> ;; The results of the following five forms are all implementation-dependent.
+ ;; The second item in particular is shown with multiple results just to 
+ ;; emphasize one of many particular variations which commonly occurs.
+ (pathname-name (translate-pathname &quot;foobar&quot; &quot;foo*&quot; &quot;*baz&quot;)) <span class="roman">→</span> &quot;barbaz&quot;
+ (pathname-name (translate-pathname &quot;foobar&quot; &quot;foo*&quot; &quot;*&quot;))
+<span class="roman">→</span> &quot;foobar&quot;
+or<span class="roman">→</span> &quot;bar&quot;
+ (pathname-name (translate-pathname &quot;foobar&quot; &quot;*&quot;    &quot;foo*&quot;)) <span class="roman">→</span> &quot;foofoobar&quot;
+ (pathname-name (translate-pathname &quot;bar&quot;    &quot;*&quot;    &quot;foo*&quot;)) <span class="roman">→</span> &quot;foobar&quot;
+ (pathname-name (translate-pathname &quot;foobar&quot; &quot;foo*&quot; &quot;baz*&quot;)) <span class="roman">→</span> &quot;bazbar&quot;
+
+ (defun translate-logical-pathname-1 (pathname rules)
+   (let ((rule (assoc pathname rules :test #'pathname-match-p)))
+     (unless rule (error &quot;No translation rule for ~A&quot; pathname))
+     (translate-pathname pathname (first rule) (second rule))))
+ (translate-logical-pathname-1 &quot;FOO:CODE;BASIC.LISP&quot;
+                       '((&quot;FOO:DOCUMENTATION;&quot; &quot;MY-UNIX:/doc/foo/&quot;)
+                         (&quot;FOO:CODE;&quot;          &quot;MY-UNIX:/lib/foo/&quot;)
+                         (&quot;FOO:PATCHES;*;&quot;     &quot;MY-UNIX:/lib/foo/patch/*/&quot;)))
+<span class="roman">→</span> #P&quot;MY-UNIX:/lib/foo/basic.l&quot;
+
+;;;This example assumes one particular set of wildcard conventions
+;;;Not all file systems will run this example exactly as written
+ (defun rename-files (from to)
+   (dolist (file (directory from))
+     (rename-file file (translate-pathname file from to))))
+ (rename-files &quot;/usr/me/*.lisp&quot; &quot;/dev/her/*.l&quot;)
+   ;Renames /usr/me/init.lisp to /dev/her/init.l
+ (rename-files &quot;/usr/me/pcl*/*&quot; &quot;/sys/pcl/*/&quot;)
+   ;Renames /usr/me/pcl-5-may/low.lisp to /sys/pcl/pcl-5-may/low.lisp
+   ;In some file systems the result might be /sys/pcl/5-may/low.lisp
+ (rename-files &quot;/usr/me/pcl*/*&quot; &quot;/sys/library/*/&quot;)
+   ;Renames /usr/me/pcl-5-may/low.lisp to /sys/library/pcl-5-may/low.lisp
+   ;In some file systems the result might be /sys/library/5-may/low.lisp
+ (rename-files &quot;/usr/me/foo.bar&quot; &quot;/usr/me2/&quot;)
+   ;Renames /usr/me/foo.bar to /usr/me2/foo.bar
+ (rename-files &quot;/usr/joe/*-recipes.text&quot; &quot;/usr/jim/cookbook/joe's-*-rec.text&quot;)
+   ;Renames /usr/joe/lamb-recipes.text to /usr/jim/cookbook/joe's-lamb-rec.text
+   ;Renames /usr/joe/pork-recipes.text to /usr/jim/cookbook/joe's-pork-rec.text
+   ;Renames /usr/joe/veg-recipes.text to /usr/jim/cookbook/joe's-veg-rec.text
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-182"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If any of <var>source</var>, <var>from-wildcard</var>, or <var>to-wildcard</var>
+is not a <i>pathname</i>, a <i>string</i>, or a <i>stream associated with a file</i>
+an error of <i>type</i> <code>type-error</code> is signaled.  
+</p>
+<p><code>(pathname-match-p <var>source from-wildcard</var>)</code> must
+be true or an error of <i>type</i> <code>error</code> is signaled.
+</p>
+<span id="See-Also_003a-423"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#namestring">namestring</a>,
+<a href="#pathname_002dhost">pathname-host</a>,
+<a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-280"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The exact behavior of <code>translate-pathname</code> cannot be dictated
+by the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->language and must be allowed to vary, depending on the
+user interface conventions of the file systems involved.
+</p>
+<p>The following is an implementation guideline.
+One file system performs this operation by
+examining each piece of the three 
+<i>pathnames</i> in turn, where a piece is a
+<i>pathname</i> component or a 
+<i>list</i> element of a structured component such as
+a hierarchical directory.  Hierarchical directory elements in
+<var>from-wildcard</var> and 
+<var>to-wildcard</var> are matched by whether they are
+wildcards, not by depth in the directory hierarchy.  If the piece in
+<var>to-wildcard</var> is present and not wild, it is copied into the result.
+If the piece in <var>to-wildcard</var> is 
+<tt>:wild</tt> or <code>nil</code>, the piece in <var>source</var> is
+copied into the result.  Otherwise, the piece in
+<var>to-wildcard</var> might be
+a complex wildcard such as <code>&quot;foo*bar&quot;</code> and the piece in 
+<var>from-wildcard</var>
+should be wild; the portion of the piece in 
+<var>source</var> that matches the
+wildcard portion of the piece in 
+<var>from-wildcard</var> replaces the wildcard
+portion of the piece in 
+<var>to-wildcard</var> and the value produced is used in
+the result.
+</p>
+
+<hr>
+<span id="merge_002dpathnames"></span><div class="header">
+<p>
+Previous: <a href="#translate_002dpathname" accesskey="p" rel="prev">translate-pathname</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">merge-pathnames</h4>
+<span id="merge_002dpathnames-_0028Function_0029"></span><h3 class="heading">merge-pathnames (Function)</h3>
+<span id="index-merge_002dpathnames-2"></span>
+<span id="index-merge_002dpathnames"></span>
+
+
+<span id="Syntax_003a-413"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-merge_002dpathnames-1">Function: <strong>merge-pathnames</strong> <em>pathname <tt>&amp;optional</tt> default-pathname default-version <span class="roman">→</span> merged-pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-402"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>.
+</p>
+<p><var>default-pathname</var>&mdash;a <i>pathname designator</i>.
+The default is the <i>value</i> of <code>*default-pathname-defaults*</code>.
+</p>
+<p><var>default-version</var>&mdash;a <i>valid pathname version</i>.
+The default is <tt>:newest</tt>.
+</p>
+<p><var>merged-pathname</var>&mdash;a <i>pathname</i>.
+</p>
+<span id="Description_003a-521"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Constructs a <i>pathname</i> from <var>pathname</var> 
+by filling in any unsupplied components with the corresponding values
+from <var>default-pathname</var> and <var>default-version</var>. 
+</p>
+<p>Defaulting of pathname components 
+is done by filling in components taken from another <i>pathname</i>.
+This is especially useful for cases such as 
+a program that has an input file and an output file.
+Unspecified components of the output pathname will come from the input pathname,
+except that the type should not default
+to the type of the input pathname
+but rather to the appropriate default type for output from the program;
+for example, see the <i>function</i> <a href="System-Construction.html#compile_002dfile_002dpathname">compile-file-pathname</a>.
+</p>
+<p>If no version is supplied, <var>default-version</var> is used.
+If <var>default-version</var> is <code>nil</code>, the version component will remain unchanged.
+</p>
+<p>If <var>pathname</var> explicitly specifies a host and not a device, and 
+if the host component of <var>default-pathname</var> matches the host component
+of <var>pathname</var>, then the device is taken from the <var>default-pathname</var>;
+otherwise the device will be the default file device for that host.  If
+<var>pathname</var> does not specify a host, device, directory, name,
+or type, each such component is copied from <var>default-pathname</var>.
+If <var>pathname</var> does not specify a name, then the version, if not provided, will
+come from <var>default-pathname</var>, just like the other components.  If
+<var>pathname</var> does specify a name, then the version is not affected
+by <var>default-pathname</var>. If this process leaves the
+version missing, the <var>default-version</var> is used.
+If the host&rsquo;s file name syntax provides a way
+to input a version without a name or type, the user can let the name
+and type default but supply a version different from the one in <var>default-pathname</var>.
+</p>
+<p>If <var>pathname</var> is a <i>stream</i>, <var>pathname</var> effectively
+becomes <code>(pathname <var>pathname</var>)</code>. <code>merge-pathnames</code>
+can be used on either an open or a closed <i>stream</i>.
+</p>
+<p>If <var>pathname</var> is a <i>pathname</i>
+it represents the name used to open the file. This may be, but is
+not required to be, the actual name of the file. 
+</p>
+<p><code>merge-pathnames</code> recognizes a <i>logical pathname</i> <i>namestring</i>
+when <var>default-pathname</var> is a <i>logical pathname</i>,
+or when the <i>namestring</i> begins with 
+the name of a defined <i>logical host</i> followed by a <i>colon</i>.
+In the first of these two cases,
+the host portion of the <i>logical pathname</i> <i>namestring</i>
+and its following <i>colon</i> are optional.
+</p>
+<p><code>merge-pathnames</code> returns a 
+<i>logical pathname</i> if and only if
+its first argument is a <i>logical pathname</i>,
+or its first argument is a <i>logical pathname</i> <i>namestring</i> with an explicit host,
+or its first argument does not specify a host 
+and the <var>default-pathname</var> is a <i>logical pathname</i>.
+</p>
+<p><i>Pathname</i> merging treats a relative directory specially.  
+If <code>(pathname-directory <var>pathname</var>)</code> is a <i>list</i> whose
+<i>car</i> is <tt>:relative</tt>, and 
+<code>(pathname-directory <var>default-pathname</var>)</code> is a <i>list</i>, then
+the merged directory is the value of
+</p>
+<div class="lisp">
+<pre class="lisp"> (append (pathname-directory <var>default-pathname</var>)
+         (cdr  ;remove :relative from the front
+           (pathname-directory <var>pathname</var>)))
+</pre></div>
+
+<p>except that if the resulting <i>list</i> contains a <i>string</i> or <tt>:wild</tt>
+immediately followed by <tt>:back</tt>, both of them are removed.  This removal of 
+redundant <tt>:back</tt> <i>keywords</i> is repeated as many times as possible.
+If <code>(pathname-directory <var>default-pathname</var>)</code> is not a <i>list</i> or
+<code>(pathname-directory <var>pathname</var>)</code> is not a <i>list</i> 
+whose <i>car</i> is <tt>:relative</tt>, the merged directory is
+<code>(or (pathname-directory <var>pathname</var>) (pathname-directory <var>default-pathname</var>))</code>
+</p>
+<p><code>merge-pathnames</code> maps customary case in <var>pathname</var> 
+into customary case in the output <i>pathname</i>.
+</p>
+<span id="Examples_003a-381"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (merge-pathnames &quot;CMUC::FORMAT&quot;
+                  &quot;CMUC::PS:&lt;LISPIO&gt;.FASL&quot;)
+<span class="roman">→</span> #P&quot;CMUC::PS:&lt;LISPIO&gt;FORMAT.FASL.0&quot;
+</pre></div>
+
+
+<span id="See-Also_003a-424"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#g_t_002adefault_002dpathname_002ddefaults_002a">*default-pathname-defaults*</a>,
+<a href="#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="Files.html#File-System-Concepts">Section 20.1 (File System Concepts)</a>,
+<a href="#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-281"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The net effect 
+is that if just a name is supplied, 
+the host, device, directory, and type will come from <var>default-pathname</var>, 
+but the version will come from <var>default-version</var>.
+If nothing or just a directory is supplied,
+the name, type, and version will come from <var>default-pathname</var> together.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#translate_002dpathname" accesskey="p" rel="prev">translate-pathname</a>, Up: <a href="#Filenames" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

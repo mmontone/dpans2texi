@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>R (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Glossary.html" rel="up" title="Glossary">
-<link href="S.html" rel="next" title="S">
-<link href="Q.html" rel="prev" title="Q">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,282 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Glossary.html#R">
 
 </head>
 
 <body lang="en">
-<span id="R"></span><div class="header">
-<p>
-Next: <a href="S.html" accesskey="n" rel="next">S</a>, Previous: <a href="Q.html" accesskey="p" rel="prev">Q</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="R-1"></span><h3 class="unnumberedsec">R</h3>
-<dl compact="compact">
-<dt><b>radix</b>  <i>n.</i></dt>
-<dd><p>an <i>integer</i> between 2 and 36, inclusive, which can be used 
-to designate a base with respect to which certain kinds of numeric
-input or output are performed.  
-(There are n valid digit characters for any given <i>radix</i> n,
-and those digits are the first n digits in the sequence
-<code>0</code>, <code>1</code>, &hellip;, <code>9</code>, <code>A</code>, <code>B</code>, &hellip;, <code>Z</code>,
-which have the weights   
-<code>0</code>, <code>1</code>, &hellip;, <code>9</code>, <code>10</code>, <code>11</code>, &hellip;, <code>35</code>,
-respectively.
-Case is not significant in parsing numbers of radix greater
-than <code>10</code>, so &ldquo;9b8a&rdquo; and &ldquo;9B8A&rdquo; denote the same <i>radix</i>
-<code>16</code> number.)
-</p>
-</dd>
-<dt><b>random state</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>random-state</code>.
-</p>
-</dd>
-<dt><b>rank</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a non-negative <i>integer</i> indicating the number of
-<i>dimensions</i> of an <i>array</i>.
-</p>
-</dd>
-<dt><b>ratio</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>ratio</code>.
-</p>
-</dd>
-<dt><b>ratio marker</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a character which is used in the textual notation for a <i>ratio</i>
-to separate the numerator from the denominator, and which
-is <i>slash</i> in the <i>standard readtable</i>.
-See <a href="Character-Syntax.html">Section 2.1 (Character Syntax)</a>.
-</p>
-</dd>
-<dt><b>rational</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>rational</code>.
-</p>
-</dd>
-<dt><b>read</b>  <i>v.t.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. (a <i>binding</i> or <i>slot</i> or component)
-to obtain the <i>value</i> of the <i>binding</i> or <i>slot</i>.
-2. (an <i>object</i> from a <i>stream</i>)
-to parse an <i>object</i> from its representation on the <i>stream</i>.
-</p>
-</dd>
-<dt><b>readably</b>  <i>adv.</i>&nbsp;<!-- /@w -->(of a manner of printing an <i>object</i> O<sub>1</sub>
-</dt>
-<dd><p>in such a way as to permit the <i>Lisp Reader</i> to later <i>parse</i>
-the printed output into an <i>object</i> O<sub>2</sub>
-</p>
-</dd>
-<dt><b>reader</b> <span id="glos_002dreader"></span></dt>
-<dd><p><i>n.</i>
-1. a <i>function</i> that <i>reads</i><sub>1</sub>
-2. the <i>Lisp reader</i>.
-</p>
-</dd>
-<dt><b>reader macro</b>  <i>n.</i></dt>
-<dd><p>1. a textual notation introduced by dispatch on one or two <i>characters</i> 
-that defines special-purpose syntax for use by the <i>Lisp reader</i>,
-and that is implemented by a <i>reader macro function</i>.
-See <a href="Reader-Algorithm.html">Section 2.2 (Reader Algorithm)</a>.
-2. the <i>character</i> or <i>characters</i> that introduce
-a <i>reader macro</i><sub>1</sub>
-a <i>macro character</i>
-or the conceptual pairing of a <i>dispatching macro character</i> and the
-<i>character</i> that follows it.
-(A <i>reader macro</i> is not a kind of <i>macro</i>.)
-</p>
-</dd>
-<dt><b>reader macro function</b>  <i>n.</i></dt>
-<dd><p>a <i>function</i> <i>designator</i> that denotes a <i>function</i>
-that implements a <i>reader macro</i><sub>2</sub>
-See the <i>functions</i> <a href="set_002dmacro_002dcharacter_003b-get_002dmacro_002dcharacter.html#set_002dmacro_002dcharacter">set-macro-character</a> and <code>set-dispatch-macro-character</code>.
-</p>
-</dd>
-<dt><b>readtable</b>  <i>n.</i></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>readtable</code>.
-</p>
-</dd>
-<dt><b>readtable case</b>  <i>n.</i></dt>
-<dd><p>an attribute of a <i>readtable</i>
-whose value is a <i>case sensitivity mode</i>,
-and that selects the manner in which <i>characters</i>
-in a <i>symbol</i>&rsquo;s <i>name</i> are to be treated by
-the <i>Lisp reader</i>
-and the <i>Lisp printer</i>.
-See <a href="Effect-of-Readtable-Case-on-the-Lisp-Reader.html">Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)</a>&nbsp;<!-- /@w -->and <a href="Default-Print_002dObject-Methods.html#ReadtableCasePrintEffect">Section 22.1.3.3.2 (Effect of Readtable Case on the Lisp Printer)</a>.
-</p>
-</dd>
-<dt><b>readtable designator</b>  <i>n.</i></dt>
-<dd><p>a <i>designator</i> for a <i>readtable</i>; that is,
-an <i>object</i> that denotes a <i>readtable</i>
-and that is one of:
-<code>nil</code>&nbsp;<!-- /@w -->(denoting the <i>standard readtable</i>),
-or a <i>readtable</i> (denoting itself).
-</p>
-</dd>
-<dt><b>recognizable subtype</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>type</i>)</dt>
-<dd><p>a <i>subtype</i> of the <i>type</i> which can be reliably detected 
-to be such by the <i>implementation</i>.
-See the <i>function</i> <a href="subtypep.html">subtypep</a>.
-</p>
-</dd>
-<dt><b>reference</b>  <i>n.</i>, <i>v.t.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. <i>n.</i>&nbsp;<!-- /@w -->an act or occurrence of referring to an <i>object</i>,
-a <i>binding</i>, an <i>exit point</i>, a <i>tag</i>, 
-or an <i>environment</i>.
-2. <i>v.t.</i>&nbsp;<!-- /@w -->to refer to an <i>object</i>, a <i>binding</i>, an
-<i>exit point</i>, a <i>tag</i>, or an <i>environment</i>,
-usually by <i>name</i>.
-</p>
-</dd>
-<dt><b>registered package</b>  <i>n.</i></dt>
-<dd><p>a <i>package</i> <i>object</i> that is installed in the <i>package registry</i>.
-(Every <i>registered package</i> has a <i>name</i> that is a <i>string</i>,
-as well as zero or more <i>string</i> nicknames.
-All <i>packages</i> that are initially specified by <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->
-or created by <code>make-package</code> or <code>defpackage</code>
-are <i>registered packages</i>.  <i>Registered packages</i> can be turned into
-<i>unregistered packages</i> by <code>delete-package</code>.)
-</p>
-</dd>
-<dt><b>relative</b> <span id="glos_002drelative"></span></dt>
-<dd><p><i>adj.</i>
-1. (of a <i>time</i>)
-representing an offset from an <i>absolute</i> <i>time</i>
-in the units appropriate to that time.
-For example, 
-a <i>relative</i> <i>internal time</i> is the difference between
-two <i>absolute</i> <i>internal times</i>, and is measured in
-<i>internal time units</i>.
-2. (of a <i>pathname</i>)
-representing a position in a directory hierarchy by motion 
-from a position other than the root, which might therefore vary.
-&ldquo;The notation <code>#P&quot;../foo.text&quot;</code> denotes a relative
-pathname if the host file system is Unix.&rdquo;
-See <a href="A.html#glos_002dabsolute">absolute</a>.
-</p>
-</dd>
-<dt><b>repertoire</b>  <i>n.</i>, <i>ISO</i></dt>
-<dd><p>a <i>subtype</i> of <code>character</code>.  See <a href="Introduction-to-Scripts-and-Repertoires.html#CharRepertoires">Section 13.1.2.2 (Character Repertoires)</a>.
-</p>
-</dd>
-<dt><b>report</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>condition</i>)</dt>
-<dd><p>to <i>call</i> the <i>function</i> <code>print-object</code> on the <i>condition</i> 
-in an <i>environment</i> where the <i>value</i> of <code>*print-escape*</code> is <i>false</i>.
-</p>
-</dd>
-<dt><b>report message</b>  <i>n.</i></dt>
-<dd><p>the text that is output by a <i>condition reporter</i>.
-</p>
-</dd>
-<dt><b>required parameter</b>  <i>n.</i></dt>
-<dd><p>A <i>parameter</i> for which a corresponding positional <i>argument</i>
-must be supplied when <i>calling</i> the <i>function</i>.
-</p>
-</dd>
-<dt><b>rest list</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>function</i> having a <i>rest parameter</i>)</dt>
-<dd><p>The <i>list</i> to which the <i>rest parameter</i> is <i>bound</i> on some
-particular <i>call</i> to the <i>function</i>.
-</p>
-</dd>
-<dt><b>rest parameter</b>  <i>n.</i></dt>
-<dd><p>A <i>parameter</i> which was introduced by <code>&amp;rest</code>.
-</p>
-</dd>
-<dt><b>restart</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>restart</code>.
-</p>
-</dd>
-<dt><b>restart designator</b>  <i>n.</i></dt>
-<dd><p>a <i>designator</i> for a <i>restart</i>; that is,
-an <i>object</i> that denotes a <i>restart</i>
-and that is one of:
-a <i>non-nil</i> <i>symbol</i> 
-(denoting the most recently established <i>active</i>
-<i>restart</i> whose <i>name</i> is that <i>symbol</i>),
-or a <i>restart</i> (denoting itself).
-</p>
-</dd>
-<dt><b>restart function</b>  <i>n.</i></dt>
-<dd><p>a <i>function</i> that invokes a <i>restart</i>, as if by <code>invoke-restart</code>.
-The primary purpose of a <i>restart function</i> is to provide an alternate
-interface. By convention, a <i>restart function</i> usually has the same name 
-as the <i>restart</i> which it invokes. The next figure&nbsp;<!-- /@w -->shows a list of the
-<i>standardized</i> <i>restart functions</i>.
-</p>
 
-<div class="float"><span id="fig26_002e4"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<tr><td>abort</td><td>muffle-warning</td><td>use-value</td></tr>
-<tr><td>continue</td><td>store-value</td><td></td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 26.4: </strong>Standardized Restart Functions</p></div></div>
-
-</dd>
-<dt><b>return</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(of <i>values</i>)</dt>
-<dd><p>1. (from a <i>block</i>) to transfer control and <i>values</i> from the <i>block</i>;
-that is, to cause the <i>block</i> to <i>yield</i> the <i>values</i> immediately
-without doing any further evaluation of the <i>forms</i> in its body.
-2. (from a <i>form</i>) to <i>yield</i> the <i>values</i>.
-</p>
-</dd>
-<dt><b>return value</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>value</i><sub>1</sub>
-</p>
-</dd>
-<dt><b>right-parenthesis</b>  <i>n.</i></dt>
-<dd><p>the <i>standard character</i> &ldquo;<code>)</code>&rdquo;,
-that is variously called
-&ldquo;right parenthesis&rdquo;
-or &ldquo;close parenthesis&rdquo;
-See <a href="Standard-Characters.html#StdCharsThree">Figure 2.5</a>.
-</p>
-</dd>
-<dt><b>run time</b>  <i>n.</i></dt>
-<dd><p>1. <i>load time</i>
-2. <i>execution time</i>
-</p>
-</dd>
-<dt><b>run-time compiler</b>  <i>n.</i></dt>
-<dd><p>refers to the <code>compile</code> function or to <i>implicit compilation</i>, 
-for which the compilation and run-time <i>environments</i> are maintained 
-in the same <i>Lisp image</i>.
-</p>
-</dd>
-<dt><b>run-time definition</b>  <i>n.</i></dt>
-<dd><p>a definition in the <i>run-time environment</i>.
-</p>
-</dd>
-<dt><b>run-time environment</b>  <i>n.</i></dt>
-<dd><p>the <i>environment</i> in which a program is <i>executed</i>.
-</p>
-
-</dd>
-</dl>
-<hr>
-<div class="header">
-<p>
-Next: <a href="S.html" accesskey="n" rel="next">S</a>, Previous: <a href="Q.html" accesskey="p" rel="prev">Q</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Glossary.html#R">R</a>.</p>
 </body>
-</html>

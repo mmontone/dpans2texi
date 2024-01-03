@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Object Creation and Initialization (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Objects.html" rel="up" title="Objects">
-<link href="Initialization-Arguments.html" rel="next" title="Initialization Arguments">
-<link href="Objects.html" rel="prev" title="Objects">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,125 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Objects.html#Object-Creation-and-Initialization">
 
 </head>
 
 <body lang="en">
-<span id="Object-Creation-and-Initialization"></span><div class="header">
-<p>
-Next: <a href="Changing-the-Class-of-an-Instance.html" accesskey="n" rel="next">Changing the Class of an Instance</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Object-Creation-and-Initialization-1"></span><h3 class="section">7.1 Object Creation and Initialization</h3>
 
-
-<p>The <i>generic function</i> <code>make-instance</code> creates and returns a new
-<i>instance</i> of a <i>class</i>.  The first argument is a <i>class</i> or
-the <i>name</i> of a <i>class</i>, and the remaining arguments form an 
-<span id="index-initialization-argument-list"></span>
-<em>initialization argument list</em>.
-</p>
-<p>The initialization of a new <i>instance</i> consists of several distinct
-steps, including the following: combining the explicitly supplied initialization
-arguments with default values for the unsupplied initialization arguments, 
-checking the validity of the initialization arguments, allocating storage 
-for the <i>instance</i>, filling <i>slots</i> with
-values, and executing user-supplied <i>methods</i> that perform additional
-initialization.  Each step of <code>make-instance</code> is implemented by a
-<i>generic function</i> to provide a mechanism for customizing that step.  
-In addition, <code>make-instance</code> is itself a <i>generic function</i> 
-and thus also can be customized.
-</p>
-<p>The object system&nbsp;<!-- /@w -->specifies system-supplied primary <i>methods</i> for each step 
-and thus specifies a well-defined standard behavior for the entire
-initialization process.  The standard behavior provides four simple
-mechanisms for controlling initialization:
-</p>
-
-<ul>
-<li> Declaring a <i>symbol</i> to be an initialization argument 
-for a <i>slot</i>.  An initialization argument is declared by using the
-<tt>:initarg</tt> slot option to <code>defclass</code>.  This provides a mechanism
-for supplying a value for a <i>slot</i> in a call to <code>make-instance</code>.
-
-</li><li> Supplying a default value form for an initialization argument.
-Default value forms for initialization arguments are defined by using the
-<tt>:default-initargs</tt> class option to <code>defclass</code>.  If an 
-initialization argument is not explicitly provided
-as an argument to <code>make-instance</code>, the default value form is
-evaluated in the lexical environment of the <code>defclass</code> form that
-defined it, and the resulting value is used as the value of the
-initialization argument.
-
-</li><li> Supplying a default initial value form for a <i>slot</i>.  
-A default initial value form for a <i>slot</i> is defined by using the 
-<tt>:initform</tt> slot option to <code>defclass</code>.  If no initialization
-argument associated with that <i>slot</i> is given as an argument to 
-<code>make-instance</code> or is defaulted by <tt>:default-initargs</tt>, this
-default initial value form is evaluated in the lexical environment of
-the <code>defclass</code> form that defined it, and the resulting value is
-stored in the <i>slot</i>.  The <tt>:initform</tt> form for a
-<i>local slot</i> may be used when creating an <i>instance</i>, when 
-updating an <i>instance</i> to conform to a redefined <i>class</i>, 
-or when updating an <i>instance</i> to conform to the definition of a
-different <i>class</i>. The <tt>:initform</tt> form for a
-<i>shared slot</i> may be used when defining or re-defining the <i>class</i>.
-
-</li><li> Defining <i>methods</i> for <code>initialize-instance</code> and
-<code>shared-initialize</code>.  The slot-filling behavior described above is
-implemented by a system-supplied primary <i>method</i> for
-<code>initialize-instance</code> which invokes <code>shared-initialize</code>. The
-<i>generic function</i> <code>shared-initialize</code> implements the parts of
-initialization shared by these four situations: when making an <i>instance</i>, 
-when re-initializing an <i>instance</i>, when updating an <i>instance</i>
-to conform to a redefined <i>class</i>, and when updating an <i>instance</i> 
-to conform to the definition of a different <i>class</i>. The system-supplied
-primary <i>method</i> for <code>shared-initialize</code> directly implements the
-slot-filling behavior described above, and <code>initialize-instance</code>
-simply invokes <code>shared-initialize</code>.
-</li></ul>
-
-
-<table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Initialization-Arguments.html" accesskey="1">Initialization Arguments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Declaring-the-Validity-of-Initialization-Arguments.html" accesskey="2">Declaring the Validity of Initialization Arguments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Defaulting-of-Initialization-Arguments.html" accesskey="3">Defaulting of Initialization Arguments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Rules-for-Initialization-Arguments.html" accesskey="4">Rules for Initialization Arguments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Shared_002dInitialize.html" accesskey="5">Shared-Initialize</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Initialize_002dInstance.html" accesskey="6">Initialize-Instance</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Definitions-of-Make_002dInstance-and-Initialize_002dInstance.html" accesskey="7">Definitions of Make-Instance and Initialize-Instance</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-</table>
-<hr>
-<div class="header">
-<p>
-Next: <a href="Changing-the-Class-of-an-Instance.html" accesskey="n" rel="next">Changing the Class of an Instance</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Objects.html#Object-Creation-and-Initialization">Object Creation and Initialization</a>.</p>
 </body>
-</html>

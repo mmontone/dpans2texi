@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>E (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Glossary.html" rel="up" title="Glossary">
-<link href="F.html" rel="next" title="F">
-<link href="D.html" rel="prev" title="D">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,431 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Glossary.html#E">
 
 </head>
 
 <body lang="en">
-<span id="E"></span><div class="header">
-<p>
-Next: <a href="F.html" accesskey="n" rel="next">F</a>, Previous: <a href="D.html" accesskey="p" rel="prev">D</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="E-1"></span><h3 class="unnumberedsec">E</h3>
-<dl compact="compact">
-<dt><b>echo stream</b>  <i>n.</i></dt>
-<dd><p>a <i>stream</i> of <i>type</i> <code>echo-stream</code>.
-</p>
-</dd>
-<dt><b>effective method</b>  <i>n.</i></dt>
-<dd><p>the combination of <i>applicable methods</i> that are executed
-when a <i>generic function</i> is invoked with a particular sequence
-of <i>arguments</i>.
-</p>
-</dd>
-<dt><b>element</b>  <i>n.</i></dt>
-<dd><p>1. (of a <i>list</i>) 
-an <i>object</i> that is the <i>car</i> of one of the <i>conses</i>
-that comprise the <i>list</i>.
-2. (of an <i>array</i>)
-an <i>object</i> that is stored in the <i>array</i>.
-3. (of a <i>sequence</i>)
-an <i>object</i> that is an <i>element</i> of the <i>list</i> or <i>array</i>
-that is the <i>sequence</i>.
-4. (of a <i>type</i>)
-an <i>object</i> that is a member of the set of <i>objects</i>
-designated by the <i>type</i>.
-5. (of an <i>input</i> <i>stream</i>)
-a <i>character</i> or <i>number</i> (as appropriate to the
-<i>element type</i> of the <i>stream</i>)
-that is among the ordered series of <i>objects</i> that can be 
-read from the <i>stream</i> (using <code>read-char</code> or <code>read-byte</code>,
-as appropriate to the <i>stream</i>).
-6. (of an <i>output</i> <i>stream</i>)
-a <i>character</i> or <i>number</i> (as appropriate to the
-<i>element type</i> of the <i>stream</i>)
-that is among the ordered series of <i>objects</i> that has been
-or will be written to the <i>stream</i> (using <code>write-char</code> 
-or <code>write-byte</code>, as appropriate to the <i>stream</i>).
-7. (of a <i>class</i>) a <i>generalized instance</i> of the <i>class</i>.
-</p>
-</dd>
-<dt><b>element type</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. (of an <i>array</i>) the <i>array element type</i> of the <i>array</i>.
-2. (of a <i>stream</i>) the <i>stream element type</i> of the <i>stream</i>.
-</p>
-</dd>
-<dt><b>em</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a context-dependent unit of measure commonly used in typesetting,
-equal to the displayed width of of a letter &ldquo;M&rdquo; in the current font.
-(The letter &ldquo;M&rdquo; is traditionally chosen because it is typically 
-represented by the widest <i>glyph</i> in the font, and other characters&rsquo; 
-widths are typically fractions of an <i>em</i>.  In implementations providing 
-non-Roman characters with wider characters than &ldquo;M,&rdquo; it is permissible 
-for another character to be the <i>implementation-defined</i> reference character
-for this measure, and for &ldquo;M&rdquo; to be only a fraction of an <i>em</i>
-wide.)  
-In a fixed width font, a line with <i>n</i> characters is <i>n</i> 
-<i>ems</i> wide; in a variable width font, <i>n</i> <i>ems</i> is the
-expected upper bound on the width of such a line.
-</p>
-</dd>
-<dt><b>empty list</b> <span id="glos_002dempty-list"></span></dt>
-<dd><p><i>n.</i>
-the <i>list</i> containing no <i>elements</i>. See <a href="Non_002dalphabetic.html#glos_002d_0028_0029">()</a>.
-</p>
-</dd>
-<dt><b>empty type</b>  <i>n.</i></dt>
-<dd><p>the <i>type</i> that contains no <i>elements</i>, and that is
-a <i>subtype</i> of all <i>types</i> (including itself).
-See <a href="N.html#glos_002dnil">nil</a>.
-</p>
-</dd>
-<dt><b>end of file</b>  <i>n.</i></dt>
-<dd><p>1. the point in an <i>input</i> <i>stream</i> beyond which there is
-no further data.
-Whether or not there is such a point on an <i>interactive stream</i> 
-is <i>implementation-defined</i>.
-2. a <i>situation</i> that occurs upon an attempt to obtain data from an
-<i>input stream</i> that is at the <i>end of file</i><sub>1</sub>
-</p>
-</dd>
-<dt><b>environment</b>  <i>n.</i></dt>
-<dd><p>1. a set of <i>bindings</i>. See <a href="Introduction-to-Environments.html">Section 3.1.1 (Introduction to Environments)</a>.
-2. an <i>environment object</i>.
-&ldquo;<code>macroexpand</code> takes an optional environment argument.&rdquo;
-</p>
-</dd>
-<dt><b>environment object</b>  <i>n.</i></dt>
-<dd><p>an <i>object</i> representing a set of <i>lexical bindings</i>,
-used in the processing of a <i>form</i> to provide meanings for
-<i>names</i> within that <i>form</i>.
-&ldquo;<code>macroexpand</code> takes an optional environment argument.&rdquo;
-(The <i>object</i> <code>nil</code>&nbsp;<!-- /@w -->when used as an <i>environment object</i>
-denotes the <i>null lexical environment</i>;
-the <i>values</i> of <i>environment parameters</i> 
-to <i>macro functions</i> are <i>objects</i>
-of <i>implementation-dependent</i> nature which represent the 
-<i>environment</i><sub>1</sub>
-is to be expanded.)
-See <a href="Introduction-to-Environments.html#EnvObjs">Section 3.1.1.4 (Environment Objects)</a>.
-</p>
-</dd>
-<dt><b>environment parameter</b>  <i>n.</i></dt>
-<dd><p>A <i>parameter</i> in a <i>defining form</i> f for which there is no corresponding
-<i>argument</i>; instead, this <i>parameter</i> receives as its value an
-<i>environment</i> <i>object</i> which corresponds to the
-<i>lexical environment</i> in which the <i>defining form</i> f appeared.
-</p>
-</dd>
-<dt><b>error</b>  <i>n.</i></dt>
-<dd><p>1. (only in the phrase &ldquo;is an error&rdquo;)
-a <i>situation</i> in which the semantics of a program are not specified, 
-and in which the consequences are undefined.
-2. a <i>condition</i> which represents an <i>error</i> <i>situation</i>.
-See <a href="Error-Terminology.html">Section 1.4.2 (Error Terminology)</a>.
-3. an <i>object</i> of <i>type</i> <code>error</code>.
-</p>
-</dd>
-<dt><b>error output</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>the <i>output</i> <i>stream</i> which is the <i>value</i> of the <i>dynamic variable</i>
-<code>*error-output*</code>.
-</p>
-</dd>
-<dt><b>escape</b>  <i>n.</i>, <i>adj.</i></dt>
-<dd><p>1. <i>n.</i>&nbsp;<!-- /@w -->a <i>single escape</i> or a <i>multiple escape</i>.
-2. <i>adj.</i>&nbsp;<!-- /@w --><i>single escape</i> or <i>multiple escape</i>.
-</p>
-</dd>
-<dt><b>establish</b>  <i>v.t.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>to build or bring into being 
-a  <i>binding</i>,
-a  <i>declaration</i>,
-an <i>exit point</i>,
-a  <i>tag</i>,
-a  <i>handler</i>, 
-a <i>restart</i>,
-or an <i>environment</i>. 
-&ldquo;<code>let</code> establishes lexical bindings.&rdquo;
-</p>
-</dd>
-<dt><b>evaluate</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>form</i> or an <i>implicit progn</i>)</dt>
-<dd><p>to <i>execute</i> the <i>code</i> represented by the <i>form</i>
-(or the series of <i>forms</i> making up the <i>implicit progn</i>)
-by applying the rules of <i>evaluation</i>,
-returning zero or more values.
-</p>
-</dd>
-<dt><b>evaluation</b>  <i>n.</i></dt>
-<dd><p>a model whereby <i>forms</i> are <i>executed</i>, returning zero or more values.
-Such execution might be implemented directly in one step by an interpreter
-or in two steps by first <i>compiling</i> the <i>form</i> and then
-<i>executing</i> the <i>compiled</i> <i>code</i>; this choice is 
-dependent both on context and the nature of the <i>implementation</i>, 
-but in any case is not in general detectable by any program.  The evaluation
-model is designed in such a way that a <i>conforming implementation</i> 
-might legitimately have only a compiler and no interpreter, or vice versa.
-See <a href="The-Evaluation-Model.html">Section 3.1.2 (The Evaluation Model)</a>.
-</p>
-</dd>
-<dt><b>evaluation environment</b>  <i>n.</i></dt>
-<dd><p>a <i>run-time environment</i> in which macro expanders 
-and code specified by <code>eval-when</code> to be evaluated
-are evaluated.  All evaluations initiated by the <i>compiler</i> 
-take place in the <i>evaluation environment</i>.
-</p>
-</dd>
-<dt><b>execute</b>  <i>v.t.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w -->(<i>code</i>)</dt>
-<dd><p>to perform the imperative actions represented by the <i>code</i>.
-</p>
-</dd>
-<dt><b>execution time</b>  <i>n.</i></dt>
-<dd><p>the duration of time that <i>compiled code</i> is being <i>executed</i>.
-</p>
-</dd>
-<dt><b>exhaustive partition</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>type</i>)</dt>
-<dd><p>a set of <i>pairwise</i> <i>disjoint</i> <i>types</i> that form an 
-<i>exhaustive union</i>.
-</p>
-</dd>
-<dt><b>exhaustive union</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>type</i>)</dt>
-<dd><p>a set of <i>subtypes</i> of the <i>type</i>,
-whose union contains all <i>elements</i> of that <i>type</i>.
-</p>
-</dd>
-<dt><b>exit point</b>  <i>n.</i></dt>
-<dd><p>a point in a <i>control form</i>
-from which (<i>e.g.</i>, <code>block</code>),
-through which (<i>e.g.</i>, <code>unwind-protect</code>),
-or to which (<i>e.g.</i>, <code>tagbody</code>)
-control and possibly <i>values</i> can be transferred both actively by using 
-another <i>control form</i> and passively through the normal control and
-data flow of <i>evaluation</i>.
-&ldquo;<code>catch</code> and <code>block</code> establish bindings for
-exit points to which <code>throw</code> and <code>return-from</code>,
-respectively, can transfer control and values;
-<code>tagbody</code> establishes a binding for an exit point
-with lexical extent to which <code>go</code> can transfer control;
-and <code>unwind-protect</code> establishes an exit point 
-through which control might be transferred by 
-operators such as <code>throw</code>, <code>return-from</code>,
-and <code>go</code>.&rdquo;
-</p>
-</dd>
-<dt><b>explicit return</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>the act of transferring control (and possibly <i>values</i>) 
-to a <i>block</i> by using <code>return-from</code> (or <code>return</code>).
-</p>
-</dd>
-<dt><b>explicit use</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>variable</i> V in a <i>form</i> F)</dt>
-<dd><p>a reference to V that is directly apparent in the normal semantics of F;
-<i>i.e.</i>, that does not expose any undocumented details of the
-<i>macro expansion</i> of the <i>form</i> itself.
-References to V exposed by expanding <i>subforms</i> of F are, however,
-considered to be <i>explicit uses</i> of V.
-</p>
-</dd>
-<dt><b>exponent marker</b>  <i>n.</i></dt>
-<dd><p>a character that is used in the textual notation for a <i>float</i>
-to separate the mantissa from the exponent.
-The characters defined as <i>exponent markers</i> in the <i>standard readtable</i>
-are shown in the next figure.
-For more information, see <a href="Character-Syntax.html">Section 2.1 (Character Syntax)</a>.
-&ldquo;The exponent marker &lsquo;d&rsquo; in &lsquo;3.0d7&rsquo; indicates
-that this number is to be represented as a double float.&rdquo;
-</p>
 
-<div class="float"><span id="fig26_002e1"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>Marker</th><th>Meaning</th></tr></thead>
-<tr><td><code>D</code> or <code>d</code></td><td><code>double-float</code></td></tr>
-<tr><td><code>E</code> or <code>e</code></td><td><code>float</code> (see <code>*read-default-float-format*</code>)</td></tr>
-<tr><td><code>F</code> or <code>f</code></td><td><code>single-float</code></td></tr>
-<tr><td><code>L</code> or <code>l</code></td><td><code>long-float</code></td></tr>
-<tr><td><code>S</code> or <code>s</code></td><td><code>short-float</code></td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 26.1: </strong>Exponent Markers</p></div></div>
-
-</dd>
-<dt><b>export</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>symbol</i> in a <i>package</i>)</dt>
-<dd><p>to add the <i>symbol</i> to the list of <i>external symbols</i> of the
-<i>package</i>.
-</p>
-</dd>
-<dt><b>exported</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>symbol</i> in a <i>package</i>)</dt>
-<dd><p>being an <i>external symbol</i> of the <i>package</i>.
-</p>
-</dd>
-<dt><b>expressed adjustability</b> <span id="glos_002dexpressed-adjustability"></span></dt>
-<dd><p><i>n.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)
-a <i>generalized boolean</i> that is conceptually (but not necessarily actually)
-associated with the <i>array</i>, representing whether the <i>array</i>
-is <i>expressly adjustable</i>.
-See also <a href="A.html#glos_002dactual-adjustability">actual adjustability</a>.
-</p>
-</dd>
-<dt><b>expressed array element type</b>  <i>n.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
-<dd><p>the <i>type</i> which is the <i>array element type</i>
-implied by a <i>type declaration</i> for the <i>array</i>, 
-or which is the requested <i>array element type</i> at its time 
-of creation, prior to any selection of an <i>upgraded array element type</i>.
-(<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->does not provide a way of detecting this <i>type</i>
-directly at run time, but an <i>implementation</i> is permitted 
-to make assumptions about the <i>array</i>&rsquo;s contents and
-the operations which may be performed on the <i>array</i> when
-this <i>type</i> is noted during code analysis, even if those 
-assumptions would not be valid in general for the
-<i>upgraded array element type</i> of the
-<i>expressed array element type</i>.)
-</p>
-</dd>
-<dt><b>expressed complex part type</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>complex</i>)</dt>
-<dd><p>the <i>type</i> which is implied as the <i>complex part type</i>
-by a <i>type declaration</i> for the <i>complex</i>, 
-or which is the requested <i>complex part type</i> at its time of
-creation, prior to any selection of an <i>upgraded complex part type</i>.
-(<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->does not provide a way of detecting this <i>type</i>
-directly at run time, but an <i>implementation</i> is permitted 
-to make assumptions about the operations which may be performed on
-the <i>complex</i> when this <i>type</i> is noted during code
-analysis, even if those assumptions would not be valid in general for 
-the <i>upgraded complex part type</i> of the
-<i>expressed complex part type</i>.)
-</p>
-</dd>
-<dt><b>expression</b>  <i>n.</i></dt>
-<dd><p>1. an <i>object</i>, often used to emphasize the use 
-of the <i>object</i> to encode or represent information in a specialized
-format, such as program text.
-&ldquo;The second expression in a <code>let</code> form is a list
-of bindings.&rdquo;
-2. the textual notation used to notate an <i>object</i> in a source file.
-&ldquo;The expression <code>'sample</code> is equivalent to <code>(quote sample)</code>.&rdquo;
-</p>
-</dd>
-<dt><b>expressly adjustable</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of an <i>array</i>)</dt>
-<dd><p>being <i>actually adjustable</i> by virtue of an explicit request for this
-characteristic having been made at the time of its creation.
-All <i>arrays</i> that are <i>expressly adjustable</i> 
-are <i>actually adjustable</i>,
-but not necessarily vice versa.
-</p>
-</dd>
-<dt><b>extended character</b>  <i>n.</i></dt>
-<dd><p>a <i>character</i> 
-of <i>type</i> <code>extended-char</code>:
-a <i>character</i> that is not a <i>base character</i>.
-</p>
-</dd>
-<dt><b>extended function designator</b> <span id="glos_002dextended-function-designator"></span></dt>
-<dd><p><i>n.</i>
-a <i>designator</i> for a <i>function</i>; that is,
-an <i>object</i> that denotes a <i>function</i>
-and that is one of:
-a <i>function name</i> (denoting the <i>function</i> it names
-in the <i>global environment</i>),
-or a <i>function</i> (denoting itself).
-The consequences are undefined if 
-a <i>function name</i> is used as an 
-<i>extended function designator</i> but
-it does not have a global definition as a <i>function</i>,
-or if it is a <i>symbol</i> 
-that has a global definition as a <i>macro</i> or a <i>special form</i>.
-See also <a href="F.html#glos_002dfunction-designator">function designator</a>.
-</p>
-</dd>
-<dt><b>extended lambda list</b>  <i>n.</i></dt>
-<dd><p>a list resembling an <i>ordinary lambda list</i> in form and purpose, but 
-offering additional syntax or functionality not available in an
-<i>ordinary lambda list</i>.
-&ldquo;<code>defmacro</code> uses extended lambda lists.&rdquo;
-</p>
-</dd>
-<dt><b>extension</b>  <i>n.</i></dt>
-<dd><p>a facility in an <i>implementation</i> of <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->
-that is not specified by this standard.
-</p>
-</dd>
-<dt><b>extent</b>  <i>n.</i></dt>
-<dd><p>the interval of time during which a <i>reference</i> to 
-an <i>object</i>,
-a  <i>binding</i>,
-an <i>exit point</i>,
-a  <i>tag</i>,
-a  <i>handler</i>,
-a  <i>restart</i>,
-or an <i>environment</i> is defined.
-</p>
-</dd>
-<dt><b>external file format</b>  <i>n.</i></dt>
-<dd><p>an <i>object</i> of <i>implementation-dependent</i> nature which determines
-one of possibly several <i>implementation-dependent</i> ways in which
-<i>characters</i> are encoded externally in a <i>character</i> <i>file</i>.
-</p>
-</dd>
-<dt><b>external file format designator</b>  <i>n.</i></dt>
-<dd><p>a <i>designator</i> for an <i>external file format</i>; that is,
-an <i>object</i> that denotes an <i>external file format</i>
-and that is one of:
-the <i>symbol</i> <tt>:default</tt> 
-(denoting an <i>implementation-dependent</i> default 
-<i>external file format</i> that can accomodate at least
-the <i>base characters</i>),
-some other <i>object</i> defined by the <i>implementation</i> to be
-an <i>external file format designator</i>
-(denoting an <i>implementation-defined</i> <i>external file format</i>),
-or some other <i>object</i> defined by the <i>implementation</i> to be
-an <i>external file format</i> 
-(denoting itself).
-</p>
-</dd>
-<dt><b>external symbol</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>package</i>)</dt>
-<dd><p>a <i>symbol</i> that is part of the &lsquo;external interface&rsquo; to the <i>package</i>
-and that are <i>inherited</i><sub>3</sub>
-that <i>uses</i> the <i>package</i>.
-When using the <i>Lisp reader</i>, 
-if a <i>package prefix</i> is used,
-the <i>name</i> of an <i>external symbol</i> is separated
-from the <i>package</i> <i>name</i> by a single <i>package marker</i>
-while
-the <i>name</i> of an <i>internal symbol</i> is separated
-from the <i>package</i> <i>name</i> by a double <i>package marker</i>;
-see <a href="Symbols-as-Tokens.html">Section 2.3.4 (Symbols as Tokens)</a>.
-</p>
-</dd>
-<dt><b>externalizable object</b>  <i>n.</i></dt>
-<dd><p>an <i>object</i> that can be used as a <i>literal</i> <i>object</i> 
-in <i>code</i> to be processed by the <i>file compiler</i>.  
-</p>
-
-</dd>
-</dl>
-<hr>
-<div class="header">
-<p>
-Next: <a href="F.html" accesskey="n" rel="next">F</a>, Previous: <a href="D.html" accesskey="p" rel="prev">D</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Glossary.html#E">E</a>.</p>
 </body>
-</html>

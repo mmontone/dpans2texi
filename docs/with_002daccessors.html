@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>with-accessors (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Objects.html" rel="up" title="Objects">
-<link href="with_002dslots.html" rel="next" title="with-slots">
-<link href="make_002dload_002dform_002dsaving_002dslots.html" rel="prev" title="make-load-form-saving-slots">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,154 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Objects.html#with_002daccessors">
 
 </head>
 
 <body lang="en">
-<span id="with_002daccessors"></span><div class="header">
-<p>
-Next: <a href="with_002dslots.html" accesskey="n" rel="next">with-slots</a>, Previous: <a href="make_002dload_002dform_002dsaving_002dslots.html" accesskey="p" rel="prev">make-load-form-saving-slots</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">with-accessors</h4>
-<span id="with_002daccessors-_0028Macro_0029"></span><h3 class="heading">with-accessors (Macro)</h3>
-<span id="index-with_002daccessors-2"></span>
-<span id="index-with_002daccessors"></span>
 
-
-
-<span id="Syntax_003a-122"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-with_002daccessors-1">Macro: <strong>with-accessors</strong> <em><tt>(</tt><tt>{</tt>slot-entry<tt>}</tt>*<tt>)</tt>  instance-form <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<dl compact="compact">
-<dt><var>slot-entry</var>::=</dt>
-<dd><p><tt>(</tt>variable-name accessor-name<tt>)</tt>
-</p></dd>
-</dl>
-
-<span id="Arguments-and-Values_003a-111"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>variable-name</var>&mdash;a <i>variable name</i>; not evaluated.
-</p>
-<p><var>accessor-name</var>&mdash;a <i>function name</i>; not evaluated.
-</p>
-<p><var>instance-form</var>&mdash;a <i>form</i>; evaluated.
-</p>
-<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
-</p>
-<p><var>forms</var>&mdash;an <i>implicit progn</i>.
-</p>
-<p><var>results</var>&mdash;the <i>values</i> returned by the <var>forms</var>.
-</p>
-<span id="Description_003a-150"></span><h4 class="subsubheading">Description:</h4>
-
-<p>Creates a lexical environment in which
-the slots specified by
-<var>slot-entry</var> are lexically available through their accessors as if
-they were variables.  The macro <code>with-accessors</code> invokes the
-appropriate accessors to <var>access</var> the <i>slots</i> specified
-by <var>slot-entry</var>.  Both <code>setf</code>
-and <code>setq</code> can be used to set the value of the <i>slot</i>.
-</p>
-<span id="Examples_003a-106"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (defclass thing ()
-           ((x :initarg :x :accessor thing-x)
-            (y :initarg :y :accessor thing-y)))
-<span class="roman">→</span> #&lt;STANDARD-CLASS THING 250020173&gt;
- (defmethod (setf thing-x) :before (new-x (thing thing))
-   (format t &quot;~&amp;Changing X from ~D to ~D in ~S.~%&quot;
-           (thing-x thing) new-x thing))
- (setq thing1 (make-instance 'thing :x 1 :y 2)) <span class="roman">→</span> #&lt;THING 43135676&gt;
- (setq thing2 (make-instance 'thing :x 7 :y 8)) <span class="roman">→</span> #&lt;THING 43147374&gt;
- (with-accessors ((x1 thing-x) (y1 thing-y))
-                 thing1
-   (with-accessors ((x2 thing-x) (y2 thing-y))
-                   thing2
-     (list (list x1 (thing-x thing1) y1 (thing-y thing1)
-                 x2 (thing-x thing2) y2 (thing-y thing2))
-           (setq x1 (+ y1 x2))
-           (list x1 (thing-x thing1) y1 (thing-y thing1)
-                 x2 (thing-x thing2) y2 (thing-y thing2))
-           (setf (thing-x thing2) (list x1))
-           (list x1 (thing-x thing1) y1 (thing-y thing1)
-                 x2 (thing-x thing2) y2 (thing-y thing2)))))
-▷ Changing X from 1 to 9 in #&lt;THING 43135676&gt;.
-▷ Changing X from 7 to (9) in #&lt;THING 43147374&gt;.
-<span class="roman">→</span> ((1 1 2 2 7 7 8 8)
-     9
-     (9 9 2 2 7 7 8 8) 
-     (9)
-     (9 9 2 2 (9) (9) 8 8))
-</pre></div>
-
-
-<span id="Affected-By_003a-12"></span><h4 class="subsubheading">Affected By:</h4>
-
-<p><code>defclass</code>
-</p>
-<span id="Exceptional-Situations_003a-35"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>The consequences are undefined if any <var>accessor-name</var> is not the name
-of an accessor for the <var>instance</var>.
-</p>
-<span id="See-Also_003a-132"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="with_002dslots.html">with-slots</a>,
-<a href="symbol_002dmacrolet.html">symbol-macrolet</a>
-</p>
-<span id="Notes_003a-88"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>A <code>with-accessors</code> expression of the form:
-</p>
-<div class="lisp">
-<pre class="lisp">(with-accessors (<var>slot-entry</var><sub>1</sub>
-<var>instance-form</var> <var>form</var><sub>1</sub>
-</pre></div>
-
-<p>expands into the equivalent of
-</p>
-<div class="lisp">
-<pre class="lisp">(let ((in <var>instance-form</var>))
-  (symbol-macrolet (<var>Q</var><sub>1</sub>
-</pre></div>
-
-<p>where <var>Q</var><sub>i</sub>
-</p>
-<div class="lisp">
-<pre class="lisp">(<var>variable-name</var><sub>i</sub>
-</pre></div>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="with_002dslots.html" accesskey="n" rel="next">with-slots</a>, Previous: <a href="make_002dload_002dform_002dsaving_002dslots.html" accesskey="p" rel="prev">make-load-form-saving-slots</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Objects.html#with_002daccessors">with-accessors</a>.</p>
 </body>
-</html>

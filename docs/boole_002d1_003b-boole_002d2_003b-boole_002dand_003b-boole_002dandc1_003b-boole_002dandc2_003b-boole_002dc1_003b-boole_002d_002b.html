@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+ (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Numbers.html" rel="up" title="Numbers">
-<link href="logand_003b-logandc1_003b-logandc2_003b-logeqv_003b-logior_003b-lognand_003b-lognor_003b-lognot_003b-lo_002b.html" rel="next" title="logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+">
-<link href="boole.html" rel="prev" title="boole">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,95 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Numbers.html#boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b">
 
 </head>
 
 <body lang="en">
-<span id="boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b"></span><div class="header">
-<p>
-Next: <a href="logand_003b-logandc1_003b-logandc2_003b-logeqv_003b-logior_003b-lognand_003b-lognor_003b-lognot_003b-lo_002b.html" accesskey="n" rel="next">logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+</a>, Previous: <a href="boole.html" accesskey="p" rel="prev">boole</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+</h4>
-<span id="boole_002d1_002c-boole_002d2_002c-boole_002dand_002c-boole_002dandc1_002c-boole_002dandc2_002c-boole_002dc1_002c-boole_002dc2_002c-boole_002dclr_002c-boole_002deqv_002c-boole_002dior_002c-boole_002dnand_002c-boole_002dnor_002c-boole_002dorc1_002c-boole_002dorc2_002c-boole_002dset_002c-boole_002dxor-_0028Constant-Variable_0029"></span><h3 class="heading">boole-1, boole-2, boole-and, boole-andc1, boole-andc2, boole-c1, boole-c2, boole-clr, boole-eqv, boole-ior, boole-nand, boole-nor, boole-orc1, boole-orc2, boole-set, boole-xor (Constant Variable)</h3>
-<span id="index-boole_002d1-1"></span>
-<span id="index-boole_002d1"></span>
-<span id="index-boole_002d2-1"></span>
-<span id="index-boole_002d2"></span>
-<span id="index-boole_002dand-1"></span>
-<span id="index-boole_002dand"></span>
-<span id="index-boole_002dandc1-1"></span>
-<span id="index-boole_002dandc1"></span>
-<span id="index-boole_002dandc2-1"></span>
-<span id="index-boole_002dandc2"></span>
-<span id="index-boole_002dc1-1"></span>
-<span id="index-boole_002dc1"></span>
-<span id="index-boole_002dc2-1"></span>
-<span id="index-boole_002dc2"></span>
-<span id="index-boole_002dclr-1"></span>
-<span id="index-boole_002dclr"></span>
-<span id="index-boole_002deqv-1"></span>
-<span id="index-boole_002deqv"></span>
-<span id="index-boole_002dior-1"></span>
-<span id="index-boole_002dior"></span>
-<span id="index-boole_002dnand-1"></span>
-<span id="index-boole_002dnand"></span>
-<span id="index-boole_002dnor-1"></span>
-<span id="index-boole_002dnor"></span>
-<span id="index-boole_002dorc1-1"></span>
-<span id="index-boole_002dorc1"></span>
-<span id="index-boole_002dorc2-1"></span>
-<span id="index-boole_002dorc2"></span>
-<span id="index-boole_002dset-1"></span>
-<span id="index-boole_002dset"></span>
-<span id="index-boole_002dxor-1"></span>
-<span id="index-boole_002dxor"></span>
 
-
-<span id="Constant-Value_003a-6"></span><h4 class="subsubheading">Constant Value:</h4>
-
-<p>The identity and nature of the <i>values</i> of each of these <i>variables</i> 
-is <i>implementation-dependent</i>,
-except that it must be <i>distinct</i> from each of the <i>values</i> of the others,
-and it must be a valid first <i>argument</i> to the <i>function</i> <code>boole</code>.
-</p>
-<span id="Description_003a-326"></span><h4 class="subsubheading">Description:</h4>
-
-<p>Each of these <i>constants</i> has a <i>value</i> which is one of the 
-sixteen possible <i>bit-wise logical operation specifiers</i>.
-</p>
-<span id="Examples_003a-228"></span><h4 class="subsubheading">Examples:</h4>
-<div class="lisp">
-<pre class="lisp"> (boole boole-ior 1 16) <span class="roman">→</span> 17
- (boole boole-and -2 5) <span class="roman">→</span> 4
- (boole boole-eqv 17 15) <span class="roman">→</span> -31
-</pre></div>
-
-
-<span id="See-Also_003a-271"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="boole.html">boole</a>
-</p>
-
-
-
-
+<p>The node you are looking for is at <a href="Numbers.html#boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b">boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+</a>.</p>
 </body>
-</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>D (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Glossary.html" rel="up" title="Glossary">
-<link href="E.html" rel="next" title="E">
-<link href="C.html" rel="prev" title="C">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,355 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Glossary.html#D">
 
 </head>
 
 <body lang="en">
-<span id="D"></span><div class="header">
-<p>
-Next: <a href="E.html" accesskey="n" rel="next">E</a>, Previous: <a href="C.html" accesskey="p" rel="prev">C</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="D-1"></span><h3 class="unnumberedsec">D</h3>
-<dl compact="compact">
-<dt><b>data type</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>type</i>.
-</p>
-</dd>
-<dt><b>debug I/O</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>the <i>bidirectional</i> <i>stream</i> 
-that is the <i>value</i> of the <i>variable</i> <code>*debug-io*</code>.
-</p>
-</dd>
-<dt><b>debugger</b>  <i>n.</i></dt>
-<dd><p>a facility that allows the <i>user</i> to handle a <i>condition</i> interactively.
-For example, the <i>debugger</i> might permit interactive
-selection of a <i>restart</i> from among the <i>active</i> <i>restarts</i>,
-and it might perform additional <i>implementation-defined</i> services
-for the purposes of debugging.
-</p>
-</dd>
-<dt><b>declaration</b>  <i>n.</i></dt>
-<dd><p>a <i>global declaration</i> or <i>local declaration</i>.
-</p>
-</dd>
-<dt><b>declaration identifier</b>  <i>n.</i></dt>
-<dd><p>one of the <i>symbols</i>
-<code>declaration</code>,
-<code>dynamic-extent</code>,
-<code>ftype</code>,
-<code>function</code>,
-<code>ignore</code>, 
-<code>inline</code>,  
-<code>notinline</code>,
-<code>optimize</code>, 
-<code>special</code>, 
-or <code>type</code>;
-or a <i>symbol</i> which is the <i>name</i> of a <i>type</i>;
-or a <i>symbol</i> which has been <i>declared</i>
-to be a <i>declaration identifier</i> by using a <code>declaration</code>
-<i>declaration</i>.
-</p>
-</dd>
-<dt><b>declaration specifier</b>  <i>n.</i></dt>
-<dd><p>an <i>expression</i> that can appear at top level of a <tt>declare</tt> 
-expression or a <code>declaim</code> form, or as the argument to <code>proclaim</code>,
-and which has a <i>car</i> which is a <i>declaration identifier</i>,
-and which has a <i>cdr</i> that is data interpreted according to rules
-specific to the <i>declaration identifier</i>.
-</p>
-</dd>
-<dt><b>declare</b>  <i>v.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>to <i>establish</i> a <i>declaration</i>.
-See <a href="declare.html">declare</a>, <code>declaim</code>, or <code>proclaim</code>.
-</p>
-</dd>
-<dt><b>decline</b>  <i>v.</i>&nbsp;<!-- /@w -->(of a <i>handler</i>)</dt>
-<dd><p>to return normally without having <i>handled</i> the <i>condition</i>
-being <i>signaled</i>, permitting the signaling process to continue
-as if the <i>handler</i> had not been present.
-</p>
-</dd>
-<dt><b>decoded time</b> <span id="glos_002ddecoded-time"></span></dt>
-<dd><p><i>n.</i>
-<i>absolute</i> <i>time</i>, represented as an ordered series of
-nine <i>objects</i> which, taken together, form a description of
-a point in calendar time, accurate to the nearest second (except
-that <i>leap seconds</i> are ignored).
-See <a href="Time.html#DecodedTime">Section 25.1.4.1 (Decoded Time)</a>.
-</p>
-</dd>
-<dt><b>default method</b>  <i>n.</i></dt>
-<dd><p>a <i>method</i> having no <i>parameter specializers</i> other than
-the <i>class</i> <code>t</code>.  Such a <i>method</i> is always an <i>applicable method</i>
-but might be <i>shadowed</i><sub>2</sub>
-</p>
-</dd>
-<dt><b>defaulted initialization argument list</b>  <i>n.</i></dt>
-<dd><p>a <i>list</i> of alternating initialization argument <i>names</i> and
-<i>values</i> in which unsupplied initialization arguments are
-defaulted, used in the protocol for initializing and reinitializing 
-<i>instances</i> of <i>classes</i>.
-</p>
-</dd>
-<dt><b>define-method-combination arguments lambda list</b>  <i>n.</i></dt>
-<dd><p>a <i>lambda list</i> used by the <tt>:arguments</tt> option 
-to <code>define-method-combination</code>.
-See <a href="Define_002dmethod_002dcombination-Arguments-Lambda-Lists.html">Section 3.4.10 (Define-method-combination Arguments Lambda Lists)</a>.
-</p>
-</dd>
-<dt><b>define-modify-macro lambda list</b>  <i>n.</i></dt>
-<dd><p>a <i>lambda list</i> used by <code>define-modify-macro</code>.
-See <a href="Define_002dmodify_002dmacro-Lambda-Lists.html">Section 3.4.9 (Define-modify-macro Lambda Lists)</a>.
-</p>
-</dd>
-<dt><b>defined name</b>  <i>n.</i></dt>
-<dd><p>a <i>symbol</i> the meaning of which is defined by <span class="roman">Common Lisp</span>.
-</p>
-</dd>
-<dt><b>defining form</b>  <i>n.</i></dt>
-<dd><p>a <i>form</i> that has the side-effect of <i>establishing</i> a definition.
-&ldquo;<code>defun</code> and <code>defparameter</code> are defining forms.&rdquo;
-</p>
-</dd>
-<dt><b>defsetf lambda list</b>  <i>n.</i></dt>
-<dd><p>a <i>lambda list</i> that is like an <i>ordinary lambda list</i> 
-except that it does not permit <code>&amp;aux</code>
-and that it permits use of <code>&amp;environment</code>.
-See <a href="Defsetf-Lambda-Lists.html">Section 3.4.7 (Defsetf Lambda Lists)</a>.
-</p>
-</dd>
-<dt><b>deftype lambda list</b>  <i>n.</i></dt>
-<dd><p>a <i>lambda list</i> that is like a <i>macro lambda list</i>
-except that the default <i>value</i> for unsupplied <i>optional parameters</i>
-and <i>keyword parameters</i> is the <i>symbol</i> <tt>*</tt> (rather than <code>nil</code>).
-See <a href="Deftype-Lambda-Lists.html">Section 3.4.8 (Deftype Lambda Lists)</a>.
-</p>
-</dd>
-<dt><b>denormalized</b> <span id="glos_002ddenormalized"></span></dt>
-<dd><p><i>adj.</i>, <i>ANSI</i>, <i>IEEE</i>&nbsp;<!-- /@w -->(of a <i>float</i>)
-conforming to the description of &ldquo;denormalized&rdquo; as described by 
-<cite>IEEE Standard for Binary Floating-Point Arithmetic</cite>.
-For example, in an <i>implementation</i> where the minimum possible exponent 
-was <code>-7</code> but where <code>0.001</code> was a valid mantissa, the number <code>1.0e-10</code>
-might be representable as <code>0.001e-7</code> internally even if the <i>normalized</i>
-representation would call for it to be represented instead as <code>1.0e-10</code> 
-or <code>0.1e-9</code>.  By their nature, <i>denormalized</i> <i>floats</i> generally
-have less precision than <i>normalized</i> <i>floats</i>.
-</p>
-</dd>
-<dt><b>derived type</b>  <i>n.</i></dt>
-<dd><p>a <i>type specifier</i> which is defined in terms of an expansion into another
-<i>type specifier</i>.  <code>deftype</code> defines <i>derived types</i>, 
-and there may be other <i>implementation-defined</i> <i>operators</i>
-which do so as well.
-</p>
-</dd>
-<dt><b>derived type specifier</b>  <i>n.</i></dt>
-<dd><p>a <i>type specifier</i> for a <i>derived type</i>.
-</p>
-</dd>
-<dt><b>designator</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> that denotes another <i>object</i>.
-In the dictionary entry for an <i>operator</i>
-if a <i>parameter</i> is described as a <i>designator</i> for a <i>type</i>,
-the description of the <i>operator</i> is written in a way
-that assumes that appropriate coercion to that <i>type</i> has already occurred;
-that is, that the <i>parameter</i> is already of the denoted <i>type</i>.
-For more detailed information, see <a href="Notational-Conventions.html#Designators">Section 1.4.1.5 (Designators)</a>.
-</p>
-</dd>
-<dt><b>destructive</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of an <i>operator</i>)</dt>
-<dd><p>capable of modifying some program-visible aspect of one or more
-<i>objects</i> that are either explicit <i>arguments</i> to the
-<i>operator</i> or that can be obtained directly or indirectly 
-from the <i>global environment</i> by the <i>operator</i>.
-</p>
-</dd>
-<dt><b>destructuring lambda list</b>  <i>n.</i></dt>
-<dd><p>an <i>extended lambda list</i> used in <code>destructuring-bind</code> and
-nested within <i>macro lambda lists</i>.  
-See <a href="Destructuring-Lambda-Lists.html">Section 3.4.5 (Destructuring Lambda Lists)</a>.
-</p>
-</dd>
-<dt><b>different</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>not the <i>same</i>
-&ldquo;The strings <code>&quot;FOO&quot;</code> and <code>&quot;foo&quot;</code> are different under
-<code>equal</code> but not under <code>equalp</code>.&rdquo;
-</p>
-</dd>
-<dt><b>digit</b>  <i>n.</i>&nbsp;<!-- /@w -->(in a <i>radix</i>)</dt>
-<dd><p>a <i>character</i> that is among the possible digits (<code>0</code> to <code>9</code>,
-<code>A</code> to <code>Z</code>, and <code>a</code> to <code>z</code>) and that is defined to have an 
-associated numeric weight as a digit in that <i>radix</i>.
-See <a href="Character-Categories.html#Digits">Section 13.1.4.6 (Digits in a Radix)</a>.
-</p>
-</dd>
-<dt><b>dimension</b>  <i>n.</i></dt>
-<dd><p>1. a non-negative <i>integer</i> indicating the number of
-<i>objects</i> an <i>array</i> can hold along one axis.
-If the <i>array</i> is a <i>vector</i> with a <i>fill pointer</i>,
-the <i>fill pointer</i> is ignored.
-&ldquo;The second dimension of that array is 7.&rdquo;
-2. an axis of an array.
-&ldquo;This array has six dimensions.&rdquo;
-</p>
-</dd>
-<dt><b>direct instance</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>class</i> C)</dt>
-<dd><p>an <i>object</i> whose <i>class</i> is C itself,
-rather than some <i>subclass</i> of C.
-&ldquo;The function <code>make-instance</code> always returns a 
-direct instance of the class which is (or is named by)
-its first argument.&rdquo;
-</p>
-</dd>
-<dt><b>direct subclass</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>class</i> C<sub>1</sub>
-</dt>
-<dd><p>a <i>class</i> C<sub>2</sub>
-such that C<sub>1</sub>
-</p>
-</dd>
-<dt><b>direct superclass</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>class</i> C<sub>1</sub>
-</dt>
-<dd><p>a <i>class</i> C<sub>2</sub>
-a <i>superclass</i> of C<sub>1</sub>
-</p>
-</dd>
-<dt><b>disestablish</b>  <i>v.t.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>to withdraw the <i>establishment</i> of 
-an <i>object</i>,
-a  <i>binding</i>,
-an <i>exit point</i>, 
-a  <i>tag</i>,
-a  <i>handler</i>,
-a  <i>restart</i>, 
-or an <i>environment</i>.
-</p>
-</dd>
-<dt><b>disjoint</b>  <i>n.</i>&nbsp;<!-- /@w -->(of <i>types</i>)</dt>
-<dd><p>having no <i>elements</i> in common.
-</p>
-</dd>
-<dt><b>dispatching macro character</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>macro character</i> that has an associated table that specifies 
-the <i>function</i> to be called for each <i>character</i> that is
-seen following the <i>dispatching macro character</i>.
-See the <i>function</i> <a href="make_002ddispatch_002dmacro_002dcharacter.html">make-dispatch-macro-character</a>.
-</p>
-</dd>
-<dt><b>displaced array</b>  <i>n.</i></dt>
-<dd><p>an <i>array</i> which has no storage of its own, but which is instead
-indirected to the storage of another <i>array</i>, called its
-<i>target</i>, at a specified offset, in such a way that any attempt
-to <i>access</i> the <i>displaced array</i> implicitly references the 
-<i>target</i> <i>array</i>.
-</p>
-</dd>
-<dt><b>distinct</b>  <i>adj.</i></dt>
-<dd><p>not <i>identical</i>.
-</p>
-</dd>
-<dt><b>documentation string</b>  <i>n.</i>&nbsp;<!-- /@w -->(in a defining <i>form</i>)</dt>
-<dd><p>A <i>literal</i> <i>string</i> which because of the context in which
-it appears (rather than because of some intrinsically observable 
-aspect of the <i>string</i>) is taken as documentation.
-In some cases, the <i>documentation string</i> is saved in such a
-way that it can later be obtained by supplying either an <i>object</i>, 
-or by supplying a <i>name</i> and a &ldquo;kind&rdquo; to the <i>function</i> <code>documentation</code>.
-&ldquo;The body of code in a <code>defmacro</code> form can be preceded 
-by a documentation string of kind <tt>function</tt>.&rdquo;
-</p>
-</dd>
-<dt><b>dot</b>  <i>n.</i></dt>
-<dd><p>the <i>standard character</i> that is variously called
-&ldquo;full stop,&rdquo;
-&ldquo;period,&rdquo;
-or &ldquo;dot&rdquo; (<code>.</code>).
-See <a href="Standard-Characters.html#StdCharsThree">Figure 2.5</a>.
-</p>
-</dd>
-<dt><b>dotted list</b>  <i>n.</i></dt>
-<dd><p>a <i>list</i> which has a terminating <i>atom</i> that is not <code>nil</code>.
-(An <i>atom</i> by itself is not a <i>dotted list</i>, however.)
-</p>
-</dd>
-<dt><b>dotted pair</b>  <i>n.</i></dt>
-<dd><p>1. a <i>cons</i> whose <i>cdr</i> is a <i>non-list</i>.
-2. any <i>cons</i>, used to emphasize the use of the <i>cons</i>
-as a symmetric data pair.
-</p>
-</dd>
-<dt><b>double float</b>  <i>n.</i></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>double-float</code>.
-</p>
-</dd>
-<dt><b>double-quote</b>  <i>n.</i></dt>
-<dd><p>the <i>standard character</i> that is variously called
-&ldquo;quotation mark&rdquo;
-or &ldquo;double quote&rdquo; (<code>&quot;</code>).
-See <a href="Standard-Characters.html#StdCharsThree">Figure 2.5</a>.
-</p>
-</dd>
-<dt><b>dynamic binding</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>binding</i> in a <i>dynamic environment</i>.
-</p>
-</dd>
-<dt><b>dynamic environment</b>  <i>n.</i></dt>
-<dd><p>that part of an <i>environment</i> that contains <i>bindings</i> 
-with <i>dynamic extent</i>.  A <i>dynamic environment</i> contains,
-among other things:
-<i>exit points</i> established by <code>unwind-protect</code>,
-and 
-<i>bindings</i> of
-<i>dynamic variables</i>,
-<i>exit points</i> established by <code>catch</code>,
-<i>condition handlers</i>,
-and
-<i>restarts</i>.  
-</p>
-</dd>
-<dt><b>dynamic extent</b>  <i>n.</i></dt>
-<dd><p>an <i>extent</i> whose duration is bounded by points of 
-<i>establishment</i> and <i>disestablishment</i> within the execution
-of a particular <i>form</i>.  See <a href="I.html#glos_002dindefinite-extent">indefinite extent</a>.
-&ldquo;Dynamic variable bindings have dynamic extent.&rdquo;
-</p>
-</dd>
-<dt><b>dynamic scope</b>  <i>n.</i></dt>
-<dd><p><i>indefinite scope</i> along with <i>dynamic extent</i>.
-</p>
-</dd>
-<dt><b>dynamic variable</b>  <i>n.</i></dt>
-<dd><p>a <i>variable</i> the <i>binding</i> for which is in the <i>dynamic environment</i>.
-See <a href="special.html">special</a>.
-</p>
 
-</dd>
-</dl>
-<hr>
-<div class="header">
-<p>
-Next: <a href="E.html" accesskey="n" rel="next">E</a>, Previous: <a href="C.html" accesskey="p" rel="prev">C</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Glossary.html#D">D</a>.</p>
 </body>
-</html>

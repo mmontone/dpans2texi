@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+ (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Conses.html" rel="up" title="Conses">
-<link href="copy_002dtree.html" rel="next" title="copy-tree">
-<link href="rplaca_003b-rplacd.html" rel="prev" title="rplaca; rplacd">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,266 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Conses.html#car_003b-cdr_003b-caar_003b-cadr_003b-cdar_003b-cddr_003b-caaar_003b-caadr_003b-cadar_003b-caddr_003b-cdaar_003b-cd_002b">
 
 </head>
 
 <body lang="en">
-<span id="car_003b-cdr_003b-caar_003b-cadr_003b-cdar_003b-cddr_003b-caaar_003b-caadr_003b-cadar_003b-caddr_003b-cdaar_003b-cd_002b"></span><div class="header">
-<p>
-Next: <a href="copy_002dtree.html" accesskey="n" rel="next">copy-tree</a>, Previous: <a href="rplaca_003b-rplacd.html" accesskey="p" rel="prev">rplaca; rplacd</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+</h4>
-<span id="car_002c-cdr_002c-caar_002c-cadr_002c-cdar_002c-cddr_002c-caaar_002c-caadr_002c-cadar_002c-caddr_002c-cdaar_002c-cdadr_002c-cddar_002c-cdddr_002c-caaaar_002c-caaadr_002c-caadar_002c-caaddr_002c-cadaar_002c-cadadr_002c-caddar_002c-cadddr_002c-cdaaar_002c-cdaadr_002c-cdadar_002c-cdaddr_002c-cddaar_002c-cddadr_002c-cdddar_002c-cddddr-_0028Accessor_0029"></span><h3 class="heading">car, cdr, caar, cadr, cdar, cddr, caaar, caadr, cadar, caddr, cdaar, cdadr, cddar, cdddr, caaaar, caaadr, caadar, caaddr, cadaar, cadadr, caddar, cadddr, cdaaar, cdaadr, cdadar, cdaddr, cddaar, cddadr, cdddar, cddddr (Accessor)</h3>
-<span id="index-car-1"></span>
-<span id="index-car"></span>
-<span id="index-cdr-1"></span>
-<span id="index-cdr"></span>
-<span id="index-caar-1"></span>
-<span id="index-caar"></span>
-<span id="index-cadr-1"></span>
-<span id="index-cadr"></span>
-<span id="index-cdar-1"></span>
-<span id="index-cdar"></span>
-<span id="index-cddr-1"></span>
-<span id="index-cddr"></span>
-<span id="index-caaar-1"></span>
-<span id="index-caaar"></span>
-<span id="index-caadr-1"></span>
-<span id="index-caadr"></span>
-<span id="index-cadar-1"></span>
-<span id="index-cadar"></span>
-<span id="index-caddr-1"></span>
-<span id="index-caddr"></span>
-<span id="index-cdaar-1"></span>
-<span id="index-cdaar"></span>
-<span id="index-cdadr-1"></span>
-<span id="index-cdadr"></span>
-<span id="index-cddar-1"></span>
-<span id="index-cddar"></span>
-<span id="index-cdddr-1"></span>
-<span id="index-cdddr"></span>
-<span id="index-caaaar-1"></span>
-<span id="index-caaaar"></span>
-<span id="index-caaadr-1"></span>
-<span id="index-caaadr"></span>
-<span id="index-caadar-1"></span>
-<span id="index-caadar"></span>
-<span id="index-caaddr-1"></span>
-<span id="index-caaddr"></span>
-<span id="index-cadaar-1"></span>
-<span id="index-cadaar"></span>
-<span id="index-cadadr-1"></span>
-<span id="index-cadadr"></span>
-<span id="index-caddar-1"></span>
-<span id="index-caddar"></span>
-<span id="index-cadddr-1"></span>
-<span id="index-cadddr"></span>
-<span id="index-cdaaar-1"></span>
-<span id="index-cdaaar"></span>
-<span id="index-cdaadr-1"></span>
-<span id="index-cdaadr"></span>
-<span id="index-cdadar-1"></span>
-<span id="index-cdadar"></span>
-<span id="index-cdaddr-1"></span>
-<span id="index-cdaddr"></span>
-<span id="index-cddaar-1"></span>
-<span id="index-cddaar"></span>
-<span id="index-cddadr-1"></span>
-<span id="index-cddadr"></span>
-<span id="index-cdddar-1"></span>
-<span id="index-cdddar"></span>
-<span id="index-cddddr-1"></span>
-<span id="index-cddddr"></span>
-<span id="car"></span><span id="cdr"></span>
 
-<span id="Syntax_003a-289"></span><h4 class="subsubheading">Syntax:</h4>
-
-<p>car x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cadr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cddr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caaar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caadr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cadar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caddr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdaar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdadr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cddar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdddr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caaaar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caaadr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caadar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caaddr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cadaar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cadadr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-caddar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cadddr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdaaar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdaadr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdadar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdaddr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cddaar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cddadr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cdddar x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-cddddr x <span class="roman">→</span> object  |  (setf (x object) new-object)<br>
-<br>
-</p>
-
-<span id="Pronunciation_003a-8"></span><h4 class="subsubheading">Pronunciation:</h4>
-
-<p><code>cadr</code>: [ˈkaˌdə r]
-</p>
-<p><code>caddr</code>: [ˈkadə ˌdə r]
-or [ˈkaˌd\.udə r]
-</p>
-<p><code>cdr</code>: [ˈk\.uˌdə r]
-</p>
-<p><code>cddr</code>: [ˈk\.udə ˌdə r]
-or [ˈkəˌd\.udə r]
-</p>
-<span id="Arguments-and-Values_003a-278"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>x</var>&mdash;a <i>list</i>.
-</p>
-<p><var>object</var>&mdash;an <i>object</i>.
-</p>
-<p><var>new-object</var>&mdash;an <i>object</i>.
-</p>
-<span id="Description_003a-379"></span><h4 class="subsubheading">Description:</h4>
-
-<p>If <var>x</var> is a <i>cons</i>, <code>car</code> returns the <i>car</i> 
-of that <i>cons</i>.  If <var>x</var> is <code>nil</code>, <code>car</code> returns <code>nil</code>.
-</p>
-<p>If <var>x</var> is a <i>cons</i>, <code>cdr</code> returns the <i>cdr</i> 
-of that <i>cons</i>.  If <var>x</var> is <code>nil</code>, <code>cdr</code> returns <code>nil</code>.
-</p>
-<p><i>Functions</i> are provided which perform compositions of up to four
-<code>car</code> and <code>cdr</code> operations.  Their <i>names</i> consist of 
-a <code>C</code>, followed by two, three, or four occurrences of <code>A</code> or <code>D</code>, 
-and finally an <code>R</code>.  The series of <code>A</code>&rsquo;s and <code>D</code>&rsquo;s in each
-<i>function</i>&rsquo;s <i>name</i> is chosen to identify the series of 
-<code>car</code> and <code>cdr</code> operations that is performed by the function.
-The order in which the <code>A</code>&rsquo;s and <code>D</code>&rsquo;s appear is the inverse of the
-order in which the corresponding operations are performed.  The next figure&nbsp;<!-- /@w -->
-defines the relationships precisely.
-</p>
-
-<div class="float"><span id="fig14_002e6"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>This <i>place</i> &hellip;</th><th>Is equivalent to this <i>place</i> &hellip;</th></tr></thead>
-<tr><td><code>(caar <var>x</var>)</code></td><td><code>(car (car <var>x</var>))</code></td></tr>
-<tr><td><code>(cadr <var>x</var>)</code></td><td><code>(car (cdr <var>x</var>))</code></td></tr>
-<tr><td><code>(cdar <var>x</var>)</code></td><td><code>(cdr (car <var>x</var>))</code></td></tr>
-<tr><td><code>(cddr <var>x</var>)</code></td><td><code>(cdr (cdr <var>x</var>))</code></td></tr>
-<tr><td><code>(caaar <var>x</var>)</code></td><td><code>(car (car (car <var>x</var>)))</code></td></tr>
-<tr><td><code>(caadr <var>x</var>)</code></td><td><code>(car (car (cdr <var>x</var>)))</code></td></tr>
-<tr><td><code>(cadar <var>x</var>)</code></td><td><code>(car (cdr (car <var>x</var>)))</code></td></tr>
-<tr><td><code>(caddr <var>x</var>)</code></td><td><code>(car (cdr (cdr <var>x</var>)))</code></td></tr>
-<tr><td><code>(cdaar <var>x</var>)</code></td><td><code>(cdr (car (car <var>x</var>)))</code></td></tr>
-<tr><td><code>(cdadr <var>x</var>)</code></td><td><code>(cdr (car (cdr <var>x</var>)))</code></td></tr>
-<tr><td><code>(cddar <var>x</var>)</code></td><td><code>(cdr (cdr (car <var>x</var>)))</code></td></tr>
-<tr><td><code>(cdddr <var>x</var>)</code></td><td><code>(cdr (cdr (cdr <var>x</var>)))</code></td></tr>
-<tr><td><code>(caaaar <var>x</var>)</code></td><td><code>(car (car (car (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(caaadr <var>x</var>)</code></td><td><code>(car (car (car (cdr <var>x</var>))))</code></td></tr>
-<tr><td><code>(caadar <var>x</var>)</code></td><td><code>(car (car (cdr (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(caaddr <var>x</var>)</code></td><td><code>(car (car (cdr (cdr <var>x</var>))))</code></td></tr>
-<tr><td><code>(cadaar <var>x</var>)</code></td><td><code>(car (cdr (car (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(cadadr <var>x</var>)</code></td><td><code>(car (cdr (car (cdr <var>x</var>))))</code></td></tr>
-<tr><td><code>(caddar <var>x</var>)</code></td><td><code>(car (cdr (cdr (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(cadddr <var>x</var>)</code></td><td><code>(car (cdr (cdr (cdr <var>x</var>))))</code></td></tr>
-<tr><td><code>(cdaaar <var>x</var>)</code></td><td><code>(cdr (car (car (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(cdaadr <var>x</var>)</code></td><td><code>(cdr (car (car (cdr <var>x</var>))))</code></td></tr>
-<tr><td><code>(cdadar <var>x</var>)</code></td><td><code>(cdr (car (cdr (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(cdaddr <var>x</var>)</code></td><td><code>(cdr (car (cdr (cdr <var>x</var>))))</code></td></tr>
-<tr><td><code>(cddaar <var>x</var>)</code></td><td><code>(cdr (cdr (car (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(cddadr <var>x</var>)</code></td><td><code>(cdr (cdr (car (cdr <var>x</var>))))</code></td></tr>
-<tr><td><code>(cdddar <var>x</var>)</code></td><td><code>(cdr (cdr (cdr (car <var>x</var>))))</code></td></tr>
-<tr><td><code>(cddddr <var>x</var>)</code></td><td><code>(cdr (cdr (cdr (cdr <var>x</var>))))</code></td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 14.6: </strong>CAR and CDR variants</p></div></div>
-
-<p><code>setf</code> can also be used with any of these functions to change an
-existing component of <var>x</var>, but <code>setf</code> will not make new
-components.  So, for example, the <i>car</i> of a <i>cons</i> 
-can be assigned with <code>setf</code> of <code>car</code>,
-but the <i>car</i> of <code>nil</code>&nbsp;<!-- /@w -->cannot be assigned with <code>setf</code> of <code>car</code>.
-Similarly, the <i>car</i> of the <i>car</i> of a <i>cons</i> whose <i>car</i>
-is a <i>cons</i> can be assigned with <code>setf</code> of <code>caar</code>,
-but neither <code>nil</code> nor a <i>cons</i> whose car is <code>nil</code>&nbsp;<!-- /@w -->can be assigned
-with <code>setf</code> of <code>caar</code>.
-</p>
-<p>The argument <var>x</var> is permitted to be a <i>dotted list</i> 
-or a <i>circular list</i>.
-</p>
-<span id="Examples_003a-262"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (car nil) <span class="roman">→</span> NIL  
- (cdr '(1 . 2)) <span class="roman">→</span> 2
- (cdr '(1 2)) <span class="roman">→</span> (2)
- (cadr '(1 2)) <span class="roman">→</span> 2 
- (car '(a b c)) <span class="roman">→</span> A
- (cdr '(a b c)) <span class="roman">→</span> (B C)
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-118"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>The functions <code>car</code> and <code>cdr</code> 
-should signal <code>type-error</code> if they receive an argument which is not a
-<i>list</i>.  The other functions (<code>caar</code>, <code>cadr</code>,
-&hellip; <code>cddddr</code>) should behave for the purpose of
-error checking as if defined by appropriate calls to <code>car</code> and
-<code>cdr</code>.
-</p>
-<span id="See-Also_003a-305"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="rplaca_003b-rplacd.html#rplaca">rplaca</a>, <a href="first_003b-second_003b-third_003b-fourth_003b-fifth_003b-sixth_003b-seventh_003b-eighth_003b-ninth_003b-ten_002b.html#first">first</a>, <a href="rest.html">rest</a>
-</p>
-<span id="Notes_003a-199"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>The <i>car</i> of a <i>cons</i> can also be altered by using <code>rplaca</code>,
-and the <i>cdr</i> of a <i>cons</i> can be altered by using <code>rplacd</code>.
-</p>
-<div class="lisp">
-<pre class="lisp">(car <i>x</i>)    ≡ (first <i>x</i>)
-(cadr <i>x</i>)   ≡ (second <i>x</i>) ≡ (car (cdr <i>x</i>))
-(caddr <i>x</i>)  ≡ (third <i>x</i>)  ≡ (car (cdr (cdr <i>x</i>)))
-(cadddr <i>x</i>) ≡ (fourth <i>x</i>) ≡ (car (cdr (cdr (cdr <i>x</i>))))
-</pre></div>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="copy_002dtree.html" accesskey="n" rel="next">copy-tree</a>, Previous: <a href="rplaca_003b-rplacd.html" accesskey="p" rel="prev">rplaca; rplacd</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Conses.html#car_003b-cdr_003b-caar_003b-cadr_003b-cdar_003b-cddr_003b-caaar_003b-caadr_003b-cadar_003b-caddr_003b-cdaar_003b-cd_002b">car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+</a>.</p>
 </body>
-</html>

@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Character-Concepts.html" rel="next" title="Character Concepts">
-<link href="floating_002dpoint_002dunderflow.html" rel="prev" title="floating-point-underflow">
+<link href="Conses.html#Conses" rel="next" title="Conses">
+<link href="Numbers.html#floating_002dpoint_002dunderflow" rel="prev" title="floating-point-underflow">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,61 +277,1950 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Characters"></span><div class="header">
 <p>
-Next: <a href="Conses.html" accesskey="n" rel="next">Conses</a>, Previous: <a href="Numbers.html" accesskey="p" rel="prev">Numbers</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Conses.html#Conses" accesskey="n" rel="next">Conses</a>, Previous: <a href="Numbers.html#Numbers" accesskey="p" rel="prev">Numbers</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Characters-1"></span><h2 class="chapter">13 Characters</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Character-Concepts.html" accesskey="1">Character Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Character-Concepts" accesskey="1">Character Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="character-_0028System-Class_0029.html" accesskey="2">character (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#character-_0028System-Class_0029" accesskey="2">character (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="base_002dchar.html" accesskey="3">base-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#base_002dchar" accesskey="3">base-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="standard_002dchar.html" accesskey="4">standard-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#standard_002dchar" accesskey="4">standard-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="extended_002dchar.html" accesskey="5">extended-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#extended_002dchar" accesskey="5">extended-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="char_003d_003b-char_002f_003d_003b-char_003c_003b-char_003e_003b-char_003c_003d_003b-char_003e_003d_003b-char_002dequal_003b-char_002dnot_002dequal_002b.html" accesskey="6">char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#char_003d_003b-char_002f_003d_003b-char_003c_003b-char_003e_003b-char_003c_003d_003b-char_003e_003d_003b-char_002dequal_003b-char_002dnot_002dequal_002b" accesskey="6">char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="character-_0028Function_0029.html" accesskey="7">character (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#character-_0028Function_0029" accesskey="7">character (Function)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="characterp.html" accesskey="8">characterp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#characterp" accesskey="8">characterp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="alpha_002dchar_002dp.html" accesskey="9">alpha-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#alpha_002dchar_002dp" accesskey="9">alpha-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="alphanumericp.html">alphanumericp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#alphanumericp">alphanumericp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="digit_002dchar.html">digit-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#digit_002dchar">digit-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="digit_002dchar_002dp.html">digit-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#digit_002dchar_002dp">digit-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="graphic_002dchar_002dp.html">graphic-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#graphic_002dchar_002dp">graphic-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="standard_002dchar_002dp.html">standard-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#standard_002dchar_002dp">standard-char-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="char_002dupcase_003b-char_002ddowncase.html">char-upcase; char-downcase</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#char_002dupcase_003b-char_002ddowncase">char-upcase; char-downcase</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp.html">upper-case-p; lower-case-p; both-case-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp">upper-case-p; lower-case-p; both-case-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="char_002dcode.html">char-code</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#char_002dcode">char-code</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="char_002dint.html">char-int</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#char_002dint">char-int</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="code_002dchar.html">code-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#code_002dchar">code-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="char_002dcode_002dlimit.html">char-code-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#char_002dcode_002dlimit">char-code-limit</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="char_002dname.html">char-name</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#char_002dname">char-name</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="name_002dchar.html">name-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#name_002dchar">name-char</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="Character-Concepts"></span><div class="header">
+<p>
+Next: <a href="#character-_0028System-Class_0029" accesskey="n" rel="next">character (System Class)</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Character-Concepts-1"></span><h3 class="section">13.1 Character Concepts</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Introduction-to-Characters" accesskey="1">Introduction to Characters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Introduction-to-Scripts-and-Repertoires" accesskey="2">Introduction to Scripts and Repertoires</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Character-Attributes" accesskey="3">Character Attributes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Character-Categories" accesskey="4">Character Categories</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Identity-of-Characters" accesskey="5">Identity of Characters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Ordering-of-Characters" accesskey="6">Ordering of Characters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Character-Names" accesskey="7">Character Names</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Treatment-of-Newline-during-Input-and-Output" accesskey="8">Treatment of Newline during Input and Output</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Character-Encodings" accesskey="9">Character Encodings</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Documentation-of-Implementation_002dDefined-Scripts">Documentation of Implementation-Defined Scripts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Introduction-to-Characters"></span><div class="header">
+<p>
+Next: <a href="#Introduction-to-Scripts-and-Repertoires" accesskey="n" rel="next">Introduction to Scripts and Repertoires</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Introduction-to-Characters-1"></span><h4 class="subsection">13.1.1 Introduction to Characters</h4>
+
+<p>A <span id="index-character-1"></span>
+<em>character</em> is an <i>object</i> that represents a unitary token 
+(<i>e.g.</i>, a letter, a special symbol, or a &ldquo;control character&rdquo;)
+in an aggregate quantity of text
+(<i>e.g.</i>, a <i>string</i> or a text <i>stream</i>).
+</p>
+<p><span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->allows an implementation to provide support 
+for international language <i>characters</i> as well
+as <i>characters</i> used in specialized arenas (<i>e.g.</i>, mathematics).
+</p>
+<p>The following figures contain lists of <i>defined names</i> applicable to 
+<i>characters</i>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> relating to 
+<i>character</i> <i>attributes</i> and <i>character</i> <i>predicates</i>.
+</p>
+
+<div class="float"><span id="fig13_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>alpha-char-p</td><td>char-not-equal</td><td>char&gt;</td></tr>
+<tr><td>alphanumericp</td><td>char-not-greaterp</td><td>char&gt;=</td></tr>
+<tr><td>both-case-p</td><td>char-not-lessp</td><td>digit-char-p</td></tr>
+<tr><td>char-code-limit</td><td>char/=</td><td>graphic-char-p</td></tr>
+<tr><td>char-equal</td><td>char&lt;</td><td>lower-case-p</td></tr>
+<tr><td>char-greaterp</td><td>char&lt;=</td><td>standard-char-p</td></tr>
+<tr><td>char-lessp</td><td>char=</td><td>upper-case-p</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 13.1: </strong>Character defined names &ndash; 1</p></div></div>
+
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>character</i> construction and conversion <i>defined names</i>.
+</p>
+
+<div class="float"><span id="fig13_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>char-code</td><td>char-name</td><td>code-char</td></tr>
+<tr><td>char-downcase</td><td>char-upcase</td><td>digit-char</td></tr>
+<tr><td>char-int</td><td>character</td><td>name-char</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 13.2: </strong>Character defined names &ndash; 2</p></div></div>
+
+
+<hr>
+<span id="Introduction-to-Scripts-and-Repertoires"></span><div class="header">
+<p>
+Next: <a href="#Character-Attributes" accesskey="n" rel="next">Character Attributes</a>, Previous: <a href="#Introduction-to-Characters" accesskey="p" rel="prev">Introduction to Characters</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Introduction-to-Scripts-and-Repertoires-1"></span><h4 class="subsection">13.1.2 Introduction to Scripts and Repertoires</h4>
+
+<span id="Character-Scripts"></span><h4 class="subsubsection">13.1.2.1 Character Scripts</h4>
+<span id="CharScripts"></span>
+<p>A <i>script</i> is one of possibly several sets that form an <i>exhaustive partition</i>
+of the type <code>character</code>.
+</p>
+<p>The number of such sets and boundaries between them is <i>implementation-defined</i>.
+<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->does not require these sets to be <i>types</i>, but an <i>implementation</i>
+is permitted to define such <i>types</i> as an extension.  Since no <i>character</i>
+from one <i>script</i> can ever be a member of another <i>script</i>, it is generally
+more useful to speak about <i>character</i> <i>repertoires</i>.
+</p>
+<p>Although
+the term &ldquo;<i>script</i>&rdquo; is chosen for 
+definitional 
+compatibility with ISO terminology, no <i>conforming implementation</i> 
+is required to use any particular <i>scripts</i> standardized by ISO
+or by any other standards organization.
+</p>
+<p>Whether and how the <i>script</i> or <i>scripts</i> used by any given
+<i>implementation</i> are named is <i>implementation-dependent</i>.
+</p>
+
+<span id="Character-Repertoires"></span><h4 class="subsubsection">13.1.2.2 Character Repertoires</h4>
+<span id="CharRepertoires"></span>
+<p>A <span id="index-repertoire"></span>
+<em>repertoire</em> is a <i>type specifier</i> for a subtype of <i>type</i> <code>character</code>.
+This term is generally used when describing a collection of <i>characters</i>
+independent of their coding.
+<i>Characters</i> in <i>repertoires</i> are only identified
+by name,
+by <i>glyph</i>, or
+by character description.
+</p>
+<p>A <i>repertoire</i> can contain <i>characters</i> from several
+<i>scripts</i>, and a <i>character</i> can appear in more than
+one <i>repertoire</i>.
+</p>
+<p>For some examples of <i>repertoires</i>, see the coded character standards
+ISO 8859/1, ISO 8859/2, and ISO 6937/2.
+Note, however, that although
+the term &ldquo;<i>repertoire</i>&rdquo; is chosen for 
+definitional 
+compatibility with ISO terminology, no <i>conforming implementation</i> 
+is required to use <i>repertoires</i> standardized by ISO or any other 
+standards organization.
+</p>
+
+
+<hr>
+<span id="Character-Attributes"></span><div class="header">
+<p>
+Next: <a href="#Character-Categories" accesskey="n" rel="next">Character Categories</a>, Previous: <a href="#Introduction-to-Scripts-and-Repertoires" accesskey="p" rel="prev">Introduction to Scripts and Repertoires</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Character-Attributes-1"></span><h4 class="subsection">13.1.3 Character Attributes</h4>
+
+<p><i>Characters</i> have only one <i>standardized</i> <i>attribute</i>:
+a <i>code</i>.  A <i>character</i>&rsquo;s <i>code</i> is a non-negative <i>integer</i>.
+This <i>code</i> is composed from a character <i>script</i> and a character label
+in an <i>implementation-dependent</i> way.  See the <i>functions</i> <a href="#char_002dcode">char-code</a> and <code>code-char</code>.
+</p>
+
+<p>Additional, <i>implementation-defined</i> <i>attributes</i> of <i>characters</i>
+are also permitted
+so that, for example, 
+two <i>characters</i> with the same <i>code</i> may differ 
+in some other, <i>implementation-defined</i> way.
+</p>
+<p>For any <i>implementation-defined</i> <i>attribute</i>
+there is a distinguished value
+called the <span id="index-null"></span>
+<em>null</em> value for that <i>attribute</i>. 
+A <i>character</i> for which each <i>implementation-defined</i> <i>attribute</i>
+has the null value for that <i>attribute</i> is called a <i>simple</i> <i>character</i>.
+If the <i>implementation</i> has no <i>implementation-defined</i> <i>attributes</i>,
+then all <i>characters</i> are <i>simple</i> <i>characters</i>.
+</p>
+
+<hr>
+<span id="Character-Categories"></span><div class="header">
+<p>
+Next: <a href="#Identity-of-Characters" accesskey="n" rel="next">Identity of Characters</a>, Previous: <a href="#Character-Attributes" accesskey="p" rel="prev">Character Attributes</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Character-Categories-1"></span><h4 class="subsection">13.1.4 Character Categories</h4>
+
+<p>There are several (overlapping) categories of <i>characters</i> that have no formally
+associated <i>type</i> but that are nevertheless useful to name. 
+They include
+<i>graphic</i> <i>characters</i>, 
+<i>alphabetic</i><sub>1</sub>
+<i>characters</i> with <i>case</i> 
+(<i>uppercase</i> and <i>lowercase</i> <i>characters</i>),
+<i>numeric</i> <i>characters</i>,
+<i>alphanumeric</i> <i>characters</i>,
+and <i>digits</i> (in a given <i>radix</i>).
+</p>
+<p>For each <i>implementation-defined</i> <i>attribute</i> of a <i>character</i>,
+the documentation for that <i>implementation</i> must specify whether 
+<i>characters</i> that differ only in that <i>attribute</i> are permitted to differ
+in whether are not they are members of one of the aforementioned categories.
+</p>
+<p>Note that these terms are defined independently of any special syntax 
+which might have been enabled in the <i>current readtable</i>.
+</p>
+<span id="Graphic-Characters"></span><h4 class="subsubsection">13.1.4.1 Graphic Characters</h4>
+<span id="GraphicChars"></span>
+<p><i>Characters</i> that are classified as <span id="index-graphic"></span>
+<em>graphic</em>, or displayable, are each
+associated with a glyph, a visual representation of the <i>character</i>.
+</p>
+<p>A <i>graphic</i> <i>character</i> is one that has a standard textual 
+representation as a single <i>glyph</i>, such as <code>A</code> or <code>*</code> or <code>=</code>.
+<i>Space</i>, which effectively has a blank <i>glyph</i>, is defined
+to be a <i>graphic</i>.
+</p>
+<p>Of the <i>standard characters</i>,
+<i>newline</i> is <i>non-graphic</i> 
+and all others are <i>graphic</i>; see <a href="Syntax.html#Standard-Characters">Section 2.1.3 (Standard Characters)</a>.
+</p>
+<p><i>Characters</i> that are not <i>graphic</i> are called <span id="index-non_002dgraphic"></span>
+<em>non-graphic</em>.
+<i>Non-graphic</i> <i>characters</i> are sometimes informally called
+&ldquo;formatting characters&rdquo; 
+or &ldquo;control characters.&rdquo;
+</p>
+<p><code>#\Backspace</code>,
+<code>#\Tab</code>,
+<code>#\Rubout</code>,
+<code>#\Linefeed</code>, 
+<code>#\Return</code>, and
+<code>#\Page</code>,
+if they are supported by the <i>implementation</i>,
+are <i>non-graphic</i>.
+</p>
+
+<span id="Alphabetic-Characters"></span><h4 class="subsubsection">13.1.4.2 Alphabetic Characters</h4>
+
+<p>The <i>alphabetic</i><sub>1</sub>
+a subset of the <i>graphic</i> <i>characters</i>.
+Of the <i>standard characters</i>, only these are the <i>alphabetic</i><sub>1</sub>
+</p>
+<p><code>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</code>
+</p>
+<p><code>a b c d e f g h i j k l m n o p q r s t u v w x y z</code>
+</p>
+<p>Any <i>implementation-defined</i> <i>character</i> that has <i>case</i> 
+must be <i>alphabetic</i><sub>1</sub>
+For each <i>implementation-defined</i> <i>graphic</i> <i>character</i> 
+that has no <i>case</i>,
+it is <i>implementation-defined</i> whether 
+that <i>character</i> is <i>alphabetic</i><sub>1</sub>
+</p>
+
+<span id="Characters-With-Case"></span><h4 class="subsubsection">13.1.4.3 Characters With Case</h4>
+<span id="CharactersWithCase"></span>
+<p>The <i>characters</i> with <i>case</i> are 
+a subset of the <i>alphabetic</i><sub>1</sub>
+A <i>character</i> with <i>case</i> has the property of being either
+<i>uppercase</i> or <i>lowercase</i>.
+Every <i>character</i> with <i>case</i> is in one-to-one correspondence
+with some other <i>character</i> with the opposite <i>case</i>.
+</p>
+<span id="g_t13_002e1_002e4_002e3_002e1-Uppercase-Characters"></span><h4 class="unnumberedsubsubsec">13.1.4.3.1 Uppercase Characters</h4>
+
+
+<p>An uppercase <i>character</i> is one that has a corresponding
+<i>lowercase</i> <i>character</i> that is <i>different</i> 
+(and can be obtained using <code>char-downcase</code>).
+</p>
+<p>Of the <i>standard characters</i>, only these are <i>uppercase</i> <i>characters</i>:
+</p>
+<p><code>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</code>
+</p>
+
+<span id="g_t13_002e1_002e4_002e3_002e2-Lowercase-Characters"></span><h4 class="unnumberedsubsubsec">13.1.4.3.2 Lowercase Characters</h4>
+
+
+<p>A lowercase <i>character</i> is one that has a corresponding 
+<i>uppercase</i> <i>character</i> that is <i>different</i> 
+(and can be obtained using <code>char-upcase</code>).
+</p>
+<p>Of the <i>standard characters</i>, only these are <i>lowercase</i> <i>characters</i>:
+</p>
+<p><code>a b c d e f g h i j k l m n o p q r s t u v w x y z</code>
+</p>
+
+<span id="g_t13_002e1_002e4_002e3_002e3-Corresponding-Characters-in-the-Other-Case"></span><h4 class="unnumberedsubsubsec">13.1.4.3.3 Corresponding Characters in the Other Case</h4>
+
+
+<p>The <i>uppercase</i> <i>standard characters</i> <code>A</code> through <code>Z</code> mentioned above
+respectively correspond to
+the <i>lowercase</i> <i>standard characters</i> <code>a</code> through <code>z</code> mentioned above.
+For example, the <i>uppercase</i> <i>character</i> <code>E</code> 
+corresponds to the <i>lowercase</i> <i>character</i> <code>e</code>, and vice versa.
+</p>
+
+<span id="g_t13_002e1_002e4_002e3_002e4-Case-of-Implementation_002dDefined-Characters"></span><h4 class="unnumberedsubsubsec">13.1.4.3.4 Case of Implementation-Defined Characters</h4>
+
+
+<p>An <i>implementation</i> may define that other <i>implementation-defined</i>
+<i>graphic</i> <i>characters</i> have <i>case</i>.  Such definitions must always
+be done in pairs&mdash;one <i>uppercase</i> <i>character</i> in one-to-one 
+<i>correspondence</i> with one <i>lowercase</i> <i>character</i>.
+</p>
+
+
+<span id="Numeric-Characters"></span><h4 class="subsubsection">13.1.4.4 Numeric Characters</h4>
+
+<p>The <i>numeric</i> <i>characters</i> are
+a subset of the <i>graphic</i> <i>characters</i>.
+Of the <i>standard characters</i>, only these are <i>numeric</i> <i>characters</i>:
+</p>
+<p><code>0 1 2 3 4 5 6 7 8 9</code>
+</p>
+<p>For each <i>implementation-defined</i> <i>graphic</i> <i>character</i> 
+that has no <i>case</i>, the <i>implementation</i> must define whether
+or not it is a <i>numeric</i> <i>character</i>.
+</p>
+
+<span id="Alphanumeric-Characters"></span><h4 class="subsubsection">13.1.4.5 Alphanumeric Characters</h4>
+
+<p>The set of <i>alphanumeric</i> <i>characters</i> is the union of 
+the set of <i>alphabetic</i><sub>1</sub>
+and the set of <i>numeric</i> <i>characters</i>.
+</p>
+
+<span id="Digits-in-a-Radix"></span><h4 class="subsubsection">13.1.4.6 Digits in a Radix</h4>
+<span id="Digits"></span>
+<p>What qualifies as a <i>digit</i> depends on the <i>radix</i> 
+(an <i>integer</i> between <code>2</code> and <code>36</code>, inclusive).
+The potential <i>digits</i> are:
+</p>
+<p><code>0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</code>
+</p>
+<p>Their respective weights are <code>0</code>, <code>1</code>, <code>2</code>, &hellip; <code>35</code>.
+In any given radix n, only the first n potential <i>digits</i> 
+are considered to be <i>digits</i>.
+For example,
+the digits in radix <code>2</code>  are <code>0</code> and <code>1</code>, 
+the digits in radix <code>10</code> are <code>0</code> through <code>9</code>, and
+the digits in radix <code>16</code> are <code>0</code> through <code>F</code>.
+</p>
+<p><i>Case</i> is not significant in <i>digits</i>; 
+for example, in radix <code>16</code>, both <code>F</code> and <code>f</code> 
+are <i>digits</i> with weight <code>15</code>.
+</p>
+
+
+<hr>
+<span id="Identity-of-Characters"></span><div class="header">
+<p>
+Next: <a href="#Ordering-of-Characters" accesskey="n" rel="next">Ordering of Characters</a>, Previous: <a href="#Character-Categories" accesskey="p" rel="prev">Character Categories</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Identity-of-Characters-1"></span><h4 class="subsection">13.1.5 Identity of Characters</h4>
+
+<p>Two <i>characters</i> that are <code>eql</code>, <code>char=</code>, or <code>char-equal</code> 
+are not necessarily <code>eq</code>.
+</p>
+
+<hr>
+<span id="Ordering-of-Characters"></span><div class="header">
+<p>
+Next: <a href="#Character-Names" accesskey="n" rel="next">Character Names</a>, Previous: <a href="#Identity-of-Characters" accesskey="p" rel="prev">Identity of Characters</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Ordering-of-Characters-1"></span><h4 class="subsection">13.1.6 Ordering of Characters</h4>
+
+<p>The total ordering on <i>characters</i> is guaranteed to have 
+the following properties: 
+</p>
+
+<ul>
+<li> If two <i>characters</i> have the same <i>implementation-defined</i> <i>attributes</i>,
+then their ordering by <code>char&lt;</code> is consistent with the numerical
+ordering by the predicate <code>&lt;</code> on their code <i>attributes</i>.
+
+</li><li> If two <i>characters</i> differ in any <i>attribute</i>, then they
+are not <code>char=</code>.
+
+
+
+</li><li> The total ordering is not necessarily the same as the total ordering
+on the <i>integers</i> produced by applying <code>char-int</code> to the
+<i>characters</i>.
+
+</li><li> While <i>alphabetic</i><sub>1</sub>
+must    
+obey a partial ordering,
+they need not be contiguous; it is permissible for 
+<i>uppercase</i> and <i>lowercase</i> <i>characters</i> to be interleaved. 
+Thus <code>(char&lt;= #\a x #\z)</code> 
+is not a valid way of determining whether or not <code>x</code> is a
+<i>lowercase</i> <i>character</i>.  
+
+</li></ul>
+
+
+<p>Of the <i>standard characters</i>, 
+those which are <i>alphanumeric</i> obey the following partial ordering:
+</p>
+<div class="lisp">
+<pre class="lisp"> A&lt;B&lt;C&lt;D&lt;E&lt;F&lt;G&lt;H&lt;I&lt;J&lt;K&lt;L&lt;M&lt;N&lt;O&lt;P&lt;Q&lt;R&lt;S&lt;T&lt;U&lt;V&lt;W&lt;X&lt;Y&lt;Z
+ a&lt;b&lt;c&lt;d&lt;e&lt;f&lt;g&lt;h&lt;i&lt;j&lt;k&lt;l&lt;m&lt;n&lt;o&lt;p&lt;q&lt;r&lt;s&lt;t&lt;u&lt;v&lt;w&lt;x&lt;y&lt;z
+ 0&lt;1&lt;2&lt;3&lt;4&lt;5&lt;6&lt;7&lt;8&lt;9
+ either 9&lt;A or Z&lt;0
+ either 9&lt;a or z&lt;0                                                      
+</pre></div>
+
+<p>This implies that, for <i>standard characters</i>, <i>alphabetic</i><sub>1</sub>
+ordering holds within each <i>case</i> (<i>uppercase</i> and <i>lowercase</i>), 
+and that the <i>numeric</i> <i>characters</i> as a group are not interleaved
+with <i>alphabetic</i> <i>characters</i>.
+However, the ordering or possible interleaving of <i>uppercase</i> <i>characters</i>
+and <i>lowercase</i> <i>characters</i> is <i>implementation-defined</i>.
+</p>
+
+<hr>
+<span id="Character-Names"></span><div class="header">
+<p>
+Next: <a href="#Treatment-of-Newline-during-Input-and-Output" accesskey="n" rel="next">Treatment of Newline during Input and Output</a>, Previous: <a href="#Ordering-of-Characters" accesskey="p" rel="prev">Ordering of Characters</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Character-Names-1"></span><h4 class="subsection">13.1.7 Character Names</h4>
+
+<p>The following <i>character</i> <i>names</i> must be present in all 
+<i>conforming implementations</i>:
+</p>
+
+<dl compact="compact">
+<dt><code>Newline</code></dt>
+<dd>
+
+<p>The character that represents the division between lines.
+An implementation must translate between <code>#\Newline</code>, 
+a single-character representation, and whatever external representation(s)
+may be used.
+</p>
+</dd>
+<dt><code>Space</code></dt>
+<dd>
+
+<p>The space or blank character.
+</p></dd>
+</dl>
+
+
+<p>The following names are <i>semi-standard</i>; 
+if an <i>implementation</i> supports them,
+they should be used for the described <i>characters</i> and no others.
+</p>
+
+<dl compact="compact">
+<dt><code>Rubout</code></dt>
+<dd>
+
+<p>The rubout or delete character.
+</p>
+</dd>
+<dt><code>Page</code></dt>
+<dd>
+
+<p>The form-feed or page-separator character.
+</p>
+</dd>
+<dt><code>Tab</code></dt>
+<dd>
+
+<p>The tabulate character.
+</p>
+</dd>
+<dt><code>Backspace</code></dt>
+<dd>
+
+<p>The backspace character.
+</p>
+</dd>
+<dt><code>Return</code></dt>
+<dd>
+
+<p>The carriage return character.
+</p>
+</dd>
+<dt><code>Linefeed</code></dt>
+<dd>
+
+<p>The line-feed character.
+</p></dd>
+</dl>
+
+
+<p>In some <i>implementations</i>,
+one or more of these <i>character</i> <i>names</i> 
+might denote a <i>standard character</i>; 
+for example,
+<code>#\Linefeed</code> and <code>#\Newline</code> might be the <i>same</i> <i>character</i>
+in some <i>implementations</i>.
+</p>
+
+<hr>
+<span id="Treatment-of-Newline-during-Input-and-Output"></span><div class="header">
+<p>
+Next: <a href="#Character-Encodings" accesskey="n" rel="next">Character Encodings</a>, Previous: <a href="#Character-Names" accesskey="p" rel="prev">Character Names</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Treatment-of-Newline-during-Input-and-Output-1"></span><h4 class="subsection">13.1.8 Treatment of Newline during Input and Output</h4>
+
+<p>When the character <code>#\Newline</code> is written to an output file,
+the implementation must take the appropriate action
+to produce a line division.  This might involve writing out a
+record or translating <code>#\Newline</code> to a CR/LF sequence.
+When reading, a corresponding reverse transformation must take place.
+</p>
+
+<hr>
+<span id="Character-Encodings"></span><div class="header">
+<p>
+Next: <a href="#Documentation-of-Implementation_002dDefined-Scripts" accesskey="n" rel="next">Documentation of Implementation-Defined Scripts</a>, Previous: <a href="#Treatment-of-Newline-during-Input-and-Output" accesskey="p" rel="prev">Treatment of Newline during Input and Output</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Character-Encodings-1"></span><h4 class="subsection">13.1.9 Character Encodings</h4>
+
+<p>A <i>character</i> is sometimes represented merely by its <i>code</i>, and sometimes
+by another <i>integer</i> value which is composed from the <i>code</i> and all 
+<i>implementation-defined</i> <i>attributes</i>
+(in an <i>implementation-defined</i> way
+that might vary between <i>Lisp images</i> even in the same <i>implementation</i>).
+This <i>integer</i>, returned by the function <code>char-int</code>, is called the
+character&rsquo;s &ldquo;encoding.&rdquo;
+There is no corresponding function
+from a character&rsquo;s encoding back to the <i>character</i>, 
+since its primary intended uses include things like hashing where an inverse operation
+is not really called for.
+</p>
+
+
+<hr>
+<span id="Documentation-of-Implementation_002dDefined-Scripts"></span><div class="header">
+<p>
+Previous: <a href="#Character-Encodings" accesskey="p" rel="prev">Character Encodings</a>, Up: <a href="#Character-Concepts" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Documentation-of-Implementation_002dDefined-Scripts-1"></span><h4 class="subsection">13.1.10 Documentation of Implementation-Defined Scripts</h4>
+
+<p>An <i>implementation</i> must document the <i>character</i> <i>scripts</i> 
+it supports. For each <i>character</i> <i>script</i> supported,
+the documentation must describe at least the following:
+</p>
+<ul>
+<li> Character labels, glyphs, and descriptions.
+Character labels must be uniquely named using only Latin capital letters A&ndash;Z,
+hyphen (-), and digits 0&ndash;9.
+</li><li> Reader canonicalization.
+Any mechanisms by which <code>read</code> treats
+<i>different</i> characters as equivalent must be documented.
+</li><li> The impact on <code>char-upcase</code>,
+<code>char-downcase</code>,
+and the case-sensitive <i>format directives</i>.
+In particular, for each <i>character</i> with <i>case</i>,
+whether it is <i>uppercase</i> or <i>lowercase</i>,
+and which <i>character</i> is its equivalent in the opposite case.
+</li><li> The behavior of the case-insensitive <i>functions</i>
+<code>char-equal</code>, <code>char-not-equal</code>,
+<code>char-lessp</code>, <code>char-greaterp</code>, 
+<code>char-not-greaterp</code>, and <code>char-not-lessp</code>.
+</li><li> The behavior of any <i>character</i> <i>predicates</i>;
+in particular, the effects of
+<code>alpha-char-p</code>,
+<code>lower-case-p</code>,
+<code>upper-case-p</code>,
+<code>both-case-p</code>,
+<code>graphic-char-p</code>, 
+and
+<code>alphanumericp</code>.
+</li><li> The interaction with file I/O, in particular,
+the supported coded character sets (for example, ISO8859/1-1987)
+and external encoding schemes supported are documented.
+</li></ul>
+
+
+
+<hr>
+<span id="character-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="#base_002dchar" accesskey="n" rel="next">base-char</a>, Previous: <a href="#Character-Concepts" accesskey="p" rel="prev">Character Concepts</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">character (System Class)</h4>
+<span id="character-_0028System-Class_0029-1"></span><h3 class="heading">character (System Class)</h3>
+<span id="index-character-6"></span>
+<span id="index-character-2"></span>
+
+
+<span id="Class-Precedence-List_003a-49"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>character</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-350"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>character</i> is an <i>object</i> that 
+represents a unitary token in an aggregate quantity of text;
+see <a href="#Character-Concepts">Section 13.1 (Character Concepts)</a>.
+</p>
+<p>The <i>types</i> <code>base-char</code> and <code>extended-char</code>
+form an <i>exhaustive partition</i> of the <i>type</i> <code>character</code>.
+</p>
+<span id="See-Also_003a-282"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#Character-Concepts">Section 13.1 (Character Concepts)</a>,
+<a href="Syntax.html#SharpsignBackslash">Section 2.4.8.1 (Sharpsign Backslash)</a>,
+<a href="Printer.html#PrintingCharacters">Section 22.1.3.2 (Printing Characters)</a>
+</p>
+<hr>
+<span id="base_002dchar"></span><div class="header">
+<p>
+Next: <a href="#standard_002dchar" accesskey="n" rel="next">standard-char</a>, Previous: <a href="#character-_0028System-Class_0029" accesskey="p" rel="prev">character (System Class)</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">base-char</h4>
+<span id="base_002dchar-_0028Type_0029"></span><h3 class="heading">base-char (Type)</h3>
+<span id="index-base_002dchar-1"></span>
+<span id="index-base_002dchar"></span>
+
+
+
+<span id="Supertypes_003a-10"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>base-char</code>,
+<code>character</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-351"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>base-char</code> is defined as the <i>upgraded array element type</i> 
+of <code>standard-char</code>.
+An <i>implementation</i> can support additional subtypes of <i>type</i> <code>character</code>
+(besides the ones listed in this standard) 
+that might or might not be supertypes of <i>type</i> <code>base-char</code>.
+In addition, an <i>implementation</i> can define <code>base-char</code>
+to be the <i>same</i> <i>type</i> as <code>character</code>.
+</p>
+<p><i>Base characters</i> are distinguished in the following respects:
+</p>
+<ol>
+<li> The <i>type</i> <code>standard-char</code> is a <i>subrepertoire</i> of the <i>type</i> <code>base-char</code>.
+</li><li> The selection of <i>base characters</i> that are not <i>standard characters</i>
+is implementation defined.
+</li><li> Only <i>objects</i> of the <i>type</i> <code>base-char</code> can be 
+<i>elements</i> of a <i>base string</i>.
+</li><li> No upper bound is specified for the number of characters in the 
+<code>base-char</code> <i>repertoire</i>; the size of that <i>repertoire</i>
+is 
+<i>implementation-defined</i>.
+The lower bound is&nbsp;96, the number of <i>standard characters</i>.
+</li></ol>
+
+
+
+<p>Whether a character is a <i>base character</i> depends on the way 
+that an <i>implementation</i> represents <i>strings</i>, 
+and not any other properties of the <i>implementation</i> or the host operating system.  
+For example, one implementation might encode all <i>strings</i> 
+as characters having 16-bit encodings, and another might have
+two kinds of <i>strings</i>: those with characters having 8-bit 
+encodings and those with characters having 16-bit encodings.  In the
+first <i>implementation</i>, the <i>type</i> <code>base-char</code> is equivalent to
+the <i>type</i> <code>character</code>: there is only one kind of <i>string</i>.
+In the second <i>implementation</i>, the <i>base characters</i> might be 
+those <i>characters</i> that could be stored in a <i>string</i> of <i>characters</i>
+having 8-bit encodings.  In such an implementation,
+the <i>type</i> <code>base-char</code> is a <i>proper subtype</i> of the <i>type</i> <code>character</code>.
+</p>
+<p>The <i>type</i> <code>standard-char</code> is a 
+subtype of <i>type</i> <code>base-char</code>.
+</p>
+
+<hr>
+<span id="standard_002dchar"></span><div class="header">
+<p>
+Next: <a href="#extended_002dchar" accesskey="n" rel="next">extended-char</a>, Previous: <a href="#base_002dchar" accesskey="p" rel="prev">base-char</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">standard-char</h4>
+<span id="standard_002dchar-_0028Type_0029"></span><h3 class="heading">standard-char (Type)</h3>
+<span id="index-standard_002dchar-1"></span>
+<span id="index-standard_002dchar"></span>
+
+
+
+<span id="Supertypes_003a-11"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>standard-char</code>,
+<code>base-char</code>,
+<code>character</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-352"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A fixed set of 96 <i>characters</i> required to be present in all 
+<i>conforming implementations</i>.  <i>Standard characters</i> are 
+defined in <a href="Syntax.html#Standard-Characters">Section 2.1.3 (Standard Characters)</a>.
+</p>
+<p>Any <i>character</i> that is not <i>simple</i> is not a <i>standard character</i>.
+</p>
+
+<span id="See-Also_003a-283"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Syntax.html#Standard-Characters">Section 2.1.3 (Standard Characters)</a>
+</p>
+<hr>
+<span id="extended_002dchar"></span><div class="header">
+<p>
+Next: <a href="#char_003d_003b-char_002f_003d_003b-char_003c_003b-char_003e_003b-char_003c_003d_003b-char_003e_003d_003b-char_002dequal_003b-char_002dnot_002dequal_002b" accesskey="n" rel="next">char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+</a>, Previous: <a href="#standard_002dchar" accesskey="p" rel="prev">standard-char</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">extended-char</h4>
+<span id="extended_002dchar-_0028Type_0029"></span><h3 class="heading">extended-char (Type)</h3>
+<span id="index-extended_002dchar-1"></span>
+<span id="index-extended_002dchar"></span>
+
+
+
+<span id="Supertypes_003a-12"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>extended-char</code>,
+<code>character</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-353"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>extended-char</code> is equivalent to the <i>type</i> <code>(and character (not base-char))</code>.
+</p>
+<span id="Notes_003a-185"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <i>type</i> <code>extended-char</code> might 
+have no <i>elements</i><sub>4</sub>
+in <i>implementations</i> in which all <i>characters</i> are of <i>type</i> <code>base-char</code>.
+</p>
+
+
+<hr>
+<span id="char_003d_003b-char_002f_003d_003b-char_003c_003b-char_003e_003b-char_003c_003d_003b-char_003e_003d_003b-char_002dequal_003b-char_002dnot_002dequal_002b"></span><div class="header">
+<p>
+Next: <a href="#character-_0028Function_0029" accesskey="n" rel="next">character (Function)</a>, Previous: <a href="#extended_002dchar" accesskey="p" rel="prev">extended-char</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+</h4>
+<span id="char_003d_002c-char_002f_003d_002c-char_003c_002c-char_003e_002c-char_003c_003d_002c-char_003e_003d_002c-char_002dequal_002c-char_002dnot_002dequal_002c-char_002dlessp_002c-char_002dgreaterp_002c-char_002dnot_002dgreaterp_002c-char_002dnot_002dlessp-_0028Function_0029"></span><h3 class="heading">char=, char/=, char&lt;, char&gt;, char&lt;=, char&gt;=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)</h3>
+<span id="index-char_003d-2"></span>
+<span id="index-char_003d"></span>
+<span id="index-char_002f_003d-2"></span>
+<span id="index-char_002f_003d"></span>
+<span id="index-char_003c-2"></span>
+<span id="index-char_003c"></span>
+<span id="index-char_003e-2"></span>
+<span id="index-char_003e"></span>
+<span id="index-char_003c_003d-2"></span>
+<span id="index-char_003c_003d"></span>
+<span id="index-char_003e_003d-2"></span>
+<span id="index-char_003e_003d"></span>
+<span id="index-char_002dequal-2"></span>
+<span id="index-char_002dequal"></span>
+<span id="index-char_002dnot_002dequal-2"></span>
+<span id="index-char_002dnot_002dequal"></span>
+<span id="index-char_002dlessp-2"></span>
+<span id="index-char_002dlessp"></span>
+<span id="index-char_002dgreaterp-2"></span>
+<span id="index-char_002dgreaterp"></span>
+<span id="index-char_002dnot_002dgreaterp-2"></span>
+<span id="index-char_002dnot_002dgreaterp"></span>
+<span id="index-char_002dnot_002dlessp-2"></span>
+<span id="index-char_002dnot_002dlessp"></span>
+<span id="char_003d"></span><span id="char_002dequal"></span>
+
+<span id="Syntax_003a-269"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char_003d-1">Function: <strong>char=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002f_003d-1">Function: <strong>char/=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003c-1">Function: <strong>char&lt;</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003e-1">Function: <strong>char&gt;</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003c_003d-1">Function: <strong>char&lt;=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_003e_003d-1">Function: <strong>char&gt;=</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dequal-1">Function: <strong>char-equal</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dnot_002dequal-1">Function: <strong>char-not-equal</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dlessp-1">Function: <strong>char-lessp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dgreaterp-1">Function: <strong>char-greaterp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dnot_002dgreaterp-1">Function: <strong>char-not-greaterp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002dnot_002dlessp-1">Function: <strong>char-not-lessp</strong> <em><tt>&amp;rest</tt> characters+ <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-258"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-354"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These predicates compare <i>characters</i>.
+</p>
+<p><code>char=</code> returns <i>true</i> if all <var>characters</var> are the <i>same</i>;
+otherwise, it returns <i>false</i>.
+If two <var>characters</var> differ 
+in any <i>implementation-defined</i> <i>attributes</i>,
+then they are not <code>char=</code>.
+</p>
+<p><code>char/=</code> returns <i>true</i> if all <var>characters</var> are different;
+otherwise, it returns <i>false</i>.
+</p>
+<p><code>char&lt;</code> returns <i>true</i> if the <var>characters</var> are monotonically increasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> 
+have <i>identical</i> <i>implementation-defined</i> <i>attributes</i>, 
+then their ordering by <code>char&lt;</code> is 
+consistent with the numerical ordering by the predicate <code>&lt;</code> on their <i>codes</i>.
+</p>
+<p><code>char&gt;</code> returns <i>true</i> if the <var>characters</var> are monotonically decreasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> have 
+<i>identical</i> <i>implementation-defined</i> <i>attributes</i>,
+then their ordering by <code>char&gt;</code> is 
+consistent with the numerical ordering by the predicate <code>&gt;</code> on their <i>codes</i>. 
+</p>
+<p><code>char&lt;=</code> returns <i>true</i> 
+if the <var>characters</var> are monotonically nondecreasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> have
+<i>identical</i> <i>implementation-defined</i> <i>attributes</i>,
+then their ordering by <code>char&lt;=</code> is
+consistent with the numerical ordering by the predicate <code>&lt;=</code> on their <i>codes</i>. 
+</p>
+<p><code>char&gt;=</code> returns <i>true</i> 
+if the <var>characters</var> are monotonically nonincreasing; 
+otherwise, it returns <i>false</i>.
+If two <i>characters</i> have
+<i>identical</i> <i>implementation-defined</i> <i>attributes</i>,
+then their ordering by <code>char&gt;=</code> is 
+consistent with the numerical ordering by the predicate <code>&gt;=</code> on their <i>codes</i>. 
+</p>
+<p><code>char-equal</code>,
+<code>char-not-equal</code>,
+<code>char-lessp</code>,
+<code>char-greaterp</code>,
+<code>char-not-greaterp</code>,
+and <code>char-not-lessp</code>
+are similar to 
+<code>char=</code>,
+<code>char/=</code>,
+<code>char&lt;</code>,
+<code>char&gt;</code>,
+<code>char&lt;=</code>,
+<code>char&gt;=</code>,
+respectively,
+except that they ignore differences in <i>case</i> and
+might have an <i>implementation-defined</i> behavior 
+for <i>non-simple</i> <i>characters</i>.
+For example, an <i>implementation</i> might define that 
+<code>char-equal</code>, <i>etc.</i> ignore certain 
+<i>implementation-defined</i> <i>attributes</i>.
+The effect, if any, 
+of each <i>implementation-defined</i> <i>attribute</i>
+upon these functions must be specified as part of the definition of that <i>attribute</i>.
+</p>
+<span id="Examples_003a-242"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (char= #\d #\d) <span class="roman">→</span> <i>true</i>
+ (char= #\A #\a) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\x) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\D) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\d) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\x) <span class="roman">→</span> <i>true</i>
+ (char/= #\d #\D) <span class="roman">→</span> <i>true</i>
+ (char= #\d #\d #\d #\d) <span class="roman">→</span> <i>true</i>
+ (char/= #\d #\d #\d #\d) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\d #\x #\d) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\d #\x #\d) <span class="roman">→</span> <i>false</i>
+ (char= #\d #\y #\x #\c) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\y #\x #\c) <span class="roman">→</span> <i>true</i>
+ (char= #\d #\c #\d) <span class="roman">→</span> <i>false</i>
+ (char/= #\d #\c #\d) <span class="roman">→</span> <i>false</i>
+ (char&lt; #\d #\x) <span class="roman">→</span> <i>true</i>
+ (char&lt;= #\d #\x) <span class="roman">→</span> <i>true</i>
+ (char&lt; #\d #\d) <span class="roman">→</span> <i>false</i>
+ (char&lt;= #\d #\d) <span class="roman">→</span> <i>true</i>
+ (char&lt; #\a #\e #\y #\z) <span class="roman">→</span> <i>true</i>
+ (char&lt;= #\a #\e #\y #\z) <span class="roman">→</span> <i>true</i>
+ (char&lt; #\a #\e #\e #\y) <span class="roman">→</span> <i>false</i>
+ (char&lt;= #\a #\e #\e #\y) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\e #\d) <span class="roman">→</span> <i>true</i>
+ (char&gt;= #\e #\d) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\d #\c #\b #\a) <span class="roman">→</span> <i>true</i>
+ (char&gt;= #\d #\c #\b #\a) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\d #\d #\c #\a) <span class="roman">→</span> <i>false</i>
+ (char&gt;= #\d #\d #\c #\a) <span class="roman">→</span> <i>true</i>
+ (char&gt; #\e #\d #\b #\c #\a) <span class="roman">→</span> <i>false</i>
+ (char&gt;= #\e #\d #\b #\c #\a) <span class="roman">→</span> <i>false</i>
+ (char&gt; #\z #\A) <span class="roman">→</span> <i>implementation-dependent</i>
+ (char&gt; #\Z #\a) <span class="roman">→</span> <i>implementation-dependent</i>
+ (char-equal #\A #\a) <span class="roman">→</span> <i>true</i>
+ (stable-sort (list #\b #\A #\B #\a #\c #\C) #'char-lessp)
+<span class="roman">→</span> (#\A #\a #\b #\B #\c #\C)
+ (stable-sort (list #\b #\A #\B #\a #\c #\C) #'char&lt;)
+<span class="roman">→</span> (#\A #\B #\C #\a #\b #\c) ;Implementation A
+<span class="roman">→</span> (#\a #\b #\c #\A #\B #\C) ;Implementation B
+<span class="roman">→</span> (#\a #\A #\b #\B #\c #\C) ;Implementation C
+<span class="roman">→</span> (#\A #\a #\B #\b #\C #\c) ;Implementation D
+<span class="roman">→</span> (#\A #\B #\a #\b #\C #\c) ;Implementation E
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-107"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>program-error</code> if at least one
+<var>character</var> is not supplied.
+</p>
+<span id="See-Also_003a-284"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Syntax.html#Character-Syntax">Section 2.1 (Character Syntax)</a>,
+<a href="#Documentation-of-Implementation_002dDefined-Scripts">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+<span id="Notes_003a-186"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If characters differ in their <i>code</i> <i>attribute</i> 
+or any <i>implementation-defined</i> <i>attribute</i>,
+they are considered to be different by <code>char=</code>.
+</p>
+<p>There is no requirement that <code>(eq c1 c2)</code> be true merely because
+<code>(char= c1 c2)</code> is <i>true</i>.  While <code>eq</code> can distinguish two 
+<i>characters</i>
+that <code>char=</code> does not, it is distinguishing them not
+as <i>characters</i>, but in some sense on the basis of a lower level
+implementation characteristic.
+If <code>(eq c1 c2)</code> is <i>true</i>,
+then <code>(char= c1 c2)</code> is also true.
+<code>eql</code> and <code>equal</code>
+compare <i>characters</i> in the same
+way that <code>char=</code> does.
+</p>
+<p>The manner in which <i>case</i> is used by 
+<code>char-equal</code>,
+<code>char-not-equal</code>,
+<code>char-lessp</code>,
+<code>char-greaterp</code>,
+<code>char-not-greaterp</code>,
+and <code>char-not-lessp</code>
+implies an ordering for <i>standard characters</i> such that
+<code>A=a</code>, <code>B=b</code>, and so on, up to <code>Z=z</code>, and furthermore either
+<code>9&lt;A</code> or <code>Z&lt;0</code>.
+</p>
+
+<hr>
+<span id="character-_0028Function_0029"></span><div class="header">
+<p>
+Next: <a href="#characterp" accesskey="n" rel="next">characterp</a>, Previous: <a href="#char_003d_003b-char_002f_003d_003b-char_003c_003b-char_003e_003b-char_003c_003d_003b-char_003e_003d_003b-char_002dequal_003b-char_002dnot_002dequal_002b" accesskey="p" rel="prev">char=; char/=; char&lt;; char&gt;; char&lt;=; char&gt;=; char-equal; char-not-equal+</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">character (Function)</h4>
+<span id="character-_0028Function_0029-1"></span><h3 class="heading">character (Function)</h3>
+<span id="index-character-7"></span>
+<span id="index-character-3"></span>
+
+
+<span id="Syntax_003a-270"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-character-5">Function: <strong>character</strong> <em>character <span class="roman">→</span> denoted-character</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-259"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character designator</i>.
+</p>
+<p><var>denoted-character</var>&mdash;a <i>character</i>.
+</p>
+<span id="Description_003a-355"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>character</i> denoted by the <var>character</var> <i>designator</i>.
+</p>
+<span id="Examples_003a-243"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (character #\a) <span class="roman">→</span> #\a
+ (character &quot;a&quot;) <span class="roman">→</span> #\a
+ (character 'a) <span class="roman">→</span> #\A
+ (character '\a) <span class="roman">→</span> #\a
+ (character 65.) is an error.
+ (character 'apple) is an error.
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-108"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>object</var> is not a <i>character designator</i>.
+</p>
+<span id="See-Also_003a-285"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Types-and-Classes.html#coerce">coerce</a>
+</p>
+<span id="Notes_003a-187"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (character <var>object</var>) ≡ (coerce <var>object</var> 'character)
+</pre></div>
+
+
+
+<hr>
+<span id="characterp"></span><div class="header">
+<p>
+Next: <a href="#alpha_002dchar_002dp" accesskey="n" rel="next">alpha-char-p</a>, Previous: <a href="#character-_0028Function_0029" accesskey="p" rel="prev">character (Function)</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">characterp</h4>
+<span id="characterp-_0028Function_0029"></span><h3 class="heading">characterp (Function)</h3>
+<span id="index-characterp-2"></span>
+<span id="index-characterp"></span>
+
+
+<span id="Syntax_003a-271"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-characterp-1">Function: <strong>characterp</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-260"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-356"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>character</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-244"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (characterp #\a) <span class="roman">→</span> <i>true</i>
+ (characterp 'a) <span class="roman">→</span> <i>false</i>
+ (characterp &quot;a&quot;) <span class="roman">→</span> <i>false</i>
+ (characterp 65.) <span class="roman">→</span> <i>false</i>
+ (characterp #\Newline) <span class="roman">→</span> <i>true</i>
+ ;; This next example presupposes an implementation 
+ ;; in which #\Rubout is an implementation-defined character.
+ (characterp #\Rubout) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="See-Also_003a-286"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#character-_0028Function_0029">character (Function)</a> (<i>type</i> and <i>function</i>), <a href="Types-and-Classes.html#typep">typep</a>
+</p>
+<span id="Notes_003a-188"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (characterp <var>object</var>) ≡ (typep <var>object</var> 'character)
+</pre></div>
+
+
+
+<hr>
+<span id="alpha_002dchar_002dp"></span><div class="header">
+<p>
+Next: <a href="#alphanumericp" accesskey="n" rel="next">alphanumericp</a>, Previous: <a href="#characterp" accesskey="p" rel="prev">characterp</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">alpha-char-p</h4>
+<span id="alpha_002dchar_002dp-_0028Function_0029"></span><h3 class="heading">alpha-char-p (Function)</h3>
+<span id="index-alpha_002dchar_002dp-2"></span>
+<span id="index-alpha_002dchar_002dp"></span>
+
+
+<span id="Syntax_003a-272"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-alpha_002dchar_002dp-1">Function: <strong>alpha-char-p</strong> <em>character <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-261"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-357"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>character</var> is an <i>alphabetic</i><sub>1</sub>
+</p>
+<span id="Examples_003a-245"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (alpha-char-p #\a) <span class="roman">→</span> <i>true</i>
+ (alpha-char-p #\5) <span class="roman">→</span> <i>false</i>
+ (alpha-char-p #\Newline) <span class="roman">→</span> <i>false</i>
+ ;; This next example presupposes an implementation
+ ;; in which #\α is a defined character.
+ (alpha-char-p #\α) <span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-59"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>None.
+(In particular, the results of this predicate are independent 
+of any special syntax which might have been enabled in the <i>current readtable</i>.)
+</p>
+<span id="Exceptional-Situations_003a-109"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-287"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#alphanumericp">alphanumericp</a>,
+<a href="#Documentation-of-Implementation_002dDefined-Scripts">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+
+<hr>
+<span id="alphanumericp"></span><div class="header">
+<p>
+Next: <a href="#digit_002dchar" accesskey="n" rel="next">digit-char</a>, Previous: <a href="#alpha_002dchar_002dp" accesskey="p" rel="prev">alpha-char-p</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">alphanumericp</h4>
+<span id="alphanumericp-_0028Function_0029"></span><h3 class="heading">alphanumericp (Function)</h3>
+<span id="index-alphanumericp-2"></span>
+<span id="index-alphanumericp"></span>
+
+
+<span id="Syntax_003a-273"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-alphanumericp-1">Function: <strong>alphanumericp</strong> <em>character <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-262"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-358"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>character</var> is an <i>alphabetic</i><sub>1</sub>
+</p>
+<span id="Examples_003a-246"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (alphanumericp #\Z) <span class="roman">→</span> <i>true</i>
+ (alphanumericp #\9) <span class="roman">→</span> <i>true</i>
+ (alphanumericp #\Newline) <span class="roman">→</span> <i>false</i>
+ (alphanumericp #\#) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-60"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>None.
+(In particular, the results of this predicate are independent 
+of any special syntax which might have been enabled in the <i>current readtable</i>.)
+</p>
+<span id="Exceptional-Situations_003a-110"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-288"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#alpha_002dchar_002dp">alpha-char-p</a>, <a href="#graphic_002dchar_002dp">graphic-char-p</a>, <a href="#digit_002dchar_002dp">digit-char-p</a>
+</p>
+<span id="Notes_003a-189"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Alphanumeric characters are graphic
+as defined by <code>graphic-char-p</code>.
+The alphanumeric characters are a subset of the graphic characters.
+The standard characters <code>A</code> through <code>Z</code>,
+<code>a</code> through <code>z</code>,
+and <code>0</code> through <code>9</code> are alphanumeric characters.
+</p>
+<div class="lisp">
+<pre class="lisp"> (alphanumericp x)
+   ≡ (or (alpha-char-p x) (not (null (digit-char-p x))))
+</pre></div>
+
+
+<hr>
+<span id="digit_002dchar"></span><div class="header">
+<p>
+Next: <a href="#digit_002dchar_002dp" accesskey="n" rel="next">digit-char-p</a>, Previous: <a href="#alphanumericp" accesskey="p" rel="prev">alphanumericp</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">digit-char</h4>
+<span id="digit_002dchar-_0028Function_0029"></span><h3 class="heading">digit-char (Function)</h3>
+<span id="index-digit_002dchar-3"></span>
+<span id="index-digit_002dchar"></span>
+
+
+
+<span id="Syntax_003a-274"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-digit_002dchar-2">Function: <strong>digit-char</strong> <em>weight <tt>&amp;optional</tt> radix <span class="roman">→</span> char</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-263"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>weight</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<p><var>radix</var>&mdash;a <i>radix</i>.
+The default is <code>10</code>.
+</p>
+<p><var>char</var>&mdash;a <i>character</i> or <i>false</i>.
+</p>
+<span id="Description_003a-359"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If <var>weight</var> is less than <var>radix</var>,
+<code>digit-char</code> returns a <i>character</i> which has that <var>weight</var>
+when considered as a digit in the specified radix.
+If the resulting <i>character</i> is to be an <i>alphabetic</i><sub>1</sub>
+it will be an uppercase <i>character</i>.
+</p>
+<p>If <var>weight</var> is greater than or equal to <var>radix</var>,
+<code>digit-char</code> returns <i>false</i>.
+</p>
+<span id="Examples_003a-247"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (digit-char 0) <span class="roman">→</span> #\0
+ (digit-char 10 11) <span class="roman">→</span> #\A
+ (digit-char 10 10) <span class="roman">→</span> <i>false</i>
+ (digit-char 7) <span class="roman">→</span> #\7
+ (digit-char 12) <span class="roman">→</span> <i>false</i>
+ (digit-char 12 16) <span class="roman">→</span> #\C  ;not #\c
+ (digit-char 6 2) <span class="roman">→</span> <i>false</i>
+ (digit-char 1 2) <span class="roman">→</span> #\1
+</pre></div>
+
+
+<span id="See-Also_003a-289"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#digit_002dchar_002dp">digit-char-p</a>,
+<a href="#graphic_002dchar_002dp">graphic-char-p</a>,
+<a href="Syntax.html#Character-Syntax">Section 2.1 (Character Syntax)</a>
+</p>
+<span id="Notes_003a-190"></span><h4 class="subsubheading">Notes:</h4>
+
+
+
+<hr>
+<span id="digit_002dchar_002dp"></span><div class="header">
+<p>
+Next: <a href="#graphic_002dchar_002dp" accesskey="n" rel="next">graphic-char-p</a>, Previous: <a href="#digit_002dchar" accesskey="p" rel="prev">digit-char</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">digit-char-p</h4>
+<span id="digit_002dchar_002dp-_0028Function_0029"></span><h3 class="heading">digit-char-p (Function)</h3>
+<span id="index-digit_002dchar_002dp-2"></span>
+<span id="index-digit_002dchar_002dp"></span>
+
+
+<span id="Syntax_003a-275"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-digit_002dchar_002dp-1">Function: <strong>digit-char-p</strong> <em>char <tt>&amp;optional</tt> radix <span class="roman">→</span> weight</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-264"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>char</var>&mdash;a <i>character</i>.
+</p>
+<p><var>radix</var>&mdash;a <i>radix</i>.
+The default is <code>10</code>.
+</p>
+<p><var>weight</var>&mdash;either a non-negative <i>integer</i> less than <var>radix</var>, 
+or <i>false</i>.
+</p>
+<span id="Description_003a-360"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Tests whether <var>char</var> is a digit in the specified <var>radix</var>
+(<i>i.e.</i>, with a weight less than <var>radix</var>).
+If it is a digit in that <var>radix</var>,
+its weight is returned as an <i>integer</i>; 
+otherwise <code>nil</code>&nbsp;<!-- /@w -->is returned.
+</p>
+<span id="Examples_003a-248"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (digit-char-p #\5)    <span class="roman">→</span> 5
+ (digit-char-p #\5 2)  <span class="roman">→</span> <i>false</i>
+ (digit-char-p #\A)    <span class="roman">→</span> <i>false</i>
+ (digit-char-p #\a)    <span class="roman">→</span> <i>false</i>
+ (digit-char-p #\A 11) <span class="roman">→</span> 10
+ (digit-char-p #\a 11) <span class="roman">→</span> 10
+ (mapcar #'(lambda (radix) 
+             (map 'list #'(lambda (x) (digit-char-p x radix)) 
+                  &quot;059AaFGZ&quot;))
+         '(2 8 10 16 36))
+ <span class="roman">→</span> ((0 NIL NIL NIL NIL NIL NIL NIL)
+     (0 5 NIL NIL NIL NIL NIL NIL)
+     (0 5 9 NIL NIL NIL NIL NIL)
+     (0 5 9 10 10 15 NIL NIL)
+     (0 5 9 10 10 15 16 35))
+</pre></div>
+
+
+<span id="Affected-By_003a-61"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>None.
+(In particular, the results of this predicate are independent 
+of any special syntax which might have been enabled in the <i>current readtable</i>.)
+</p>
+<span id="See-Also_003a-290"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#alphanumericp">alphanumericp</a>
+</p>
+<span id="Notes_003a-191"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Digits are <i>graphic</i> <i>characters</i>.
+</p>
+
+<hr>
+<span id="graphic_002dchar_002dp"></span><div class="header">
+<p>
+Next: <a href="#standard_002dchar_002dp" accesskey="n" rel="next">standard-char-p</a>, Previous: <a href="#digit_002dchar_002dp" accesskey="p" rel="prev">digit-char-p</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">graphic-char-p</h4>
+<span id="graphic_002dchar_002dp-_0028Function_0029"></span><h3 class="heading">graphic-char-p (Function)</h3>
+<span id="index-graphic_002dchar_002dp-2"></span>
+<span id="index-graphic_002dchar_002dp"></span>
+
+
+<span id="Syntax_003a-276"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-graphic_002dchar_002dp-1">Function: <strong>graphic-char-p</strong> <em>char <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-265"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>char</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-361"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>character</var> is a <i>graphic</i> <i>character</i>; otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-249"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (graphic-char-p #\G) <span class="roman">→</span> <i>true</i>
+ (graphic-char-p #\#) <span class="roman">→</span> <i>true</i>
+ (graphic-char-p #\Space) <span class="roman">→</span> <i>true</i>
+ (graphic-char-p #\Newline) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-111"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-291"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Reader.html#read">read</a>,
+<a href="Syntax.html#Character-Syntax">Section 2.1 (Character Syntax)</a>,
+<a href="#Documentation-of-Implementation_002dDefined-Scripts">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+
+<hr>
+<span id="standard_002dchar_002dp"></span><div class="header">
+<p>
+Next: <a href="#char_002dupcase_003b-char_002ddowncase" accesskey="n" rel="next">char-upcase; char-downcase</a>, Previous: <a href="#graphic_002dchar_002dp" accesskey="p" rel="prev">graphic-char-p</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">standard-char-p</h4>
+<span id="standard_002dchar_002dp-_0028Function_0029"></span><h3 class="heading">standard-char-p (Function)</h3>
+<span id="index-standard_002dchar_002dp-2"></span>
+<span id="index-standard_002dchar_002dp"></span>
+
+
+<span id="Syntax_003a-277"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-standard_002dchar_002dp-1">Function: <strong>standard-char-p</strong> <em>character <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-266"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-362"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>character</var> is of <i>type</i> <code>standard-char</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-250"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (standard-char-p #\Space) <span class="roman">→</span> <i>true</i>
+ (standard-char-p #\~) <span class="roman">→</span> <i>true</i>
+ ;; This next example presupposes an implementation
+ ;; in which #\Bell is a defined character.
+ (standard-char-p #\Bell) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-112"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+
+<hr>
+<span id="char_002dupcase_003b-char_002ddowncase"></span><div class="header">
+<p>
+Next: <a href="#upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp" accesskey="n" rel="next">upper-case-p; lower-case-p; both-case-p</a>, Previous: <a href="#standard_002dchar_002dp" accesskey="p" rel="prev">standard-char-p</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">char-upcase; char-downcase</h4>
+<span id="char_002dupcase_002c-char_002ddowncase-_0028Function_0029"></span><h3 class="heading">char-upcase, char-downcase (Function)</h3>
+<span id="index-char_002dupcase-2"></span>
+<span id="index-char_002dupcase"></span>
+<span id="index-char_002ddowncase-2"></span>
+<span id="index-char_002ddowncase"></span>
+<span id="char_002dupcase"></span><span id="char_002ddowncase"></span>
+
+<span id="Syntax_003a-278"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char_002dupcase-1">Function: <strong>char-upcase</strong> <em>character <span class="roman">→</span> corresponding-character</em></dt>
+</dl>
+<dl>
+<dt id="index-char_002ddowncase-1">Function: <strong>char-downcase</strong> <em>character <span class="roman">→</span> corresponding-character</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-267"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>, <var>corresponding-character</var>&mdash;a <i>character</i>.
+</p>
+<span id="Description_003a-363"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If <var>character</var> is a <i>lowercase</i> <i>character</i>,
+<code>char-upcase</code> returns the corresponding <i>uppercase</i> <i>character</i>.
+Otherwise, <code>char-upcase</code> just returns the given <var>character</var>.
+</p>
+<p>If <var>character</var> is an <i>uppercase</i> <i>character</i>,
+<code>char-downcase</code> returns the corresponding <i>lowercase</i> <i>character</i>.
+Otherwise, <code>char-downcase</code> just returns the given <var>character</var>.
+</p>
+<p>The result only ever differs from <var>character</var> 
+in its <i>code</i> <i>attribute</i>;
+all <i>implementation-defined</i> <i>attributes</i> are preserved.
+</p>
+<span id="Examples_003a-251"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (char-upcase #\a) <span class="roman">→</span> #\A
+ (char-upcase #\A) <span class="roman">→</span> #\A
+ (char-downcase #\a) <span class="roman">→</span> #\a
+ (char-downcase #\A) <span class="roman">→</span> #\a
+ (char-upcase #\9) <span class="roman">→</span> #\9
+ (char-downcase #\9) <span class="roman">→</span> #\9
+ (char-upcase #\@) <span class="roman">→</span> #\@
+ (char-downcase #\@) <span class="roman">→</span> #\@
+ ;; Note that this next example might run for a very long time in 
+ ;; some implementations if CHAR-CODE-LIMIT happens to be very large
+ ;; for that implementation.
+ (dotimes (code char-code-limit)
+   (let ((char (code-char code)))
+     (when char
+       (unless (cond ((upper-case-p char) (char= (char-upcase (char-downcase char)) char))
+                     ((lower-case-p char) (char= (char-downcase (char-upcase char)) char))
+                     (t (and (char= (char-upcase (char-downcase char)) char)
+                             (char= (char-downcase (char-upcase char)) char))))
+         (return char)))))
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-113"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-292"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#upper_002dcase_002dp">upper-case-p</a>,
+<a href="#alpha_002dchar_002dp">alpha-char-p</a>,
+<a href="#CharactersWithCase">Section 13.1.4.3 (Characters With Case)</a>,
+<a href="#Documentation-of-Implementation_002dDefined-Scripts">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+<span id="Notes_003a-192"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If the <var>corresponding-char</var> is <i>different</i> than <var>character</var>,
+then both the <var>character</var> and the <var>corresponding-char</var> have <i>case</i>.
+</p>
+<p>Since <code>char-equal</code> ignores the <i>case</i> of the <i>characters</i> it compares,
+the <var>corresponding-character</var> is always the <i>same</i> as <var>character</var>
+under <code>char-equal</code>.
+</p>
+
+<hr>
+<span id="upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp"></span><div class="header">
+<p>
+Next: <a href="#char_002dcode" accesskey="n" rel="next">char-code</a>, Previous: <a href="#char_002dupcase_003b-char_002ddowncase" accesskey="p" rel="prev">char-upcase; char-downcase</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">upper-case-p; lower-case-p; both-case-p</h4>
+<span id="upper_002dcase_002dp_002c-lower_002dcase_002dp_002c-both_002dcase_002dp-_0028Function_0029"></span><h3 class="heading">upper-case-p, lower-case-p, both-case-p (Function)</h3>
+<span id="index-upper_002dcase_002dp-2"></span>
+<span id="index-upper_002dcase_002dp"></span>
+<span id="index-lower_002dcase_002dp-2"></span>
+<span id="index-lower_002dcase_002dp"></span>
+<span id="index-both_002dcase_002dp-2"></span>
+<span id="index-both_002dcase_002dp"></span>
+<span id="upper_002dcase_002dp"></span>
+
+<span id="Syntax_003a-279"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-upper_002dcase_002dp-1">Function: <strong>upper-case-p</strong> <em>character <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-lower_002dcase_002dp-1">Function: <strong>lower-case-p</strong> <em>character <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+<dl>
+<dt id="index-both_002dcase_002dp-1">Function: <strong>both-case-p</strong> <em>character <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+
+<span id="Arguments-and-Values_003a-268"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-364"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These functions test the case of a given <var>character</var>.
+</p>
+<p><code>upper-case-p</code> returns <i>true</i> if <var>character</var> is an <i>uppercase</i> <i>character</i>;
+otherwise, returns <i>false</i>.
+</p>
+<p><code>lower-case-p</code> returns <i>true</i> if <var>character</var> is a <i>lowercase</i> <i>character</i>;
+otherwise, returns <i>false</i>.
+</p>
+<p><code>both-case-p</code> returns <i>true</i> if <var>character</var> is a <i>character</i> with <i>case</i>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-252"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (upper-case-p #\A) <span class="roman">→</span> <i>true</i>
+ (upper-case-p #\a) <span class="roman">→</span> <i>false</i>
+ (both-case-p #\a) <span class="roman">→</span> <i>true</i>
+ (both-case-p #\5) <span class="roman">→</span> <i>false</i>
+ (lower-case-p #\5) <span class="roman">→</span> <i>false</i>
+ (upper-case-p #\5) <span class="roman">→</span> <i>false</i>
+ ;; This next example presupposes an implementation 
+ ;; in which #\Bell is an implementation-defined character.
+ (lower-case-p #\Bell) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-114"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-293"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#char_002dupcase">char-upcase</a>,
+<a href="#char_002ddowncase">char-downcase</a>,
+<a href="#CharactersWithCase">Section 13.1.4.3 (Characters With Case)</a>,
+<a href="#Documentation-of-Implementation_002dDefined-Scripts">Section 13.1.10 (Documentation of Implementation-Defined Scripts)</a>
+</p>
+
+<hr>
+<span id="char_002dcode"></span><div class="header">
+<p>
+Next: <a href="#char_002dint" accesskey="n" rel="next">char-int</a>, Previous: <a href="#upper_002dcase_002dp_003b-lower_002dcase_002dp_003b-both_002dcase_002dp" accesskey="p" rel="prev">upper-case-p; lower-case-p; both-case-p</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">char-code</h4>
+<span id="char_002dcode-_0028Function_0029"></span><h3 class="heading">char-code (Function)</h3>
+<span id="index-char_002dcode-2"></span>
+<span id="index-char_002dcode"></span>
+
+
+<span id="Syntax_003a-280"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char_002dcode-1">Function: <strong>char-code</strong> <em>character <span class="roman">→</span> code</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-269"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>code</var>&mdash;a <i>character code</i>.
+</p>
+<span id="Description_003a-365"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>char-code</code> returns the <i>code</i> <i>attribute</i> of <var>character</var>.
+</p>
+<span id="Examples_003a-253"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">;; An implementation using ASCII character encoding 
+;; might return these values:
+(char-code #\$) <span class="roman">→</span> 36
+(char-code #\a) <span class="roman">→</span> 97
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-115"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-294"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#char_002dcode_002dlimit">char-code-limit</a>
+</p>
+
+<hr>
+<span id="char_002dint"></span><div class="header">
+<p>
+Next: <a href="#code_002dchar" accesskey="n" rel="next">code-char</a>, Previous: <a href="#char_002dcode" accesskey="p" rel="prev">char-code</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">char-int</h4>
+<span id="char_002dint-_0028Function_0029"></span><h3 class="heading">char-int (Function)</h3>
+<span id="index-char_002dint-2"></span>
+<span id="index-char_002dint"></span>
+
+
+<span id="Syntax_003a-281"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char_002dint-1">Function: <strong>char-int</strong> <em>character <span class="roman">→</span> integer</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-270"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>integer</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-366"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a non-negative <i>integer</i> encoding the <var>character</var> object.
+The manner in which the <i>integer</i> is computed is <i>implementation-dependent</i>.
+In contrast to <code>sxhash</code>, the result is not guaranteed to be independent 
+of the particular <i>Lisp image</i>.
+</p>
+<p>If <var>character</var> has no <i>implementation-defined</i> <i>attributes</i>,
+the results of <code>char-int</code> and <code>char-code</code> are the same. 
+</p>
+<div class="lisp">
+<pre class="lisp"> (char= <i>c1</i> <i>c2</i>) ≡ (= (char-int <i>c1</i>) (char-int <i>c2</i>))
+</pre></div>
+
+<p>for characters <i>c1</i> and <i>c2</i>.
+</p>
+<span id="Examples_003a-254"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (char-int #\A) <span class="roman">→</span> 65       ; implementation A
+ (char-int #\A) <span class="roman">→</span> 577      ; implementation B
+ (char-int #\A) <span class="roman">→</span> 262145   ; implementation C
+</pre></div>
+
+
+<span id="See-Also_003a-295"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#char_002dcode">char-code</a>
+</p>
+
+<hr>
+<span id="code_002dchar"></span><div class="header">
+<p>
+Next: <a href="#char_002dcode_002dlimit" accesskey="n" rel="next">char-code-limit</a>, Previous: <a href="#char_002dint" accesskey="p" rel="prev">char-int</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">code-char</h4>
+<span id="code_002dchar-_0028Function_0029"></span><h3 class="heading">code-char (Function)</h3>
+<span id="index-code_002dchar-3"></span>
+<span id="index-code_002dchar"></span>
+
+
+
+<span id="Syntax_003a-282"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-code_002dchar-2">Function: <strong>code-char</strong> <em>code <span class="roman">→</span> char-p</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-271"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>code</var>&mdash;a <i>character code</i>.
+</p>
+<p><var>char-p</var>&mdash;a <i>character</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-367"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>character</i> with the <i>code</i> <i>attribute</i> given by <var>code</var>.
+If no such <i>character</i> exists and one cannot be created, <code>nil</code>&nbsp;<!-- /@w -->is returned.
+</p>
+<span id="Examples_003a-255"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">(code-char 65.) <span class="roman">→</span> #\A  ;in an implementation using ASCII codes
+(code-char (char-code #\Space)) <span class="roman">→</span> #\Space  ;in any implementation
+</pre></div>
+
+
+<span id="Affected-By_003a-62"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>&rsquo;s character encoding.
+</p>
+<span id="See-Also_003a-296"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#char_002dcode">char-code</a>
+</p>
+<span id="Notes_003a-193"></span><h4 class="subsubheading">Notes:</h4>
+
+
+
+<hr>
+<span id="char_002dcode_002dlimit"></span><div class="header">
+<p>
+Next: <a href="#char_002dname" accesskey="n" rel="next">char-name</a>, Previous: <a href="#code_002dchar" accesskey="p" rel="prev">code-char</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">char-code-limit</h4>
+<span id="char_002dcode_002dlimit-_0028Constant-Variable_0029"></span><h3 class="heading">char-code-limit (Constant Variable)</h3>
+<span id="index-char_002dcode_002dlimit-1"></span>
+<span id="index-char_002dcode_002dlimit"></span>
+
+
+<span id="Constant-Value_003a-10"></span><h4 class="subsubheading">Constant Value:</h4>
+
+<p>A non-negative <i>integer</i>, the exact magnitude of which
+is <i>implementation-dependent</i>, but which is not less
+than <code>96</code> (the number of <i>standard characters</i>).
+</p>
+<span id="Description_003a-368"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The upper exclusive bound on the <i>value</i> returned by 
+the <i>function</i> <code>char-code</code>.
+</p>
+<span id="See-Also_003a-297"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#char_002dcode">char-code</a>
+</p>
+<span id="Notes_003a-194"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <i>value</i> of <code>char-code-limit</code> might be larger than the actual
+number of <i>characters</i> supported by the <i>implementation</i>.
+</p>
+
+<hr>
+<span id="char_002dname"></span><div class="header">
+<p>
+Next: <a href="#name_002dchar" accesskey="n" rel="next">name-char</a>, Previous: <a href="#char_002dcode_002dlimit" accesskey="p" rel="prev">char-code-limit</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">char-name</h4>
+<span id="char_002dname-_0028Function_0029"></span><h3 class="heading">char-name (Function)</h3>
+<span id="index-char_002dname-2"></span>
+<span id="index-char_002dname"></span>
+
+
+<span id="Syntax_003a-283"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-char_002dname-1">Function: <strong>char-name</strong> <em>character <span class="roman">→</span> name</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-272"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>character</var>&mdash;a <i>character</i>.
+</p>
+<p><var>name</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-369"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>string</i> that is the <i>name</i> of the <var>character</var>,
+or <code>nil</code>&nbsp;<!-- /@w -->if the <var>character</var> has no <i>name</i>.
+</p>
+<p>All <i>non-graphic</i> characters are required to have <i>names</i>
+unless they have some <i>implementation-defined</i> <i>attribute</i>
+which is not <i>null</i>.  Whether or not other <i>characters</i>
+have <i>names</i> is <i>implementation-dependent</i>.
+</p>
+<p>The <i>standard characters</i>
+&lt;Newline&gt;&nbsp;<!-- /@w -->and &lt;Space&gt;&nbsp;<!-- /@w -->have the respective names <code>&quot;Newline&quot;</code> and <code>&quot;Space&quot;</code>.
+The <i>semi-standard</i> <i>characters</i>
+&lt;Tab&gt;, &lt;Page&gt;, &lt;Rubout&gt;, &lt;Linefeed&gt;, &lt;Return&gt;, and &lt;Backspace&gt;&nbsp;<!-- /@w -->
+(if they are supported by the <i>implementation</i>)
+have the respective names
+<code>&quot;Tab&quot;</code>,  <code>&quot;Page&quot;</code>,  <code>&quot;Rubout&quot;</code>,  <code>&quot;Linefeed&quot;</code>,  <code>&quot;Return&quot;</code>, and <code>&quot;Backspace&quot;</code>
+(in the indicated case, even though name lookup by &ldquo;<code>#\</code>&rdquo; 
+and by the <i>function</i> <code>name-char</code> is not case sensitive).
+</p>
+<span id="Examples_003a-256"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (char-name #\ <!-- /@w -->) <span class="roman">→</span> &quot;Space&quot;
+ (char-name #\Space) <span class="roman">→</span> &quot;Space&quot;
+ (char-name #\Page) <span class="roman">→</span> &quot;Page&quot;
+
+ (char-name #\a)
+<span class="roman">→</span> NIL
+or<span class="roman">→</span> &quot;LOWERCASE-a&quot;
+or<span class="roman">→</span> &quot;Small-A&quot;
+or<span class="roman">→</span> &quot;LA01&quot;
+
+ (char-name #\A)
+<span class="roman">→</span> NIL
+or<span class="roman">→</span> &quot;UPPERCASE-A&quot;
+or<span class="roman">→</span> &quot;Capital-A&quot;
+or<span class="roman">→</span> &quot;LA02&quot;
+
+ ;; Even though its CHAR-NAME can vary, #\A prints as #\A
+ (prin1-to-string (read-from-string (format nil &quot;#\\~A&quot; (or (char-name #\A) &quot;A&quot;))))
+<span class="roman">→</span> &quot;#\\A&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-116"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>character</var> is not a <i>character</i>.
+</p>
+<span id="See-Also_003a-298"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#name_002dchar">name-char</a>,
+<a href="Printer.html#PrintingCharacters">Section 22.1.3.2 (Printing Characters)</a>
+</p>
+<span id="Notes_003a-195"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><i>Non-graphic</i> 
+<i>characters</i> having <i>names</i> are written by the <i>Lisp printer</i>
+as &ldquo;<code>#\</code>&rdquo; followed by the their <i>name</i>; see <a href="Printer.html#PrintingCharacters">Section 22.1.3.2 (Printing Characters)</a>.
+</p>
+
+<hr>
+<span id="name_002dchar"></span><div class="header">
+<p>
+Previous: <a href="#char_002dname" accesskey="p" rel="prev">char-name</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">name-char</h4>
+<span id="name_002dchar-_0028Function_0029"></span><h3 class="heading">name-char (Function)</h3>
+<span id="index-name_002dchar-2"></span>
+<span id="index-name_002dchar"></span>
+
+
+<span id="Syntax_003a-284"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-name_002dchar-1">Function: <strong>name-char</strong> <em>name <span class="roman">→</span> char-p</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-273"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>name</var>&mdash;a <i>string designator</i>.
+</p>
+<p><var>char-p</var>&mdash;a <i>character</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-370"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>character</i> <i>object</i> whose <i>name</i> is
+<var>name</var> (as determined by <code>string-equal</code>&mdash;<i>i.e.</i>, lookup is not case sensitive).
+If such a <i>character</i> does not exist, <code>nil</code>&nbsp;<!-- /@w -->is returned.
+</p>
+<span id="Examples_003a-257"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">(name-char 'space) <span class="roman">→</span> #\Space
+(name-char &quot;space&quot;) <span class="roman">→</span> #\Space
+(name-char &quot;Space&quot;) <span class="roman">→</span> #\Space
+(let ((x (char-name #\a)))
+  (or (not x) (eql (name-char x) #\a))) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-117"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>name</var> is not a <i>string designator</i>.
+</p>
+<span id="See-Also_003a-299"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#char_002dname">char-name</a>
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#char_002dname" accesskey="p" rel="prev">char-name</a>, Up: <a href="#Characters" accesskey="u" rel="up">Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

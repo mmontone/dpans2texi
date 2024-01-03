@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+ (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Numbers.html" rel="up" title="Numbers">
-<link href="logbitp.html" rel="next" title="logbitp">
-<link href="boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b.html" rel="prev" title="boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,223 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Numbers.html#logand_003b-logandc1_003b-logandc2_003b-logeqv_003b-logior_003b-lognand_003b-lognor_003b-lognot_003b-lo_002b">
 
 </head>
 
 <body lang="en">
-<span id="logand_003b-logandc1_003b-logandc2_003b-logeqv_003b-logior_003b-lognand_003b-lognor_003b-lognot_003b-lo_002b"></span><div class="header">
-<p>
-Next: <a href="logbitp.html" accesskey="n" rel="next">logbitp</a>, Previous: <a href="boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b.html" accesskey="p" rel="prev">boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+</h4>
-<span id="logand_002c-logandc1_002c-logandc2_002c-logeqv_002c-logior_002c-lognand_002c-lognor_002c-lognot_002c-logorc1_002c-logorc2_002c-logxor-_0028Function_0029"></span><h3 class="heading">logand, logandc1, logandc2, logeqv, logior, lognand, lognor, lognot, logorc1, logorc2, logxor (Function)</h3>
-<span id="index-logand-2"></span>
-<span id="index-logand"></span>
-<span id="index-logandc1-2"></span>
-<span id="index-logandc1"></span>
-<span id="index-logandc2-2"></span>
-<span id="index-logandc2"></span>
-<span id="index-logeqv-2"></span>
-<span id="index-logeqv"></span>
-<span id="index-logior-2"></span>
-<span id="index-logior"></span>
-<span id="index-lognand-2"></span>
-<span id="index-lognand"></span>
-<span id="index-lognor-2"></span>
-<span id="index-lognor"></span>
-<span id="index-lognot-2"></span>
-<span id="index-lognot"></span>
-<span id="index-logorc1-2"></span>
-<span id="index-logorc1"></span>
-<span id="index-logorc2-2"></span>
-<span id="index-logorc2"></span>
-<span id="index-logxor-2"></span>
-<span id="index-logxor"></span>
-<span id="logand"></span><span id="lognot"></span>
 
-<span id="Syntax_003a-255"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-logand-1">Function: <strong>logand</strong> <em><tt>&amp;rest</tt> integers <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-logandc1-1">Function: <strong>logandc1</strong> <em>integer-1 integer-2 <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-logandc2-1">Function: <strong>logandc2</strong> <em>integer-1 integer-2 <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-logeqv-1">Function: <strong>logeqv</strong> <em><tt>&amp;rest</tt> integers <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-logior-1">Function: <strong>logior</strong> <em><tt>&amp;rest</tt> integers <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-lognand-1">Function: <strong>lognand</strong> <em>integer-1 integer-2 <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-lognor-1">Function: <strong>lognor</strong> <em>integer-1 integer-2 <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-lognot-1">Function: <strong>lognot</strong> <em>integer <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-logorc1-1">Function: <strong>logorc1</strong> <em>integer-1 integer-2 <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-logorc2-1">Function: <strong>logorc2</strong> <em>integer-1 integer-2 <span class="roman">→</span> result-integer</em></dt>
-</dl>
-<dl>
-<dt id="index-logxor-1">Function: <strong>logxor</strong> <em><tt>&amp;rest</tt> integers <span class="roman">→</span> result-integer</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-244"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>integers</var>&mdash;<i>integers</i>.
-</p>
-<p><var>integer</var>&mdash;an <i>integer</i>.
-</p>
-<p><var>integer-1</var>&mdash;an <i>integer</i>.
-</p>
-<p><var>integer-2</var>&mdash;an <i>integer</i>.
-</p>
-<p><var>result-integer</var>&mdash;an <i>integer</i>.
-</p>
-<span id="Description_003a-327"></span><h4 class="subsubheading">Description:</h4>
-
-<p>The <i>functions</i>
-<code>logandc1</code>,
-<code>logandc2</code>,
-<code>logand</code>,
-<code>logeqv</code>,
-<code>logior</code>,
-<code>lognand</code>,
-<code>lognor</code>, 
-<code>lognot</code>,
-<code>logorc1</code>, 
-<code>logorc2</code>,
-and <code>logxor</code>
-perform bit-wise logical operations on their <i>arguments</i>,
-that are treated as if they were binary.
-</p>
-<p>The next figure&nbsp;<!-- /@w -->lists the meaning of each of the <i>functions</i>.
-Where an &lsquo;identity&rsquo; is shown, it indicates the <i>value</i> <i>yielded</i>
-by the <i>function</i> when no <i>arguments</i> are supplied.
-</p>
-
-<div class="float"><span id="fig12_002e18"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<thead><tr><th>Function</th><th>Identity</th><th>Operation performed</th></tr></thead>
-<tr><td><code>logandc1</code></td><td>&mdash;</td><td>and complement of <var>integer-1</var> with <var>integer-2</var></td></tr>
-<tr><td><code>logandc2</code></td><td>&mdash;</td><td>and <var>integer-1</var> with complement of <var>integer-2</var></td></tr>
-<tr><td><code>logand</code></td><td><code>-1</code></td><td>and</td></tr>
-<tr><td><code>logeqv</code></td><td><code>-1</code></td><td>equivalence (exclusive nor)</td></tr>
-<tr><td><code>logior</code></td><td><code>0</code></td><td>inclusive or</td></tr>
-<tr><td><code>lognand</code></td><td>&mdash;</td><td>complement of <var>integer-1</var> and <var>integer-2</var></td></tr>
-<tr><td><code>lognor</code></td><td>&mdash;</td><td>complement of <var>integer-1</var> or <var>integer-2</var></td></tr>
-<tr><td><code>lognot</code></td><td>&mdash;</td><td>complement</td></tr>
-<tr><td><code>logorc1</code></td><td>&mdash;</td><td>or complement of <var>integer-1</var> with <var>integer-2</var></td></tr>
-<tr><td><code>logorc2</code></td><td>&mdash;</td><td>or <var>integer-1</var> with complement of <var>integer-2</var></td></tr>
-<tr><td><code>logxor</code></td><td><code>0</code></td><td>exclusive or</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 12.18: </strong>Bit-wise Logical Operations on Integers</p></div></div>
-
-<p>Negative <var>integers</var> are treated as if they were in two&rsquo;s-complement notation.
-</p>
-<span id="Examples_003a-229"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (logior 1 2 4 8) <span class="roman">→</span> 15
- (logxor 1 3 7 15) <span class="roman">→</span> 10
- (logeqv) <span class="roman">→</span> -1
- (logand 16 31) <span class="roman">→</span> 16
- (lognot 0) <span class="roman">→</span> -1
- (lognot 1) <span class="roman">→</span> -2
- (lognot -1) <span class="roman">→</span> 0
- (lognot (1+ (lognot 1000))) <span class="roman">→</span> 999
-
-;;; In the following example, m is a mask.  For each bit in
-;;; the mask that is a 1, the corresponding bits in x and y are
-;;; exchanged.  For each bit in the mask that is a 0, the 
-;;; corresponding bits of x and y are left unchanged.
- (flet ((show (m x y)
-          (format t &quot;~%m = #o~6,'0O~%x = #o~6,'0O~%y = #o~6,'0O~%&quot;
-                  m x y)))
-   (let ((m #o007750)
-         (x #o452576)
-         (y #o317407))
-     (show m x y)
-     (let ((z (logand (logxor x y) m)))
-       (setq x (logxor z x))
-       (setq y (logxor z y))
-       (show m x y))))
-▷ m = #o007750
-▷ x = #o452576
-▷ y = #o317407
-▷ 
-▷ m = #o007750
-▷ x = #o457426
-▷ y = #o312557
-<span class="roman">→</span> NIL
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-102"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>Should signal <code>type-error</code> if any argument is not an <i>integer</i>.
-</p>
-<span id="See-Also_003a-272"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="boole.html">boole</a>
-</p>
-<span id="Notes_003a-171"></span><h4 class="subsubheading">Notes:</h4>
-
-<p><code>(logbitp <var>k</var> -1)</code> returns <i>true</i> for all values of <var>k</var>.
-</p>
-<p>Because the following functions are not associative,
-they take exactly two arguments rather than any number
-of arguments.
-</p>
-<div class="lisp">
-<pre class="lisp"> (lognand <var>n1</var> <var>n2</var>) ≡ (lognot (logand <var>n1</var> <var>n2</var>))
- (lognor <var>n1</var> <var>n2</var>) ≡ (lognot (logior <var>n1</var> <var>n2</var>))
- (logandc1 <var>n1</var> <var>n2</var>) ≡ (logand (lognot <var>n1</var>) <var>n2</var>)
- (logandc2 <var>n1</var> <var>n2</var>) ≡ (logand <var>n1</var> (lognot <var>n2</var>))
- (logiorc1 <var>n1</var> <var>n2</var>) ≡ (logior (lognot <var>n1</var>) <var>n2</var>)
- (logiorc2 <var>n1</var> <var>n2</var>) ≡ (logior <var>n1</var> (lognot <var>n2</var>))
- (logbitp <var>j</var> (lognot <var>x</var>)) ≡ (not (logbitp <var>j</var> <var>x</var>))
-</pre></div>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="logbitp.html" accesskey="n" rel="next">logbitp</a>, Previous: <a href="boole_002d1_003b-boole_002d2_003b-boole_002dand_003b-boole_002dandc1_003b-boole_002dandc2_003b-boole_002dc1_003b-boole_002d_002b.html" accesskey="p" rel="prev">boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+</a>, Up: <a href="Numbers.html" accesskey="u" rel="up">Numbers</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Numbers.html#logand_003b-logandc1_003b-logandc2_003b-logeqv_003b-logior_003b-lognand_003b-lognor_003b-lognot_003b-lo_002b">logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+</a>.</p>
 </body>
-</html>

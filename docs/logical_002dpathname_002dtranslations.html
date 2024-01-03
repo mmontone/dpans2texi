@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>logical-pathname-translations (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Filenames.html" rel="up" title="Filenames">
-<link href="logical_002dpathname-_0028Function_0029.html" rel="next" title="logical-pathname (Function)">
-<link href="load_002dlogical_002dpathname_002dtranslations.html" rel="prev" title="load-logical-pathname-translations">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,239 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Filenames.html#logical_002dpathname_002dtranslations">
 
 </head>
 
 <body lang="en">
-<span id="logical_002dpathname_002dtranslations"></span><div class="header">
-<p>
-Next: <a href="logical_002dpathname-_0028Function_0029.html" accesskey="n" rel="next">logical-pathname (Function)</a>, Previous: <a href="load_002dlogical_002dpathname_002dtranslations.html" accesskey="p" rel="prev">load-logical-pathname-translations</a>, Up: <a href="Filenames.html" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">logical-pathname-translations</h4>
-<span id="logical_002dpathname_002dtranslations-_0028Accessor_0029"></span><h3 class="heading">logical-pathname-translations (Accessor)</h3>
-<span id="index-logical_002dpathname_002dtranslations-2"></span>
-<span id="index-logical_002dpathname_002dtranslations"></span>
 
-
-
-<span id="Syntax_003a-405"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-logical_002dpathname_002dtranslations-1">Function: <strong>logical-pathname-translations</strong> <em>host <span class="roman">→</span> translations</em></dt>
-</dl>
-<p><tt>(setf (logical-pathname-translations host) new-translations)</tt>
-</p>
-<span id="Arguments-and-Values_003a-394"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>host</var>&mdash;a <i>logical host designator</i>.
-</p>
-<p><var>translations</var>, <var>new-translations</var>&mdash;a <i>list</i>.
-</p>
-<span id="Description_003a-512"></span><h4 class="subsubheading">Description:</h4>
-
-<p>Returns the host&rsquo;s <i>list</i> of translations.
-Each translation is a <i>list</i> of at least two elements: 
-<i>from-wildcard</i> and <i>to-wildcard</i>.  Any
-additional elements are <i>implementation-defined</i>.  
-<i>From-wildcard</i> is a
-<i>logical pathname</i> whose host is <var>host</var>.  
-<i>To-wildcard</i> is a <i>pathname</i>.    
-</p>
-
-<p><code>(setf (logical-pathname-translations <var>host</var>) <i>translations</i>)</code> sets a 
-<i>logical pathname</i> host&rsquo;s
-<i>list</i> of <i>translations</i>.  If <var>host</var> 
-is a <i>string</i> that has
-not been previously used as 
-a <i>logical pathname</i> host, a new 
-<i>logical pathname</i> host is defined; 
-otherwise an existing host&rsquo;s translations are
-replaced.  <i>logical pathname</i> host names are compared with <code>string-equal</code>.
-</p>
-<p>When setting the translations list, each <i>from-wildcard</i> 
-can be a <i>logical pathname</i> whose
-host is <var>host</var> or a <i>logical pathname</i> namestring
-parseable by <code>(parse-namestring <i>string</i> <i>host</i>)</code>, 
-where <i>host</i>
-represents the appropriate <i>object</i> as defined 
-by <code>parse-namestring</code>. Each
-<i>to-wildcard</i> can be anything coercible to a 
-<i>pathname</i> by
-<code>(pathname <i>to-wildcard</i>)</code>.  
-If <i>to-wildcard</i> coerces to a <i>logical pathname</i>,
-<code>translate-logical-pathname</code> 
-will perform repeated translation steps when
-it uses it.
-</p>
-<p><var>host</var> is either the host component of a 
-<i>logical pathname</i> or a
-<i>string</i> that has been defined 
-as a <i>logical pathname</i> host name by <code>setf</code> of
-<code>logical-pathname-translations</code>. 
-</p>
-<span id="Examples_003a-374"></span><h4 class="subsubheading">Examples:</h4>
-
-
-
-<div class="lisp">
-<pre class="lisp"> ;;;A very simple example of setting up a logical pathname host.  No
- ;;;translations are necessary to get around file system restrictions, so
- ;;;all that is necessary is to specify the root of the physical directory
- ;;;tree that contains the logical file system.
- ;;;The namestring syntax on the right-hand side is implementation-dependent.
- (setf (logical-pathname-translations &quot;foo&quot;)
-       '((&quot;**;*.*.*&quot;              &quot;MY-LISPM:&gt;library&gt;foo&gt;**&gt;&quot;)))
-&nbsp; 
- ;;;Sample use of that logical pathname.  The return value
- ;;;is implementation-dependent.          
- (translate-logical-pathname &quot;foo:bar;baz;mum.quux.3&quot;)
-<span class="roman">→</span> #P&quot;MY-LISPM:&gt;library&gt;foo&gt;bar&gt;baz&gt;mum.quux.3&quot;
-&nbsp;
-&nbsp; 
- ;;;A more complex example, dividing the files among two file servers
- ;;;and several different directories.  This Unix doesn't support
- ;;;:WILD-INFERIORS in the directory, so each directory level must
- ;;;be translated individually.  No file name or type translations
- ;;;are required except for .MAIL to .MBX.
- ;;;The namestring syntax on the right-hand side is implementation-dependent.
- (setf (logical-pathname-translations &quot;prog&quot;)
-       '((&quot;RELEASED;*.*.*&quot;        &quot;MY-UNIX:/sys/bin/my-prog/&quot;)
-         (&quot;RELEASED;*;*.*.*&quot;      &quot;MY-UNIX:/sys/bin/my-prog/*/&quot;)
-         (&quot;EXPERIMENTAL;*.*.*&quot;    &quot;MY-UNIX:/usr/Joe/development/prog/&quot;)
-         (&quot;EXPERIMENTAL;DOCUMENTATION;*.*.*&quot;
-                                  &quot;MY-VAX:SYS$DISK:[JOE.DOC]&quot;)
-         (&quot;EXPERIMENTAL;*;*.*.*&quot;  &quot;MY-UNIX:/usr/Joe/development/prog/*/&quot;)
-         (&quot;MAIL;**;*.MAIL&quot;        &quot;MY-VAX:SYS$DISK:[JOE.MAIL.PROG...]*.MBX&quot;)))
-&nbsp;
- ;;;Sample use of that logical pathname.  The return value
- ;;;is implementation-dependent.          
- (translate-logical-pathname &quot;prog:mail;save;ideas.mail.3&quot;)
-<span class="roman">→</span> #P&quot;MY-VAX:SYS$DISK:[JOE.MAIL.PROG.SAVE]IDEAS.MBX.3&quot;
-&nbsp;
-&nbsp;
- ;;;Example translations for a program that uses three files main.lisp,
- ;;;auxiliary.lisp, and documentation.lisp.  These translations might be
- ;;;supplied by a software supplier as examples.
-&nbsp;
- ;;;For Unix with long file names
- (setf (logical-pathname-translations &quot;prog&quot;)
-       '((&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
-&nbsp;
- ;;;Sample use of that logical pathname.  The return value
- ;;;is implementation-dependent.          
- (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
-<span class="roman">→</span> #P&quot;/lib/prog/documentation.lisp&quot;
-&nbsp;
- ;;;For Unix with 14-character file names, using .lisp as the type
- (setf (logical-pathname-translations &quot;prog&quot;)
-       '((&quot;CODE;DOCUMENTATION.*.*&quot; &quot;/lib/prog/docum.*&quot;)
-         (&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
-
- ;;;Sample use of that logical pathname.  The return value
- ;;;is implementation-dependent.          
- (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
-<span class="roman">→</span> #P&quot;/lib/prog/docum.lisp&quot;
-&nbsp;
-&nbsp;
- ;;;For Unix with 14-character file names, using .l as the type
- ;;;The second translation shortens the compiled file type to .b
- (setf (logical-pathname-translations &quot;prog&quot;)
-       `((&quot;**;*.LISP.*&quot;            ,(logical-pathname &quot;PROG:**;*.L.*&quot;))
-         (,(compile-file-pathname (logical-pathname &quot;PROG:**;*.LISP.*&quot;))
-                                   ,(logical-pathname &quot;PROG:**;*.B.*&quot;))
-         (&quot;CODE;DOCUMENTATION.*.*&quot; &quot;/lib/prog/documentatio.*&quot;)
-         (&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
-&nbsp;
- ;;;Sample use of that logical pathname.  The return value
- ;;;is implementation-dependent.          
- (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
-<span class="roman">→</span> #P&quot;/lib/prog/documentatio.l&quot;
-&nbsp;
-&nbsp;
- ;;;For a Cray with 6 character names and no directories, types, or versions.
- (setf (logical-pathname-translations &quot;prog&quot;)
-       (let ((l '((&quot;MAIN&quot; &quot;PGMN&quot;)
-                  (&quot;AUXILIARY&quot; &quot;PGAUX&quot;)
-                  (&quot;DOCUMENTATION&quot; &quot;PGDOC&quot;)))
-             (logpath (logical-pathname &quot;prog:code;&quot;))
-             (phypath (pathname &quot;XXX&quot;)))
-         (append
-           ;; Translations for source files
-           (mapcar #'(lambda (x)
-                       (let ((log (first x))
-                             (phy (second x)))
-                         (list (make-pathname :name log
-                                              :type &quot;LISP&quot;
-                                              :version :wild
-                                              :defaults logpath)
-                               (make-pathname :name phy
-                                              :defaults phypath))))
-                   l)
-           ;; Translations for compiled files
-           (mapcar #'(lambda (x)
-                       (let* ((log (first x))
-                              (phy (second x))
-                              (com (compile-file-pathname
-                                     (make-pathname :name log
-                                                    :type &quot;LISP&quot;
-                                                    :version :wild
-                                                    :defaults logpath))))
-                         (setq phy (concatenate 'string phy &quot;B&quot;))
-                         (list com
-                               (make-pathname :name phy
-                                              :defaults phypath))))
-                   l))))
-
- ;;;Sample use of that logical pathname.  The return value
- ;;;is implementation-dependent.          
- (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
-<span class="roman">→</span> #P&quot;PGDOC&quot;
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-176"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>If <var>host</var> is incorrectly supplied, 
-an error of <i>type</i> <code>type-error</code> is signaled.
-</p>
-<span id="See-Also_003a-416"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="logical_002dpathname-_0028System-Class_0029.html">logical-pathname (System Class)</a>,
-<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
-</p>
-<span id="Notes_003a-278"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>Implementations can define additional <i>functions</i>
-that operate on <i>logical pathname</i> hosts,
-for example to specify additional translation rules or options.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="logical_002dpathname-_0028Function_0029.html" accesskey="n" rel="next">logical-pathname (Function)</a>, Previous: <a href="load_002dlogical_002dpathname_002dtranslations.html" accesskey="p" rel="prev">load-logical-pathname-translations</a>, Up: <a href="Filenames.html" accesskey="u" rel="up">Filenames</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Filenames.html#logical_002dpathname_002dtranslations">logical-pathname-translations</a>.</p>
 </body>
-</html>

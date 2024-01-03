@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Introduction-to-Types-and-Classes.html" rel="next" title="Introduction to Types and Classes">
-<link href="constantp.html" rel="prev" title="constantp">
+<link href="Data-and-Control-Flow.html#Data-and-Control-Flow" rel="next" title="Data and Control Flow">
+<link href="Evaluation-and-Compilation.html#constantp" rel="prev" title="constantp">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,89 +277,3171 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Types-and-Classes"></span><div class="header">
 <p>
-Next: <a href="Data-and-Control-Flow.html" accesskey="n" rel="next">Data and Control Flow</a>, Previous: <a href="Evaluation-and-Compilation.html" accesskey="p" rel="prev">Evaluation and Compilation</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Data-and-Control-Flow.html#Data-and-Control-Flow" accesskey="n" rel="next">Data and Control Flow</a>, Previous: <a href="Evaluation-and-Compilation.html#Evaluation-and-Compilation" accesskey="p" rel="prev">Evaluation and Compilation</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Types-and-Classes-1"></span><h2 class="chapter">4 Types and Classes</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Introduction-to-Types-and-Classes.html" accesskey="1">Introduction to Types and Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Introduction-to-Types-and-Classes" accesskey="1">Introduction to Types and Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Types.html" accesskey="2">Types</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Types" accesskey="2">Types</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Classes.html" accesskey="3">Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Classes" accesskey="3">Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="nil-_0028Type_0029.html" accesskey="4">nil (Type)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#nil-_0028Type_0029" accesskey="4">nil (Type)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="boolean.html" accesskey="5">boolean</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#boolean" accesskey="5">boolean</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="function-_0028System-Class_0029.html" accesskey="6">function (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#function-_0028System-Class_0029" accesskey="6">function (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="compiled_002dfunction.html" accesskey="7">compiled-function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#compiled_002dfunction" accesskey="7">compiled-function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="generic_002dfunction.html" accesskey="8">generic-function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#generic_002dfunction" accesskey="8">generic-function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="standard_002dgeneric_002dfunction.html" accesskey="9">standard-generic-function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#standard_002dgeneric_002dfunction" accesskey="9">standard-generic-function</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="class.html">class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#class">class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="built_002din_002dclass.html">built-in-class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#built_002din_002dclass">built-in-class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="structure_002dclass.html">structure-class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#structure_002dclass">structure-class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="standard_002dclass.html">standard-class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#standard_002dclass">standard-class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="method.html">method</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#method">method</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="standard_002dmethod.html">standard-method</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#standard_002dmethod">standard-method</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="structure_002dobject.html">structure-object</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#structure_002dobject">structure-object</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="standard_002dobject.html">standard-object</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#standard_002dobject">standard-object</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="method_002dcombination.html">method-combination</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#method_002dcombination">method-combination</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="t-_0028System-Class_0029.html">t (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#t-_0028System-Class_0029">t (System Class)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="satisfies.html">satisfies</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#satisfies">satisfies</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="member-_0028Type-Specifier_0029.html">member (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#member-_0028Type-Specifier_0029">member (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="not-_0028Type-Specifier_0029.html">not (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#not-_0028Type-Specifier_0029">not (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="and-_0028Type-Specifier_0029.html">and (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#and-_0028Type-Specifier_0029">and (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="or-_0028Type-Specifier_0029.html">or (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#or-_0028Type-Specifier_0029">or (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="values-_0028Type-Specifier_0029.html">values (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#values-_0028Type-Specifier_0029">values (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="eql-_0028Type-Specifier_0029.html">eql (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#eql-_0028Type-Specifier_0029">eql (Type Specifier)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="coerce.html">coerce</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#coerce">coerce</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="deftype.html">deftype</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#deftype">deftype</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="subtypep.html">subtypep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#subtypep">subtypep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="type_002dof.html">type-of</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#type_002dof">type-of</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="typep.html">typep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#typep">typep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="type_002derror.html">type-error</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#type_002derror">type-error</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="type_002derror_002ddatum_003b-type_002derror_002dexpected_002dtype.html">type-error-datum; type-error-expected-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#type_002derror_002ddatum_003b-type_002derror_002dexpected_002dtype">type-error-datum; type-error-expected-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="simple_002dtype_002derror.html">simple-type-error</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#simple_002dtype_002derror">simple-type-error</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
+<span id="Introduction-to-Types-and-Classes"></span><div class="header">
+<p>
+Next: <a href="#Types" accesskey="n" rel="next">Types</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Introduction-to-Types-and-Classes-1"></span><h3 class="section">4.1 Introduction to Types and Classes</h3>
+
+<p>A <i>type</i> is a (possibly infinite) set of <i>objects</i>.
+An <i>object</i> can belong to more than one <i>type</i>.  
+<i>Types</i> are never explicitly represented as <i>objects</i> by <span class="roman">Common Lisp</span>.
+Instead, they are referred to indirectly by the use of <i>type specifiers</i>,
+which are <i>objects</i> that denote <i>types</i>.
+</p>
+<p>New <i>types</i> can be defined using <code>deftype</code>, <code>defstruct</code>, 
+<code>defclass</code>, and <code>define-condition</code>.
+</p>
+<p>The <i>function</i> <code>typep</code>, a set membership test, is used to determine
+whether a given <i>object</i> is of a given <i>type</i>.  The function
+<code>subtypep</code>, a subset test, is used to determine whether a
+given <i>type</i> is a <i>subtype</i> of another given <i>type</i>.  The
+function <code>type-of</code> returns a particular <i>type</i> to
+which a given <i>object</i> belongs, even though that <i>object</i>
+must belong to one or more other <i>types</i> as well.
+(For example, every <i>object</i> is of <i>type</i> <code>t</code>, 
+but <code>type-of</code> always returns a <i>type specifier</i>
+for a <i>type</i> more specific than <code>t</code>.)
+</p>
+<p><i>Objects</i>, not <i>variables</i>, have <i>types</i>.
+Normally, any <i>variable</i> can have any <i>object</i> as its <i>value</i>.
+It is possible to declare that a <i>variable</i> takes on only 
+values of a given <i>type</i> by making an explicit <i>type declaration</i>.
+<i>Types</i> are arranged in a directed acyclic graph, except
+for the presence of equivalences. 
+</p>
+<p><i>Declarations</i> can be made about <i>types</i> using <tt>declare</tt>, 
+<code>proclaim</code>, <code>declaim</code>, or <code>the</code>.
+For more information about <i>declarations</i>,
+see <a href="Evaluation-and-Compilation.html#Declarations">Section 3.3 (Declarations)</a>.
+</p>
+<p>Among the fundamental <i>objects</i> of the object system&nbsp;<!-- /@w -->are <i>classes</i>.
+A <i>class</i> determines the structure and behavior of a set of
+other <i>objects</i>, which are called its <i>instances</i>. 
+Every <i>object</i> is a <i>direct instance</i> of a <i>class</i>.
+The <i>class</i> of an <i>object</i> determines the set of
+operations that can be performed on the <i>object</i>.
+For more information, see <a href="#Classes">Section 4.3 (Classes)</a>.
+</p>
+<p>It is possible to write <i>functions</i> that have behavior <i>specialized</i>
+to the class of the <i>objects</i> which are their <i>arguments</i>.
+For more information, see <a href="Objects.html#Generic-Functions-and-Methods">Section 7.6 (Generic Functions and Methods)</a>.
+</p>
+<p>The <i>class</i> of the <i>class</i> of an <i>object</i> 
+is called its <span id="index-metaclass"></span>
+<em>metaclass</em>.
+For more information about <i>metaclasses</i>,
+see <a href="Objects.html#Meta_002dObjects">Section 7.4 (Meta-Objects)</a>.
+</p>
+<hr>
+<span id="Types"></span><div class="header">
+<p>
+Next: <a href="#Classes" accesskey="n" rel="next">Classes</a>, Previous: <a href="#Introduction-to-Types-and-Classes" accesskey="p" rel="prev">Introduction to Types and Classes</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Types-1"></span><h3 class="section">4.2 Types</h3>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Data-Type-Definition" accesskey="1">Data Type Definition</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Type-Relationships" accesskey="2">Type Relationships</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Type-Specifiers" accesskey="3">Type Specifiers</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Data-Type-Definition"></span><div class="header">
+<p>
+Next: <a href="#Type-Relationships" accesskey="n" rel="next">Type Relationships</a>, Up: <a href="#Types" accesskey="u" rel="up">Types</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Data-Type-Definition-1"></span><h4 class="subsection">4.2.1 Data Type Definition</h4>
+
+<p>Information about <i>type</i> usage is located in 
+the sections specified in <a href="#TypeInfoXrefs">Figure 4.1</a>. 
+<a href="#ObjectSystemClasses">Figure 4.7</a>&nbsp;<!-- /@w -->lists some <i>classes</i> 
+that are particularly relevant to the object system.
+<a href="Conditions.html#StandardizedConditionTypes">Figure 9.1</a>&nbsp;<!-- /@w -->lists the defined <i>condition</i> <i>types</i>.
+</p>
+
+
+<div class="float"><span id="TypeInfoXrefs"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><b>Section</b></td><td>Data Type</td></tr>
+<tr><td><a href="#Classes">Section 4.3 (Classes)</a></td><td>Object System types</td></tr>
+<tr><td><a href="Objects.html#Slots">Section 7.5 (Slots)</a></td><td>Object System types</td></tr>
+<tr><td><a href="Objects.html#Objects">Chapter 7 (Objects)</a></td><td>Object System types</td></tr>
+<tr><td><a href="Objects.html#Generic-Functions-and-Methods">Section 7.6 (Generic Functions and Methods)</a></td><td>Object System types</td></tr>
+<tr><td><a href="Conditions.html#Condition-System-Concepts">Section 9.1 (Condition System Concepts)</a></td><td>Condition System types</td></tr>
+<tr><td><a href="#Types-and-Classes">Chapter 4 (Types and Classes)</a></td><td>Miscellaneous types</td></tr>
+<tr><td><a href="Syntax.html#Syntax">Chapter 2 (Syntax)</a></td><td>All types&mdash;read and print syntax</td></tr>
+<tr><td><a href="Printer.html#The-Lisp-Printer">Section 22.1 (The Lisp Printer)</a></td><td>All types&mdash;print syntax</td></tr>
+<tr><td><a href="Evaluation-and-Compilation.html#Compilation">Section 3.2 (Compilation)</a></td><td>All types&mdash;compilation issues</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.1: </strong>Cross-References to Data Type Information</p></div></div>
+
+
+<hr>
+<span id="Type-Relationships"></span><div class="header">
+<p>
+Next: <a href="#Type-Specifiers" accesskey="n" rel="next">Type Specifiers</a>, Previous: <a href="#Data-Type-Definition" accesskey="p" rel="prev">Data Type Definition</a>, Up: <a href="#Types" accesskey="u" rel="up">Types</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Type-Relationships-1"></span><h4 class="subsection">4.2.2 Type Relationships</h4>
+
+
+<ul>
+<li> The <i>types</i> <code>cons</code>, <code>symbol</code>, <code>array</code>, <code>number</code>,
+<code>character</code>, <code>hash-table</code>, 
+<code>function</code>,
+<code>readtable</code>, <code>package</code>, <code>pathname</code>, <code>stream</code>, 
+<code>random-state</code>, <code>condition</code>, <code>restart</code>,
+and any single other <i>type</i> created by <code>defstruct</code>,
+<code>define-condition</code>,
+or <code>defclass</code> are <i>pairwise</i> <i>disjoint</i>, 
+except for type relations explicitly established by specifying 
+<i>superclasses</i> in <code>defclass</code> 
+or <code>define-condition</code>
+or the <tt>:include</tt> option of <code>destruct</code>.
+
+
+
+</li><li> Any two <i>types</i> created by <code>defstruct</code> are 
+<i>disjoint</i> unless
+one is a <i>supertype</i> of the other by virtue of
+the <code>defstruct</code> <tt>:include</tt> option.
+
+
+
+</li><li> Any two <i>distinct</i> <i>classes</i> created by <code>defclass</code> 
+or <code>define-condition</code>
+are <i>disjoint</i> unless they have a common <i>subclass</i> or
+one <i>class</i> is a <i>subclass</i> of the other.
+
+
+</li><li> An implementation may be extended to add other <i>subtype</i>
+relationships between the specified <i>types</i>, as long as they do
+not violate the type relationships and disjointness requirements
+specified here.  An implementation may define additional <i>types</i>
+that are <i>subtypes</i> or <i>supertypes</i> of any
+specified <i>types</i>, as long as each additional <i>type</i> is
+a subtype of <i>type</i> <code>t</code> and a supertype of <i>type</i> <code>nil</code> and the disjointness requirements
+are not violated.
+
+<p>At the discretion of the implementation, either <code>standard-object</code>
+or <code>structure-object</code> might appear in any class precedence list
+for a <i>system class</i> that does not already specify either 
+<code>standard-object</code> or <code>structure-object</code>.  If it does,
+it must precede the <i>class</i> <code>t</code> and follow all other <i>standardized</i> <i>classes</i>.
+</p></li></ul>
+
+
+
+<hr>
+<span id="Type-Specifiers"></span><div class="header">
+<p>
+Previous: <a href="#Type-Relationships" accesskey="p" rel="prev">Type Relationships</a>, Up: <a href="#Types" accesskey="u" rel="up">Types</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Type-Specifiers-1"></span><h4 class="subsection">4.2.3 Type Specifiers</h4>
+
+
+<p><i>Type specifiers</i> can be <i>symbols</i>, <i>classes</i>, or <i>lists</i>.
+<a href="#StandardizedAtomicTypeSpecs">Figure 4.2</a>&nbsp;<!-- /@w -->lists <i>symbols</i> that are
+<i>standardized</i> <i>atomic type specifiers</i>, and
+<a href="#StandardizedCompoundTypeSpecNames">Figure 4.3</a>&nbsp;<!-- /@w -->lists
+<i>standardized</i> <i>compound type specifier</i> <i>names</i>.
+For syntax information, see the dictionary entry for the corresponding <i>type specifier</i>.
+It is possible to define new <i>type specifiers</i> using
+<code>defclass</code>,
+<code>define-condition</code>,
+<code>defstruct</code>, 
+or
+<code>deftype</code>.
+</p>
+
+
+
+<div class="float"><span id="StandardizedAtomicTypeSpecs"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>arithmetic-error</td><td>function</td><td>simple-condition</td></tr>
+<tr><td>array</td><td>generic-function</td><td>simple-error</td></tr>
+<tr><td>atom</td><td>hash-table</td><td>simple-string</td></tr>
+<tr><td>base-char</td><td>integer</td><td>simple-type-error</td></tr>
+<tr><td>base-string</td><td>keyword</td><td>simple-vector</td></tr>
+<tr><td>bignum</td><td>list</td><td>simple-warning</td></tr>
+<tr><td>bit</td><td>logical-pathname</td><td>single-float</td></tr>
+<tr><td>bit-vector</td><td>long-float</td><td>standard-char</td></tr>
+<tr><td>broadcast-stream</td><td>method</td><td>standard-class</td></tr>
+<tr><td>built-in-class</td><td>method-combination</td><td>standard-generic-function</td></tr>
+<tr><td>cell-error</td><td>nil</td><td>standard-method</td></tr>
+<tr><td>character</td><td>null</td><td>standard-object</td></tr>
+<tr><td>class</td><td>number</td><td>storage-condition</td></tr>
+<tr><td>compiled-function</td><td>package</td><td>stream</td></tr>
+<tr><td>complex</td><td>package-error</td><td>stream-error</td></tr>
+<tr><td>concatenated-stream</td><td>parse-error</td><td>string</td></tr>
+<tr><td>condition</td><td>pathname</td><td>string-stream</td></tr>
+<tr><td>cons</td><td>print-not-readable</td><td>structure-class</td></tr>
+<tr><td>control-error</td><td>program-error</td><td>structure-object</td></tr>
+<tr><td>division-by-zero</td><td>random-state</td><td>style-warning</td></tr>
+<tr><td>double-float</td><td>ratio</td><td>symbol</td></tr>
+<tr><td>echo-stream</td><td>rational</td><td>synonym-stream</td></tr>
+<tr><td>end-of-file</td><td>reader-error</td><td>t</td></tr>
+<tr><td>error</td><td>readtable</td><td>two-way-stream</td></tr>
+<tr><td>extended-char</td><td>real</td><td>type-error</td></tr>
+<tr><td>file-error</td><td>restart</td><td>unbound-slot</td></tr>
+<tr><td>file-stream</td><td>sequence</td><td>unbound-variable</td></tr>
+<tr><td>fixnum</td><td>serious-condition</td><td>undefined-function</td></tr>
+<tr><td>float</td><td>short-float</td><td>unsigned-byte</td></tr>
+<tr><td>floating-point-inexact</td><td>signed-byte</td><td>vector</td></tr>
+<tr><td>floating-point-invalid-operation</td><td>simple-array</td><td>warning</td></tr>
+<tr><td>floating-point-overflow</td><td>simple-base-string</td><td></td></tr>
+<tr><td>floating-point-underflow</td><td>simple-bit-vector</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.2: </strong>Standardized Atomic Type Specifiers</p></div></div>
+
+
+               
+<p>If a <i>type specifier</i> is a <i>list</i>, the <i>car</i> of the <i>list</i> 
+is a <i>symbol</i>, and the rest of the <i>list</i> is subsidiary
+<i>type</i> information.  Such a <i>type specifier</i> is called 
+a <span id="index-compound-type-specifier"></span>
+<em>compound type specifier</em>.
+Except as explicitly stated otherwise,
+the subsidiary items can be unspecified.
+The unspecified subsidiary items are indicated
+by writing <code>*</code>.  For example, to completely specify
+a <i>vector</i>, the <i>type</i> of the elements
+and the length of the <i>vector</i> must be present.
+</p>
+<div class="lisp">
+<pre class="lisp"> (vector double-float 100)
+</pre></div>
+
+<p>The following leaves the length unspecified:
+</p>
+<div class="lisp">
+<pre class="lisp"> (vector double-float *)
+</pre></div>
+
+<p>The following leaves the element type unspecified:
+</p>
+<div class="lisp">
+<pre class="lisp"> (vector * 100)                                      
+</pre></div>
+
+<p>Suppose that two <i>type specifiers</i> are the same except that the first
+has a <code>*</code> where the second has a more explicit specification.
+Then the second denotes a <i>subtype</i> 
+of the <i>type</i> denoted by the first.
+</p>
+<p>If a <i>list</i> has one or more unspecified items at the end, 
+those items can be dropped.
+If dropping all occurrences of <code>*</code> results in a <i>singleton</i> <i>list</i>,
+then the parentheses can be dropped as well (the list can be replaced
+by the <i>symbol</i> in its <i>car</i>).  
+For example,                       
+<code>(vector double-float *)</code>                    
+can be abbreviated to <code>(vector double-float)</code>,               
+and <code>(vector * *)</code> can be abbreviated to <code>(vector)</code> 
+and then to 
+<code>vector</code>.
+</p>
+
+
+<div class="float"><span id="StandardizedCompoundTypeSpecNames"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>and</td><td>long-float</td><td>simple-base-string</td></tr>
+<tr><td>array</td><td>member</td><td>simple-bit-vector</td></tr>
+<tr><td>base-string</td><td>mod</td><td>simple-string</td></tr>
+<tr><td>bit-vector</td><td>not</td><td>simple-vector</td></tr>
+<tr><td>complex</td><td>or</td><td>single-float</td></tr>
+<tr><td>cons</td><td>rational</td><td>string</td></tr>
+<tr><td>double-float</td><td>real</td><td>unsigned-byte</td></tr>
+<tr><td>eql</td><td>satisfies</td><td>values</td></tr>
+<tr><td>float</td><td>short-float</td><td>vector</td></tr>
+<tr><td>function</td><td>signed-byte</td><td></td></tr>
+<tr><td>integer</td><td>simple-array</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.3: </strong>Standardized Compound Type Specifier Names</p></div></div>
+
+<p>The next figure&nbsp;<!-- /@w -->show the <i>defined names</i> that can be used as 
+<i>compound type specifier</i> <i>names</i>
+but that cannot be used as <i>atomic type specifiers</i>.
+</p>
+
+<div class="float"><span id="fig4_002e4"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>and</td><td>mod</td><td>satisfies</td></tr>
+<tr><td>eql</td><td>not</td><td>values</td></tr>
+<tr><td>member</td><td>or</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.4: </strong>Standardized Compound-Only Type Specifier Names</p></div></div>
+
+<p>New <i>type specifiers</i> can come into existence in two ways.
+</p>
+<ul>
+<li> Defining a structure by using <code>defstruct</code> without using
+the <tt>:type</tt> specifier or defining a <i>class</i> by using 
+<code>defclass</code> 
+or <code>define-condition</code>
+automatically causes the name of the structure 
+or class to be a new <i>type specifier</i> <i>symbol</i>.
+</li><li> <code>deftype</code> can be used to define 
+<span id="index-derived-type-specifier"></span>
+<em>derived type specifiers</em>,
+which act as &lsquo;abbreviations&rsquo; for other <i>type specifiers</i>.
+</li></ul>
+
+
+<p>A <i>class</i> <i>object</i> can be used as a <i>type specifier</i>. 
+When used this way, it denotes the set of all members of that <i>class</i>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->shows some <i>defined names</i> relating to 
+<i>types</i> and <i>declarations</i>.
+</p>
+
+
+<div class="float"><span id="TypesAndDeclsNames"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>coerce</td><td>defstruct</td><td>subtypep</td></tr>
+<tr><td>declaim</td><td>deftype</td><td>the</td></tr>
+<tr><td>declare</td><td>ftype</td><td>type</td></tr>
+<tr><td>defclass</td><td>locally</td><td>type-of</td></tr>
+<tr><td>define-condition</td><td>proclaim</td><td>typep</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.5: </strong>Defined names relating to types and declarations.</p></div></div>
+
+<p>The next figure&nbsp;<!-- /@w -->shows all <i>defined names</i> that are <i>type specifier</i> <i>names</i>,
+whether for <i>atomic type specifiers</i> or <i>compound type specifiers</i>;
+this list is the union of the lists in <a href="#StandardizedAtomicTypeSpecs">Figure 4.2</a>&nbsp;<!-- /@w -->
+and <a href="#StandardizedCompoundTypeSpecNames">Figure 4.3</a>.
+</p>
+
+
+<div class="float"><span id="StandardizedTypeSpecifierNames"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>and</td><td>function</td><td>simple-array</td></tr>
+<tr><td>arithmetic-error</td><td>generic-function</td><td>simple-base-string</td></tr>
+<tr><td>array</td><td>hash-table</td><td>simple-bit-vector</td></tr>
+<tr><td>atom</td><td>integer</td><td>simple-condition</td></tr>
+<tr><td>base-char</td><td>keyword</td><td>simple-error</td></tr>
+<tr><td>base-string</td><td>list</td><td>simple-string</td></tr>
+<tr><td>bignum</td><td>logical-pathname</td><td>simple-type-error</td></tr>
+<tr><td>bit</td><td>long-float</td><td>simple-vector</td></tr>
+<tr><td>bit-vector</td><td>member</td><td>simple-warning</td></tr>
+<tr><td>broadcast-stream</td><td>method</td><td>single-float</td></tr>
+<tr><td>built-in-class</td><td>method-combination</td><td>standard-char</td></tr>
+<tr><td>cell-error</td><td>mod</td><td>standard-class</td></tr>
+<tr><td>character</td><td>nil</td><td>standard-generic-function</td></tr>
+<tr><td>class</td><td>not</td><td>standard-method</td></tr>
+<tr><td>compiled-function</td><td>null</td><td>standard-object</td></tr>
+<tr><td>complex</td><td>number</td><td>storage-condition</td></tr>
+<tr><td>concatenated-stream</td><td>or</td><td>stream</td></tr>
+<tr><td>condition</td><td>package</td><td>stream-error</td></tr>
+<tr><td>cons</td><td>package-error</td><td>string</td></tr>
+<tr><td>control-error</td><td>parse-error</td><td>string-stream</td></tr>
+<tr><td>division-by-zero</td><td>pathname</td><td>structure-class</td></tr>
+<tr><td>double-float</td><td>print-not-readable</td><td>structure-object</td></tr>
+<tr><td>echo-stream</td><td>program-error</td><td>style-warning</td></tr>
+<tr><td>end-of-file</td><td>random-state</td><td>symbol</td></tr>
+<tr><td>eql</td><td>ratio</td><td>synonym-stream</td></tr>
+<tr><td>error</td><td>rational</td><td>t</td></tr>
+<tr><td>extended-char</td><td>reader-error</td><td>two-way-stream</td></tr>
+<tr><td>file-error</td><td>readtable</td><td>type-error</td></tr>
+<tr><td>file-stream</td><td>real</td><td>unbound-slot</td></tr>
+<tr><td>fixnum</td><td>restart</td><td>unbound-variable</td></tr>
+<tr><td>float</td><td>satisfies</td><td>undefined-function</td></tr>
+<tr><td>floating-point-inexact</td><td>sequence</td><td>unsigned-byte</td></tr>
+<tr><td>floating-point-invalid-operation</td><td>serious-condition</td><td>values</td></tr>
+<tr><td>floating-point-overflow</td><td>short-float</td><td>vector</td></tr>
+<tr><td>floating-point-underflow</td><td>signed-byte</td><td>warning</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.6: </strong>Standardized Type Specifier Names</p></div></div>
+
+
+
+<hr>
+<span id="Classes"></span><div class="header">
+<p>
+Next: <a href="#nil-_0028Type_0029" accesskey="n" rel="next">nil (Type)</a>, Previous: <a href="#Types" accesskey="p" rel="prev">Types</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Classes-1"></span><h3 class="section">4.3 Classes</h3>
+
+
+<p>While the object system&nbsp;<!-- /@w -->is general enough to describe all <i>standardized</i> <i>classes</i>
+(including, for example, <code>number</code>, <code>hash-table</code>, and
+<code>symbol</code>), the next figure&nbsp;<!-- /@w -->contains a list of <i>classes</i> that are
+especially relevant to understanding the object system.
+</p>
+
+
+<div class="float"><span id="ObjectSystemClasses"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>built-in-class</td><td>method-combination</td><td>standard-object</td></tr>
+<tr><td>class</td><td>standard-class</td><td>structure-class</td></tr>
+<tr><td>generic-function</td><td>standard-generic-function</td><td>structure-object</td></tr>
+<tr><td>method</td><td>standard-method</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.7: </strong>Object System Classes</p></div></div>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Introduction-to-Classes" accesskey="1">Introduction to Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Defining-Classes" accesskey="2">Defining Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Creating-Instances-of-Classes" accesskey="3">Creating Instances of Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Inheritance" accesskey="4">Inheritance</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Determining-the-Class-Precedence-List" accesskey="5">Determining the Class Precedence List</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Redefining-Classes" accesskey="6">Redefining Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Integrating-Types-and-Classes" accesskey="7">Integrating Types and Classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Introduction-to-Classes"></span><div class="header">
+<p>
+Next: <a href="#Defining-Classes" accesskey="n" rel="next">Defining Classes</a>, Up: <a href="#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Introduction-to-Classes-1"></span><h4 class="subsection">4.3.1 Introduction to Classes</h4>
+
+<p>A <span id="index-class"></span>
+<em>class</em> is an <i>object</i> that determines the structure and behavior 
+of a set of other <i>objects</i>, which are called its 
+<span id="index-instance"></span>
+<em>instances</em>.   
+</p>
+<p>A <i>class</i> can inherit structure and behavior from other <i>classes</i>.
+A <i>class</i> whose definition refers to other <i>classes</i> for the purpose 
+of inheriting from them is said to be a <i>subclass</i> of each of
+those <i>classes</i>. The <i>classes</i> that are designated for purposes of
+inheritance are said to be <i>superclasses</i> of the inheriting <i>class</i>.
+</p>
+<p>A <i>class</i> can have a <i>name</i>. The <i>function</i> <code>class-name</code> 
+takes a <i>class</i> <i>object</i> and returns its <i>name</i>. 
+The <i>name</i> of an anonymous <i>class</i> is <code>nil</code>.  A <i>symbol</i> 
+can <i>name</i> a <i>class</i>. The <i>function</i> <code>find-class</code> takes a
+<i>symbol</i> and returns the <i>class</i> that the <i>symbol</i> names.
+A <i>class</i> has a <i>proper name</i> if the <i>name</i> is a <i>symbol</i>
+and if the <i>name</i> of the <i>class</i> names that <i>class</i>.
+That is, a <i>class</i>&nbsp;C has the <i>proper name</i>&nbsp;S if S=
+<code>(class-name C)</code> and C= <code>(find-class S)</code>.
+Notice that it is possible for 
+<code>(find-class S<sub>1</sub>
+and S<sub>1</sub>
+If C= <code>(find-class S)</code>, we say that C is the <i>class</i> <i>named</i> S.
+
+</code></p><p>A <i>class</i> C<sub>1</sub>
+a <span id="index-direct-superclass"></span>
+<em>direct superclass</em> of a <i>class</i> C<sub>2</sub>
+if C<sub>2</sub>
+as a <i>superclass</i> in its definition.
+In this case C<sub>2</sub>
+<em>direct subclass</em> of C<sub>1</sub>
+A <i>class</i> C<sub>n</sub>
+<em>superclass</em> of 
+a <i>class</i> C<sub>1</sub>
+<i>classes</i> C<sub>2</sub>
+C<sub>i+1</sub>
+In this case, C<sub>1</sub>
+<em>subclass</em> of C<sub>n</sub>
+A <i>class</i> is considered neither a <i>superclass</i> nor a <i>subclass</i> of itself.
+That is, if C<sub>1</sub>
+then C<sub>1</sub>
+The set of <i>classes</i> consisting of some given <i>class</i> C 
+along with all of its <i>superclasses</i> is called &ldquo;C and its superclasses.&rdquo;
+</p>
+<p>Each <i>class</i> has a <span id="index-class-precedence-list"></span>
+<em>class precedence list</em>,
+which is a total ordering on the set of the given <i>class</i> and its <i>superclasses</i>.
+The total ordering is expressed as a list ordered from most specific to least specific.
+The <i>class precedence list</i> is used in several ways.  In general, more
+specific <i>classes</i> can <span id="index-shadow-1"></span>
+<em>shadow</em><sub>1</sub>
+otherwise be inherited from less specific <i>classes</i>.
+The <i>method</i> selection and combination process uses 
+the <i>class precedence list</i> to order <i>methods</i> 
+from most specific to least specific. 
+</p>
+<p>When a <i>class</i> is defined, the order in which its direct <i>superclasses</i>
+are mentioned in the defining form is important.  Each <i>class</i> has a
+<span id="index-local-precedence-order"></span>
+<em>local precedence order</em>, which is a <i>list</i> consisting of the
+<i>class</i> followed by its <i>direct superclasses</i> in the order mentioned
+in the defining <i>form</i>.
+</p>
+<p>A <i>class precedence list</i> is always consistent with the
+<i>local precedence order</i> of each <i>class</i> in the list.  
+The <i>classes</i> in each <i>local precedence order</i> appear
+within the <i>class precedence list</i> in the same order.  
+If the <i>local precedence orders</i> are inconsistent with each other, 
+no <i>class precedence list</i> can be constructed, and an error is signaled.
+The <i>class precedence list</i> and its computation is discussed
+in <a href="#Determining-the-Class-Precedence-List">Section 4.3.5 (Determining the Class Precedence List)</a>.
+</p>
+<p><i>classes</i> are organized into a directed acyclic graph.
+There are two distinguished <i>classes</i>, named <code>t</code> and <code>standard-object</code>.
+The <i>class</i> named <code>t</code> has no <i>superclasses</i>. 
+It is a <i>superclass</i> of every <i>class</i> except itself.  
+The <i>class</i> named <code>standard-object</code> is an <i>instance</i> of 
+the <i>class</i> <code>standard-class</code> and is a <i>superclass</i> of
+every <i>class</i> that is an <i>instance</i> of the <i>class</i> <code>standard-class</code> except itself.
+</p>
+
+<p>There is a mapping from the object system <i>class</i> space into
+the <i>type</i> space.  Many of the standard <i>types</i> specified 
+in this document have a corresponding <i>class</i> that has the same 
+<i>name</i> as the <i>type</i>. Some <i>types</i> do not have a
+corresponding <i>class</i>. The integration of the <i>type</i> and <i>class</i>
+systems is discussed in <a href="#Integrating-Types-and-Classes">Section 4.3.7 (Integrating Types and Classes)</a>.
+</p>
+<p><i>Classes</i> are represented by <i>objects</i> that are themselves
+<i>instances</i> of <i>classes</i>. 
+The <i>class</i> of the <i>class</i> of an <i>object</i> is termed
+the <span id="index-metaclass-1"></span>
+<em>metaclass</em> of that <i>object</i>. When no misinterpretation is
+possible, the term <i>metaclass</i> is used to refer to a <i>class</i>
+that has <i>instances</i> that are themselves <i>classes</i>. The <i>metaclass</i>
+determines the form of inheritance used by the <i>classes</i> that are its
+<i>instances</i> and the representation of the <i>instances</i> of those <i>classes</i>.
+The object system&nbsp;<!-- /@w -->provides a default <i>metaclass</i>, <code>standard-class</code>, that is
+appropriate for most programs.
+</p>
+<p>Except where otherwise specified, all <i>classes</i> mentioned in this
+standard are <i>instances</i> of the <i>class</i> <code>standard-class</code>,
+all <i>generic functions</i> are <i>instances</i> 
+of the <i>class</i> <code>standard-generic-function</code>,
+and all <i>methods</i> are <i>instances</i> of the <i>class</i> <code>standard-method</code>.
+</p>
+
+<span id="Standard-Metaclasses"></span><h4 class="subsubsection">4.3.1.1 Standard Metaclasses</h4>
+
+<p>The object system&nbsp;<!-- /@w -->provides a number of predefined <i>metaclasses</i>. 
+These include the <i>classes</i> <code>standard-class</code>, 
+<code>built-in-class</code>, and <code>structure-class</code>:
+</p>
+
+<ul>
+<li> The <i>class</i> <code>standard-class</code> is the default <i>class</i> of 
+<i>classes</i> defined by <code>defclass</code>.
+
+</li><li> The <i>class</i> <code>built-in-class</code> is the <i>class</i> whose
+<i>instances</i> are <i>classes</i> that have special implementations with
+restricted capabilities.  Any <i>class</i> that corresponds to a standard
+<i>type</i> might be an <i>instance</i> of <code>built-in-class</code>.
+The predefined <i>type</i> specifiers that are required to have
+corresponding <i>classes</i> are listed in <a href="#ClassTypeCorrespondence">Figure 4.8</a>.  
+It is <i>implementation-dependent</i> whether each of these <i>classes</i> 
+is implemented as a <i>built-in class</i>.
+
+</li><li> All <i>classes</i> defined by means of <code>defstruct</code> are
+<i>instances</i> of the <i>class</i> <code>structure-class</code>.
+</li></ul>
+
+
+
+<hr>
+<span id="Defining-Classes"></span><div class="header">
+<p>
+Next: <a href="#Creating-Instances-of-Classes" accesskey="n" rel="next">Creating Instances of Classes</a>, Previous: <a href="#Introduction-to-Classes" accesskey="p" rel="prev">Introduction to Classes</a>, Up: <a href="#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Defining-Classes-1"></span><h4 class="subsection">4.3.2 Defining Classes</h4>
+
+<p>The macro <code>defclass</code> is used to define a new named <i>class</i>.  
+</p>
+<p>The definition of a <i>class</i> includes:
+</p>
+
+<ul>
+<li> The <i>name</i> of the new <i>class</i>. 
+For newly-defined <i>classes</i> this <i>name</i> is a <i>proper name</i>.
+
+</li><li> The list of the direct <i>superclasses</i> of the new <i>class</i>. 
+
+</li><li> A set of 
+<span id="index-slot-specifier"></span>
+<em>slot specifiers</em>.
+Each <i>slot specifier</i> includes the <i>name</i> of the <i>slot</i> 
+and zero or more <i>slot</i> options.  A <i>slot</i> option pertains 
+only to a single <i>slot</i>.  If a <i>class</i> definition contains
+two <i>slot specifiers</i> with the same <i>name</i>, an error is signaled.
+
+</li><li> A set of <i>class</i> options.  
+Each <i>class</i> option pertains to the <i>class</i> as a whole.  
+</li></ul>
+
+
+<p>The <i>slot</i> options and <i>class</i> options of 
+the <code>defclass</code> form provide mechanisms for the following:
+</p>
+
+<ul>
+<li> Supplying a default initial value <i>form</i> 
+for a given <i>slot</i>.  
+
+</li><li> Requesting that <i>methods</i> for <i>generic functions</i>
+be automatically generated for reading or writing <i>slots</i>. 
+
+</li><li> Controlling whether a given <i>slot</i> is shared by 
+all <i>instances</i>
+of the <i>class</i> or whether each 
+<i>instance</i> of the <i>class</i> has its own <i>slot</i>.
+
+</li><li> Supplying a set of initialization arguments and initialization
+argument defaults to be used in <i>instance</i> creation.
+
+</li><li> Indicating that the <i>metaclass</i> is to be other 
+than the default.  The <tt>:metaclass</tt> option is reserved for future use; 
+an implementation can be extended to make use of the <tt>:metaclass</tt>
+option.
+
+</li><li> Indicating the expected <i>type</i> for the value stored
+in the <i>slot</i>.
+
+</li><li> Indicating the <i>documentation string</i> for the <i>slot</i>.
+</li></ul>
+
+
+
+
+
+<hr>
+<span id="Creating-Instances-of-Classes"></span><div class="header">
+<p>
+Next: <a href="#Inheritance" accesskey="n" rel="next">Inheritance</a>, Previous: <a href="#Defining-Classes" accesskey="p" rel="prev">Defining Classes</a>, Up: <a href="#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Creating-Instances-of-Classes-1"></span><h4 class="subsection">4.3.3 Creating Instances of Classes</h4>
+
+<p>The generic function <code>make-instance</code> creates and returns a new
+<i>instance</i> of a <i>class</i>.  
+The object system&nbsp;<!-- /@w -->provides several mechanisms for
+specifying how a new <i>instance</i> is to be initialized.  For example, it
+is possible to specify the initial values for <i>slots</i> in newly created
+<i>instances</i> 
+either by giving arguments to <code>make-instance</code> or by
+providing default initial values.  Further initialization activities
+can be performed by <i>methods</i> written for <i>generic functions</i> 
+that are
+part of the initialization protocol.  The complete initialization
+protocol is described in <a href="Objects.html#Object-Creation-and-Initialization">Section 7.1 (Object Creation and Initialization)</a>.
+</p>
+
+<hr>
+<span id="Inheritance"></span><div class="header">
+<p>
+Next: <a href="#Determining-the-Class-Precedence-List" accesskey="n" rel="next">Determining the Class Precedence List</a>, Previous: <a href="#Creating-Instances-of-Classes" accesskey="p" rel="prev">Creating Instances of Classes</a>, Up: <a href="#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Inheritance-1"></span><h4 class="subsection">4.3.4 Inheritance</h4>
+
+
+<p>A <i>class</i> can inherit <i>methods</i>, <i>slots</i>, 
+and some <code>defclass</code> options from its <i>superclasses</i>.  
+Other sections describe the inheritance of <i>methods</i>, 
+the inheritance of <i>slots</i> and <i>slot</i> options, 
+and the inheritance of <i>class</i> options.
+</p>
+
+<span id="Examples-of-Inheritance"></span><h4 class="subsubsection">4.3.4.1 Examples of Inheritance</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defclass C1 () 
+     ((S1 :initform 5.4 :type number) 
+      (S2 :allocation :class)))
+ 
+ (defclass C2 (C1) 
+     ((S1 :initform 5 :type integer)
+      (S2 :allocation :instance)
+      (S3 :accessor C2-S3)))
+</pre></div>
+
+
+<p><i>Instances</i> of the class <code>C1</code> have a <i>local slot</i> named <code>S1</code>,
+whose default initial value is 5.4 and
+whose <i>value</i> should always be a <i>number</i>.
+The class <code>C1</code> also has a <i>shared slot</i> named <code>S2</code>.
+</p>
+<p>There is a <i>local slot</i> named <code>S1</code> in <i>instances</i> of <code>C2</code>.
+The default initial value of <code>S1</code> is 5.
+The value of <code>S1</code> should always be of type <code>(and integer number)</code>.
+There are also <i>local slots</i> named <code>S2</code> and <code>S3</code> in <i>instances</i> of <code>C2</code>.
+The class <code>C2</code> has a <i>method</i> for <code>C2-S3</code> for reading the value of slot <code>S3</code>;
+there is also a <i>method</i> for <code>(setf C2-S3)</code> that writes the value of <code>S3</code>.
+</p>
+
+<span id="Inheritance-of-Class-Options"></span><h4 class="subsubsection">4.3.4.2 Inheritance of Class Options</h4>
+
+<p>The <tt>:default-initargs</tt> class option is inherited.  The set of
+defaulted initialization arguments for a <i>class</i> is the union of the
+sets of initialization arguments supplied in
+the <tt>:default-initargs</tt> class options of the <i>class</i> and its <i>superclasses</i>.
+When more than one default initial value <i>form</i> is supplied for a given
+initialization argument, the default initial value <i>form</i> that is used
+is the one supplied by the <i>class</i> that is most specific according to
+the <i>class precedence list</i>.
+</p>
+<p>If a given <tt>:default-initargs</tt> class option specifies an
+initialization argument of the same <i>name</i> more than once, an
+error of <i>type</i> <code>program-error</code> is signaled.
+</p>
+
+
+<hr>
+<span id="Determining-the-Class-Precedence-List"></span><div class="header">
+<p>
+Next: <a href="#Redefining-Classes" accesskey="n" rel="next">Redefining Classes</a>, Previous: <a href="#Inheritance" accesskey="p" rel="prev">Inheritance</a>, Up: <a href="#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Determining-the-Class-Precedence-List-1"></span><h4 class="subsection">4.3.5 Determining the Class Precedence List</h4>
+
+<p>The <code>defclass</code> form for a <i>class</i> provides a total ordering
+on that <i>class</i> and its direct <i>superclasses</i>.  This ordering is
+called the <span id="index-local-precedence-order-1"></span>
+<em>local precedence order</em>.  It is an ordered list of the
+<i>class</i> and its direct <i>superclasses</i>. The
+<span id="index-class-precedence-list-1"></span>
+<em>class precedence list</em> for a class C is a total ordering on
+C and its <i>superclasses</i> that is consistent with the
+<i>local precedence orders</i> for each of C and its <i>superclasses</i>.
+</p>
+<p>A <i>class</i> precedes its direct <i>superclasses</i>, 
+and a direct <i>superclass</i> precedes all other 
+direct <i>superclasses</i> specified to its right 
+in the <i>superclasses</i> list of the <code>defclass</code> form.  
+For every class C, define 
+</p><blockquote>
+<p>R<sub>C</sub>
+</p></blockquote>
+<p>where C<sub>1</sub>
+the direct <i>superclasses</i> of C in the order in which
+they are mentioned in the <code>defclass</code> form. These ordered pairs
+generate the total ordering on the class C and its direct
+<i>superclasses</i>.
+</p>
+<p>Let S<sub>C</sub>
+</p>
+<blockquote>
+<p>R=⋃<sub>c∈ S<sub>C</sub>
+</p></blockquote>
+<p>.
+</p>
+
+
+<p>The set R might or might not generate a partial ordering, depending on
+whether the R<sub>c</sub>
+consistent; it is assumed
+that they are consistent and that R generates a partial ordering.
+When the R<sub>c</sub>
+</p>
+<p>To compute the <i>class precedence list</i> for&nbsp;C,
+topologically sort the elements of S<sub>C</sub>
+partial ordering generated by R.  When the topological
+sort must select a <i>class</i> from a set of two or more 
+<i>classes</i>, none of
+which are preceded by other <i>classes</i> with respect to&nbsp;R,
+the <i>class</i> selected is chosen deterministically, as described below.
+</p>
+<p>If R is inconsistent, an error is signaled.
+</p>
+
+
+<span id="Topological-Sorting"></span><h4 class="subsubsection">4.3.5.1 Topological Sorting</h4>
+
+<p>Topological sorting proceeds by finding a class C in&nbsp;S<sub>C</sub>
+that no other <i>class</i> precedes that element according to the elements
+in&nbsp;R.  The class C is placed first in the result.
+Remove C from S<sub>C</sub>
+D∈ S<sub>C</sub>
+<i>classes</i> with no predecessors to the end of the result.  Stop when no
+element can be found that has no predecessor.
+</p>
+<p>If S<sub>C</sub>
+inconsistent. If every <i>class</i> in the finite set of 
+<i>classes</i> is preceded
+by another, then R contains a loop. That is, there is a chain of
+classes C<sub>1</sub>
+C<sub>i+1</sub>
+</p>
+<p>Sometimes there are several <i>classes</i> from S<sub>C</sub>
+predecessors.  In this case select the one that has a direct
+<i>subclass</i> rightmost in the <i>class precedence list</i> computed so far.
+(If there is no such candidate <i>class</i>, R does not generate 
+a partial ordering&mdash;the R<sub>c</sub>
+</p>
+<p>In more precise terms, let <tt>{</tt>N<sub>1</sub>
+the <i>classes</i> from S<sub>C</sub>
+constructed so far.  C<sub>1</sub>
+such that there exists an i where 1≤ i≤ m and N<sub>i</sub>
+is a direct <i>superclass</i> of C<sub>j</sub>
+</p>
+<p>The effect of this rule for selecting from a set of <i>classes</i> with no
+predecessors is that the <i>classes</i> in a simple <i>superclass</i> chain are
+adjacent in the <i>class precedence list</i> and that <i>classes</i> in each
+relatively separated subgraph are adjacent in the <i>class precedence list</i>.
+For example, let T<sub>1</sub>
+element in common is the class J.
+Suppose that no superclass of J appears in either T<sub>1</sub>
+and that J is in the superclass chain of every class in both T<sub>1</sub>
+Let C<sub>1</sub>
+and let C<sub>2</sub>
+Suppose C is a <i>class</i> whose direct <i>superclasses</i>
+are C<sub>1</sub>
+for C starts with C and is followed by
+all <i>classes</i> in T<sub>1</sub>
+All the <i>classes</i> of T<sub>2</sub>
+The <i>class</i> J and its <i>superclasses</i> appear last.
+</p>
+
+<span id="Examples-of-Class-Precedence-List-Determination"></span><h4 class="subsubsection">4.3.5.2 Examples of Class Precedence List Determination</h4>
+
+<p>This example determines a <i>class precedence list</i> for the
+class <code>pie</code>.  The following <i>classes</i> are defined:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defclass pie (apple cinnamon) ())
+ 
+ (defclass apple (fruit) ())
+ 
+ (defclass cinnamon (spice) ())
+ 
+ (defclass fruit (food) ())
+
+ (defclass spice (food) ())
+
+ (defclass food () ())
+</pre></div>
+
+
+<p>The set S<sub>pie</sub>
+standard-object, t<tt>}</tt>. The set R&nbsp;= <tt>{</tt><code>(pie, apple),
+(apple, cinnamon), (apple, fruit), (cinnamon, spice), 
+(fruit, food), (spice, food), (food, standard-object), (standard-object,
+t)</code><tt>}</tt>.
+</p>
+<p>The class <code>pie</code> is not preceded by anything, so it comes first;
+the result so far is <code>(pie)</code>.  Remove <code>pie</code> from S and pairs
+mentioning <code>pie</code> from R to get S&nbsp;= <tt>{</tt><code>apple, cinnamon,
+fruit, spice, food, standard-object, t</code><tt>}</tt> and R&nbsp;=&nbsp;<tt>{</tt><code>(apple, cinnamon), (apple, fruit), (cinnamon, spice), (fruit,
+food), (spice, food), (food, standard-object),
+(standard-object, t)</code><tt>}</tt>.
+</p>
+<p>The class <code>apple</code> is not preceded by anything, so it is next; the
+result is <code>(pie apple)</code>. Removing <code>apple</code> and the relevant
+pairs results in S&nbsp;= <tt>{</tt><code>cinnamon, fruit, spice, food,
+standard-object, t</code><tt>}</tt> and R&nbsp;= <tt>{</tt><code>(cinnamon, spice),
+(fruit, food), (spice, food), (food, standard-object),
+(standard-object, t)</code><tt>}</tt>.
+</p>
+<p>The classes <code>cinnamon</code> and <code>fruit</code> are not preceded by
+anything, so the one with a direct <i>subclass</i> rightmost in the 
+<i>class precedence list</i> computed so far goes next.  The class <code>apple</code> is a
+direct <i>subclass</i> of <code>fruit</code>, and the class <code>pie</code> is a direct
+<i>subclass</i> of <code>cinnamon</code>.  Because <code>apple</code> appears to the right
+of <code>pie</code> in the <i>class precedence list</i>, 
+<code>fruit</code> goes next, and the
+result so far is <code>(pie apple fruit)</code>.  S&nbsp;= <tt>{</tt><code>cinnamon,
+spice, food, standard-object, t</code><tt>}</tt>; R&nbsp;= <tt>{</tt><code>(cinnamon,
+spice), (spice, food), (food, standard-object),
+(standard-object, t)</code><tt>}</tt>.
+</p>
+<p>The class <code>cinnamon</code> is next, giving the result so far as <code>(pie apple fruit cinnamon)</code>.  At this point S&nbsp;= <tt>{</tt><code>spice,
+food, standard-object, t</code><tt>}</tt>; R&nbsp;= <tt>{</tt><code>(spice, food), (food,
+standard-object), (standard-object, t)</code><tt>}</tt>.
+</p>
+<p>The classes <code>spice</code>, <code>food</code>, <code>standard-object</code>, and 
+<code>t</code> are added in that order, and the <i>class precedence list</i> 
+is <code>(pie apple fruit cinnamon spice food standard-object t)</code>.
+</p>
+<p>It is possible to write a set of <i>class</i> definitions that cannot be 
+ordered.   For example: 
+</p>
+<div class="lisp">
+<pre class="lisp"> (defclass new-class (fruit apple) ())
+ 
+ (defclass apple (fruit) ())
+</pre></div>
+
+
+<p>The class <code>fruit</code> must precede <code>apple</code> 
+because the local ordering of <i>superclasses</i> must be preserved.
+The class <code>apple</code> must precede <code>fruit</code> 
+because a <i>class</i> always precedes its own <i>superclasses</i>.
+When this situation occurs, an error is signaled, as happens here
+when the system tries to compute the <i>class precedence list</i> 
+of <code>new-class</code>.
+</p>
+<p>The following might appear to be a conflicting set of definitions:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defclass pie (apple cinnamon) ())
+ 
+ (defclass pastry (cinnamon apple) ())
+ 
+ (defclass apple () ())
+ 
+ (defclass cinnamon () ())
+</pre></div>
+
+
+<p>The <i>class precedence list</i> for <code>pie</code> is 
+<code>(pie apple cinnamon standard-object t)</code>.
+</p>
+<p>The <i>class precedence list</i> for <code>pastry</code> is  
+<code>(pastry cinnamon apple standard-object t)</code>.
+</p>
+<p>It is not a problem for <code>apple</code> to precede <code>cinnamon</code> in the
+ordering of the <i>superclasses</i> of <code>pie</code> but not in the ordering for
+<code>pastry</code>.  However, it is not possible to build a new <i>class</i> that
+has both <code>pie</code> and <code>pastry</code> as <i>superclasses</i>.
+</p>
+
+<hr>
+<span id="Redefining-Classes"></span><div class="header">
+<p>
+Next: <a href="#Integrating-Types-and-Classes" accesskey="n" rel="next">Integrating Types and Classes</a>, Previous: <a href="#Determining-the-Class-Precedence-List" accesskey="p" rel="prev">Determining the Class Precedence List</a>, Up: <a href="#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Redefining-Classes-1"></span><h4 class="subsection">4.3.6 Redefining Classes</h4>
+
+<p>A <i>class</i> that is a <i>direct instance</i> of <code>standard-class</code> can
+be redefined if the new <i>class</i> is also
+a <i>direct instance</i> of <code>standard-class</code>.
+Redefining a <i>class</i> modifies the existing
+<i>class</i> <i>object</i> to reflect the new <i>class</i> definition; it does not
+create a new <i>class</i> <i>object</i> for the <i>class</i>.  
+Any <i>method</i> <i>object</i> created by a <tt>:reader</tt>, <tt>:writer</tt>, 
+or <tt>:accessor</tt> option specified by the old <code>defclass</code> form is
+removed from the corresponding <i>generic function</i>.
+<i>Methods</i> specified by the new <code>defclass</code> form are added.
+</p>
+<p>When the class C is redefined, changes are propagated to its <i>instances</i>
+and to <i>instances</i> of any of its <i>subclasses</i>.  Updating such an
+<i>instance</i> occurs at an <i>implementation-dependent</i> time, but no later than
+the next time a <i>slot</i> 
+of that <i>instance</i> is read or written.  Updating an
+<i>instance</i> 
+does not change its identity as defined by the <i>function</i> <code>eq</code>.
+The updating process may change the <i>slots</i> of that
+particular <i>instance</i>, 
+but it does not create a new <i>instance</i>.  Whether
+updating an <i>instance</i> consumes storage is <i>implementation-dependent</i>.
+</p>
+<p>Note that redefining a <i>class</i> may cause <i>slots</i> to be added or 
+deleted.  If a <i>class</i> is redefined in a way that changes the set of
+<i>local slots</i> <i>accessible</i> in <i>instances</i>, the <i>instances</i> 
+are updated.  It is <i>implementation-dependent</i> whether <i>instances</i> 
+are updated if a <i>class</i> is redefined in a way that does not change 
+the set of <i>local slots</i> <i>accessible</i> in <i>instances</i>.
+</p>
+<p>The value of a <i>slot</i> 
+that is specified as shared both in the old <i>class</i>
+and in the new <i>class</i> is retained.  
+If such a <i>shared slot</i> was unbound
+in the old <i>class</i>, it is unbound in the new <i>class</i>.  
+<i>Slots</i> that
+were local in the old <i>class</i> and that are shared in the new 
+<i>class</i> are
+initialized.  Newly added <i>shared slots</i> are initialized.
+</p>
+<p>Each newly added <i>shared slot</i> is set to the result of evaluating the
+<i>captured initialization form</i> for the <i>slot</i> that was specified 
+in the <code>defclass</code> <i>form</i> for the new <i>class</i>.  
+If there was no <i>initialization form</i>, the <i>slot</i> is unbound.
+</p>
+<p>If a <i>class</i> is redefined in such a way that the set of
+<i>local slots</i> <i>accessible</i> in an <i>instance</i> of the <i>class</i> 
+is changed, a two-step process of updating the <i>instances</i> of the
+<i>class</i> takes place.  The process may be explicitly started by 
+invoking the generic function <code>make-instances-obsolete</code>.  This
+two-step process can happen in other circumstances in some implementations.
+For example, in some implementations this two-step process is
+triggered if the order of <i>slots</i> in storage is changed.
+</p>
+<p>The first step modifies the structure of the <i>instance</i> by adding new
+<i>local slots</i> and discarding <i>local slots</i> that are not
+defined in the new version of the <i>class</i>.  The second step
+initializes the newly-added <i>local slots</i> and performs any other
+user-defined actions. These two steps are further specified
+in the next two sections.
+</p>
+<span id="Modifying-the-Structure-of-Instances"></span><h4 class="subsubsection">4.3.6.1 Modifying the Structure of Instances</h4>
+
+
+
+<p>The first step modifies the structure of <i>instances</i> of the redefined
+<i>class</i> to conform to its new <i>class</i> definition.  
+<i>Local slots</i> specified
+by the new <i>class</i> definition that are not specified as either local or
+shared by the old <i>class</i> are added, and <i>slots</i> 
+not specified as either
+local or shared by the new <i>class</i> definition that are specified as
+local by the old <i>class</i> are discarded. 
+The <i>names</i> of these added and discarded
+<i>slots</i> are passed as arguments 
+to <code>update-instance-for-redefined-class</code>
+as described in the next section.
+</p>
+<p>The values of <i>local slots</i> specified by both the new and old
+<i>classes</i> are retained. If such a <i>local slot</i> was unbound,
+it remains unbound.
+</p>
+<p>The value of a <i>slot</i> that is specified as shared in the old 
+<i>class</i> and as local in the new <i>class</i> is retained.  If such 
+a <i>shared slot</i> was unbound, the <i>local slot</i> is unbound.
+</p>
+
+<span id="Initializing-Newly-Added-Local-Slots-1"></span><h4 class="subsubsection">4.3.6.2 Initializing Newly Added Local Slots</h4>
+
+<p>The second step initializes the newly added <i>local slots</i> and performs
+any other user-defined actions.  This step is implemented by the generic
+function <code>update-instance-for-redefined-class</code>, which is called after
+completion of the first step of modifying the structure of the
+<i>instance</i>.
+</p>
+<p>The generic function <code>update-instance-for-redefined-class</code> takes
+four required arguments: the <i>instance</i> being updated after it has
+undergone the first step, a list of the names of <i>local slots</i> that were
+added, a list of the names of <i>local slots</i> that were discarded, and a
+property list containing the <i>slot</i> names and values of 
+<i>slots</i> that were
+discarded and had values.  Included among the discarded <i>slots</i> are
+<i>slots</i> that were local in the old <i>class</i> and that are shared in the new
+<i>class</i>.
+</p>
+<p>The generic function <code>update-instance-for-redefined-class</code> also
+takes any number of initialization arguments.  When it is called by
+the system to update an <i>instance</i> whose <i>class</i> 
+has been redefined, no
+initialization arguments are provided.
+</p>
+<p>There is a system-supplied primary <i>method</i> for 
+<code>update-instance-for-redefined-class</code> whose <i>parameter specializer</i>
+for its <i>instance</i> argument is the <i>class</i> <code>standard-object</code>.  
+First this <i>method</i> checks the validity of initialization arguments and signals an
+error if an initialization argument is supplied that is not declared
+as valid.  (For more information, see <a href="Objects.html#Declaring-the-Validity-of-Initialization-Arguments">Section 7.1.2 (Declaring the Validity of Initialization Arguments)</a>.)
+Then it calls the generic function
+<code>shared-initialize</code> with the following arguments: the 
+<i>instance</i>,
+the list of <i>names</i> of 
+the newly added <i>slots</i>, and the initialization
+arguments it received.
+</p>
+
+<span id="Customizing-Class-Redefinition"></span><h4 class="subsubsection">4.3.6.3 Customizing Class Redefinition</h4>
+
+
+
+<p><i>Methods</i> for <code>update-instance-for-redefined-class</code> may be 
+defined to specify actions to be taken when an <i>instance</i> is updated.
+If only <i>after methods</i> for <code>update-instance-for-redefined-class</code> are
+defined, they will be run after the system-supplied primary <i>method</i> for
+initialization and therefore will not interfere with the default
+behavior of <code>update-instance-for-redefined-class</code>.  Because no
+initialization arguments are passed to <code>update-instance-for-redefined-class</code>
+when it is called by the system, the 
+<i>initialization forms</i> for <i>slots</i> 
+that are filled by <i>before methods</i> for <code>update-instance-for-redefined-class</code> 
+will not be evaluated by <code>shared-initialize</code>.
+</p>
+<p><i>Methods</i> for <code>shared-initialize</code> may be defined to customize
+<i>class</i> redefinition.  For more information, see <a href="Objects.html#Shared_002dInitialize">Section 7.1.5 (Shared-Initialize)</a>.
+</p>
+
+<hr>
+<span id="Integrating-Types-and-Classes"></span><div class="header">
+<p>
+Previous: <a href="#Redefining-Classes" accesskey="p" rel="prev">Redefining Classes</a>, Up: <a href="#Classes" accesskey="u" rel="up">Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Integrating-Types-and-Classes-1"></span><h4 class="subsection">4.3.7 Integrating Types and Classes</h4>
+
+<p>The object system&nbsp;<!-- /@w -->maps the space of <i>classes</i> into the space of <i>types</i>.
+Every <i>class</i> that has a proper name has a corresponding <i>type</i> 
+with the same <i>name</i>.  
+</p>
+<p>The proper name of every <i>class</i> is a valid <i>type specifier</i>.  In
+addition, every <i>class</i> <i>object</i> is a valid <i>type specifier</i>.  
+Thus the expression <code>(typep <var>object</var> <var>class</var>)</code> evaluates to 
+<i>true</i> if the <i>class</i> of <var>object</var> is <var>class</var> itself or 
+a <i>subclass</i> of <i>class</i>.  The evaluation of the expression
+<code>(subtypep class1 class2)</code> returns the values 
+<i>true</i> and <i>true</i> if <code>class1</code> is a subclass of <code>class2</code> or if they are the
+same <i>class</i>; otherwise it returns the values 
+<i>false</i> and <i>true</i>.
+If  I is an <i>instance</i> of some <i>class</i> C named S 
+and C is an <i>instance</i> of <code>standard-class</code>, 
+the evaluation of the expression <code>(type-of I)</code> returns S 
+if S is the <i>proper name</i> of C; 
+otherwise, it returns C.
+</p>
+<p>Because the names of <i>classes</i> 
+and <i>class</i> <i>objects</i> are <i>type specifiers</i>, they may
+be used in the special form <code>the</code> and in type declarations.
+</p>
+<p>Many but not all of the predefined <i>type specifiers</i> have a
+corresponding <i>class</i> with 
+the same proper name as the <i>type</i>.  These type
+specifiers are listed in <a href="#ClassTypeCorrespondence">Figure 4.8</a>.
+For example, the <i>type</i> <code>array</code> has 
+a corresponding <i>class</i> named <code>array</code>.  
+No <i>type specifier</i> that is a
+list, such as <code>(vector double-float 100)</code>, has a corresponding <i>class</i>.
+The <i>operator</i> <code>deftype</code> does not create any <i>classes</i>.
+</p>
+<p>Each <i>class</i> that corresponds to a predefined <i>type specifier</i> can
+be implemented in one of three ways, at the discretion of each implementation.
+It can be a <i>standard class</i>,
+a <i>structure class</i>,
+or a <i>system class</i>.
+</p>
+<p>A <i>built-in class</i> is one whose <i>generalized instances</i> have restricted capabilities 
+or special representations.  Attempting to use <code>defclass</code> to define 
+<i>subclasses</i> of a <code>built-in-class</code> signals an error.
+Calling <code>make-instance</code> to create a <i>generalized instance</i> of a 
+<i>built-in class</i> signals an error.  Calling <code>slot-value</code> on a
+<i>generalized instance</i> of a <i>built-in class</i> signals an error.
+Redefining a <i>built-in class</i> or using <code>change-class</code> to change
+the <i>class</i> of an <i>object</i> to or from a <i>built-in class</i> signals an error.
+However, <i>built-in classes</i> can be used as <i>parameter specializers</i> 
+in <i>methods</i>.
+</p>
+
+<p>It is possible to determine whether a <i>class</i> is a <i>built-in class</i>
+by checking the <i>metaclass</i>.
+A <i>standard class</i>  is an <i>instance</i> of the <i>class</i> <code>standard-class</code>,
+a <i>built-in class</i>  is an <i>instance</i> of the <i>class</i> <code>built-in-class</code>, and
+a <i>structure class</i> is an <i>instance</i> of the <i>class</i> <code>structure-class</code>.
+</p>
+<p>Each <i>structure</i> <i>type</i> created by <code>defstruct</code> without 
+using the <tt>:type</tt> option has a corresponding <i>class</i>.  
+This <i>class</i> is a <i>generalized instance</i> of the <i>class</i> <code>structure-class</code>.  
+The <tt>:include</tt> option of <code>defstruct</code> creates a direct
+<i>subclass</i> of the <i>class</i> 
+that corresponds to the included <i>structure</i> 
+<i>type</i>.
+</p>
+<p>It is <i>implementation-dependent</i> whether <i>slots</i> are involved in the
+operation of <i>functions</i> defined in this specification
+on <i>instances</i> of <i>classes</i> defined in this specification,
+except when <i>slots</i> are explicitly defined by this specification.
+</p>
+<p>If in a particular <i>implementation</i> a <i>class</i> defined in this specification
+has <i>slots</i> that are not defined by this specfication, the names of these <i>slots</i>
+must not be <i>external symbols</i> of <i>packages</i> defined in this specification nor
+otherwise <i>accessible</i> in the <code>CL-USER</code> <i>package</i>.
+</p>
+
+<p>The purpose of specifying that many of the standard <i>type specifiers</i> have a
+corresponding <i>class</i> is to enable users to write <i>methods</i> that
+discriminate on these <i>types</i>.  <i>Method</i> selection requires that a 
+<i>class precedence list</i> can be determined for each <i>class</i>. 
+</p>
+<p>The hierarchical relationships among the <i>type specifiers</i> are mirrored by
+relationships among the <i>classes</i> corresponding to those <i>types</i>.  
+</p>
+<p><a href="#ClassTypeCorrespondence">Figure 4.8</a>&nbsp;<!-- /@w -->lists the set of <i>classes</i> 
+that correspond to predefined <i>type specifiers</i>.
+</p>
+
+
+<div class="float"><span id="ClassTypeCorrespondence"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>arithmetic-error</td><td>generic-function</td><td>simple-error</td></tr>
+<tr><td>array</td><td>hash-table</td><td>simple-type-error</td></tr>
+<tr><td>bit-vector</td><td>integer</td><td>simple-warning</td></tr>
+<tr><td>broadcast-stream</td><td>list</td><td>standard-class</td></tr>
+<tr><td>built-in-class</td><td>logical-pathname</td><td>standard-generic-function</td></tr>
+<tr><td>cell-error</td><td>method</td><td>standard-method</td></tr>
+<tr><td>character</td><td>method-combination</td><td>standard-object</td></tr>
+<tr><td>class</td><td>null</td><td>storage-condition</td></tr>
+<tr><td>complex</td><td>number</td><td>stream</td></tr>
+<tr><td>concatenated-stream</td><td>package</td><td>stream-error</td></tr>
+<tr><td>condition</td><td>package-error</td><td>string</td></tr>
+<tr><td>cons</td><td>parse-error</td><td>string-stream</td></tr>
+<tr><td>control-error</td><td>pathname</td><td>structure-class</td></tr>
+<tr><td>division-by-zero</td><td>print-not-readable</td><td>structure-object</td></tr>
+<tr><td>echo-stream</td><td>program-error</td><td>style-warning</td></tr>
+<tr><td>end-of-file</td><td>random-state</td><td>symbol</td></tr>
+<tr><td>error</td><td>ratio</td><td>synonym-stream</td></tr>
+<tr><td>file-error</td><td>rational</td><td>t</td></tr>
+<tr><td>file-stream</td><td>reader-error</td><td>two-way-stream</td></tr>
+<tr><td>float</td><td>readtable</td><td>type-error</td></tr>
+<tr><td>floating-point-inexact</td><td>real</td><td>unbound-slot</td></tr>
+<tr><td>floating-point-invalid-operation</td><td>restart</td><td>unbound-variable</td></tr>
+<tr><td>floating-point-overflow</td><td>sequence</td><td>undefined-function</td></tr>
+<tr><td>floating-point-underflow</td><td>serious-condition</td><td>vector</td></tr>
+<tr><td>function</td><td>simple-condition</td><td>warning</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.8: </strong>Classes that correspond to pre-defined type specifiers</p></div></div>
+
+<p>The <i>class precedence list</i> information specified in the entries for
+each of these <i>classes</i> are those that are required by the object system.
+</p>
+<p>Individual implementations may be extended to define other type
+specifiers to have a corresponding <i>class</i>.  Individual implementations
+may be extended to add other <i>subclass</i> relationships and to add other
+<i>elements</i> to the <i>class precedence lists</i> as long as
+they do not violate the type relationships and disjointness
+requirements specified by this standard.
+A standard <i>class</i> defined with no direct <i>superclasses</i> is guaranteed to
+be disjoint from all of the <i>classes</i> in the table, except for the
+class named <code>t</code>.
+</p>
+
+<hr>
+<span id="nil-_0028Type_0029"></span><div class="header">
+<p>
+Next: <a href="#boolean" accesskey="n" rel="next">boolean</a>, Previous: <a href="#Classes" accesskey="p" rel="prev">Classes</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">nil (Type)</h4>
+<span id="nil-_0028Type_0029-1"></span><h3 class="heading">nil (Type)</h3>
+<span id="index-nil-4"></span>
+<span id="index-nil-2"></span>
+
+
+<span id="Supertypes_003a"></span><h4 class="subsubheading">Supertypes:</h4>
+<p>all <i>types</i>
+</p>
+<span id="Description_003a-30"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>nil</code> contains no <i>objects</i> and so is also
+called the <i>empty type</i>.
+The <i>type</i> <code>nil</code> is a <i>subtype</i> of every <i>type</i>.
+No <i>object</i> is of <i>type</i> <code>nil</code>.
+</p>
+<span id="Notes_003a-18"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <i>type</i> containing the <i>object</i> <code>nil</code>&nbsp;<!-- /@w -->is the <i>type</i> <code>null</code>,
+not the <i>type</i> <code>nil</code>.
+</p>
+
+<hr>
+<span id="boolean"></span><div class="header">
+<p>
+Next: <a href="#function-_0028System-Class_0029" accesskey="n" rel="next">function (System Class)</a>, Previous: <a href="#nil-_0028Type_0029" accesskey="p" rel="prev">nil (Type)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">boolean</h4>
+<span id="boolean-_0028Type_0029"></span><h3 class="heading">boolean (Type)</h3>
+<span id="index-boolean-1"></span>
+<span id="index-boolean"></span>
+
+
+<span id="Supertypes_003a-1"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>boolean</code>,
+<code>symbol</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-31"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>boolean</code> contains the <i>symbols</i> <tt>t</tt> and <tt>nil</tt>,
+which represent true and false, respectively.
+</p>
+<span id="See-Also_003a-29"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Data-and-Control-Flow.html#t-_0028Constant-Variable_0029">t (Constant Variable)</a>,
+<a href="Data-and-Control-Flow.html#nil-_0028Constant-Variable_0029">nil (Constant Variable)</a>,
+<a href="Data-and-Control-Flow.html#if">if</a>,
+<a href="Data-and-Control-Flow.html#not-_0028Function_0029">not (Function)</a>,
+<a href="Data-and-Control-Flow.html#complement">complement</a>
+</p>
+<span id="Notes_003a-19"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Conditional operations, such as <code>if</code>,
+permit the use of <i>generalized booleans</i>,
+not just <i>booleans</i>;
+any <i>non-nil</i> value,
+not just <tt>t</tt>,
+counts as true for a <i>generalized boolean</i>.
+However, as a matter of convention, 
+the <i>symbol</i> <tt>t</tt> is considered the canonical value to use
+even for a <i>generalized boolean</i> when no better choice presents itself.
+</p>
+
+<hr>
+<span id="function-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="#compiled_002dfunction" accesskey="n" rel="next">compiled-function</a>, Previous: <a href="#boolean" accesskey="p" rel="prev">boolean</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">function (System Class)</h4>
+<span id="function-_0028System-Class_0029-1"></span><h3 class="heading">function (System Class)</h3>
+<span id="index-function-4"></span>
+<span id="index-function-1"></span>
+
+
+
+<span id="Class-Precedence-List_003a"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>function</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-32"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>function</i> is an <i>object</i> that represents code 
+to be executed when an appropriate number of arguments is supplied.
+A <i>function</i> is produced by 
+the <code>function</code> <i>special form</i>,
+the <i>function</i> <code>coerce</code>,
+or
+the <i>function</i> <code>compile</code>.
+A <i>function</i> can be directly invoked by using it as the first argument to
+<code>funcall</code>, <code>apply</code>, or <code>multiple-value-call</code>.
+</p>
+<span id="Compound-Type-Specifier-Kind_003a"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(function <tt>[</tt>arg-typespec <tt>[</tt>value-typespec<tt>]</tt><tt>]</tt>)
+</p>
+<dl compact="compact">
+<dt><var>arg-typespec</var>::=</dt>
+<dd><p><tt>(</tt><tt>{</tt>typespec<tt>}</tt>* <br> &nbsp;<!-- /@w --><tt>[</tt><tt>&amp;optional</tt> <tt>{</tt>typespec<tt>}</tt>*<tt>]</tt> <br> &nbsp;<!-- /@w --><tt>[</tt><tt>&amp;rest</tt> <var>typespec</var><tt>]</tt> <br> &nbsp;<!-- /@w --><tt>[</tt><tt>&amp;key</tt> <tt>{</tt><tt>(</tt>keyword typespec<tt>)</tt><tt>}</tt>*<tt>]</tt><tt>)</tt>
+</p></dd>
+</dl>
+
+<span id="Compound-Type-Specifier-Arguments_003a"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>value-typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+
+
+
+
+
+
+<p>The list form of the <code>function</code> <i>type-specifier</i>
+can be used only for declaration and not for discrimination.
+Every element of this <i>type</i> is
+a <i>function</i> that accepts arguments of the
+types   
+specified by the  <var>argj-types</var> and returns values that are
+members of the <i>types</i> specified by <var>value-type</var>. The
+<code>&amp;optional</code>, <code>&amp;rest</code>, <code>&amp;key</code>, 
+and <code>&amp;allow-other-keys</code> 
+markers can appear in the list of argument types. 
+The <i>type specifier</i> provided
+with <code>&amp;rest</code> is the <i>type</i> 
+of each actual argument, not the <i>type</i> of the
+corresponding variable.
+</p>
+<p>The <code>&amp;key</code> parameters 
+should be supplied as lists of the form <code>(<var>keyword</var> <var>type</var>)</code>.  
+The <var>keyword</var> must be a valid keyword-name symbol
+as must be supplied in the actual arguments of a
+call.
+This is usually a <i>symbol</i> in the <code>KEYWORD</code> <i>package</i> but can be any <i>symbol</i>.
+When <code>&amp;key</code> is given in a
+<code>function</code> <i>type specifier</i> <i>lambda list</i>,
+the <i>keyword parameters</i> given
+are exhaustive unless <code>&amp;allow-other-keys</code> is also present. 
+<code>&amp;allow-other-keys</code> is an indication 
+that other keyword arguments might actually be
+supplied and, if supplied, can be used. 
+For example,
+the <i>type</i> of the <i>function</i> <code>make-list</code> could be declared as follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (function ((integer 0) &amp;key (:initial-element t)) list)
+</pre></div>
+
+
+<p>The <var>value-type</var> can be a <code>values</code> 
+<i>type specifier</i> in order to indicate the
+<i>types</i> of <i>multiple values</i>.
+</p>
+
+<p>Consider a declaration of the following form:
+</p>
+<div class="lisp">
+<pre class="lisp"> (ftype (function (arg0-type arg1-type ...) val-type) f))
+</pre></div>
+
+
+<p>Any <i>form</i>
+<code>(f arg0 arg1 ...)</code>
+within the scope of
+that declaration is equivalent to the following:
+</p>
+<div class="lisp">
+<pre class="lisp"> (the val-type (f (the arg0-type arg0) (the arg1-type arg1) ...))
+</pre></div>
+
+
+<p>That is, the consequences are undefined if any of the arguments are
+not of the specified <i>types</i> or the result is not of the
+specified <i>type</i>. In particular, if any argument is not of the
+correct <i>type</i>, the result is not guaranteed to be of the
+specified <i>type</i>.
+</p>
+<p>Thus, an <code>ftype</code> declaration for a <i>function</i>
+describes <i>calls</i> to the <i>function</i>, not the actual definition
+of the <i>function</i>.
+</p>
+<p>Consider a declaration of the following form:
+</p>
+<div class="lisp">
+<pre class="lisp"> (type (function (arg0-type arg1-type ...) val-type) fn-valued-variable)
+</pre></div>
+
+
+<p>This declaration has the interpretation that, within the scope of the
+declaration, the consequences are unspecified if the value of <code>fn-valued-variable</code> is called with arguments not of the specified
+<i>types</i>; the value resulting from a valid call will be of type
+<code>val-type</code>.
+</p>
+<p>As with variable type declarations, nested declarations
+imply intersections of <i>types</i>, as follows:
+</p>
+<ul>
+<li> Consider the following two
+declarations of <code>ftype</code>:
+
+<div class="lisp">
+<pre class="lisp"> (ftype (function (arg0-type1 arg1-type1 ...) val-type1) f))
+</pre></div>
+
+<p>and
+</p>
+<div class="lisp">
+<pre class="lisp"> (ftype (function (arg0-type2 arg1-type2 ...) val-type2) f))
+</pre></div>
+
+
+<p>If both these declarations are in effect,
+then within the shared scope of the declarations, calls to <code>f</code> can be
+treated as if <code>f</code> were declared as follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (ftype (function ((and arg0-type1 arg0-type2) (and arg1-type1 arg1-type2 ...) ...)
+                  (and val-type1 val-type2)) 
+        f))
+</pre></div>
+
+
+<p>It is permitted to ignore one or all of the <code>ftype</code> declarations in force.
+</p>
+</li><li> If two (or more) type declarations are in effect for a variable, and
+they are both <code>function</code> declarations, the declarations combine similarly.
+</li></ul>
+
+
+
+
+
+<hr>
+<span id="compiled_002dfunction"></span><div class="header">
+<p>
+Next: <a href="#generic_002dfunction" accesskey="n" rel="next">generic-function</a>, Previous: <a href="#function-_0028System-Class_0029" accesskey="p" rel="prev">function (System Class)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">compiled-function</h4>
+<span id="compiled_002dfunction-_0028Type_0029"></span><h3 class="heading">compiled-function (Type)</h3>
+<span id="index-compiled_002dfunction-1"></span>
+<span id="index-compiled_002dfunction"></span>
+
+
+
+<span id="Supertypes_003a-2"></span><h4 class="subsubheading">Supertypes:</h4>
+
+<p><code>compiled-function</code>,
+<code>function</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-33"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Any <i>function</i> may be considered by an <i>implementation</i> to be a 
+a <i>compiled function</i> if it contains no references to <i>macros</i> that
+must be expanded at run time, and it contains no unresolved references 
+to <i>load time values</i>.  See <a href="Evaluation-and-Compilation.html#Compilation-Semantics">Section 3.2.2 (Compilation Semantics)</a>.
+</p>
+<p><i>Functions</i> whose definitions appear lexically within a
+<i>file</i> that has been <i>compiled</i> with <code>compile-file</code> and then
+<i>loaded</i> with <code>load</code> are of <i>type</i> <code>compiled-function</code>.
+<i>Functions</i> produced by the <code>compile</code> function
+are of <i>type</i> <code>compiled-function</code>.
+Other <i>functions</i> might also be of <i>type</i> <code>compiled-function</code>.
+</p>
+
+
+<hr>
+<span id="generic_002dfunction"></span><div class="header">
+<p>
+Next: <a href="#standard_002dgeneric_002dfunction" accesskey="n" rel="next">standard-generic-function</a>, Previous: <a href="#compiled_002dfunction" accesskey="p" rel="prev">compiled-function</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">generic-function</h4>
+<span id="generic_002dfunction-_0028System-Class_0029"></span><h3 class="heading">generic-function (System Class)</h3>
+<span id="index-generic_002dfunction-1"></span>
+<span id="index-generic_002dfunction"></span>
+
+
+<span id="Class-Precedence-List_003a-1"></span><h4 class="subsubheading">Class Precedence List:</h4>
+
+<p><code>generic-function</code>,
+<code>function</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-34"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <span id="index-generic-function"></span>
+<em>generic function</em> is a <i>function</i> whose behavior
+depends on the <i>classes</i> or identities of the <i>arguments</i>
+supplied to it.  A generic function object contains a set of
+<i>methods</i>, a <i>lambda list</i>, a <i>method combination</i> <i>type</i>, 
+and other information.  The <i>methods</i>
+define the class-specific behavior and operations of the <i>generic function</i>;
+a <i>method</i> is said to <i>specialize</i> a <i>generic function</i>.
+When invoked, a <i>generic function</i> executes a subset of its
+<i>methods</i> based on the <i>classes</i> or identities of its <i>arguments</i>.
+</p>
+<p>A <i>generic function</i> can be used in the same ways that an
+ordinary <i>function</i> can be used; specifically, a <i>generic function</i> can
+be used as an argument to <code>funcall</code> and <code>apply</code>,
+and can be given a global or a local name.
+</p>
+
+<hr>
+<span id="standard_002dgeneric_002dfunction"></span><div class="header">
+<p>
+Next: <a href="#class" accesskey="n" rel="next">class</a>, Previous: <a href="#generic_002dfunction" accesskey="p" rel="prev">generic-function</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">standard-generic-function</h4>
+<span id="standard_002dgeneric_002dfunction-_0028System-Class_0029"></span><h3 class="heading">standard-generic-function (System Class)</h3>
+<span id="index-standard_002dgeneric_002dfunction-1"></span>
+<span id="index-standard_002dgeneric_002dfunction"></span>
+
+
+<span id="Class-Precedence-List_003a-2"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>standard-generic-function</code>,
+<code>generic-function</code>,
+<code>function</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-35"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>class</i> <code>standard-generic-function</code> is the default <i>class</i> of
+<i>generic functions</i> <i>established</i> by
+<code>defmethod</code>,
+<code>ensure-generic-function</code>,
+<code>defgeneric</code>,
+and
+<code>defclass</code> <i>forms</i>.
+</p>
+
+<hr>
+<span id="class"></span><div class="header">
+<p>
+Next: <a href="#built_002din_002dclass" accesskey="n" rel="next">built-in-class</a>, Previous: <a href="#standard_002dgeneric_002dfunction" accesskey="p" rel="prev">standard-generic-function</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">class</h4>
+<span id="class-_0028System-Class_0029"></span><h3 class="heading">class (System Class)</h3>
+<span id="index-class-2"></span>
+<span id="index-class-1"></span>
+
+
+<span id="Class-Precedence-List_003a-3"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>class</code>,
+<code>standard-object</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-36"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>class</code> represents <i>objects</i> that determine the structure 
+and behavior of their <i>instances</i>. Associated with an <i>object</i>
+of <i>type</i> <code>class</code> is information describing its place in the 
+directed acyclic graph of <i>classes</i>, its <i>slots</i>, and its options.
+</p>
+
+<hr>
+<span id="built_002din_002dclass"></span><div class="header">
+<p>
+Next: <a href="#structure_002dclass" accesskey="n" rel="next">structure-class</a>, Previous: <a href="#class" accesskey="p" rel="prev">class</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">built-in-class</h4>
+<span id="built_002din_002dclass-_0028System-Class_0029"></span><h3 class="heading">built-in-class (System Class)</h3>
+<span id="index-built_002din_002dclass-1"></span>
+<span id="index-built_002din_002dclass"></span>
+
+
+<span id="Class-Precedence-List_003a-4"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>built-in-class</code>,
+<code>class</code>,
+<code>standard-object</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-37"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>built-in class</i> is a <i>class</i> whose <i>instances</i> have 
+restricted capabilities or special representations.
+Attempting to use
+<code>defclass</code> to define <i>subclasses</i> of a <i>built-in class</i>
+signals an error of <i>type</i> <code>error</code>.
+Calling <code>make-instance</code> to create an <i>instance</i> 
+of a <i>built-in class</i> signals an error of <i>type</i> <code>error</code>.
+Calling <code>slot-value</code> on an <i>instance</i> of a <i>built-in class</i>
+signals an error of <i>type</i> <code>error</code>.  Redefining a <i>built-in class</i>
+or using <code>change-class</code> to change the <i>class</i> of an <i>instance</i>
+to or from a <i>built-in class</i> signals an error of <i>type</i> <code>error</code>.
+However, <i>built-in classes</i> can be used as <i>parameter specializers</i>
+in <i>methods</i>.
+</p>
+
+<hr>
+<span id="structure_002dclass"></span><div class="header">
+<p>
+Next: <a href="#standard_002dclass" accesskey="n" rel="next">standard-class</a>, Previous: <a href="#built_002din_002dclass" accesskey="p" rel="prev">built-in-class</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">structure-class</h4>
+<span id="structure_002dclass-_0028System-Class_0029"></span><h3 class="heading">structure-class (System Class)</h3>
+<span id="index-structure_002dclass-1"></span>
+<span id="index-structure_002dclass"></span>
+
+
+<span id="Class-Precedence-List_003a-5"></span><h4 class="subsubheading">Class Precedence List:</h4>
+
+<p><code>structure-class</code>,
+<code>class</code>,
+<code>standard-object</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-38"></span><h4 class="subsubheading">Description:</h4>
+
+<p>All <i>classes</i> defined by means of <code>defstruct</code> 
+are <i>instances</i> of the <i>class</i> <code>structure-class</code>.
+</p>
+
+<hr>
+<span id="standard_002dclass"></span><div class="header">
+<p>
+Next: <a href="#method" accesskey="n" rel="next">method</a>, Previous: <a href="#structure_002dclass" accesskey="p" rel="prev">structure-class</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">standard-class</h4>
+<span id="standard_002dclass-_0028System-Class_0029"></span><h3 class="heading">standard-class (System Class)</h3>
+<span id="index-standard_002dclass-1"></span>
+<span id="index-standard_002dclass"></span>
+
+
+<span id="Class-Precedence-List_003a-6"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>standard-class</code>,
+<code>class</code>,
+<code>standard-object</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-39"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>class</i> <code>standard-class</code> is the default <i>class</i> of <i>classes</i>
+defined by <code>defclass</code>.
+</p>
+
+<hr>
+<span id="method"></span><div class="header">
+<p>
+Next: <a href="#standard_002dmethod" accesskey="n" rel="next">standard-method</a>, Previous: <a href="#standard_002dclass" accesskey="p" rel="prev">standard-class</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">method</h4>
+<span id="method-_0028System-Class_0029"></span><h3 class="heading">method (System Class)</h3>
+<span id="index-method-1"></span>
+<span id="index-method"></span>
+
+
+<span id="Class-Precedence-List_003a-7"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>method</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-40"></span><h4 class="subsubheading">Description:</h4>
+
+<p>A <i>method</i> is an <i>object</i> that represents a modular part of the behavior
+of a <i>generic function</i>.
+</p>
+<p>A <i>method</i> contains <i>code</i> to implement the <i>method</i>&rsquo;s
+behavior, a sequence of <i>parameter specializers</i> that specify when the
+given <i>method</i> is applicable, and a sequence of <i>qualifiers</i>
+that is used by the method combination facility to distinguish among
+<i>methods</i>.  Each required parameter of each 
+<i>method</i> has an associated <i>parameter specializer</i>, and the 
+<i>method</i> will be invoked only on arguments that satisfy its 
+<i>parameter specializers</i>.
+</p>
+<p>The method combination facility controls the selection of 
+<i>methods</i>, the order in which they are run, and the values that are
+returned by the generic function.  The object system&nbsp;<!-- /@w -->offers a default method
+combination type and provides a facility for declaring new types of
+method combination.
+</p>
+<span id="See-Also_003a-30"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Objects.html#Generic-Functions-and-Methods">Section 7.6 (Generic Functions and Methods)</a>
+</p>
+
+<hr>
+<span id="standard_002dmethod"></span><div class="header">
+<p>
+Next: <a href="#structure_002dobject" accesskey="n" rel="next">structure-object</a>, Previous: <a href="#method" accesskey="p" rel="prev">method</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">standard-method</h4>
+<span id="standard_002dmethod-_0028System-Class_0029"></span><h3 class="heading">standard-method (System Class)</h3>
+<span id="index-standard_002dmethod-1"></span>
+<span id="index-standard_002dmethod"></span>
+
+
+<span id="Class-Precedence-List_003a-8"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>standard-method</code>,
+<code>method</code>,
+<code>standard-object</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-41"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>class</i> <code>standard-method</code> is the default <i>class</i> of 
+<i>methods</i> defined by the 
+<code>defmethod</code> and
+<code>defgeneric</code> <i>forms</i>.
+</p>
+
+<hr>
+<span id="structure_002dobject"></span><div class="header">
+<p>
+Next: <a href="#standard_002dobject" accesskey="n" rel="next">standard-object</a>, Previous: <a href="#standard_002dmethod" accesskey="p" rel="prev">standard-method</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">structure-object</h4>
+<span id="structure_002dobject-_0028Class_0029"></span><h3 class="heading">structure-object (Class)</h3>
+<span id="index-structure_002dobject-1"></span>
+<span id="index-structure_002dobject"></span>
+
+
+<span id="Class-Precedence-List_003a-9"></span><h4 class="subsubheading">Class Precedence List:</h4>
+
+<p><code>structure-object</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-42"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>class</i> <code>structure-object</code> is an <i>instance</i> of <code>structure-class</code>
+and is a <i>superclass</i> of every <i>class</i> 
+that is an <i>instance</i> of <code>structure-class</code>
+except itself, and is a <i>superclass</i> of every <i>class</i> 
+that is defined by <code>defstruct</code>.
+</p>
+
+<span id="See-Also_003a-31"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Structures.html#defstruct">defstruct</a>,
+<a href="Syntax.html#SharpsignS">Section 2.4.8.13 (Sharpsign S)</a>,
+<a href="Printer.html#PrintingStructures">Section 22.1.3.12 (Printing Structures)</a>
+</p>
+
+<hr>
+<span id="standard_002dobject"></span><div class="header">
+<p>
+Next: <a href="#method_002dcombination" accesskey="n" rel="next">method-combination</a>, Previous: <a href="#structure_002dobject" accesskey="p" rel="prev">structure-object</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">standard-object</h4>
+<span id="standard_002dobject-_0028Class_0029"></span><h3 class="heading">standard-object (Class)</h3>
+<span id="index-standard_002dobject-1"></span>
+<span id="index-standard_002dobject"></span>
+
+
+<span id="Class-Precedence-List_003a-10"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>standard-object</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-43"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>class</i> <code>standard-object</code> is an <i>instance</i> of <code>standard-class</code>
+and is a <i>superclass</i> of every <i>class</i> that is an <i>instance</i> of
+<code>standard-class</code> except itself.
+</p>
+
+<hr>
+<span id="method_002dcombination"></span><div class="header">
+<p>
+Next: <a href="#t-_0028System-Class_0029" accesskey="n" rel="next">t (System Class)</a>, Previous: <a href="#standard_002dobject" accesskey="p" rel="prev">standard-object</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">method-combination</h4>
+<span id="method_002dcombination-_0028System-Class_0029"></span><h3 class="heading">method-combination (System Class)</h3>
+<span id="index-method_002dcombination-1"></span>
+<span id="index-method_002dcombination"></span>
+
+
+<span id="Class-Precedence-List_003a-11"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>method-combination</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-44"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Every <i>method combination</i> <i>object</i> is an 
+<i>indirect instance</i> of the <i>class</i> <code>method-combination</code>.
+A <i>method combination</i> <i>object</i> represents the information about
+the <i>method combination</i> being used by a <i>generic function</i>.
+A <i>method combination</i> <i>object</i> contains information about
+both the type of <i>method combination</i> and the arguments being used
+with that <i>type</i>.
+</p>
+
+<hr>
+<span id="t-_0028System-Class_0029"></span><div class="header">
+<p>
+Next: <a href="#satisfies" accesskey="n" rel="next">satisfies</a>, Previous: <a href="#method_002dcombination" accesskey="p" rel="prev">method-combination</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">t (System Class)</h4>
+<span id="t-_0028System-Class_0029-1"></span><h3 class="heading">t (System Class)</h3>
+<span id="index-t-4"></span>
+<span id="index-t"></span>
+
+
+<span id="Class-Precedence-List_003a-12"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>t</code>
+</p>
+<span id="Description_003a-45"></span><h4 class="subsubheading">Description:</h4>
+<p>The set of all <i>objects</i>.  
+The <i>type</i> <code>t</code> is a <i>supertype</i> of every <i>type</i>, 
+including itself. Every <i>object</i> is of <i>type</i> <code>t</code>.
+</p>
+
+
+<hr>
+<span id="satisfies"></span><div class="header">
+<p>
+Next: <a href="#member-_0028Type-Specifier_0029" accesskey="n" rel="next">member (Type Specifier)</a>, Previous: <a href="#t-_0028System-Class_0029" accesskey="p" rel="prev">t (System Class)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">satisfies</h4>
+<span id="satisfies-_0028Type-Specifier_0029"></span><h3 class="heading">satisfies (Type Specifier)</h3>
+<span id="index-satisfies-1"></span>
+<span id="index-satisfies"></span>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-1"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Predicating.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-1"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(satisfies predicate-name)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-1"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>predicate-name</var>&mdash;a <i>symbol</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-1"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set of all <i>objects</i> that satisfy the
+<i>predicate</i> <var>predicate-name</var>, which must be a <i>symbol</i>
+whose global <i>function</i> definition is a one-argument
+predicate.  A name is required for <var>predicate-name</var>; 
+<i>lambda expressions</i> are not allowed.
+For example, the <i>type specifier</i> <code>(and integer (satisfies evenp))</code>
+denotes the set of all even integers.
+The form <code>(typep <var>x</var> '(satisfies <var>p</var>))</code> is equivalent to
+<code>(if (<var>p</var> <var>x</var>) t nil)</code>.
+</p>
+<p>The argument is required.
+The <i>symbol</i> <tt>*</tt> can be the argument, but it
+denotes itself (the <i>symbol</i> <tt>*</tt>),
+and does not represent an unspecified value.
+</p>
+<p>The symbol <code>satisfies</code> is not valid as a <i>type specifier</i>.
+</p>
+
+<hr>
+<span id="member-_0028Type-Specifier_0029"></span><div class="header">
+<p>
+Next: <a href="#not-_0028Type-Specifier_0029" accesskey="n" rel="next">not (Type Specifier)</a>, Previous: <a href="#satisfies" accesskey="p" rel="prev">satisfies</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">member (Type Specifier)</h4>
+<span id="member-_0028Type-Specifier_0029-1"></span><h3 class="heading">member (Type Specifier)</h3>
+<span id="index-member-3"></span>
+<span id="index-member"></span>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-2"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Combining.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-2"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(member <tt>{</tt>object<tt>}</tt>*)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-2"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-2"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set containing the named <var>objects</var>. An
+<i>object</i> is of this <i>type</i> if and only if it is <code>eql</code>
+to one of the specified <var>objects</var>.
+</p>
+<p>The <i>type specifiers</i> <code>(member)</code> and <code>nil</code>&nbsp;<!-- /@w -->are equivalent.
+<tt>*</tt> can be among the <var>objects</var>,
+but if so it denotes itself (the symbol <tt>*</tt>) 
+and does not represent an unspecified value.
+The symbol <tt>member</tt> is not valid as a <i>type specifier</i>;
+and, specifically, it is not an abbreviation for either <code>(member)</code> or <code>(member *)</code>.
+</p>
+<span id="See-Also_003a-32"></span><h4 class="subsubheading">See Also:</h4>
+
+<p>the <i>type</i> <code>eql</code>
+</p>
+
+<hr>
+<span id="not-_0028Type-Specifier_0029"></span><div class="header">
+<p>
+Next: <a href="#and-_0028Type-Specifier_0029" accesskey="n" rel="next">and (Type Specifier)</a>, Previous: <a href="#member-_0028Type-Specifier_0029" accesskey="p" rel="prev">member (Type Specifier)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">not (Type Specifier)</h4>
+<span id="not-_0028Type-Specifier_0029-1"></span><h3 class="heading">not (Type Specifier)</h3>
+<span id="index-not-3"></span>
+<span id="index-not"></span>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-3"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Combining.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-3"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(not typespec)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-3"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-3"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set of all <i>objects</i> that are not of the <i>type</i> <var>typespec</var>.
+</p>
+<p>The argument is required, and cannot be <tt>*</tt>.
+</p>
+<p>The symbol <code>not</code> is not valid as a <i>type specifier</i>.
+</p>
+
+<hr>
+<span id="and-_0028Type-Specifier_0029"></span><div class="header">
+<p>
+Next: <a href="#or-_0028Type-Specifier_0029" accesskey="n" rel="next">or (Type Specifier)</a>, Previous: <a href="#not-_0028Type-Specifier_0029" accesskey="p" rel="prev">not (Type Specifier)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">and (Type Specifier)</h4>
+<span id="and-_0028Type-Specifier_0029-1"></span><h3 class="heading">and (Type Specifier)</h3>
+<span id="index-and-4"></span>
+<span id="index-and"></span>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-4"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Combining.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-4"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(and <tt>{</tt>typespec<tt>}</tt>*)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-4"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-4"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set of all <i>objects</i> of the <i>type</i> 
+determined by the intersection of the <var>typespecs</var>.
+</p>
+<p><tt>*</tt> is not permitted as an argument.
+</p>
+<p>The <i>type specifiers</i> <code>(and)</code> and <code>t</code>&nbsp;<!-- /@w -->are equivalent.
+The symbol <tt>and</tt> is not valid as a <i>type specifier</i>,
+and, specifically, it is not an abbreviation for <code>(and)</code>.
+</p>
+
+<hr>
+<span id="or-_0028Type-Specifier_0029"></span><div class="header">
+<p>
+Next: <a href="#values-_0028Type-Specifier_0029" accesskey="n" rel="next">values (Type Specifier)</a>, Previous: <a href="#and-_0028Type-Specifier_0029" accesskey="p" rel="prev">and (Type Specifier)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">or (Type Specifier)</h4>
+<span id="or-_0028Type-Specifier_0029-1"></span><h3 class="heading">or (Type Specifier)</h3>
+<span id="index-or-4"></span>
+<span id="index-or"></span>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-5"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Combining.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-5"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(or <tt>{</tt>typespec<tt>}</tt>*)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-5"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-5"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This denotes the set of all <i>objects</i> of the
+<i>type</i> determined by the union of the <var>typespecs</var>.
+For example, the <i>type</i> <code>list</code> by definition is the same as <code>(or null cons)</code>.
+Also, the value returned by <code>position</code> is an <i>object</i> of <i>type</i> <code>(or null (integer 0 *))</code>;
+<i>i.e.</i>, either <code>nil</code>&nbsp;<!-- /@w -->or a non-negative <i>integer</i>.
+</p>
+<p><tt>*</tt> is not permitted as an argument.
+</p>
+<p>The <i>type specifiers</i> <code>(or)</code> and <code>nil</code>&nbsp;<!-- /@w -->are equivalent.
+The symbol <code>or</code> is not valid as a <i>type specifier</i>;
+and, specifically, it is not an abbreviation for <code>(or)</code>.
+</p>
+
+<hr>
+<span id="values-_0028Type-Specifier_0029"></span><div class="header">
+<p>
+Next: <a href="#eql-_0028Type-Specifier_0029" accesskey="n" rel="next">eql (Type Specifier)</a>, Previous: <a href="#or-_0028Type-Specifier_0029" accesskey="p" rel="prev">or (Type Specifier)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">values (Type Specifier)</h4>
+<span id="values-_0028Type-Specifier_0029-1"></span><h3 class="heading">values (Type Specifier)</h3>
+<span id="index-values-3"></span>
+<span id="index-values"></span>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-6"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Specializing.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-6"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(values <tt>↓</tt>value-typespec)
+</p>
+
+
+<dl compact="compact">
+<dt><var>value-typespec</var>::=</dt>
+<dd><p><tt>{</tt>typespec<tt>}</tt>* <tt>[</tt><tt>&amp;optional</tt> <tt>{</tt>typespec<tt>}</tt>*<tt>]</tt> <tt>[</tt><tt>&amp;rest</tt> typespec<tt>]</tt> <tt>[</tt><code>&amp;allow-other-keys</code><tt>]</tt>
+</p></dd>
+</dl>
+
+<span id="Compound-Type-Specifier-Arguments_003a-6"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-6"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>This <i>type specifier</i> can be used only as the <var>value-type</var> in a
+<code>function</code> <i>type specifier</i> or a <code>the</code>
+<i>special form</i>.  It is used to specify individual <i>types</i> 
+when <i>multiple values</i> are involved.
+The <code>&amp;optional</code> and <code>&amp;rest</code> markers can appear in the <var>value-type</var> list;
+they indicate the parameter list of a <i>function</i> that, 
+when given to <code>multiple-value-call</code> along with the values,
+would correctly receive those values.
+</p>
+<p>The symbol <tt>*</tt> may not be among the <var>value-types</var>.
+</p>
+<p>The symbol <tt>values</tt> is not valid as a <i>type specifier</i>;
+and, specifically, it is not an abbreviation for <code>(values)</code>.
+</p>
+
+<hr>
+<span id="eql-_0028Type-Specifier_0029"></span><div class="header">
+<p>
+Next: <a href="#coerce" accesskey="n" rel="next">coerce</a>, Previous: <a href="#values-_0028Type-Specifier_0029" accesskey="p" rel="prev">values (Type Specifier)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">eql (Type Specifier)</h4>
+<span id="eql-_0028Type-Specifier_0029-1"></span><h3 class="heading">eql (Type Specifier)</h3>
+<span id="index-eql-3"></span>
+<span id="index-eql"></span>
+
+
+<span id="Compound-Type-Specifier-Kind_003a-7"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
+
+<p>Combining.
+</p>
+<span id="Compound-Type-Specifier-Syntax_003a-7"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
+
+<p>(eql object)
+</p>
+<span id="Compound-Type-Specifier-Arguments_003a-7"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<span id="Compound-Type-Specifier-Description_003a-7"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
+
+<p>Represents the <i>type</i> 
+of all <var>x</var> for which <code>(eql <var>object</var> <var>x</var>)</code> is true.
+</p>
+<p>The argument <var>object</var> is required.  The <var>object</var> can be <tt>*</tt>,
+but if so it denotes itself (the symbol <tt>*</tt>) 
+and does not represent an unspecified value.
+The <i>symbol</i> <tt>eql</tt> is not valid as an <i>atomic type specifier</i>.
+</p>
+
+<hr>
+<span id="coerce"></span><div class="header">
+<p>
+Next: <a href="#deftype" accesskey="n" rel="next">deftype</a>, Previous: <a href="#eql-_0028Type-Specifier_0029" accesskey="p" rel="prev">eql (Type Specifier)</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">coerce</h4>
+<span id="coerce-_0028Function_0029"></span><h3 class="heading">coerce (Function)</h3>
+<span id="index-coerce-2"></span>
+<span id="index-coerce"></span>
+
+
+<span id="Syntax_003a-29"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-coerce-1">Function: <strong>coerce</strong> <em>object result-type <span class="roman">→</span> result</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-19"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>result-type</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>result</var>&mdash;an <i>object</i>, of <i>type</i> <var>result-type</var>
+except in situations described in <a href="Numbers.html#RuleOfCanonRepForComplexRationals">Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)</a>.
+</p>
+<span id="Description_003a-46"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Coerces</i> the <var>object</var> to <i>type</i> <var>result-type</var>.
+</p>
+<p>If <var>object</var> is already of <i>type</i> <var>result-type</var>,
+the <var>object</var> itself is returned, regardless of whether it
+would have been possible in general to coerce an <i>object</i> of 
+some other <i>type</i> to <var>result-type</var>.
+</p>
+<p>Otherwise, the <var>object</var> is <i>coerced</i> to <i>type</i> <var>result-type</var>
+according to the following rules:
+</p>
+
+<dl compact="compact">
+<dt><code>sequence</code></dt>
+<dd>
+
+
+<p>If the <var>result-type</var> is a <i>recognizable subtype</i> of <code>list</code>,
+and the <i>object</i> is a <i>sequence</i>,
+then the <var>result</var> is a <i>list</i> 
+that has the <i>same</i> <i>elements</i> as <var>object</var>.
+</p>
+<p>If the <var>result-type</var> is a <i>recognizable subtype</i> of <code>vector</code>,
+and the <i>object</i> is a <i>sequence</i>,
+then the <var>result</var> is a <i>vector</i> 
+that has the <i>same</i> <i>elements</i> as <var>object</var>.
+If <var>result-type</var> is a specialized <i>type</i>, 
+the <var>result</var> has an <i>actual array element type</i> that is the result of
+<i>upgrading</i> the element type part of that <i>specialized</i> <i>type</i>.
+If no element type is specified, the element type defaults to <code>t</code>.
+If the <i>implementation</i> cannot determine the element type, an error is signaled.
+</p>
+
+</dd>
+<dt><code>character</code></dt>
+<dd>
+
+<p>If the <var>result-type</var> is <code>character</code>
+and the <i>object</i> is a <i>character designator</i>,
+the <var>result</var> is the <i>character</i> it denotes.
+</p>
+
+</dd>
+<dt><code>complex</code></dt>
+<dd>
+
+<p>If the <var>result-type</var> is <code>complex</code> 
+and the <i>object</i> is a <i>real</i>,
+then the <var>result</var> is obtained by constructing a <i>complex</i>
+whose real part is the <i>object</i> and
+whose imaginary part is the result of <i>coercing</i> an <i>integer</i> zero
+to the <i>type</i> of the <i>object</i> (using <code>coerce</code>).
+(If the real part is a <i>rational</i>, however, 
+then the result must be represented as a <i>rational</i> rather
+than a <i>complex</i>; see <a href="Numbers.html#RuleOfCanonRepForComplexRationals">Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)</a>.
+So, for example, <code>(coerce 3 'complex)</code> is permissible,
+but will return <code>3</code>, which is not a <i>complex</i>.)
+</p>
+</dd>
+<dt><code>float</code></dt>
+<dd>
+
+<p>If the <var>result-type</var> is any of <code>float</code>,
+<code>short-float</code>, 
+<code>single-float</code>, 
+<code>double-float</code>, 
+<code>long-float</code>,
+and the <i>object</i> is a 
+<i>real</i>,
+then the <var>result</var> is a <i>float</i> of <i>type</i> <var>result-type</var>
+which is equal in sign and magnitude to the <i>object</i> to whatever degree of
+representational precision is permitted by that <i>float</i> representation.
+(If the <var>result-type</var> is <code>float</code>
+and <var>object</var> is not already a <i>float</i>, 
+then the <var>result</var> is a <i>single float</i>.)
+</p>
+</dd>
+<dt><code>function</code></dt>
+<dd>
+
+<p>If the <var>result-type</var> is <code>function</code>,
+and <var>object</var> is any 
+<i>function name</i>
+that is <i>fbound</i> 
+but that is globally defined neither as a <i>macro name</i> nor as a <i>special operator</i>,
+then the <var>result</var> is the <i>functional value</i> of <var>object</var>.
+</p>
+<p>If the <var>result-type</var> is <code>function</code>,
+and <var>object</var> is a <i>lambda expression</i>,
+then the <var>result</var> is a <i>closure</i> of <var>object</var>
+in the <i>null lexical environment</i>.
+</p>
+</dd>
+<dt><code>t</code></dt>
+<dd>
+
+<p>Any <var>object</var> can be <i>coerced</i> to an <i>object</i> of <i>type</i> <code>t</code>.
+In this case, the <var>object</var> is simply returned.
+</p></dd>
+</dl>
+
+
+<span id="Examples_003a-26"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (coerce '(a b c) 'vector) <span class="roman">→</span> #(A B C)
+ (coerce 'a 'character) <span class="roman">→</span> #\A
+ (coerce 4.56 'complex) <span class="roman">→</span> #C(4.56 0.0)
+ (coerce 4.5s0 'complex) <span class="roman">→</span> #C(4.5s0 0.0s0)
+ (coerce 7/2 'complex) <span class="roman">→</span> 7/2
+ (coerce 0 'short-float) <span class="roman">→</span> 0.0s0
+ (coerce 3.5L0 'float) <span class="roman">→</span> 3.5L0
+ (coerce 7/2 'float) <span class="roman">→</span> 3.5
+ (coerce (cons 1 2) t) <span class="roman">→</span> (1 . 2)
+</pre></div>
+
+
+<p>All the following <i>forms</i> should signal an error:
+</p>
+<div class="lisp">
+<pre class="lisp"> (coerce '(a b c) '(vector * 4))
+ (coerce #(a b c) '(vector * 4))
+ (coerce '(a b c) '(vector * 2))
+ (coerce #(a b c) '(vector * 2))
+ (coerce &quot;foo&quot; '(string 2))
+ (coerce #(#\a #\b #\c) '(string 2))
+ (coerce '(0 1) '(simple-bit-vector 3))
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-8"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If a coercion is not possible, an error of <i>type</i> <code>type-error</code> is signaled.
+</p>
+<p><code>(coerce x 'nil)</code> always signals an error of <i>type</i> <code>type-error</code>.
+</p>
+<p>An error
+of <i>type</i> <code>error</code> is signaled
+if the <var>result-type</var> is <code>function</code> but
+<var>object</var> is a <i>symbol</i> that is not <i>fbound</i> or
+if the <i>symbol</i> names a <i>macro</i> or a <i>special operator</i>.
+</p>
+<p>An error of <i>type</i> <code>type-error</code> should be signaled if <var>result-type</var>
+specifies the number of elements and <var>object</var> is of a different length.
+</p>
+<span id="See-Also_003a-33"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Numbers.html#rational">rational</a>, <a href="Numbers.html#floor">floor</a>, <a href="Characters.html#char_002dcode">char-code</a>, <a href="Characters.html#char_002dint">char-int</a>
+</p>
+<span id="Notes_003a-20"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Coercions from <i>floats</i> to <i>rationals</i> 
+and from <i>ratios</i> to <i>integers</i> 
+are not provided because of rounding problems.  
+</p>
+<div class="lisp">
+<pre class="lisp"> (coerce x 't) ≡ (identity x) ≡ x
+</pre></div>
+
+
+
+<hr>
+<span id="deftype"></span><div class="header">
+<p>
+Next: <a href="#subtypep" accesskey="n" rel="next">subtypep</a>, Previous: <a href="#coerce" accesskey="p" rel="prev">coerce</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">deftype</h4>
+<span id="deftype-_0028Macro_0029"></span><h3 class="heading">deftype (Macro)</h3>
+<span id="index-deftype-2"></span>
+<span id="index-deftype"></span>
+
+
+
+<span id="Syntax_003a-30"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-deftype-1">Macro: <strong>deftype</strong> <em>name lambda-list 〚<tt>{</tt>declaration<tt>}</tt>* <span class="roman">|</span> documentation〛 <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> name</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-20"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>name</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>lambda-list</var>&mdash;a <i>deftype lambda list</i>.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>documentation</var>&mdash;a <i>string</i>; not evaluated.
+</p>
+<p><var>form</var>&mdash;a <i>form</i>.
+</p>
+<span id="Description_003a-47"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>deftype</code> defines a <i>derived type specifier</i> named <var>name</var>.
+</p>
+<p>The meaning of the new <i>type specifier</i> is given in terms of
+a function which expands the <i>type specifier</i> into another
+<i>type specifier</i>, which itself will be expanded if it contains
+references to another <i>derived type specifier</i>.
+</p>
+<p>The newly defined <i>type specifier</i> may be referenced as a list of
+the form <code>(<var>name</var> <var>arg_1</var> <var>arg_2</var> ...)</code>.
+The number of arguments must be appropriate to the <var>lambda-list</var>.
+If the new <i>type specifier</i> takes no arguments, 
+or if all of its arguments are optional, 
+the <i>type specifier</i> may be used as an <i>atomic type specifier</i>.
+</p>
+<p>The <i>argument</i> <i>expressions</i> to the <i>type specifier</i>,
+<var>arg_1</var> &hellip; <var>arg_n</var>, are not <i>evaluated</i>.
+Instead, these <i>literal objects</i> become the <i>objects</i> to which
+corresponding <i>parameters</i> become <i>bound</i>.
+</p>
+<p>The body of the <code>deftype</code> <i>form</i> 
+(but not the <var>lambda-list</var>)
+is
+implicitly enclosed in a <i>block</i> named <var>name</var>,
+and is evaluated as an <i>implicit progn</i>, 
+returning a new <i>type specifier</i>.
+</p>
+<p>The <i>lexical environment</i> of the body is the one which was current
+at the time the <code>deftype</code> form was evaluated, augmented by the 
+<i>variables</i> in the <var>lambda-list</var>.
+</p>
+<p>Recursive expansion of the <i>type specifier</i> returned as the expansion
+must terminate, including the expansion of <i>type specifiers</i> which
+are nested within the expansion.
+</p>
+<p>The consequences are undefined if the result of fully expanding a
+<i>type specifier</i> contains any circular structure, except within
+the <i>objects</i> referred to by <code>member</code> and <code>eql</code>
+<i>type specifiers</i>.
+</p>
+<p><var>Documentation</var> is attached to <var>name</var> as a <i>documentation string</i>
+of kind <tt>type</tt>.
+</p>
+<p>If a <code>deftype</code> <i>form</i> appears as a <i>top level form</i>,
+the <i>compiler</i> must ensure that the <var>name</var> is recognized
+in subsequent <i>type</i> declarations.  
+The <i>programmer</i> must ensure that the body of a <code>deftype</code> form 
+can be <i>evaluated</i> at compile time if the <var>name</var> is
+referenced in subsequent <i>type</i> declarations.  
+If the expansion of a <i>type specifier</i> is not defined fully at compile time
+(perhaps because it expands into an unknown <i>type specifier</i> or a
+<code>satisfies</code> of a named <i>function</i> that isn&rsquo;t defined in the
+compile-time environment), an <i>implementation</i> may ignore any references to
+this <i>type</i> in declarations and/or signal a warning.
+</p>
+<span id="Examples_003a-27"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (defun equidimensional (a)
+   (or (&lt; (array-rank a) 2)
+       (apply #'= (array-dimensions a)))) <span class="roman">→</span> EQUIDIMENSIONAL
+ (deftype square-matrix (&amp;optional type size)
+   `(and (array ,type (,size ,size))
+         (satisfies equidimensional))) <span class="roman">→</span> SQUARE-MATRIX
+</pre></div>
+
+
+<span id="See-Also_003a-34"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#declare">declare</a>,
+<a href="Evaluation-and-Compilation.html#defmacro">defmacro</a>,
+<a href="Environment.html#documentation">documentation</a>,
+<a href="#Type-Specifiers">Section 4.2.3 (Type Specifiers)</a>,
+<a href="Evaluation-and-Compilation.html#Syntactic-Interaction-of-Documentation-Strings-and-Declarations">Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)</a>
+</p>
+
+
+<hr>
+<span id="subtypep"></span><div class="header">
+<p>
+Next: <a href="#type_002dof" accesskey="n" rel="next">type-of</a>, Previous: <a href="#deftype" accesskey="p" rel="prev">deftype</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">subtypep</h4>
+<span id="subtypep-_0028Function_0029"></span><h3 class="heading">subtypep (Function)</h3>
+<span id="index-subtypep-2"></span>
+<span id="index-subtypep"></span>
+
+
+
+<span id="Syntax_003a-31"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-subtypep-1">Function: <strong>subtypep</strong> <em>type-1 type-2 <tt>&amp;optional</tt> environment <span class="roman">→</span> subtype-p, valid-p</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-21"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>type-1</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>type-2</var>&mdash;a <i>type specifier</i>.
+</p>
+<p><var>environment</var>&mdash;an <i>environment</i> <i>object</i>.
+The default is <code>nil</code>, denoting the <i>null lexical environment</i>
+and the current <i>global environment</i>.
+</p>
+<p><var>subtype-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<p><var>valid-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-48"></span><h4 class="subsubheading">Description:</h4>
+
+<p>If <var>type-1</var> is a <i>recognizable subtype</i> of <var>type-2</var>, 
+the first <i>value</i> is <i>true</i>.
+Otherwise, the first <i>value</i> is <i>false</i>,
+indicating that either
+<var>type-1</var> is not a <i>subtype</i> of <var>type-2</var>, or else
+<var>type-1</var> is a <i>subtype</i> of <var>type-2</var> 
+but is not a <i>recognizable subtype</i>.
+</p>
+<p>A second <i>value</i> is also returned indicating the &lsquo;certainty&rsquo; of 
+the first <i>value</i>.  If this value is <i>true</i>, then the first
+value is an accurate indication of the <i>subtype</i> relationship.
+(The second <i>value</i> is always <i>true</i> when the first <i>value</i>
+is <i>true</i>.)
+</p>
+<p>The next figure&nbsp;<!-- /@w -->summarizes the possible combinations of <i>values</i>
+that might result.
+</p>
+
+<div class="float"><span id="fig4_002e9"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Value 1</th><th>Value 2</th><th>Meaning</th></tr></thead>
+<tr><td><i>true</i></td><td><i>true</i></td><td><var>type-1</var> is definitely a <i>subtype</i> of
+<var>type-2</var>.</td></tr>
+<tr><td><i>false</i></td><td><i>true</i></td><td><var>type-1</var> is definitely not a <i>subtype</i> of
+<var>type-2</var>.</td></tr>
+<tr><td><i>false</i></td><td><i>false</i></td><td><code>subtypep</code> could not determine the relationship,</td></tr>
+<tr><td></td><td></td><td>so <var>type-1</var> might or might not be a <i>subtype</i> of
+<var>type-2</var>.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 4.9: </strong>Result possibilities for subtypep</p></div></div>
+
+
+<p><code>subtypep</code> is permitted to return the 
+<i>values</i> <i>false</i> and <i>false</i> only when at least
+one argument involves one of these <i>type specifiers</i>:
+<code>and</code>,
+<code>eql</code>,
+the list form of <code>function</code>,
+<code>member</code>,
+<code>not</code>,
+<code>or</code>,
+<code>satisfies</code>,
+or
+<code>values</code>.
+(A <i>type specifier</i> &lsquo;involves&rsquo; such a <i>symbol</i> if, 
+after being <i>type expanded</i>,
+it contains that <i>symbol</i> in a position that would call for
+its meaning as a <i>type specifier</i> to be used.)
+One consequence of this is that if neither <var>type-1</var> nor <var>type-2</var>
+involves any of these <i>type specifiers</i>, then <code>subtypep</code> is obliged
+to determine the relationship accurately.  In particular, <code>subtypep</code> 
+returns the <i>values</i> <i>true</i> and <i>true</i>
+if the arguments are <code>equal</code> and do not involve
+any of these <i>type specifiers</i>.
+</p>
+<p><code>subtypep</code> never returns a second value of <code>nil</code>&nbsp;<!-- /@w -->when both
+<var>type-1</var> and <var>type-2</var> involve only
+the names in <a href="#StandardizedAtomicTypeSpecs">Figure 4.2</a>, or
+names of <i>types</i> defined by <code>defstruct</code>,
+<code>define-condition</code>,
+or <code>defclass</code>, or
+<i>derived types</i> that expand into only those names.
+While <i>type specifiers</i> listed in <a href="#StandardizedAtomicTypeSpecs">Figure 4.2</a>&nbsp;<!-- /@w -->and 
+names of <code>defclass</code> and <code>defstruct</code> can in some cases be
+implemented as <i>derived types</i>, <code>subtypep</code> regards them as primitive.
+</p>
+<p>The relationships between <i>types</i> reflected by <code>subtypep</code>
+are those specific to the particular implementation.  For example, if
+an implementation supports only a single type of floating-point numbers,
+in that implementation <code>(subtypep 'float 'long-float)</code> 
+returns the <i>values</i> <i>true</i> and <i>true</i> 
+(since the two <i>types</i> are identical).
+</p>
+<p>For all <var>T1</var> and <var>T2</var> other than <code>*</code>, 
+<code>(array <var>T1</var>)</code> and <code>(array <var>T2</var>)</code> 
+are two different <i>type specifiers</i> that always refer to the same sets of
+things if and only if they refer to <i>arrays</i>
+of exactly the same specialized representation, <i>i.e.</i>,
+if <code>(upgraded-array-element-type '<var>T1</var>)</code>  and
+<code>(upgraded-array-element-type '<var>T2</var>)</code> 
+return two different <i>type specifiers</i> that always refer to the same sets of
+<i>objects</i>.
+This is another way of saying that 
+<code>`(array <var>type-specifier</var>)</code>
+and
+<code>`(array ,(upgraded-array-element-type '<var>type-specifier</var>))</code> 
+refer to the same
+set of specialized <i>array</i> representations.
+For all <var>T1</var> and <var>T2</var> other than <code>*</code>, 
+the intersection of
+<code>(array <var>T1</var>)</code>
+and <code>(array <var>T2</var>)</code> is the empty set
+if and only if they refer to <i>arrays</i> of different,
+distinct specialized representations.  
+</p>
+<p>Therefore,
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(array T1) '(array T2)) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+<p>if and only if
+</p>
+<div class="lisp">
+<pre class="lisp"> (upgraded-array-element-type 'T1)  and
+ (upgraded-array-element-type 'T2)  
+</pre></div>
+
+
+<p>return two different <i>type specifiers</i> that always refer to the same sets of
+<i>objects</i>.
+</p>
+<p>For all type-specifiers <var>T1</var> and <var>T2</var> other than <code>*</code>, 
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(complex T1) '(complex T2)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+</pre></div>
+
+
+<p>if:
+</p>
+<ol>
+<li> <code>T1</code> is a <i>subtype</i> of <code>T2</code>, or
+</li><li> <code>(upgraded-complex-part-type '<var>T1</var>)</code> and
+<code>(upgraded-complex-part-type '<var>T2</var>)</code> 
+return two different <i>type specifiers</i> that always refer to the 
+same sets of <i>objects</i>; in this case,
+<code>(complex <var>T1</var>)</code> and 
+<code>(complex <var>T2</var>)</code> both refer to the 
+same specialized representation.
+</li></ol>
+
+<p>The <i>values</i> are <i>false</i> and <i>true</i> otherwise.
+</p>
+<p>The form
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(complex single-float) '(complex float))
+</pre></div>
+
+<p>must return <i>true</i> in all implementations, but
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(array single-float) '(array float))
+</pre></div>
+
+
+<p>returns <i>true</i> only in implementations that do not have a specialized <i>array</i>
+representation for <i>single floats</i> distinct from that for other <i>floats</i>.
+</p>
+
+
+<span id="Examples_003a-28"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (subtypep 'compiled-function 'function) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'null 'list) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'null 'symbol) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'integer 'string) <span class="roman">→</span> <i>false</i>, <i>true</i>
+ (subtypep '(satisfies dummy) nil) <span class="roman">→</span> <i>false</i>, <i>implementation-dependent</i>
+ (subtypep '(integer 1 3) '(integer 1 4)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep '(integer (0) (0)) 'nil) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep 'nil '(integer (0) (0))) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep '(integer (0) (0)) '(member)) <span class="roman">→</span> <i>true</i>, <i>true</i> ;or <i>false</i>, <i>false</i>
+ (subtypep '(member) 'nil) <span class="roman">→</span> <i>true</i>, <i>true</i> ;or <i>false</i>, <i>false</i>
+ (subtypep 'nil '(member)) <span class="roman">→</span> <i>true</i>, <i>true</i> ;or <i>false</i>, <i>false</i>
+</pre></div>
+
+
+<p>Let <code>&lt;aet-x&gt;</code> and <code>&lt;aet-y&gt;</code> be two distinct <i>type specifiers</i> that 
+do not always refer to the same sets of
+<i>objects</i>
+in a given implementation, but for which
+<code>make-array</code>, will return an 
+<i>object</i> of the same <i>array</i> <i>type</i>.
+</p>
+<p>Thus, in each case, 
+</p>
+<div class="lisp">
+<pre class="lisp">  (subtypep (array-element-type (make-array 0 :element-type '&lt;aet-x&gt;))
+            (array-element-type (make-array 0 :element-type '&lt;aet-y&gt;)))
+<span class="roman">→</span> <i>true</i>, <i>true</i>
+ 
+  (subtypep (array-element-type (make-array 0 :element-type '&lt;aet-y&gt;))
+            (array-element-type (make-array 0 :element-type '&lt;aet-x&gt;)))
+<span class="roman">→</span> <i>true</i>, <i>true</i>
+</pre></div>
+
+
+<p>If  <code>(array &lt;aet-x&gt;)</code> 
+and <code>(array &lt;aet-y&gt;)</code> are different names for
+exactly the same set of <i>objects</i>, 
+these names should always refer to the same sets of
+<i>objects</i>.
+That implies that the following set of tests are also true:
+</p>
+<div class="lisp">
+<pre class="lisp"> (subtypep '(array &lt;aet-x&gt;) '(array &lt;aet-y&gt;)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (subtypep '(array &lt;aet-y&gt;) '(array &lt;aet-x&gt;)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+</pre></div>
+
+
+<span id="See-Also_003a-35"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#Types">Section 4.2 (Types)</a>
+</p>
+<span id="Notes_003a-21"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The small differences between the <code>subtypep</code> specification for
+the <code>array</code> and <code>complex</code> types are necessary because there 
+is no creation function for <i>complexes</i> which allows 
+the specification of the resultant part type independently of
+the actual types of the parts.  Thus in the case of the <i>type</i> <code>complex</code>,
+the actual type of the parts is referred to, although a <i>number</i> 
+can be a member of more than one <i>type</i>.
+For example, <code>17</code> is of <i>type</i> <code>(mod 18)</code> 
+as well as <i>type</i> <code>(mod 256)</code> and <i>type</i> <code>integer</code>;
+and <code>2.3f5</code> is of <i>type</i> <code>single-float</code> 
+as well as <i>type</i> <code>float</code>.
+</p>
+
+
+<hr>
+<span id="type_002dof"></span><div class="header">
+<p>
+Next: <a href="#typep" accesskey="n" rel="next">typep</a>, Previous: <a href="#subtypep" accesskey="p" rel="prev">subtypep</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">type-of</h4>
+<span id="type_002dof-_0028Function_0029"></span><h3 class="heading">type-of (Function)</h3>
+<span id="index-type_002dof-2"></span>
+<span id="index-type_002dof"></span>
+
+
+<span id="Syntax_003a-32"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-type_002dof-1">Function: <strong>type-of</strong> <em>object <span class="roman">→</span> typespec</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-22"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>typespec</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Description_003a-49"></span><h4 class="subsubheading">Description:</h4>
+
+
+<p>Returns a <i>type specifier</i>, <var>typespec</var>, for a <i>type</i> 
+that has the <var>object</var> as an <i>element</i>.
+The <var>typespec</var> satisfies the following:
+</p>
+
+<ol>
+<li> For any <var>object</var> that is an <i>element</i> of some <i>built-in type</i>:
+
+
+<ol type="a" start="1">
+<li> the <i>type</i> returned is a <i>recognizable subtype</i> of that <i>built-in type</i>.
+
+</li><li> the <i>type</i> returned does not involve 
+<code>and</code>,
+<code>eql</code>,
+<code>member</code>,
+<code>not</code>,
+<code>or</code>, 
+<code>satisfies</code>,
+or <code>values</code>.
+</li></ol>
+
+
+</li><li> For all <var>objects</var>, <code>(typep <var>object</var> (type-of <var>object</var>))</code> 
+returns <i>true</i>.
+Implicit in this is that <i>type specifiers</i> which are
+not valid for use with <code>typep</code>, such as the <i>list</i> form of the
+<code>function</code> <i>type specifier</i>, are never returned by <code>type-of</code>.
+
+</li><li> The <i>type</i> returned by <code>type-of</code> is always a <i>recognizable subtype</i>
+of the <i>class</i> returned by <code>class-of</code>.  That is,
+
+<div class="lisp">
+<pre class="lisp"> (subtypep (type-of <var>object</var>) (class-of <var>object</var>)) <span class="roman">→</span> <i>true</i>, <i>true</i>
+</pre></div>
+
+
+</li><li> For <var>objects</var> of metaclass <code>structure-class</code> or <code>standard-class</code>,
+and for <i>conditions</i>,
+<code>type-of</code> returns the <i>proper name</i> of the <i>class</i> returned 
+by <code>class-of</code> if it has a <i>proper name</i>,
+and otherwise returns the <i>class</i> itself.
+In particular, for <var>objects</var> created by the constructor function
+of a structure defined with <code>defstruct</code> without a <tt>:type</tt> option,
+<code>type-of</code> returns the structure name; and for <var>objects</var> created 
+by <code>make-condition</code>, the <var>typespec</var> is the <i>name</i> of the
+<i>condition</i> <i>type</i>.
+
+</li><li> For each of the <i>types</i>
+<code>short-float</code>, 
+<code>single-float</code>,
+<code>double-float</code>,
+or <code>long-float</code>
+of which the <var>object</var> is an <i>element</i>,
+the <var>typespec</var> is a <i>recognizable subtype</i> of that <i>type</i>.
+</li></ol>
+
+
+
+
+<span id="Examples_003a-29"></span><h4 class="subsubheading">Examples:</h4>
+
+
+
+<div class="lisp">
+<pre class="lisp"> (type-of 'a) <span class="roman">→</span> SYMBOL          
+ (type-of '(1 . 2))
+<span class="roman">→</span> CONS
+or<span class="roman">→</span> (CONS FIXNUM FIXNUM)
+ (type-of #c(0 1))
+<span class="roman">→</span> COMPLEX
+or<span class="roman">→</span> (COMPLEX INTEGER)
+ (defstruct temp-struct x y z) <span class="roman">→</span> TEMP-STRUCT
+ (type-of (make-temp-struct)) <span class="roman">→</span> TEMP-STRUCT
+ (type-of &quot;abc&quot;)
+<span class="roman">→</span> STRING
+or<span class="roman">→</span> (STRING 3)
+ (subtypep (type-of &quot;abc&quot;) 'string) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (type-of (expt 2 40))
+<span class="roman">→</span> BIGNUM
+or<span class="roman">→</span> INTEGER
+or<span class="roman">→</span> (INTEGER 1099511627776 1099511627776)
+or<span class="roman">→</span> SYSTEM::TWO-WORD-BIGNUM
+or<span class="roman">→</span> FIXNUM
+ (subtypep (type-of 112312) 'integer) <span class="roman">→</span> <i>true</i>, <i>true</i>
+ (defvar *foo* (make-array 5 :element-type t)) <span class="roman">→</span> *FOO*
+ (class-name (class-of *foo*)) <span class="roman">→</span> VECTOR
+ (type-of *foo*)
+<span class="roman">→</span> VECTOR
+or<span class="roman">→</span> (VECTOR T 5)
+</pre></div>
+
+
+<span id="See-Also_003a-36"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Arrays.html#array_002delement_002dtype">array-element-type</a>,
+<a href="Objects.html#class_002dof">class-of</a>,
+<a href="Structures.html#defstruct">defstruct</a>,
+<a href="Data-and-Control-Flow.html#typecase">typecase</a>,
+<a href="#typep">typep</a>,
+<a href="#Types">Section 4.2 (Types)</a>
+</p>
+<span id="Notes_003a-22"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Implementors are encouraged to arrange for <code>type-of</code> to return
+a portable value.
+</p>
+
+<hr>
+<span id="typep"></span><div class="header">
+<p>
+Next: <a href="#type_002derror" accesskey="n" rel="next">type-error</a>, Previous: <a href="#type_002dof" accesskey="p" rel="prev">type-of</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">typep</h4>
+<span id="typep-_0028Function_0029"></span><h3 class="heading">typep (Function)</h3>
+<span id="index-typep-2"></span>
+<span id="index-typep"></span>
+
+
+
+<span id="Syntax_003a-33"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-typep-1">Function: <strong>typep</strong> <em>object type-specifier <tt>&amp;optional</tt> environment <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-23"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>type-specifier</var>&mdash;any <i>type specifier</i> except 
+<tt>values</tt>, or a <i>type specifier</i> list
+whose first element is either <tt>function</tt> or <tt>values</tt>.
+</p>
+<p><var>environment</var>&mdash;an <i>environment</i> <i>object</i>.
+The default is <code>nil</code>, denoting the <i>null lexical environment</i>
+and the and current <i>global environment</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-50"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of the <i>type</i> specified by <var>type-specifier</var>; otherwise, returns <i>false</i>.
+</p>
+<p>A <var>type-specifier</var> of the form <code>(satisfies fn)</code> 
+is handled by applying the function <code>fn</code> to <var>object</var>.
+</p>
+<p><code>(typep <var>object</var> '(array <var>type-specifier</var>))</code>, 
+where <var>type-specifier</var> is not <code>*</code>,   
+returns <i>true</i> if and only if <var>object</var> is an <i>array</i> 
+that could be the result 
+of supplying <var>type-specifier</var> 
+as the <tt>:element-type</tt> argument to <code>make-array</code>.
+<code>(array *)</code> refers to all <i>arrays</i> 
+regardless of element type, while <code>(array <var>type-specifier</var>)</code>
+refers only to those <i>arrays</i> 
+that can result from giving <var>type-specifier</var> as the
+<tt>:element-type</tt> argument to <code>make-array</code>.  
+A similar interpretation applies to <code>(simple-array <var>type-specifier</var>)</code> 
+and <code>(vector <var>type-specifier</var>)</code>.
+See <a href="Arrays.html#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
+</p>
+<p><code>(typep <var>object</var> '(complex <var>type-specifier</var>))</code>
+returns <i>true</i> for all <i>complex</i> numbers that can result from 
+giving <i>numbers</i> of type <var>type-specifier</var>
+to the <i>function</i> <code>complex</code>, plus all other <i>complex</i> numbers 
+of the same specialized representation.      
+Both the real and the imaginary parts of any such 
+<i>complex</i> number must satisfy:
+</p>
+<div class="lisp">
+<pre class="lisp"> (typep realpart 'type-specifier)
+ (typep imagpart 'type-specifier)
+</pre></div>
+
+
+<p>See the <i>function</i> <a href="Numbers.html#upgraded_002dcomplex_002dpart_002dtype">upgraded-complex-part-type</a>.
+</p>
+
+<span id="Examples_003a-30"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (typep 12 'integer) <span class="roman">→</span> <i>true</i>
+ (typep (1+ most-positive-fixnum) 'fixnum) <span class="roman">→</span> <i>false</i>
+ (typep nil t) <span class="roman">→</span> <i>true</i>
+ (typep nil nil) <span class="roman">→</span> <i>false</i>
+ (typep 1 '(mod 2)) <span class="roman">→</span> <i>true</i>
+ (typep #c(1 1) '(complex (eql 1))) <span class="roman">→</span> <i>true</i>
+;; To understand this next example, you might need to refer to
+;; <a href="Numbers.html#RuleOfCanonRepForComplexRationals">Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)</a>.
+ (typep #c(0 0) '(complex (eql 0))) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<p>Let <code>A<sub>x</sub>
+denote different <i>types</i>, but for which
+
+</code></p><div class="lisp">
+<pre class="lisp"> (upgraded-array-element-type 'A<sub>x</sub>
+</pre></div>
+
+<p>and
+</p>
+<div class="lisp">
+<pre class="lisp"> (upgraded-array-element-type 'A<sub>y</sub>
+</pre></div>
+
+<p>denote the same <i>type</i>.  Notice that
+</p>
+<div class="lisp">
+<pre class="lisp"> (typep (make-array 0 :element-type 'A<sub>x</sub>
+ (typep (make-array 0 :element-type 'A<sub>y</sub>
+ (typep (make-array 0 :element-type 'A<sub>x</sub>
+ (typep (make-array 0 :element-type 'A<sub>y</sub>
+</pre></div>
+
+
+
+<span id="Exceptional-Situations_003a-9"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>error</code> is signaled if <var>type-specifier</var> is <code>values</code>, 
+or a <i>type specifier</i> list whose first element is either
+<tt>function</tt> or <tt>values</tt>.
+</p>
+<p>The consequences are undefined if
+the <var>type-specifier</var> is not a <i>type specifier</i>.
+</p>
+<span id="See-Also_003a-37"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#type_002dof">type-of</a>,
+<a href="Arrays.html#upgraded_002darray_002delement_002dtype">upgraded-array-element-type</a>,
+<a href="Numbers.html#upgraded_002dcomplex_002dpart_002dtype">upgraded-complex-part-type</a>,
+<a href="#Type-Specifiers">Section 4.2.3 (Type Specifiers)</a>
+</p>
+<span id="Notes_003a-23"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><i>Implementations</i> are encouraged to recognize and optimize the case of 
+<code>(typep <var>x</var> (the class <var>y</var>))</code>,
+since it does not involve any need for expansion 
+of <code>deftype</code> information at runtime.
+</p>
+<div class="lisp">
+<pre class="lisp">
+
+</pre></div>
+
+
+
+
+<hr>
+<span id="type_002derror"></span><div class="header">
+<p>
+Next: <a href="#type_002derror_002ddatum_003b-type_002derror_002dexpected_002dtype" accesskey="n" rel="next">type-error-datum; type-error-expected-type</a>, Previous: <a href="#typep" accesskey="p" rel="prev">typep</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">type-error</h4>
+<span id="type_002derror-_0028Condition-Type_0029"></span><h3 class="heading">type-error (Condition Type)</h3>
+<span id="index-type_002derror-1"></span>
+<span id="index-type_002derror"></span>
+
+
+<span id="Class-Precedence-List_003a-13"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>type-error</code>,
+<code>error</code>,
+<code>serious-condition</code>,
+<code>condition</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-51"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>type</i> <code>type-error</code> represents a situation in which an <i>object</i> is not
+of the expected type.  The &ldquo;offending datum&rdquo; and &ldquo;expected type&rdquo; are initialized 
+by the initialization arguments named <tt>:datum</tt> and <tt>:expected-type</tt> to <code>make-condition</code>,
+and are <i>accessed</i> by the functions 
+<code>type-error-datum</code> and <code>type-error-expected-type</code>.
+</p>
+<span id="See-Also_003a-38"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#type_002derror_002ddatum">type-error-datum</a>, <a href="#type_002derror_002dexpected_002dtype">type-error-expected-type</a>
+</p>
+
+<hr>
+<span id="type_002derror_002ddatum_003b-type_002derror_002dexpected_002dtype"></span><div class="header">
+<p>
+Next: <a href="#simple_002dtype_002derror" accesskey="n" rel="next">simple-type-error</a>, Previous: <a href="#type_002derror" accesskey="p" rel="prev">type-error</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">type-error-datum; type-error-expected-type</h4>
+<span id="type_002derror_002ddatum_002c-type_002derror_002dexpected_002dtype-_0028Function_0029"></span><h3 class="heading">type-error-datum, type-error-expected-type (Function)</h3>
+<span id="index-type_002derror_002ddatum-2"></span>
+<span id="index-type_002derror_002ddatum"></span>
+<span id="index-type_002derror_002dexpected_002dtype-2"></span>
+<span id="index-type_002derror_002dexpected_002dtype"></span>
+<span id="type_002derror_002ddatum"></span><span id="type_002derror_002dexpected_002dtype"></span>
+
+<span id="Syntax_003a-34"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-type_002derror_002ddatum-1">Function: <strong>type-error-datum</strong> <em>condition <span class="roman">→</span> datum</em></dt>
+</dl>
+<dl>
+<dt id="index-type_002derror_002dexpected_002dtype-1">Function: <strong>type-error-expected-type</strong> <em>condition <span class="roman">→</span> expected-type</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-24"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>condition</var>&mdash;a <i>condition</i> of <i>type</i> <code>type-error</code>.
+</p>
+<p><var>datum</var>&mdash;an <i>object</i>.
+</p>
+<p><var>expected-type</var>&mdash;a <i>type specifier</i>.
+</p>
+<span id="Description_003a-52"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>type-error-datum</code> returns the offending datum in the <i>situation</i>
+represented by the <var>condition</var>.
+</p>
+<p><code>type-error-expected-type</code> returns the expected type of the
+offending datum in the <i>situation</i> represented by the <var>condition</var>.
+</p>
+<span id="Examples_003a-31"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun fix-digits (condition)
+   (check-type condition type-error)
+   (let* ((digits '(zero one two three four
+                   five six seven eight nine))
+         (val (position (type-error-datum condition) digits)))
+     (if (and val (subtypep 'fixnum (type-error-expected-type condition)))
+         (store-value 7))))
+ 
+ (defun foo (x)
+   (handler-bind ((type-error #'fix-digits))
+     (check-type x number)
+     (+ x 3)))
+ 
+ (foo 'seven)
+<span class="roman">→</span> 10
+</pre></div>
+
+
+<span id="See-Also_003a-39"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#type_002derror">type-error</a>,
+<a href="Conditions.html#Conditions">Chapter 9 (Conditions)</a>
+</p>
+
+<hr>
+<span id="simple_002dtype_002derror"></span><div class="header">
+<p>
+Previous: <a href="#type_002derror_002ddatum_003b-type_002derror_002dexpected_002dtype" accesskey="p" rel="prev">type-error-datum; type-error-expected-type</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">simple-type-error</h4>
+<span id="simple_002dtype_002derror-_0028Condition-Type_0029"></span><h3 class="heading">simple-type-error (Condition Type)</h3>
+<span id="index-simple_002dtype_002derror-1"></span>
+<span id="index-simple_002dtype_002derror"></span>
+
+
+<span id="Class-Precedence-List_003a-14"></span><h4 class="subsubheading">Class Precedence List:</h4>
+
+<p><code>simple-type-error</code>,
+<code>simple-condition</code>,
+<code>type-error</code>,
+<code>error</code>,
+<code>serious-condition</code>,
+<code>condition</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-53"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Conditions</i> of <i>type</i> <code>simple-type-error</code> 
+are like <i>conditions</i> of <i>type</i> <code>type-error</code>, 
+except that they provide an alternate mechanism for specifying
+how the <i>condition</i> is to be <i>reported</i>;
+see the <i>type</i> <a href="Conditions.html#simple_002dcondition">simple-condition</a>.
+</p>
+<span id="See-Also_003a-40"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Conditions.html#simple_002dcondition">simple-condition</a>,
+<a href="Conditions.html#simple_002dcondition_002dformat_002dcontrol">simple-condition-format-control</a>,
+<a href="Conditions.html#simple_002dcondition_002dformat_002darguments">simple-condition-format-arguments</a>, 
+<a href="#type_002derror_002ddatum">type-error-datum</a>,
+<a href="#type_002derror_002dexpected_002dtype">type-error-expected-type</a>
+</p>
+
+
+
+<hr>
 <div class="header">
 <p>
-Next: <a href="Data-and-Control-Flow.html" accesskey="n" rel="next">Data and Control Flow</a>, Previous: <a href="Evaluation-and-Compilation.html" accesskey="p" rel="prev">Evaluation and Compilation</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="#type_002derror_002ddatum_003b-type_002derror_002dexpected_002dtype" accesskey="p" rel="prev">type-error-datum; type-error-expected-type</a>, Up: <a href="#Types-and-Classes" accesskey="u" rel="up">Types and Classes</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

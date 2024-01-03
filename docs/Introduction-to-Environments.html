@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Introduction to Environments (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Evaluation.html" rel="up" title="Evaluation">
-<link href="The-Evaluation-Model.html" rel="next" title="The Evaluation Model">
-<link href="Evaluation.html" rel="prev" title="Evaluation">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,177 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Evaluation-and-Compilation.html#Introduction-to-Environments">
 
 </head>
 
 <body lang="en">
-<span id="Introduction-to-Environments"></span><div class="header">
-<p>
-Next: <a href="The-Evaluation-Model.html" accesskey="n" rel="next">The Evaluation Model</a>, Up: <a href="Evaluation.html" accesskey="u" rel="up">Evaluation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Introduction-to-Environments-1"></span><h4 class="subsection">3.1.1 Introduction to Environments</h4>
 
-<p>A <span id="index-binding"></span>
-<em>binding</em> is an association between a <i>name</i> and
-that which the name denotes.  <i>Bindings</i> are <i>established</i>
-in a <i>lexical environment</i> or a <i>dynamic environment</i>
-by particular <i>special operators</i>.
-</p>
-<p>An <span id="index-environment"></span>
-<em>environment</em> is a set of <i>bindings</i> and other information
-used during evaluation (<i>e.g.</i>, to associate meanings with names).
-</p>
-<p><i>Bindings</i> in an <i>environment</i> are partitioned into 
-<span id="index-namespace"></span>
-<em>namespaces</em>.
-A single <i>name</i> can simultaneously have more than one
-associated <i>binding</i> per <i>environment</i>,
-but can have only one associated <i>binding</i> per <i>namespace</i>.
-</p>
-<span id="The-Global-Environment"></span><h4 class="subsubsection">3.1.1.1 The Global Environment</h4>
-
-<p>The <span id="index-global-environment"></span>
-<em>global environment</em> is that part of an <i>environment</i>
-that contains <i>bindings</i> with both <i>indefinite scope</i> 
-and <i>indefinite extent</i>.
-The <i>global environment</i> contains, among other things, the following:
-</p>
-
-<ul>
-<li> <i>bindings</i> of <i>dynamic variables</i> and <i>constant variables</i>.
-</li><li> <i>bindings</i> of <i>functions</i>, <i>macros</i>, and <i>special operators</i>.
-</li><li> <i>bindings</i> of <i>compiler macros</i>.
-</li><li> <i>bindings</i> of <i>type</i> and <i>class</i> <i>names</i>
-</li><li> information about <i>proclamations</i>.
-</li></ul>
-
-
-
-<span id="Dynamic-Environments"></span><h4 class="subsubsection">3.1.1.2 Dynamic Environments</h4>
-
-<p>A <span id="index-dynamic-environment"></span>
-<em>dynamic environment</em> for <i>evaluation</i> is that part of an
-<i>environment</i> that contains <i>bindings</i> whose duration
-is bounded by points of <i>establishment</i> and <i>disestablishment</i> 
-within the execution of the <i>form</i> that
-established the <i>binding</i>.
-A <i>dynamic environment</i> contains, among other things, the following:
-</p>
-
-<ul>
-<li> <i>bindings</i> for <i>dynamic variables</i>.
-</li><li> information about <i>active</i> <i>catch tags</i>.
-</li><li> information about <i>exit points</i> established by <code>unwind-protect</code>.
-</li><li> information about <i>active</i> <i>handlers</i> and <i>restarts</i>.
-</li></ul>
-
-
-<p>The <i>dynamic environment</i> that is active at any given point 
-in the <i>execution</i> of a <i>program</i> is referred to by 
-definite reference as &ldquo;the current <i>dynamic environment</i>,&rdquo;
-or sometimes as just &ldquo;the <i>dynamic environment</i>.&rdquo;
-</p>
-<p>Within a given <i>namespace</i>,
-a <i>name</i> is said to be <i>bound</i>
-in a <i>dynamic environment</i> if there is a <i>binding</i> 
-associated with its <i>name</i> in the <i>dynamic environment</i> 
-or, if not, there is a <i>binding</i> 
-associated with its name in the <i>global environment</i>.
-</p>
-
-<span id="Lexical-Environments"></span><h4 class="subsubsection">3.1.1.3 Lexical Environments</h4>
-
-<p>A <span id="index-lexical-environment"></span>
-<em>lexical environment</em> for <i>evaluation</i> at some position in a <i>program</i>
-is that part of the <i>environment</i> that contains information having 
-<i>lexical scope</i> within the <i>forms</i> containing that position.
-A <i>lexical environment</i> contains, among other things, the following:
-</p>
-
-<ul>
-<li> <i>bindings</i> of <i>lexical variables</i> and <i>symbol macros</i>.
-</li><li> <i>bindings</i> of <i>functions</i> and <i>macros</i>.
-(Implicit in this is information about those <i>compiler macros</i> 
-that are locally disabled.)
-</li><li> <i>bindings</i> of <i>block tags</i>.
-</li><li> <i>bindings</i> of <i>go tags</i>.
-</li><li> information about <i>declarations</i>.
-</li></ul>
-
-
-<p>The <i>lexical environment</i> that is active at any given position
-in a <i>program</i> being semantically processed is referred to by
-definite reference as &ldquo;the current <i>lexical environment</i>,&rdquo;
-or sometimes as just &ldquo;the <i>lexical environment</i>.&rdquo;  
-</p>
-<p>Within a given <i>namespace</i>,
-a <i>name</i> is said to be <i>bound</i> in a <i>lexical environment</i>
-if there is a <i>binding</i> 
-associated with its <i>name</i>
-in the <i>lexical environment</i> or, if not, there is a <i>binding</i> 
-associated with its name in the <i>global environment</i>.
-</p>
-<span id="g_t3_002e1_002e1_002e3_002e1-The-Null-Lexical-Environment"></span><h4 class="unnumberedsubsubsec">3.1.1.3.1 The Null Lexical Environment</h4>
-
-<span id="NullLexicalEnv"></span>
-<p>The <span id="index-null-lexical-environment"></span>
-<em>null lexical environment</em> is equivalent to the <i>global environment</i>.
-</p>
-<p>Although in general the representation of an <i>environment</i> <i>object</i>
-is <i>implementation-dependent</i>, <code>nil</code>&nbsp;<!-- /@w -->can be used in any situation where an
-<i>environment</i> <i>object</i> is called for in order to denote 
-the <i>null lexical environment</i>.
-</p>
-
-
-<span id="Environment-Objects"></span><h4 class="subsubsection">3.1.1.4 Environment Objects</h4>
-<span id="EnvObjs"></span>
-<p>Some <i>operators</i> make use of an <i>object</i>, 
-called an <span id="index-environment-object"></span>
-<em>environment object</em>,
-that represents the set of <i>lexical bindings</i> needed to perform
-semantic analysis on a <i>form</i> in a given <i>lexical environment</i>.
-The set of <i>bindings</i> in an <i>environment object</i>
-may be a subset of the <i>bindings</i> that would be needed to actually 
-perform an <i>evaluation</i>; for example, <i>values</i> associated with
-<i>variable</i> <i>names</i> and <i>function names</i> in the corresponding
-<i>lexical environment</i> might not be available in an <i>environment object</i>.
-</p>
-<p>The <i>type</i> and nature of an <i>environment object</i> is <i>implementation-dependent</i>.
-The <i>values</i> of <i>environment parameters</i> to <i>macro functions</i>
-are examples of <i>environment objects</i>.
-</p>
-<p>The <i>object</i> <code>nil</code>&nbsp;<!-- /@w -->when used as an <i>environment object</i>
-denotes the <i>null lexical environment</i>;
-see <a href="#NullLexicalEnv">Section 3.1.1.3.1 (The Null Lexical Environment)</a>.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="The-Evaluation-Model.html" accesskey="n" rel="next">The Evaluation Model</a>, Up: <a href="Evaluation.html" accesskey="u" rel="up">Evaluation</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Evaluation-and-Compilation.html#Introduction-to-Environments">Introduction to Environments</a>.</p>
 </body>
-</html>

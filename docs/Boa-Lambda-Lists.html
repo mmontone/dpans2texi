@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Boa Lambda Lists (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Lambda-Lists.html" rel="up" title="Lambda Lists">
-<link href="Defsetf-Lambda-Lists.html" rel="next" title="Defsetf Lambda Lists">
-<link href="Destructuring-Lambda-Lists.html" rel="prev" title="Destructuring Lambda Lists">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,149 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Evaluation-and-Compilation.html#Boa-Lambda-Lists">
 
 </head>
 
 <body lang="en">
-<span id="Boa-Lambda-Lists"></span><div class="header">
-<p>
-Next: <a href="Defsetf-Lambda-Lists.html" accesskey="n" rel="next">Defsetf Lambda Lists</a>, Previous: <a href="Destructuring-Lambda-Lists.html" accesskey="p" rel="prev">Destructuring Lambda Lists</a>, Up: <a href="Lambda-Lists.html" accesskey="u" rel="up">Lambda Lists</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Boa-Lambda-Lists-1"></span><h4 class="subsection">3.4.6 Boa Lambda Lists</h4>
 
-<p>A <span id="index-boa-lambda-list"></span>
-<em>boa lambda list</em> is a <i>lambda list</i> that is syntactically 
-like an <i>ordinary lambda list</i>, but that is processed in
-&ldquo;<b>b</b>y <b>o</b>rder of <b>a</b>rgument&rdquo; style.
-</p>
-<p>A <i>boa lambda list</i> is used only in a <code>defstruct</code> <i>form</i>,
-when explicitly specifying the <i>lambda list</i> 
-of a constructor <i>function</i> (sometimes called a &ldquo;boa constructor&rdquo;).
-</p>
-<p>The <code>&amp;optional</code>, <code>&amp;rest</code>, <code>&amp;aux</code>,
-<code>&amp;key</code>, and <code>&amp;allow-other-keys</code>
-<i>lambda list keywords</i> are recognized in a <i>boa lambda list</i>.
-The way these <i>lambda list keywords</i> differ from their
-use in an <i>ordinary lambda list</i> follows.
-</p>
-<p>Consider this example, which describes how <code>destruct</code> processes
-its <tt>:constructor</tt> option.
-</p>
-<div class="lisp">
-<pre class="lisp"> (:constructor create-foo
-         (a &amp;optional b (c 'sea) &amp;rest d &amp;aux e (f 'eff)))
-</pre></div>
-
-
-<p>This defines <code>create-foo</code> to be a constructor of one or more arguments.
-The first argument is used to initialize the <code>a</code> slot.  The second
-argument is used to initialize the <code>b</code> slot.  If there isn&rsquo;t any
-second argument, then the default value given in the body of the
-<code>defstruct</code> (if given) is used instead.  
-The third argument is used to
-initialize the <code>c</code> slot.  If there isn&rsquo;t any third argument, then the
-symbol <code>sea</code> is used instead.  Any arguments following the third
-argument are collected into a <i>list</i> 
-and used to initialize the <code>d</code>
-slot.  If there are three or fewer arguments, then <code>nil</code>&nbsp;<!-- /@w -->is placed in
-the <code>d</code> slot.  The <code>e</code> slot is not initialized; 
-its initial value is <i>implementation-defined</i>.
-Finally, the <code>f</code> slot is initialized to contain the symbol <code>eff</code>.
-<code>&amp;key</code> and <code>&amp;allow-other-keys</code> arguments default
-in a manner similar to that of <code>&amp;optional</code> arguments: if no default
-is supplied in the <i>lambda list</i> then the default value 
-given in the body of the <code>defstruct</code> (if given) is used instead.
-For example:
-</p>
-<div class="lisp">
-<pre class="lisp"> (defstruct (foo (:constructor CREATE-FOO (a &amp;optional b (c 'sea)
-                                             &amp;key (d 2)
-                                             &amp;aux e (f 'eff))))
-   (a 1) (b 2) (c 3) (d 4) (e 5) (f 6))
- 
- (create-foo 10) <span class="roman">→</span> #S(FOO A 10 B 2 C SEA D 2 E <i>implemention-dependent</i> F EFF)
- (create-foo 10 'bee 'see :d 'dee) 
-<span class="roman">→</span> #S(FOO A 10 B BEE C SEE D DEE E <i>implemention-dependent</i> F EFF)
-</pre></div>
-
-
-<p>If keyword arguments of the form 
-<code>((<i>key</i> <i>var</i>) <tt>[</tt><i>default</i> <tt>[</tt><i>svar</i><tt>]</tt><tt>]</tt>)</code>
-are specified, the <i>slot</i> <i>name</i> is matched with <i>var</i> 
-(not <i>key</i>).
-</p>
-<p>The actions taken in the <code>b</code> and <code>e</code> cases were carefully
-chosen to allow the user to specify all possible behaviors. 
-The <code>&amp;aux</code> variables can be used to completely override the default
-initializations given in the body.
-</p>
-<p>If no default value is supplied for an <i>aux variable</i> variable,
-the consequences are undefined if an attempt is later made to read
-the corresponding <i>slot</i>&rsquo;s value before a value is explicitly assigned.
-If such a <i>slot</i> has a <tt>:type</tt> option specified,
-this suppressed initialization does not imply a type mismatch situation;
-the declared type is only required to apply when the <i>slot</i> is finally assigned.
-</p>
-<p>With this definition, the following can be written:
-</p>
-<div class="lisp">
-<pre class="lisp"> (create-foo 1 2)
-</pre></div>
-
-<p>instead of
-</p>
-<div class="lisp">
-<pre class="lisp"> (make-foo :a 1 :b 2)
-</pre></div>
-
-<p>and <code>create-foo</code> provides defaulting different
-from that of <code>make-foo</code>.
-</p>
-<p>Additional arguments that do not correspond to slot names but
-are merely present to supply values used in subsequent initialization 
-computations are allowed.
-For example, in the definition
-</p>
-<div class="lisp">
-<pre class="lisp"> (defstruct (frob (:constructor create-frob
-                  (a &amp;key (b 3 have-b) (c-token 'c) 
-                          (c (list c-token (if have-b 7 2))))))
-         a b c)
-</pre></div>
-
-
-<p>the <code>c-token</code> argument is used merely to supply a value used in the 
-initialization of the <code>c</code> slot. The <i>supplied-p parameters</i> 
-associated with <i>optional parameters</i> and <i>keyword parameters</i>
-might also be used this way.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Defsetf-Lambda-Lists.html" accesskey="n" rel="next">Defsetf Lambda Lists</a>, Previous: <a href="Destructuring-Lambda-Lists.html" accesskey="p" rel="prev">Destructuring Lambda Lists</a>, Up: <a href="Lambda-Lists.html" accesskey="u" rel="up">Lambda Lists</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Evaluation-and-Compilation.html#Boa-Lambda-Lists">Boa Lambda Lists</a>.</p>
 </body>
-</html>

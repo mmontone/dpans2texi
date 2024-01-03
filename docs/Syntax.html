@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Character-Syntax.html" rel="next" title="Character Syntax">
-<link href="Symbols-in-the-COMMON_002dLISP-Package.html" rel="prev" title="Symbols in the COMMON-LISP Package">
+<link href="Evaluation-and-Compilation.html#Evaluation-and-Compilation" rel="next" title="Evaluation and Compilation">
+<link href="Introduction.html#Symbols-in-the-COMMON_002dLISP-Package" rel="prev" title="Symbols in the COMMON-LISP Package">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,21 +277,2705 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Syntax"></span><div class="header">
 <p>
-Next: <a href="Evaluation-and-Compilation.html" accesskey="n" rel="next">Evaluation and Compilation</a>, Previous: <a href="Introduction.html" accesskey="p" rel="prev">Introduction</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Evaluation-and-Compilation.html#Evaluation-and-Compilation" accesskey="n" rel="next">Evaluation and Compilation</a>, Previous: <a href="Introduction.html#Introduction" accesskey="p" rel="prev">Introduction</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Syntax-1"></span><h2 class="chapter">2 Syntax</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Character-Syntax.html" accesskey="1">Character Syntax</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Character-Syntax" accesskey="1">Character Syntax</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Reader-Algorithm.html" accesskey="2">Reader Algorithm</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Reader-Algorithm" accesskey="2">Reader Algorithm</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Interpretation-of-Tokens.html" accesskey="3">Interpretation of Tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Interpretation-of-Tokens" accesskey="3">Interpretation of Tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Standard-Macro-Characters.html" accesskey="4">Standard Macro Characters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Standard-Macro-Characters" accesskey="4">Standard Macro Characters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="Character-Syntax"></span><div class="header">
+<p>
+Next: <a href="#Reader-Algorithm" accesskey="n" rel="next">Reader Algorithm</a>, Up: <a href="#Syntax" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Character-Syntax-1"></span><h3 class="section">2.1 Character Syntax</h3>
+
+<p>The <i>Lisp reader</i> takes <i>characters</i> from a <i>stream</i>, 
+interprets them as a printed representation of an <i>object</i>,
+constructs that <i>object</i>, and returns it.
+</p>
+<p>The syntax described by this chapter is called the <span id="index-standard-syntax"></span>
+<em>standard syntax</em>.
+Operations are provided by <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->so that
+various aspects of the syntax information represented by a <i>readtable</i> 
+can be modified under program control; see <a href="Reader.html#Reader">Chapter 23 (Reader)</a>.
+Except as explicitly stated otherwise, 
+the syntax used throughout this document is <i>standard syntax</i>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Readtables" accesskey="1">Readtables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Variables-that-affect-the-Lisp-Reader" accesskey="2">Variables that affect the Lisp Reader</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Standard-Characters" accesskey="3">Standard Characters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Character-Syntax-Types" accesskey="4">Character Syntax Types</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Readtables"></span><div class="header">
+<p>
+Next: <a href="#Variables-that-affect-the-Lisp-Reader" accesskey="n" rel="next">Variables that affect the Lisp Reader</a>, Up: <a href="#Character-Syntax" accesskey="u" rel="up">Character Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Readtables-1"></span><h4 class="subsection">2.1.1 Readtables</h4>
+
+
+<p>Syntax information for use by the <i>Lisp reader</i> is embodied in an
+<i>object</i> called a <span id="index-readtable"></span>
+<em>readtable</em>.  Among other things, 
+the <i>readtable</i> contains the association between <i>characters</i> 
+and <i>syntax types</i>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> that are applicable to
+<i>readtables</i>.
+</p>
+
+<div class="float"><span id="fig2_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*readtable*</td><td>readtable-case</td><td></td></tr>
+<tr><td>copy-readtable</td><td>readtablep</td><td></td></tr>
+<tr><td>get-dispatch-macro-character</td><td>set-dispatch-macro-character</td><td></td></tr>
+<tr><td>get-macro-character</td><td>set-macro-character</td><td></td></tr>
+<tr><td>make-dispatch-macro-character</td><td>set-syntax-from-char</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.1: </strong>Readtable defined names</p></div></div>
+
+<span id="The-Current-Readtable"></span><h4 class="subsubsection">2.1.1.1 The Current Readtable</h4>
+<span id="CurrentReadtable"></span>
+<p>Several <i>readtables</i> describing different syntaxes can exist,
+but at any given time only one, called the <span id="index-current-readtable"></span>
+<em>current readtable</em>, 
+affects the way in which <i>expressions</i><sub>2</sub>
+into <i>objects</i> by the <i>Lisp reader</i>.
+The <i>current readtable</i> in a given <i>dynamic environment</i>
+is the <i>value</i> of <code>*readtable*</code> in that <i>environment</i>.
+To make a different <i>readtable</i> become the <i>current readtable</i>,
+<code>*readtable*</code> can be <i>assigned</i> or <i>bound</i>.
+</p>
+
+<span id="The-Standard-Readtable"></span><h4 class="subsubsection">2.1.1.2 The Standard Readtable</h4>
+
+<p>The <span id="index-standard-readtable"></span>
+<em>standard readtable</em> conforms to <i>standard syntax</i>.
+The consequences are undefined if an attempt is made
+to modify the <i>standard readtable</i>.
+To achieve the effect of altering or extending <i>standard syntax</i>,
+a copy of the <i>standard readtable</i> can be created; see the <i>function</i> <a href="Reader.html#copy_002dreadtable">copy-readtable</a>.
+</p>
+<p>The <i>readtable case</i> of the <i>standard readtable</i> is <tt>:upcase</tt>.
+</p>
+
+<span id="The-Initial-Readtable"></span><h4 class="subsubsection">2.1.1.3 The Initial Readtable</h4>
+
+<p>The <span id="index-initial-readtable"></span>
+<em>initial readtable</em> is
+the <i>readtable</i> that is the <i>current readtable</i>
+at the time when the <i>Lisp image</i> starts.
+At that time, it conforms to <i>standard syntax</i>.
+The <i>initial readtable</i> is <i>distinct</i> 
+from the <i>standard readtable</i>.
+It is permissible for a <i>conforming program</i> 
+to modify the <i>initial readtable</i>.
+</p>
+
+
+<hr>
+<span id="Variables-that-affect-the-Lisp-Reader"></span><div class="header">
+<p>
+Next: <a href="#Standard-Characters" accesskey="n" rel="next">Standard Characters</a>, Previous: <a href="#Readtables" accesskey="p" rel="prev">Readtables</a>, Up: <a href="#Character-Syntax" accesskey="u" rel="up">Character Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Variables-that-affect-the-Lisp-Reader-1"></span><h4 class="subsection">2.1.2 Variables that affect the Lisp Reader</h4>
+
+<p>The <i>Lisp reader</i> is influenced not only by the <i>current readtable</i>,
+but also by various <i>dynamic variables</i>.  The next figure&nbsp;<!-- /@w -->lists
+the <i>variables</i> that influence the behavior of the <i>Lisp reader</i>.
+</p>
+
+<div class="float"><span id="fig2_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*package*</td><td>*read-default-float-format*</td><td>*readtable*</td></tr>
+<tr><td>*read-base*</td><td>*read-suppress*</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.2: </strong>Variables that influence the Lisp reader.</p></div></div>
+
+
+<hr>
+<span id="Standard-Characters"></span><div class="header">
+<p>
+Next: <a href="#Character-Syntax-Types" accesskey="n" rel="next">Character Syntax Types</a>, Previous: <a href="#Variables-that-affect-the-Lisp-Reader" accesskey="p" rel="prev">Variables that affect the Lisp Reader</a>, Up: <a href="#Character-Syntax" accesskey="u" rel="up">Character Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Standard-Characters-1"></span><h4 class="subsection">2.1.3 Standard Characters</h4>
+
+<p>All <i>implementations</i> must support a <i>character</i> <i>repertoire</i>
+called <code>standard-char</code>; <i>characters</i> that are members of that
+<i>repertoire</i> are called 
+<span id="index-standard-character"></span>
+<em>standard characters</em>.
+</p>
+<p>The <code>standard-char</code> <i>repertoire</i> consists of
+the <i>non-graphic</i> <i>character</i> <i>newline</i>,
+the <i>graphic</i> <i>character</i> <i>space</i>,
+and the following additional
+ninety-four <i>graphic</i> <i>characters</i> or their equivalents:
+</p>
+
+<div class="float"><span id="fig2_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Graphic ID</th><th>Glyph</th><th>Description</th><th>Graphic ID</th><th>Glyph</th><th>Description</th></tr></thead>
+<tr><td>LA01</td><td><code>a</code></td><td>small a</td><td>LN01</td><td><code>n</code></td><td>small n</td></tr>
+<tr><td>LA02</td><td><code>A</code></td><td>capital A</td><td>LN02</td><td><code>N</code></td><td>capital N</td></tr>
+<tr><td>LB01</td><td><code>b</code></td><td>small b</td><td>LO01</td><td><code>o</code></td><td>small o</td></tr>
+<tr><td>LB02</td><td><code>B</code></td><td>capital B</td><td>LO02</td><td><code>O</code></td><td>capital O</td></tr>
+<tr><td>LC01</td><td><code>c</code></td><td>small c</td><td>LP01</td><td><code>p</code></td><td>small p</td></tr>
+<tr><td>LC02</td><td><code>C</code></td><td>capital C</td><td>LP02</td><td><code>P</code></td><td>capital P</td></tr>
+<tr><td>LD01</td><td><code>d</code></td><td>small d</td><td>LQ01</td><td><code>q</code></td><td>small q</td></tr>
+<tr><td>LD02</td><td><code>D</code></td><td>capital D</td><td>LQ02</td><td><code>Q</code></td><td>capital Q</td></tr>
+<tr><td>LE01</td><td><code>e</code></td><td>small e</td><td>LR01</td><td><code>r</code></td><td>small r</td></tr>
+<tr><td>LE02</td><td><code>E</code></td><td>capital E</td><td>LR02</td><td><code>R</code></td><td>capital R</td></tr>
+<tr><td>LF01</td><td><code>f</code></td><td>small f</td><td>LS01</td><td><code>s</code></td><td>small s</td></tr>
+<tr><td>LF02</td><td><code>F</code></td><td>capital F</td><td>LS02</td><td><code>S</code></td><td>capital S</td></tr>
+<tr><td>LG01</td><td><code>g</code></td><td>small g</td><td>LT01</td><td><code>t</code></td><td>small t</td></tr>
+<tr><td>LG02</td><td><code>G</code></td><td>capital G</td><td>LT02</td><td><code>T</code></td><td>capital T</td></tr>
+<tr><td>LH01</td><td><code>h</code></td><td>small h</td><td>LU01</td><td><code>u</code></td><td>small u</td></tr>
+<tr><td>LH02</td><td><code>H</code></td><td>capital H</td><td>LU02</td><td><code>U</code></td><td>capital U</td></tr>
+<tr><td>LI01</td><td><code>i</code></td><td>small i</td><td>LV01</td><td><code>v</code></td><td>small v</td></tr>
+<tr><td>LI02</td><td><code>I</code></td><td>capital I</td><td>LV02</td><td><code>V</code></td><td>capital V</td></tr>
+<tr><td>LJ01</td><td><code>j</code></td><td>small j</td><td>LW01</td><td><code>w</code></td><td>small w</td></tr>
+<tr><td>LJ02</td><td><code>J</code></td><td>capital J</td><td>LW02</td><td><code>W</code></td><td>capital W</td></tr>
+<tr><td>LK01</td><td><code>k</code></td><td>small k</td><td>LX01</td><td><code>x</code></td><td>small x</td></tr>
+<tr><td>LK02</td><td><code>K</code></td><td>capital K</td><td>LX02</td><td><code>X</code></td><td>capital X</td></tr>
+<tr><td>LL01</td><td><code>l</code></td><td>small l</td><td>LY01</td><td><code>y</code></td><td>small y</td></tr>
+<tr><td>LL02</td><td><code>L</code></td><td>capital L</td><td>LY02</td><td><code>Y</code></td><td>capital Y</td></tr>
+<tr><td>LM01</td><td><code>m</code></td><td>small m</td><td>LZ01</td><td><code>z</code></td><td>small z</td></tr>
+<tr><td>LM02</td><td><code>M</code></td><td>capital M</td><td>LZ02</td><td><code>Z</code></td><td>capital Z</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.3: </strong>Standard Character Subrepertoire (Part 1 of 3: Latin Characters)</p></div></div>
+
+
+<div class="float"><span id="fig2_002e4"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Graphic ID</th><th>Glyph</th><th>Description</th><th>Graphic ID</th><th>Glyph</th><th>Description</th></tr></thead>
+<tr><td>ND01</td><td><code>1</code></td><td>digit 1</td><td>ND06</td><td><code>6</code></td><td>digit 6</td></tr>
+<tr><td>ND02</td><td><code>2</code></td><td>digit 2</td><td>ND07</td><td><code>7</code></td><td>digit 7</td></tr>
+<tr><td>ND03</td><td><code>3</code></td><td>digit 3</td><td>ND08</td><td><code>8</code></td><td>digit 8</td></tr>
+<tr><td>ND04</td><td><code>4</code></td><td>digit 4</td><td>ND09</td><td><code>9</code></td><td>digit 9</td></tr>
+<tr><td>ND05</td><td><code>5</code></td><td>digit 5</td><td>ND10</td><td><code>0</code></td><td>digit 0</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.4: </strong>Standard Character Subrepertoire (Part 2 of 3: Numeric Characters)</p></div></div>
+
+
+
+<div class="float"><span id="StdCharsThree"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>Graphic ID</th><th>Glyph</th><th>Description</th></tr></thead>
+<tr><td>SP02</td><td><code>!</code></td><td>exclamation mark</td></tr>
+<tr><td>SC03</td><td><code>$</code></td><td>dollar sign</td></tr>
+<tr><td>SP04</td><td><code>&quot;</code></td><td>quotation mark, or double quote</td></tr>
+<tr><td>SP05</td><td><code>'</code></td><td>apostrophe, or <tt>[</tt>single<tt>]</tt> quote</td></tr>
+<tr><td>SP06</td><td><code>(</code></td><td>left parenthesis, or open parenthesis</td></tr>
+<tr><td>SP07</td><td><code>)</code></td><td>right parenthesis, or close parenthesis</td></tr>
+<tr><td>SP08</td><td><code>,</code></td><td>comma</td></tr>
+<tr><td>SP09</td><td><code>_</code></td><td>low line, or underscore</td></tr>
+<tr><td>SP10</td><td><code>-</code></td><td>hyphen, or minus <tt>[</tt>sign<tt>]</tt></td></tr>
+<tr><td>SP11</td><td><code>.</code></td><td>full stop, period, or dot</td></tr>
+<tr><td>SP12</td><td><code>/</code></td><td>solidus, or slash</td></tr>
+<tr><td>SP13</td><td><code>:</code></td><td>colon</td></tr>
+<tr><td>SP14</td><td><code>;</code></td><td>semicolon</td></tr>
+<tr><td>SP15</td><td><code>?</code></td><td>question mark</td></tr>
+<tr><td>SA01</td><td><code>+</code></td><td>plus <tt>[</tt>sign<tt>]</tt></td></tr>
+<tr><td>SA03</td><td><code>&lt;</code></td><td>less-than <tt>[</tt>sign<tt>]</tt></td></tr>
+<tr><td>SA04</td><td><code>=</code></td><td>equals <tt>[</tt>sign<tt>]</tt></td></tr>
+<tr><td>SA05</td><td><code>&gt;</code></td><td>greater-than <tt>[</tt>sign<tt>]</tt></td></tr>
+<tr><td>SM01</td><td><code>#</code></td><td>number sign, or sharp<tt>[</tt>sign<tt>]</tt></td></tr>
+<tr><td>SM02</td><td><code>%</code></td><td>percent <tt>[</tt>sign<tt>]</tt></td></tr>
+<tr><td>SM03</td><td><code>&amp;</code></td><td>ampersand</td></tr>
+<tr><td>SM04</td><td><code>*</code></td><td>asterisk, or star</td></tr>
+<tr><td>SM05</td><td><code>@</code></td><td>commercial at, or at-sign</td></tr>
+<tr><td>SM06</td><td><code>[</code></td><td>left <tt>[</tt>square<tt>]</tt> bracket</td></tr>
+<tr><td>SM07</td><td><code>\</code></td><td>reverse solidus, or backslash</td></tr>
+<tr><td>SM08</td><td><code>]</code></td><td>right <tt>[</tt>square<tt>]</tt> bracket</td></tr>
+<tr><td>SM11</td><td><code><tt>{</tt></code></td><td>left curly bracket, or left brace</td></tr>
+<tr><td>SM13</td><td><code>|</code></td><td>vertical bar</td></tr>
+<tr><td>SM14</td><td><code><tt>}</tt></code></td><td>right curly bracket, or right brace</td></tr>
+<tr><td>SD13</td><td><code>`</code></td><td>grave accent, or backquote</td></tr>
+<tr><td>SD15</td><td><code>^</code></td><td>circumflex accent</td></tr>
+<tr><td>SD19</td><td><code>~</code></td><td>tilde</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.5: </strong>Standard Character Subrepertoire (Part 3 of 3: Special Characters)</p></div></div>
+
+<p>The graphic IDs are not used within <span class="roman">Common Lisp</span>,
+but are provided for cross reference purposes with <cite>ISO 6937/2</cite>.
+Note that the first letter of the graphic ID 
+categorizes the character as follows:
+L&mdash;Latin, N&mdash;Numeric, S&mdash;Special.
+</p>
+
+
+<hr>
+<span id="Character-Syntax-Types"></span><div class="header">
+<p>
+Previous: <a href="#Standard-Characters" accesskey="p" rel="prev">Standard Characters</a>, Up: <a href="#Character-Syntax" accesskey="u" rel="up">Character Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Character-Syntax-Types-1"></span><h4 class="subsection">2.1.4 Character Syntax Types</h4>
+
+<p>The <i>Lisp reader</i> constructs an <i>object</i> 
+from the input text by interpreting each <i>character</i> 
+according to its <i>syntax type</i>.
+The <i>Lisp reader</i> cannot accept as input 
+everything that the <i>Lisp printer</i> produces,
+and the <i>Lisp reader</i> has features that are not used by the <i>Lisp printer</i>.
+The <i>Lisp reader</i> can be used as a lexical analyzer 
+for a more general user-written parser.
+</p>
+<p>When the <i>Lisp reader</i> is invoked, it reads a single character from 
+the <i>input</i> <i>stream</i> and dispatches according to the
+<span id="index-syntax-type"></span>
+<em>syntax type</em> of that <i>character</i>.
+Every <i>character</i> that can appear in the <i>input</i> <i>stream</i>
+is of one of the <i>syntax types</i> shown in <a href="#PossibleSyntaxTypes">Figure 2.6</a>.
+</p>
+
+
+<div class="float"><span id="PossibleSyntaxTypes"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><i>constituent</i></td><td><i>macro character</i></td><td><i>single escape</i></td></tr>
+<tr><td><i>invalid</i></td><td><i>multiple escape</i></td><td><i>whitespace</i><sub>2</sub></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.6: </strong>Possible Character Syntax Types</p></div></div>
+
+<p>The <i>syntax type</i> of a <i>character</i> in a <i>readtable</i>
+determines how that character is interpreted by the <i>Lisp reader</i>
+while that <i>readtable</i> is the <i>current readtable</i>.
+At any given time, every character has exactly one <i>syntax type</i>.
+</p>
+<p><a href="#CharSyntaxTypesInStdSyntax">Figure 2.7</a>&nbsp;<!-- /@w -->
+lists the <i>syntax type</i> of each <i>character</i> in <i>standard syntax</i>.
+</p>
+
+
+<div class="float"><span id="CharSyntaxTypesInStdSyntax"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>character</th><th>syntax type</th><th>character</th><th>syntax type</th></tr></thead>
+<tr><td>Backspace</td><td><i>constituent</i></td><td>0&ndash;9</td><td><i>constituent</i></td></tr>
+<tr><td>Tab</td><td><i>whitespace</i><sub>2</sub></td></tr>
+<tr><td>Newline</td><td><i>whitespace</i><sub>2</sub></td></tr>
+<tr><td>Linefeed</td><td><i>whitespace</i><sub>2</sub></td></tr>
+<tr><td>Page</td><td><i>whitespace</i><sub>2</sub></td></tr>
+<tr><td>Return</td><td><i>whitespace</i><sub>2</sub></td></tr>
+<tr><td>Space</td><td><i>whitespace</i><sub>2</sub></td></tr>
+<tr><td>!</td><td><i>constituent</i></td><td><code>@</code></td><td><i>constituent</i></td></tr>
+<tr><td><code>&quot;</code></td><td><i>terminating</i> <i>macro char</i></td><td>A&ndash;Z</td><td><i>constituent</i></td></tr>
+<tr><td>#</td><td><i>non-terminating</i> <i>macro char</i></td><td><code>[</code></td><td><i>constituent</i></td></tr>
+<tr><td>$</td><td><i>constituent</i></td><td><code>\</code></td><td><i>single escape</i></td></tr>
+<tr><td>%</td><td><i>constituent</i></td><td><code>]</code></td><td><i>constituent</i></td></tr>
+<tr><td>&amp;</td><td><i>constituent</i></td><td>^</td><td><i>constituent</i></td></tr>
+<tr><td>&rsquo;</td><td><i>terminating</i> <i>macro char</i></td><td><code>_</code></td><td><i>constituent</i></td></tr>
+<tr><td>(</td><td><i>terminating</i> <i>macro char</i></td><td>&lsquo;</td><td><i>terminating</i> <i>macro char</i></td></tr>
+<tr><td>)</td><td><i>terminating</i> <i>macro char</i></td><td>a&ndash;z</td><td><i>constituent</i></td></tr>
+<tr><td><code>*</code></td><td><i>constituent</i></td><td><code><tt>{</tt></code></td><td><i>constituent</i></td></tr>
+<tr><td>+</td><td><i>constituent</i></td><td><code>|</code></td><td><i>multiple escape</i></td></tr>
+<tr><td>,</td><td><i>terminating</i> <i>macro char</i></td><td><code><tt>}</tt></code></td><td><i>constituent</i></td></tr>
+<tr><td>-</td><td><i>constituent</i></td><td><code>~</code></td><td><i>constituent</i></td></tr>
+<tr><td>.</td><td><i>constituent</i></td><td>Rubout</td><td><i>constituent</i></td></tr>
+<tr><td>/</td><td><i>constituent</i></td><td></td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.7: </strong>Character Syntax Types in Standard Syntax</p></div></div>
+
+<p>The characters marked with an asterisk (*) are initially <i>constituents</i>,
+but they are not used in any standard <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->notations.
+These characters are explicitly reserved to the <i>programmer</i>.
+<code>~</code> is not used in <span class="roman">Common Lisp</span>, and reserved to implementors.
+<code>$</code> and <code>%</code> are <i>alphabetic</i><sub>2</sub>
+but are not used in the names of any standard <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>defined names</i>.
+</p>
+<p><i>Whitespace</i><sub>2</sub>
+ignored.  <i>Constituent</i> and <i>escape</i> <i>characters</i> are accumulated
+to make a <i>token</i>, which is then interpreted as a <i>number</i> or <i>symbol</i>.
+<i>Macro characters</i> trigger the invocation of <i>functions</i> (possibly
+user-supplied) that can perform arbitrary parsing actions.
+<i>Macro characters</i> are divided into two kinds,
+<i>terminating</i> and <i>non-terminating</i>,
+depending on whether or not they terminate a <i>token</i>.
+The following are descriptions of each kind of <i>syntax type</i>.
+</p>
+<span id="Constituent-Characters"></span><h4 class="subsubsection">2.1.4.1 Constituent Characters</h4>
+<span id="ConstituentChars"></span>
+<p><i>Constituent</i> <i>characters</i> are used in <i>tokens</i>.
+A <span id="index-token"></span>
+<em>token</em> is a representation of a <i>number</i> or a <i>symbol</i>.  
+Examples of <i>constituent</i> <i>characters</i> are letters and digits.
+</p>
+<p>Letters in symbol names are sometimes converted to 
+letters in the opposite <i>case</i> when the name is read;
+see <a href="Reader.html#Effect-of-Readtable-Case-on-the-Lisp-Reader">Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)</a>.
+<i>Case</i> conversion can be suppressed by the use 
+of <i>single escape</i> or <i>multiple escape</i> characters.
+</p>
+<span id="Constituent-Traits"></span><h4 class="subsubsection">2.1.4.2 Constituent Traits</h4>
+<span id="ConstituentTraits"></span>
+<p>Every <i>character</i> has one or more <i>constituent traits</i>
+that define how the <i>character</i> is to be interpreted by the <i>Lisp reader</i>
+when the <i>character</i> is a <i>constituent</i> <i>character</i>.
+These <i>constituent traits</i> are 
+<i>alphabetic</i><sub>2</sub>
+digit,
+<i>package marker</i>,
+plus sign,
+minus sign, 
+dot,
+decimal point,
+<i>ratio marker</i>,
+<i>exponent marker</i>,
+and <i>invalid</i>.
+<a href="#ConstituentTraitsOfStdChars">Figure 2.8</a>&nbsp;<!-- /@w -->shows the <i>constituent traits</i>
+of the <i>standard characters</i>
+and of certain <i>semi-standard</i> <i>characters</i>;
+no mechanism is provided for changing the <i>constituent trait</i> of a <i>character</i>.
+Any <i>character</i> with the alphadigit <i>constituent trait</i>
+in that figure is a digit if the <i>current input base</i> is greater
+than that character&rsquo;s digit value,
+otherwise the <i>character</i> is <i>alphabetic</i><sub>2</sub>
+Any <i>character</i> quoted by a <i>single escape</i> 
+is treated as an <i>alphabetic</i><sub>2</sub>
+</p>
+
+
+<div class="float"><span id="ConstituentTraitsOfStdChars"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><b>constituent</b></td><td><b>traits</b> <p><b>constituent</b> </p><p><b>traits</b>
+</p></td></tr>
+<tr><td><b>characters</b></td><td><b>characters</b></td></tr>
+<tr><td>Backspace</td><td><i>invalid</i> <p><code><tt>{</tt></code> </p><p><i>alphabetic</i><sub>2</sub>
+</p></td></tr>
+<tr><td>Tab</td><td><i>invalid</i>* <p><code><tt>}</tt></code> </p><p><i>alphabetic</i><sub>2</sub>
+</p></td></tr>
+<tr><td>Newline</td><td><i>invalid</i>* <p>+ </p><p><i>alphabetic</i><sub>2</sub>
+</p></td></tr>
+<tr><td>Linefeed</td><td><i>invalid</i>* <p>- </p><p><i>alphabetic</i><sub>2</sub>
+</p></td></tr>
+<tr><td>Page</td><td><i>invalid</i>* <p>. </p><p><i>alphabetic</i><sub>2</sub>
+</p></td></tr>
+<tr><td>Return</td><td><i>invalid</i>* <p>/ </p><p><i>alphabetic</i><sub>2</sub>
+</p></td></tr>
+<tr><td>Space</td><td><i>invalid</i>* <p>A, a </p><p>alphadigit
+</p></td></tr>
+<tr><td>!</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>&quot;</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>#</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>$</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>%</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>&amp;</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>&rsquo;</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>(</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>)</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>*</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>,</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>0-9</td><td>alphadigit <p>M, m </p><p>alphadigit
+</p></td></tr>
+<tr><td>:</td><td><i>package marker</i> <p>N, n </p><p>alphadigit
+</p></td></tr>
+<tr><td>;</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>&lt;</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>=</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>&gt;</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>?</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>@</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>[</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>\</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>]</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>^</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>_</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td>&lsquo;</td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>|</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+<tr><td><code>~</code></td><td><i>alphabetic</i><sub>2</sub></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.8: </strong>Constituent Traits of Standard Characters and Semi-Standard Characters</p></div></div>                   
+<p>The interpretations in this table apply only to <i>characters</i>
+whose <i>syntax type</i> is <i>constituent</i>.
+Entries marked with an asterisk (*) are normally <i>shadowed</i><sub>2</sub>
+because the indicated <i>characters</i> are of <i>syntax type</i>
+<i>whitespace</i><sub>2</sub>
+<i>macro character</i>,
+<i>single escape</i>,
+or <i>multiple escape</i>;
+these <i>constituent traits</i> apply to them only if their <i>syntax types</i> 
+are changed to <i>constituent</i>.
+</p>
+
+
+<span id="Invalid-Characters"></span><h4 class="subsubsection">2.1.4.3 Invalid Characters</h4>
+
+<p><i>Characters</i> with the <i>constituent trait</i> <i>invalid</i> 
+cannot ever appear in a <i>token</i> 
+except under the control of a <i>single escape</i> <i>character</i>.
+If an <i>invalid</i> <i>character</i> is encountered while an <i>object</i> is
+being read, an error of <i>type</i> <code>reader-error</code> is signaled.
+If an <i>invalid</i> <i>character</i> is preceded by a <i>single escape</i> <i>character</i>,
+it is treated as an <i>alphabetic</i><sub>2</sub>
+</p>
+
+<span id="Macro-Characters"></span><h4 class="subsubsection">2.1.4.4 Macro Characters</h4>
+<span id="MacroChars"></span>
+<p>When the <i>Lisp reader</i> encounters a <i>macro character</i> 
+on an <i>input</i> <i>stream</i>,
+special parsing of subsequent <i>characters</i> 
+on the <i>input</i> <i>stream</i> 
+is performed.
+</p>
+<p>A <i>macro character</i> has an associated <i>function</i>
+called a <span id="index-reader-macro-function"></span>
+<em>reader macro function</em> that implements its specialized parsing behavior.
+An association of this kind can be established or modified under control of
+a <i>conforming program</i> by using 
+the <i>functions</i> <code>set-macro-character</code> and <code>set-dispatch-macro-character</code>.
+</p>
+<p>Upon encountering a <i>macro character</i>, the <i>Lisp reader</i> calls its
+<i>reader macro function</i>, which parses one specially formatted object 
+from the <i>input</i> <i>stream</i>.
+The <i>function</i> either returns the parsed <i>object</i>,
+or else it returns no <i>values</i> 
+to indicate that the characters scanned by the <i>function</i>
+are being ignored (<i>e.g.</i>, in the case of a comment).
+Examples of <i>macro characters</i>
+are <i>backquote</i>, <i>single-quote</i>, <i>left-parenthesis</i>, and 
+<i>right-parenthesis</i>.
+</p>
+<p>A <i>macro character</i> is either <i>terminating</i> or <i>non-terminating</i>.
+The difference between <i>terminating</i> and <i>non-terminating</i> <i>macro characters</i> 
+lies in what happens when such characters occur in the middle of a <i>token</i>.  
+If a <span id="index-non_002dterminating"></span>
+<em>non-terminating</em> <i>macro character</i> occurs in the middle of a <i>token</i>,
+the <i>function</i> associated 
+with the <i>non-terminating</i> <i>macro character</i> is not called,
+and the
+<i>non-terminating</i> <i>macro character</i> does not terminate the <i>token</i>&rsquo;s name; it
+becomes part of the name as if the <i>macro character</i> were really a constituent
+character.  A <span id="index-terminating"></span>
+<em>terminating</em> <i>macro character</i> terminates any <i>token</i>,
+and its associated <i>reader macro function</i>
+is called no matter where the <i>character</i> appears.
+The only <i>non-terminating</i> <i>macro character</i> in <i>standard syntax</i> 
+is <i>sharpsign</i>.
+</p>
+<p>If a <i>character</i> is a <i>dispatching macro character</i> C<sub>1</sub>
+its <i>reader macro function</i> is a <i>function</i> supplied by the <i>implementation</i>.
+This <i>function</i> reads decimal <i>digit</i> <i>characters</i> until a non-<i>digit</i>
+C<sub>2</sub>
+If any <i>digits</i> were read,
+they are converted into a corresponding <i>integer</i> infix parameter P;
+otherwise, the infix parameter P is <code>nil</code>.  
+The terminating non-<i>digit</i> C<sub>2</sub>
+(sometimes called a &ldquo;sub-character&rdquo; to emphasize its subordinate role in the dispatching)
+that is looked up in the dispatch table associated with
+the <i>dispatching macro character</i> C<sub>1</sub>
+The <i>reader macro function</i> associated with the sub-character C<sub>2</sub>
+is invoked with three arguments:
+the <i>stream</i>,
+the sub-character C<sub>2</sub>
+and the infix parameter P.
+For more information about dispatch characters,
+see the <i>function</i> <a href="Reader.html#set_002ddispatch_002dmacro_002dcharacter">set-dispatch-macro-character</a>.
+</p>
+<p>For information about the <i>macro characters</i> 
+that are available in <i>standard syntax</i>,
+see <a href="#Standard-Macro-Characters">Section 2.4 (Standard Macro Characters)</a>.
+</p>
+
+<span id="Multiple-Escape-Characters"></span><h4 class="subsubsection">2.1.4.5 Multiple Escape Characters</h4>
+<span id="MultipleEscapeChar"></span>
+<p>A pair of <span id="index-multiple-escape"></span>
+<em>multiple escape</em> <i>characters</i>
+is used to indicate that an enclosed sequence of characters,
+including possible <i>macro characters</i> and <i>whitespace</i><sub>2</sub>
+are to be treated as <i>alphabetic</i><sub>2</sub>
+with <i>case</i> preserved.
+Any <i>single escape</i> and <i>multiple escape</i> <i>characters</i> 
+that are to appear in the sequence must be preceded by a <i>single escape</i> 
+<i>character</i>.  
+</p>
+<p><i>Vertical-bar</i> is a <i>multiple escape</i> <i>character</i>
+in <i>standard syntax</i>.
+</p>
+<span id="g_t2_002e1_002e4_002e5_002e1-Examples-of-Multiple-Escape-Characters"></span><h4 class="unnumberedsubsubsec">2.1.4.5.1 Examples of Multiple Escape Characters</h4>
+
+
+<div class="lisp">
+<pre class="lisp"> ;; The following examples assume the readtable case of *readtable* 
+ ;; and *print-case* are both :upcase.
+ (eq 'abc 'ABC) <span class="roman">→</span> <i>true</i>
+ (eq 'abc '|ABC|) <span class="roman">→</span> <i>true</i>
+ (eq 'abc 'a|B|c) <span class="roman">→</span> <i>true</i>
+ (eq 'abc '|abc|) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+
+
+<span id="Single-Escape-Character"></span><h4 class="subsubsection">2.1.4.6 Single Escape Character</h4>
+<span id="SingleEscapeChar"></span>
+<p>A <span id="index-single-escape"></span>
+<em>single escape</em> is used to indicate that 
+the next <i>character</i> is to be treated as 
+an <i>alphabetic</i><sub>2</sub>
+with its <i>case</i> preserved,
+no matter what the <i>character</i> is 
+or which <i>constituent traits</i> it has.  
+</p>
+<p><i>Backslash</i> is a <i>single escape</i> <i>character</i> in <i>standard syntax</i>.
+</p>
+<span id="g_t2_002e1_002e4_002e6_002e1-Examples-of-Single-Escape-Characters"></span><h4 class="unnumberedsubsubsec">2.1.4.6.1 Examples of Single Escape Characters</h4>
+
+
+<div class="lisp">
+<pre class="lisp"> ;; The following examples assume the readtable case of *readtable* 
+ ;; and *print-case* are both :upcase.
+ (eq 'abc '\A\B\C) <span class="roman">→</span> <i>true</i>
+ (eq 'abc 'a\Bc) <span class="roman">→</span> <i>true</i>
+ (eq 'abc '\ABC) <span class="roman">→</span> <i>true</i>
+ (eq 'abc '\abc) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+
+
+<span id="Whitespace-Characters"></span><h4 class="subsubsection">2.1.4.7 Whitespace Characters</h4>
+<span id="WhitespaceChars"></span>
+<p><i>Whitespace</i><sub>2</sub>
+</p>
+<p><i>Space</i> and <i>newline</i> are <i>whitespace</i><sub>2</sub>
+in <i>standard syntax</i>.
+</p>
+<span id="g_t2_002e1_002e4_002e7_002e1-Examples-of-Whitespace-Characters"></span><h4 class="unnumberedsubsubsec">2.1.4.7.1 Examples of Whitespace Characters</h4>
+
+
+<div class="lisp">
+<pre class="lisp"> (length '(this-that)) <span class="roman">→</span> 1
+ (length '(this - that)) <span class="roman">→</span> 3
+ (length '(a
+           b)) <span class="roman">→</span> 2
+ (+ 34) <span class="roman">→</span> 34
+ (+ 3 4) <span class="roman">→</span> 7
+</pre></div>
+
+
+
+
+
+<hr>
+<span id="Reader-Algorithm"></span><div class="header">
+<p>
+Next: <a href="#Interpretation-of-Tokens" accesskey="n" rel="next">Interpretation of Tokens</a>, Previous: <a href="#Character-Syntax" accesskey="p" rel="prev">Character Syntax</a>, Up: <a href="#Syntax" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Reader-Algorithm-1"></span><h3 class="section">2.2 Reader Algorithm</h3>
+
+<p>This section describes the algorithm used by the <i>Lisp reader</i>
+to parse <i>objects</i> from an <i>input</i> <i>character</i> <i>stream</i>,
+including how the <i>Lisp reader</i> processes <i>macro characters</i>.
+</p>
+<p>When dealing with <i>tokens</i>, the reader&rsquo;s basic function is to distinguish
+representations of <i>symbols</i> from those of <i>numbers</i>.
+When a <i>token</i> is accumulated, it is assumed to represent a <i>number</i> if it
+satisfies the syntax for numbers listed in <a href="#SyntaxForNumericTokens">Figure 2.9</a>.
+If it does not represent a <i>number</i>,
+it is then assumed to be a <i>potential number</i> 
+if it satisfies the rules governing the syntax for a <i>potential number</i>.
+If a valid <i>token</i> is neither a representation of a <i>number</i> 
+nor a <i>potential number</i>,
+it represents a <i>symbol</i>.
+</p>
+<p>The algorithm performed by the <i>Lisp reader</i> is as follows:
+</p>
+
+<ol>
+<li> If at end of file, end-of-file processing is performed as specified
+in <code>read</code>.
+Otherwise,
+one <i>character</i>, <var>x</var>,  is read from the <i>input</i> <i>stream</i>, and
+dispatched according to the <i>syntax type</i> of <var>x</var> to one
+of steps 2 to 7.
+
+</li><li> If <var>x</var> is an <i>invalid</i> <i>character</i>,
+an error of <i>type</i> <code>reader-error</code> is signaled.
+
+</li><li> If <var>x</var> is a <i>whitespace</i><sub>2</sub>
+then it is discarded and step 1 is re-entered.
+
+</li><li> If <var>x</var> is a <i>terminating</i> or <i>non-terminating</i> <i>macro character</i>
+then its associated <i>reader macro function</i> is called with two <i>arguments</i>,
+the <i>input</i> <i>stream</i> and <var>x</var>.
+
+<p>The <i>reader macro function</i> may read <i>characters</i> 
+from the <i>input</i> <i>stream</i>; 
+if it does, it will see those <i>characters</i> following the <i>macro character</i>.
+The <i>Lisp reader</i> may be invoked recursively from the <i>reader macro function</i>.
+</p>
+<p>The <i>reader macro function</i> must not have any side effects other than on the
+<i>input</i> <i>stream</i>;
+because of backtracking and restarting of the <code>read</code> operation,
+front ends to the <i>Lisp reader</i> (<i>e.g.</i>, &ldquo;editors&rdquo; and &ldquo;rubout handlers&rdquo;) 
+may cause the <i>reader macro function</i> to be called repeatedly during the
+reading of a single <i>expression</i> in which <var>x</var> only appears once.
+</p>
+<p>The <i>reader macro function</i> may return zero values or one value.
+If one value is returned,
+then that value is returned as the result of the read operation;
+the algorithm is done.
+If zero values are returned, then step 1 is re-entered.
+</p>
+</li><li> If <var>x</var> is a <i>single escape</i> <i>character</i>
+then the next <i>character</i>, <var>y</var>, is read, or an error of <i>type</i> <code>end-of-file</code> 
+is signaled if at the end of file.
+<var>y</var> is treated as if it is a <i>constituent</i> 
+whose only <i>constituent trait</i> is <i>alphabetic</i><sub>2</sub>
+<var>y</var> is used to begin a <i>token</i>, and step 8 is entered.
+
+</li><li> If <var>x</var> is a <i>multiple escape</i> <i>character</i>
+then a <i>token</i> (initially
+containing no <i>characters</i>) is  begun and step 9 is entered.
+
+</li><li> If <var>x</var> is a <i>constituent</i> <i>character</i>, then it begins a <i>token</i>.
+After the <i>token</i> is read in, it will be interpreted
+either as a <span class="roman">Lisp</span>&nbsp;<!-- /@w --><i>object</i> or as being of invalid syntax.
+If the <i>token</i> represents an <i>object</i>,
+that <i>object</i> is returned as the result of the read operation.
+If the <i>token</i> is of invalid syntax, an error is signaled.
+If <var>x</var> is a <i>character</i> with <i>case</i>,
+it might be replaced with the corresponding <i>character</i> of the opposite <i>case</i>, 
+depending on the <i>readtable case</i> of the <i>current readtable</i>,
+as outlined in <a href="Reader.html#Effect-of-Readtable-Case-on-the-Lisp-Reader">Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)</a>.
+<var>X</var> is used to begin a <i>token</i>, and step 8 is entered.
+
+</li><li> At this point a <i>token</i> is being accumulated, and an even number
+of <i>multiple escape</i> <i>characters</i> have been encountered.
+If at end of file, step 10 is entered.
+Otherwise, a <i>character</i>, <var>y</var>, is read, and
+one of the following actions is performed according to its <i>syntax type</i>:
+
+
+<ul>
+<li> If <var>y</var> is a <i>constituent</i> or <i>non-terminating</i> <i>macro character</i>:
+
+<ul class="no-bullet">
+<li>&ndash; If <var>y</var> is a <i>character</i> with <i>case</i>,
+it might be replaced with the corresponding <i>character</i> of the opposite <i>case</i>, 
+depending on the <i>readtable case</i> of the <i>current readtable</i>,
+as outlined in <a href="Reader.html#Effect-of-Readtable-Case-on-the-Lisp-Reader">Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)</a>.
+</li><li>&ndash; <var>Y</var> is appended to the <i>token</i> being built.
+</li><li>&ndash; Step 8 is repeated.
+</li></ul>
+
+
+</li><li> If <var>y</var> is a <i>single escape</i> <i>character</i>, then the next <i>character</i>,
+<var>z</var>, is read, or an error of <i>type</i> <code>end-of-file</code> is signaled if at end of file.
+<var>Z</var> is treated as if it is a <i>constituent</i> 
+whose only <i>constituent trait</i> is <i>alphabetic</i><sub>2</sub>
+<var>Z</var> is appended to the <i>token</i> being built,
+and step 8 is repeated.
+
+</li><li> If <var>y</var> is a <i>multiple escape</i> <i>character</i>,
+then step 9 is entered.
+
+</li><li> If <var>y</var> is an <i>invalid</i> <i>character</i>,
+an error of <i>type</i> <code>reader-error</code> is signaled.
+
+</li><li> If <var>y</var> is a <i>terminating</i> <i>macro character</i>,
+then it terminates the <i>token</i>.
+First the <i>character</i> <var>y</var> is unread (see <code>unread-char</code>),
+and then step 10 is entered.
+
+</li><li> If <var>y</var> is a <i>whitespace</i><sub>2</sub>
+the <i>token</i>.  First the <i>character</i> <var>y</var> is unread
+if appropriate (see <code>read-preserving-whitespace</code>),
+and then step 10 is entered.
+</li></ul>
+
+
+</li><li> At this point a <i>token</i> is being accumulated, and an odd number
+of <i>multiple escape</i> <i>characters</i> have been encountered.
+If at end of file, an error of <i>type</i> <code>end-of-file</code> is signaled.
+Otherwise, a <i>character</i>, <var>y</var>, is read, and
+one of the following actions is performed according to its <i>syntax type</i>:
+
+
+<ul>
+<li> If <var>y</var> is a <i>constituent</i>, macro, or <i>whitespace</i><sub>2</sub>
+<var>y</var> is treated as a <i>constituent</i> 
+whose only <i>constituent trait</i> is <i>alphabetic</i><sub>2</sub>
+<var>Y</var> is appended to the <i>token</i> being built, and step 9 is repeated.
+
+</li><li> If <var>y</var> is a <i>single escape</i> <i>character</i>, then the next <i>character</i>,
+<var>z</var>, is read, or an error of <i>type</i> <code>end-of-file</code> is signaled if at end of file.
+<var>Z</var> is treated as a <i>constituent</i>
+whose only <i>constituent trait</i> is <i>alphabetic</i><sub>2</sub>
+<var>Z</var> is appended to the <i>token</i> being built,
+and step 9 is repeated.
+
+</li><li> If <var>y</var> is a <i>multiple escape</i> <i>character</i>,
+then step 8 is entered.
+
+</li><li> If <var>y</var> is an <i>invalid</i> <i>character</i>,
+an error of <i>type</i> <code>reader-error</code> is signaled.
+</li></ul>
+
+
+</li><li> An entire <i>token</i> has been accumulated.
+The <i>object</i> represented by the <i>token</i> is returned 
+as the result of the read operation,
+or an error of <i>type</i> <code>reader-error</code> is signaled if the <i>token</i> is not of valid syntax.
+</li></ol>
+
+
+
+<hr>
+<span id="Interpretation-of-Tokens"></span><div class="header">
+<p>
+Next: <a href="#Standard-Macro-Characters" accesskey="n" rel="next">Standard Macro Characters</a>, Previous: <a href="#Reader-Algorithm" accesskey="p" rel="prev">Reader Algorithm</a>, Up: <a href="#Syntax" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Interpretation-of-Tokens-1"></span><h3 class="section">2.3 Interpretation of Tokens</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Numbers-as-Tokens" accesskey="1">Numbers as Tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Constructing-Numbers-from-Tokens" accesskey="2">Constructing Numbers from Tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-Consing-Dot" accesskey="3">The Consing Dot</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Symbols-as-Tokens" accesskey="4">Symbols as Tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Valid-Patterns-for-Tokens" accesskey="5">Valid Patterns for Tokens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Package-System-Consistency-Rules" accesskey="6">Package System Consistency Rules</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Numbers-as-Tokens"></span><div class="header">
+<p>
+Next: <a href="#Constructing-Numbers-from-Tokens" accesskey="n" rel="next">Constructing Numbers from Tokens</a>, Up: <a href="#Interpretation-of-Tokens" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Numbers-as-Tokens-1"></span><h4 class="subsection">2.3.1 Numbers as Tokens</h4>
+
+<p>When a <i>token</i> is read,
+it is interpreted as a <i>number</i> or <i>symbol</i>.
+The <i>token</i> is interpreted as a <i>number</i> if it satisfies
+the syntax for numbers specified in the next figure.
+</p>
+
+
+<div class="float"><span id="SyntaxForNumericTokens"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><var>numeric-token</var></td><td>::=</td><td><tt>↓</tt>integer <span class="roman">|</span> 
+<tt>↓</tt>ratio   <span class="roman">|</span>
+<tt>↓</tt>float</td></tr>
+<tr><td><var>integer</var></td><td>::=</td><td><tt>[</tt><var>sign</var><tt>]</tt> 
+<tt>{</tt><var>decimal-digit</var><tt>}</tt>+ 
+<var>decimal-point</var> <span class="roman">|</span>
+<tt>[</tt><var>sign</var><tt>]</tt> 
+<tt>{</tt><var>digit</var><tt>}</tt>+</td></tr>
+<tr><td><var>ratio</var></td><td>::=</td><td><tt>[</tt><var>sign</var><tt>]</tt>
+<tt>{</tt><var>digit</var><tt>}</tt>+
+<var>slash</var> 
+<tt>{</tt><var>digit</var><tt>}</tt>+</td></tr>
+<tr><td><var>float</var></td><td>::=</td><td><tt>[</tt><var>sign</var><tt>]</tt>
+<tt>{</tt><var>decimal-digit</var><tt>}</tt>*
+<var>decimal-point</var>
+<tt>{</tt><var>decimal-digit</var><tt>}</tt>+
+<tt>[</tt><tt>↓</tt>exponent<tt>]</tt></td></tr>
+<tr><td></td><td></td><td>| <tt>[</tt><var>sign</var><tt>]</tt> <tt>{</tt><var>decimal-digit</var><tt>}</tt>+  <tt>[</tt><var>decimal-point</var>  <tt>{</tt><var>decimal-digit</var><tt>}</tt>*<tt>]</tt> <tt>↓</tt>exponent</td></tr>
+<tr><td><var>exponent</var></td><td>::=</td><td><var>exponent-marker</var>
+<tt>[</tt><var>sign</var><tt>]</tt>
+<tt>{</tt><var>digit</var><tt>}</tt>+</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.9: </strong>Syntax for Numeric Tokens</p></div></div>
+<p><var>sign</var>&mdash;a <i>sign</i>.<br>
+<var>slash</var>&mdash;a <i>slash</i><br>
+<var>decimal-point</var>&mdash;a <i>dot</i>.<br>
+<var>exponent-marker</var>&mdash;an <i>exponent marker</i>.<br>
+<var>decimal-digit</var>&mdash;a <i>digit</i> in <i>radix</i> <code>10</code>.<br>
+<var>digit</var>&mdash;a <i>digit</i> in the <i>current input radix</i>.<br>
+</p>
+<span id="Potential-Numbers-as-Tokens"></span><h4 class="subsubsection">2.3.1.1 Potential Numbers as Tokens</h4>
+<span id="PotentialNumbersAsTokens"></span>
+<p>To allow implementors and future <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->standards
+to extend the syntax of numbers, a
+syntax for <i>potential numbers</i> is defined that is
+more general than the syntax for numbers.
+A <i>token</i> is a <i>potential number</i> if it satisfies all of the following
+requirements:
+</p>
+
+<ol>
+<li> The <i>token</i> consists entirely of 
+<i>digits</i>,
+<i>signs</i>,
+<i>ratio markers</i>,
+decimal points (<code>.</code>),
+extension characters (^&nbsp;<!-- /@w -->or <code>_</code>),
+and number markers.
+A number marker is a letter. 
+Whether a letter may be treated as a number marker depends on context,
+but no letter that is adjacent to another letter may ever be treated as a number marker.
+<i>Exponent markers</i> are number markers.
+
+</li><li> The <i>token</i> contains at least one digit.  Letters may be considered to be
+digits, depending on the <i>current input base</i>, but only
+in <i>tokens</i> containing no decimal points.
+
+</li><li> The <i>token</i> begins with a <i>digit</i>, <i>sign</i>, decimal point, or extension character,
+
+<p>but not a 
+<i>package marker</i>.
+The syntax involving a leading 
+<i>package marker</i> followed by a <i>potential number</i> is
+not well-defined. The consequences of the use 
+of notation such as <code>:1</code>, <code>:1/2</code>, and <code>:2^3</code> in a
+position where an expression appropriate for <code>read</code> 
+is expected are unspecified.
+</p>
+</li><li> The <i>token</i> does not end with a sign.
+</li></ol>
+
+
+<p>If a <i>potential number</i> has number syntax, 
+a <i>number</i> of the appropriate type is constructed and returned, 
+if the <i>number</i> is representable in an implementation.
+A <i>number</i> will not be representable in an implementation 
+if it is outside the boundaries set by the <i>implementation-dependent</i> 
+constants for <i>numbers</i>.
+For example, specifying too large or too small an exponent for a <i>float</i>
+may make the <i>number</i> impossible to represent in the implementation.
+A <i>ratio</i> with denominator zero (such as <code>-35/000</code>)
+is not represented in any implementation.
+When a <i>token</i> with the syntax of a number cannot be converted to an internal
+<i>number</i>, an error of <i>type</i> <code>reader-error</code> is signaled.  An error
+must not be signaled for specifying too many significant digits
+for a <i>float</i>; a truncated or rounded value should be produced.
+</p>
+<p>If there is an ambiguity as to whether
+a letter should be treated as a digit or as a number marker,
+the letter is treated as a digit.
+</p>
+<span id="g_t2_002e3_002e1_002e1_002e1-Escape-Characters-and-Potential-Numbers"></span><h4 class="unnumberedsubsubsec">2.3.1.1.1 Escape Characters and Potential Numbers</h4>
+
+<span id="EscCharsAndPotentialNums"></span>
+<p>A <i>potential number</i> cannot contain any <i>escape</i>
+<i>characters</i>.  An <i>escape</i> <i>character</i> robs the following
+<i>character</i> of all syntactic qualities, forcing it to be strictly
+<i>alphabetic</i><sub>2</sub>
+<i>potential number</i>.  For example, all of the following
+representations are interpreted as <i>symbols</i>, not <i>numbers</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> \256   25\64   1.0\E6   |100|   3\.14159   |3/4|   3\/4   5||
+</pre></div>
+
+
+<p>In each case, removing the <i>escape</i> <i>character</i> (or <i>characters</i>) 
+would 
+cause the token to be a <i>potential number</i>.
+</p>
+
+<span id="g_t2_002e3_002e1_002e1_002e2-Examples-of-Potential-Numbers"></span><h4 class="unnumberedsubsubsec">2.3.1.1.2 Examples of Potential Numbers</h4>
+
+
+<p>As examples, the <i>tokens</i> in the next figure&nbsp;<!-- /@w -->are <i>potential numbers</i>,
+but they are not actually numbers, and so are reserved <i>tokens</i>;
+a <i>conforming implementation</i> is permitted, but not required,
+to define their meaning.
+</p>
+
+<div class="float"><span id="fig2_002e10"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>1b5000</code></td><td><code>777777q</code></td><td><code>1.7J</code></td><td><code>-3/4+6.7J</code></td><td><code>12/25/83</code></td></tr>
+<tr><td><code>27^19</code></td><td><code>3^4/5</code></td><td><code>6//7</code></td><td><code>3.1.2.6</code></td><td><code>^-43^</code></td></tr>
+<tr><td><code>3.141_592_653_589_793_238_4</code></td><td><code>-3.7+2.6i-6.17j+19.6k</code></td><td></td><td></td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.10: </strong>Examples of reserved tokens</p></div></div>
+
+<p>The <i>tokens</i> in the next figure&nbsp;<!-- /@w -->are not <i>potential numbers</i>; 
+they are always treated as <i>symbols</i>:
+</p>
+
+<div class="float"><span id="fig2_002e11"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>/</code></td><td><code>/5</code></td><td><code>+</code></td><td><code>1+</code></td><td><code>1-</code></td></tr>
+<tr><td><code>foo+</code></td><td><code>ab.cd</code></td><td><code>_</code></td><td><code>^</code></td><td><code>^/-</code></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.11: </strong>Examples of symbols</p></div></div>
+
+<p>The <i>tokens</i> in the next figure&nbsp;<!-- /@w -->are <i>potential numbers</i>
+if the <i>current input base</i> is <code>16</code>, 
+but they are always treated as <i>symbols</i> if the <i>current input base</i> is <code>10</code>. 
+</p>
+
+<div class="float"><span id="fig2_002e12"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>bad-face</code></td><td><code>25-dec-83</code></td><td><code>a/b</code></td><td><code>fad_cafe</code></td><td><code>f^</code></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.12: </strong>Examples of symbols or potential numbers</p></div></div>
+
+
+
+
+<hr>
+<span id="Constructing-Numbers-from-Tokens"></span><div class="header">
+<p>
+Next: <a href="#The-Consing-Dot" accesskey="n" rel="next">The Consing Dot</a>, Previous: <a href="#Numbers-as-Tokens" accesskey="p" rel="prev">Numbers as Tokens</a>, Up: <a href="#Interpretation-of-Tokens" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Constructing-Numbers-from-Tokens-1"></span><h4 class="subsection">2.3.2 Constructing Numbers from Tokens</h4>
+
+<p>A <i>real</i> is constructed directly from a corresponding numeric <i>token</i>;
+see <a href="#SyntaxForNumericTokens">Figure 2.9</a>.
+</p>
+<p>A <i>complex</i> is notated as a <code>#C</code> (or <code>#c</code>) followed by a <i>list</i>
+of two <i>reals</i>; see <a href="#SharpsignC">Section 2.4.8.11 (Sharpsign C)</a>.
+</p>
+<p>The <i>reader macros</i> <code>#B</code>, <code>#O</code>, <code>#X</code>, and <code>#R</code> may also be useful
+in controlling the input <i>radix</i> in which <i>rationals</i> are parsed;
+see <a href="#SharpsignB">Section 2.4.8.7 (Sharpsign B)</a>,
+<a href="#SharpsignO">Section 2.4.8.8 (Sharpsign O)</a>,
+<a href="#SharpsignX">Section 2.4.8.9 (Sharpsign X)</a>,
+and <a href="#SharpsignR">Section 2.4.8.10 (Sharpsign R)</a>.
+</p>
+<p>This section summarizes the full syntax for <i>numbers</i>.
+</p>
+<span id="Syntax-of-a-Rational"></span><h4 class="subsubsection">2.3.2.1 Syntax of a Rational</h4>
+
+<span id="g_t2_002e3_002e2_002e1_002e1-Syntax-of-an-Integer"></span><h4 class="unnumberedsubsubsec">2.3.2.1.1 Syntax of an Integer</h4>
+
+<span id="SyntaxOfIntegers"></span>
+<p><i>Integers</i> can be written as a sequence of <i>digits</i>, 
+optionally preceded by a <i>sign</i> and optionally followed by a decimal point;
+see <a href="#SyntaxForNumericTokens">Figure 2.9</a>.
+When a decimal point is used,
+the <i>digits</i> are taken to be in <i>radix</i> <code>10</code>;
+when no decimal point is used,
+the <i>digits</i> are taken to be in radix given by the <i>current input base</i>.
+</p>
+<p>For information on how <i>integers</i> are printed, see <a href="Printer.html#PrintingIntegers">Section 22.1.3.1.1 (Printing Integers)</a>.
+</p>
+
+<span id="g_t2_002e3_002e2_002e1_002e2-Syntax-of-a-Ratio"></span><h4 class="unnumberedsubsubsec">2.3.2.1.2 Syntax of a Ratio</h4>
+
+<span id="SyntaxOfRatios"></span>
+<p><i>Ratios</i> can be written as an optional <i>sign</i> followed by two
+non-empty sequences of <i>digits</i> separated by a <i>slash</i>;
+see <a href="#SyntaxForNumericTokens">Figure 2.9</a>.
+The second sequence may not consist
+entirely of zeros.
+Examples of <i>ratios</i> are in the next figure.
+</p>
+
+<div class="float"><span id="fig2_002e13"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>2/3</code></td><td>;This is in canonical form</td></tr>
+<tr><td><code>4/6</code></td><td>;A non-canonical form for 2/3</td></tr>
+<tr><td><code>-17/23</code></td><td>;A ratio preceded by a sign</td></tr>
+<tr><td><code>-30517578125/32768</code></td><td>;This is (-5/2)^15</td></tr>
+<tr><td><code>10/5</code></td><td>;The canonical form for this is <code>2</code></td></tr>
+<tr><td><code>#o-101/75</code></td><td>;Octal notation for -65/61</td></tr>
+<tr><td><code>#3r120/21</code></td><td>;Ternary notation for 15/7</td></tr>
+<tr><td><code>#Xbc/ad</code></td><td>;Hexadecimal notation for 188/173</td></tr>
+<tr><td><code>#xFADED/FACADE</code></td><td>;Hexadecimal notation for 1027565/16435934</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.13: </strong>Examples of Ratios</p></div></div>
+
+
+
+<p>For information on how <i>ratios</i> are printed,
+see <a href="Printer.html#PrintingRatios">Section 22.1.3.1.2 (Printing Ratios)</a>.
+</p>
+
+
+<span id="Syntax-of-a-Float"></span><h4 class="subsubsection">2.3.2.2 Syntax of a Float</h4>
+<span id="SyntaxOfFloats"></span>
+<p><i>Floats</i> can be written in either decimal fraction or computerized
+scientific notation: an optional sign, then a non-empty sequence of digits
+with an embedded decimal point,
+then an optional decimal exponent specification.
+If there is no exponent specifier, then
+the decimal point is required, and there must be digits
+after it.
+The exponent specifier consists of an <i>exponent marker</i>,
+an optional sign, and a non-empty sequence of digits.
+If no exponent specifier is present, or if the <i>exponent marker</i> <code>e</code>
+(or <code>E</code>) is used, then
+the format specified
+by <code>*read-default-float-format*</code> is used.
+See <a href="#SyntaxForNumericTokens">Figure 2.9</a>.
+</p>
+<p>An implementation may provide one or more kinds of <i>float</i>
+that collectively make up the <i>type</i> <code>float</code>.
+The letters <code>s</code>, <code>f</code>, <code>d</code>, and <code>l</code> (or their
+respective uppercase equivalents) explicitly specify the
+use of the <i>types</i> <code>short-float</code>, <code>single-float</code>, 
+<code>double-float</code>, and <code>long-float</code>, respectively.
+</p>
+<p>The internal format used for an external representation depends only
+on the <i>exponent marker</i>, and not on the number of decimal digits
+in the external representation.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->contains examples of notations for <i>floats</i>: 
+</p>
+
+<div class="float"><span id="fig2_002e14"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>0.0</code></td><td>;Floating-point zero in default format</td></tr>
+<tr><td><code>0E0</code></td><td>;As input, this is also floating-point zero in default format.</td></tr>
+<tr><td></td><td>;As output, this would appear as <code>0.0</code>.</td></tr>
+<tr><td><code>0e0</code></td><td>;As input, this is also floating-point zero in default format.</td></tr>
+<tr><td></td><td>;As output, this would appear as <code>0.0</code>.</td></tr>
+<tr><td><code>-.0</code></td><td>;As input, this might be a zero or a minus zero,</td></tr>
+<tr><td></td><td>; depending on whether the implementation supports</td></tr>
+<tr><td></td><td>; a distinct minus zero.</td></tr>
+<tr><td></td><td>;As output, <code>0.0</code> is zero and <code>-0.0</code> is minus zero.</td></tr>
+<tr><td><code>0.</code></td><td>;On input, the integer zero&mdash;<i>not</i> a floating-point number!</td></tr>
+<tr><td></td><td>;Whether this appears as <code>0</code> or <code>0.</code> on output depends</td></tr>
+<tr><td></td><td>;on the <i>value</i> of <code>*print-radix*</code>.</td></tr>
+<tr><td><code>0.0s0</code></td><td>;A floating-point zero in short format</td></tr>
+<tr><td><code>0s0</code></td><td>;As input, this is a floating-point zero in short format.</td></tr>
+<tr><td></td><td>;As output, such a zero would appear as <code>0.0s0</code></td></tr>
+<tr><td></td><td>; (or as <code>0.0</code> if <tt>short-float</tt> was the default format).</td></tr>
+<tr><td><code>6.02E+23</code></td><td>;Avogadro&rsquo;s number, in default format</td></tr>
+<tr><td><code>602E+21</code></td><td>;Also Avogadro&rsquo;s number, in default format</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.14: </strong>Examples of Floating-point numbers</p></div></div>
+
+<p>For information on how <i>floats</i> are printed,
+see <a href="Printer.html#PrintingFloats">Section 22.1.3.1.3 (Printing Floats)</a>.
+</p>
+
+<span id="Syntax-of-a-Complex"></span><h4 class="subsubsection">2.3.2.3 Syntax of a Complex</h4>
+<span id="SyntaxOfComplexes"></span>
+<p>A <i>complex</i> has a Cartesian structure, 
+with a real part and an imaginary part each of which is a 
+<i>real</i>.
+The parts of a <i>complex</i> are not necessarily <i>floats</i> 
+but both parts must be of the same <i>type</i>: 
+</p>
+<p>either both are <i>rationals</i>, or both are of the same <i>float</i> <i>subtype</i>.
+When constructing a <i>complex</i>, if the specified parts are not the
+same <i>type</i>, the parts are converted to be the same <i>type</i>
+internally (<i>i.e.</i>, the <i>rational</i> part is converted to a <i>float</i>). 
+An <i>object</i> of type <code>(complex rational)</code> is converted internally
+and represented thereafter as a <i>rational</i> if its imaginary part is an 
+<i>integer</i> whose value is 0.
+</p>
+<p>For further information, see <a href="#SharpsignC">Section 2.4.8.11 (Sharpsign C)</a>&nbsp;<!-- /@w -->and <a href="Printer.html#PrintingComplexes">Section 22.1.3.1.4 (Printing Complexes)</a>.
+</p>
+
+
+<hr>
+<span id="The-Consing-Dot"></span><div class="header">
+<p>
+Next: <a href="#Symbols-as-Tokens" accesskey="n" rel="next">Symbols as Tokens</a>, Previous: <a href="#Constructing-Numbers-from-Tokens" accesskey="p" rel="prev">Constructing Numbers from Tokens</a>, Up: <a href="#Interpretation-of-Tokens" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="The-Consing-Dot-1"></span><h4 class="subsection">2.3.3 The Consing Dot</h4>
+
+<p>If a <i>token</i> consists solely of dots (with no escape characters),
+then an error of <i>type</i> <code>reader-error</code> is signaled,
+except in one circumstance:
+if the <i>token</i> is a single <i>dot</i>
+and appears in a situation where <i>dotted pair</i> notation permits a <i>dot</i>,
+then it is accepted as part of such syntax and no error is signaled. 
+See <a href="#Left_002dParenthesis">Section 2.4.1 (Left-Parenthesis)</a>.
+</p>
+
+<hr>
+<span id="Symbols-as-Tokens"></span><div class="header">
+<p>
+Next: <a href="#Valid-Patterns-for-Tokens" accesskey="n" rel="next">Valid Patterns for Tokens</a>, Previous: <a href="#The-Consing-Dot" accesskey="p" rel="prev">The Consing Dot</a>, Up: <a href="#Interpretation-of-Tokens" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Symbols-as-Tokens-1"></span><h4 class="subsection">2.3.4 Symbols as Tokens</h4>
+
+<p>Any <i>token</i> that is not a <i>potential number</i>,
+does not contain a <i>package marker</i>,
+and does not consist entirely of dots
+will always be interpreted as a <i>symbol</i>.
+Any <i>token</i> that is a <i>potential number</i> but does not fit the       
+number syntax is a reserved <i>token</i> and
+has an <i>implementation-dependent</i> interpretation.
+In all other cases, the <i>token</i> is construed to be the name of a <i>symbol</i>.
+</p>
+<p>Examples of the printed representation of <i>symbols</i> are in the next figure. 
+For presentational simplicity,
+these examples assume that
+the <i>readtable case</i> of the <i>current readtable</i> is <tt>:upcase</tt>.
+</p>
+
+<div class="float"><span id="fig2_002e15"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>FROBBOZ</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>FROBBOZ</code>.</td></tr>
+<tr><td><code>frobboz</code></td><td>Another way to notate the same <i>symbol</i>.</td></tr>
+<tr><td><code>fRObBoz</code></td><td>Yet another way to notate it.</td></tr>
+<tr><td><code>unwind-protect</code></td><td>A <i>symbol</i> with a hyphen in its <i>name</i>.</td></tr>
+<tr><td><code>+$</code></td><td>The <i>symbol</i> named <code>+$</code>.</td></tr>
+<tr><td><code>1+</code></td><td>The <i>symbol</i> named <code>1+</code>.</td></tr>
+<tr><td><code>+1</code></td><td>This is the <i>integer</i> <code>1</code>,
+not a <i>symbol</i>.</td></tr>
+<tr><td><code>pascal_style</code></td><td>This <i>symbol</i> has an underscore 
+in its <i>name</i>.</td></tr>
+<tr><td><code>file.rel.43</code></td><td>This <i>symbol</i> has periods in its <i>name</i>.</td></tr>
+<tr><td><code>\(</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>(</code>.</td></tr>
+<tr><td><code>\+1</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>+1</code>.</td></tr>
+<tr><td><code>+\1</code></td><td>Also the <i>symbol</i> whose <i>name</i> is <code>+1</code>.</td></tr>
+<tr><td><code>\frobboz</code></td><td>The <i>symbol</i> whose <i>name</i> is <code>fROBBOZ</code>.</td></tr>
+<tr><td><code>3.14159265\s0</code></td><td>The <i>symbol</i> whose <i>name</i>
+is <code>3.14159265s0</code>.</td></tr>
+<tr><td><code>3.14159265\S0</code></td><td>A different <i>symbol</i>,  whose <i>name</i> is <code>3.14159265S0</code>.</td></tr>
+<tr><td><code>3.14159265s0</code></td><td>A possible <i>short float</i> 
+approximation to π.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.15: </strong>Examples of the printed representation of symbols (Part 1 of 2)</p></div></div>
+
+
+<div class="float"><span id="fig2_002e16"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>APL\\360</code></td><td>The <i>symbol</i> whose <i>name</i> 
+is <code>APL\360</code>.</td></tr>
+<tr><td><code>apl\\360</code></td><td>Also the <i>symbol</i> whose <i>name</i>  is <code>APL\360</code>.</td></tr>
+<tr><td><code>\(b^2\)\&nbsp;<!-- /@w -->-\&nbsp;<!-- /@w -->4*a<code>*c</code></code></td><td>The <i>name</i> is <code>(B^2) - 4*A*C</code>.</td></tr>
+<tr><td></td><td>Parentheses and two spaces in it.</td></tr>
+<tr><td><code>\(\b^2\)\&nbsp;<!-- /@w -->-\4*\a*\c</code></td><td>The <i>name</i> is <code>(b^2) - 4*a*c</code>.</td></tr>
+<tr><td></td><td>Letters explicitly lowercase.</td></tr>
+<tr><td><code>|&quot;|</code></td><td>The same as writing <code>\&quot;</code>.</td></tr>
+<tr><td><code>|(b^2) - 4*a*c|</code></td><td>The <i>name</i> is <code>(b^2) - 4*a*c</code>.</td></tr>
+<tr><td><code>|frobboz|</code></td><td>The <i>name</i> is <code>frobboz</code>, not <code>FROBBOZ</code>.</td></tr>
+<tr><td><code>|APL\360|</code></td><td>The <i>name</i> is <code>APL360</code>.</td></tr>
+<tr><td><code>|APL\\360|</code></td><td>The <i>name</i> is <code>APL\360</code>.</td></tr>
+<tr><td><code>|apl\\360|</code></td><td>The <i>name</i> is <code>apl\360</code>.</td></tr>
+<tr><td><code>|\|\||</code></td><td>Same as <code>\|\|</code> &mdash;the <i>name</i> is <code>||</code>.</td></tr>
+<tr><td><code>|(B^2) - 4*A*C|</code></td><td>The <i>name</i> is <code>(B^2) - 4*A*C</code>.</td></tr>
+<tr><td></td><td>Parentheses and two spaces in it.</td></tr>
+<tr><td><code>|(b^2) - 4*a*c|</code></td><td>The <i>name</i> is <code>(b^2) - 4*a*c</code>.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.16: </strong>Examples of the printed representation of symbols (Part 2 of 2)</p></div></div>
+
+<p>In the process of parsing a <i>symbol</i>,
+it is <i>implementation-dependent</i> which
+<i>implementation-defined</i> <i>attributes</i> are removed
+from the <i>characters</i> forming a <i>token</i> that represents a <i>symbol</i>.
+</p>
+<p>When parsing the syntax for a <i>symbol</i>,
+the <i>Lisp reader</i> looks up the <i>name</i> of that <i>symbol</i> 
+in the <i>current package</i>.
+This lookup may involve looking in other 
+<i>packages</i> whose <i>external symbols</i>
+are inherited by the <i>current package</i>.  If the name is found,
+the corresponding <i>symbol</i> is returned.  If the name is not found
+(that is, there is no <i>symbol</i> 
+of that name <i>accessible</i> in the <i>current package</i>),
+a new <i>symbol</i> is created and is placed in the <i>current package</i>
+as an <i>internal symbol</i>.  The <i>current package</i> becomes the owner
+(<i>home package</i>) of the <i>symbol</i>, 
+and the <i>symbol</i> becomes interned in the <i>current package</i>.
+If the name is later read again while this same <i>package</i> is
+current, the same <i>symbol</i> will be found and returned.
+</p>
+
+<hr>
+<span id="Valid-Patterns-for-Tokens"></span><div class="header">
+<p>
+Next: <a href="#Package-System-Consistency-Rules" accesskey="n" rel="next">Package System Consistency Rules</a>, Previous: <a href="#Symbols-as-Tokens" accesskey="p" rel="prev">Symbols as Tokens</a>, Up: <a href="#Interpretation-of-Tokens" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Valid-Patterns-for-Tokens-1"></span><h4 class="subsection">2.3.5 Valid Patterns for Tokens</h4>
+
+<p>The valid patterns for <i>tokens</i> are summarized in the next figure. 
+</p>
+
+<div class="float"><span id="fig2_002e17"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code><i>nnnnn</i></code></td><td>a <i>number</i></td></tr>
+<tr><td><code><i>xxxxx</i></code></td><td>a <i>symbol</i> in the <i>current package</i></td></tr>
+<tr><td><code>:<i>xxxxx</i></code></td><td>a <i>symbol</i> in the the <code>KEYWORD</code> <i>package</i></td></tr>
+<tr><td><code><i>ppppp</i>:<i>xxxxx</i></code></td><td>an <i>external symbol</i> 
+in the <i>ppppp</i> <i>package</i></td></tr>
+<tr><td><code><i>ppppp</i>::<i>xxxxx</i></code></td><td>a (possibly internal) <i>symbol</i>  in the <i>ppppp</i> <i>package</i></td></tr>
+<tr><td><code>:<i>nnnnn</i></code></td><td>undefined</td></tr>
+<tr><td><code><i>ppppp</i>:<i>nnnnn</i></code></td><td>undefined</td></tr>
+<tr><td><code><i>ppppp</i>::<i>nnnnn</i></code></td><td>undefined</td></tr>
+<tr><td><code>::<i>aaaaa</i></code></td><td>undefined</td></tr>
+<tr><td><code><i>aaaaa</i>:</code></td><td>undefined</td></tr>
+<tr><td><code><i>aaaaa</i>:<i>aaaaa</i>:<i>aaaaa</i></code></td><td>undefined</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.17: </strong>Valid patterns for tokens</p></div></div>
+
+<p>Note that <i>nnnnn</i> has number syntax,
+neither <i>xxxxx</i> nor <i>ppppp</i> has number syntax,
+and <i>aaaaa</i> has any syntax.
+</p>
+<p>A summary of rules concerning <i>package markers</i> follows.
+In each case, examples are offered to illustrate the case;
+for presentational simplicity, the examples assume that
+the <i>readtable case</i> of the <i>current readtable</i> is <tt>:upcase</tt>.
+</p>
+
+<ol>
+<li> If there is a single <i>package marker</i>, and it occurs at the beginning of the
+<i>token</i>, then the <i>token</i> is interpreted as a <i>symbol</i> in the <code>KEYWORD</code> <i>package</i>.
+It also sets the <code>symbol-value</code> of the newly-created <i>symbol</i> to that
+same <i>symbol</i> so that the <i>symbol</i> will self-evaluate.
+
+<p>For example, 
+<code>:bar</code>, when read, interns <code>BAR</code> as an <i>external symbol</i> in the <code>KEYWORD</code> <i>package</i>.
+</p>
+</li><li> If there is a single <i>package marker</i> not at the beginning or end of the
+<i>token</i>, then it divides the <i>token</i> into two parts.  The first part
+specifies a <i>package</i>; 
+the second part is the name of an <i>external symbol</i>
+available in that package.  
+
+<p>For example, 
+<code>foo:bar</code>, when read, looks up <code>BAR</code> among the <i>external symbols</i> of
+the <i>package</i> named <code>FOO</code>.
+</p>
+</li><li> If there are two adjacent <i>package markers</i> not at the beginning or end of the
+<i>token</i>, then they divide the <i>token</i> into two parts.  The first part
+specifies a <i>package</i>;
+the second part is the name of a <i>symbol</i> within
+that <i>package</i> (possibly an <i>internal symbol</i>).
+
+<p>For example, 
+<code>foo::bar</code>, when read, interns <code>BAR</code> in the <i>package</i> named <code>FOO</code>.
+</p>
+</li><li> If the <i>token</i> contains no <i>package markers</i>, 
+and does not have <i>potential number</i> syntax,
+then the entire <i>token</i> is the name of the <i>symbol</i>.
+The <i>symbol</i> is looked up in the <i>current package</i>.
+
+<p>For example, 
+<code>bar</code>, when read, interns <code>BAR</code> in the <i>current package</i>.
+</p>
+</li><li> The consequences are unspecified if any other pattern of <i>package markers</i>
+in a <i>token</i> is used.
+All other uses of <i>package markers</i> within names of <i>symbols</i> 
+are not defined by this standard 
+but are reserved for <i>implementation-dependent</i> use.
+</li></ol>
+
+
+<p>For example,
+assuming the <i>readtable case</i> of the <i>current readtable</i> is <tt>:upcase</tt>,
+<code>editor:buffer</code> refers to the <i>external symbol</i> 
+named <code>BUFFER</code> present in the <i>package</i> named <code>editor</code>,
+regardless of whether there is a <i>symbol</i> named <code>BUFFER</code> in
+the <i>current package</i>.  If there is no <i>package</i> named
+<code>editor</code>, or if no <i>symbol</i> named <code>BUFFER</code>
+is present in <code>editor</code>, or if <code>BUFFER</code> is not exported by
+<code>editor</code>, the reader signals
+a correctable error.
+If <code>editor::buffer</code> is seen, the effect is exactly the same as
+reading <code>buffer</code> with the <code>EDITOR</code> <i>package</i> being the <i>current package</i>.
+</p>
+
+<hr>
+<span id="Package-System-Consistency-Rules"></span><div class="header">
+<p>
+Previous: <a href="#Valid-Patterns-for-Tokens" accesskey="p" rel="prev">Valid Patterns for Tokens</a>, Up: <a href="#Interpretation-of-Tokens" accesskey="u" rel="up">Interpretation of Tokens</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Package-System-Consistency-Rules-1"></span><h4 class="subsection">2.3.6 Package System Consistency Rules</h4>
+
+<p>The following rules apply to the package system as long as 
+the <i>value</i> of <code>*package*</code> is not changed:
+</p>
+
+<dl compact="compact">
+<dt><b>Read-read consistency</b></dt>
+<dd>
+
+<p>Reading the same <i>symbol</i> <i>name</i>
+always results in the <i>same</i> <i>symbol</i>.
+</p>
+</dd>
+<dt><b>Print-read consistency</b></dt>
+<dd>
+
+<p>An <i>interned symbol</i> always prints as a sequence of characters that, 
+when read back in, yields the <i>same</i> <i>symbol</i>.
+</p>
+<p>For information about how the <i>Lisp printer</i> treats <i>symbols</i>,
+see <a href="Printer.html#PrintingSymbols">Section 22.1.3.3 (Printing Symbols)</a>.
+</p>
+</dd>
+<dt><b>Print-print consistency</b></dt>
+<dd>
+
+<p>If two interned <i>symbols</i> are not the <i>same</i>,
+then their printed representations will be different sequences of characters.
+</p></dd>
+</dl>
+
+
+<p>These rules are true regardless of any implicit interning.
+As long as the <i>current package</i> is not changed,
+results are reproducible regardless of the order of <i>loading</i> files 
+or the exact history of what <i>symbols</i> were typed in when.  
+If the <i>value</i> of <code>*package*</code> is changed and then changed back to the previous value,
+consistency is maintained.
+The rules can be violated by
+changing the <i>value</i> of <code>*package*</code>,
+forcing a change to <i>symbols</i> 
+or to <i>packages</i> 
+or to both
+by continuing from an error,
+or calling one of the following <i>functions</i>:
+<code>unintern</code>,
+<code>unexport</code>,
+<code>shadow</code>,
+<code>shadowing-import</code>,
+or <code>unuse-package</code>.
+</p>
+<p>An inconsistency only applies if one of the restrictions is violated
+between two of the named <i>symbols</i>.
+<code>shadow</code>, <code>unexport</code>, <code>unintern</code>,
+and <code>shadowing-import</code> can only affect the consistency of
+<i>symbols</i> with the same <i>names</i> (under <code>string=</code>)
+as the ones supplied as arguments.
+</p>
+
+<hr>
+<span id="Standard-Macro-Characters"></span><div class="header">
+<p>
+Previous: <a href="#Interpretation-of-Tokens" accesskey="p" rel="prev">Interpretation of Tokens</a>, Up: <a href="#Syntax" accesskey="u" rel="up">Syntax</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Standard-Macro-Characters-1"></span><h3 class="section">2.4 Standard Macro Characters</h3>
+
+<p>If the reader encounters a <i>macro character</i>,
+then its associated <i>reader macro function</i> 
+is invoked and may produce an <i>object</i> to be returned.
+This <i>function</i> may read the <i>characters</i> 
+following the <i>macro character</i> in the <i>stream</i> 
+in any syntax and return the <i>object</i> represented by that syntax.
+</p>
+<p>Any <i>character</i> can be made to be a <i>macro character</i>.
+The <i>macro characters</i> defined initially in a <i>conforming implementation</i>
+include
+the following:
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Left_002dParenthesis" accesskey="1">Left-Parenthesis</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Right_002dParenthesis" accesskey="2">Right-Parenthesis</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Single_002dQuote" accesskey="3">Single-Quote</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Semicolon" accesskey="4">Semicolon</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Double_002dQuote" accesskey="5">Double-Quote</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Backquote" accesskey="6">Backquote</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Comma" accesskey="7">Comma</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Sharpsign" accesskey="8">Sharpsign</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Re_002dReading-Abbreviated-Expressions" accesskey="9">Re-Reading Abbreviated Expressions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Left_002dParenthesis"></span><div class="header">
+<p>
+Next: <a href="#Right_002dParenthesis" accesskey="n" rel="next">Right-Parenthesis</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Left_002dParenthesis-1"></span><h4 class="subsection">2.4.1 Left-Parenthesis</h4>
+<span id="index-_0028"></span>
+<span id="index-Left_002dParenthesis-_0028reader-macro_0029"></span>
+<span id="index-list"></span>
+
+<p>The <i>left-parenthesis</i> initiates reading of a <i>list</i>.
+<code>read</code> is called recursively to read successive <i>objects</i>
+until a right parenthesis is found in the input <i>stream</i>.
+A <i>list</i> of the <i>objects</i> read is returned.  Thus
+</p>
+<div class="lisp">
+<pre class="lisp"> (a b c)
+</pre></div>
+
+<p>is read as a <i>list</i> of three <i>objects</i>
+(the <i>symbols</i> <code>a</code>, <code>b</code>, and <code>c</code>).
+The right parenthesis need not immediately follow the printed representation of
+the last <i>object</i>; <i>whitespace</i><sub>2</sub>
+characters and comments may precede it.
+</p>
+<p>If no <i>objects</i> precede the right parenthesis, 
+it reads as a <i>list</i> of zero <i>objects</i> 
+(the <i>empty list</i>).
+</p>
+<p>If a <i>token</i> that is just a dot
+<span id="index-dot"></span>
+<span id="index-_002e"></span>
+not immediately preceded by an escape character
+is read after some <i>object</i>
+then exactly one more <i>object</i> must follow the dot,
+possibly preceded or followed by <i>whitespace</i><sub>2</sub>
+followed by the right parenthesis:
+</p>
+<div class="lisp">
+<pre class="lisp"> (a b c . d)
+</pre></div>
+
+<p>This means that the <i>cdr</i> of the last <i>cons</i> in the 
+<i>list</i> is not <code>nil</code>,
+but rather the <i>object</i> whose representation followed the dot.
+The above example might have been the result of evaluating
+</p>
+<div class="lisp">
+<pre class="lisp"> (cons 'a (cons 'b (cons 'c 'd)))
+</pre></div>
+
+<p>Similarly,
+</p>
+<div class="lisp">
+<pre class="lisp"> (cons 'this-one 'that-one) <span class="roman">→</span> (this-one . that-one)
+</pre></div>
+
+<p>It is permissible for the <i>object</i> 
+following the dot to be a <i>list</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (a b c d . (e f . (g))) ≡ (a b c d e f g)
+</pre></div>
+
+
+<p>For information on how the <i>Lisp printer</i> prints <i>lists</i> and <i>conses</i>,
+see <a href="Printer.html#PrintingListsAndConses">Section 22.1.3.5 (Printing Lists and Conses)</a>.
+</p>
+
+<hr>
+<span id="Right_002dParenthesis"></span><div class="header">
+<p>
+Next: <a href="#Single_002dQuote" accesskey="n" rel="next">Single-Quote</a>, Previous: <a href="#Left_002dParenthesis" accesskey="p" rel="prev">Left-Parenthesis</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Right_002dParenthesis-1"></span><h4 class="subsection">2.4.2 Right-Parenthesis</h4>
+<span id="index-_0029"></span>
+<span id="index-Right_002dParenthesis-_0028reader-macro_0029"></span>
+
+<p>The <i>right-parenthesis</i> is invalid 
+except when used in conjunction with the left parenthesis character.
+For more information, see <a href="#Reader-Algorithm">Section 2.2 (Reader Algorithm)</a>.
+</p>
+
+<hr>
+<span id="Single_002dQuote"></span><div class="header">
+<p>
+Next: <a href="#Semicolon" accesskey="n" rel="next">Semicolon</a>, Previous: <a href="#Right_002dParenthesis" accesskey="p" rel="prev">Right-Parenthesis</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Single_002dQuote-1"></span><h4 class="subsection">2.4.3 Single-Quote</h4>
+<span id="index-_0027"></span>
+<span id="index-Single_002dQuote-_0028reader-macro_0029"></span>
+<span id="index-quotation-_0028of-forms_0029"></span>
+<span id="index-quote"></span>
+
+<p><b>Syntax:</b>  <code>'«<var>exp</var>»</code>
+</p>
+<p>A <i>single-quote</i> introduces an <i>expression</i> to be &ldquo;quoted.&rdquo;
+<i>Single-quote</i> followed by an <i>expression</i> <var>exp</var> 
+is treated by the <i>Lisp reader</i> as an abbreviation for
+and is parsed identically to the <i>expression</i> <code>(quote <var>exp</var>)</code>.
+See the <i>special operator</i> <a href="Evaluation-and-Compilation.html#quote">quote</a>.
+</p>
+<span id="Examples-of-Single_002dQuote"></span><h4 class="subsubsection">2.4.3.1 Examples of Single-Quote</h4>
+
+<div class="lisp">
+<pre class="lisp"> 'foo <span class="roman">→</span> FOO
+ ''foo <span class="roman">→</span> (QUOTE FOO)
+ (car ''foo) <span class="roman">→</span> QUOTE
+</pre></div>
+
+
+
+
+<hr>
+<span id="Semicolon"></span><div class="header">
+<p>
+Next: <a href="#Double_002dQuote" accesskey="n" rel="next">Double-Quote</a>, Previous: <a href="#Single_002dQuote" accesskey="p" rel="prev">Single-Quote</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Semicolon-1"></span><h4 class="subsection">2.4.4 Semicolon</h4>
+<span id="index-_003b"></span>
+<span id="index-Semicolon-_0028reader-macro_0029"></span>
+<span id="index-comment"></span>
+
+<p><b>Syntax:</b> <code>;«<var>text</var>»</code>
+</p>
+<p>A <i>semicolon</i> introduces <i>characters</i> that are to be ignored,
+such as comments.  The <i>semicolon</i> and all <i>characters</i> up to
+and including the next <i>newline</i> or end of file are ignored.
+</p>
+<span id="Examples-of-Semicolon"></span><h4 class="subsubsection">2.4.4.1 Examples of Semicolon</h4>
+
+<div class="lisp">
+<pre class="lisp"> (+ 3 ; three
+    4)
+<span class="roman">→</span> 7    
+</pre></div>
+
+
+
+<span id="Notes-about-Style-for-Semicolon"></span><h4 class="subsubsection">2.4.4.2 Notes about Style for Semicolon</h4>
+
+<p>Some text editors make assumptions about desired indentation based on
+the number of <i>semicolons</i> that begin a comment.  The following style 
+conventions are common, although not by any means universal.  
+</p>
+<span id="g_t2_002e4_002e4_002e2_002e1-Use-of-Single-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.1 Use of Single Semicolon</h4>
+
+
+<p>Comments that begin with a single <i>semicolon</i> are all aligned to 
+the same column at the right (sometimes called the &ldquo;comment column&rdquo;).
+The text of such a comment generally applies only to the line on which it appears.
+Occasionally two or three contain a single sentence together;
+this is sometimes indicated by indenting all but the first with an additional
+space (after the <i>semicolon</i>).
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e2-Use-of-Double-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.2 Use of Double Semicolon</h4>
+
+
+<p>Comments that begin with a double <i>semicolon</i> are all aligned to
+the same level of indentation as a <i>form</i> would be at that same
+position in the <i>code</i>.
+The text of such a comment usually describes
+the state of the <i>program</i> at the point where the comment occurs,
+the <i>code</i> which follows the comment,
+or both.
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e3-Use-of-Triple-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.3 Use of Triple Semicolon</h4>
+
+
+<p>Comments that begin with a triple <i>semicolon</i> are all aligned to
+the left margin.  Usually they are used prior to a definition or set
+of definitions, rather than within a definition.
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e4-Use-of-Quadruple-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.4 Use of Quadruple Semicolon</h4>
+
+
+<p>Comments that begin with a quadruple <i>semicolon</i> are all aligned to
+the left margin, and generally contain only a short piece of text that
+serve as a title for the code which follows, and might be used in the
+header or footer of a program that prepares code for presentation as 
+a hardcopy document.
+</p>
+
+<span id="g_t2_002e4_002e4_002e2_002e5-Examples-of-Style-for-Semicolon"></span><h4 class="unnumberedsubsubsec">2.4.4.2.5 Examples of Style for Semicolon</h4>
+
+
+<div class="lisp">
+<pre class="lisp">;;;; Math Utilities
+
+;;; FIB computes the the Fibonacci function in the traditional
+;;; recursive way.
+
+(defun fib (n)
+  (check-type n integer)
+  ;; At this point we're sure we have an integer argument.
+  ;; Now we can get down to some serious computation.
+  (cond ((&lt; n 0)
+         ;; Hey, this is just supposed to be a simple example.
+         ;; Did you really expect me to handle the general case?
+         (error &quot;FIB got ~D as an argument.&quot; n))
+        ((&lt; n 2) n)             ;fib[0]=0 and fib[1]=1
+        ;; The cheap cases didn't work.
+        ;; Nothing more to do but recurse.
+        (t (+ (fib (- n 1))     ;The traditional formula
+              (fib (- n 2)))))) ; is fib[n-1]+fib[n-2].
+</pre></div>
+
+
+
+
+
+<hr>
+<span id="Double_002dQuote"></span><div class="header">
+<p>
+Next: <a href="#Backquote" accesskey="n" rel="next">Backquote</a>, Previous: <a href="#Semicolon" accesskey="p" rel="prev">Semicolon</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Double_002dQuote-1"></span><h4 class="subsection">2.4.5 Double-Quote</h4>
+<span id="index-Double_002dQuote-_0028reader-macro_0029"></span>
+<span id="index-quotation-_0028of-strings_0029"></span>
+<span id="index-string"></span>
+
+<p><b>Syntax:</b> <code>&quot;«<var>text</var>»&quot;</code>
+</p>
+<p>The <i>double-quote</i> is used to begin and end a <i>string</i>.
+When a <i>double-quote</i> is encountered,
+<i>characters</i> are read from the <i>input</i> <i>stream</i> 
+and accumulated until another <i>double-quote</i> is encountered.
+If a <i>single escape</i> <i>character</i> is seen,
+the <i>single escape</i> <i>character</i> is discarded,
+the next <i>character</i> is accumulated, and accumulation continues.
+The accumulated <i>characters</i> 
+up to but not including the matching <i>double-quote</i> 
+are made into a <i>simple string</i> and returned.
+It is <i>implementation-dependent</i>
+which <i>attributes</i> of the accumulated characters are removed in this process.
+</p>
+<p>Examples of the use of the <i>double-quote</i> character are in the next figure. 
+</p>
+
+<div class="float"><span id="fig2_002e18"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>&quot;Foo&quot;</code></td><td>;A string with three characters in it</td></tr>
+<tr><td><code>&quot;&quot;</code></td><td>;An empty string</td></tr>
+<tr><td><code>&quot;\&quot;APL\\360?\&quot; he cried.&quot;</code></td><td>;A string with twenty characters</td></tr>
+<tr><td><code>&quot;|x| = |-x|&quot;</code></td><td>;A ten-character string</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.18: </strong>Examples of the use of double-quote</p></div></div>
+
+<p>Note that to place a single escape character or a <i>double-quote</i> into a string,
+such a character must be preceded by a single escape character.
+Note, too, that a multiple escape character need not be quoted by a 
+single escape character within a string.
+</p>
+<p>For information on how the <i>Lisp printer</i> prints <i>strings</i>,
+see <a href="Printer.html#PrintingStrings">Section 22.1.3.4 (Printing Strings)</a>.
+</p>
+
+<hr>
+<span id="Backquote"></span><div class="header">
+<p>
+Next: <a href="#Comma" accesskey="n" rel="next">Comma</a>, Previous: <a href="#Double_002dQuote" accesskey="p" rel="prev">Double-Quote</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Backquote-1"></span><h4 class="subsection">2.4.6 Backquote</h4>
+
+<span id="index-_0060"></span>
+<span id="index-Backquote-_0028reader-macro_0029"></span>
+<span id="index-quotation-_0028of-forms_0029-1"></span>
+<span id="index-quote-1"></span>
+<span id="index-list-1"></span>
+<span id="index-cons"></span>
+
+<p>The <i>backquote</i> introduces a template of a data structure to be built.  
+For example, writing
+</p>
+<div class="lisp">
+<pre class="lisp"> `(cond ((numberp ,x) ,@y) (t (print ,x) ,@y))
+</pre></div>
+
+<p>is roughly equivalent to writing
+</p>
+<div class="lisp">
+<pre class="lisp"> (list 'cond 
+       (cons (list 'numberp x) y) 
+       (list* 't (list 'print x) y))
+</pre></div>
+
+<p>Where a comma
+occurs in the template, 
+the <i>expression</i>
+following the comma is to be evaluated to produce an <i>object</i> to
+be inserted at that point.  Assume <code>b</code> has the value 3, for example, then
+evaluating the <i>form</i> denoted by <code>`(a b ,b ,(+ b 1) b)</code> produces
+the result <code>(a b 3 4 b)</code>.
+</p>
+<p>If a comma is immediately followed by an <i>at-sign</i>, 
+then the <i>form</i> following the <i>at-sign</i>
+is evaluated to produce a <i>list</i> of <i>objects</i>.
+These <i>objects</i> are then &ldquo;spliced&rdquo; into place in the template.  For
+example, if <code>x</code> has the value <code>(a b c)</code>, then
+</p>
+<div class="lisp">
+<pre class="lisp"> `(x ,x ,@x foo ,(cadr x) bar ,(cdr x) baz ,@(cdr x))
+<span class="roman">→</span> (x (a b c) a b c foo b bar (b c) baz b c)
+</pre></div>
+
+<p>The backquote syntax can be summarized formally as follows.
+</p>
+
+<ul>
+<li> <code>`<var>basic</var></code> is the same as <code>'<var>basic</var></code>,
+that is, <code>(quote <var>basic</var>)</code>, for any <i>expression</i> 
+<var>basic</var> that is not a <i>list</i> or a general <i>vector</i>.
+
+</li><li> <code>`,<var>form</var></code> is the same as <var>form</var>, for any <var>form</var>, provided
+that the representation of <var>form</var> does not begin with <i>at-sign</i>
+or <i>dot</i>.  (A similar caveat holds for all occurrences of a form after a <i>comma</i>.)
+
+</li><li> <code>`,@<var>form</var></code> has undefined consequences.
+
+</li><li> <code>`(x1 x2 x3 ... xn . atom)</code>
+may be interpreted to mean
+
+<div class="lisp">
+<pre class="lisp"> (append [ <!-- /@w -->x1] [ <!-- /@w -->x2] [ <!-- /@w -->x3] ... [ <!-- /@w -->xn] (quote atom))
+</pre></div>
+
+<p>where the brackets are used to indicate
+a transformation of an <var>xj</var> as follows:
+</p>
+
+<ul class="no-bullet">
+<li>&ndash; <code>[<var>form</var>]</code> is interpreted as <code>(list `<var>form</var>)</code>, 
+which contains a backquoted form that must then be further interpreted.
+
+</li><li>&ndash; <code>[,<var>form</var>]</code> is interpreted as <code>(list <var>form</var>)</code>.
+
+</li><li>&ndash; <code>[,@<var>form</var>]</code> is interpreted as <var>form</var>.
+</li></ul>
+
+
+</li><li> <code>`(x1 x2 x3 ... xn)</code> may be interpreted to mean
+the same as the backquoted form
+<code>`(x1 x2 x3 ... xn . <code>nil</code>)</code>,
+thereby reducing it to the previous case.
+
+</li><li> <code>`(x1 x2 x3 ... xn . ,form)</code> may be interpreted to mean
+
+<div class="lisp">
+<pre class="lisp"> (append [ <!-- /@w -->x1] [ <!-- /@w -->x2] [ <!-- /@w -->x3] ... [ <!-- /@w -->xn] form)
+</pre></div>
+
+<p>where the brackets indicate a transformation of an <code>xj</code> as described above.
+</p>
+</li><li> <code>`(x1 x2 x3 ... xn . ,@form)</code> has undefined consequences.
+
+</li><li> <code>`#(x1 x2 x3 ... xn)</code> may be interpreted to mean
+<code>(apply #'vector `(x1 x2 x3 ... xn))</code>.
+</li></ul>
+
+
+<p>Anywhere &ldquo;<code>,@</code>&rdquo; may be used, the syntax &ldquo;<code>,.</code>&rdquo; may be used instead
+to indicate that it is permissible to operate <i>destructively</i> on 
+the <i>list structure</i>  produced by the form following the &ldquo;<code>,.</code>&rdquo; 
+(in effect, to use <code>nconc</code> instead of <code>append</code>).
+</p>
+<p>If the backquote syntax is nested, the innermost backquoted form
+should be expanded first.  This means that if several commas occur
+in a row, the leftmost one belongs to the innermost <i>backquote</i>.
+</p>
+<p>An <i>implementation</i> is free to interpret a backquoted <i>form</i> F<sub>1</sub>
+as any <i>form</i> F<sub>2</sub>
+the <i>same</i> under <code>equal</code> as the result implied by the above definition, 
+provided that the side-effect behavior of the substitute <i>form</i> F<sub>2</sub>
+is also consistent with the description given above.
+The constructed
+copy of the template might or might not share <i>list</i> structure with the
+template itself.  As an example, the above definition implies that
+</p>
+<div class="lisp">
+<pre class="lisp"> `((,a b) ,c ,@d)
+</pre></div>
+
+<p>will be interpreted as if it were
+</p>
+<div class="lisp">
+<pre class="lisp"> (append (list (append (list a) (list 'b) '<code>nil</code>)) (list c) d '<code>nil</code>)
+</pre></div>
+
+<p>but it could also be legitimately interpreted to mean any of the following:
+</p>
+<div class="lisp">
+<pre class="lisp"> (append (list (append (list a) (list 'b))) (list c) d)
+ (append (list (append (list a) '(b))) (list c) d)
+ (list* (cons a '(b)) c d)
+ (list* (cons a (list 'b)) c d)
+ (append (list (cons a '(b))) (list c) d)
+ (list* (cons a '(b)) c (copy-list d))
+</pre></div>
+
+
+<span id="Notes-about-Backquote"></span><h4 class="subsubsection">2.4.6.1 Notes about Backquote</h4>
+
+<p>Since the exact manner in which the <i>Lisp reader</i> will parse
+an <i>expression</i> involving the <i>backquote</i> <i>reader macro</i> 
+is not specified, an <i>implementation</i> is free to choose any
+representation that preserves the semantics described.
+</p>
+<p>Often an <i>implementation</i> will choose a representation that facilitates
+pretty printing of the expression, so that <code>(pprint `(a ,b))</code> will display
+<code>`(a ,b)</code> and not, for example, <code>(list 'a b)</code>.  However, this is not a
+requirement.
+</p>
+<p>Implementors who have no particular reason to make one choice or another
+might wish to refer to <cite>IEEE Standard for the Scheme Programming Language</cite>, which identifies a popular choice of
+representation for such expressions that might provide useful to be useful
+compatibility for some user communities.  There is no requirement, however,
+that any <i>conforming implementation</i> use this particular representation.
+This information is provided merely for cross-reference purposes.
+</p>
+
+
+<hr>
+<span id="Comma"></span><div class="header">
+<p>
+Next: <a href="#Sharpsign" accesskey="n" rel="next">Sharpsign</a>, Previous: <a href="#Backquote" accesskey="p" rel="prev">Backquote</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Comma-1"></span><h4 class="subsection">2.4.7 Comma</h4>
+<span id="index-_002c"></span>
+<span id="index-Comma-_0028reader-macro_0029"></span>
+<span id="index-quotation-_0028of-forms_0029-2"></span>
+<span id="index-quote-2"></span>
+<span id="index-list-2"></span>
+<span id="index-cons-1"></span>
+
+
+<p>The <i>comma</i> is part of the backquote syntax; see <a href="#Backquote">Section 2.4.6 (Backquote)</a>.
+<i>Comma</i> is invalid if used other than inside the body of a 
+backquote <i>expression</i> as described above.
+</p>
+
+<hr>
+<span id="Sharpsign"></span><div class="header">
+<p>
+Next: <a href="#Re_002dReading-Abbreviated-Expressions" accesskey="n" rel="next">Re-Reading Abbreviated Expressions</a>, Previous: <a href="#Comma" accesskey="p" rel="prev">Comma</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Sharpsign-1"></span><h4 class="subsection">2.4.8 Sharpsign</h4>
+<span id="index-_0023"></span>
+<span id="index-Sharpsign-_0028reader-macro_0029"></span>
+
+<p><i>Sharpsign</i> is a <i>non-terminating</i> <i>dispatching macro character</i>.
+It reads an optional 
+sequence of digits and then one more character,
+and uses that character to select a <i>function</i> to run as a
+<i>reader macro function</i>.
+</p>
+<p>The <i>standard syntax</i> includes constructs introduced by the <code>#</code> character.
+The syntax of these constructs is as follows:
+a character that identifies the type of construct is 
+followed by arguments in some form.
+If the character is a letter, its <i>case</i> is not important;
+<code>#O</code> and <code>#o</code> are considered to be equivalent, for example.
+</p>
+<p>Certain <code>#</code> constructs allow an unsigned decimal number to appear
+between the <code>#</code> and the character.
+</p>
+<p>The <i>reader macros</i> associated with the <i>dispatching macro character</i> <code>#</code>
+are described later in this section and summarized in the next figure.
+</p>
+
+<div class="float"><span id="fig2_002e19"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<thead><tr><th>dispatch char</th><th>purpose</th><th>dispatch char</th><th>purpose</th></tr></thead>
+<tr><td>Backspace</td><td>signals error</td><td><code><tt>{</tt></code></td><td>undefined*</td></tr>
+<tr><td>Tab</td><td>signals error</td><td><code><tt>}</tt></code></td><td>undefined*</td></tr>
+<tr><td>Newline</td><td>signals error</td><td>+</td><td>read-time conditional</td></tr>
+<tr><td>Linefeed</td><td>signals error</td><td>-</td><td>read-time conditional</td></tr>
+<tr><td>Page</td><td>signals error</td><td>.</td><td>read-time evaluation</td></tr>
+<tr><td>Return</td><td>signals error</td><td>/</td><td>undefined</td></tr>
+<tr><td>Space</td><td>signals error</td><td>A, a</td><td>array</td></tr>
+<tr><td>!</td><td>undefined*</td><td>B, b</td><td>binary rational</td></tr>
+<tr><td><code>&quot;</code></td><td>undefined</td><td>C, c</td><td>complex number</td></tr>
+<tr><td>#</td><td>reference to = label</td><td>D, d</td><td>undefined</td></tr>
+<tr><td>$</td><td>undefined</td><td>E, e</td><td>undefined</td></tr>
+<tr><td>%</td><td>undefined</td><td>F, f</td><td>undefined</td></tr>
+<tr><td>&amp;</td><td>undefined</td><td>G, g</td><td>undefined</td></tr>
+<tr><td>&rsquo;</td><td>function abbreviation</td><td>H, h</td><td>undefined</td></tr>
+<tr><td>(</td><td>simple vector</td><td>I, i</td><td>undefined</td></tr>
+<tr><td>)</td><td>signals error</td><td>J, j</td><td>undefined</td></tr>
+<tr><td><code>*</code></td><td>bit vector</td><td>K, k</td><td>undefined</td></tr>
+<tr><td>,</td><td>undefined</td><td>L, l</td><td>undefined</td></tr>
+<tr><td>:</td><td>uninterned symbol</td><td>M, m</td><td>undefined</td></tr>
+<tr><td>;</td><td>undefined</td><td>N, n</td><td>undefined</td></tr>
+<tr><td><code>&lt;</code></td><td>signals error</td><td>O, o</td><td>octal rational</td></tr>
+<tr><td><code>=</code></td><td>labels following object</td><td>P, p</td><td>pathname</td></tr>
+<tr><td><code>&gt;</code></td><td>undefined</td><td>Q, q</td><td>undefined</td></tr>
+<tr><td>?</td><td>undefined*</td><td>R, r</td><td>radix-n rational</td></tr>
+<tr><td>@</td><td>undefined</td><td>S, s</td><td>structure</td></tr>
+<tr><td>[</td><td>undefined*</td><td>T, t</td><td>undefined</td></tr>
+<tr><td><code>\</code></td><td>character object</td><td>U, u</td><td>undefined</td></tr>
+<tr><td>]</td><td>undefined*</td><td>V, v</td><td>undefined</td></tr>
+<tr><td>^</td><td>undefined</td><td>W, w</td><td>undefined</td></tr>
+<tr><td><code>_</code></td><td>undefined</td><td>X, x</td><td>hexadecimal rational</td></tr>
+<tr><td>&lsquo;</td><td>undefined</td><td>Y, y</td><td>undefined</td></tr>
+<tr><td><code>|</code></td><td>balanced comment</td><td>Z, z</td><td>undefined</td></tr>
+<tr><td><code>~</code></td><td>undefined</td><td>Rubout</td><td>undefined</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.19: </strong>Standard # Dispatching Macro Character Syntax</p></div></div>
+
+<p>The combinations marked by an asterisk (*) are explicitly reserved to the
+user.  No <i>conforming implementation</i> defines them.
+</p>
+<p>Note also that <i>digits</i> do not appear in the preceding table.  This is
+because the notations <code>#0</code>, <code>#1</code>, ..., <code>#9</code> are
+reserved for another purpose which occupies the same syntactic space.
+When a <i>digit</i> follows a <i>sharpsign</i>,
+it is not treated as a dispatch character.
+Instead, an unsigned integer argument is accumulated 
+and passed as an <i>argument</i> to the <i>reader macro</i> 
+for the <i>character</i> that follows the digits.
+For example,
+<code>#2A((1 2) (3 4))</code> is a use of <code>#A</code> with an argument of <code>2</code>.
+</p>
+<span id="Sharpsign-Backslash"></span><h4 class="subsubsection">2.4.8.1 Sharpsign Backslash</h4>
+<span id="SharpsignBackslash"></span><span id="index-Sharpsign-Backslash-_0028reader-macro_0029"></span>
+<span id="index-Backslash-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-character"></span>
+
+<p><b>Syntax:</b> <code>#\«<var>x</var>»</code>
+</p>
+<p>When the <i>token</i> <var>x</var> is a single <i>character</i> long, 
+this parses as the literal <i>character</i> <var>char</var>.
+<i>Uppercase</i> and <i>lowercase</i> letters are distinguished after <code>#\</code>;
+<code>#\A</code> and <code>#\a</code> denote different <i>character</i> <i>objects</i>.
+Any single <i>character</i> works after <code>#\</code>,
+even those that are normally special to <code>read</code>, 
+such as <i>left-parenthesis</i> and <i>right-parenthesis</i>.
+</p>
+<p>In the single <i>character</i> case,
+the <var>x</var> must be followed by a non-constituent <i>character</i>.
+After <code>#\</code> is read,
+the reader backs up over the <i>slash</i> and then reads a <i>token</i>,
+treating the initial <i>slash</i> as a <i>single escape</i> <i>character</i>
+(whether it really is or not in the <i>current readtable</i>).
+</p>
+<p>When the <i>token</i> <var>x</var> is more than one <i>character</i> long,
+the <var>x</var> must have the syntax of a <i>symbol</i> 
+with no embedded <i>package markers</i>.
+In this case, the <i>sharpsign</i> <i>backslash</i> notation
+parses as the <i>character</i> whose <i>name</i> is <code>(string-upcase <var>x</var>)</code>;
+see <a href="Characters.html#Character-Names">Section 13.1.7 (Character Names)</a>.
+</p>
+
+<p>For information about how the <i>Lisp printer</i> prints <i>character</i> <i>objects</i>,
+see <a href="Printer.html#PrintingCharacters">Section 22.1.3.2 (Printing Characters)</a>.
+</p>
+
+<span id="Sharpsign-Single_002dQuote"></span><h4 class="subsubsection">2.4.8.2 Sharpsign Single-Quote</h4>
+<span id="SharpsignQuote"></span><span id="index-Sharpsign-Single_002dQuote-_0028reader-macro_0029"></span>
+<span id="index-Single_002dQuote-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-function"></span>
+
+<p>Any <var>expression</var> preceded by <code>#'</code> 
+(<i>sharpsign</i> followed by <i>single-quote</i>),
+as in <code>#'<var>expression</var></code>,
+is treated by the <i>Lisp reader</i> as an abbreviation for and parsed identically 
+to the <i>expression</i> <code>(function <var>expression</var>)</code>.
+See <code>function</code>.  For example,
+</p>
+<div class="lisp">
+<pre class="lisp">(apply #'+ l) ≡ (apply (function +) l)
+</pre></div>
+
+
+
+<span id="Sharpsign-Left_002dParenthesis"></span><h4 class="subsubsection">2.4.8.3 Sharpsign Left-Parenthesis</h4>
+<span id="SharpsignLeftParen"></span><span id="index-Sharpsign-Left_002dParenthesis-_0028reader-macro_0029"></span>
+<span id="index-Left_002dParenthesis-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-vector"></span>
+<span id="index-simple_002dvector"></span>
+
+<p><code>#(</code> and <code>)</code> are used to notate a <i>simple vector</i>. 
+</p>
+<p>If an unsigned decimal integer
+appears between the <code>#</code> and <code>(</code>,
+it specifies explicitly the length of the <i>vector</i>.  
+The consequences are undefined if the number of <i>objects</i> 
+specified before the closing <code>)</code>
+exceeds the unsigned decimal integer.
+If the number of <i>objects</i> supplied before the closing <code>)</code>
+is less than the unsigned decimal integer but greater than zero,
+the last <i>object</i>
+is used to fill all
+remaining elements of the <i>vector</i>.
+</p>
+<p>The consequences are undefined if the unsigned decimal integer is non-zero and
+number of <i>objects</i> supplied before the closing <code>)</code>
+is zero.
+For example,
+</p>
+<div class="lisp">
+<pre class="lisp"> #(a b c c c c)
+ #6(a b c c c c)
+ #6(a b c)
+ #6(a b c c)
+</pre></div>
+
+
+<p>all mean the same thing: a <i>vector</i> of length <code>6</code>
+with <i>elements</i> <code>a</code>, <code>b</code>, and four occurrences of <code>c</code>.  
+Other examples follow:
+</p>
+<div class="lisp">
+<pre class="lisp"> #(a b c)               ;A vector of length 3
+ #(2 3 5 7 11 13 17 19 23 29 31 37 41 43 47)
+                        ;A vector containing the primes below 50
+ #()                    ;An empty vector
+</pre></div>
+
+<p>The notation <code>#()</code> denotes an empty <i>vector</i>, as does <code>#0()</code>.
+</p>
+<p>For information on how the <i>Lisp printer</i> prints <i>vectors</i>,
+see <a href="Printer.html#PrintingStrings">Section 22.1.3.4 (Printing Strings)</a>,
+<a href="Printer.html#PrintingBitVectors">Section 22.1.3.6 (Printing Bit Vectors)</a>,
+or <a href="Printer.html#PrintingOtherVectors">Section 22.1.3.7 (Printing Other Vectors)</a>.
+</p>
+
+<span id="Sharpsign-Asterisk"></span><h4 class="subsubsection">2.4.8.4 Sharpsign Asterisk</h4>
+<span id="SharpsignStar"></span><span id="index-Sharpsign-Asterisk-_0028reader-macro_0029"></span>
+<span id="index-Asterisk-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-bit_002dvector"></span>
+<span id="index-simple_002dbit_002dvector"></span>
+
+<p><b>Syntax:</b> <code>#*«<var>bits</var>»</code>
+</p>
+<p>A <i>simple bit vector</i> is constructed containing the indicated <i>bits</i>
+(<code>0</code>&rsquo;s and <code>1</code>&rsquo;s), where the leftmost <var>bit</var> has index zero 
+and the subsequent <var>bits</var> have increasing indices.
+</p>
+<p><b>Syntax:</b> <code>#«<var>n</var>»*«<var>bits</var>»</code>
+</p>
+<p>With an argument <var>n</var>,
+the <i>vector</i> to be created is of <i>length</i> <var>n</var>.
+If the number of <var>bits</var> is less than <var>n</var> but greater than zero,
+the last bit is used to fill all remaining bits of the <i>bit vector</i>.
+</p>
+<p>The notations <code>#*</code> and <code>#0*</code> each denote an empty <i>bit vector</i>.
+</p>
+<p>Regardless of whether the optional numeric argument <var>n</var> is provided,
+the <i>token</i> that follows the <i>asterisk</i> is delimited by 
+a normal <i>token</i> delimiter.
+However, (unless the <i>value</i> of <code>*read-suppress*</code> is <i>true</i>)
+an error of <i>type</i> <code>reader-error</code> is signaled 
+if that <i>token</i> is not composed entirely of <code>0</code>&rsquo;s and <code>1</code>&rsquo;s,
+or if <var>n</var> was supplied 
+and the <i>token</i> is composed of more than <var>n</var> <var>bits</var>,
+or if <var>n</var> is greater than one, but no <var>bits</var> were specified.
+Neither a <i>single escape</i> nor a <i>multiple escape</i> is permitted in this <i>token</i>.
+</p>
+<p>For information on how the <i>Lisp printer</i> prints <i>bit vectors</i>,
+see <a href="Printer.html#PrintingBitVectors">Section 22.1.3.6 (Printing Bit Vectors)</a>.
+</p>
+<span id="g_t2_002e4_002e8_002e4_002e1-Examples-of-Sharpsign-Asterisk"></span><h4 class="unnumberedsubsubsec">2.4.8.4.1 Examples of Sharpsign Asterisk</h4>
+
+
+<p>For example, 
+</p><div class="lisp">
+<pre class="lisp">  #*101111
+ #6*101111
+ #6*101
+ #6*1011
+</pre></div>
+
+<p>all mean the same thing: a <i>vector</i> of length <code>6</code>
+with <i>elements</i> <code>1</code>, <code>0</code>, <code>1</code>, <code>1</code>, <code>1</code>, and <code>1</code>.
+</p>
+<p>For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> #*         ;An empty bit-vector
+</pre></div>
+
+
+
+
+<span id="Sharpsign-Colon"></span><h4 class="subsubsection">2.4.8.5 Sharpsign Colon</h4>
+<span id="SharpsignColon"></span><span id="index-Sharpsign-Colon-_0028reader-macro_0029"></span>
+<span id="index-Colon-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-symbol"></span>
+
+<p><b>Syntax:</b>  <code>#:«<var>symbol-name</var>»</code>
+</p>
+<p><code>#:</code> introduces an <i>uninterned</i> <i>symbol</i> whose <i>name</i> 
+is <var>symbol-name</var>.  Every time this syntax is encountered,
+a <i>distinct</i> <i>uninterned</i> <i>symbol</i> is created.
+The <var>symbol-name</var> must have the syntax of a <i>symbol</i> 
+with no <i>package prefix</i>.
+</p>
+<p>For information on how the <i>Lisp reader</i> 
+prints <i>uninterned</i> <i>symbols</i>,
+see <a href="Printer.html#PrintingSymbols">Section 22.1.3.3 (Printing Symbols)</a>.
+</p>
+
+<span id="Sharpsign-Dot"></span><h4 class="subsubsection">2.4.8.6 Sharpsign Dot</h4>
+<span id="SharpsignDot"></span><span id="index-Sharpsign-Dot-_0028reader-macro_0029"></span>
+<span id="index-Dot-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-eval"></span>
+<span id="index-_002aread_002deval_002a"></span>
+
+<p><code>#.<var>foo</var></code> is read as the <i>object</i> resulting from the evaluation
+of the <i>object</i> represented by <var>foo</var>.
+The evaluation is done during the <code>read</code> process,
+when the <code>#.</code> notation is encountered.
+The <code>#.</code> syntax therefore performs a read-time evaluation of <var>foo</var>.
+</p>
+<p>The normal effect of <code>#.</code> is inhibited when the <i>value</i> of <code>*read-eval*</code> is <i>false</i>.
+In that situation, an error of <i>type</i> <code>reader-error</code> is signaled.
+</p>
+<p>For an <i>object</i>
+that does not have a convenient printed
+representation, a <i>form</i> that computes the <i>object</i> can be given using
+the <code>#.</code> notation.
+</p>
+
+
+<span id="Sharpsign-B"></span><h4 class="subsubsection">2.4.8.7 Sharpsign B</h4>
+<span id="SharpsignB"></span><span id="index-Sharpsign-B-_0028reader-macro_0029"></span>
+<span id="index-B-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002aread_002dbase_002a"></span>
+
+<p><code>#B</code><var>rational</var> reads <var>rational</var> in binary (radix 2).
+For example, 
+</p>
+<div class="lisp">
+<pre class="lisp"> #B1101 ≡ 13 ;1101<sub>2</sub>
+ #b101/11 ≡ 5/3
+</pre></div>
+
+
+<p>The consequences are undefined if the token immediately following
+the <code>#B</code> does not have the syntax of a binary (<i>i.e.</i>, radix 2) <i>rational</i>.
+</p>
+
+<span id="Sharpsign-O"></span><h4 class="subsubsection">2.4.8.8 Sharpsign O</h4>
+<span id="SharpsignO"></span><span id="index-Sharpsign-O-_0028reader-macro_0029"></span>
+<span id="index-O-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002aread_002dbase_002a-1"></span>
+
+<p><code>#O</code><var>rational</var> reads <var>rational</var> in octal (radix 8).
+For example, 
+</p>
+<div class="lisp">
+<pre class="lisp"> #o37/15 ≡ 31/13
+ #o777 ≡ 511
+ #o105 ≡ 69 ;105<sub>8</sub>
+</pre></div>
+
+
+<p>The consequences are undefined if the token immediately following
+the <code>#O</code> does not have the syntax of an octal (<i>i.e.</i>, radix 8) <i>rational</i>.
+</p>
+
+<span id="Sharpsign-X"></span><h4 class="subsubsection">2.4.8.9 Sharpsign X</h4>
+<span id="SharpsignX"></span><span id="index-Sharpsign-X-_0028reader-macro_0029"></span>
+<span id="index-X-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002aread_002dbase_002a-2"></span>
+
+<p><code>#X</code><var>rational</var> reads <var>rational</var> in hexadecimal (radix 16).
+The digits above <code>9</code> are the letters <code>A</code> through <code>F</code> (the lowercase
+letters <code>a</code> through <code>f</code> are also acceptable).  For example,
+</p>
+<div class="lisp">
+<pre class="lisp"> #xF00 ≡ 3840             
+ #x105 ≡ 261 ;105<sub>1</sub>
+</pre></div>
+
+
+<p>The consequences are undefined if the token immediately following
+the <code>#X</code> does not have the syntax of a hexadecimal (<i>i.e.</i>, radix 16) <i>rational</i>.
+</p>
+
+<span id="Sharpsign-R"></span><h4 class="subsubsection">2.4.8.10 Sharpsign R</h4>
+<span id="SharpsignR"></span><span id="index-Sharpsign-R-_0028reader-macro_0029"></span>
+<span id="index-R-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002aread_002dbase_002a-3"></span>
+
+<p><code>#<var>n</var>R</code>
+</p>
+<p><code>#<var>radix</var>R<var>rational</var></code> reads <var>rational</var> in radix <var>radix</var>.
+<var>radix</var> must consist of only digits
+that are interpreted as an <i>integer</i>
+in decimal radix; its value must be between 2 and 36 (inclusive).
+Only valid digits
+for the specified radix may be used.
+</p>
+<p>For example, <code>#3r102</code> is another way of writing <code>11</code> (decimal), 
+and <code>#11R32</code>
+is another way of writing <code>35</code> (decimal).  
+For radices larger than 10, letters of
+the alphabet are used in order for the digits after <code>9</code>.
+No alternate <code>#</code> notation exists for the decimal radix since a
+decimal point suffices.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->contains examples of the use of <code>#B</code>,
+<code>#O</code>, <code>#X</code>, and <code>#R</code>.
+</p>
+
+<div class="float"><span id="fig2_002e20"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>#2r11010101</code></td><td>;Another way of writing <code>213</code> decimal</td></tr>
+<tr><td><code>#b11010101</code></td><td>;Ditto</td></tr>
+<tr><td><code>#b+11010101</code></td><td>;Ditto</td></tr>
+<tr><td><code>#o325</code></td><td>;Ditto, in octal radix</td></tr>
+<tr><td><code>#xD5</code></td><td>;Ditto, in hexadecimal radix</td></tr>
+<tr><td><code>#16r+D5</code></td><td>;Ditto</td></tr>
+<tr><td><code>#o-300</code></td><td>;Decimal <code>-192</code>, written in base 8</td></tr>
+<tr><td><code>#3r-21010</code></td><td>;Same thing in base 3</td></tr>
+<tr><td><code>#25R-7H</code></td><td>;Same thing in base 25</td></tr>
+<tr><td><code>#xACCEDED</code></td><td>;<code>181202413</code>, in hexadecimal radix</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.20: </strong>Radix Indicator Example</p></div></div>
+
+<p>The consequences are undefined if the token immediately following
+the <code>#<var>n</var>R</code> does not have the syntax of a <i>rational</i> in radix <var>n</var>.
+</p>
+
+<span id="Sharpsign-C"></span><h4 class="subsubsection">2.4.8.11 Sharpsign C</h4>
+<span id="SharpsignC"></span><span id="index-Sharpsign-C-_0028reader-macro_0029"></span>
+<span id="index-C-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-complex"></span>
+
+<p><code>#C</code> reads a following <i>object</i>, which must be a <i>list</i> of
+length two whose <i>elements</i> are both <i>reals</i>.
+These <i>reals</i> denote, respectively,
+the real and imaginary parts of a <i>complex</i> number.
+If the two parts as notated are not of the same data type,
+then they are converted 
+according to the rules of floating-point <i>contagion</i>
+described in <a href="Numbers.html#NumericContagionRules">Section 12.1.1.2 (Contagion in Numeric Operations)</a>.
+</p>
+<p><code>#C(<var>real</var> <var>imag</var>)</code> is equivalent to 
+<code>#.(complex (quote <var>real</var>) (quote <var>imag</var>))</code>,
+except that <code>#C</code> is not affected by <code>*read-eval*</code>.
+See the <i>function</i> <a href="Numbers.html#complex-_0028Function_0029">complex (Function)</a>.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->contains examples of the use of <code>#C</code>.
+</p>
+
+<div class="float"><span id="fig2_002e21"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><code>#C(3.0s1 2.0s-1)</code></td><td>;A <i>complex</i> with <i>small float</i> parts.</td></tr>
+<tr><td><code>#C(5 -3)      </code></td><td>;A &ldquo;Gaussian integer&rdquo;</td></tr>
+<tr><td><code>#C(5/3 7.0) </code></td><td>;Will be converted internally to <code>#C(1.66666 7.0)</code></td></tr>
+<tr><td><code>#C(0 1)</code></td><td>;The imaginary unit; that is, i.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 2.21: </strong>Complex Number Example</p></div></div>
+
+<p>For further information, 
+see <a href="Printer.html#PrintingComplexes">Section 22.1.3.1.4 (Printing Complexes)</a>&nbsp;<!-- /@w -->and <a href="#SyntaxOfComplexes">Section 2.3.2.3 (Syntax of a Complex)</a>.
+</p>
+
+<span id="Sharpsign-A"></span><h4 class="subsubsection">2.4.8.12 Sharpsign A</h4>
+<span id="SharpsignA"></span><span id="index-Sharpsign-A-_0028reader-macro_0029"></span>
+<span id="index-A-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-array"></span>
+
+<p><code>#<var>n</var>A</code>
+</p>
+<p><code>#<var>n</var><code>A</code><var>object</var></code> constructs an <var>n</var>-dimensional <i>array</i>,
+using <var>object</var> as the value of the <tt>:initial-contents</tt> argument
+to <code>make-array</code>.
+</p>
+<p>For example, <code>#2A((0 1 5) (foo 2 (hot dog)))</code> represents a 2-by-3 matrix:
+</p>
+<div class="lisp">
+<pre class="lisp"> 0       1       5
+ foo     2       (hot dog)
+</pre></div>
+
+<p>In contrast, <code>#1A((0 1 5) (foo 2 (hot dog)))</code> 
+represents a <i>vector</i> of <i>length</i> <code>2</code> 
+whose <i>elements</i> are <i>lists</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> (0 1 5) (foo 2 (hot dog))
+</pre></div>
+
+<p><code>#0A((0 1 5) (foo 2 (hot dog)))</code> represents a zero-dimensional
+<i>array</i> whose sole element is a <i>list</i>:
+</p>
+<div class="lisp">
+<pre class="lisp"> ((0 1 5) (foo 2 (hot dog)))
+</pre></div>
+
+<p><code>#0A foo</code> represents 
+a zero-dimensional <i>array</i> whose sole element is the 
+<i>symbol</i> <code>foo</code>.
+The notation <code>#1A foo</code> is not valid because <code>foo</code> is
+not a <i>sequence</i>.
+</p>
+<p>If some <i>dimension</i> of the <i>array</i>
+whose representation is being parsed is found to be <code>0</code>,
+all <i>dimensions</i> to the right 
+(<i>i.e.</i>, the higher numbered <i>dimensions</i>)
+are also considered to be <code>0</code>.
+</p>
+<p>For information on how the <i>Lisp printer</i> prints <i>arrays</i>,
+see <a href="Printer.html#PrintingStrings">Section 22.1.3.4 (Printing Strings)</a>,
+<a href="Printer.html#PrintingBitVectors">Section 22.1.3.6 (Printing Bit Vectors)</a>,
+<a href="Printer.html#PrintingOtherVectors">Section 22.1.3.7 (Printing Other Vectors)</a>,
+or <a href="Printer.html#PrintingOtherArrays">Section 22.1.3.8 (Printing Other Arrays)</a>.
+</p>
+
+<span id="Sharpsign-S"></span><h4 class="subsubsection">2.4.8.13 Sharpsign S</h4>
+<span id="SharpsignS"></span><span id="index-Sharpsign-S-_0028reader-macro_0029"></span>
+<span id="index-S-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-structure"></span>
+
+<p><code>#s(name slot1 value1 slot2 value2 ...)</code>
+denotes a <i>structure</i>.  This is valid only if <var>name</var> is the name
+of a <i>structure</i> <i>type</i> already defined by <code>defstruct</code> 
+and if the <i>structure</i> <i>type</i> has a standard constructor function.
+Let <var>cm</var> stand for the name of this constructor function;
+then this syntax is equivalent to
+</p>
+<div class="lisp">
+<pre class="lisp"> #.(cm keyword1 'value1 keyword2 'value2 ...)
+</pre></div>
+
+
+<p>where each <var>keywordj</var> is the result of computing
+</p>
+<div class="lisp">
+<pre class="lisp"> (intern (string slotj) (find-package 'keyword))
+</pre></div>
+
+
+<p>The net effect is that the constructor function is called with the specified
+slots having the specified values. 
+(This coercion feature is deprecated; in the future, keyword names will 
+be taken in the package they are read in, so <i>symbols</i> that are 
+actually in the <code>KEYWORD</code> <i>package</i> should be used if that is what is desired.)
+</p>
+<p>Whatever <i>object</i> the constructor function returns
+is returned by the <code>#S</code> syntax.
+</p>
+<p>For information on how the <i>Lisp printer</i> prints <i>structures</i>,
+see <a href="Printer.html#PrintingStructures">Section 22.1.3.12 (Printing Structures)</a>.
+</p>
+
+<span id="Sharpsign-P"></span><h4 class="subsubsection">2.4.8.14 Sharpsign P</h4>
+<span id="SharpsignP"></span><span id="index-Sharpsign-P-_0028reader-macro_0029"></span>
+<span id="index-P-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-pathname"></span>
+
+
+<p><code>#P</code> reads a following <i>object</i>, which must be a <i>string</i>.
+</p>
+<p><code>#P«<var>expression</var>»</code> is equivalent to 
+<code>#.(parse-namestring '«<var>expression</var>»)</code>,
+except that <code>#P</code> is not affected by <code>*read-eval*</code>.
+</p>
+<p>For information on how the <i>Lisp printer</i> prints <i>pathnames</i>,
+see <a href="Printer.html#PrintingPathnames">Section 22.1.3.11 (Printing Pathnames)</a>.
+</p>
+
+
+<span id="Sharpsign-Equal_002dSign"></span><h4 class="subsubsection">2.4.8.15 Sharpsign Equal-Sign</h4>
+<span id="index-Sharpsign-Equal_002dSign-_0028reader-macro_0029"></span>
+<span id="index-Equal_002dSign-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002aprint_002dcircle_002a"></span>
+
+<p><code>#<var>n</var>=</code>
+</p>
+<p><code>#<var>n</var>=<var>object</var></code> reads as whatever <i>object</i>
+has <var>object</var> as its printed representation.  However, that <i>object</i>
+is labeled by <var>n</var>, a required unsigned decimal integer, for
+possible reference by the syntax <code>#<var>n</var>#</code>.
+The scope of the label is the <i>expression</i> being read by the outermost
+call to <code>read</code>; within this <i>expression</i>,
+the same label may not appear twice.
+</p>
+
+<span id="Sharpsign-Sharpsign"></span><h4 class="subsubsection">2.4.8.16 Sharpsign Sharpsign</h4>
+<span id="index-Sharpsign-Sharpsign-_0028reader-macro_0029"></span>
+<span id="index-Sharpsign-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002aprint_002dcircle_002a-1"></span>
+
+<p><code>#<var>n</var>#</code>
+</p>
+<p><code>#<var>n</var>#</code>, where <var>n</var> is a required unsigned decimal
+<i>integer</i>,
+provides a reference to some <i>object</i> labeled by <code>#<var>n</var>=</code>;
+that is, <code>#<var>n</var>#</code> represents a pointer to the same 
+(<code>eq</code>) <i>object</i> labeled by <code>#<var>n</var>=</code>.
+For example, a structure created in the variable <code>y</code> by this code:
+</p>
+<div class="lisp">
+<pre class="lisp"> (setq x (list 'p 'q))
+ (setq y (list (list 'a 'b) x 'foo x))
+ (rplacd (last y) (cdr y))
+</pre></div>
+
+<p>could be represented in this way:
+</p>
+<div class="lisp">
+<pre class="lisp"> ((a b) . #1=(#2=(p q) foo #2# . #1#))
+</pre></div>
+
+<p>Without this notation, but with <code>*print-length*</code> set to <code>10</code>
+and <code>*print-circle*</code> set to <code>nil</code>,
+the structure would print in this way:
+</p>
+<div class="lisp">
+<pre class="lisp"> ((a b) (p q) foo (p q) (p q) foo (p q) (p q) foo (p q) ...)
+</pre></div>
+
+<p>A reference <code>#<var>n</var>#</code> may only occur after a label <code>#<var>n</var>=</code>;
+forward references are not permitted.  The reference
+may not appear as the labeled object itself (that is,
+<code>#<var>n</var>=#<var>n</var>#</code>) may not be written 
+because the <i>object</i>
+labeled by <code>#<var>n</var>=</code> is not well defined in this case.
+</p>
+
+<span id="Sharpsign-Plus"></span><h4 class="subsubsection">2.4.8.17 Sharpsign Plus</h4>
+<span id="index-Sharpsign-Plus-_0028reader-macro_0029"></span>
+<span id="index-Plus-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002afeatures_002a-1"></span>
+
+<p><code>#+</code> provides a read-time conditionalization facility;
+the syntax is <code>#+<var>test</var> <var>expression</var></code>.
+If the <i>feature expression</i> <var>test</var> succeeds,
+then this textual notation represents an <i>object</i>
+whose printed representation is <var>expression</var>.
+If the <i>feature expression</i> <var>test</var> fails,
+then this textual notation is treated as <i>whitespace</i><sub>2</sub>
+that is, it is as if the &ldquo;<code>#+</code> <var>test</var> <var>expression</var>&rdquo; 
+did not appear and only a <i>space</i> appeared in its place.
+</p>
+<p>For a detailed description of success and failure in <i>feature expressions</i>,
+see <a href="System-Construction.html#FeatureExpressions">Section 24.1.2.1 (Feature Expressions)</a>.
+</p>
+<p><code>#+</code> operates by first reading the <i>feature expression</i>
+and then skipping over the <var>form</var> if the <i>feature expression</i> fails.
+While reading the <var>test</var>, the <i>current package</i> is the <code>KEYWORD</code> <i>package</i>.
+Skipping over the <var>form</var> is accomplished by <i>binding</i> 
+<code>*read-suppress*</code> to <i>true</i> and then calling <code>read</code>.
+</p>
+<p>For examples, see <a href="System-Construction.html#FeatureExpExamples">Section 24.1.2.1.1 (Examples of Feature Expressions)</a>.
+</p>
+
+<span id="Sharpsign-Minus"></span><h4 class="subsubsection">2.4.8.18 Sharpsign Minus</h4>
+<span id="index-Sharpsign-Minus-_0028reader-macro_0029"></span>
+<span id="index-Minus-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-_002afeatures_002a-2"></span>
+
+<p><code>#-</code> is like <code>#+</code> 
+except that it skips the <var>expression</var> if the <var>test</var> succeeds; 
+that is,
+</p>
+<div class="lisp">
+<pre class="lisp">#-<var>test</var> <var>expression</var> ≡ #+(not <var>test</var>) <var>expression</var>
+</pre></div>
+
+
+<p>For examples, see <a href="System-Construction.html#FeatureExpExamples">Section 24.1.2.1.1 (Examples of Feature Expressions)</a>.
+</p>
+
+<span id="Sharpsign-Vertical_002dBar"></span><h4 class="subsubsection">2.4.8.19 Sharpsign Vertical-Bar</h4>
+<span id="index-Sharpsign-Vertical_002dBar-_0028reader-macro_0029"></span>
+<span id="index-Vertical_002dBar-_0028sharpsign-reader-macro_0029"></span>
+<span id="index-comment-1"></span>
+
+<p><code>#|...|#</code> is treated as a comment by the reader.
+It must be balanced with respect to other occurrences of <code>#|</code> and <code>|#</code>,
+but otherwise may contain any characters whatsoever.
+</p>
+<span id="g_t2_002e4_002e8_002e19_002e1-Examples-of-Sharpsign-Vertical_002dBar"></span><h4 class="unnumberedsubsubsec">2.4.8.19.1 Examples of Sharpsign Vertical-Bar</h4>
+
+
+<p>The following are some examples that exploit the <code>#|...|#</code> notation:
+</p>
+<div class="lisp">
+<pre class="lisp">;;; In this example, some debugging code is commented out with #|...|#
+;;; Note that this kind of comment can occur in the middle of a line
+;;; (because a delimiter marks where the end of the comment occurs)
+;;; where a semicolon comment can only occur at the end of a line 
+;;; (because it comments out the rest of the line).
+ (defun add3 (n) #|(format t &quot;~&amp;Adding 3 to ~D.&quot; n)|# (+ n 3))
+
+;;; The examples that follow show issues related to #| ... |# nesting.
+
+;;; In this first example, #| and |# always occur properly paired,
+;;; so nesting works naturally.
+ (defun mention-fun-fact-1a ()
+   (format t &quot;CL uses ; and #|...|# in comments.&quot;))
+<span class="roman">→</span> MENTION-FUN-FACT-1A
+ (mention-fun-fact-1a)
+▷ CL uses ; and #|...|# in comments.
+<span class="roman">→</span> NIL
+ #| (defun mention-fun-fact-1b ()
+      (format t &quot;CL uses ; and #|...|# in comments.&quot;)) |#
+ (fboundp 'mention-fun-fact-1b) <span class="roman">→</span> NIL
+
+;;; In this example, vertical-bar followed by sharpsign needed to appear
+;;; in a string without any matching sharpsign followed by vertical-bar
+;;; having preceded this.  To compensate, the programmer has included a
+;;; slash separating the two characters.  In case 2a, the slash is 
+;;; unnecessary but harmless, but in case 2b, the slash is critical to
+;;; allowing the outer #| ... |# pair match.  If the slash were not present,
+;;; the outer comment would terminate prematurely.
+ (defun mention-fun-fact-2a ()
+   (format t &quot;Don't use |\# unmatched or you'll get in trouble!&quot;))
+<span class="roman">→</span> MENTION-FUN-FACT-2A
+ (mention-fun-fact-2a)
+▷ Don't use |# unmatched or you'll get in trouble!
+<span class="roman">→</span> NIL
+ #| (defun mention-fun-fact-2b ()
+      (format t &quot;Don't use |\# unmatched or you'll get in trouble!&quot;) |#
+ (fboundp 'mention-fun-fact-2b) <span class="roman">→</span> NIL
+
+;;; In this example, the programmer attacks the mismatch problem in a
+;;; different way.  The sharpsign vertical bar in the comment is not needed
+;;; for the correct parsing of the program normally (as in case 3a), but 
+;;; becomes important to avoid premature termination of a comment when such 
+;;; a program is commented out (as in case 3b).
+ (defun mention-fun-fact-3a () ; #|
+   (format t &quot;Don't use |# unmatched or you'll get in trouble!&quot;))
+<span class="roman">→</span> MENTION-FUN-FACT-3A
+ (mention-fun-fact-3a)
+▷ Don't use |# unmatched or you'll get in trouble!
+<span class="roman">→</span> NIL
+ #|
+ (defun mention-fun-fact-3b () ; #|
+   (format t &quot;Don't use |# unmatched or you'll get in trouble!&quot;))
+ |#
+ (fboundp 'mention-fun-fact-3b) <span class="roman">→</span> NIL
+</pre></div>
+
+
+
+<span id="g_t2_002e4_002e8_002e19_002e2-Notes-about-Style-for-Sharpsign-Vertical_002dBar"></span><h4 class="unnumberedsubsubsec">2.4.8.19.2 Notes about Style for Sharpsign Vertical-Bar</h4>
+
+
+<p>Some text editors that purport to understand Lisp syntax treat any <code>|...|</code>
+as balanced pairs that cannot nest (as if they were just balanced pairs of 
+the multiple escapes used in notating certain symbols).  To compensate for 
+this deficiency, some programmers use the notation <code>#||...#||...||#...||#</code>
+instead of <code>#|...#|...|#...|#</code>.   Note that this alternate usage is not
+a different <i>reader macro</i>; it merely exploits the fact that the additional
+vertical-bars occur within the comment in a way that tricks certain text editor
+into better supporting nested comments.  As such, one might sometimes see code
+like:
+</p>
+<div class="lisp">
+<pre class="lisp"> #|| (+ #|| 3 ||# 4 5) ||# 
+</pre></div>
+
+
+<p>Such code is equivalent to:
+</p>
+<div class="lisp">
+<pre class="lisp"> #| (+ #| 3 |# 4 5) |#
+</pre></div>
+
+
+
+
+<span id="Sharpsign-Less_002dThan_002dSign"></span><h4 class="subsubsection">2.4.8.20 Sharpsign Less-Than-Sign</h4>
+<span id="SharpsignLeftAngle"></span><span id="index-Sharpsign-Less_002dThan_002dSign-_0028reader-macro_0029"></span>
+<span id="index-Less_002dThan_002dSign-_0028sharpsign-reader-macro_0029"></span>
+
+<p><code>#&lt;</code> is not valid reader syntax.
+The <i>Lisp reader</i> will signal an error 
+of <i>type</i> <code>reader-error</code>
+on encountering <code>#&lt;</code>.
+This syntax is typically used in the printed representation 
+of <i>objects</i> that cannot be read back in.  
+</p>
+
+<span id="Sharpsign-Whitespace"></span><h4 class="subsubsection">2.4.8.21 Sharpsign Whitespace</h4>
+<span id="index-Sharpsign-Whitespace"></span>
+
+<p><code>#</code> followed immediately by <i>whitespace</i><sub>1</sub>
+The <i>Lisp reader</i> will signal an error of <i>type</i> <code>reader-error</code> if it
+encounters the reader macro notation <code>#&lt;Newline&gt;</code> or <code>#&lt;Space&gt;</code>.
+</p>
+
+<span id="Sharpsign-Right_002dParenthesis"></span><h4 class="subsubsection">2.4.8.22 Sharpsign Right-Parenthesis</h4>
+<span id="index-Sharpsign-Right_002dParenthesis"></span>
+
+<p>This is not valid reader syntax.
+</p>
+<p>The <i>Lisp reader</i> will signal an error 
+of <i>type</i> <code>reader-error</code>
+upon encountering <code>#)</code>.
+</p>
+
+
+<hr>
+<span id="Re_002dReading-Abbreviated-Expressions"></span><div class="header">
+<p>
+Previous: <a href="#Sharpsign" accesskey="p" rel="prev">Sharpsign</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Re_002dReading-Abbreviated-Expressions-1"></span><h4 class="subsection">2.4.9 Re-Reading Abbreviated Expressions</h4>
+<span id="index-Dot-Dot"></span>
+<span id="index-_002e_002e"></span>
+<span id="index-Dot-Dot-Dot"></span>
+<span id="index-_002e_002e_002e"></span>
+<span id="index-Sharpsign-Whitespace-1"></span>
+<span id="index-Sharpsign-Right_002dParenthesis-1"></span>
+
+<p>Note that the <i>Lisp reader</i> will 
+generally
+signal an error of <i>type</i> <code>reader-error</code>
+when reading an <i>expression</i><sub>2</sub>
+abbreviated because of length or level limits 
+(see <code>*print-level*</code>,
+<code>*print-length*</code>,
+and <code>*print-lines*</code>)
+due to restrictions on &ldquo;<code>..</code>&rdquo;, &ldquo;<code>...</code>&rdquo;, &ldquo;<code>#</code>&rdquo; followed by <i>whitespace</i><sub>1</sub>
+and &ldquo;<code>#)</code>&rdquo;.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#Sharpsign" accesskey="p" rel="prev">Sharpsign</a>, Up: <a href="#Standard-Macro-Characters" accesskey="u" rel="up">Standard Macro Characters</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

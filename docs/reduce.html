@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>reduce (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Sequences.html" rel="up" title="Sequences">
-<link href="count_003b-count_002dif_003b-count_002dif_002dnot.html" rel="next" title="count; count-if; count-if-not">
-<link href="map_002dinto.html" rel="prev" title="map-into">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,140 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Sequences.html#reduce">
 
 </head>
 
 <body lang="en">
-<span id="reduce"></span><div class="header">
-<p>
-Next: <a href="count_003b-count_002dif_003b-count_002dif_002dnot.html" accesskey="n" rel="next">count; count-if; count-if-not</a>, Previous: <a href="map_002dinto.html" accesskey="p" rel="prev">map-into</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">reduce</h4>
-<span id="reduce-_0028Function_0029"></span><h3 class="heading">reduce (Function)</h3>
-<span id="index-reduce-2"></span>
-<span id="index-reduce"></span>
 
-
-<span id="Syntax_003a-372"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-reduce-1">Function: <strong>reduce</strong> <em>function sequence <tt>&amp;key</tt> key from-end start end initial-value <span class="roman">→</span> result</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-361"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>function</var>&mdash;a <i>designator</i> for a <i>function</i>
-that might be called with either zero or two <i>arguments</i>.
-</p>
-<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
-</p>
-<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
-or <code>nil</code>.
-</p>
-<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
-The default is <i>false</i>.
-</p>
-<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
-The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
-</p>
-<p><var>initial-value</var>&mdash;an <i>object</i>. 
-</p>
-<p><var>result</var>&mdash;an <i>object</i>.
-</p>
-<span id="Description_003a-476"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>reduce</code> uses a binary operation, <var>function</var>,
-to combine the <i>elements</i> of <var>sequence</var> 
-<i>bounded</i> by <var>start</var> and <var>end</var>.
-</p>
-<p>The <var>function</var> must accept as <i>arguments</i> two <i>elements</i>
-of <var>sequence</var> or the results from combining those <i>elements</i>.
-The <var>function</var> must also be able to accept no arguments.
-</p>
-<p>If <var>key</var> is supplied, it is used is used to extract the values to reduce.
-The <var>key</var> function is applied exactly once to each element of <var>sequence</var>
-in the order implied by the reduction order but not to the value of
-<var>initial-value</var>, if supplied.
-The <var>key</var> function typically returns part of the <i>element</i> of <var>sequence</var>.
-If <var>key</var> is not supplied or is <code>nil</code>, the <var>sequence</var> <i>element</i> itself is used.
-</p>
-<p>The reduction is left-associative,
-unless <var>from-end</var> is <i>true</i> in which case it is right-associative.  
-</p>
-<p>If <var>initial-value</var> is supplied, 
-it is logically placed before the subsequence
-(or after it if <var>from-end</var> is <i>true</i>)
-and included in the reduction operation.
-</p>
-<p>In the normal case, the result of <code>reduce</code> is the combined 
-result of <var>function</var>&rsquo;s being applied to successive pairs of <i>elements</i> 
-of <var>sequence</var>.
-If the subsequence contains exactly one <i>element</i> 
-and no <var>initial-value</var> is given,
-then that <i>element</i> is returned and <var>function</var> is not called.
-If the subsequence is empty and an <var>initial-value</var> is given,
-then the <var>initial-value</var> is returned and <var>function</var> is not called.
-If the subsequence is empty and no <var>initial-value</var> is given,
-then the <var>function</var> is called with zero arguments,
-and <code>reduce</code> returns whatever <var>function</var> does.
-This is the only case where the
-<var>function</var> is called with other than two arguments.
-</p>
-<span id="Examples_003a-343"></span><h4 class="subsubheading">Examples:</h4>
-<div class="lisp">
-<pre class="lisp"> (reduce #'* '(1 2 3 4 5)) <span class="roman">→</span> 120
- (reduce #'append '((1) (2)) :initial-value '(i n i t)) <span class="roman">→</span> (I N I T 1 2)
- (reduce #'append '((1) (2)) :from-end t                  
-                             :initial-value '(i n i t)) <span class="roman">→</span> (1 2 I N I T) 
- (reduce #'- '(1 2 3 4)) ≡ (- (- (- 1 2) 3) 4) <span class="roman">→</span> -8
- (reduce #'- '(1 2 3 4) :from-end t)    ;Alternating sum.
-≡ (- 1 (- 2 (- 3 4))) <span class="roman">→</span> -2
- (reduce #'+ '()) <span class="roman">→</span> 0
- (reduce #'+ '(3)) <span class="roman">→</span> 3
- (reduce #'+ '(foo)) <span class="roman">→</span> FOO
- (reduce #'list '(1 2 3 4)) <span class="roman">→</span> (((1 2) 3) 4)
- (reduce #'list '(1 2 3 4) :from-end t) <span class="roman">→</span> (1 (2 (3 4)))
- (reduce #'list '(1 2 3 4) :initial-value 'foo) <span class="roman">→</span> ((((foo 1) 2) 3) 4)
- (reduce #'list '(1 2 3 4)
-        :from-end t :initial-value 'foo) <span class="roman">→</span> (1 (2 (3 (4 foo))))
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-157"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
-<var>sequence</var> is not a <i>proper sequence</i>.
-</p>
-<span id="See-Also_003a-387"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
-</p>
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="count_003b-count_002dif_003b-count_002dif_002dnot.html" accesskey="n" rel="next">count; count-if; count-if-not</a>, Previous: <a href="map_002dinto.html" accesskey="p" rel="prev">map-into</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Sequences.html#reduce">reduce</a>.</p>
 </body>
-</html>

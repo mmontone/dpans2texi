@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>with-package-iterator (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Packages.html" rel="up" title="Packages">
-<link href="unexport.html" rel="next" title="unexport">
-<link href="make_002dpackage.html" rel="prev" title="make-package">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,241 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Packages.html#with_002dpackage_002diterator">
 
 </head>
 
 <body lang="en">
-<span id="with_002dpackage_002diterator"></span><div class="header">
-<p>
-Next: <a href="unexport.html" accesskey="n" rel="next">unexport</a>, Previous: <a href="make_002dpackage.html" accesskey="p" rel="prev">make-package</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">with-package-iterator</h4>
-<span id="with_002dpackage_002diterator-_0028Macro_0029"></span><h3 class="heading">with-package-iterator (Macro)</h3>
-<span id="index-with_002dpackage_002diterator-2"></span>
-<span id="index-with_002dpackage_002diterator"></span>
 
-
-
-
-<span id="Syntax_003a-196"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-with_002dpackage_002diterator-1">Macro: <strong>with-package-iterator</strong> <em><tt>(</tt>name package-list-form <tt>&amp;rest</tt> symbol-types<tt>)</tt> <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-185"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>name</var>&mdash;a <i>symbol</i>.
-</p>
-<p><var>package-list-form</var>&mdash;a <i>form</i>; evaluated once to produce a <var>package-list</var>.
-</p>
-<p><var>package-list</var>&mdash;a <i>designator</i> for a list of <i>package designators</i>.
-</p>
-<p><var>symbol-type</var>&mdash;one of the <i>symbols</i> 
-<tt>:internal</tt>, <tt>:external</tt>, or <tt>:inherited</tt>.
-</p>
-<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
-</p>
-<p><var>forms</var>&mdash;an <i>implicit progn</i>.
-</p>
-<p><var>results</var>&mdash;the <i>values</i> of the <var>forms</var>.
-</p>
-<span id="Description_003a-249"></span><h4 class="subsubheading">Description:</h4>
-
-<p>Within the lexical scope of the body <var>forms</var>,
-the <var>name</var> is defined via <code>macrolet</code> 
-such that successive invocations of <code>(<var>name</var>)</code>
-will return the <i>symbols</i>, one by one, 
-from the <i>packages</i> in <var>package-list</var>. 
-</p>
-<p>It is unspecified whether <i>symbols</i> inherited from
-multiple <i>packages</i> are returned more than once.  
-The order of <i>symbols</i> returned does not necessarily reflect the order
-of <i>packages</i> in <var>package-list</var>.  When <var>package-list</var> has 
-more than one element, it is unspecified whether duplicate <i>symbols</i> are
-returned once or more than once.  
-</p>
-<p><var>Symbol-types</var> controls which <i>symbols</i> that are <i>accessible</i>
-in a <i>package</i> are returned as follows:
-</p>
-
-<dl compact="compact">
-<dt><tt>:internal</tt></dt>
-<dd>
-
-<p>The <i>symbols</i> that are <i>present</i> in the <i>package</i>,
-but that are not <i>exported</i>.
-</p>
-</dd>
-<dt><tt>:external</tt></dt>
-<dd>
-
-<p>The <i>symbols</i> that are <i>present</i> in the <i>package</i>
-and are <i>exported</i>.
-</p>
-</dd>
-<dt><tt>:inherited</tt></dt>
-<dd>
-
-<p>The <i>symbols</i> that are <i>exported</i> by used <i>packages</i>
-and that are not <i>shadowed</i>.
-</p></dd>
-</dl>
-
-
-<p>When more than one argument is supplied for <var>symbol-types</var>, 
-a <i>symbol</i> is returned if its <i>accessibility</i> matches 
-any one of the <var>symbol-types</var> supplied.  
-Implementations may extend this syntax by recognizing additional 
-symbol accessibility types.
-</p>
-<p>An invocation of <code>(<var>name</var>)</code> returns four values as follows:
-</p>
-
-<ol>
-<li> A flag that indicates whether a <i>symbol</i> is returned
-(true means that a <i>symbol</i> is returned).
-</li><li> A <i>symbol</i> that is <i>accessible</i> in one the
-indicated <i>packages</i>.
-</li><li> The accessibility type for that <i>symbol</i>; 
-<i>i.e.</i>, one of the symbols <tt>:internal</tt>, <tt>:external</tt>, or <tt>:inherited</tt>.
-</li><li> The <i>package</i> from which the <i>symbol</i> was obtained.
-The <i>package</i> is one of the <i>packages</i> present 
-or named in <var>package-list</var>.
-</li></ol>
-
-
-<p>After all <i>symbols</i> have been returned by successive invocations of
-<code>(<var>name</var>)</code>, then only one value is returned, namely <code>nil</code>.
-</p>
-<p>The meaning of the second, third, and fourth <i>values</i> is that the returned 
-<i>symbol</i> is <i>accessible</i> in the returned <i>package</i>
-in the way indicated by the second return value as follows:
-</p>
-
-<dl compact="compact">
-<dt><tt>:internal</tt></dt>
-<dd>
-
-<p>Means <i>present</i> and not <i>exported</i>.
-</p>
-</dd>
-<dt><tt>:external</tt></dt>
-<dd>
-
-<p>Means <i>present</i> and <i>exported</i>.
-</p>
-</dd>
-<dt><tt>:inherited</tt></dt>
-<dd>
-
-<p>Means not <i>present</i> (thus not <i>shadowed</i>) but inherited
-from some used <i>package</i>.
-</p></dd>
-</dl>
-
-
-<p>It is unspecified what happens if any of the implicit interior state 
-of an iteration is returned outside the dynamic extent of the 
-<code>with-package-iterator</code>
-form such as by returning some <i>closure</i> over the invocation <i>form</i>.
-</p>
-<p>Any number of invocations of <code>with-package-iterator</code> 
-can be nested, and the body of the innermost one can invoke all of the
-locally <i>established</i> <i>macros</i>, provided all those <i>macros</i>
-have distinct names.
-</p>
-<span id="Examples_003a-168"></span><h4 class="subsubheading">Examples:</h4>
-
-<p>The following function should return <code>t</code>&nbsp;<!-- /@w -->on any <i>package</i>, and signal
-an error if the usage of <code>with-package-iterator</code> does not agree
-with the corresponding usage of <code>do-symbols</code>.
-</p>
-<div class="lisp">
-<pre class="lisp"> (defun test-package-iterator (package)
-   (unless (packagep package)
-     (setq package (find-package package)))
-   (let ((all-entries '())
-         (generated-entries '()))
-     (do-symbols (x package) 
-       (multiple-value-bind (symbol accessibility) 
-           (find-symbol (symbol-name x) package)
-         (push (list symbol accessibility) all-entries)))
-     (with-package-iterator (generator-fn package 
-                             :internal :external :inherited)
-       (loop     
-         (multiple-value-bind (more? symbol accessibility pkg)
-             (generator-fn)
-           (unless more? (return))
-           (let ((l (multiple-value-list (find-symbol (symbol-name symbol) 
-                                                      package))))
-             (unless (equal l (list symbol accessibility))
-               (error &quot;Symbol ~S not found as ~S in package ~A [~S]&quot;
-                      symbol accessibility (package-name package) l))
-             (push l generated-entries)))))
-     (unless (and (subsetp all-entries generated-entries :test #'equal)
-                  (subsetp generated-entries all-entries :test #'equal))
-      (error &quot;Generated entries and Do-Symbols entries don't correspond&quot;))
-     t))
-</pre></div>
-
-
-<p>The following function prints out every <i>present</i> <i>symbol</i> 
-(possibly more than once):
-</p>
-<div class="lisp">
-<pre class="lisp"> (defun print-all-symbols () 
-   (with-package-iterator (next-symbol (list-all-packages)
-                           :internal :external)
-     (loop
-       (multiple-value-bind (more? symbol) (next-symbol)
-         (if more? 
-            (print symbol)
-            (return))))))
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-67"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p><code>with-package-iterator</code> signals an error of <i>type</i> <code>program-error</code> if 
-no <var>symbol-types</var> are supplied or if a <var>symbol-type</var> is not
-recognized  by the implementation is supplied.  
-</p>
-<p>The consequences are undefined if the local function named <var>name</var>
-<i>established</i> by <code>with-package-iterator</code> is called after it 
-has returned <i>false</i> as its <i>primary value</i>.
-</p>
-<span id="See-Also_003a-221"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="unexport.html" accesskey="n" rel="next">unexport</a>, Previous: <a href="make_002dpackage.html" accesskey="p" rel="prev">make-package</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Packages.html#with_002dpackage_002diterator">with-package-iterator</a>.</p>
 </body>
-</html>

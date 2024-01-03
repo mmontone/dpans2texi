@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Method Selection and Combination (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Generic-Functions-and-Methods.html" rel="up" title="Generic Functions and Methods">
-<link href="Inheritance-of-Methods.html" rel="next" title="Inheritance of Methods">
-<link href="Keyword-Arguments-in-Generic-Functions-and-Methods.html" rel="prev" title="Keyword Arguments in Generic Functions and Methods">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,417 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Objects.html#Method-Selection-and-Combination">
 
 </head>
 
 <body lang="en">
-<span id="Method-Selection-and-Combination"></span><div class="header">
-<p>
-Next: <a href="Inheritance-of-Methods.html" accesskey="n" rel="next">Inheritance of Methods</a>, Previous: <a href="Keyword-Arguments-in-Generic-Functions-and-Methods.html" accesskey="p" rel="prev">Keyword Arguments in Generic Functions and Methods</a>, Up: <a href="Generic-Functions-and-Methods.html" accesskey="u" rel="up">Generic Functions and Methods</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Method-Selection-and-Combination-1"></span><h4 class="subsection">7.6.6 Method Selection and Combination</h4>
 
-<p>When a <i>generic function</i> is called with particular arguments, it must
-determine the code to execute.  This code is called the 
-<span id="index-effective-method"></span>
-<em>effective method</em> for those <i>arguments</i>.
-The <i>effective method</i> is a 
-combination of the <i>applicable methods</i> in the <i>generic function</i>
-that <i>calls</i> some or all of the <i>methods</i>.
-</p>
-<p>If a <i>generic function</i> is called and no <i>methods</i> are 
-<i>applicable</i>, the <i>generic function</i> <code>no-applicable-method</code>
-is invoked, with the <i>results</i> from that call being used as the
-<i>results</i> of the call to the original <i>generic function</i>.  Calling
-<code>no-applicable-method</code> takes precedence over checking for acceptable
-keyword arguments; see <a href="Keyword-Arguments-in-Generic-Functions-and-Methods.html">Section 7.6.5 (Keyword Arguments in Generic Functions and Methods)</a>.
-</p>
-<p>When the <i>effective method</i> has been determined,
-it is invoked with the same <i>arguments</i> as were passed to the <i>generic function</i>.  
-Whatever <i>values</i> it returns are returned as the <i>values</i>
-of the <i>generic function</i>.
-</p>
-<span id="Determining-the-Effective-Method"></span><h4 class="subsubsection">7.6.6.1 Determining the Effective Method</h4>
-<span id="DeterminingtheEffectiveMethod"></span>
-<p>The effective method is determined by the following three-step procedure:
-</p>
-
-<ol>
-<li> Select the applicable methods.
-
-</li><li> Sort the applicable methods by precedence order, putting
-the most specific method first.
-
-</li><li> Apply method combination to the sorted list of
-applicable methods, producing the effective method.
-</li></ol>
-
-
-<span id="g_t7_002e6_002e6_002e1_002e1-Selecting-the-Applicable-Methods"></span><h4 class="unnumberedsubsubsec">7.6.6.1.1 Selecting the Applicable Methods</h4>
-
-<span id="SelApplMeth"></span>
-<p>This step is described in <a href="Introduction-to-Methods.html">Section 7.6.2 (Introduction to Methods)</a>.
-</p>
-
-<span id="g_t7_002e6_002e6_002e1_002e2-Sorting-the-Applicable-Methods-by-Precedence-Order"></span><h4 class="unnumberedsubsubsec">7.6.6.1.2 Sorting the Applicable Methods by Precedence Order</h4>
-
-
-<p>To compare the precedence of two methods, their <i>parameter specializers</i>
-are examined in order.  The default examination order is from left to
-right, but an alternative order may be specified by the 
-<tt>:argument-precedence-order</tt> option to <code>defgeneric</code> or to any of
-the other operators that specify generic function options.
-</p>
-<p>The corresponding <i>parameter specializers</i> from each method are
-compared.  When a pair of <i>parameter specializers</i> agree, the next
-pair are compared for agreement.  If all corresponding parameter
-specializers agree, the two methods must have different
-<i>qualifiers</i>; in this case, either method can be selected to precede the
-other.  For information about agreement, see <a href="Agreement-on-Parameter-Specializers-and-Qualifiers.html">Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)</a>.
-</p>
-<p>If some corresponding <i>parameter specializers</i> do not agree, the first
-pair of <i>parameter specializers</i> that do not agree determines the
-precedence.  If both <i>parameter specializers</i> are classes, the more
-specific of the two methods is the method whose <i>parameter specializer</i>
-appears earlier in the <i>class precedence list</i> of the corresponding
-argument.  Because of the way in which the set of applicable methods
-is chosen, the <i>parameter specializers</i> are guaranteed to be present in
-the class precedence list of the class of the argument.
-</p>
-<p>If just one of a pair of corresponding <i>parameter specializers</i> is <code>(eql <i>object</i>)</code>,
-the <i>method</i> with that <i>parameter specializer</i> precedes the
-other <i>method</i>.  If both <i>parameter specializers</i> are <code>eql</code>
-<i>expressions</i>, the
-specializers must agree (otherwise the two <i>methods</i> would
-not both have been applicable to this argument).
-</p>
-<p>The resulting list of <i>applicable methods</i> has the most specific
-<i>method</i> first and the least specific <i>method</i> last.    
-</p>
-
-<span id="g_t7_002e6_002e6_002e1_002e3-Applying-method-combination-to-the-sorted-list-of-applicable-methods"></span><h4 class="unnumberedsubsubsec">7.6.6.1.3 Applying method combination to the sorted list of applicable methods</h4>
-
-<span id="ApplyMethCombToSortedMethods"></span>
-<p>In the simple case&mdash;if standard method combination is used and all
-applicable methods are primary methods&mdash;the 
-effective method is the most specific method.
-That method can call the next most specific
-method by using the <i>function</i> <code>call-next-method</code>.  The method that
-<code>call-next-method</code> will call is referred to as the 
-<span id="index-next-method"></span>
-<em>next method</em>.  The predicate <code>next-method-p</code> tests whether a next
-method exists.  If <code>call-next-method</code> is called and there is no
-next most specific method, the generic function <code>no-next-method</code>
-is invoked.
-</p>
-<p>In general, the effective method is some combination of the applicable
-methods.  It is described by a <i>form</i> that contains calls to some or
-all of the applicable methods, returns the value or values that will
-be returned as the value or values of the generic function, and
-optionally makes some of the methods accessible by means of 
-<code>call-next-method</code>.
-</p>
-<p>The role of each method in the effective method is determined by its
-<i>qualifiers</i> and the specificity of the method.  A <i>qualifier</i>
-serves to mark a method, and the meaning of a <i>qualifier</i> is
-determined by the way that these marks are used by this step
-of the procedure.  If an applicable method has an unrecognized
-<i>qualifier</i>, this step signals an error and does not include that method
-in the effective method.
-</p>
-<p>When standard method combination is used together with qualified methods, 
-the effective method is produced as described in <a href="#StdMethComb">Section 7.6.6.2 (Standard Method Combination)</a>.
-</p>
-<p>Another type of method combination can be specified by using the
-<tt>:method-combination</tt> option of <code>defgeneric</code> or
-of any of the other operators that specify generic function options.  In
-this way this step of the procedure can be customized.
-</p>
-<p>New types of method combination can be defined by using 
-the <code>define-method-combination</code> <i>macro</i>. 
-</p>
-
-
-<span id="Standard-Method-Combination"></span><h4 class="subsubsection">7.6.6.2 Standard Method Combination</h4>
-<span id="StdMethComb"></span><span id="index-standard"></span>
-
-<p>Standard method combination is supported by the <i>class</i> <code>standard-generic-function</code>.
-It is used if no other type of method
-combination is specified or if the built-in method combination type
-<tt>standard</tt> is specified. 
-</p>
-<p>Primary methods define the main action of the effective method,  
-while auxiliary methods modify that action in one of three ways.
-A primary method has no method <i>qualifiers</i>.
-</p>
-<p>An auxiliary method is a method whose 
-<i>qualifier</i> is <tt>:before</tt>, <tt>:after</tt>, or <tt>:around</tt>.
-Standard method combination
-allows no more than one <i>qualifier</i> per method; if a method definition
-specifies more than one <i>qualifier</i> per method, an error is signaled.
-</p>
-
-<ul>
-<li> A <i>before method</i> has the keyword <tt>:before</tt> as its only <i>qualifier</i>.
-A <i>before method</i> specifies <i>code</i> that is to be run before any 
-<i>primary methods</i>.
-
-</li><li> An <i>after method</i> has the keyword <tt>:after</tt> as its only <i>qualifier</i>.
-An <i>after method</i> specifies <i>code</i> that is to be run after
-<i>primary methods</i>.
-
-</li><li> An <i>around method</i> has the keyword <tt>:around</tt> as its only <i>qualifier</i>.
-An <i>around method</i> specifies <i>code</i> that is to be run instead of other
-<i>applicable methods</i>,
-but which might contain explicit <i>code</i>
-which calls some of those <i>shadowed</i> <i>methods</i>
-(via <code>call-next-method</code>).
-</li></ul>
-
-
-<p>The semantics of standard method combination is as follows:
-</p>
-
-<ul>
-<li> If there are any <i>around methods</i>, the most specific
-<i>around method</i> is called.  It supplies the value or values of the
-generic function.
-
-</li><li> Inside the body of an <i>around method</i>, 
-<code>call-next-method</code> can be used to call the <i>next method</i>.  When the next
-method returns, the <i>around method</i> can execute more code,
-perhaps based on the returned value or values.
-The <i>generic function</i> <code>no-next-method</code> is invoked if <code>call-next-method</code> is used and
-there is no <i>applicable method</i> to call.  The <i>function</i> <code>next-method-p</code>
-may be used to determine whether a <i>next method</i> exists.
-
-</li><li> If an <i>around method</i> invokes <code>call-next-method</code>,
-the next most specific <i>around method</i>
-is called, if one is applicable.  If there are no <i>around methods</i> 
-or if <code>call-next-method</code> is called by the least
-specific <i>around method</i>, the other methods are called as
-follows:
-
-<ul class="no-bullet">
-<li>&ndash; All the <i>before methods</i> are called, in
-most-specific-first order.  Their values are ignored.
-An error is signaled if <code>call-next-method</code> is used in a
-<i>before method</i>.
-
-</li><li>&ndash; The most specific primary method is called.  Inside the
-body of a primary method, <code>call-next-method</code> may be used to call
-the next most specific primary method.  When that method returns, the
-previous primary method can execute more code, perhaps based on the
-returned value or values.  The generic function <code>no-next-method</code>
-is invoked if <code>call-next-method</code> is used and there are no more
-applicable primary methods.  The <i>function</i> <code>next-method-p</code> may be
-used to determine whether a <i>next method</i> exists.  If <code>call-next-method</code>
-is not used, only the most specific <i>primary method</i> is called.
-
-</li><li>&ndash; All the <i>after methods</i> are called in
-most-specific-last order.  Their values are ignored.
-An error is signaled if <code>call-next-method</code> is used in an
-<i>after method</i>.
-</li></ul>
-
-</li><li> If no <i>around methods</i> were invoked, the most
-specific primary method supplies the value or values returned by the
-generic function.  The value or values returned by the invocation of
-<code>call-next-method</code> in the least specific <i>around method</i> are
-those returned by the most specific primary method.
-</li></ul>
-
-
-<p>In standard method combination, if there is an applicable method
-but no applicable primary method, an error is signaled.
-</p>
-<p>The <i>before methods</i> are run in most-specific-first order while
-the <i>after methods</i> are run in least-specific-first order.  The
-design rationale for this difference can be illustrated with an
-example.  Suppose class C<sub>1</sub>
-superclass, C<sub>2</sub>
-Whether the behavior of the class C<sub>2</sub>
-directly by methods on C<sub>2</sub>
-does not affect the relative order of invocation of methods on
-instances of the class C<sub>1</sub>
-<i>before method</i> runs before all of class C<sub>2</sub>
-Class C<sub>1</sub>
-</p>
-<p>By contrast, all <i>around methods</i> run before any other methods
-run.  Thus a less specific <i>around method</i> runs before a more
-specific primary method.
-</p>
-<p>If only primary methods are used and if <code>call-next-method</code> is not
-used, only the most specific method is invoked; that is, more specific
-methods shadow more general ones. 
-</p>
-
-<span id="Declarative-Method-Combination"></span><h4 class="subsubsection">7.6.6.3 Declarative Method Combination</h4>
-
-<p>The macro <code>define-method-combination</code> defines new forms of method
-combination.  It provides a mechanism for customizing the production
-of the effective method. The default procedure for producing an
-effective method is described in <a href="#DeterminingtheEffectiveMethod">Section 7.6.6.1 (Determining the Effective Method)</a>.
-There are two forms of
-<code>define-method-combination</code>.  The short form is a simple facility while
-the long form is more powerful and more verbose.  The long form
-resembles <code>defmacro</code> in that the body is an expression that
-computes a Lisp form; it provides mechanisms for implementing
-arbitrary control structures within method combination and for
-arbitrary processing of method <i>qualifiers</i>.  
-</p>
-
-<span id="Built_002din-Method-Combination-Types"></span><h4 class="subsubsection">7.6.6.4 Built-in Method Combination Types</h4>
-<span id="BuiltInMethCombTypes"></span>
-<p>The object system&nbsp;<!-- /@w -->provides a set of built-in method combination types.  To
-specify that a generic function is to use one of these method
-combination types, the name of the method combination type is given as
-the argument to the <tt>:method-combination</tt> option to 
-<code>defgeneric</code> or to the <tt>:method-combination</tt> option to any of the
-other operators that specify generic function options.
-</p>
-<p>The names of the built-in  method combination types are listed in the next figure.
-<span id="index-_002b"></span>
-<span id="index-and-2"></span>
-<span id="index-append"></span>
-<span id="index-list-3"></span>
-<span id="index-max"></span>
-<span id="index-min"></span>
-<span id="index-nconc"></span>
-<span id="index-or-2"></span>
-<span id="index-progn-1"></span>
-<span id="index-standard-1"></span>
-</p>
-
-<div class="float"><span id="fig7_002e2"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<tr><td>+</td><td>append</td><td>max</td><td>nconc</td><td>progn</td></tr>
-<tr><td>and</td><td>list</td><td>min</td><td>or</td><td>standard</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 7.2: </strong>Built-in Method Combination Types</p></div></div>
-
-<p>The semantics of the <tt>standard</tt> built-in method combination type is
-described in <a href="#StdMethComb">Section 7.6.6.2 (Standard Method Combination)</a>.  The other
-built-in method combination types are called simple built-in method
-combination types.
-</p>
-<p>The simple built-in method combination types act as though they were
-defined by the short form of <code>define-method-combination</code>.  
-They recognize two roles for <i>methods</i>:
-</p>
-
-<ul>
-<li> An <i>around method</i> has the keyword symbol 
-<tt>:around</tt> as its sole <i>qualifier</i>.  The meaning of 
-<tt>:around</tt> <i>methods</i> is the same as in standard method combination.
-Use of the functions <code>call-next-method</code> and <code>next-method-p</code>
-is supported in <i>around methods</i>.
-
-</li><li> A primary method has the name of the method combination
-type as its sole <i>qualifier</i>.  For example, the built-in method
-combination type <code>and</code> recognizes methods whose sole <i>qualifier</i> is
-<code>and</code>; these are primary methods. Use of the functions 
-<code>call-next-method</code> and <code>next-method-p</code> is not supported 
-in <i>primary methods</i>.
-</li></ul>
-
-
-<p>The semantics of the simple built-in method combination types is as
-follows:
-</p>
-
-<ul>
-<li> If there are any <i>around methods</i>, the most specific <i>around method</i>
-is called.   It supplies the value or values of the <i>generic function</i>. 
-
-</li><li> Inside the body of an <i>around method</i>, the function
-<code>call-next-method</code> can be used to call the <i>next method</i>.
-The <i>generic function</i> <code>no-next-method</code> is invoked if 
-<code>call-next-method</code> is used and there is no applicable method to call.
-The <i>function</i> <code>next-method-p</code> may be used to determine whether a
-<i>next method</i> exists. When the <i>next method</i> returns, 
-the <i>around method</i> can execute more code,
-perhaps based on the returned value or values.
-
-</li><li> If an <i>around method</i> invokes <code>call-next-method</code>,
-the next most specific <i>around method</i> is
-called, if one is applicable.  If there are no <i>around methods</i>
-or if <code>call-next-method</code> is called by the least specific
-<i>around method</i>, a Lisp form derived from the name of the built-in
-method combination type and from the list of applicable primary
-methods is evaluated to produce the value of the generic function.
-Suppose the name of the method combination type is <i>operator</i>
-and the call to the generic function is of the form
-
-
-<blockquote>
-<p>(<i><span class="nolinebreak">generic-function</span></i><!-- /@w -->&nbsp;<!-- /@w -->a<sub>1</sub>
-</p></blockquote>
-
-
-</li><li> Let M<sub>1</sub>
-in order; then the derived Lisp form is
-
-
-<blockquote>
-<p>(<i>operator</i><!-- /@w -->&nbsp;<!-- /@w -->〈 M<sub>1</sub>
-&nbsp;<!-- /@w -->a<sub>1</sub>
-M<sub>k</sub>
-</p></blockquote>
-
-
-</li><li> If the expression 〈 M<sub>i</sub>
-evaluated, the method M<sub>i</sub>
-a<sub>1</sub>
-For example,
-if <i>operator</i> is <code>or</code>,
-the expression 〈 M<sub>i</sub>
-evaluated only if 〈 M<sub>j</sub>
-1≤ j<i, returned <code>nil</code>.
-
-The default order for the primary methods is 
-<tt>:most-specific-first</tt>.  However, the order can be reversed by supplying
-<tt>:most-specific-last</tt> as the second argument to the <tt>:method-combination</tt> option.
-</li></ul>
-
-
-<p>The simple built-in method combination types require exactly one
-<i>qualifier</i> per method.  An error is signaled if there are applicable
-methods with no <i>qualifiers</i> or with <i>qualifiers</i> that are not supported
-by the method combination type. An error is signaled if there are
-applicable <i>around methods</i> and no applicable primary
-methods.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Inheritance-of-Methods.html" accesskey="n" rel="next">Inheritance of Methods</a>, Previous: <a href="Keyword-Arguments-in-Generic-Functions-and-Methods.html" accesskey="p" rel="prev">Keyword Arguments in Generic Functions and Methods</a>, Up: <a href="Generic-Functions-and-Methods.html" accesskey="u" rel="up">Generic Functions and Methods</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Objects.html#Method-Selection-and-Combination">Method Selection and Combination</a>.</p>
 </body>
-</html>

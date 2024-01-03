@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>copy-tree (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Conses.html" rel="up" title="Conses">
-<link href="sublis_003b-nsublis.html" rel="next" title="sublis; nsublis">
-<link href="car_003b-cdr_003b-caar_003b-cadr_003b-cdar_003b-cddr_003b-caaar_003b-caadr_003b-cadar_003b-caddr_003b-cdaar_003b-cd_002b.html" rel="prev" title="car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,96 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Conses.html#copy_002dtree">
 
 </head>
 
 <body lang="en">
-<span id="copy_002dtree"></span><div class="header">
-<p>
-Next: <a href="sublis_003b-nsublis.html" accesskey="n" rel="next">sublis; nsublis</a>, Previous: <a href="car_003b-cdr_003b-caar_003b-cadr_003b-cdar_003b-cddr_003b-caaar_003b-caadr_003b-cadar_003b-caddr_003b-cdaar_003b-cd_002b.html" accesskey="p" rel="prev">car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+</a>, Up: <a href="Conses.html" accesskey="u" rel="up">Conses</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">copy-tree</h4>
-<span id="copy_002dtree-_0028Function_0029"></span><h3 class="heading">copy-tree (Function)</h3>
-<span id="index-copy_002dtree-2"></span>
-<span id="index-copy_002dtree"></span>
 
-
-
-<span id="Syntax_003a-290"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-copy_002dtree-1">Function: <strong>copy-tree</strong> <em>tree <span class="roman">→</span> new-tree</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-279"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>tree</var>&mdash;a <i>tree</i>.
-</p>
-<p><var>new-tree</var>&mdash;a <i>tree</i>.
-</p>
-<span id="Description_003a-380"></span><h4 class="subsubheading">Description:</h4>
-
-<p>Creates a <i>copy</i> of a <i>tree</i> of <i>conses</i>.
-</p>
-<p>If <var>tree</var> is not a <i>cons</i>, it is returned; 
-otherwise, the result is a new <i>cons</i> of the results of calling <code>copy-tree</code> 
-on the <i>car</i> and <i>cdr</i> of <var>tree</var>.
-In other words, all <i>conses</i> in the <i>tree</i> represented by <var>tree</var>
-are copied recursively, stopping only when non-<i>conses</i> are encountered.
-</p>
-<p><code>copy-tree</code> does not preserve circularities and the sharing of substructure.
-</p>
-<span id="Examples_003a-263"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (setq object (list (cons 1 &quot;one&quot;)
-                    (cons 2 (list 'a 'b 'c))))
-<span class="roman">→</span> ((1 . &quot;one&quot;) (2 A B C))
- (setq object-too object) <span class="roman">→</span> ((1 . &quot;one&quot;) (2 A B C))
- (setq copy-as-list (copy-list object))
- (setq copy-as-alist (copy-alist object))
- (setq copy-as-tree (copy-tree object))
- (eq object object-too) <span class="roman">→</span> <i>true</i>
- (eq copy-as-tree object) <span class="roman">→</span> <i>false</i>
- (eql copy-as-tree object) <span class="roman">→</span> <i>false</i>
- (equal copy-as-tree object) <span class="roman">→</span> <i>true</i>
- (setf (first (cdr (second object))) &quot;a&quot;
-       (car (second object)) &quot;two&quot;
-       (car object) '(one . 1)) <span class="roman">→</span> (ONE . 1)
- object <span class="roman">→</span> ((ONE . 1) (&quot;two&quot; &quot;a&quot; B C))
- object-too <span class="roman">→</span> ((ONE . 1) (&quot;two&quot; &quot;a&quot; B C))
- copy-as-list <span class="roman">→</span> ((1 . &quot;one&quot;) (&quot;two&quot; &quot;a&quot; B C))
- copy-as-alist <span class="roman">→</span> ((1 . &quot;one&quot;) (2 &quot;a&quot; B C))
- copy-as-tree <span class="roman">→</span> ((1 . &quot;one&quot;) (2 A B C)) 
-</pre></div>
-
-
-<span id="See-Also_003a-306"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="tree_002dequal.html">tree-equal</a>
-</p>
-
-
-
-
-
+<p>The node you are looking for is at <a href="Conses.html#copy_002dtree">copy-tree</a>.</p>
 </body>
-</html>

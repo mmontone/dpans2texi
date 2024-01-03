@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>every; some; notevery; notany (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
-<link href="and-_0028Macro_0029.html" rel="next" title="and (Macro)">
-<link href="constantly.html" rel="prev" title="constantly">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,151 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Data-and-Control-Flow.html#every_003b-some_003b-notevery_003b-notany">
 
 </head>
 
 <body lang="en">
-<span id="every_003b-some_003b-notevery_003b-notany"></span><div class="header">
-<p>
-Next: <a href="and-_0028Macro_0029.html" accesskey="n" rel="next">and (Macro)</a>, Previous: <a href="constantly.html" accesskey="p" rel="prev">constantly</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">every; some; notevery; notany</h4>
-<span id="every_002c-some_002c-notevery_002c-notany-_0028Function_0029"></span><h3 class="heading">every, some, notevery, notany (Function)</h3>
-<span id="index-every-2"></span>
-<span id="index-every"></span>
-<span id="index-some-2"></span>
-<span id="index-some"></span>
-<span id="index-notevery-2"></span>
-<span id="index-notevery"></span>
-<span id="index-notany-2"></span>
-<span id="index-notany"></span>
-<span id="every"></span><span id="some"></span>
 
-<span id="Syntax_003a-69"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-every-1">Function: <strong>every</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> generalized-boolean</em></dt>
-</dl>
-<dl>
-<dt id="index-some-1">Function: <strong>some</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> result</em></dt>
-</dl>
-<dl>
-<dt id="index-notevery-1">Function: <strong>notevery</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> generalized-boolean</em></dt>
-</dl>
-<dl>
-<dt id="index-notany-1">Function: <strong>notany</strong> <em>predicate <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> generalized-boolean</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-59"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>predicate</var>&mdash;a <i>designator</i> for a <i>function</i> of
-as many <i>arguments</i> as there are <var>sequences</var>.
-</p>
-<p><var>sequence</var>&mdash;a <i>sequence</i>.
-</p>
-<p><var>result</var>&mdash;an <i>object</i>.
-</p>
-<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>. 
-</p>
-<span id="Description_003a-93"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>every</code>, <code>some</code>, <code>notevery</code>, and <code>notany</code>
-test <i>elements</i> of <var>sequences</var> for satisfaction of a given <var>predicate</var>.
-The first argument to <var>predicate</var> is an <i>element</i> of the first <var>sequence</var>;
-each succeeding argument is an <i>element</i> of a succeeding <var>sequence</var>.
-</p>
-<p><var>Predicate</var> is first applied to the elements
-with index <code>0</code> in each of the <var>sequences</var>, and possibly then to
-the elements with index <code>1</code>, and so on, until a termination
-criterion is met or the end of the shortest of the <var>sequences</var> is reached.
-</p>
-<p><code>every</code> returns <i>false</i> as soon 
-as any invocation of <var>predicate</var> returns <i>false</i>.
-If the end of a <var>sequence</var> is reached,
-<code>every</code> returns <i>true</i>.
-Thus, <code>every</code> returns <i>true</i> if and only if
-every invocation of <var>predicate</var> returns <i>true</i>.
-</p>
-<p><code>some</code> returns the first <i>non-nil</i> value 
-which is returned by an invocation of <var>predicate</var>.
-If the end of a <var>sequence</var> is reached without any invocation of the
-<var>predicate</var> returning <i>true</i>, <code>some</code> returns <i>false</i>.
-Thus, <code>some</code> returns <i>true</i> if and only if
-some invocation of <var>predicate</var> returns <i>true</i>.
-</p>
-<p><code>notany</code> returns <i>false</i> 
-as soon as any invocation of <var>predicate</var> returns <i>true</i>.
-If the end of a <var>sequence</var> is reached,
-<code>notany</code> returns <i>true</i>.
-Thus, <code>notany</code> returns <i>true</i> if and only if 
-it is not the case that any invocation of <var>predicate</var> returns <i>true</i>.
-</p>
-<p><code>notevery</code> returns <i>true</i> as soon as any invocation of
-<var>predicate</var> returns <i>false</i>.
-If the end of a <var>sequence</var> is reached,
-<code>notevery</code> returns <i>false</i>.
-Thus, <code>notevery</code> returns <i>true</i> if and only if 
-it is not the case that every invocation of <var>predicate</var> returns <i>true</i>.
-</p>
-<span id="Examples_003a-67"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (every #'characterp &quot;abc&quot;) <span class="roman">→</span> <i>true</i>
- (some #'= '(1 2 3 4 5) '(5 4 3 2 1)) <span class="roman">→</span> <i>true</i>
- (notevery #'&lt; '(1 2 3 4) '(5 6 7 8) '(9 10 11 12)) <span class="roman">→</span> <i>false</i>
- (notany #'&gt; '(1 2 3 4) '(5 6 7 8) '(9 10 11 12)) <span class="roman">→</span> <i>true</i> 
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-17"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>Should signal <code>type-error</code> if its first argument is neither a
-<i>symbol</i> nor a <i>function</i> or if any subsequent
-argument is not a <i>proper sequence</i>.
-</p>
-<p>Other exceptional situations are possible, depending on the nature
-of the <var>predicate</var>.
-</p>
-<span id="See-Also_003a-77"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="and-_0028Macro_0029.html">and (Macro)</a>,
-<a href="or-_0028Macro_0029.html">or (Macro)</a>,
-<a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
-</p>
-<span id="Notes_003a-49"></span><h4 class="subsubheading">Notes:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (notany <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*) ≡ (not (some <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*))
- (notevery <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*) ≡ (not (every <var>predicate</var> <tt>{</tt>sequence<tt>}</tt>*))
-</pre></div>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="and-_0028Macro_0029.html" accesskey="n" rel="next">and (Macro)</a>, Previous: <a href="constantly.html" accesskey="p" rel="prev">constantly</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Data-and-Control-Flow.html#every_003b-some_003b-notevery_003b-notany">every; some; notevery; notany</a>.</p>
 </body>
-</html>

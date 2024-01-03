@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>change-class (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Objects.html" rel="up" title="Objects">
-<link href="slot_002dboundp.html" rel="next" title="slot-boundp">
-<link href="update_002dinstance_002dfor_002dredefined_002dclass.html" rel="prev" title="update-instance-for-redefined-class">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,159 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Objects.html#change_002dclass">
 
 </head>
 
 <body lang="en">
-<span id="change_002dclass"></span><div class="header">
-<p>
-Next: <a href="slot_002dboundp.html" accesskey="n" rel="next">slot-boundp</a>, Previous: <a href="update_002dinstance_002dfor_002dredefined_002dclass.html" accesskey="p" rel="prev">update-instance-for-redefined-class</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">change-class</h4>
-<span id="change_002dclass-_0028Standard-Generic-Function_0029"></span><h3 class="heading">change-class (Standard Generic Function)</h3>
-<span id="index-change_002dclass-2"></span>
-<span id="index-change_002dclass"></span>
 
-
-<span id="Syntax_003a-107"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-change_002dclass-1">Generic Function: <strong>change-class</strong> <em>instance new-class <tt>&amp;key</tt> <tt>&amp;allow-other-keys</tt> <span class="roman">→</span> instance</em></dt>
-</dl>
-
-<span id="Method-Signatures_003a-6"></span><h4 class="subsubheading">Method Signatures:</h4>
-
-<p>change-class <tt>(</tt><var>instance</var> <code>standard-object</code><tt>)</tt>
-<tt>(</tt><var>new-class</var> <code>standard-class</code><tt>)</tt>
-<tt>&amp;rest</tt> initargs
-</p>
-<p>change-class <tt>(</tt><var>instance</var> <code>t</code><tt>)</tt>
-<tt>(</tt><var>new-class</var> <code>symbol</code><tt>)</tt>
-<tt>&amp;rest</tt> initargs
-</p>
-<span id="Arguments-and-Values_003a-96"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>instance</var>&mdash;an <i>object</i>.
-</p>
-<p><var>new-class</var>&mdash;a <i>class designator</i>.
-</p>
-<p><var>initargs</var>&mdash;an <i>initialization argument list</i>.
-</p>
-<span id="Description_003a-135"></span><h4 class="subsubheading">Description:</h4>
-
-<p>The <i>generic function</i> <code>change-class</code> changes the 
-<i>class</i> of an <var>instance</var> to <var>new-class</var>.  
-It destructively modifies and returns the <var>instance</var>.
-</p>
-<p>If in the old <i>class</i> there is any <i>slot</i> of the 
-same name as a local <i>slot</i> in the <var>new-class</var>, 
-the value of that <i>slot</i> is retained.  This means that if 
-the <i>slot</i> has a value, the value returned by <code>slot-value</code>
-after <code>change-class</code> is invoked is <code>eql</code> to the
-value returned by <code>slot-value</code> before <code>change-class</code> is
-invoked.  Similarly, if the <i>slot</i> was unbound, it remains
-unbound.  The other <i>slots</i> are initialized as described in 
-<a href="Changing-the-Class-of-an-Instance.html">Section 7.2 (Changing the Class of an Instance)</a>.
-</p>
-<p>After completing all other actions, <code>change-class</code> invokes
-<code>update-instance-for-different-class</code>.  The
-generic function <code>update-instance-for-different-class</code> can be used
-to assign values to slots in the transformed instance.
-See <a href="Initializing-Newly-Added-Local-Slots.html">Section 7.2.2 (Initializing Newly Added Local Slots)</a>.
-</p>
-<p>If the second of the above <i>methods</i> is selected, 
-that <i>method</i> invokes <code>change-class</code> 
-on <var>instance</var>, <code>(find-class <var>new-class</var>)</code>,
-and the <var>initargs</var>.
-</p>
-<span id="Examples_003a-101"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> 
- (defclass position () ())
-  
- (defclass x-y-position (position)
-     ((x :initform 0 :initarg :x)
-      (y :initform 0 :initarg :y)))
-  
- (defclass rho-theta-position (position)
-     ((rho :initform 0)
-      (theta :initform 0)))
-  
- (defmethod update-instance-for-different-class :before ((old x-y-position) 
-                                                         (new rho-theta-position)
-                                                         &amp;key)
-   ;; Copy the position information from old to new to make new
-   ;; be a rho-theta-position at the same position as old.
-   (let ((x (slot-value old 'x))
-         (y (slot-value old 'y)))
-     (setf (slot-value new 'rho) (sqrt (+ (* x x) (* y y)))
-           (slot-value new 'theta) (atan y x))))
-  
-;;; At this point an instance of the class x-y-position can be
-;;; changed to be an instance of the class rho-theta-position using
-;;; change-class:
- 
- (setq p1 (make-instance 'x-y-position :x 2 :y 0))
-  
- (change-class p1 'rho-theta-position)
-  
-;;; The result is that the instance bound to p1 is now an instance of
-;;; the class rho-theta-position.   The update-instance-for-different-class
-;;; method performed the initialization of the rho and theta slots based
-;;; on the value of the x and y slots, which were maintained by
-;;; the old instance.
- 
-</pre></div>
-
-
-<span id="See-Also_003a-117"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="update_002dinstance_002dfor_002ddifferent_002dclass.html">update-instance-for-different-class</a>,
-<a href="Changing-the-Class-of-an-Instance.html">Section 7.2 (Changing the Class of an Instance)</a>
-</p>
-<span id="Notes_003a-79"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>The generic function <code>change-class</code> has several semantic
-difficulties.  First, it performs a destructive operation that can be
-invoked within a <i>method</i> on an <i>instance</i> that was used to select that
-<i>method</i>. 
-When multiple <i>methods</i> are involved because <i>methods</i> are being
-combined, the <i>methods</i> currently executing or about to be executed may
-no longer be applicable.  Second, some implementations might use
-compiler optimizations of slot <i>access</i>, and when the <i>class</i> of an
-<i>instance</i> is changed the assumptions the compiler made might be
-violated.  This implies that a programmer must not use
-<code>change-class</code> inside a <i>method</i> if any 
-<i>methods</i> for that <i>generic function</i>
-<i>access</i> any <i>slots</i>, or the results are undefined.
-</p>
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="slot_002dboundp.html" accesskey="n" rel="next">slot-boundp</a>, Previous: <a href="update_002dinstance_002dfor_002dredefined_002dclass.html" accesskey="p" rel="prev">update-instance-for-redefined-class</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Objects.html#change_002dclass">change-class</a>.</p>
 </body>
-</html>

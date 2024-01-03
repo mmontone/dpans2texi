@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>allocate-instance (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Objects.html" rel="up" title="Objects">
-<link href="reinitialize_002dinstance.html" rel="next" title="reinitialize-instance">
-<link href="ensure_002dgeneric_002dfunction.html" rel="prev" title="ensure-generic-function">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,90 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Objects.html#allocate_002dinstance">
 
 </head>
 
 <body lang="en">
-<span id="allocate_002dinstance"></span><div class="header">
-<p>
-Next: <a href="reinitialize_002dinstance.html" accesskey="n" rel="next">reinitialize-instance</a>, Previous: <a href="ensure_002dgeneric_002dfunction.html" accesskey="p" rel="prev">ensure-generic-function</a>, Up: <a href="Objects.html" accesskey="u" rel="up">Objects</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">allocate-instance</h4>
-<span id="allocate_002dinstance-_0028Standard-Generic-Function_0029"></span><h3 class="heading">allocate-instance (Standard Generic Function)</h3>
-<span id="index-allocate_002dinstance-2"></span>
-<span id="index-allocate_002dinstance"></span>
 
-
-
-<span id="Syntax_003a-102"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-allocate_002dinstance-1">Generic Function: <strong>allocate-instance</strong> <em>class <tt>&amp;rest</tt> initargs <tt>&amp;key</tt> <tt>&amp;allow-other-keys</tt> <span class="roman">→</span> new-instance</em></dt>
-</dl>
-
-<span id="Method-Signatures_003a-1"></span><h4 class="subsubheading">Method Signatures:</h4>
-
-<p>allocate-instance <tt>(</tt><var>class</var> <code>standard-class</code><tt>)</tt> <tt>&amp;rest</tt> initargs
-</p>
-<p>allocate-instance <tt>(</tt><var>class</var> <code>structure-class</code><tt>)</tt> <tt>&amp;rest</tt> initargs
-</p>
-<span id="Arguments-and-Values_003a-91"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>class</var>&mdash;a <i>class</i>.
-</p>
-<p><var>initargs</var>&mdash;a <i>list</i> of <i>keyword/value pairs</i> 
-(initialization argument <i>names</i> and <i>values</i>).
-</p>
-<p><var>new-instance</var>&mdash;an <i>object</i> whose <i>class</i> is <var>class</var>.
-</p>
-<span id="Description_003a-130"></span><h4 class="subsubheading">Description:</h4>
-
-<p>The generic function <code>allocate-instance</code> creates and returns
-a new instance of the <var>class</var>, without initializing it.
-When the <var>class</var> is a <i>standard class</i>, this means that
-the <i>slots</i> are <i>unbound</i>; when the <i>class</i> is a
-<i>structure class</i>, this means the <i>slots</i>&rsquo; <i>values</i>
-are unspecified.
-</p>
-<p>The caller of <code>allocate-instance</code> is expected to have
-already checked the initialization arguments.
-</p>
-<p>The <i>generic function</i> <code>allocate-instance</code> is called by
-<code>make-instance</code>, as described in
-<a href="Object-Creation-and-Initialization.html">Section 7.1 (Object Creation and Initialization)</a>.
-</p>
-<span id="See-Also_003a-112"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="defclass.html">defclass</a>, <a href="make_002dinstance.html">make-instance</a>, <a href="class_002dof.html">class-of</a>,
-<a href="Object-Creation-and-Initialization.html">Section 7.1 (Object Creation and Initialization)</a>
-</p>
-<span id="Notes_003a-74"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>The consequences of adding <i>methods</i> to <code>allocate-instance</code> is unspecified.
-This capability might be added by the <i>Metaobject Protocol</i>.
-</p>
-
-
-
-
-
+<p>The node you are looking for is at <a href="Objects.html#allocate_002dinstance">allocate-instance</a>.</p>
 </body>
-</html>

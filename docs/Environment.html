@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="The-External-Environment.html" rel="next" title="The External Environment">
-<link href="provide_003b-require.html" rel="prev" title="provide; require">
+<link href="Glossary.html#Glossary" rel="next" title="Glossary">
+<link href="System-Construction.html#provide_003b-require" rel="prev" title="provide; require">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,83 +277,2369 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Environment"></span><div class="header">
 <p>
-Next: <a href="Glossary.html" accesskey="n" rel="next">Glossary</a>, Previous: <a href="System-Construction.html" accesskey="p" rel="prev">System Construction</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Glossary.html#Glossary" accesskey="n" rel="next">Glossary</a>, Previous: <a href="System-Construction.html#System-Construction" accesskey="p" rel="prev">System Construction</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Environment-1"></span><h2 class="chapter">25 Environment</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="The-External-Environment.html" accesskey="1">The External Environment</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-External-Environment" accesskey="1">The External Environment</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="decode_002duniversal_002dtime.html" accesskey="2">decode-universal-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#decode_002duniversal_002dtime" accesskey="2">decode-universal-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="encode_002duniversal_002dtime.html" accesskey="3">encode-universal-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#encode_002duniversal_002dtime" accesskey="3">encode-universal-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="get_002duniversal_002dtime_003b-get_002ddecoded_002dtime.html" accesskey="4">get-universal-time; get-decoded-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#get_002duniversal_002dtime_003b-get_002ddecoded_002dtime" accesskey="4">get-universal-time; get-decoded-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="sleep.html" accesskey="5">sleep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#sleep" accesskey="5">sleep</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="apropos_003b-apropos_002dlist.html" accesskey="6">apropos; apropos-list</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#apropos_003b-apropos_002dlist" accesskey="6">apropos; apropos-list</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="describe.html" accesskey="7">describe</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#describe" accesskey="7">describe</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="describe_002dobject.html" accesskey="8">describe-object</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#describe_002dobject" accesskey="8">describe-object</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="trace_003b-untrace.html" accesskey="9">trace; untrace</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#trace_003b-untrace" accesskey="9">trace; untrace</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="step.html">step</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#step">step</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="time-_0028Macro_0029.html">time (Macro)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#time-_0028Macro_0029">time (Macro)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="internal_002dtime_002dunits_002dper_002dsecond.html">internal-time-units-per-second</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#internal_002dtime_002dunits_002dper_002dsecond">internal-time-units-per-second</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="get_002dinternal_002dreal_002dtime.html">get-internal-real-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#get_002dinternal_002dreal_002dtime">get-internal-real-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="get_002dinternal_002drun_002dtime.html">get-internal-run-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#get_002dinternal_002drun_002dtime">get-internal-run-time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="disassemble.html">disassemble</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#disassemble">disassemble</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="documentation_003b-setf-documentation.html">documentation; setf documentation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#documentation_003b-setf-documentation">documentation; setf documentation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="room.html">room</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#room">room</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="ed.html">ed</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ed">ed</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="inspect.html">inspect</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#inspect">inspect</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="dribble.html">dribble</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#dribble">dribble</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="_002d-_0028Variable_0029.html">- (Variable)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_002d-_0028Variable_0029">- (Variable)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="_002b_003b-_002b_002b_003b-_002b_002b_002b.html">+; ++; +++</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_002b_003b-_002b_002b_003b-_002b_002b_002b">+; ++; +++</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="_002a_003b-_002a_002a_003b-_002a_002a_002a.html">*; **; ***</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_002a_003b-_002a_002a_003b-_002a_002a_002a">*; **; ***</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="_002f_003b-_002f_002f_003b-_002f_002f_002f.html">/; //; ///</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#g_t_002f_003b-_002f_002f_003b-_002f_002f_002f">/; //; ///</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="lisp_002dimplementation_002dtype_003b-lisp_002dimplementation_002dversion.html">lisp-implementation-type; lisp-implementation-version</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#lisp_002dimplementation_002dtype_003b-lisp_002dimplementation_002dversion">lisp-implementation-type; lisp-implementation-version</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="short_002dsite_002dname_003b-long_002dsite_002dname.html">short-site-name; long-site-name</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#short_002dsite_002dname_003b-long_002dsite_002dname">short-site-name; long-site-name</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="machine_002dinstance.html">machine-instance</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#machine_002dinstance">machine-instance</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="machine_002dtype.html">machine-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#machine_002dtype">machine-type</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="machine_002dversion.html">machine-version</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#machine_002dversion">machine-version</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="software_002dtype_003b-software_002dversion.html">software-type; software-version</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#software_002dtype_003b-software_002dversion">software-type; software-version</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="user_002dhomedir_002dpathname.html">user-homedir-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#user_002dhomedir_002dpathname">user-homedir-pathname</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
+<span id="The-External-Environment"></span><div class="header">
+<p>
+Next: <a href="#decode_002duniversal_002dtime" accesskey="n" rel="next">decode-universal-time</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="The-External-Environment-1"></span><h3 class="section">25.1 The External Environment</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Top-level-loop" accesskey="1">Top level loop</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Debugging-Utilities" accesskey="2">Debugging Utilities</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Environment-Inquiry" accesskey="3">Environment Inquiry</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Time" accesskey="4">Time</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Top-level-loop"></span><div class="header">
+<p>
+Next: <a href="#Debugging-Utilities" accesskey="n" rel="next">Debugging Utilities</a>, Up: <a href="#The-External-Environment" accesskey="u" rel="up">The External Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Top-level-loop-1"></span><h4 class="subsection">25.1.1 Top level loop</h4>
+<p>The top level loop is the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->mechanism by which the user normally
+interacts with the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->system. This loop is sometimes referred to 
+as the <i>Lisp read-eval-print loop</i>
+because it typically consists of an endless loop that reads an expression,
+evaluates it and prints the results.
+</p>
+<p>The top level loop is not completely specified; thus the user
+interface is <i>implementation-defined</i>.
+The top level loop 
+prints all values resulting from the evaluation of a 
+<i>form</i>.
+The next figure&nbsp;<!-- /@w -->lists variables that are maintained by the <i>Lisp read-eval-print loop</i>.
+</p>
+
+<div class="float"><span id="fig25_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*</td><td>+</td><td>/</td><td>-</td></tr>
+<tr><td>**</td><td>++</td><td>//</td><td></td></tr>
+<tr><td>***</td><td>+++</td><td>///</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.1: </strong>Variables maintained by the Read-Eval-Print Loop</p></div></div>
+
+
+<hr>
+<span id="Debugging-Utilities"></span><div class="header">
+<p>
+Next: <a href="#Environment-Inquiry" accesskey="n" rel="next">Environment Inquiry</a>, Previous: <a href="#Top-level-loop" accesskey="p" rel="prev">Top level loop</a>, Up: <a href="#The-External-Environment" accesskey="u" rel="up">The External Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Debugging-Utilities-1"></span><h4 class="subsection">25.1.2 Debugging Utilities</h4>
+
+<p>The next figure&nbsp;<!-- /@w -->shows <i>defined names</i> relating to
+debugging.
+</p>
+
+<div class="float"><span id="fig25_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*debugger-hook*</td><td>documentation</td><td>step</td></tr>
+<tr><td>apropos</td><td>dribble</td><td>time</td></tr>
+<tr><td>apropos-list</td><td>ed</td><td>trace</td></tr>
+<tr><td>break</td><td>inspect</td><td>untrace</td></tr>
+<tr><td>describe</td><td>invoke-debugger</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.2: </strong>Defined names relating to debugging</p></div></div>
+
+
+<hr>
+<span id="Environment-Inquiry"></span><div class="header">
+<p>
+Next: <a href="#Time" accesskey="n" rel="next">Time</a>, Previous: <a href="#Debugging-Utilities" accesskey="p" rel="prev">Debugging Utilities</a>, Up: <a href="#The-External-Environment" accesskey="u" rel="up">The External Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Environment-Inquiry-1"></span><h4 class="subsection">25.1.3 Environment Inquiry</h4>
+<p>Environment inquiry <i>defined names</i> provide information about
+the hardware and software configuration on which a <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->program is
+being executed.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->shows <i>defined names</i> relating to environment inquiry.
+</p>
+
+<div class="float"><span id="fig25_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>*features*</td><td>machine-instance</td><td>short-site-name</td></tr>
+<tr><td>lisp-implementation-type</td><td>machine-type</td><td>software-type</td></tr>
+<tr><td>lisp-implementation-version</td><td>machine-version</td><td>software-version</td></tr>
+<tr><td>long-site-name</td><td>room</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.3: </strong>Defined names relating to environment inquiry.</p></div></div>
+
+
+<hr>
+<span id="Time"></span><div class="header">
+<p>
+Previous: <a href="#Environment-Inquiry" accesskey="p" rel="prev">Environment Inquiry</a>, Up: <a href="#The-External-Environment" accesskey="u" rel="up">The External Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Time-1"></span><h4 class="subsection">25.1.4 Time</h4>
+
+<p>Time is represented in four different ways in <span class="roman">Common Lisp</span>:
+<i>decoded time</i>,
+<i>universal time</i>,
+<i>internal time</i>,
+and seconds.
+<i>Decoded time</i> and <i>universal time</i> are used primarily to represent calendar time,
+and are precise only to one second.
+<i>Internal time</i> is used primarily to represent measurements of computer
+time (such as run time) and is precise to some <i>implementation-dependent</i>
+fraction of a second called an <i>internal time unit</i>,
+as specified by <code>internal-time-units-per-second</code>.
+An <i>internal time</i> can be used 
+for either <i>absolute</i> and <i>relative</i> <i>time</i> measurements.
+Both a <i>universal time</i> and a <i>decoded time</i> can be used 
+only for <i>absolute</i> <i>time</i> measurements.
+In the case of one function, <code>sleep</code>,
+time intervals are represented as a non-negative <i>real</i> number of seconds.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->shows <i>defined names</i> relating to <i>time</i>.
+</p>
+
+<div class="float"><span id="fig25_002e4"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>decode-universal-time</td><td>get-internal-run-time</td></tr>
+<tr><td>encode-universal-time</td><td>get-universal-time</td></tr>
+<tr><td>get-decoded-time</td><td>internal-time-units-per-second</td></tr>
+<tr><td>get-internal-real-time</td><td>sleep</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.4: </strong>Defined names involving Time.</p></div></div>
+
+<span id="Decoded-Time"></span><h4 class="subsubsection">25.1.4.1 Decoded Time</h4>
+<span id="DecodedTime"></span>
+<p>A <span id="index-decoded-time"></span>
+<em>decoded time</em> is an ordered series of nine values that, taken together,
+represent a point in calendar time (ignoring <i>leap seconds</i>):
+</p>
+
+<dl compact="compact">
+<dt><b>Second</b></dt>
+<dd>
+
+<p>An <i>integer</i> between 0 and&nbsp;59, inclusive.
+</p>
+</dd>
+<dt><b>Minute</b></dt>
+<dd>
+
+<p>An <i>integer</i> between 0 and&nbsp;59, inclusive.
+</p>
+</dd>
+<dt><b>Hour</b></dt>
+<dd>
+
+<p>An <i>integer</i> between 0 and&nbsp;23, inclusive.
+</p>
+</dd>
+<dt><b>Date</b></dt>
+<dd>
+
+<p>An <i>integer</i> between 1 and&nbsp;31, inclusive (the upper limit actually
+depends on the month and year, of course).
+</p>
+</dd>
+<dt><b>Month</b></dt>
+<dd>
+
+<p>An <i>integer</i> between 1 and 12, inclusive;
+1&nbsp;means January, 2&nbsp;means February, and so on; 12&nbsp;means December.
+</p>
+</dd>
+<dt><b>Year</b></dt>
+<dd>
+
+<p>An <i>integer</i> indicating the year A.D.  However, if this 
+<i>integer</i>
+is between 0 and 99, the &ldquo;obvious&rdquo; year is used; more precisely,
+that year is assumed that is equal to the 
+<i>integer</i> modulo 100 and
+within fifty years of the current year (inclusive backwards
+and exclusive forwards).  
+Thus, in the year 1978, year 28 is 1928
+but year 27 is 2027.  (Functions that return time in this format always return
+a full year number.) 
+</p>
+</dd>
+<dt><b>Day of week</b></dt>
+<dd>
+
+<p>An <i>integer</i> between&nbsp;0 and&nbsp;6, inclusive;
+0&nbsp;means Monday, 1&nbsp;means Tuesday, and so on; 6&nbsp;means Sunday.
+</p>
+</dd>
+<dt><b>Daylight saving time flag</b></dt>
+<dd>
+
+<p>A <i>generalized boolean</i> that,
+if <i>true</i>, indicates that daylight saving time is in effect.
+</p>
+</dd>
+<dt><b>Time zone</b></dt>
+<dd>
+
+<p>A <i>time zone</i>.
+</p></dd>
+</dl>
+
+
+<p>The next figure&nbsp;<!-- /@w -->shows <i>defined names</i> relating to <i>decoded time</i>.
+</p>
+
+<div class="float"><span id="fig25_002e5"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>decode-universal-time</td><td>get-decoded-time</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.5: </strong>Defined names involving time in Decoded Time.</p></div></div>
+
+
+<span id="Universal-Time"></span><h4 class="subsubsection">25.1.4.2 Universal Time</h4>
+<span id="UniversalTime"></span>
+<span id="index-universal-time"></span>
+<p><em>Universal time</em> is an <i>absolute</i> <i>time</i> represented as a
+single non-negative <i>integer</i>&mdash;the number of seconds since
+midnight, January 1, 1900 GMT (ignoring <i>leap seconds</i>).
+Thus the time 1 is 00:00:01 (that is, 12:00:01 a.m.) on January 1, 1900 GMT.
+Similarly, the time 2398291201 corresponds to time 00:00:01 on January 1,
+1976 GMT.
+Recall that the year 1900 was not a leap year; for the purposes of
+<span class="roman">Common Lisp</span>, a year is a leap year if and only if its number is divisible by 4,
+except that years divisible by 100 are not leap years, except that years
+divisible by 400 are leap years.  Therefore the year 2000 will
+be a leap year.
+Because <i>universal time</i> must be a non-negative <i>integer</i>,
+times before the base time of midnight, January 1, 1900 GMT cannot be processed by <span class="roman">Common Lisp</span>.
+</p>
+
+<div class="float"><span id="fig25_002e6"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>decode-universal-time</td><td>get-universal-time</td></tr>
+<tr><td>encode-universal-time</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.6: </strong>Defined names involving time in Universal Time.</p></div></div>
+
+
+<span id="Internal-Time"></span><h4 class="subsubsection">25.1.4.3 Internal Time</h4>
+<span id="InternalTime"></span>
+<span id="index-internal-time"></span>
+<p><em>Internal time</em> represents time as a single <i>integer</i>,
+in terms of an <i>implementation-dependent</i> unit called an <i>internal time unit</i>.
+Relative time is measured as a number of these units.
+Absolute time is relative to an arbitrary time base.
+</p>
+<p>The next figure&nbsp;<!-- /@w -->shows <i>defined names</i> related to <i>internal time</i>.
+</p>
+
+<div class="float"><span id="fig25_002e7"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>get-internal-real-time</td><td>internal-time-units-per-second</td></tr>
+<tr><td>get-internal-run-time</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.7: </strong>Defined names involving time in Internal Time.</p></div></div>
+
+
+<span id="Seconds"></span><h4 class="subsubsection">25.1.4.4 Seconds</h4>
+
+<p>One function, <code>sleep</code>, takes its argument as a non-negative <i>real</i> number
+of seconds.  Informally, it may be useful to think of this as 
+a <i>relative</i> <i>universal time</i>, but it differs in one important way:
+<i>universal times</i> are always non-negative <i>integers</i>, whereas the argument to
+<code>sleep</code> can be any kind of non-negative <i>real</i>, in order to allow for
+the possibility of fractional seconds.
+</p>
+
+<div class="float"><span id="fig25_002e8"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>sleep</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 25.8: </strong>Defined names involving time in Seconds.</p></div></div>
+
+
+
+
+<hr>
+<span id="decode_002duniversal_002dtime"></span><div class="header">
+<p>
+Next: <a href="#encode_002duniversal_002dtime" accesskey="n" rel="next">encode-universal-time</a>, Previous: <a href="#The-External-Environment" accesskey="p" rel="prev">The External Environment</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">decode-universal-time</h4>
+<span id="decode_002duniversal_002dtime-_0028Function_0029"></span><h3 class="heading">decode-universal-time (Function)</h3>
+<span id="index-decode_002duniversal_002dtime-2"></span>
+<span id="index-decode_002duniversal_002dtime"></span>
+
+
+<span id="Syntax_003a-501"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-decode_002duniversal_002dtime-1">Function: <strong>decode-universal-time</strong> <em>universal-time <tt>&amp;optional</tt> time-zone <span class="roman">→</span> second, minute, hour, date, month, year, day, daylight-p, zone</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-487"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>universal-time</var>&mdash;a <i>universal time</i>.
+</p>
+<p><var>time-zone</var>&mdash;a <i>time zone</i>.
+</p>
+<p><var>second</var>, <var>minute</var>, <var>hour</var>, <var>date</var>, <var>month</var>,
+<var>year</var>, <var>day</var>, <var>daylight-p</var>, <var>zone</var>&mdash;a <i>decoded time</i>.
+</p>
+<span id="Description_003a-649"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the <i>decoded time</i> represented by the given <i>universal time</i>.
+</p>
+<p>If <var>time-zone</var> is not supplied,
+it defaults to the current time zone adjusted for daylight saving time.  
+If <var>time-zone</var> is supplied, daylight saving time information is ignored.
+The daylight saving time flag is <code>nil</code>&nbsp;<!-- /@w -->if <var>time-zone</var> is supplied.
+</p>
+<span id="Examples_003a-461"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (decode-universal-time 0 0) <span class="roman">→</span> 0, 0, 0, 1, 1, 1900, 0, <i>false</i>, 0
+
+;; The next two examples assume Eastern Daylight Time.
+ (decode-universal-time 2414296800 5) <span class="roman">→</span> 0, 0, 1, 4, 7, 1976, 6, <i>false</i>, 5
+ (decode-universal-time 2414293200) <span class="roman">→</span> 0, 0, 1, 4, 7, 1976, 6, <i>true</i>, 5
+
+;; This example assumes that the time zone is Eastern Daylight Time
+;; (and that the time zone is constant throughout the example).
+ (let* ((here (nth 8 (multiple-value-list (get-decoded-time)))) ;Time zone
+        (recently (get-universal-time))
+        (a (nthcdr 7 (multiple-value-list (decode-universal-time recently))))
+        (b (nthcdr 7 (multiple-value-list (decode-universal-time recently here)))))
+   (list a b (equal a b))) <span class="roman">→</span> ((T 5) (NIL 5) NIL)
+</pre></div>
+
+
+<span id="Affected-By_003a-119"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><i>Implementation-dependent</i> mechanisms for calculating when or if daylight
+savings time is in effect for any given session.
+</p>
+<span id="See-Also_003a-529"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#encode_002duniversal_002dtime">encode-universal-time</a>, <a href="#get_002duniversal_002dtime">get-universal-time</a>, 
+<a href="#Time">Section 25.1.4 (Time)</a>
+</p>
+
+<hr>
+<span id="encode_002duniversal_002dtime"></span><div class="header">
+<p>
+Next: <a href="#get_002duniversal_002dtime_003b-get_002ddecoded_002dtime" accesskey="n" rel="next">get-universal-time; get-decoded-time</a>, Previous: <a href="#decode_002duniversal_002dtime" accesskey="p" rel="prev">decode-universal-time</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">encode-universal-time</h4>
+<span id="encode_002duniversal_002dtime-_0028function_0029"></span><h3 class="heading">encode-universal-time (function)</h3>
+<span id="index-encode_002duniversal_002dtime-2"></span>
+<span id="index-encode_002duniversal_002dtime"></span>
+
+
+<span id="Syntax_003a-502"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-encode_002duniversal_002dtime-1">Function: <strong>encode-universal-time</strong> <em>second&nbsp;minute&nbsp;hour&nbsp;date&nbsp;month&nbsp;year<!-- /@w --> <tt>&amp;optional</tt>&nbsp;<span class="nolinebreak">time-zone</span><!-- /@w --> <span class="roman">→</span> universal-time</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-488"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>second</var>, <var>minute</var>, <var>hour</var>, 
+<var>date</var>, <var>month</var>, <var>year</var>, 
+<var>time-zone</var>&mdash;the corresponding parts of a <i>decoded time</i>.
+(Note that some of the nine values in a full <i>decoded time</i> are redundant,
+and so are not used as inputs to this function.)
+</p>
+<p><var>universal-time</var>&mdash;a <i>universal time</i>.
+</p>
+<span id="Description_003a-650"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>encode-universal-time</code> converts a time from Decoded Time format
+to a <i>universal time</i>.
+</p>
+<p>If <var>time-zone</var> is supplied, no adjustment for daylight savings time is performed.
+</p>
+<span id="Examples_003a-462"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (encode-universal-time 0 0 0 1 1 1900 0) <span class="roman">→</span> 0
+ (encode-universal-time 0 0 1 4 7 1976 5) <span class="roman">→</span> 2414296800
+;; The next example assumes Eastern Daylight Time.
+ (encode-universal-time 0 0 1 4 7 1976) <span class="roman">→</span> 2414293200
+</pre></div>
+
+
+<span id="See-Also_003a-530"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#decode_002duniversal_002dtime">decode-universal-time</a>, <a href="#get_002ddecoded_002dtime">get-decoded-time</a>
+</p>
+
+<hr>
+<span id="get_002duniversal_002dtime_003b-get_002ddecoded_002dtime"></span><div class="header">
+<p>
+Next: <a href="#sleep" accesskey="n" rel="next">sleep</a>, Previous: <a href="#encode_002duniversal_002dtime" accesskey="p" rel="prev">encode-universal-time</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">get-universal-time; get-decoded-time</h4>
+<span id="get_002duniversal_002dtime_002c-get_002ddecoded_002dtime-_0028Function_0029"></span><h3 class="heading">get-universal-time, get-decoded-time (Function)</h3>
+<span id="index-get_002duniversal_002dtime-2"></span>
+<span id="index-get_002duniversal_002dtime"></span>
+<span id="index-get_002ddecoded_002dtime-2"></span>
+<span id="index-get_002ddecoded_002dtime"></span>
+<span id="get_002duniversal_002dtime"></span><span id="get_002ddecoded_002dtime"></span>
+
+<span id="Syntax_003a-503"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-get_002duniversal_002dtime-1">Function: <strong>get-universal-time</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> universal-time</em></dt>
+</dl>
+
+<dl>
+<dt id="index-get_002ddecoded_002dtime-1">Function: <strong>get-decoded-time</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> second, minute, hour, date, month, year, day, daylight-p, zone</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-489"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>universal-time</var>&mdash;a <i>universal time</i>.
+</p>
+<p><var>second</var>, <var>minute</var>, <var>hour</var>,
+<var>date</var>, <var>month</var>, <var>year</var>,
+<var>day</var>, <var>daylight-p</var>, <var>zone</var>&mdash;a <i>decoded time</i>.
+</p>
+<span id="Description_003a-651"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>get-universal-time</code> returns the current time, represented as a <i>universal time</i>.
+</p>
+<p><code>get-decoded-time</code> returns the current time, represented as a <i>decoded time</i>.
+</p>
+<span id="Examples_003a-463"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">;; At noon on July 4, 1976 in Eastern Daylight Time.
+ (get-decoded-time) <span class="roman">→</span> 0, 0, 12, 4, 7, 1976, 6, <i>true</i>, 5
+;; At exactly the same instant.
+ (get-universal-time) <span class="roman">→</span> 2414332800
+;; Exactly five minutes later.
+ (get-universal-time) <span class="roman">→</span> 2414333100
+;; The difference is 300 seconds (five minutes)
+ (- * **) <span class="roman">→</span> 300
+</pre></div>
+
+
+<span id="Affected-By_003a-120"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The time of day (<i>i.e.</i>, the passage of time),
+the system clock&rsquo;s ability to keep accurate time,
+and the accuracy of the system clock&rsquo;s initial setting.
+</p>
+<span id="Exceptional-Situations_003a-237"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>error</code> might be signaled if the current time cannot be determined.
+</p>
+<span id="See-Also_003a-531"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#decode_002duniversal_002dtime">decode-universal-time</a>,
+<a href="#encode_002duniversal_002dtime">encode-universal-time</a>,
+<a href="#Time">Section 25.1.4 (Time)</a>
+</p>
+<span id="Notes_003a-325"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (get-decoded-time) ≡ (decode-universal-time (get-universal-time))
+</pre></div>
+
+
+<p>No <i>implementation</i> is required to have a way to verify that the
+time returned is correct.  However, if an <i>implementation</i> provides
+a validity check (<i>e.g.</i>, the failure to have properly initialized the system
+clock can be reliably detected) and that validity check fails, 
+the <i>implementation</i> is strongly encouraged (but not required)
+to signal an error of <i>type</i> <code>error</code> (rather than, for example, returning a
+known-to-be-wrong value) that is <i>correctable</i> by allowing the user
+to interactively set the correct time.
+</p>
+
+<hr>
+<span id="sleep"></span><div class="header">
+<p>
+Next: <a href="#apropos_003b-apropos_002dlist" accesskey="n" rel="next">apropos; apropos-list</a>, Previous: <a href="#get_002duniversal_002dtime_003b-get_002ddecoded_002dtime" accesskey="p" rel="prev">get-universal-time; get-decoded-time</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">sleep</h4>
+<span id="sleep-_0028Function_0029"></span><h3 class="heading">sleep (Function)</h3>
+<span id="index-sleep-2"></span>
+<span id="index-sleep"></span>
+
+
+<span id="Syntax_003a-504"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-sleep-1">Function: <strong>sleep</strong> <em>seconds <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-490"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>seconds</var>&mdash;a non-negative <i>real</i>.
+</p>
+<span id="Description_003a-652"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Causes execution to cease and become dormant for approximately the
+seconds of real time indicated by <var>seconds</var>, 
+whereupon execution is resumed.
+</p>
+<span id="Examples_003a-464"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (sleep 1) <span class="roman">→</span> NIL 
+
+;; Actually, since SLEEP is permitted to use approximate timing, 
+;; this might not always yield true, but it will often enough that
+;; we felt it to be a productive example of the intent.
+ (let ((then (get-universal-time))
+       (now  (progn (sleep 10) (get-universal-time))))
+   (&gt;= (- now then) 10))
+<span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Side-Effects_003a-82"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Causes processing to pause.
+</p>
+<span id="Affected-By_003a-121"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The granularity of the scheduler.
+</p>
+<span id="Exceptional-Situations_003a-238"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>seconds</var> is not a non-negative <i>real</i>.
+</p>
+
+<hr>
+<span id="apropos_003b-apropos_002dlist"></span><div class="header">
+<p>
+Next: <a href="#describe" accesskey="n" rel="next">describe</a>, Previous: <a href="#sleep" accesskey="p" rel="prev">sleep</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">apropos; apropos-list</h4>
+<span id="apropos_002c-apropos_002dlist-_0028Function_0029"></span><h3 class="heading">apropos, apropos-list (Function)</h3>
+<span id="index-apropos-2"></span>
+<span id="index-apropos"></span>
+<span id="index-apropos_002dlist-2"></span>
+<span id="index-apropos_002dlist"></span>
+
+
+<span id="Syntax_003a-505"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-apropos-1">Function: <strong>apropos</strong> <em>string <tt>&amp;optional</tt> package <span class="roman">→</span> &lt;no <i>values</i>&gt;</em></dt>
+</dl>
+
+<dl>
+<dt id="index-apropos_002dlist-1">Function: <strong>apropos-list</strong> <em>string <tt>&amp;optional</tt> package <span class="roman">→</span> symbols</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-491"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>string</var>&mdash;a <i>string designator</i>.
+</p>
+<p><var>package</var>&mdash;a <i>package designator</i> or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>symbols</var>&mdash;a <i>list</i> of <i>symbols</i>.
+</p>
+<span id="Description_003a-653"></span><h4 class="subsubheading">Description:</h4>
+
+<p>These functions search for <i>interned</i> <i>symbols</i> 
+whose <i>names</i> contain the substring <var>string</var>.
+</p>
+<p>For <code>apropos</code>, as each such <i>symbol</i> is found,
+its name is printed on <i>standard output</i>.
+In addition,
+if such a <i>symbol</i> is defined as a <i>function</i> or <i>dynamic variable</i>,
+information about those definitions might also be printed.
+</p>
+<p>For <code>apropos-list</code>,
+no output occurs as the search proceeds;
+instead a list of the matching <i>symbols</i> is returned when the search is complete.
+</p>
+<p>If <var>package</var> is <i>non-nil</i>,
+only the <i>symbols</i> <i>accessible</i> in that <var>package</var> are searched;
+otherwise all <i>symbols</i> <i>accessible</i> in any <i>package</i> are searched.
+</p>
+<p>Because a <i>symbol</i> might be available 
+by way of more than one inheritance path,
+<code>apropos</code> might print information about the <i>same</i> <i>symbol</i> more than once,
+or <code>apropos-list</code> might return a <i>list</i> containing duplicate <i>symbols</i>.
+</p>
+<p>Whether or not the search is case-sensitive is <i>implementation-defined</i>.
+</p>
+<span id="Affected-By_003a-122"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The set of <i>symbols</i> which are currently <i>interned</i>
+in any <i>packages</i> being searched.
+</p>
+<p><code>apropos</code> is also affected by <code>*standard-output*</code>.
+</p>
+
+<hr>
+<span id="describe"></span><div class="header">
+<p>
+Next: <a href="#describe_002dobject" accesskey="n" rel="next">describe-object</a>, Previous: <a href="#apropos_003b-apropos_002dlist" accesskey="p" rel="prev">apropos; apropos-list</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">describe</h4>
+<span id="describe-_0028Function_0029"></span><h3 class="heading">describe (Function)</h3>
+<span id="index-describe-2"></span>
+<span id="index-describe"></span>
+
+
+<span id="Syntax_003a-506"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-describe-1">Function: <strong>describe</strong> <em>object <tt>&amp;optional</tt> stream <span class="roman">→</span> &lt;no <i>values</i>&gt;</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-492"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>stream</var>&mdash;an <i>output</i> <i>stream designator</i>.
+The default is <i>standard output</i>.
+</p>
+<span id="Description_003a-654"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>describe</code> displays information about <var>object</var>
+to <var>stream</var>.
+</p>
+<p>For example, <code>describe</code> of a <i>symbol</i> might show the
+<i>symbol</i>&rsquo;s value, its definition, and each of its properties. 
+<code>describe</code> of a <i>float</i> might show the number&rsquo;s
+internal representation in a way that is useful for tracking
+down round-off errors.  In all cases, however, the nature and format of the
+output of <code>describe</code> is <i>implementation-dependent</i>.
+</p>
+<p><code>describe</code> can describe something that it finds inside the <var>object</var>;
+in such cases, a notational device such as increased indentation or positioning in a
+table is typically used in order to visually distinguish such recursive descriptions 
+from descriptions of the argument <var>object</var>.
+</p>
+<p>The actual act of describing the object is implemented by <code>describe-object</code>.
+<code>describe</code> exists as an interface primarily to manage argument defaulting (including
+conversion of arguments <code>t</code>&nbsp;<!-- /@w -->and <code>nil</code>&nbsp;<!-- /@w -->into <i>stream</i> <i>objects</i>) and to inhibit
+any return values from <code>describe-object</code>.
+</p>
+<p><code>describe</code> is not intended to be an interactive function.  In a 
+<i>conforming implementation</i>, <code>describe</code> must not, by default, 
+prompt for user input.  User-defined methods for <code>describe-object</code>
+are likewise restricted.  
+</p>
+<span id="Side-Effects_003a-83"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Output to <i>standard output</i> or <i>terminal I/O</i>.
+</p>
+<span id="Affected-By_003a-123"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-output*</code> and <code>*terminal-io*</code>,
+methods on <code>describe-object</code> and <code>print-object</code>
+for <i>objects</i> having user-defined <i>classes</i>.
+</p>
+<span id="See-Also_003a-532"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#inspect">inspect</a>, <a href="#describe_002dobject">describe-object</a>
+</p>
+
+<hr>
+<span id="describe_002dobject"></span><div class="header">
+<p>
+Next: <a href="#trace_003b-untrace" accesskey="n" rel="next">trace; untrace</a>, Previous: <a href="#describe" accesskey="p" rel="prev">describe</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">describe-object</h4>
+<span id="describe_002dobject-_0028Standard-Generic-Function_0029"></span><h3 class="heading">describe-object (Standard Generic Function)</h3>
+<span id="index-describe_002dobject-2"></span>
+<span id="index-describe_002dobject"></span>
+
+
+
+<span id="Syntax_003a-507"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-describe_002dobject-1">Generic Function: <strong>describe-object</strong> <em>object stream <span class="roman">→</span> <i>implementation-dependent</i></em></dt>
+</dl>
+
+<span id="Method-Signatures_003a-23"></span><h4 class="subsubheading">Method Signatures:</h4>
+
+<p>describe-object (<var>object</var> standard-object) <var>stream</var>
+</p>
+<span id="Arguments-and-Values_003a-493"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>stream</var>&mdash;a <i>stream</i>.
+</p>
+<span id="Description_003a-655"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The generic function <code>describe-object</code> prints a description of
+<var>object</var> to a <var>stream</var>.  <code>describe-object</code> is called 
+by <code>describe</code>; it must not be called by the user.
+</p>
+<p>Each implementation is required to provide a <i>method</i> on 
+the <i>class</i> <code>standard-object</code> and <i>methods</i> on enough other
+<i>classes</i> so as to ensure that there is always an applicable <i>method</i>.  
+Implementations are free to add <i>methods</i> for other <i>classes</i>.
+Users can write <i>methods</i> for <code>describe-object</code> for their
+own <i>classes</i> if they do not wish to inherit an implementation-supplied
+<i>method</i>.
+</p>
+<p><i>Methods</i> on <code>describe-object</code> can recursively call
+<code>describe</code>.  Indentation, depth limits, and circularity detection
+are all taken care of automatically, provided that each <i>method</i> 
+handles exactly one level of structure and calls <code>describe</code> 
+recursively if there are more structural levels.  The consequences are 
+undefined if this rule is not obeyed.
+</p>
+<p>In some implementations the <var>stream</var> argument passed to a
+<code>describe-object</code> method is not the original <var>stream</var>, but is
+an intermediate <i>stream</i> that implements parts of <code>describe</code>.
+<i>Methods</i> should therefore not depend on the identity of this
+<i>stream</i>.
+</p>
+
+<span id="Examples_003a-465"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defclass spaceship ()
+   ((captain :initarg :captain :accessor spaceship-captain)
+    (serial# :initarg :serial-number :accessor spaceship-serial-number)))
+
+ (defclass federation-starship (spaceship) ())
+
+ (defmethod describe-object ((s spaceship) stream)
+   (with-slots (captain serial#) s
+     (format stream &quot;~&amp;~S is a spaceship of type ~S,~
+                     ~%with ~A at the helm ~
+                       and with serial number ~D.~%&quot;
+             s (type-of s) captain serial#)))
+
+ (make-instance 'federation-starship
+                :captain &quot;Rachel Garrett&quot;
+                :serial-number &quot;NCC-1701-C&quot;)
+<span class="roman">→</span> #&lt;FEDERATION-STARSHIP 26312465&gt;
+
+ (describe *)
+▷ #&lt;FEDERATION-STARSHIP 26312465&gt; is a spaceship of type FEDERATION-STARSHIP,
+▷ with Rachel Garrett at the helm and with serial number NCC-1701-C.
+<span class="roman">→</span> &lt;no <i>values</i>&gt;
+</pre></div>
+
+
+<span id="See-Also_003a-533"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#describe">describe</a>
+</p>
+<span id="Notes_003a-326"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The same implementation techniques that are applicable to <code>print-object</code> are
+applicable to <code>describe-object</code>.
+</p>
+<p>The reason for making the return values for <code>describe-object</code>
+unspecified is to  avoid forcing users to include explicit <code>(values)</code>
+in all of their <i>methods</i>.  <code>describe</code> takes care of that.
+</p>
+
+
+<hr>
+<span id="trace_003b-untrace"></span><div class="header">
+<p>
+Next: <a href="#step" accesskey="n" rel="next">step</a>, Previous: <a href="#describe_002dobject" accesskey="p" rel="prev">describe-object</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">trace; untrace</h4>
+<span id="trace_002c-untrace-_0028Macro_0029"></span><h3 class="heading">trace, untrace (Macro)</h3>
+<span id="index-trace-2"></span>
+<span id="index-trace"></span>
+<span id="index-untrace-2"></span>
+<span id="index-untrace"></span>
+<span id="trace"></span>
+
+<span id="Syntax_003a-508"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-trace-1">Macro: <strong>trace</strong> <em><tt>{</tt>function-name<tt>}</tt>* <span class="roman">→</span> trace-result</em></dt>
+</dl>
+<dl>
+<dt id="index-untrace-1">Macro: <strong>untrace</strong> <em><tt>{</tt>function-name<tt>}</tt>* <span class="roman">→</span> untrace-result</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-494"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>function-name</var>&mdash;a <i>function name</i>.
+</p>
+<p><var>trace-result</var>&mdash;<i>implementation-dependent</i>,
+unless no <i>function-names</i> are supplied, 
+in which case <var>trace-result</var> is a <i>list</i> of <i>function names</i>.
+</p>
+<p><var>untrace-result</var>&mdash;<i>implementation-dependent</i>.
+</p>
+<span id="Description_003a-656"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>trace</code> and <code>untrace</code> control the invocation of the trace facility.  
+</p>
+<p>Invoking <code>trace</code> with one or more <var>function-names</var> causes
+the denoted <i>functions</i> to be &ldquo;traced.&rdquo;
+Whenever a traced <i>function</i> is invoked, information
+about the call,
+about the arguments passed,
+and about any eventually returned values
+is printed to <i>trace output</i>.
+If <code>trace</code> is used with no <var>function-names</var>,
+no tracing action is performed; 
+instead, a list of the <i>functions</i> currently being traced is returned.
+</p>
+<p>Invoking <code>untrace</code> with one or more function names causes those
+functions to be &ldquo;untraced&rdquo; (<i>i.e.</i>, no longer traced).
+If <code>untrace</code> is used with no <var>function-names</var>,
+all <i>functions</i> currently being traced are untraced.
+</p>
+<p>If a <i>function</i> to be traced has been open-coded
+(<i>e.g.</i>, because it was declared <code>inline</code>),
+a call to that <i>function</i> might not produce trace output.
+</p>
+<span id="Examples_003a-466"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (defun fact (n) (if (zerop n) 1 (* n (fact (- n 1)))))
+<span class="roman">→</span> FACT
+ (trace fact)
+<span class="roman">→</span> (FACT)
+;; Of course, the format of traced output is implementation-dependent.
+ (fact 3)
+▷ 1 Enter FACT 3
+▷ | 2 Enter FACT 2
+▷ |   3 Enter FACT 1
+▷ |   | 4 Enter FACT 0
+▷ |   | 4 Exit FACT 1
+▷ |   3 Exit FACT 1
+▷ | 2 Exit FACT 2
+▷ 1 Exit FACT 6
+<span class="roman">→</span> 6
+</pre></div>
+
+
+<span id="Side-Effects_003a-84"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Might change the definitions of the <i>functions</i> named by <var>function-names</var>.
+</p>
+<span id="Affected-By_003a-124"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>Whether the functions named are defined or already being traced.
+</p>
+<span id="Exceptional-Situations_003a-239"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Tracing an already traced function,
+or untracing a function not currently being traced,
+should produce no harmful effects, but might signal a warning.
+</p>
+<span id="See-Also_003a-534"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Streams.html#g_t_002atrace_002doutput_002a">*trace-output*</a>,
+<a href="#step">step</a>
+</p>
+<span id="Notes_003a-327"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>trace</code> and <code>untrace</code> may also accept additional
+<i>implementation-dependent</i> argument formats.  The format of the trace
+output is <i>implementation-dependent</i>.
+</p>
+<p>Although <code>trace</code> can be extended to permit non-standard options,
+<i>implementations</i> are nevertheless encouraged (but not required)
+to warn about the use of syntax or options 
+that are neither specified by this standard 
+nor added as an extension by the <i>implementation</i>,
+since they could be symptomatic of typographical errors
+or of reliance on features supported in <i>implementations</i> 
+other than the current <i>implementation</i>.
+</p>
+
+<hr>
+<span id="step"></span><div class="header">
+<p>
+Next: <a href="#time-_0028Macro_0029" accesskey="n" rel="next">time (Macro)</a>, Previous: <a href="#trace_003b-untrace" accesskey="p" rel="prev">trace; untrace</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">step</h4>
+<span id="step-_0028Macro_0029"></span><h3 class="heading">step (Macro)</h3>
+<span id="index-step-2"></span>
+<span id="index-step"></span>
+
+
+<span id="Syntax_003a-509"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-step-1">Macro: <strong>step</strong> <em>form <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-495"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>form</var>&mdash;a <i>form</i>; evaluated as described below.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> returned by the <var>form</var>.
+</p>
+<span id="Description_003a-657"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>step</code> implements a debugging paradigm wherein the programmer
+is allowed to <i>step</i> through the <i>evaluation</i> of a <i>form</i>.
+The specific nature of the interaction,
+including which I/O streams are used and
+whether the stepping has lexical or dynamic scope,
+is <i>implementation-defined</i>.
+</p>
+<p><code>step</code> evaluates <var>form</var> in the current <i>environment</i>.
+A call to <code>step</code> can be compiled, but it is acceptable for an
+implementation to interactively step through only those parts of the computation
+that are interpreted.
+</p>
+<p>It is technically permissible for a <i>conforming implementation</i> 
+to take no action at all other than normal <i>execution</i> of the <var>form</var>.
+In such a situation, 
+<code>(step <i>form</i>)</code>
+is equivalent to, for example,
+<code>(let () <i>form</i>)</code>. 
+In implementations where this is the case, the associated documentation
+should mention that fact.
+</p>
+<span id="See-Also_003a-535"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#trace">trace</a>
+</p>
+
+<span id="Notes_003a-328"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><i>Implementations</i> are encouraged to respond to the typing of <code>?</code> 
+or the pressing of a &ldquo;help key&rdquo; by providing help including a list of
+commands.
+</p>
+
+
+<hr>
+<span id="time-_0028Macro_0029"></span><div class="header">
+<p>
+Next: <a href="#internal_002dtime_002dunits_002dper_002dsecond" accesskey="n" rel="next">internal-time-units-per-second</a>, Previous: <a href="#step" accesskey="p" rel="prev">step</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">time (Macro)</h4>
+<span id="time-_0028Macro_0029-1"></span><h3 class="heading">time (Macro)</h3>
+<span id="index-time-2"></span>
+<span id="index-time"></span>
+
+
+<span id="Syntax_003a-510"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-time-1">Macro: <strong>time</strong> <em>form <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-496"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>form</var>&mdash;a <i>form</i>; evaluated as described below.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> returned by the <var>form</var>.
+</p>
+<span id="Description_003a-658"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>time</code> evaluates <var>form</var> in the current <i>environment</i> (lexical and dynamic).
+A call to <code>time</code> can be compiled.
+</p>
+<p><code>time</code> prints various timing data and other information to <i>trace output</i>.
+The nature and format of the printed information is <i>implementation-defined</i>.
+Implementations are encouraged to provide such information as 
+elapsed real time,
+machine run time,
+and storage management statistics.
+</p>
+<span id="Affected-By_003a-125"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The accuracy of the results depends, among other things, on the accuracy
+of the corresponding functions provided by the underlying operating system.
+</p>
+<p>The magnitude of the results may depend on 
+the hardware,
+the operating system,
+the lisp implementation,
+and the state of the global environment.
+Some specific issues which frequently affect the outcome are
+hardware speed,
+nature of the scheduler (if any),
+number of competing processes (if any),
+system paging,
+whether the call is interpreted or compiled,
+whether functions called are compiled,
+the kind of garbage collector involved and whether it runs,
+whether internal data structures (e.g., hash tables) are implicitly reorganized,
+<i>etc</i>.
+</p>
+<span id="See-Also_003a-536"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#get_002dinternal_002dreal_002dtime">get-internal-real-time</a>,
+<a href="#get_002dinternal_002drun_002dtime">get-internal-run-time</a>
+</p>
+<span id="Notes_003a-329"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>In general, these timings are not guaranteed to be reliable enough for
+marketing comparisons. Their value is primarily heuristic, for tuning
+purposes.
+</p>
+<p>For useful background information on the complicated issues involved in
+interpreting timing results, see <cite><a href="http://www.dreamsongs.com/Books.html">Performance and Evaluation of Lisp Programs</a></cite>.
+</p>
+
+<hr>
+<span id="internal_002dtime_002dunits_002dper_002dsecond"></span><div class="header">
+<p>
+Next: <a href="#get_002dinternal_002dreal_002dtime" accesskey="n" rel="next">get-internal-real-time</a>, Previous: <a href="#time-_0028Macro_0029" accesskey="p" rel="prev">time (Macro)</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">internal-time-units-per-second</h4>
+<span id="internal_002dtime_002dunits_002dper_002dsecond-_0028Constant-Variable_0029"></span><h3 class="heading">internal-time-units-per-second (Constant Variable)</h3>
+<span id="index-internal_002dtime_002dunits_002dper_002dsecond-1"></span>
+<span id="index-internal_002dtime_002dunits_002dper_002dsecond"></span>
+
+
+<span id="Constant-Value_003a-14"></span><h4 class="subsubheading">Constant Value:</h4>
+
+<p>A positive <i>integer</i>, the magnitude of which is <i>implementation-dependent</i>.
+</p>
+<span id="Description_003a-659"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The number of <i>internal time units</i> in one second.
+</p>
+<span id="See-Also_003a-537"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#get_002dinternal_002drun_002dtime">get-internal-run-time</a>, <a href="#get_002dinternal_002dreal_002dtime">get-internal-real-time</a>
+</p>
+<span id="Notes_003a-330"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>These units form the basis of the Internal Time format representation.
+</p>
+
+<hr>
+<span id="get_002dinternal_002dreal_002dtime"></span><div class="header">
+<p>
+Next: <a href="#get_002dinternal_002drun_002dtime" accesskey="n" rel="next">get-internal-run-time</a>, Previous: <a href="#internal_002dtime_002dunits_002dper_002dsecond" accesskey="p" rel="prev">internal-time-units-per-second</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">get-internal-real-time</h4>
+<span id="get_002dinternal_002dreal_002dtime-_0028Function_0029"></span><h3 class="heading">get-internal-real-time (Function)</h3>
+<span id="index-get_002dinternal_002dreal_002dtime-2"></span>
+<span id="index-get_002dinternal_002dreal_002dtime"></span>
+
+
+<span id="Syntax_003a-511"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-get_002dinternal_002dreal_002dtime-1">Function: <strong>get-internal-real-time</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> internal-time</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-497"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>internal-time</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-660"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>get-internal-real-time</code> returns as an <i>integer</i> the 
+current time in <i>internal time units</i>, relative to an arbitrary 
+time base.  The difference between the values of two calls to this
+function is the amount of elapsed real time (<i>i.e.</i>, clock time) between the two calls. 
+</p>
+<span id="Affected-By_003a-126"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>Time of day (<i>i.e.</i>, the passage of time).
+The time base affects the result magnitude.
+</p>
+<span id="See-Also_003a-538"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#internal_002dtime_002dunits_002dper_002dsecond">internal-time-units-per-second</a>
+</p>
+
+<hr>
+<span id="get_002dinternal_002drun_002dtime"></span><div class="header">
+<p>
+Next: <a href="#disassemble" accesskey="n" rel="next">disassemble</a>, Previous: <a href="#get_002dinternal_002dreal_002dtime" accesskey="p" rel="prev">get-internal-real-time</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">get-internal-run-time</h4>
+<span id="get_002dinternal_002drun_002dtime-_0028Function_0029"></span><h3 class="heading">get-internal-run-time (Function)</h3>
+<span id="index-get_002dinternal_002drun_002dtime-2"></span>
+<span id="index-get_002dinternal_002drun_002dtime"></span>
+
+
+<span id="Syntax_003a-512"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-get_002dinternal_002drun_002dtime-1">Function: <strong>get-internal-run-time</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> internal-time</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-498"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>internal-time</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-661"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns as an <i>integer</i> the current 
+run time in <i>internal time units</i>.  The precise meaning of this quantity is
+<i>implementation-defined</i>;  it may measure real time, run time, CPU cycles, or some
+other quantity.  The intent is that the difference between the values of two calls
+to this function be the amount of time between the two calls during which 
+computational effort was expended on behalf of the executing program.
+</p>
+<span id="Affected-By_003a-127"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>,
+the time of day (<i>i.e.</i>, the passage of time).
+</p>
+<span id="See-Also_003a-539"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#internal_002dtime_002dunits_002dper_002dsecond">internal-time-units-per-second</a>
+</p>
+<span id="Notes_003a-331"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Depending on the <i>implementation</i>, paging time and garbage
+collection time might be included in this measurement.  Also, in a
+multitasking environment, it might not be possible to show the time for
+just the running process, so in some <i>implementations</i>, time taken
+by other processes during the same time interval might be included in
+this measurement as well.
+</p>
+
+<hr>
+<span id="disassemble"></span><div class="header">
+<p>
+Next: <a href="#documentation_003b-setf-documentation" accesskey="n" rel="next">documentation; setf documentation</a>, Previous: <a href="#get_002dinternal_002drun_002dtime" accesskey="p" rel="prev">get-internal-run-time</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">disassemble</h4>
+<span id="disassemble-_0028Function_0029"></span><h3 class="heading">disassemble (Function)</h3>
+<span id="index-disassemble-2"></span>
+<span id="index-disassemble"></span>
+
+
+<span id="Syntax_003a-513"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-disassemble-1">Function: <strong>disassemble</strong> <em>fn <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-499"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>fn</var>&mdash;an <i>extended function designator</i>
+or a <i>lambda expression</i>.
+</p>
+<span id="Description_003a-662"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>function</i> <code>disassemble</code> is a debugging aid that composes symbolic 
+instructions or expressions in some <i>implementation-dependent</i> 
+language which represent the code used to produce the <i>function</i>
+which is or is named by the argument <var>fn</var>.  The result is displayed
+to <i>standard output</i> in an <i>implementation-dependent</i> format.
+</p>
+<p>If <var>fn</var> is a <i>lambda expression</i> or <i>interpreted function</i>,
+it is compiled first and the result is disassembled.
+</p>
+<p>If the <var>fn</var> <i>designator</i> is a <i>function name</i>,
+the <i>function</i> that it <i>names</i> is disassembled.
+(If that <i>function</i> is an <i>interpreted function</i>,
+it is first compiled but the result of this implicit compilation is not installed.)
+</p>
+<span id="Examples_003a-467"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (defun f (a) (1+ a)) <span class="roman">→</span> F
+ (eq (symbol-function 'f)
+     (progn (disassemble 'f)
+            (symbol-function 'f))) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-128"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-output*</code>.
+</p>
+<span id="Exceptional-Situations_003a-240"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>fn</var> is not an <i>extended function designator</i> or a <i>lambda expression</i>.
+</p>
+
+
+<hr>
+<span id="documentation_003b-setf-documentation"></span><div class="header">
+<p>
+Next: <a href="#room" accesskey="n" rel="next">room</a>, Previous: <a href="#disassemble" accesskey="p" rel="prev">disassemble</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">documentation; setf documentation</h4>
+<span id="documentation_002c-_0028setf-documentation_0029-_0028Standard-Generic-Function_0029"></span><h3 class="heading">documentation, (setf documentation) (Standard Generic Function)</h3>
+<span id="index-documentation-2"></span>
+<span id="index-documentation"></span>
+<span id="index-_0028setf-documentation_0029-1"></span>
+<span id="index-_0028setf-documentation_0029"></span>
+<span id="documentation"></span>
+
+
+<span id="Syntax_003a-514"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-documentation-1">Generic Function: <strong>documentation</strong> <em>x doc-type <span class="roman">→</span> documentation</em></dt>
+</dl>
+
+<dl>
+<dt id="index-_0028setf-1">Generic Function: <strong>(setf</strong> <em>documentation) new-value x doc-type <span class="roman">→</span> new-value</em></dt>
+</dl>
+
+<span id="Argument-Precedence-Order_003a"></span><h4 class="subsubheading">Argument Precedence Order:</h4>
+
+<p><var>doc-type</var>, <var>object</var>
+</p>
+<span id="Method-Signatures_003a-24"></span><h4 class="subsubheading">Method Signatures:</h4>
+
+
+
+<p>Functions, Macros, and Special Forms
+</p>
+<p>documentation (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>documentation (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>documentation (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>documentation (<var>x</var> <code>list</code>) (<var>doc-type</var> <code>(eql 'list)</code>) list
+</p>
+<p>documentation (<var>x</var> <code>list</code>) (<var>doc-type</var> <code>(eql 'list)</code>) list
+</p>
+<p>documentation (<var>x</var> <code>function</code>) (<var>doc-type</var> <code>(eql 'function)</code>) function
+</p>
+<p>documentation (<var>x</var> <code>function</code>) (<var>doc-type</var> <code>(eql 'function)</code>) function
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>list</code>) (<var>doc-type</var> <code>(eql 'list)</code>) list
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>list</code>) (<var>doc-type</var> <code>(eql 'list)</code>) list
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>function</code>) (<var>doc-type</var> <code>(eql 'function)</code>) function
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>function</code>) (<var>doc-type</var> <code>(eql 'function)</code>) function
+</p>
+
+
+<p>Method Combinations
+</p>
+<p>documentation (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>documentation (<var>x</var> <code>method-combination</code>) (<var>doc-type</var> <code>(eql 'method-combination)</code>) method-combination
+</p>
+<p>documentation (<var>x</var> <code>method-combination</code>) (<var>doc-type</var> <code>(eql 'method-combination)</code>) method-combination
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>method-combination</code>) (<var>doc-type</var> <code>(eql 'method-combination)</code>) method-combination
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>method-combination</code>) (<var>doc-type</var> <code>(eql 'method-combination)</code>) method-combination
+</p>
+
+
+<p>Methods
+</p>
+<p>documentation (<var>x</var> <code>standard-method</code>) (<var>doc-type</var> <code>(eql 'standard-method)</code>) standard-method
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>standard-method</code>) (<var>doc-type</var> <code>(eql 'standard-method)</code>) standard-method
+</p>
+
+
+<p>Packages
+</p>
+<p>documentation (<var>x</var> <code>package</code>) (<var>doc-type</var> <code>(eql 'package)</code>) package
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>package</code>) (<var>doc-type</var> <code>(eql 'package)</code>) package
+</p>
+
+
+<p>Types, Classes, and Structure Names
+</p>
+<p>documentation (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>documentation (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>documentation (<var>x</var> <code>structure-class</code>) (<var>doc-type</var> <code>(eql 'structure-class)</code>) structure-class
+</p>
+<p>documentation (<var>x</var> <code>structure-class</code>) (<var>doc-type</var> <code>(eql 'structure-class)</code>) structure-class
+</p>
+<p>documentation (<var>x</var> <code>standard-class</code>) (<var>doc-type</var> <code>(eql 'standard-class)</code>) standard-class
+</p>
+<p>documentation (<var>x</var> <code>standard-class</code>) (<var>doc-type</var> <code>(eql 'standard-class)</code>) standard-class
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>structure-class</code>) (<var>doc-type</var> <code>(eql 'structure-class)</code>) structure-class
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>structure-class</code>) (<var>doc-type</var> <code>(eql 'structure-class)</code>) structure-class
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>standard-class</code>) (<var>doc-type</var> <code>(eql 'standard-class)</code>) standard-class
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>standard-class</code>) (<var>doc-type</var> <code>(eql 'standard-class)</code>) standard-class
+</p>
+
+
+<p>Variables
+</p>
+<p>documentation (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+<p>(setf documentation) <var>new-value</var> (<var>x</var> <code>symbol</code>) (<var>doc-type</var> <code>(eql 'symbol)</code>) symbol
+</p>
+
+
+
+<span id="Arguments-and-Values_003a-500"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>x</var>&mdash;an <i>object</i>.
+</p>
+<p><var>doc-type</var>&mdash;a <i>symbol</i>.
+</p>
+<p><var>documentation</var>&mdash;a <i>string</i>, or <code>nil</code>.
+</p>
+<p><var>new-value</var>&mdash;a <i>string</i>.
+</p>
+<span id="Description_003a-663"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>generic function</i> <code>documentation</code> returns the <i>documentation string</i>
+associated with the given <i>object</i> if it is available;
+otherwise it returns <code>nil</code>.
+</p>
+<p>The <i>generic function</i> <code>(setf documentation)</code> updates the 
+<i>documentation string</i> associated with <var>x</var> to <var>new-value</var>.
+If <var>x</var> is a <i>list</i>,
+it must be of the form <code>(setf <var>symbol</var>)</code>.
+</p>
+<p><i>Documentation strings</i> are made available for debugging purposes.
+<i>Conforming programs</i> are permitted to use <i>documentation strings</i>
+when they are present, but should not depend for their correct behavior on 
+the presence of those <i>documentation strings</i>.
+An <i>implementation</i> is permitted to discard <i>documentation strings</i> 
+at any time for <i>implementation-defined</i> reasons.
+</p>
+<p>The nature of the <i>documentation string</i> returned depends on the
+<var>doc-type</var>, as follows:
+</p>
+
+<dl compact="compact">
+<dt><tt>compiler-macro</tt></dt>
+<dd>
+
+<p>Returns the <i>documentation string</i> of the <i>compiler macro</i>
+whose <i>name</i> is the <i>function name</i> <var>x</var>.
+</p>
+</dd>
+<dt><tt>function</tt></dt>
+<dd>
+
+<p>If <var>x</var> is a <i>function name</i>,
+returns the <i>documentation string</i> of 
+the <i>function</i>, <i>macro</i>, or <i>special operator</i> 
+whose <i>name</i> is <var>x</var>.
+</p>
+<p>If <var>x</var> is a <i>function</i>,
+returns the <i>documentation string</i> associated with <var>x</var>.
+</p>
+</dd>
+<dt><tt>method-combination</tt></dt>
+<dd>
+
+<p>If <var>x</var> is a <i>symbol</i>,
+returns the <i>documentation string</i> of
+the <i>method combination</i>
+whose <i>name</i> is <var>x</var>.
+</p>
+<p>If <var>x</var> is a <i>method combination</i>,
+returns the <i>documentation string</i> associated with <var>x</var>.
+</p>
+</dd>
+<dt><tt>setf</tt></dt>
+<dd>
+
+<p>Returns the <i>documentation string</i> of 
+the <i>setf expander</i>
+whose <i>name</i> is the <i>symbol</i> <var>x</var>.
+</p>
+</dd>
+<dt><tt>structure</tt></dt>
+<dd>
+
+<p>Returns the <i>documentation string</i> 
+associated with the <i>structure name</i> <var>x</var>.
+</p>
+</dd>
+<dt><tt>t</tt></dt>
+<dd>
+
+<p>Returns a <i>documentation string</i> specialized on the <i>class</i> of
+the argument <var>x</var> itself.
+For example, if <var>x</var> is a <i>function</i>,
+the <i>documentation string</i> associated with the <i>function</i> <var>x</var> is returned.
+</p>
+</dd>
+<dt><tt>type</tt></dt>
+<dd>
+
+<p>If <var>x</var> is a <i>symbol</i>,
+returns the <i>documentation string</i> of the <i>class</i>
+whose <i>name</i> is the <i>symbol</i> <var>x</var>,
+if there is such a <i>class</i>.
+Otherwise, it returns the <i>documentation string</i> of the <i>type</i> 
+which is the <i>type specifier</i> <i>symbol</i> <var>x</var>.
+</p>
+<p>If <var>x</var> is a <i>structure class</i> or <i>standard class</i>,
+returns the <i>documentation string</i> associated with
+the <i>class</i> <var>x</var>.
+</p>
+</dd>
+<dt><tt>variable</tt></dt>
+<dd>
+
+<p>Returns the <i>documentation string</i> of
+the <i>dynamic variable</i> or <i>constant variable</i>
+whose <i>name</i> is the <i>symbol</i> <var>x</var>.
+</p></dd>
+</dl>
+
+
+<p>A <i>conforming implementation</i> or a <i>conforming program</i>
+may extend the set of <i>symbols</i> that are acceptable as the <var>doc-type</var>.
+</p>
+<span id="Notes_003a-332"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>This standard prescribes no means to retrieve the <i>documentation strings</i>
+for individual slots specified in a <code>defclass</code> form, but 
+<i>implementations</i> might still provide debugging tools and/or
+programming language extensions which manipulate this information.
+Implementors wishing to provide such support are encouraged to consult the
+<i>Metaobject Protocol</i> for suggestions about how this might be done.
+</p>
+
+
+<hr>
+<span id="room"></span><div class="header">
+<p>
+Next: <a href="#ed" accesskey="n" rel="next">ed</a>, Previous: <a href="#documentation_003b-setf-documentation" accesskey="p" rel="prev">documentation; setf documentation</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">room</h4>
+<span id="room-_0028Function_0029"></span><h3 class="heading">room (Function)</h3>
+<span id="index-room-2"></span>
+<span id="index-room"></span>
+
+
+<span id="Syntax_003a-515"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-room-1">Function: <strong>room</strong> <em><tt>&amp;optional</tt> x <span class="roman">→</span> <i>implementation-dependent</i></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-501"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>x</var>&mdash;one of <code>t</code>, <code>nil</code>, or <tt>:default</tt>.
+</p>
+<span id="Description_003a-664"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>room</code> prints, to <i>standard output</i>,
+information about the state of internal storage and its management.
+This might include descriptions of the amount of memory in use and 
+the degree of memory compaction, possibly broken down by internal data type if that
+is appropriate.  The nature and format of the printed information is
+<i>implementation-dependent</i>.
+The intent is to provide information that a <i>programmer</i>
+might use to tune a <i>program</i> for a particular <i>implementation</i>.
+</p>
+<p><code>(room nil)</code> prints out a minimal amount of information.
+<code>(room t)</code> prints out a maximal amount of information.
+<code>(room)</code> or <code>(room :default)</code> prints out an intermediate amount
+of information that is likely to be useful.
+</p>
+<span id="Side-Effects_003a-85"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>Output to <i>standard output</i>.
+</p>
+<span id="Affected-By_003a-129"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>*standard-output*</code>.
+</p>
+
+<hr>
+<span id="ed"></span><div class="header">
+<p>
+Next: <a href="#inspect" accesskey="n" rel="next">inspect</a>, Previous: <a href="#room" accesskey="p" rel="prev">room</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">ed</h4>
+<span id="ed-_0028Function_0029"></span><h3 class="heading">ed (Function)</h3>
+<span id="index-ed-2"></span>
+<span id="index-ed"></span>
+
+
+<span id="Syntax_003a-516"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-ed-1">Function: <strong>ed</strong> <em><tt>&amp;optional</tt> x <span class="roman">→</span> <i>implementation-dependent</i></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-502"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>x</var>&mdash;<code>nil</code>, a <i>pathname</i>, a <i>string</i>, or a <i>function name</i>.
+The default is <code>nil</code>.
+</p>
+<span id="Description_003a-665"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>ed</code> invokes the editor if the <i>implementation</i> provides a resident editor.
+</p>
+<p>If <var>x</var> is <code>nil</code>, the editor is entered.
+If the editor had been previously entered, its prior state is resumed, if possible.
+</p>
+<p>If <var>x</var> is a <i>pathname</i> or <i>string</i>, 
+it is taken as the <i>pathname designator</i> for a <i>file</i> to be edited.
+</p>
+<p>If <var>x</var> is a <i>function name</i>, the text of its definition is edited.
+The means by which the function text is obtained is <i>implementation-defined</i>.
+</p>
+<span id="Exceptional-Situations_003a-241"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The consequences are undefined if the <i>implementation</i> does not provide a resident editor.
+</p>
+<p>Might signal <code>type-error</code> if its argument is supplied but is not
+a <i>symbol</i>, a <i>pathname</i>, or <code>nil</code>. 
+</p>
+<p>If a failure occurs when performing some operation on the <i>file system</i>
+while attempting to edit a <i>file</i>,
+an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> might be signaled if <var>x</var>
+is a <i>designator</i> for a <i>wild</i> <i>pathname</i>.
+</p>
+<p><i>Implementation-dependent</i> additional conditions might be signaled as well.
+</p>
+<span id="See-Also_003a-540"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Filenames.html#pathname-_0028System-Class_0029">pathname (System Class)</a>,
+<a href="Filenames.html#logical_002dpathname-_0028System-Class_0029">logical-pathname (System Class)</a>,
+<a href="System-Construction.html#compile_002dfile">compile-file</a>,
+<a href="System-Construction.html#load">load</a>,
+<a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+
+
+<hr>
+<span id="inspect"></span><div class="header">
+<p>
+Next: <a href="#dribble" accesskey="n" rel="next">dribble</a>, Previous: <a href="#ed" accesskey="p" rel="prev">ed</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">inspect</h4>
+<span id="inspect-_0028Function_0029"></span><h3 class="heading">inspect (Function)</h3>
+<span id="index-inspect-2"></span>
+<span id="index-inspect"></span>
+
+
+<span id="Syntax_003a-517"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-inspect-1">Function: <strong>inspect</strong> <em>object <span class="roman">→</span> <i>implementation-dependent</i></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-503"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-666"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>inspect</code> is an interactive version of <code>describe</code>.
+The nature of the interaction is <i>implementation-dependent</i>,
+but the purpose of <code>inspect</code> is to make it easy to wander
+through a data structure, examining and modifying parts of it.
+</p>
+<span id="Side-Effects_003a-86"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><i>implementation-dependent</i>.
+</p>
+<span id="Affected-By_003a-130"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><i>implementation-dependent</i>.
+</p>
+<span id="Exceptional-Situations_003a-242"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p><i>implementation-dependent</i>.
+</p>
+<span id="See-Also_003a-541"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#describe">describe</a>
+</p>
+<span id="Notes_003a-333"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Implementations are encouraged to respond to the typing
+of <code>?</code> or a &ldquo;help key&rdquo; by providing help, including a list
+of commands.
+</p>
+
+<hr>
+<span id="dribble"></span><div class="header">
+<p>
+Next: <a href="#g_t_002d-_0028Variable_0029" accesskey="n" rel="next">- (Variable)</a>, Previous: <a href="#inspect" accesskey="p" rel="prev">inspect</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">dribble</h4>
+<span id="dribble-_0028Function_0029"></span><h3 class="heading">dribble (Function)</h3>
+<span id="index-dribble-2"></span>
+<span id="index-dribble"></span>
+
+
+<span id="Syntax_003a-518"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-dribble-1">Function: <strong>dribble</strong> <em><tt>&amp;optional</tt> pathname <span class="roman">→</span> <i>implementation-dependent</i></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-504"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>pathname</var>&mdash;a <i>pathname designator</i>.
+</p>
+<span id="Description_003a-667"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Either <i>binds</i> <code>*standard-input*</code> and <code>*standard-output*</code> 
+or takes other appropriate action, 
+so as to send a record of the input/output interaction to a file 
+named by <var>pathname</var>.  <code>dribble</code> is intended to create
+a readable record of an interactive session.
+</p>
+<p>If <var>pathname</var> is a <i>logical pathname</i>, it is translated
+into a physical pathname as if by calling <code>translate-logical-pathname</code>.
+</p>
+<p><code>(dribble)</code> terminates the recording of input and output 
+and closes the dribble file.
+</p>
+<p>If <code>dribble</code> is <i>called</i> while a <i>stream</i> to a &ldquo;dribble file&rdquo; 
+is still open from a previous <i>call</i> to <code>dribble</code>,
+the effect is <i>implementation-defined</i>.  For example, 
+the already-<i>open</i> <i>stream</i> might be <i>closed</i>, 
+or dribbling might occur both to the old <i>stream</i> and to a new one,
+or the old <i>stream</i> might stay open but not receive any further output,
+or the new request might be ignored,
+or some other action might be taken.
+</p>
+<span id="Affected-By_003a-131"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+<span id="Exceptional-Situations_003a-243"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>If a failure occurs when performing some operation on the <i>file system</i>
+while creating the dribble file, 
+an error of <i>type</i> <code>file-error</code> is signaled.
+</p>
+<p>An error of <i>type</i> <code>file-error</code> might be signaled if <var>pathname</var>
+is a <i>designator</i> for a <i>wild</i> <i>pathname</i>.
+</p>
+<span id="See-Also_003a-542"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Filenames.html#Pathnames-as-Filenames">Section 19.1.2 (Pathnames as Filenames)</a>
+</p>
+<span id="Notes_003a-334"></span><h4 class="subsubheading">Notes:</h4>
+
+
+<p><code>dribble</code> can return before subsequent 
+<i>forms</i> are executed. It also
+can enter a recursive interaction loop, 
+returning only when <code>(dribble)</code> is done.
+</p>
+<p><code>dribble</code> is intended primarily for interactive debugging;
+its effect cannot be relied upon when used in a program.
+</p>
+<hr>
+<span id="g_t_002d-_0028Variable_0029"></span><div class="header">
+<p>
+Next: <a href="#g_t_002b_003b-_002b_002b_003b-_002b_002b_002b" accesskey="n" rel="next">+; ++; +++</a>, Previous: <a href="#dribble" accesskey="p" rel="prev">dribble</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">- (Variable)</h4>
+<span id="g_t_002d-_0028Variable_0029-1"></span><h3 class="heading">- (Variable)</h3>
+<span id="index-_002d-5"></span>
+<span id="index-_002d-1"></span>
+
+
+<span id="Value-Type_003a-33"></span><h4 class="subsubheading">Value Type:</h4>
+
+<p>a <i>form</i>.
+</p>
+<span id="Initial-Value_003a-33"></span><h4 class="subsubheading">Initial Value:</h4>
+
+<p><i>implementation-dependent</i>.
+</p>
+<span id="Description_003a-668"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>value</i> of <code>-</code> is the <i>form</i> that is currently being evaluated by
+the <i>Lisp read-eval-print loop</i>.
+</p>
+<span id="Examples_003a-468"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">(format t &quot;~&amp;Evaluating ~S~%&quot; -)
+▷ Evaluating (FORMAT T &quot;~&amp;Evaluating ~S~%&quot; -)
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Affected-By_003a-132"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><i>Lisp read-eval-print loop</i>.
+</p>
+<span id="See-Also_003a-543"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Numbers.html#g_t_002b-_0028Function_0029">+ (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002a-_0028Function_0029">* (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002f-_0028Function_0029">/ (Function)</a> (<i>variable</i>), 
+<a href="#Top-level-loop">Section 25.1.1 (Top level loop)</a>
+</p>
+
+<hr>
+<span id="g_t_002b_003b-_002b_002b_003b-_002b_002b_002b"></span><div class="header">
+<p>
+Next: <a href="#g_t_002a_003b-_002a_002a_003b-_002a_002a_002a" accesskey="n" rel="next">*; **; ***</a>, Previous: <a href="#g_t_002d-_0028Variable_0029" accesskey="p" rel="prev">- (Variable)</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">+; ++; +++</h4>
+<span id="g_t_002b_002c-_002b_002b_002c-_002b_002b_002b-_0028Variable_0029"></span><h3 class="heading">+, ++, +++ (Variable)</h3>
+<span id="index-_002b-5"></span>
+<span id="index-_002b-2"></span>
+<span id="index-_002b_002b-1"></span>
+<span id="index-_002b_002b"></span>
+<span id="index-_002b_002b_002b-1"></span>
+<span id="index-_002b_002b_002b"></span>
+
+
+<span id="Value-Type_003a-34"></span><h4 class="subsubheading">Value Type:</h4>
+
+<p>an <i>object</i>.
+</p>
+<span id="Initial-Value_003a-34"></span><h4 class="subsubheading">Initial Value:</h4>
+
+<p><i>implementation-dependent</i>.
+</p>
+<span id="Description_003a-669"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>variables</i> <code>+</code>, <tt>++</tt>, and <tt>+++</tt> are maintained by the
+<i>Lisp read-eval-print loop</i> to save <i>forms</i> that were
+recently <i>evaluated</i>.
+</p>
+<p>The <i>value</i> of <code>+</code>   is the last <i>form</i> that was <i>evaluated</i>,
+the <i>value</i> of <code>++</code>  is the previous value of <tt>+</tt>, and
+the <i>value</i> of <code>+++</code> is the previous value of <tt>++</tt>.
+</p>
+<span id="Examples_003a-469"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp">(+ 0 1) <span class="roman">→</span> 1
+(- 4 2) <span class="roman">→</span> 2
+(/ 9 3) <span class="roman">→</span> 3
+(list + ++ +++) <span class="roman">→</span> ((/ 9 3) (- 4 2) (+ 0 1))
+(setq a 1 b 2 c 3 d (list a b c)) <span class="roman">→</span> (1 2 3)
+(setq a 4 b 5 c 6 d (list a b c)) <span class="roman">→</span> (4 5 6)
+(list a b c) <span class="roman">→</span> (4 5 6)
+(eval +++) <span class="roman">→</span> (1 2 3)
+#.`(,@++ d) <span class="roman">→</span> (1 2 3 (1 2 3))
+</pre></div>
+
+
+<span id="Affected-By_003a-133"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><i>Lisp read-eval-print loop</i>.
+</p>
+<span id="See-Also_003a-544"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Numbers.html#g_t_002d-_0028Function_0029">- (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002a-_0028Function_0029">* (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002f-_0028Function_0029">/ (Function)</a> (<i>variable</i>), 
+<a href="#Top-level-loop">Section 25.1.1 (Top level loop)</a>
+</p>
+
+<hr>
+<span id="g_t_002a_003b-_002a_002a_003b-_002a_002a_002a"></span><div class="header">
+<p>
+Next: <a href="#g_t_002f_003b-_002f_002f_003b-_002f_002f_002f" accesskey="n" rel="next">/; //; ///</a>, Previous: <a href="#g_t_002b_003b-_002b_002b_003b-_002b_002b_002b" accesskey="p" rel="prev">+; ++; +++</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">*; **; ***</h4>
+<span id="g_t_002a_002c-_002a_002a_002c-_002a_002a_002a-_0028Variable_0029"></span><h3 class="heading">*, **, *** (Variable)</h3>
+<span id="index-_002a-4"></span>
+<span id="index-_002a-1"></span>
+<span id="index-_002a_002a-1"></span>
+<span id="index-_002a_002a"></span>
+<span id="index-_002a_002a_002a-1"></span>
+<span id="index-_002a_002a_002a"></span>
+
+
+<span id="Value-Type_003a-35"></span><h4 class="subsubheading">Value Type:</h4>
+
+<p>an <i>object</i>.
+</p>
+<span id="Initial-Value_003a-35"></span><h4 class="subsubheading">Initial Value:</h4>
+
+<p><i>implementation-dependent</i>.
+</p>
+<span id="Description_003a-670"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>variables</i> <code>*</code>, <tt>**</tt>, and <tt>***</tt> are 
+maintained by the <i>Lisp read-eval-print loop</i> to save the 
+values of results that are printed each time through the loop.
+</p>
+<p>The <i>value</i> of <code>*</code>   is the most recent <i>primary value</i> that was printed,
+the <i>value</i> of <code>**</code>  is the previous value of <tt>*</tt>, and 
+the <i>value</i> of <code>***</code> is the previous value of <tt>**</tt>.
+</p>
+<p>If several values are produced, <tt>*</tt> contains the first value only;
+<tt>*</tt> contains <code>nil</code>&nbsp;<!-- /@w -->if zero values are produced.
+</p>
+<p>The <i>values</i> of <tt>*</tt>, <tt>**</tt>, and <tt>***</tt> are updated immediately
+prior to printing the <i>return value</i> of a top-level <i>form</i> by the
+<i>Lisp read-eval-print loop</i>.  If the <i>evaluation</i> of such a <i>form</i>
+is aborted prior to its normal return, the values of <tt>*</tt>, <tt>**</tt>, and <tt>***</tt> 
+are not updated.
+</p>
+<span id="Examples_003a-470"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp">(values 'a1 'a2) <span class="roman">→</span> A1, A2
+'b <span class="roman">→</span> B
+(values 'c1 'c2 'c3) <span class="roman">→</span> C1, C2, C3
+(list * ** ***) <span class="roman">→</span> (C1 B A1)
+
+(defun cube-root (x) (expt x 1/3)) <span class="roman">→</span> CUBE-ROOT
+(compile *) <span class="roman">→</span> CUBE-ROOT
+(setq a (cube-root 27.0)) <span class="roman">→</span> 3.0
+(* * 9.0) <span class="roman">→</span> 27.0
+</pre></div>
+
+
+<span id="Affected-By_003a-134"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><i>Lisp read-eval-print loop</i>.
+</p>
+<span id="See-Also_003a-545"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Numbers.html#g_t_002d-_0028Function_0029">- (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002b-_0028Function_0029">+ (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002f-_0028Function_0029">/ (Function)</a> (<i>variable</i>), 
+<a href="#Top-level-loop">Section 25.1.1 (Top level loop)</a>
+</p>
+<span id="Notes_003a-335"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> *   ≡ (car /)
+ **  ≡ (car //)
+ *** ≡ (car ///)
+</pre></div>
+
+
+
+<hr>
+<span id="g_t_002f_003b-_002f_002f_003b-_002f_002f_002f"></span><div class="header">
+<p>
+Next: <a href="#lisp_002dimplementation_002dtype_003b-lisp_002dimplementation_002dversion" accesskey="n" rel="next">lisp-implementation-type; lisp-implementation-version</a>, Previous: <a href="#g_t_002a_003b-_002a_002a_003b-_002a_002a_002a" accesskey="p" rel="prev">*; **; ***</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">/; //; ///</h4>
+<span id="g_t_002f_002c-_002f_002f_002c-_002f_002f_002f-_0028Variable_0029"></span><h3 class="heading">/, //, /// (Variable)</h3>
+<span id="index-_002f-5"></span>
+<span id="index-_002f-1"></span>
+<span id="index-_002f_002f-1"></span>
+<span id="index-_002f_002f"></span>
+<span id="index-_002f_002f_002f-1"></span>
+<span id="index-_002f_002f_002f"></span>
+
+
+<span id="Value-Type_003a-36"></span><h4 class="subsubheading">Value Type:</h4>
+
+<p>a <i>proper list</i>.
+</p>
+<span id="Initial-Value_003a-36"></span><h4 class="subsubheading">Initial Value:</h4>
+
+<p><i>implementation-dependent</i>.
+</p>
+<span id="Description_003a-671"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The <i>variables</i> <code>/</code>, <tt>//</tt>, and <tt>///</tt> are maintained by
+the <i>Lisp read-eval-print loop</i> to save the values of results that
+were printed at the end of the loop.
+</p>
+<p>The <i>value</i> of <code>/</code>   is a <i>list</i> of the most recent <i>values</i> that were printed,
+the <i>value</i> of <code>//</code>  is the previous value of <tt>/</tt>, and
+the <i>value</i> of <code>///</code> is the previous value of <tt>//</tt>.
+</p>
+<p>The <i>values</i> of <tt>/</tt>, <tt>//</tt>, and <tt>///</tt> are updated immediately
+prior to printing the <i>return value</i> of a top-level <i>form</i> by the
+<i>Lisp read-eval-print loop</i>.  If the <i>evaluation</i> of such a <i>form</i>
+is aborted prior to its normal return, the values of <tt>/</tt>, <tt>//</tt>, and <tt>///</tt> 
+are not updated.
+</p>
+<span id="Examples_003a-471"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (floor 22 7) <span class="roman">→</span> 3, 1
+ (+ (* (car /) 7) (cadr /)) <span class="roman">→</span> 22
+</pre></div>
+
+
+<span id="Affected-By_003a-135"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><i>Lisp read-eval-print loop</i>.
+</p>
+<span id="See-Also_003a-546"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Numbers.html#g_t_002d-_0028Function_0029">- (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002b-_0028Function_0029">+ (Function)</a> (<i>variable</i>),
+<a href="Numbers.html#g_t_002a-_0028Function_0029">* (Function)</a> (<i>variable</i>),
+<a href="#Top-level-loop">Section 25.1.1 (Top level loop)</a>
+</p>
+
+<hr>
+<span id="lisp_002dimplementation_002dtype_003b-lisp_002dimplementation_002dversion"></span><div class="header">
+<p>
+Next: <a href="#short_002dsite_002dname_003b-long_002dsite_002dname" accesskey="n" rel="next">short-site-name; long-site-name</a>, Previous: <a href="#g_t_002f_003b-_002f_002f_003b-_002f_002f_002f" accesskey="p" rel="prev">/; //; ///</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">lisp-implementation-type; lisp-implementation-version</h4>
+<span id="lisp_002dimplementation_002dtype_002c-lisp_002dimplementation_002dversion-_0028Function_0029"></span><h3 class="heading">lisp-implementation-type, lisp-implementation-version (Function)</h3>
+<span id="index-lisp_002dimplementation_002dtype-2"></span>
+<span id="index-lisp_002dimplementation_002dtype"></span>
+<span id="index-lisp_002dimplementation_002dversion-2"></span>
+<span id="index-lisp_002dimplementation_002dversion"></span>
+
+
+<span id="Syntax_003a-519"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-lisp_002dimplementation_002dtype-1">Function: <strong>lisp-implementation-type</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<dl>
+<dt id="index-lisp_002dimplementation_002dversion-1">Function: <strong>lisp-implementation-version</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-505"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>description</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-672"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>lisp-implementation-type</code> and <code>lisp-implementation-version</code> 
+identify the current implementation of <span class="roman">Common Lisp</span>.
+</p>
+<p><code>lisp-implementation-type</code> returns a <i>string</i> 
+that identifies the generic name of
+the particular <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->implementation.
+</p>
+<p><code>lisp-implementation-version</code> 
+returns a <i>string</i> that identifies the version of
+the particular <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->implementation.
+</p>
+<p>If no appropriate
+and relevant result can be produced, <code>nil</code>&nbsp;<!-- /@w -->is returned instead
+of a <i>string</i>.
+</p>
+<span id="Examples_003a-472"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (lisp-implementation-type)
+<span class="roman">→</span> &quot;ACME Lisp&quot;
+or<span class="roman">→</span> &quot;Joe's Common Lisp&quot;
+ (lisp-implementation-version)
+<span class="roman">→</span> &quot;1.3a&quot;
+<span class="roman">→</span> &quot;V2&quot;
+or<span class="roman">→</span> &quot;Release 17.3, ECO #6&quot;
+</pre></div>
+
+
+
+<hr>
+<span id="short_002dsite_002dname_003b-long_002dsite_002dname"></span><div class="header">
+<p>
+Next: <a href="#machine_002dinstance" accesskey="n" rel="next">machine-instance</a>, Previous: <a href="#lisp_002dimplementation_002dtype_003b-lisp_002dimplementation_002dversion" accesskey="p" rel="prev">lisp-implementation-type; lisp-implementation-version</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">short-site-name; long-site-name</h4>
+<span id="short_002dsite_002dname_002c-long_002dsite_002dname-_0028Function_0029"></span><h3 class="heading">short-site-name, long-site-name (Function)</h3>
+<span id="index-short_002dsite_002dname-2"></span>
+<span id="index-short_002dsite_002dname"></span>
+<span id="index-long_002dsite_002dname-2"></span>
+<span id="index-long_002dsite_002dname"></span>
+
+
+<span id="Syntax_003a-520"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-short_002dsite_002dname-1">Function: <strong>short-site-name</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<dl>
+<dt id="index-long_002dsite_002dname-1">Function: <strong>long-site-name</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-506"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>description</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-673"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>short-site-name</code> and <code>long-site-name</code> return
+a <i>string</i> that identifies the physical location 
+of the computer hardware, 
+or <code>nil</code>&nbsp;<!-- /@w -->if no appropriate <var>description</var> can be produced.
+</p>
+<span id="Examples_003a-473"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (short-site-name)
+<span class="roman">→</span> &quot;MIT AI Lab&quot;
+or<span class="roman">→</span> &quot;CMU-CSD&quot;
+ (long-site-name)
+<span class="roman">→</span> &quot;MIT Artificial Intelligence Laboratory&quot;
+or<span class="roman">→</span> &quot;CMU Computer Science Department&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-136"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The implementation,
+the location of the computer hardware,
+and the installation/configuration process.
+</p>
+
+<hr>
+<span id="machine_002dinstance"></span><div class="header">
+<p>
+Next: <a href="#machine_002dtype" accesskey="n" rel="next">machine-type</a>, Previous: <a href="#short_002dsite_002dname_003b-long_002dsite_002dname" accesskey="p" rel="prev">short-site-name; long-site-name</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">machine-instance</h4>
+<span id="machine_002dinstance-_0028Function_0029"></span><h3 class="heading">machine-instance (Function)</h3>
+<span id="index-machine_002dinstance-2"></span>
+<span id="index-machine_002dinstance"></span>
+
+
+<span id="Syntax_003a-521"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-machine_002dinstance-1">Function: <strong>machine-instance</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-507"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>description</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-674"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>string</i> that identifies the particular instance of
+the computer hardware on which <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->is running, 
+or <code>nil</code>&nbsp;<!-- /@w -->if no such <i>string</i> can be computed.
+</p>
+<span id="Examples_003a-474"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (machine-instance)
+<span class="roman">→</span> &quot;ACME.COM&quot;
+or<span class="roman">→</span> &quot;S/N 123231&quot;
+or<span class="roman">→</span> &quot;18.26.0.179&quot;
+or<span class="roman">→</span> &quot;AA-00-04-00-A7-A4&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-137"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The machine instance,
+and the <i>implementation</i>.
+</p>
+<span id="See-Also_003a-547"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#machine_002dtype">machine-type</a>, <a href="#machine_002dversion">machine-version</a>
+</p>
+
+<hr>
+<span id="machine_002dtype"></span><div class="header">
+<p>
+Next: <a href="#machine_002dversion" accesskey="n" rel="next">machine-version</a>, Previous: <a href="#machine_002dinstance" accesskey="p" rel="prev">machine-instance</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">machine-type</h4>
+<span id="machine_002dtype-_0028Function_0029"></span><h3 class="heading">machine-type (Function)</h3>
+<span id="index-machine_002dtype-2"></span>
+<span id="index-machine_002dtype"></span>
+
+
+<span id="Syntax_003a-522"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-machine_002dtype-1">Function: <strong>machine-type</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-508"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>description</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-675"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>string</i> that identifies the generic name of
+the computer hardware on which <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->is running.
+</p>
+<span id="Examples_003a-475"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (machine-type)
+<span class="roman">→</span> &quot;DEC PDP-10&quot;
+or<span class="roman">→</span> &quot;Symbolics LM-2&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-138"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The machine type.
+The implementation.
+</p>
+<span id="See-Also_003a-548"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#machine_002dversion">machine-version</a>
+</p>
+
+<hr>
+<span id="machine_002dversion"></span><div class="header">
+<p>
+Next: <a href="#software_002dtype_003b-software_002dversion" accesskey="n" rel="next">software-type; software-version</a>, Previous: <a href="#machine_002dtype" accesskey="p" rel="prev">machine-type</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">machine-version</h4>
+<span id="machine_002dversion-_0028Function_0029"></span><h3 class="heading">machine-version (Function)</h3>
+<span id="index-machine_002dversion-2"></span>
+<span id="index-machine_002dversion"></span>
+
+
+<span id="Syntax_003a-523"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-machine_002dversion-1">Function: <strong>machine-version</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-509"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>description</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-676"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>string</i> that identifies the version of the computer hardware
+on which <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->is running, or <code>nil</code>&nbsp;<!-- /@w -->if no such value can be computed.
+</p>
+<span id="Examples_003a-476"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (machine-version) <span class="roman">→</span> &quot;KL-10, microcode 9&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-139"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The machine version, 
+and the <i>implementation</i>.
+</p>
+<span id="See-Also_003a-549"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#machine_002dtype">machine-type</a>, <a href="#machine_002dinstance">machine-instance</a>
+</p>
+
+<hr>
+<span id="software_002dtype_003b-software_002dversion"></span><div class="header">
+<p>
+Next: <a href="#user_002dhomedir_002dpathname" accesskey="n" rel="next">user-homedir-pathname</a>, Previous: <a href="#machine_002dversion" accesskey="p" rel="prev">machine-version</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">software-type; software-version</h4>
+<span id="software_002dtype_002c-software_002dversion-_0028Function_0029"></span><h3 class="heading">software-type, software-version (Function)</h3>
+<span id="index-software_002dtype-2"></span>
+<span id="index-software_002dtype"></span>
+<span id="index-software_002dversion-2"></span>
+<span id="index-software_002dversion"></span>
+
+
+<span id="Syntax_003a-524"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-software_002dtype-1">Function: <strong>software-type</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+<dl>
+<dt id="index-software_002dversion-1">Function: <strong>software-version</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> description</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-510"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>description</var>&mdash;a <i>string</i> or <code>nil</code>.
+</p>
+<span id="Description_003a-677"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>software-type</code> returns a <i>string</i> that identifies the
+generic name of any relevant supporting software, or <code>nil</code>&nbsp;<!-- /@w -->if no
+appropriate or relevant result can be produced.          
+</p>
+<p><code>software-version</code> returns a <i>string</i> that identifies 
+the version of any relevant supporting software, or <code>nil</code>&nbsp;<!-- /@w -->if no 
+appropriate or relevant result can be produced.          
+</p>
+<span id="Examples_003a-477"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (software-type) <span class="roman">→</span> &quot;Multics&quot;
+ (software-version) <span class="roman">→</span> &quot;1.3x&quot;
+</pre></div>
+
+
+<span id="Affected-By_003a-140"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>Operating system environment.
+</p>
+<span id="Notes_003a-336"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>This information should be of use to maintainers of the <i>implementation</i>.
+</p>
+
+<hr>
+<span id="user_002dhomedir_002dpathname"></span><div class="header">
+<p>
+Previous: <a href="#software_002dtype_003b-software_002dversion" accesskey="p" rel="prev">software-type; software-version</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">user-homedir-pathname</h4>
+<span id="user_002dhomedir_002dpathname-_0028Function_0029"></span><h3 class="heading">user-homedir-pathname (Function)</h3>
+<span id="index-user_002dhomedir_002dpathname-2"></span>
+<span id="index-user_002dhomedir_002dpathname"></span>
+
+
+<span id="Syntax_003a-525"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-user_002dhomedir_002dpathname-1">Function: <strong>user-homedir-pathname</strong> <em><tt>&amp;optional</tt> host <span class="roman">→</span> pathname</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-511"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>host</var>&mdash;a <i>string</i>, a <i>list</i> of <i>strings</i>, or <tt>:unspecific</tt>.
+</p>
+<p><var>pathname</var>&mdash;a <i>pathname</i>, or <code>nil</code>.
+</p>
+<span id="Description_003a-678"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>user-homedir-pathname</code> determines the <i>pathname</i> that corresponds
+to the user&rsquo;s home directory on <var>host</var>.  
+If <var>host</var> is not supplied, its value is <i>implementation-dependent</i>.
+For a description of <tt>:unspecific</tt>, see <a href="Filenames.html#Pathname-Components">Section 19.2.1 (Pathname Components)</a>.
+</p>
+<p>The definition of home directory is <i>implementation-dependent</i>, 
+but defined in <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->to mean the directory where the user
+keeps personal files such as initialization files and mail.  
+</p>
+<p><code>user-homedir-pathname</code> returns a <i>pathname</i> without any name, 
+type, or version component (those components are all <code>nil</code>)
+for the user&rsquo;s home directory on <var>host</var>.
+</p>
+<p>If it is impossible to determine the user&rsquo;s home directory on <var>host</var>,
+then <code>nil</code>&nbsp;<!-- /@w -->is returned.
+<code>user-homedir-pathname</code> never returns <code>nil</code>&nbsp;<!-- /@w -->if <var>host</var> is not supplied.
+</p>
+<span id="Examples_003a-478"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (pathnamep (user-homedir-pathname)) <span class="roman">→</span> <i>true</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-141"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The host computer&rsquo;s file system,
+and the <i>implementation</i>.
+</p>
+
+
+
+<hr>
 <div class="header">
 <p>
-Next: <a href="Glossary.html" accesskey="n" rel="next">Glossary</a>, Previous: <a href="System-Construction.html" accesskey="p" rel="prev">System Construction</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Previous: <a href="#software_002dtype_003b-software_002dversion" accesskey="p" rel="prev">software-type; software-version</a>, Up: <a href="#Environment" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
 
 

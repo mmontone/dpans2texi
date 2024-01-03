@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>aref (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Arrays.html" rel="up" title="Arrays">
-<link href="array_002ddimension.html" rel="next" title="array-dimension">
-<link href="adjustable_002darray_002dp.html" rel="prev" title="adjustable-array-p">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,100 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Arrays.html#aref">
 
 </head>
 
 <body lang="en">
-<span id="aref"></span><div class="header">
-<p>
-Next: <a href="array_002ddimension.html" accesskey="n" rel="next">array-dimension</a>, Previous: <a href="adjustable_002darray_002dp.html" accesskey="p" rel="prev">adjustable-array-p</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">aref</h4>
-<span id="aref-_0028Accessor_0029"></span><h3 class="heading">aref (Accessor)</h3>
-<span id="index-aref-2"></span>
-<span id="index-aref"></span>
 
-
-<span id="Syntax_003a-333"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-aref-1">Function: <strong>aref</strong> <em>array <tt>&amp;rest</tt> subscripts <span class="roman">→</span> element</em></dt>
-</dl>
-<p><tt>(setf (aref array <tt>&amp;rest</tt> subscripts) new-element)</tt>
-</p>
-<span id="Arguments-and-Values_003a-322"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>array</var>&mdash;an <i>array</i>.
-</p>
-<p><var>subscripts</var>&mdash;a <i>list</i> of <i>valid array indices</i> for the <var>array</var>.
-</p>
-<p><var>element</var>, <var>new-element</var>&mdash;an <i>object</i>.
-</p>
-<span id="Description_003a-429"></span><h4 class="subsubheading">Description:</h4>
-
-<p><i>Accesses</i> the <var>array</var> <i>element</i> specified by the <var>subscripts</var>.
-If no <var>subscripts</var> are supplied and <var>array</var> is zero rank,
-<code>aref</code> <i>accesses</i> the sole element of <var>array</var>.
-</p>
-<p><code>aref</code> ignores <i>fill pointers</i>.
-It is permissible to use <code>aref</code> 
-to <i>access</i> any <var>array</var> <i>element</i>,
-whether <i>active</i> or not.
-</p>
-<span id="Examples_003a-306"></span><h4 class="subsubheading">Examples:</h4>
-
-<p>If the variable <code>foo</code> names a 3-by-5 array,
-then the first index could be 0, 1, or 2, and then second index
-could be 0, 1, 2, 3, or 4.  The array elements can be referred to by using
-the <i>function</i> <code>aref</code>; for example, <code>(aref foo 2 1)</code>
-refers to element (2, 1) of the array.  
-</p>
-<div class="lisp">
-<pre class="lisp"> (aref (setq alpha (make-array 4)) 3) <span class="roman">→</span> <i>implementation-dependent</i>
- (setf (aref alpha 3) 'sirens) <span class="roman">→</span> SIRENS
- (aref alpha 3) <span class="roman">→</span> SIRENS
- (aref (setq beta (make-array '(2 4) 
-                    :element-type '(unsigned-byte 2)
-                    :initial-contents '((0 1 2 3) (3 2 1 0))))
-        1 2) <span class="roman">→</span> 1
- (setq gamma '(0 2))
- (apply #'aref beta gamma) <span class="roman">→</span> 2
- (setf (apply #'aref beta gamma) 3) <span class="roman">→</span> 3
- (apply #'aref beta gamma) <span class="roman">→</span> 3
- (aref beta 0 2) <span class="roman">→</span> 3
-</pre></div>
-
-
-<span id="See-Also_003a-350"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="bit_003b-sbit.html#bit">bit</a>,
-<a href="char_003b-schar.html#char">char</a>,
-<a href="elt.html">elt</a>,
-<a href="row_002dmajor_002daref.html">row-major-aref</a>,
-<a href="svref.html">svref</a>,
-<a href="Compiler-Terminology.html">Section 3.2.1 (Compiler Terminology)</a>
-</p>
-
-
-
-
+<p>The node you are looking for is at <a href="Arrays.html#aref">aref</a>.</p>
 </body>
-</html>

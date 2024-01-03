@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Scope_003b-Purpose_003b-and-History.html" rel="next" title="Scope; Purpose; and History">
+<link href="Syntax.html#Syntax" rel="next" title="Syntax">
 <link href="Credits.html" rel="prev" title="Credits">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,31 +277,2882 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Introduction"></span><div class="header">
 <p>
-Next: <a href="Syntax.html" accesskey="n" rel="next">Syntax</a>, Previous: <a href="Credits.html" accesskey="p" rel="prev">Credits</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Syntax.html#Syntax" accesskey="n" rel="next">Syntax</a>, Previous: <a href="Credits.html" accesskey="p" rel="prev">Credits</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Introduction-1"></span><h2 class="chapter">1 Introduction</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Scope_003b-Purpose_003b-and-History.html" accesskey="1">Scope; Purpose; and History</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Scope_003b-Purpose_003b-and-History" accesskey="1">Scope; Purpose; and History</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Organization-of-the-Document.html" accesskey="2">Organization of the Document</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Organization-of-the-Document" accesskey="2">Organization of the Document</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Referenced-Publications.html" accesskey="3">Referenced Publications</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Referenced-Publications" accesskey="3">Referenced Publications</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Definitions.html" accesskey="4">Definitions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Definitions" accesskey="4">Definitions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Conformance.html" accesskey="5">Conformance</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Conformance" accesskey="5">Conformance</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Language-Extensions.html" accesskey="6">Language Extensions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Language-Extensions" accesskey="6">Language Extensions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Language-Subsets.html" accesskey="7">Language Subsets</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Language-Subsets" accesskey="7">Language Subsets</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Deprecated-Language-Features.html" accesskey="8">Deprecated Language Features</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Deprecated-Language-Features" accesskey="8">Deprecated Language Features</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Symbols-in-the-COMMON_002dLISP-Package.html" accesskey="9">Symbols in the COMMON-LISP Package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Symbols-in-the-COMMON_002dLISP-Package" accesskey="9">Symbols in the COMMON-LISP Package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="Scope_003b-Purpose_003b-and-History"></span><div class="header">
+<p>
+Next: <a href="#Organization-of-the-Document" accesskey="n" rel="next">Organization of the Document</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Scope_002c-Purpose_002c-and-History"></span><h3 class="section">1.1 Scope, Purpose, and History</h3>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Scope-and-Purpose" accesskey="1">Scope and Purpose</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#History" accesskey="2">History</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Scope-and-Purpose"></span><div class="header">
+<p>
+Next: <a href="#History" accesskey="n" rel="next">History</a>, Up: <a href="#Scope_003b-Purpose_003b-and-History" accesskey="u" rel="up">Scope; Purpose; and History</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Scope-and-Purpose-1"></span><h4 class="subsection">1.1.1 Scope and Purpose</h4>
+<p>The specification set forth in this document is designed to promote
+the portability of <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->programs among a variety of data processing
+systems. It is a language specification aimed at an audience of
+implementors and knowledgeable programmers. It is neither a tutorial nor
+an implementation guide.
+</p>
+<hr>
+<span id="History"></span><div class="header">
+<p>
+Previous: <a href="#Scope-and-Purpose" accesskey="p" rel="prev">Scope and Purpose</a>, Up: <a href="#Scope_003b-Purpose_003b-and-History" accesskey="u" rel="up">Scope; Purpose; and History</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="History-1"></span><h4 class="subsection">1.1.2 History</h4>
+
+<p>Lisp is a family of languages with a long history.  Early key ideas in
+Lisp were developed by John McCarthy during the 1956 Dartmouth Summer
+Research Project on Artificial Intelligence.  McCarthy&rsquo;s motivation
+was to develop an algebraic list processing language for artificial
+intelligence work.
+Implementation efforts for early dialects of Lisp were undertaken on
+the IBM&nbsp;704, the IBM&nbsp;7090, the Digital Equipment Corporation (DEC) PDP-1,
+the DEC&nbsp;PDP-6, and the PDP-10. The primary dialect of Lisp between
+1960 and 1965 was Lisp&nbsp;1.5. By the early 1970&rsquo;s there were two
+predominant dialects of Lisp, both arising from these early efforts:
+MacLisp and Interlisp.
+For further information about very early Lisp dialects, 
+see <cite>The Anatomy of Lisp</cite> or <cite><a href="http://green.iis.nsk.su/~vp/doc/lisp1.5/mccarthy.html">Lisp 1.5 Programmer&rsquo;s Manual</a></cite>.
+</p>
+<p>MacLisp improved on the Lisp&nbsp;1.5 notion of special variables and error
+handling. MacLisp also introduced the concept of functions that could take
+a variable number of arguments, macros, arrays, non-local dynamic
+exits, fast arithmetic, the first good Lisp compiler, and an emphasis
+on execution speed. 
+By the end of the 1970&rsquo;s, MacLisp was in use at over 50 sites.
+For further information about Maclisp, 
+see <cite>Maclisp Reference Manual, Revision 0</cite> or <cite>The Revised Maclisp Manual</cite>.
+</p>
+<p>Interlisp introduced many ideas into Lisp programming environments and
+methodology. One of the Interlisp ideas that influenced <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->was an iteration
+construct implemented by Warren Teitelman that inspired the <code>loop</code>
+macro used both on the Lisp Machines and in MacLisp, and now in <span class="roman">Common Lisp</span>.
+For further information about Interlisp,
+see <cite>Interlisp Reference Manual</cite>.
+</p>
+<p>Although the first implementations of Lisp were on the IBM&nbsp;704 and the
+IBM&nbsp;7090, later work focussed on the DEC
+PDP-6 and, later, PDP-10 computers, the latter being the mainstay of
+Lisp and artificial intelligence work at such places as 
+Massachusetts Institute of Technology (MIT), Stanford University,
+and 
+Carnegie Mellon University (CMU) from the mid-1960&rsquo;s through much of the 1970&rsquo;s.
+The PDP-10 computer and its predecessor the PDP-6 computer were, by
+design, especially well-suited to Lisp because they had 36-bit words
+and 18-bit addresses. This architecture allowed a <i>cons</i> cell to be
+stored in one word; single instructions could extract the 
+<i>car</i> and <i>cdr</i>
+parts.  The PDP-6 and PDP-10 had fast, powerful stack instructions
+that enabled fast function calling.
+But the limitations of the PDP-10 were evident by 1973: it supported a
+small number of researchers using Lisp, and the small, 18-bit address
+space (2^18 = 262,144 words) limited the size of a single
+program.
+One response to the address space problem was the Lisp Machine, a
+special-purpose computer designed to run Lisp programs.  The other
+response was to use general-purpose computers with address spaces
+larger than 18&nbsp;bits, such as the DEC VAX and
+the <span class="nolinebreak">S-1</span><!-- /@w -->&nbsp;Mark&nbsp;IIA.
+For further information about S-1 Common Lisp, see &ldquo;S-1 Common Lisp Implementation.&rdquo;
+</p>
+<p>The Lisp machine concept was developed in the late 1960&rsquo;s.  In the
+early 1970&rsquo;s, Peter Deutsch, working with 
+Daniel Bobrow, implemented a Lisp on the
+Alto, a single-user minicomputer, using microcode to interpret a
+byte-code implementation language. Shortly thereafter, Richard
+Greenblatt began work on a different hardware and instruction set
+design at MIT.
+Although the Alto was not a total success as a Lisp machine, a dialect
+of Interlisp known as Interlisp-D became available on the D-series
+machines manufactured by Xerox&mdash;the Dorado, Dandelion,
+Dandetiger, and Dove (or Daybreak).
+An upward-compatible extension of MacLisp called Lisp
+Machine Lisp became available on the early MIT Lisp Machines.
+Commercial Lisp machines from Xerox, Lisp Machines (LMI), and
+Symbolics were on the market by 1981.
+For further information about Lisp Machine Lisp, see <cite>Lisp Machine Manual</cite>.
+</p>
+<p>During the late 1970&rsquo;s, Lisp Machine Lisp began to expand towards a
+much fuller language.  Sophisticated lambda lists, 
+<code>setf</code>, multiple values, and structures
+like those in <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->are the results of early
+experimentation with programming styles by the Lisp Machine group.
+Jonl White and others migrated these features to MacLisp.
+Around 1980, Scott Fahlman and others at CMU began work on a Lisp to
+run on the Scientific Personal Integrated Computing
+Environment (SPICE) workstation.  One of the goals of the project was to
+design a simpler dialect than Lisp Machine Lisp.
+</p>
+<p>The Macsyma group at MIT began a project during the late 1970&rsquo;s called
+the New Implementation of Lisp (NIL) for the VAX, which was headed by
+White.  One of the stated goals of the NIL project was to fix many of
+the historic, but annoying, problems with Lisp while retaining significant 
+compatibility with MacLisp.  At about the same time, a research group at
+Stanford University and Lawrence Livermore National Laboratory headed
+by Richard P. Gabriel began the design of a Lisp to run on the
+<span class="nolinebreak">S-1</span><!-- /@w -->&nbsp;Mark&nbsp;IIA supercomputer.  <span class="nolinebreak">S-1</span><!-- /@w -->&nbsp;Lisp, never completely
+functional, was the test bed for adapting advanced compiler techniques
+to Lisp implementation.  Eventually the <span class="nolinebreak">S-1</span><!-- /@w --> and NIL groups
+collaborated.
+For further information about the NIL project,
+see &ldquo;NIL&mdash;A Perspective.&rdquo;
+</p>
+
+<p>The first effort towards Lisp standardization was made in 1969, 
+when Anthony Hearn and Martin Griss at the University of Utah 
+defined Standard Lisp&mdash;a subset of Lisp&nbsp;1.5 and other dialects&mdash;to 
+transport REDUCE, a symbolic algebra system.
+During the 1970&rsquo;s, the Utah group implemented first a retargetable
+optimizing compiler for Standard Lisp,
+and then an extended implementation known as Portable Standard Lisp (PSL).
+By the mid 1980&rsquo;s, PSL ran on about a dozen kinds of computers.
+For further information about Standard Lisp, see &ldquo;<a href="http://www.uni-koeln.de/REDUCE/3.6/doc/sl/">Standard LISP Report</a>.&rdquo;
+</p>
+<p>PSL and Franz Lisp&mdash;a MacLisp-like dialect for Unix machines&mdash;were 
+the first examples of widely available Lisp dialects on multiple 
+hardware platforms. 
+</p>
+<p>One of the most important developments in Lisp occurred during the
+second half of the 1970&rsquo;s: Scheme. Scheme, designed by Gerald J.
+Sussman and Guy L. Steele Jr., is a simple dialect of Lisp whose
+design brought to Lisp some of the ideas from programming language
+semantics developed in the 1960&rsquo;s.  Sussman was one of the prime
+innovators behind many other advances in Lisp technology from the late
+1960&rsquo;s through the 1970&rsquo;s.
+The major contributions of Scheme were lexical scoping, lexical
+closures, first-class continuations, and simplified syntax (no
+separation of value cells and function cells). Some of these contributions made
+a large impact on the design of <span class="roman">Common Lisp</span>.
+For further information about Scheme, see <cite>IEEE Standard for the Scheme Programming Language</cite> or &ldquo;<a href="http://www.swiss.ai.mit.edu/~jaffer/r3rs_toc.html">Revised³ Report on the Algorithmic Language Scheme</a>.&rdquo;
+</p>
+<p>In the late 1970&rsquo;s object-oriented programming concepts started to
+make a strong impact on Lisp. 
+At MIT, certain ideas from Smalltalk made their way into several
+widely used programming systems.
+Flavors, an object-oriented programming system with multiple inheritance, 
+was developed at MIT for the Lisp machine community by Howard Cannon and others.
+At Xerox, the experience with Smalltalk and 
+Knowledge Representation Language (KRL) led to the development of 
+Lisp Object Oriented Programming System (LOOPS) and later Common LOOPS.
+For further information on Smalltalk, see <cite>Smalltalk-80: The Language and its Implementation</cite>.
+For further information on Flavors, see <cite>Flavors: A Non-Hierarchical Approach to Object-Oriented Programming</cite>.
+</p>
+<p>These systems influenced the design of the Common Lisp Object System (CLOS).
+CLOS was developed specifically for this standardization effort,
+and was separately written up in &ldquo;Common Lisp Object System Specification.&rdquo;  However, minor details
+of its design have changed slightly since that publication, and that paper 
+should not be taken as an authoritative reference to the semantics of the
+object system&nbsp;<!-- /@w -->as described in this document.
+</p>
+<p>In 1980 Symbolics and LMI were developing Lisp Machine Lisp; stock-hardware
+implementation groups were developing NIL, Franz Lisp, and PSL; Xerox
+was developing Interlisp; and the SPICE project at CMU was developing
+a MacLisp-like dialect of Lisp called SpiceLisp.
+</p>
+<p>In April 1981, after a DARPA-sponsored meeting concerning the
+splintered Lisp community, Symbolics, the SPICE project, the NIL
+project, and the <span class="nolinebreak">S-1</span><!-- /@w -->&nbsp;Lisp project joined together to define
+<span class="roman">Common Lisp</span>.  Initially spearheaded by White and Gabriel, the
+driving force behind this grassroots effort was provided by Fahlman,
+Daniel Weinreb, David Moon, Steele,  and Gabriel.
+<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->was designed as a description of a family of languages.  The
+primary influences on <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->were Lisp Machine Lisp, MacLisp, NIL,
+<span class="nolinebreak">S-1</span><!-- /@w -->&nbsp;Lisp, Spice Lisp, and Scheme.
+<cite>Common Lisp: The Language</cite>&nbsp;<!-- /@w -->is a description of that design.  Its
+semantics were intentionally underspecified in places where it was
+felt that a tight specification would overly constrain <span class="roman">Common Lisp</span>
+research and use.
+</p>
+<p>In 1986 X3J13 was formed as a technical working group to
+produce a draft for an ANSI <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->standard. Because of the
+acceptance of <span class="roman">Common Lisp</span>, the goals of this group differed from those of
+the original designers. These new goals included stricter
+standardization for portability, an object-oriented programming
+system, a condition system, iteration facilities, and a way to handle
+large character sets.  To accommodate those
+goals, a new language specification, this
+document, was developed.
+</p>
+
+
+<hr>
+<span id="Organization-of-the-Document"></span><div class="header">
+<p>
+Next: <a href="#Referenced-Publications" accesskey="n" rel="next">Referenced Publications</a>, Previous: <a href="#Scope_003b-Purpose_003b-and-History" accesskey="p" rel="prev">Scope; Purpose; and History</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Organization-of-the-Document-1"></span><h3 class="section">1.2 Organization of the Document</h3>
+
+<p>This is a reference document, not a tutorial document.  Where possible
+and convenient, the order of presentation has been chosen so that the
+more primitive topics precede those that build upon them;  however,
+linear readability has not been a priority.
+</p>
+<p>This document is divided into chapters by topic.
+Any given chapter might contain conceptual material, dictionary entries, or both.
+</p>
+<p><i>Defined names</i> within the dictionary portion of a chapter are
+grouped in a way that brings related topics into physical proximity.
+Many such groupings were possible,
+and no deep significance should be inferred from the particular grouping that was chosen.
+To see <i>defined names</i> grouped alphabetically, consult the index.
+For a complete list of <i>defined names</i>, see <a href="#Symbols-in-the-COMMON_002dLISP-Package">Section 1.9 (Symbols in the COMMON-LISP Package)</a>.
+</p>
+<p>In order to compensate for the sometimes-unordered portions of this document, 
+a glossary has been provided; see <a href="Glossary.html#Glossary">Chapter 26 (Glossary)</a>.
+The glossary provides connectivity by providing easy access to 
+definitions of terms, and in some cases by providing examples or 
+cross references to additional conceptual material.
+</p>
+<p>For information about notational conventions used in this document,
+see <a href="#Definitions">Section 1.4 (Definitions)</a>.
+</p>
+<p>For information about conformance, see <a href="#Conformance">Section 1.5 (Conformance)</a>. 
+</p>
+<p>For information about extensions and subsets, see <a href="#Language-Extensions">Section 1.6 (Language Extensions)</a>
+and <a href="#Language-Subsets">Section 1.7 (Language Subsets)</a>.
+</p>
+<p>For information about how <i>programs</i> in the language are parsed by the
+<i>Lisp reader</i>, see <a href="Syntax.html#Syntax">Chapter 2 (Syntax)</a>.
+</p>
+<p>For information about how <i>programs</i> in the language are <i>compiled</i>
+and <i>executed</i>, see <a href="Evaluation-and-Compilation.html#Evaluation-and-Compilation">Chapter 3 (Evaluation and Compilation)</a>.
+</p>
+<p>For information about data types, see <a href="Types-and-Classes.html#Types-and-Classes">Chapter 4 (Types and Classes)</a>.
+Not all <i>types</i> and <i>classes</i> are defined in this chapter;
+many are defined in chapter corresponding to their topic&ndash;for example,
+the numeric types are defined in <a href="Numbers.html#Numbers">Chapter 12 (Numbers)</a>.
+For a complete list of <i>standardized</i> <i>types</i>, 
+see <a href="Types-and-Classes.html#StandardizedAtomicTypeSpecs">Figure 4.2</a>.
+</p>
+<p>For information about general purpose control and data flow,
+see <a href="Data-and-Control-Flow.html#Data-and-Control-Flow">Chapter 5 (Data and Control Flow)</a>&nbsp;<!-- /@w -->or <a href="Iteration.html#Iteration">Chapter 6 (Iteration)</a>.
+</p>
+
+<hr>
+<span id="Referenced-Publications"></span><div class="header">
+<p>
+Next: <a href="#Definitions" accesskey="n" rel="next">Definitions</a>, Previous: <a href="#Organization-of-the-Document" accesskey="p" rel="prev">Organization of the Document</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Referenced-Publications-1"></span><h3 class="section">1.3 Referenced Publications</h3>
+
+
+<ul>
+<li> <cite>The Anatomy of Lisp</cite>,
+John Allen, McGraw-Hill, Inc., 1978.
+
+</li><li> <cite>The Art of Computer Programming, Volume 3</cite>,
+Donald E. Knuth, Addison-Wesley Company (Reading, MA), 1973.
+
+</li><li> <cite>The Art of the Metaobject Protocol</cite>,
+Kiczales et al., MIT Press (Cambridge, MA), 1991.
+
+</li><li> &ldquo;Common Lisp Object System Specification,&rdquo;
+D. Bobrow, L. DiMichiel, R.P. Gabriel, S. Keene, G. Kiczales, D. Moon,
+<i>SIGPLAN Notices</i> V23, September, 1988.
+
+</li><li> <cite>Common Lisp: The Language</cite>,
+Guy L. Steele Jr., Digital Press (Burlington, MA), 1984.
+
+</li><li> <cite><a href="http://www-2.cs.cmu.edu/Groups/AI/html/cltl/cltl2.html">Common Lisp: The Language Second Edition</a></cite>,
+Guy L. Steele Jr., Digital Press (Bedford, MA), 1990.
+
+</li><li> <cite><a href="http://www.nhplace.com/kent/Papers/Exceptional-Situations-1990.html">Exceptional Situations in Lisp</a></cite>,
+Kent M. Pitman,
+<i>Proceedings of the First European Conference</i>
+on the Practical Application of LISP
+(EUROPAL &rsquo;90),
+Churchill College, Cambridge, England,
+March 27-29, 1990.
+
+</li><li> <cite>Flavors: A Non-Hierarchical Approach to Object-Oriented Programming</cite>,
+Howard I. Cannon, 1982.
+
+</li><li> <cite>IEEE Standard for Binary Floating-Point Arithmetic</cite>,
+ANSI/IEEE Std 754-1985,
+Institute of Electrical and Electronics Engineers, Inc. (New York), 1985.
+
+</li><li> <cite>IEEE Standard for the Scheme Programming Language</cite>,
+IEEE Std 1178-1990,
+Institute of Electrical and Electronic Engineers, Inc. (New York), 1991.
+
+</li><li> <cite>Interlisp Reference Manual</cite>, Third Revision,
+Teitelman, Warren, et al,
+Xerox Palo Alto Research Center (Palo Alto, CA), 1978.
+
+</li><li> <cite>ISO 6937/2</cite>,
+<i>Information processing&mdash;Coded character sets 
+for text communication&mdash;Part 2: Latin alphabetic and non-alphabetic
+graphic characters</i>, 
+ISO, 1983.
+
+</li><li> <cite><a href="http://green.iis.nsk.su/~vp/doc/lisp1.5/mccarthy.html">Lisp 1.5 Programmer&rsquo;s Manual</a></cite>,
+John McCarthy, MIT Press (Cambridge, MA), August, 1962.
+
+</li><li> <cite>Lisp Machine Manual</cite>,
+D.L. Weinreb and D.A. Moon,
+Artificial Intelligence Laboratory, MIT (Cambridge, MA), July, 1981.
+
+</li><li> <cite>Maclisp Reference Manual, Revision 0</cite>,
+David A. Moon, Project MAC (Laboratory for Computer Science),
+MIT (Cambridge, MA), March, 1974.
+
+</li><li> &ldquo;NIL&mdash;A Perspective,&rdquo; 
+JonL White, <i>Macsyma User&rsquo;s Conference</i>, 1979.
+
+</li><li> <cite><a href="http://www.dreamsongs.com/Books.html">Performance and Evaluation of Lisp Programs</a></cite>,
+Richard P. Gabriel, MIT Press (Cambridge, MA), 1985.
+
+</li><li> &ldquo;Principal Values and Branch Cuts in Complex APL,&rdquo; 
+Paul Penfield Jr., <i>APL 81 Conference Proceedings</i>,
+ACM SIGAPL (San Francisco, September 1981), 248-256.
+Proceedings published as <i>APL Quote Quad 12</i>, 1 (September 1981).
+
+</li><li> <cite>The Revised Maclisp Manual</cite>,
+Kent M. Pitman, 
+Technical Report 295,
+Laboratory for Computer Science, MIT (Cambridge, MA), May 1983.
+
+</li><li> &ldquo;<a href="http://www.swiss.ai.mit.edu/~jaffer/r3rs_toc.html">Revised³ Report on the Algorithmic Language Scheme</a>,&rdquo;
+Jonathan Rees and William Clinger (editors), 
+<i>SIGPLAN Notices</i> V21, #12, December, 1986.
+
+</li><li> &ldquo;S-1 Common Lisp Implementation,&rdquo;
+R.A. Brooks, R.P. Gabriel, and G.L. Steele,
+<i>Conference Record of the 1982 ACM Symposium on Lisp and Functional Programming</i>,
+108-113, 1982.
+
+</li><li> <cite>Smalltalk-80: The Language and its Implementation</cite>,
+A. Goldberg and D. Robson, Addison-Wesley, 1983.
+
+</li><li> &ldquo;<a href="http://www.uni-koeln.de/REDUCE/3.6/doc/sl/">Standard LISP Report</a>,&rdquo;
+J.B. Marti, A.C. Hearn, M.L. Griss, and C. Griss,
+<i>SIGPLAN Notices</i> V14, #10, October, 1979.
+
+</li><li> <cite>Webster&rsquo;s Third New International Dictionary the English Language, Unabridged</cite>,
+Merriam Webster (Springfield, MA), 1986.
+
+</li><li> <cite><a href="ftp://publications.ai.mit.edu/ai-publications/pdf/AIM-1102a.pdf">XP: A Common Lisp Pretty Printing System</a></cite>,
+R.C. Waters,
+Memo 1102a,
+Artificial Intelligence Laboratory, MIT (Cambridge, MA), September 1989.
+</li></ul>
+
+
+<hr>
+<span id="Definitions"></span><div class="header">
+<p>
+Next: <a href="#Conformance" accesskey="n" rel="next">Conformance</a>, Previous: <a href="#Referenced-Publications" accesskey="p" rel="prev">Referenced Publications</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Definitions-1"></span><h3 class="section">1.4 Definitions</h3>
+
+
+<p>This section contains notational conventions and definitions of terms
+used in this manual.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Notational-Conventions" accesskey="1">Notational Conventions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Error-Terminology" accesskey="2">Error Terminology</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Sections-Not-Formally-Part-Of-This-Standard" accesskey="3">Sections Not Formally Part Of This Standard</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Interpreting-Dictionary-Entries" accesskey="4">Interpreting Dictionary Entries</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Notational-Conventions"></span><div class="header">
+<p>
+Next: <a href="#Error-Terminology" accesskey="n" rel="next">Error Terminology</a>, Up: <a href="#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Notational-Conventions-1"></span><h4 class="subsection">1.4.1 Notational Conventions</h4>
+
+<p>The following notational conventions are used throughout this document.
+</p>
+<span id="Font-Key"></span><h4 class="subsubsection">1.4.1.1 Font Key</h4>
+
+<p>Fonts are used in this document to convey information.
+</p>
+
+<dl compact="compact">
+<dt><i>name</i></dt>
+<dd> 
+
+<p>Denotes a formal term whose meaning is defined in the Glossary.
+When this font is used, the Glossary definition takes precedence 
+over normal English usage.
+</p>
+<p>Sometimes a glossary term appears subscripted, 
+as in &ldquo;<i>whitespace</i><sub>2</sub>
+Such a notation selects one particular Glossary definition out of several,
+in this case the second.
+The subscript notation for Glossary terms is generally used where the
+context might be insufficient to disambiguate among the available definitions.
+</p>
+</dd>
+<dt><span id="index-name"></span>
+</dt>
+<dd><p><em>name</em>
+</p> 
+
+<p>Denotes the introduction of a formal term locally to the current text.
+There is still a corresponding glossary entry, and is formally equivalent
+to a use of &ldquo;<i>name</i>,&rdquo; but the hope is that making such uses 
+conspicuous will save the reader a trip to the glossary in some cases.
+</p>
+</dd>
+<dt><tt>name</tt></dt>
+<dd>
+
+<p>Denotes a symbol in the <code>COMMON-LISP</code> <i>package</i>.
+For information about <i>case</i> conventions,
+see <a href="#CaseInSymbols">Section 1.4.1.4.1 (Case in Symbols)</a>.
+</p>
+</dd>
+<dt><code>name</code></dt>
+<dd> 
+
+<p>Denotes a sample <i>name</i> or piece of <i>code</i> that a programmer
+might write in <span class="roman">Common Lisp</span>.
+</p>
+<p>This font is also used for certain <i>standardized</i> names that are not
+names of <i>external symbols</i> of the <code>COMMON-LISP</code> <i>package</i>, 
+such as <i>keywords</i><sub>1</sub>
+<i>package</i> <i>names</i>,
+and <i>loop keywords</i>.
+</p>
+</dd>
+<dt><var>name</var></dt>
+<dd> 
+
+<p>Denotes the name of a <i>parameter</i> or <i>value</i>.
+</p>
+<p>In some situations the notation &ldquo;«<var>name</var>»&rdquo; (<i>i.e.</i>, the same font,
+but with surrounding &ldquo;angle brackets&rdquo;) is used instead in order to
+provide better visual separation from surrounding characters.  These
+&ldquo;angle brackets&rdquo; are metasyntactic, and never actually appear in program
+input or output.
+</p></dd>
+</dl>
+
+
+<span id="Modified-BNF-Syntax"></span><h4 class="subsubsection">1.4.1.2 Modified BNF Syntax</h4>
+<span id="ModifiedBNF"></span>
+<p>This specification uses an extended Backus Normal Form (BNF) to
+describe the syntax of <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>macro forms</i> and <i>special forms</i>.
+This section discusses the syntax of BNF expressions.
+</p>
+<span id="g_t1_002e4_002e1_002e2_002e1-Splicing-in-Modified-BNF-Syntax"></span><h4 class="unnumberedsubsubsec">1.4.1.2.1 Splicing in Modified BNF Syntax</h4>
+
+
+<p>The primary extension used is the following:
+</p>
+
+<blockquote>
+<p>〚O〛<!-- /@w -->
+</p></blockquote>
+
+
+<p>An expression of this form appears whenever a list of elements is
+to be spliced into a larger structure and the elements can appear in
+any order. The symbol O represents a description of the syntax of
+some number of syntactic elements to be spliced; that description must
+be of the form
+</p>
+
+<blockquote>
+<p>O<sub>1</sub>
+</p></blockquote>
+
+
+<p> where each O<sub>i</sub>
+the form S* or of the form S¹.
+The expression 〚O〛 means that a list of the form
+</p>
+
+<blockquote>
+<p>(O<sub>i<sub>1</sub>
+</p></blockquote>
+
+
+<p> is spliced into the enclosing expression,
+such that if n ≠ m and 1≤ n,m≤ j,
+then either O<sub>i<sub>n</sub>
+or O<sub>i<sub>n</sub>
+where for some 1≤ k ≤ n, O<sub>k</sub>
+Furthermore, for each O<sub>i<sub>n</sub>
+that element is required to appear somewhere in the list to be spliced.
+</p>
+<p>For example, the expression
+</p>
+<p><code>(x 〚A | B* | C〛 y)</code>
+</p>
+<p> means that at most one <code>A</code>, any number of <code>B</code>&rsquo;s, and
+at most one <code>C</code> can occur in any order.
+It is a description of any of these:
+</p>
+<div class="lisp">
+<pre class="lisp"> (x y)
+ (x B A C y)
+ (x A B B B B B C y)
+ (x C B A B B B y)
+</pre></div>
+
+
+<p> but not any of these:
+</p>
+<div class="lisp">
+<pre class="lisp"> (x B B A A C C y)
+ (x C B C y)
+</pre></div>
+
+
+<p> In the first case, both <code>A</code> and <code>C</code> appear too often,
+and in the second case <code>C</code> appears too often.
+</p>
+
+<p>The notation 〚O<sub>1</sub>
+adds the additional restriction that at least one item from among the possible
+choices must be used.  For example:
+</p>
+<p><code>(x 〚A | B* | C〛+ y)</code>
+</p>
+<p> means that at most one <code>A</code>, any number of <code>B</code>&rsquo;s, and
+at most one <code>C</code> can occur in any order, but that in any case at least
+one of these options must be selected.
+It is a description of any of these:
+</p>
+<div class="lisp">
+<pre class="lisp"> (x B y)
+ (x B A C y)
+ (x A B B B B B C y)
+ (x C B A B B B y)
+</pre></div>
+
+
+<p> but not any of these:
+</p>
+<div class="lisp">
+<pre class="lisp"> (x y)
+ (x B B A A C C y)
+ (x C B C y)
+</pre></div>
+
+
+<p> In the first case, no item was used;
+in the second case, both <code>A</code> and <code>C</code> appear too often;
+and in the third case <code>C</code> appears too often.
+</p>
+<p>Also, the expression:
+</p>
+<p><code>(x 〚A¹ | B¹ | C〛 y)</code>
+</p>
+<p> can generate exactly these and no others:
+</p>
+<div class="lisp">
+<pre class="lisp"> (x A B C y)
+ (x A C B y)
+ (x A B y)
+ (x B A C y)
+ (x B C A y)
+ (x B A y)
+ (x C A B y)
+ (x C B A y)
+</pre></div>
+
+
+
+
+<span id="g_t1_002e4_002e1_002e2_002e2-Indirection-in-Modified-BNF-Syntax"></span><h4 class="unnumberedsubsubsec">1.4.1.2.2 Indirection in Modified BNF Syntax</h4>
+
+
+<p>An indirection extension is introduced in order to make this
+new syntax more readable:
+</p>
+
+<blockquote>
+<p><tt>↓</tt>O<!-- /@w -->
+</p></blockquote>
+
+
+<p> If <var>O</var> is a non-terminal symbol, the right-hand side
+of its definition is substituted for the entire expression 
+<tt>↓</tt>O.  For example, the following BNF is equivalent to
+the BNF in the previous example:
+</p>
+<p><code>(x 〚<tt>↓</tt>O〛 y)</code>
+</p>
+<dl compact="compact">
+<dt><var>O</var>::=</dt>
+<dd><p><code>A</code> | <code>B</code>* | <code>C</code>
+</p></dd>
+</dl>
+
+
+
+<span id="g_t1_002e4_002e1_002e2_002e3-Additional-Uses-for-Indirect-Definitions-in-Modified-BNF-Syntax"></span><h4 class="unnumberedsubsubsec">1.4.1.2.3 Additional Uses for Indirect Definitions in Modified BNF Syntax</h4>
+
+
+<p>In some cases, an auxiliary definition in the BNF might appear to be unused
+within the BNF, but might still be useful elsewhere.  For example, consider the
+following definitions:
+</p>
+<dl>
+<dt id="index-case-1">Macro: <strong>case</strong> <em>keyform  <tt>{</tt><tt>↓</tt>normal-clause<tt>}</tt>* <tt>[</tt><tt>↓</tt>otherwise-clause<tt>]</tt> <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+<dl>
+<dt id="index-ccase-1">Macro: <strong>ccase</strong> <em>keyplace <tt>{</tt><tt>↓</tt>normal-clause<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+<dl>
+<dt id="index-ecase-1">Macro: <strong>ecase</strong> <em>keyform  <tt>{</tt><tt>↓</tt>normal-clause<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<dl compact="compact">
+<dt><var>normal-clause</var>::=</dt>
+<dd><p><tt>(</tt>keys <tt>{</tt>form<tt>}</tt>*<tt>)</tt>
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>otherwise-clause</var>::=</dt>
+<dd><p><tt>(</tt><tt>{</tt>otherwise | t<tt>}</tt> <tt>{</tt>form<tt>}</tt>*<tt>)</tt>
+</p></dd>
+</dl>
+<dl compact="compact">
+<dt><var>clause</var>::=</dt>
+<dd><p>normal-clause | otherwise-clause
+</p></dd>
+</dl>
+
+
+<p>Here the term &ldquo;<var>clause</var>&rdquo; might appear to be &ldquo;dead&rdquo; in that it
+is not used in the BNF.  However, the purpose of the BNF is not just to guide parsing,
+but also to define useful terms for reference in the descriptive text which follows.
+As such, the term &ldquo;<var>clause</var>&rdquo; might appear in text that follows,
+as shorthand for &ldquo;<var>normal-clause</var> or <var>otherwise-clause</var>.&rdquo;
+</p>
+
+<span id="Special-Symbols"></span><h4 class="subsubsection">1.4.1.3 Special Symbols</h4>
+
+<p>The special symbols described here are used as a notational convenience
+within this document, and are part of neither the <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->language nor
+its environment.
+</p>
+
+<dl compact="compact">
+<dt><span class="roman">→</span></dt>
+<dd>
+
+<p>This indicates evaluation.
+For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (+ 4 5) <span class="roman">→</span> 9 
+</pre></div>
+
+<p>This means that the result of
+evaluating the <i>form</i> <code>(+ 4 5)</code> is <code>9</code>.
+</p>
+<p>If a <i>form</i> returns <i>multiple values</i>, those values might
+be shown separated by spaces, line breaks, or commas.
+For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (truncate 7 5)
+<span class="roman">→</span> 1 2
+ (truncate 7 5) 
+<span class="roman">→</span> 1
+   2
+ (truncate 7 5)
+<span class="roman">→</span> 1, 2
+</pre></div>
+
+
+<p>Each of the above three examples is equivalent, and specifies
+that <code>(truncate 7 5)</code> returns two values, which are <code>1</code> and <code>2</code>.
+</p>
+<p>Some <i>conforming implementations</i> actually type an arrow (or some
+other indicator) before showing return values, while others do not.
+</p>
+</dd>
+<dt>or<span class="roman">→</span></dt>
+<dd>
+
+<p>The notation &ldquo;or<span class="roman">→</span>&rdquo; is used to denote one of several possible
+alternate results.  The example
+</p>
+<div class="lisp">
+<pre class="lisp"> (char-name #\a)
+<span class="roman">→</span> NIL
+or<span class="roman">→</span> &quot;LOWERCASE-a&quot;
+or<span class="roman">→</span> &quot;Small-A&quot;
+or<span class="roman">→</span> &quot;LA01&quot;
+</pre></div>
+
+
+<p>indicates that <code>nil</code>, <code>&quot;LOWERCASE-a&quot;</code>, <code>&quot;Small-A&quot;</code>, <code>&quot;LA01&quot;</code> are
+among the possible results of <code>(char-name #\a)</code>&mdash;each with equal preference.
+Unless explicitly specified otherwise, it should not be assumed that the set of possible 
+results shown is exhaustive.
+Formally, the above example is equivalent to
+</p>
+<div class="lisp">
+<pre class="lisp"> (char-name #\a) <span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<p>but it is intended to provide additional information to illustrate some
+of the ways in which it is permitted for implementations to diverge.
+</p>
+</dd>
+<dt>not<span class="roman">→</span></dt>
+<dd>
+
+<p>The notation &ldquo;not<span class="roman">→</span>&rdquo; is used to denote a result which is not possible.
+This might be used, for example, in order to emphasize a situation where
+some anticipated misconception might lead the reader to falsely believe
+that the result might be possible.  For example,
+</p>
+<div class="lisp">
+<pre class="lisp"> (function-lambda-expression 
+    (funcall #'(lambda (x) #'(lambda () x)) nil))
+<span class="roman">→</span> NIL, <i>true</i>, NIL
+or<span class="roman">→</span> (LAMBDA () X), <i>true</i>, NIL
+not<span class="roman">→</span> NIL, <i>false</i>, NIL
+not<span class="roman">→</span> (LAMBDA () X), <i>false</i>, NIL
+</pre></div>
+
+
+</dd>
+<dt>≡</dt>
+<dd> 
+
+<p>This indicates code equivalence. For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (gcd x (gcd y z)) ≡ (gcd (gcd x y) z)
+</pre></div>
+
+<p>This means that the results and observable side-effects of evaluating
+the <i>form</i>
+<code>(gcd&nbsp;x&nbsp;(gcd&nbsp;y&nbsp;z))</code>&nbsp;<!-- /@w --> are always the same as the results
+and observable side-effects of
+<code>(gcd&nbsp;(gcd&nbsp;x&nbsp;y)&nbsp;z)</code>&nbsp;<!-- /@w --> for any 
+<code>x</code>, <code>y</code>, and <code>z</code>.
+</p>
+
+</dd>
+<dt>▷</dt>
+<dd>
+
+<p><span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->specifies input and output with respect to a non-interactive stream model.
+The specific details of how interactive input and output are mapped onto that
+non-interactive model are <i>implementation-defined</i>.
+</p>
+<p>For example, <i>conforming implementations</i> are permitted to differ in issues 
+of how interactive input is terminated.  For example, the <i>function</i> <code>read</code>
+terminates when the final delimiter is typed on a non-interactive stream.
+In some <i>implementations</i>, an interactive call to <code>read</code> returns
+as soon as the final delimiter is typed, even if that delimiter is not a <i>newline</i>.
+In other <i>implementations</i>, a final <i>newline</i> is always required.
+In still other <i>implementations</i>, there might be a command which &ldquo;activates&rdquo;
+a buffer full of input without the command itself being visible on the program&rsquo;s
+input stream.
+</p>
+<p>In the examples in this document, the notation &ldquo;▷&rdquo; precedes 
+lines where interactive input and output occurs.  Within such a scenario,
+&ldquo;<kbd>this notation</kbd>&rdquo; notates user input.
+</p>
+<p>For example, the notation
+</p>
+<div class="lisp">
+<pre class="lisp"> (+ 1 (print (+ (sqrt (read)) (sqrt (read)))))
+▷ <kbd>9 16 </kbd>
+▷ 7
+<span class="roman">→</span> 8
+</pre></div>
+
+
+<p>shows an interaction in which
+&ldquo;<code>(+ 1 (print (+ (sqrt (read)) (sqrt (read)))))</code>&rdquo;
+is a <i>form</i> to be <i>evaluated</i>,
+&ldquo;<code>9 16 </code>&rdquo; is interactive input,
+&ldquo;<code>7</code>&rdquo; is interactive output, and 
+&ldquo;<code>8</code>&rdquo; is the <i>value</i> <i>yielded</i> from the <i>evaluation</i>.
+</p>
+<p>The use of this notation is intended to disguise small differences 
+in interactive input and output behavior between <i>implementations</i>.
+</p>
+<p>Sometimes, the non-interactive stream model calls for a <i>newline</i>.
+How that <i>newline</i> character is interactively entered is an 
+<i>implementation-defined</i> detail of the user interface, but in that
+case, either the notation &ldquo;&lt;Newline&gt;&rdquo; or &ldquo;↩&rdquo; might be used.
+</p>
+<div class="lisp">
+<pre class="lisp"> (progn (format t &quot;~&amp;Who? &quot;) (read-line))
+▷ Who? <kbd>Fred, Mary, and Sally↩</kbd>
+<span class="roman">→</span> &quot;Fred, Mary, and Sally&quot;, <i>false</i>
+</pre></div>
+
+</dd>
+</dl>
+
+
+<span id="Objects-with-Multiple-Notations"></span><h4 class="subsubsection">1.4.1.4 Objects with Multiple Notations</h4>
+
+<p>Some <i>objects</i> in <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->can be notated in more than one way.
+In such situations, the choice of which notation to use is technically arbitrary,
+but conventions may exist which convey a &ldquo;point of view&rdquo; or &ldquo;sense of intent.&rdquo;
+</p>
+<span id="g_t1_002e4_002e1_002e4_002e1-Case-in-Symbols"></span><h4 class="unnumberedsubsubsec">1.4.1.4.1 Case in Symbols</h4>
+<span id="index-case-in-symbol-names"></span>
+<span id="CaseInSymbols"></span>
+<p>While <i>case</i> is significant in the process of <i>interning</i> a <i>symbol</i>,
+the <i>Lisp reader</i>, by default, attempts to canonicalize the case of a
+<i>symbol</i> prior to interning; see <a href="Reader.html#Effect-of-Readtable-Case-on-the-Lisp-Reader">Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)</a>.
+As such, case in <i>symbols</i> is not, by default, significant.
+Throughout this document, except as explicitly noted otherwise,
+the case in which a <i>symbol</i> appears is not significant; 
+that is, <code>HELLO</code>, <code>Hello</code>, <code>hElLo</code>, and <code>hello</code> are
+all equivalent ways to denote a symbol whose name is <code>&quot;HELLO&quot;</code>.
+</p>
+<p>The characters <i>backslash</i> and <i>vertical-bar</i> are used to explicitly
+quote the <i>case</i> and other parsing-related 
+aspects
+of characters.  As such,
+the notations <code>|hello|</code> and <code>\h\e\l\l\o</code> are equivalent ways
+to refer to a symbol whose name is <code>&quot;hello&quot;</code>, and which is <i>distinct</i> from
+any symbol whose name is <code>&quot;HELLO&quot;</code>.
+</p>
+<p>The <i>symbols</i> that correspond to <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>defined names</i>
+have <i>uppercase</i> names even though their names generally appear
+in <i>lowercase</i> in this document.
+</p>
+<span id="g_t1_002e4_002e1_002e4_002e2-Numbers"></span><h4 class="unnumberedsubsubsec">1.4.1.4.2 Numbers</h4>
+
+
+<p>Although <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->provides a variety of ways for programs to manipulate the
+input and output radix for rational numbers, all numbers in this document
+are in decimal notation unless explicitly noted otherwise.
+</p>
+<span id="g_t1_002e4_002e1_002e4_002e3-Use-of-the-Dot-Character"></span><h4 class="unnumberedsubsubsec">1.4.1.4.3 Use of the Dot Character</h4>
+
+
+<p>The dot appearing by itself in an <i>expression</i> such as
+</p>
+<p><code>(<var>item1</var> <var>item2</var> . <var>tail</var>)</code>
+</p>
+<p>means that <var>tail</var> represents a <i>list</i> of <i>objects</i> 
+at the end of a list.  For example,
+</p>
+<p><code>(A B C . (D E F))</code>
+</p>
+<p>is notationally equivalent to:
+</p>
+<p><code>(A B C D E F)</code>
+</p>
+<p>Although <i>dot</i> is a valid constituent character in a symbol, no 
+<i>standardized</i> <i>symbols</i> contain the character <i>dot</i>,
+so a period that follows a reference to a <i>symbol</i> at the end of
+a sentence in this document should always be interpreted as a period
+and never as part of the <i>symbol</i>&rsquo;s <i>name</i>.
+For example, within this document, a sentence such as
+&ldquo;This sample sentence refers to the symbol <code>car</code>.&rdquo; 
+refers to a symbol whose name is <code>&quot;CAR&quot;</code> (with three letters),
+and never to a four-letter symbol <code>&quot;CAR.&quot;</code>
+</p>
+<span id="g_t1_002e4_002e1_002e4_002e4-NIL"></span><h4 class="unnumberedsubsubsec">1.4.1.4.4 NIL</h4>
+<span id="index-nil"></span>
+<span id="index-_0028_0029"></span>
+<span id="index-nil-1"></span>
+
+<p><code>nil</code>&nbsp;<!-- /@w -->has a variety of meanings.
+It is a <i>symbol</i> in the <code>COMMON-LISP</code> <i>package</i> with the <i>name</i> <code>&quot;NIL&quot;</code>,
+it is <i>boolean</i> (and <i>generalized boolean</i>) <i>false</i>,
+it is the <i>empty list</i>,
+and it is the <i>name</i> of the <i>empty type</i> (a <i>subtype</i> of all <i>types</i>).
+</p>
+<p>Within <span class="roman">Common Lisp</span>, <code>nil</code>&nbsp;<!-- /@w -->can be notated interchangeably as either <code>NIL</code> or <code>()</code>.
+By convention, the choice of notation offers a hint as to which of its many
+roles it is playing.
+</p>
+
+<div class="float"><span id="fig1_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td><b>For Evaluation?</b></td><td><b>Notation</b></td><td><b>Typically Implied Role</b></td></tr>
+<tr><td>Yes</td><td><code>nil</code></td><td>use as a <i>boolean</i>.</td></tr>
+<tr><td>Yes</td><td><code>'nil</code></td><td>use as a <i>symbol</i>.</td></tr>
+<tr><td>Yes</td><td><code>'()</code></td><td>use as an <i>empty list</i></td></tr>
+<tr><td>No</td><td><code>nil</code></td><td>use as a <i>symbol</i> or <i>boolean</i>.</td></tr>
+<tr><td>No</td><td><code>()</code></td><td>use as an <i>empty list</i>.</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.1: </strong>Notations for NIL</p></div></div>
+
+<p>Within this document only, <code>nil</code>&nbsp;<!-- /@w -->is also sometimes notated as <i>false</i> to
+emphasize its role as a <i>boolean</i>.
+</p>
+<p>For example:
+</p>
+<div class="lisp">
+<pre class="lisp"> (print ())                          ;avoided
+ (defun three nil 3)                 ;avoided 
+ '(nil nil)                          ;list of two symbols
+ '(() ())                            ;list of empty lists
+ (defun three () 3)                  ;Emphasize empty parameter list.
+ (append '() '()) <span class="roman">→</span> ()              ;Emphasize use of empty lists
+ (not nil) <span class="roman">→</span> <i>true</i>                   ;Emphasize use as Boolean false
+ (get 'nil 'color)                   ;Emphasize use as a symbol
+</pre></div>
+
+
+<p>A <i>function</i> is sometimes said to &ldquo;be <i>false</i>&rdquo; or &ldquo;be <i>true</i>&rdquo;
+in some circumstance.
+Since no <i>function</i> object can be the same as <code>nil</code>&nbsp;<!-- /@w -->
+and all <i>function</i> <i>objects</i> represent <i>true</i> when viewed as <i>booleans</i>,
+it would be meaningless to say that the <i>function</i> was literally <i>false</i> 
+and uninteresting to say that it was literally <i>true</i>.
+Instead, these phrases are just traditional alternative ways of saying that the
+<i>function</i> &ldquo;returns <i>false</i>&rdquo; or &ldquo;returns <i>true</i>,&rdquo; respectively.
+</p>
+
+
+<span id="Designators-1"></span><h4 class="subsubsection">1.4.1.5 Designators</h4>
+<span id="Designators"></span>
+<p>A <span id="index-designator"></span>
+<em>designator</em> is an <i>object</i> that denotes another <i>object</i>.
+</p>
+<p>Where a <i>parameter</i> of an <i>operator</i> is described as a <i>designator</i>,
+the description of the <i>operator</i> is written in a way that assumes that
+the value of the <i>parameter</i> is the denoted <i>object</i>;
+that is, that the <i>parameter</i> is already of the denoted <i>type</i>.
+(The specific nature of the <i>object</i> denoted by
+a &ldquo;«type» <i>designator</i>&rdquo;
+or a &ldquo;<i>designator</i> for a «type»&rdquo; 
+can be found in the Glossary entry for &ldquo;«type» <i>designator</i>.&rdquo;)
+</p>
+<p>For example, &ldquo;<code>nil</code>&rdquo; and &ldquo;the <i>value</i> of <code>*standard-output*</code>&rdquo; are operationally
+indistinguishable as <i>stream designators</i>.  Similarly, 
+the <i>symbol</i> <code>foo</code> and the <i>string</i> <code>&quot;FOO&quot;</code> 
+are operationally indistinguishable as <i>string designators</i>.  
+</p>
+<p>Except as otherwise noted, in a situation where the denoted <i>object</i> 
+might be used multiple times, it is <i>implementation-dependent</i>
+whether the <i>object</i> is coerced only once or whether the coercion occurs
+each time the <i>object</i> must be used.
+</p>
+<p>For example, <code>mapcar</code> receives a <i>function designator</i> as an argument,
+and its description is written as if this were simply a function.  In fact, it
+is <i>implementation-dependent</i> whether the <i>function designator</i> is 
+coerced right away or whether it is carried around internally in the form that
+it was given as an <i>argument</i> and re-coerced each time it is needed.  In most
+cases, <i>conforming programs</i> cannot detect the distinction, but there are some 
+pathological situations (particularly those involving self-redefining or 
+mutually-redefining functions) which do conform and which can detect this difference.
+The following program is a <i>conforming program</i>, but might or might not have
+portably correct results, depending on whether its correctness depends on one or
+the other of the results:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun add-some (x) 
+   (defun add-some (x) (+ x 2))
+   (+ x 1)) <span class="roman">→</span> ADD-SOME
+ (mapcar 'add-some '(1 2 3 4))
+<span class="roman">→</span> (2 3 4 5)
+or<span class="roman">→</span> (2 4 5 6)
+</pre></div>
+
+
+<p>In a few rare situations, there may be a need in a dictionary entry
+to refer to the <i>object</i> that was the original <i>designator</i>
+for a <i>parameter</i>.
+Since naming the <i>parameter</i> would refer to the denoted <i>object</i>,
+the phrase &ldquo;the «parameter-name» <i>designator</i>&rdquo; 
+can be used to refer to the <i>designator</i> which was the <i>argument</i>
+from which the <i>value</i> of «parameter-name» was computed.
+</p>
+<span id="Nonsense-Words"></span><h4 class="subsubsection">1.4.1.6 Nonsense Words</h4>
+
+<p>When a word having no pre-attached semantics is required (<i>e.g.</i>, in an
+example), it is common in the Lisp community to use one of the words
+&ldquo;foo,&rdquo; &ldquo;bar,&rdquo; &ldquo;baz,&rdquo; and &ldquo;quux.&rdquo;  For example, in
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun foo (x) (+ x 1))
+</pre></div>
+
+<p>the use of the name <code>foo</code> is just a shorthand way of saying 
+&ldquo;please substitute your favorite name here.&rdquo;
+</p>
+<p>These nonsense words have gained such prevalance of usage, that it is
+commonplace for newcomers to the community to begin to wonder if there
+is an attached semantics which they are overlooking&mdash;there is not.
+</p>
+
+
+<hr>
+<span id="Error-Terminology"></span><div class="header">
+<p>
+Next: <a href="#Sections-Not-Formally-Part-Of-This-Standard" accesskey="n" rel="next">Sections Not Formally Part Of This Standard</a>, Previous: <a href="#Notational-Conventions" accesskey="p" rel="prev">Notational Conventions</a>, Up: <a href="#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Error-Terminology-1"></span><h4 class="subsection">1.4.2 Error Terminology</h4>
+
+<p>Situations in which errors might, should, or must be signaled are described
+in the standard.  The wording used to describe such situations is intended
+to have precise meaning. The following list is a glossary of those meanings.
+</p>
+
+<dl compact="compact">
+<dt><b>Safe code</b></dt>
+<dd><span id="index-safe"></span>
+
+<p>This is <i>code</i> processed with the <code>safety</code> optimization 
+at its highest setting (<code>3</code>).  <code>safety</code> is a lexical property
+of code.  The phrase &ldquo;the function <code>F</code> should signal an error&rdquo; 
+means that if <code>F</code> is invoked from code processed with the highest
+<code>safety</code> optimization, an error is signaled.
+It is <i>implementation-dependent</i> whether <code>F</code> or the calling 
+code signals the error.
+</p>
+</dd>
+<dt><b>Unsafe code</b></dt>
+<dd><span id="index-unsafe"></span>
+
+<p>This is code processed with lower safety levels.
+</p>
+<p>Unsafe code might do error checking.  Implementations are permitted to
+treat all code as safe code all the time.
+</p>
+</dd>
+<dt><b>An error is signaled</b></dt>
+<dd>
+<span id="index-signal"></span>
+<span id="index-is-signaled"></span>
+<span id="index-must-signal"></span>
+
+<p>This means that an error is signaled in both safe and unsafe code.
+<i>Conforming code</i> may rely on the fact that the error is signaled
+in both safe and unsafe code.  Every implementation is required to
+detect the error in both safe and unsafe code. For example, &ldquo;an error
+is signaled if <code>unexport</code> is given a <i>symbol</i>
+not <i>accessible</i> in the <i>current package</i>.&rdquo;
+</p>
+<p>If an explicit error type is not specified, the default is <code>error</code>.
+</p>
+</dd>
+<dt><b>An error should be signaled</b></dt>
+<dd>
+<span id="index-signal-1"></span>
+<span id="index-should-signal"></span>
+
+<p>This means that an error is signaled in safe code, and an error
+might be signaled in unsafe code.  <i>Conforming code</i> may rely on the
+fact that the error is signaled in safe code.  Every
+implementation is required to detect the error at least in safe code.
+When the error is not signaled, the &ldquo;consequences are undefined&rdquo;
+(see below).  For example, &ldquo;<code>+</code> should signal an error of <i>type</i> <code>type-error</code>
+if any argument is not of <i>type</i> <code>number</code>.&rdquo;
+</p>
+</dd>
+<dt><b>Should be prepared to signal an error</b></dt>
+<dd>
+<span id="index-signal-2"></span>
+<span id="index-prepared-to-signal"></span>
+
+<p>This is similar to &ldquo;should be signaled&rdquo; except that it does not
+imply that &lsquo;extra effort&rsquo; has to be taken on the part of an <i>operator</i>
+to discover an erroneous situation if the normal action of that <i>operator</i>
+can be performed successfully with only &lsquo;lazy&rsquo; checking.
+An <i>implementation</i> is always permitted to signal an error,
+but even in <i>safe</i> <i>code</i>, it is only required to signal the error
+when failing to signal it might lead to incorrect results.
+In <i>unsafe</i> <i>code</i>, the consequences are undefined.
+</p>
+<p>For example, defining that 
+&ldquo;<code>find</code> should be prepared to signal an error of <i>type</i> <code>type-error</code>
+if its second <i>argument</i> is not a <i>proper list</i>&rdquo;
+does not imply that an error is always signaled.  The <i>form</i>
+</p>
+<div class="lisp">
+<pre class="lisp"> (find 'a '(a b . c))
+</pre></div>
+
+
+<p>must either signal an error of <i>type</i> <code>type-error</code> in <i>safe</i> <i>code</i>,
+else return <code>A</code>.
+In <i>unsafe</i> <i>code</i>, the consequences are undefined.
+By contrast,
+</p>
+<div class="lisp">
+<pre class="lisp"> (find 'd '(a b . c))
+</pre></div>
+
+
+<p>must signal an error of <i>type</i> <code>type-error</code> in <i>safe</i> <i>code</i>.
+In <i>unsafe</i> <i>code</i>, the consequences are undefined.
+Also,
+</p>
+<div class="lisp">
+<pre class="lisp"> (find 'd '#1=(a b . #1#))
+</pre></div>
+
+
+<p>in <i>safe code</i>
+might return <code>nil</code>&nbsp;<!-- /@w -->(as an <i>implementation-defined</i> extension),
+might never return,
+or might signal an error of <i>type</i> <code>type-error</code>.
+In <i>unsafe</i> <i>code</i>, the consequences are undefined.
+</p>
+<p>Typically, the &ldquo;should be prepared to signal&rdquo; terminology is used in
+type checking situations where there are efficiency considerations that
+make it impractical to detect errors that are not relevant to the
+correct operation of the <i>operator</i>.
+</p>
+</dd>
+<dt><b>The consequences are unspecified</b></dt>
+<dd>
+<span id="index-consequences"></span>
+<span id="index-unspecified-consequences"></span>
+
+<p>This means that the consequences are unpredictable but harmless.
+Implementations are permitted to specify the consequences of this
+situation. No <i>conforming code</i> may depend on the results or effects of
+this situation, and all <i>conforming code</i> is required to treat the
+results and effects of this situation as unpredictable but harmless.
+For example, &ldquo;if the second argument to <code>shared-initialize</code>
+specifies a name that does not correspond to any <i>slots</i>
+<i>accessible</i> in the <i>object</i>, the results are unspecified.&rdquo;
+</p>
+</dd>
+<dt><b>The consequences are undefined</b></dt>
+<dd>
+<span id="index-consequences-1"></span>
+<span id="index-undefined-consequences"></span>
+
+<p>This means that the consequences are unpredictable. The consequences
+may range from harmless to fatal.  No <i>conforming code</i> may depend on
+the results or effects. <i>Conforming code</i> must treat the consequences as
+unpredictable.  In places where the words &ldquo;must,&rdquo; &ldquo;must not,&rdquo; or
+&ldquo;may not&rdquo; are used, then &ldquo;the consequences are undefined&rdquo; if the
+stated requirement is not met and no specific consequence is
+explicitly stated.  An implementation is permitted to signal an error
+in this case.
+</p>
+<p>For example: &ldquo;Once a name has been declared by <code>defconstant</code>
+to be constant, any further assignment or binding of that
+variable has undefined consequences.&rdquo;
+</p>
+</dd>
+<dt><b>An error might be signaled</b></dt>
+<dd>
+<span id="index-signal-3"></span>
+<span id="index-might-signal"></span>
+
+<p>This means that the situation has undefined consequences;
+however, if an error is signaled, it is of the specified <i>type</i>.
+For example, &ldquo;<code>open</code> might signal an error of <i>type</i> <code>file-error</code>.&rdquo;
+</p>
+</dd>
+<dt><b>The return values are unspecified</b></dt>
+<dd>
+<span id="index-unspecified-values"></span>
+
+<p>This means that only the number and nature of the return values of a
+<i>form</i> are not specified.  However, the issue of whether or not
+any side-effects or transfer of control occurs is still well-specified.
+</p>
+<p>A program can be well-specified even if it uses a function whose
+returns values are unspecified.  For example, even if the return
+values of some function <code>F</code> are unspecified, an expression such as
+<code>(length (list (F)))</code> is still well-specified because it does not
+rely on any particular aspect of the value or values returned by <code>F</code>.
+</p>
+</dd>
+<dt><b>Implementations may be extended to cover this situation</b></dt>
+<dd>
+<span id="index-extensions"></span>
+
+<p>This means that the <i>situation</i> has undefined consequences;
+however, a <i>conforming implementation</i> is free to treat
+the situation in a more specific way.  
+For example, an <i>implementation</i> might define 
+that      an error is signaled,
+or that      an error should be signaled,
+or even that a certain well-defined non-error behavior occurs.
+</p>
+<p>No <i>conforming code</i> may depend on the consequences of such a <i>situation</i>;
+all <i>conforming code</i> must treat the consequences of the situation
+as undefined. <i>Implementations</i> are required to document how the
+situation is treated.
+</p>
+<p>For example, &ldquo;implementations may be extended to define other type
+specifiers to have a corresponding <i>class</i>.&rdquo;
+</p>
+</dd>
+<dt><b>Implementations are free to extend the syntax</b></dt>
+<dd>
+<span id="index-extensions-1"></span>
+
+<p>This means that in this situation implementations are permitted to
+define unambiguous extensions to the syntax of the <i>form</i> being
+described.  No <i>conforming code</i> may depend on this extension.
+Implementations are required to document each such extension. All
+<i>conforming code</i> is required to treat the syntax as meaningless. The
+standard might disallow certain extensions while allowing others. For
+example, &ldquo;no implementation is free to extend the syntax of
+<code>defclass</code>.&rdquo;
+</p>
+</dd>
+<dt><b>A warning might be issued</b></dt>
+<dd>
+<span id="index-warning"></span>
+
+<p>This means that <i>implementations</i> are encouraged to issue a warning
+if the context is appropriate (<i>e.g.</i>, when compiling).  However, a
+<i>conforming implementation</i> is not required to issue a warning.
+</p></dd>
+</dl>
+
+
+
+<hr>
+<span id="Sections-Not-Formally-Part-Of-This-Standard"></span><div class="header">
+<p>
+Next: <a href="#Interpreting-Dictionary-Entries" accesskey="n" rel="next">Interpreting Dictionary Entries</a>, Previous: <a href="#Error-Terminology" accesskey="p" rel="prev">Error Terminology</a>, Up: <a href="#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Sections-Not-Formally-Part-Of-This-Standard-1"></span><h4 class="subsection">1.4.3 Sections Not Formally Part Of This Standard</h4>
+
+<p>Front matter and back matter, such as the &ldquo;Table of Contents,&rdquo; 
+&ldquo;Index,&rdquo; &ldquo;Figures,&rdquo; &ldquo;Credits,&rdquo; and &ldquo;Appendix&rdquo; are not considered formally 
+part of this standard, so that we retain the flexibility needed to update
+these sections even at the last minute without fear of needing a formal 
+vote to change those parts of the document.  These items are quite short 
+and very useful, however, and it is not recommended that they be removed 
+even in an abridged version of this document.
+</p>
+<p>Within the concept sections, subsections whose names begin with 
+the words &ldquo;Note&rdquo; or &ldquo;Notes&rdquo; or &ldquo;Example&rdquo; or &ldquo;Examples&rdquo; 
+are provided for illustration purposes only, and are not considered
+part of the standard.
+</p>
+<p>An attempt has been made to place these sections last in their parent section,
+so that they could be removed without disturbing the contiguous numbering of the 
+surrounding sections in order to produce a document of smaller size.
+</p>
+<p>Likewise, the &ldquo;Examples&rdquo; and &ldquo;Notes&rdquo; sections in a dictionary entry
+are not considered part of the standard and could be removed if necessary.
+</p>
+<p>Nevertheless, the examples provide important clarifications and consistency 
+checks for the rest of the material, and such abridging is not recommended
+unless absolutely unavoidable.
+</p>
+
+<hr>
+<span id="Interpreting-Dictionary-Entries"></span><div class="header">
+<p>
+Previous: <a href="#Sections-Not-Formally-Part-Of-This-Standard" accesskey="p" rel="prev">Sections Not Formally Part Of This Standard</a>, Up: <a href="#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Interpreting-Dictionary-Entries-1"></span><h4 class="subsection">1.4.4 Interpreting Dictionary Entries</h4>
+
+<p>The dictionary entry for each <i>defined name</i> is partitioned into
+sections.  Except as explicitly indicated otherwise below, each section
+is introduced by a label identifying that section.  The omission of a
+section implies that the section is either not applicable, or would
+provide no interesting information.
+</p>
+<p>This section defines the significance of each potential section in a
+dictionary entry.
+</p>
+<span id="The-_0060_0060Affected-By_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.1 The &ldquo;Affected By&rdquo; Section of a Dictionary Entry</h4>
+
+<p>For an <i>operator</i>, anything that can affect the side effects of
+or <i>values</i> returned by the <i>operator</i>.
+</p>
+<p>For a <i>variable</i>, anything that can affect the <i>value</i> of the <i>variable</i>
+including <i>functions</i> that bind or assign it.
+</p>
+
+<span id="The-_0060_0060Arguments_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.2 The &ldquo;Arguments&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This information describes the syntax information of entries such as those for
+<i>declarations</i> and special <i>expressions</i> which are never <i>evaluated</i>
+as <i>forms</i>, and so do not return <i>values</i>.
+</p>
+
+<span id="The-_0060_0060Arguments-and-Values_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.3 The &ldquo;Arguments and Values&rdquo; Section of a Dictionary Entry</h4>
+
+<p>An English language description of what <i>arguments</i> the <i>operator</i> accepts
+and what <i>values</i> it returns, including information about defaults for <i>parameters</i>
+corresponding to omittable <i>arguments</i>
+(such as <i>optional parameters</i> and <i>keyword parameters</i>).
+For <i>special operators</i> and <i>macros</i>,
+their <i>arguments</i> are not <i>evaluated</i> unless it is explicitly stated in their
+descriptions that they are <i>evaluated</i>.
+</p>
+<p>Except as explicitly specified otherwise,
+the consequences are undefined if these type restrictions are violated.
+</p>
+
+<span id="The-_0060_0060Binding-Types-Affected_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.4 The &ldquo;Binding Types Affected&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This information alerts the reader to the kinds of <i>bindings</i> that might 
+potentially be affected by a declaration.  Whether in fact any particular such
+<i>binding</i> is actually affected is dependent on additional factors as well.
+See the &ldquo;Description&rdquo; section of the declaration in question for details.
+</p>
+
+<span id="The-_0060_0060Class-Precedence-List_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.5 The &ldquo;Class Precedence List&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This appears in the dictionary entry for a <i>class</i>,
+and contains an ordered list of the <i>classes</i> defined 
+by <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->that must be in the <i>class precedence list</i> of this <i>class</i>.
+</p>
+<p>It is permissible for other (<i>implementation-defined</i>) <i>classes</i>
+to appear in the <i>implementation</i>&rsquo;s <i>class precedence list</i> for the <i>class</i>.
+</p>
+<p>It is permissible for 
+either <code>standard-object</code>
+or <code>structure-object</code>
+to appear in the <i>implementation</i>&rsquo;s <i>class precedence list</i>;
+for details, see <a href="Types-and-Classes.html#Type-Relationships">Section 4.2.2 (Type Relationships)</a>.
+</p>
+<p>Except as explicitly indicated otherwise somewhere in this specification,
+no additional <i>standardized</i> <i>classes</i> may appear in 
+the <i>implementation</i>&rsquo;s <i>class precedence list</i>.
+</p>
+<p>By definition of the relationship between <i>classes</i> and <i>types</i>,
+the <i>classes</i> listed in this section are also <i>supertypes</i> of 
+the <i>type</i> denoted by the <i>class</i>.
+</p>
+
+<span id="Dictionary-Entries-for-Type-Specifiers"></span><h4 class="subsubsection">1.4.4.6 Dictionary Entries for Type Specifiers</h4>
+<span id="TypeSpecEntries"></span>
+<p>The <i>atomic type specifiers</i> are those <i>defined names</i> 
+listed in <a href="Types-and-Classes.html#StandardizedAtomicTypeSpecs">Figure 4.2</a>.
+Such dictionary entries are of kind 
+&ldquo;Class,&rdquo; &ldquo;Condition Type,&rdquo; &ldquo;System Class,&rdquo; or &ldquo;Type.&rdquo;
+A description of how to interpret 
+a <i>symbol</i> naming one of these <i>types</i> or <i>classes</i> 
+as an <i>atomic type specifier</i>
+is found in the &ldquo;Description&rdquo; section of such dictionary entries.
+</p>
+<p>The <i>compound type specifiers</i> are those <i>defined names</i> 
+listed in <a href="Types-and-Classes.html#StandardizedCompoundTypeSpecNames">Figure 4.3</a>.
+Such dictionary entries are of kind &ldquo;Class,&rdquo; &ldquo;System Class,&rdquo;
+&ldquo;Type,&rdquo; or &ldquo;Type Specifier.&rdquo;
+A description of how to interpret as a <i>compound type specifier</i>
+a <i>list</i> whose <i>car</i> is such a <i>symbol</i>
+is found in the 
+&ldquo;Compound Type Specifier Kind,&rdquo;
+&ldquo;Compound Type Specifier Syntax,&rdquo;
+&ldquo;Compound Type Specifier Arguments,&rdquo;
+and &ldquo;Compound Type Specifier Description&rdquo;
+sections of such dictionary entries.
+</p>
+<span id="g_t1_002e4_002e4_002e6_002e1-The-_0060_0060Compound-Type-Specifier-Kind_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="unnumberedsubsubsec">1.4.4.6.1 The &ldquo;Compound Type Specifier Kind&rdquo; Section of a Dictionary Entry</h4>
+
+
+<p>An &ldquo;abbreviating&rdquo; <i>type specifier</i> is one that describes a <i>subtype</i>
+for which it is in principle possible to enumerate the <i>elements</i>,
+but for which in practice it is impractical to do so.
+</p>
+<p>A &ldquo;specializing&rdquo; <i>type specifier</i> is one that describes a <i>subtype</i>
+by restricting the <i>type</i> of one or more components of the <i>type</i>,
+such as <i>element type</i> or <i>complex part type</i>.
+</p>
+<p>A &ldquo;predicating&rdquo; <i>type specifier</i> is one that describes a <i>subtype</i>
+containing only those <i>objects</i> that satisfy a given <i>predicate</i>.
+</p>
+<p>A &ldquo;combining&rdquo; <i>type specifier</i> is one that describes a <i>subtype</i>
+in a compositional way, using combining operations (such as &ldquo;and,&rdquo; &ldquo;or,&rdquo; and
+&ldquo;not&rdquo;) on other <i>types</i>.
+</p>
+
+<span id="g_t1_002e4_002e4_002e6_002e2-The-_0060_0060Compound-Type-Specifier-Syntax_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="unnumberedsubsubsec">1.4.4.6.2 The &ldquo;Compound Type Specifier Syntax&rdquo; Section of a Dictionary Entry</h4>
+
+
+<p>This information about a <i>type</i> describes the syntax of a 
+<i>compound type specifier</i> for that <i>type</i>.
+</p>
+<p>Whether or not the <i>type</i> is acceptable as an <i>atomic type specifier</i>
+is not represented here; see <a href="#TypeSpecEntries">Section 1.4.4.6 (Dictionary Entries for Type Specifiers)</a>.
+</p>
+
+<span id="g_t1_002e4_002e4_002e6_002e3-The-_0060_0060Compound-Type-Specifier-Arguments_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="unnumberedsubsubsec">1.4.4.6.3 The &ldquo;Compound Type Specifier Arguments&rdquo; Section of a Dictionary Entry</h4>
+
+
+<p>This information describes <i>type</i> information for the structures defined in
+the &ldquo;Compound Type Specifier Syntax&rdquo; section.
+</p>
+
+<span id="g_t1_002e4_002e4_002e6_002e4-The-_0060_0060Compound-Type-Specifier-Description_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="unnumberedsubsubsec">1.4.4.6.4 The &ldquo;Compound Type Specifier Description&rdquo; Section of a Dictionary Entry</h4>
+
+
+<p>This information describes the meaning of the structures defined in
+the &ldquo;Compound Type Specifier Syntax&rdquo; section.
+</p>
+
+
+<span id="The-_0060_0060Constant-Value_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.7 The &ldquo;Constant Value&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This information describes the unchanging <i>type</i> and <i>value</i> of 
+a <i>constant variable</i>.
+</p>
+
+<span id="The-_0060_0060Description_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.8 The &ldquo;Description&rdquo; Section of a Dictionary Entry</h4>
+
+<p>A summary of the <i>operator</i> and all intended aspects of the <i>operator</i>, 
+but does not necessarily include all the fields referenced below it 
+(&ldquo;Side Effects,&rdquo; &ldquo;Exceptional Situations,&rdquo; <i>etc</i>.)
+</p>
+
+<span id="The-_0060_0060Examples_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.9 The &ldquo;Examples&rdquo; Section of a Dictionary Entry</h4>
+
+<p>Examples of use of the <i>operator</i>.
+These examples are not considered part of the standard;
+see <a href="#Sections-Not-Formally-Part-Of-This-Standard">Section 1.4.3 (Sections Not Formally Part Of This Standard)</a>.
+</p>
+
+<span id="The-_0060_0060Exceptional-Situations_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.10 The &ldquo;Exceptional Situations&rdquo; Section of a Dictionary Entry</h4>
+
+<p>Three kinds of information may appear here:
+</p>
+<ul>
+<li> Situations that are detected by the <i>function</i> and formally signaled.
+</li><li> Situations that are handled by the <i>function</i>.
+</li><li> Situations that may be detected by the <i>function</i>.
+</li></ul>
+
+<p>This field does not include conditions that could
+be signaled by <i>functions</i> passed to and called by this <i>operator</i>
+as arguments or through dynamic variables, nor by executing subforms of this
+operator if it is a <i>macro</i> or <i>special operator</i>.
+</p>
+
+<span id="The-_0060_0060Initial-Value_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.11 The &ldquo;Initial Value&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This information describes the initial <i>value</i> of a <i>dynamic variable</i>.
+Since this variable might change, see <i>type</i> restrictions in the &ldquo;Value Type&rdquo; section.
+</p>
+
+<span id="The-_0060_0060Argument-Precedence-Order_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.12 The &ldquo;Argument Precedence Order&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This information describes the <i>argument precedence order</i>.
+If it is omitted, the <i>argument precedence order</i> is the default (left to right).
+</p>
+
+<span id="The-_0060_0060Method-Signature_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.13 The &ldquo;Method Signature&rdquo; Section of a Dictionary Entry</h4>
+
+<p>The description of a <i>generic function</i> includes descriptions of the
+<i>methods</i> that are defined on that <i>generic function</i> by the standard.  
+A method signature is used to describe the <i>parameters</i> and 
+<i>parameter specializers</i> for each <i>method</i>. 
+<i>Methods</i> defined for the <i>generic function</i> must be of the form described
+by the <i>method</i> <i>signature</i>. 
+</p>
+<p>F <tt>(</tt><var>x</var> <var>class</var><tt>)</tt>
+<tt>(</tt><var>y</var> t<tt>)</tt>
+<tt>&amp;optional</tt> <var>z</var> <tt>&amp;key</tt> <var>k</var>
+</p>
+<p> This <i>signature</i> indicates that this method on the <i>generic function</i>
+<b>F</b> has two <i>required parameters</i>:
+<var>x</var>, which must be a <i>generalized instance</i> of the <i>class</i> <var>class</var>;
+and <var>y</var>, which can  be any <i>object</i> 
+(<i>i.e.</i>, a <i>generalized instance</i> of the <i>class</i> <code>t</code>).
+In addition, there is an <i>optional parameter</i> <var>z</var> and a
+<i>keyword parameter</i> <var>k</var>.  This <i>signature</i> also indicates that this
+method on <code>F</code> is a <i>primary method</i> and has no <i>qualifiers</i>.
+</p>
+<p>For each <i>parameter</i>, the <i>argument</i> supplied must be in the
+intersection of the <i>type</i> specified in the description of the
+corresponding <i>generic function</i> and the <i>type</i> given in 
+the <i>signature</i> of some <i>method</i> (including not only those 
+<i>methods</i> defined in this specification, but also
+<i>implementation-defined</i> or user-defined <i>methods</i> in situations
+where the definition of such <i>methods</i> is permitted).
+</p>
+
+<span id="The-_0060_0060Name_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.14 The &ldquo;Name&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This section introduces the dictionary entry.  It is not explicitly labeled.
+It appears preceded and followed by a horizontal bar.
+</p>
+<p>In large print at left, the <i>defined name</i> appears; if more than one
+<i>defined name</i> is to be described by the entry, all such <i>names</i> 
+are shown separated by commas.
+</p>
+<p>In somewhat smaller italic print at right is an indication of what kind
+of dictionary entry this is.  Possible values are:
+</p>
+
+<dl compact="compact">
+<dt><i>Accessor</i></dt>
+<dd>
+
+<p>This is an <i>accessor</i> <i>function</i>.
+</p>
+</dd>
+<dt><i>Class</i></dt>
+<dd>
+
+<p>This is a <i>class</i>.
+</p>
+</dd>
+<dt><i>Condition Type</i></dt>
+<dd>
+
+<p>This is a subtype of <i>type</i> <code>condition</code>.
+</p>
+</dd>
+<dt><i>Constant Variable</i></dt>
+<dd>
+
+<p>This is a <i>constant variable</i>.
+</p>
+</dd>
+<dt><i>Declaration</i></dt>
+<dd>
+
+<p>This is a <i>declaration identifier</i>.
+</p>
+</dd>
+<dt><i>Function</i></dt>
+<dd>
+
+<p>This is a <i>function</i>.
+</p>
+</dd>
+<dt><i>Local Function</i></dt>
+<dd>
+
+<p>This is a <i>function</i> that is defined only lexically within the scope of some
+other <i>macro form</i>.
+</p>
+</dd>
+<dt><i>Local Macro</i></dt>
+<dd>
+
+<p>This is a <i>macro</i> that is defined only lexically within the scope of some
+other <i>macro form</i>.
+</p>
+</dd>
+<dt><i>Macro</i></dt>
+<dd>
+
+<p>This is a <i>macro</i>.
+</p>
+</dd>
+<dt><i>Restart</i></dt>
+<dd>
+
+<p>This is a <i>restart</i>.
+</p>
+</dd>
+<dt><i>Special Operator</i></dt>
+<dd>
+
+<p>This is a <i>special operator</i>.
+</p>
+</dd>
+<dt><i>Standard Generic Function</i></dt>
+<dd>
+
+<p>This is a <i>standard generic function</i>.
+</p>
+</dd>
+<dt><i>Symbol</i></dt>
+<dd>
+
+<p>This is a <i>symbol</i> that is specially recognized in some particular situation,
+such as the syntax of a <i>macro</i>.
+</p>
+</dd>
+<dt><i>System Class</i></dt>
+<dd>
+
+<p>This is like <i>class</i>, but it identifies a <i>class</i> that is potentially
+a <i>built-in class</i>.  (No <i>class</i> is actually required to be a
+<i>built-in class</i>.)
+</p>
+</dd>
+<dt><i>Type</i></dt>
+<dd>
+
+<p>This is an <i>atomic type specifier</i>,
+and depending on information for each particular entry,
+may subject to form other <i>type specifiers</i>.
+</p>
+</dd>
+<dt><i>Type Specifier</i></dt>
+<dd>
+
+<p>This is a <i>defined name</i> that is not an <i>atomic type specifier</i>,
+but that can be used in constructing valid <i>type specifiers</i>.
+</p>
+</dd>
+<dt><i>Variable</i></dt>
+<dd>
+
+<p>This is a <i>dynamic variable</i>.
+</p></dd>
+</dl>
+
+
+
+<span id="The-_0060_0060Notes_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.15 The &ldquo;Notes&rdquo; Section of a Dictionary Entry</h4>
+
+<p>Information not found elsewhere in this description
+which pertains to this <i>operator</i>.
+Among other things, this might include 
+cross reference information,
+code equivalences, 
+stylistic hints,
+implementation hints,
+typical uses.
+This information is not considered part of the standard;
+any <i>conforming implementation</i> or <i>conforming program</i>
+is permitted to ignore the presence of this information.
+</p>
+
+<span id="The-_0060_0060Pronunciation_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.16 The &ldquo;Pronunciation&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This offers a suggested pronunciation for <i>defined names</i> 
+so that people not in verbal communication with the original designers
+can figure out how to pronounce words that are not in normal English usage.
+This information is advisory only, and is not considered part of the standard.
+For brevity, it is only provided for entries with names that are specific to
+<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->and would not be found in <cite>Webster&rsquo;s Third New International Dictionary the English Language, Unabridged</cite>.
+</p>
+
+<span id="The-_0060_0060See-Also_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.17 The &ldquo;See Also&rdquo; Section of a Dictionary Entry</h4>
+
+<p>List of references to other parts of this standard
+that offer information relevant to this <i>operator</i>. 
+This list is not part of the standard.
+</p>
+
+<span id="The-_0060_0060Side-Effects_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.18 The &ldquo;Side Effects&rdquo; Section of a Dictionary Entry</h4>
+
+<p>Anything that is changed as a result of the
+evaluation of the <i>form</i> containing this <i>operator</i>.
+</p>
+
+<span id="The-_0060_0060Supertypes_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.19 The &ldquo;Supertypes&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This appears in the dictionary entry for a <i>type</i>,
+and contains a list of the <i>standardized</i> <i>types</i> 
+that must be <i>supertypes</i> of this <i>type</i>.
+</p>
+<p>In <i>implementations</i> where there is a corresponding <i>class</i>,
+the order of the <i>classes</i> in the <i>class precedence list</i> 
+is consistent with the order presented in this section.
+</p>
+
+<span id="The-_0060_0060Syntax_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.20 The &ldquo;Syntax&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This section describes how to use the <i>defined name</i> in code.
+The &ldquo;Syntax&rdquo; description for a <i>generic function</i> 
+describes the <i>lambda list</i> of the <i>generic function</i> itself, 
+while the &ldquo;Method Signatures&rdquo; describe the <i>lambda lists</i> 
+of the defined <i>methods</i>.
+The &ldquo;Syntax&rdquo; description for 
+an <i>ordinary function</i>,
+a <i>macro</i>,
+or a <i>special operator</i>
+describes its <i>parameters</i>.
+</p>
+<p>For example, an <i>operator</i> description might say:
+</p>
+<dl>
+<dt id="index-F">Function: <strong>F</strong> <em>x y <tt>&amp;optional</tt> z <tt>&amp;key</tt> k</em></dt>
+</dl>
+
+<p> This description indicates that the function <b>F</b> 
+has two required parameters, <var>x</var> and <var>y</var>.  In addition,
+there is an optional parameter <var>z</var> and a keyword parameter <var>k</var>.
+</p>
+<p>For <i>macros</i> and <i>special operators</i>, syntax is given 
+in modified BNF notation; see <a href="#ModifiedBNF">Section 1.4.1.2 (Modified BNF Syntax)</a>.
+For <i>functions</i> a <i>lambda list</i> is given.
+In both cases, however, the outermost parentheses are omitted,
+and default value information is omitted.
+</p>
+<span id="g_t1_002e4_002e4_002e20_002e1-Special-_0060_0060Syntax_0027_0027-Notations-for-Overloaded-Operators"></span><h4 class="unnumberedsubsubsec">1.4.4.20.1 Special &ldquo;Syntax&rdquo; Notations for Overloaded Operators</h4>
+
+
+<p>If two descriptions exist for the same operation but with different numbers of
+arguments, then the extra arguments are to be treated as optional.  For example,
+this pair of lines:
+</p>
+<dl>
+<dt id="index-file_002dposition-1">Function: <strong>file-position</strong> <em>stream <span class="roman">→</span> position</em></dt>
+</dl>
+<dl>
+<dt id="index-file_002dposition-2">Function: <strong>file-position</strong> <em>stream position-spec <span class="roman">→</span> success-p</em></dt>
+</dl>
+
+<p> is operationally equivalent to this line:
+</p>
+<dl>
+<dt id="index-file_002dposition-3">Function: <strong>file-position</strong> <em>stream <tt>&amp;optional</tt> position-spec <span class="roman">→</span> result</em></dt>
+</dl>
+
+<p> and differs only in that it provides on opportunity to introduce different
+names for <i>parameter</i> and <i>values</i> for each case.
+The separated (multi-line) notation is used when an <i>operator</i> is overloaded in
+such a way that the <i>parameters</i> are used in different ways
+depending on how many <i>arguments</i> are supplied (<i>e.g.</i>, for the <i>function</i> <code>/</code>)
+or the return values are different in the two cases (<i>e.g.</i>, for the <i>function</i> <code>file-position</code>).
+</p>
+
+<span id="g_t1_002e4_002e4_002e20_002e2-Naming-Conventions-for-Rest-Parameters"></span><h4 class="unnumberedsubsubsec">1.4.4.20.2 Naming Conventions for Rest Parameters</h4>
+
+
+<p>Within this specification, 
+if the name of a <i>rest parameter</i> is chosen to be a plural noun,
+use of that name in <var>parameter</var> font refers
+to the <i>list</i> to which the <i>rest parameter</i> is bound.
+Use of the singular form of that name in <var>parameter</var> font refers 
+to an <i>element</i> of that <i>list</i>.
+</p>
+<p>For example, given a syntax description such as:
+</p>
+<dl>
+<dt id="index-F-1">Function: <strong>F</strong> <em><tt>&amp;rest</tt> <var>arguments</var></em></dt>
+</dl>
+
+<p> it is appropriate to refer either to the <i>rest parameter</i> named
+<var>arguments</var> by name, or to one of its elements by speaking of &ldquo;an <var>argument</var>,&rdquo;
+&ldquo;some <var>argument</var>,&rdquo; &ldquo;each <var>argument</var>&rdquo; <i>etc</i>.
+</p>
+
+<span id="g_t1_002e4_002e4_002e20_002e3-Requiring-Non_002dNull-Rest-Parameters-in-the-_0060_0060Syntax_0027_0027-Section"></span><h4 class="unnumberedsubsubsec">1.4.4.20.3 Requiring Non-Null Rest Parameters in the &ldquo;Syntax&rdquo; Section</h4>
+
+
+<p>In some cases it is useful to refer to all arguments equally as a single
+aggregation using a <i>rest parameter</i> while at the same time
+requiring at least one argument.  A variety of imperative and
+declarative means are available in <i>code</i> for expressing such a
+restriction, however they generally do not manifest themselves in a
+<i>lambda list</i>.  For descriptive purposes within this specification,
+</p>
+<dl>
+<dt id="index-F-2">Function: <strong>F</strong> <em><tt>&amp;rest</tt> arguments+</em></dt>
+</dl>
+
+<p> means the same as
+</p>
+<dl>
+<dt id="index-F-3">Function: <strong>F</strong> <em><tt>&amp;rest</tt> arguments</em></dt>
+</dl>
+
+<p> but introduces the additional requirement that there be 
+at least one <var>argument</var>.
+</p>
+
+<span id="g_t1_002e4_002e4_002e20_002e4-Return-values-in-the-_0060_0060Syntax_0027_0027-Section"></span><h4 class="unnumberedsubsubsec">1.4.4.20.4 Return values in the &ldquo;Syntax&rdquo; Section</h4>
+
+
+<p>An evaluation arrow &ldquo;<span class="roman">→</span>&rdquo; precedes a list of <i>values</i> to be returned.
+For example:
+</p>
+<dl>
+<dt id="index-F-4">Function: <strong>F</strong> <em>a b c <span class="roman">→</span> x</em></dt>
+</dl>
+
+<p> indicates that <code>F</code> is an operator that has three <i>required parameters</i>
+(<i>i.e.</i>, <var>a</var>, <var>b</var>, and <var>c</var>) and that returns one <i>value</i> (<i>i.e.</i>, <var>x</var>).
+If more than one <i>value</i> is returned by an operator, the <i>names</i> of the
+<i>values</i> are separated by commas, as in:
+</p>
+<dl>
+<dt id="index-F-5">Function: <strong>F</strong> <em>a b c <span class="roman">→</span> x, y, z</em></dt>
+</dl>
+
+<span id="g_t1_002e4_002e4_002e20_002e4_002e1-No-Arguments-or-Values-in-the-_0060_0060Syntax_0027_0027-Section"></span><h4 class="unnumberedsubsubsec">1.4.4.20.4.1 No Arguments or Values in the &ldquo;Syntax&rdquo; Section</h4>
+
+
+<p>If no <i>arguments</i> are permitted, or no <i>values</i> are returned, 
+a special notation is used to make this more visually apparent.  For example,
+</p>
+<dl>
+<dt id="index-F-6">Function: <strong>F</strong> <em>&lt;no <i>arguments</i>&gt; <span class="roman">→</span> &lt;no <i>values</i>&gt;</em></dt>
+</dl>
+
+<p>indicates that <code>F</code> is an operator that accepts no <i>arguments</i> and returns
+no <i>values</i>.
+</p>
+
+<span id="g_t1_002e4_002e4_002e20_002e4_002e2-Unconditional-Transfer-of-Control-in-the-_0060_0060Syntax_0027_0027-Section"></span><h4 class="unnumberedsubsubsec">1.4.4.20.4.2 Unconditional Transfer of Control in the &ldquo;Syntax&rdquo; Section</h4>
+
+
+<p>Some <i>operators</i> perform an unconditional transfer of control, and
+so never have any return values.  Such <i>operators</i> are notated using
+a notation such as the following:
+</p>
+<dl>
+<dt id="index-F-7">Function: <strong>F</strong> <em>a b c <span class="roman">→</span><span class="roman">|</span></em></dt>
+</dl>
+
+
+
+
+<span id="The-_0060_0060Valid-Context_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.21 The &ldquo;Valid Context&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This information is used by dictionary entries such as &ldquo;Declarations&rdquo;
+in order to restrict the context in which the declaration may appear.
+</p>
+<p>A given &ldquo;Declaration&rdquo; might appear in 
+a <i>declaration</i> (<i>i.e.</i>, a <tt>declare</tt> <i>expression</i>),
+a <i>proclamation</i> (<i>i.e.</i>, a <code>declaim</code> or <code>proclaim</code> <i>form</i>),
+or both.
+</p>
+
+<span id="The-_0060_0060Value-Type_0027_0027-Section-of-a-Dictionary-Entry"></span><h4 class="subsubsection">1.4.4.22 The &ldquo;Value Type&rdquo; Section of a Dictionary Entry</h4>
+
+<p>This information describes any <i>type</i> restrictions on a <i>dynamic variable</i>.
+</p>
+<p>Except as explicitly specified otherwise,
+the consequences are undefined if this type restriction is violated.
+</p>
+
+
+<hr>
+<span id="Conformance"></span><div class="header">
+<p>
+Next: <a href="#Language-Extensions" accesskey="n" rel="next">Language Extensions</a>, Previous: <a href="#Definitions" accesskey="p" rel="prev">Definitions</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Conformance-1"></span><h3 class="section">1.5 Conformance</h3>
+
+
+<p>This standard presents the syntax and semantics to be implemented by a
+<i>conforming implementation</i> (and its accompanying documentation).
+In addition, it imposes requirements on <i>conforming programs</i>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Conforming-Implementations" accesskey="1">Conforming Implementations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Conforming-Programs" accesskey="2">Conforming Programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Conforming-Implementations"></span><div class="header">
+<p>
+Next: <a href="#Conforming-Programs" accesskey="n" rel="next">Conforming Programs</a>, Up: <a href="#Conformance" accesskey="u" rel="up">Conformance</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Conforming-Implementations-1"></span><h4 class="subsection">1.5.1 Conforming Implementations</h4>
+
+<p>A <span id="index-conforming-implementation"></span>
+<em>conforming implementation</em> shall adhere to the requirements outlined
+in this section.
+</p>
+<span id="Required-Language-Features"></span><h4 class="subsubsection">1.5.1.1 Required Language Features</h4>
+<span id="ReqLangFeatures"></span>
+<p>A <i>conforming implementation</i> shall accept all features 
+(including deprecated features)
+of the language specified in this standard,
+with the meanings defined in this standard.
+</p>
+<p>A <i>conforming implementation</i> shall not require the inclusion of substitute
+or additional language elements in code in order to accomplish a feature of
+the language that is specified in this standard.
+</p>
+
+<span id="Documentation-of-Implementation_002dDependent-Features"></span><h4 class="subsubsection">1.5.1.2 Documentation of Implementation-Dependent Features</h4>
+
+<p>A <i>conforming implementation</i> shall be accompanied by a document
+that provides a definition of all <i>implementation-defined</i>
+aspects of the language defined by this specification.
+</p>
+<p>In addition, a <i>conforming implementation</i> is encouraged (but not required) 
+to document items in this standard that are identified as
+<i>implementation-dependent</i>, although in some cases
+such documentation might simply identify the item as &ldquo;undefined.&rdquo;
+</p>
+
+<span id="Documentation-of-Extensions"></span><h4 class="subsubsection">1.5.1.3 Documentation of Extensions</h4>
+
+<p>A <i>conforming implementation</i> shall be accompanied by a
+document that separately describes any features accepted by the
+<i>implementation</i> that are not specified in this standard, but that do not
+cause any ambiguity or contradiction when added to the language
+standard.  Such extensions shall be described as being &ldquo;extensions to
+<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->as specified by ANSI «standard number».&rdquo;
+</p>
+
+<span id="Treatment-of-Exceptional-Situations"></span><h4 class="subsubsection">1.5.1.4 Treatment of Exceptional Situations</h4>
+
+<p>A <i>conforming implementation</i> shall treat exceptional situations 
+in a manner consistent with this specification.
+</p>
+<span id="g_t1_002e5_002e1_002e4_002e1-Resolution-of-Apparent-Conflicts-in-Exceptional-Situations"></span><h4 class="unnumberedsubsubsec">1.5.1.4.1 Resolution of Apparent Conflicts in Exceptional Situations</h4>
+
+
+<p>If more than one passage in this specification appears to apply to the
+same situation but in conflicting ways, the passage that appears
+to describe the situation in the most specific way (not necessarily the
+passage that provides the most constrained kind of error detection) 
+takes precedence.
+</p>
+<span id="g_t1_002e5_002e1_002e4_002e1_002e1-Examples-of-Resolution-of-Apparent-Conflicts"></span><h4 class="unnumberedsubsubsec">1.5.1.4.1.1 Examples of Resolution of Apparent Conflicts</h4>
+<p>in Exceptional Situations
+</p>
+
+<p>Suppose that function <code>foo</code> is a member of a set S of <i>functions</i> that
+operate on numbers.  Suppose that one passage states that an error must be
+signaled if any <i>function</i> in S is ever given an argument of <code>17</code>.
+Suppose that an apparently conflicting passage states that the consequences 
+are undefined if <code>foo</code> receives an argument of <code>17</code>.  Then the second passage
+(the one specifically about <code>foo</code>) would dominate because the description of
+the situational context is the most specific, and it would not be required that
+<code>foo</code> signal an error on an argument of <code>17</code> even though other functions in 
+the set S would be required to do so.
+</p>
+
+
+
+<span id="Conformance-Statement"></span><h4 class="subsubsection">1.5.1.5 Conformance Statement</h4>
+
+<p>A <i>conforming implementation</i> shall produce a conformance statement 
+as a consequence of using the implementation, or that statement
+shall be included in the accompanying documentation.  If the implementation
+conforms in all respects with this standard, the conformance statement
+shall be
+</p>
+
+<dl compact="compact">
+<dd><p>&ldquo;«Implementation» conforms with the requirements 
+of ANSI «standard number»&rdquo;
+</p></dd>
+</dl>
+
+
+<p>If the <i>implementation</i> conforms with some but not all of the requirements of this
+standard, then the conformance statement shall be
+</p>
+
+<dl compact="compact">
+<dd><p>&ldquo;«Implementation» conforms with the requirements of
+ANSI «standard number» with the following exceptions: 
+«reference to or complete list of the requirements of
+the standard with which the implementation does not conform».&rdquo;
+</p></dd>
+</dl>
+
+
+
+
+<hr>
+<span id="Conforming-Programs"></span><div class="header">
+<p>
+Previous: <a href="#Conforming-Implementations" accesskey="p" rel="prev">Conforming Implementations</a>, Up: <a href="#Conformance" accesskey="u" rel="up">Conformance</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Conforming-Programs-1"></span><h4 class="subsection">1.5.2 Conforming Programs</h4>
+<span id="index-conforming-program"></span>
+<span id="index-conforming-code"></span>
+
+<p>Code conforming with the requirements of this standard shall adhere to the
+following:
+</p>
+
+<ol>
+<li> <i>Conforming code</i> shall use only those features of the
+language syntax and semantics that are 
+either specified in this standard
+or defined using the extension mechanisms 
+specified in the standard.
+
+
+</li><li> <i>Conforming code</i> may use
+<i>implementation-dependent</i> features and values, 
+but shall not rely upon
+any particular interpretation of these features and values 
+other than those that are discovered by the execution of <i>code</i>.
+
+</li><li> <i>Conforming code</i> shall not depend on the consequences
+of undefined or unspecified situations.
+
+</li><li> <i>Conforming code</i> does not use any constructions 
+that are prohibited by the standard.
+
+</li><li> <i>Conforming code</i> does not depend on extensions 
+included in an implementation.
+</li></ol>
+
+
+<span id="Use-of-Implementation_002dDefined-Language-Features"></span><h4 class="subsubsection">1.5.2.1 Use of Implementation-Defined Language Features</h4>
+
+<p>Note that <i>conforming code</i> may rely on particular
+<i>implementation-defined</i> values or features. Also note that the
+requirements for <i>conforming code</i> and <i>conforming implementations</i> do not
+require that the results produced by conforming code always be the
+same when processed by a <i>conforming implementation</i>. The results may be the
+same, or they may differ.
+</p>
+
+<p>Conforming code may run in all conforming implementations, but might
+have allowable <i>implementation-defined</i> behavior that makes it
+non-portable code.
+For example, the following are examples of <i>forms</i> that are conforming, but
+that might return different <i>values</i> in different implementations:
+</p>
+<div class="lisp">
+<pre class="lisp"> (evenp most-positive-fixnum) <span class="roman">→</span> <i>implementation-dependent</i>
+ (random) <span class="roman">→</span> <i>implementation-dependent</i>
+ (&gt; lambda-parameters-limit 93) <span class="roman">→</span> <i>implementation-dependent</i>
+ (char-name #\A) <span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<span id="g_t1_002e5_002e2_002e1_002e1-Use-of-Read_002dTime-Conditionals"></span><h4 class="unnumberedsubsubsec">1.5.2.1.1 Use of Read-Time Conditionals</h4>
+
+<span id="ReadTimeConditionals"></span>
+<p>Use of <code>#+</code> and <code>#-</code> does not automatically disqualify a program
+from being conforming.  A program which uses <code>#+</code> and <code>#-</code> is 
+considered conforming if there is no set of <i>features</i> in which the
+program would not be conforming.  Of course, <i>conforming programs</i> are
+not necessarily working programs.  The following program is conforming:
+</p>
+<div class="lisp">
+<pre class="lisp">(defun foo ()
+  #+ACME (acme:initialize-something)
+  (print 'hello-there))
+</pre></div>
+
+
+<p>However, this program might or might not work, depending on whether the
+presence of the feature <code>ACME</code> really implies that a function named
+<code>acme:initialize-something</code> is present in the environment.  In effect,
+using <code>#+</code> or <code>#-</code> in a <i>conforming program</i> means that the variable
+<code>*features*</code>
+<span id="index-_002afeatures_002a"></span>
+becomes just one more piece of input data to that 
+program.  Like any other data coming into a program, the programmer
+is responsible for assuring that the program does not make unwarranted
+assumptions on the basis of input data.
+</p>
+
+
+<span id="Character-Set-for-Portable-Code"></span><h4 class="subsubsection">1.5.2.2 Character Set for Portable Code</h4>
+
+<p><i>Portable code</i> is written using only <i>standard characters</i>.
+</p>
+
+
+<hr>
+<span id="Language-Extensions"></span><div class="header">
+<p>
+Next: <a href="#Language-Subsets" accesskey="n" rel="next">Language Subsets</a>, Previous: <a href="#Conformance" accesskey="p" rel="prev">Conformance</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Language-Extensions-1"></span><h3 class="section">1.6 Language Extensions</h3>
+
+
+<p>A language extension is any documented <i>implementation-defined</i> behavior
+of a <i>defined name</i> in this standard that varies from the
+behavior described in this standard, or a documented consequence of a
+situation that the standard specifies as undefined, unspecified, or
+extendable by the implementation.  For example, if this standard says
+that &ldquo;the results are unspecified,&rdquo; an extension would be to specify
+the results.
+</p>
+
+<p>If the correct behavior of a program depends on the results provided
+by an extension, only implementations with the same extension will
+execute the program correctly.  Note that such a program might be
+non-conforming.  Also, if this standard says that &ldquo;an implementation
+may be extended,&rdquo; a conforming, but possibly non-portable, program
+can be written using an extension.
+</p>
+<p>An implementation can have extensions, provided they do not alter the
+behavior of conforming code and provided they are not explicitly
+prohibited by this standard.
+</p>
+
+<p>The term &ldquo;extension&rdquo; refers only to extensions available upon
+startup.  An implementation is free to allow or prohibit redefinition
+of an extension.
+</p>
+<p>The following list contains specific guidance to implementations 
+concerning certain types of extensions.
+</p>
+<dl compact="compact">
+<dt><b>Extra return values</b></dt>
+<dd>
+
+<p>An implementation must return exactly
+the number of return values specified by this standard unless the
+standard specifically indicates otherwise.
+</p>
+</dd>
+<dt><b>Unsolicited messages</b></dt>
+<dd>
+
+
+<p>No output can be produced by a function other than that specified in
+the standard or due to the signaling of <i>conditions</i>
+detected by the function.
+</p>
+<p>Unsolicited output, such as garbage collection notifications and
+autoload heralds, should not go directly to the <i>stream</i>
+that is the value of a <i>stream</i> variable defined in this
+standard, but can go indirectly to <i>terminal I/O</i> by using a
+<i>synonym stream</i> to <code>*terminal-io*</code>.
+</p>
+<p>Progress reports from such functions as <code>load</code> and
+<code>compile</code> are considered solicited, and are not covered by
+this prohibition.
+</p>
+
+</dd>
+<dt><b>Implementation of macros and special forms</b></dt>
+<dd>
+
+
+<p><i>Macros</i> and <i>special operators</i> defined in this standard
+must not be <i>functions</i>.
+</p></dd>
+</dl>
+
+
+<hr>
+<span id="Language-Subsets"></span><div class="header">
+<p>
+Next: <a href="#Deprecated-Language-Features" accesskey="n" rel="next">Deprecated Language Features</a>, Previous: <a href="#Language-Extensions" accesskey="p" rel="prev">Language Extensions</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Language-Subsets-1"></span><h3 class="section">1.7 Language Subsets</h3>
+
+<p>The language described in this standard contains no subsets,
+though subsets are not forbidden.
+</p>
+<p>For a language to be considered a subset,
+it must have the property that any valid <i>program</i> in that language
+has equivalent semantics and will run directly
+(with no extralingual pre-processing, and no special compatibility packages)
+in any <i>conforming implementation</i> of the full language.
+</p>
+<p>A language that conforms to this requirement shall be described
+as being a &ldquo;subset of <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->as specified by ANSI «standard number».&rdquo;
+</p>
+<hr>
+<span id="Deprecated-Language-Features"></span><div class="header">
+<p>
+Next: <a href="#Symbols-in-the-COMMON_002dLISP-Package" accesskey="n" rel="next">Symbols in the COMMON-LISP Package</a>, Previous: <a href="#Language-Subsets" accesskey="p" rel="prev">Language Subsets</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Deprecated-Language-Features-1"></span><h3 class="section">1.8 Deprecated Language Features</h3>
+
+<p>Deprecated language features are not expected to appear in future <span class="roman">Common Lisp</span>
+standards, but are required to be implemented for conformance with this
+standard; see <a href="#ReqLangFeatures">Section 1.5.1.1 (Required Language Features)</a>.
+</p>
+<p><i>Conforming programs</i> can use deprecated features;
+however, it is considered good programming style to avoid them.
+It is permissible for the compiler to produce <i>style warnings</i> 
+about the use of such features at compile time, 
+but there should be no such warnings at program execution time.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Deprecated-Functions" accesskey="1">Deprecated Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Deprecated-Argument-Conventions" accesskey="2">Deprecated Argument Conventions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Deprecated-Variables" accesskey="3">Deprecated Variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Deprecated-Reader-Syntax" accesskey="4">Deprecated Reader Syntax</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Deprecated-Functions"></span><div class="header">
+<p>
+Next: <a href="#Deprecated-Argument-Conventions" accesskey="n" rel="next">Deprecated Argument Conventions</a>, Up: <a href="#Deprecated-Language-Features" accesskey="u" rel="up">Deprecated Language Features</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Deprecated-Functions-1"></span><h4 class="subsection">1.8.1 Deprecated Functions</h4>
+
+<p>The <i>functions</i> in the next figure&nbsp;<!-- /@w -->are deprecated.
+</p>
+<div class="float"><span id="fig1_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>assoc-if-not</td><td>nsubst-if-not</td><td>require</td></tr>
+<tr><td>count-if-not</td><td>nsubstitute-if-not</td><td>set</td></tr>
+<tr><td>delete-if-not</td><td>position-if-not</td><td>subst-if-not</td></tr>
+<tr><td>find-if-not</td><td>provide</td><td>substitute-if-not</td></tr>
+<tr><td>gentemp</td><td>rassoc-if-not</td><td></td></tr>
+<tr><td>member-if-not</td><td>remove-if-not</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.2: </strong>Deprecated Functions</p></div></div>
+
+
+<hr>
+<span id="Deprecated-Argument-Conventions"></span><div class="header">
+<p>
+Next: <a href="#Deprecated-Variables" accesskey="n" rel="next">Deprecated Variables</a>, Previous: <a href="#Deprecated-Functions" accesskey="p" rel="prev">Deprecated Functions</a>, Up: <a href="#Deprecated-Language-Features" accesskey="u" rel="up">Deprecated Language Features</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Deprecated-Argument-Conventions-1"></span><h4 class="subsection">1.8.2 Deprecated Argument Conventions</h4>
+
+<p>The ability to pass a numeric <i>argument</i> to <code>gensym</code> has been deprecated.
+</p>
+<p>The <tt>:test-not</tt> <i>argument</i> to the <i>functions</i> in the next figure&nbsp;<!-- /@w -->are deprecated.
+</p>
+
+<div class="float"><span id="fig1_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>adjoin</td><td>nset-difference</td><td>search</td></tr>
+<tr><td>assoc</td><td>nset-exclusive-or</td><td>set-difference</td></tr>
+<tr><td>count</td><td>nsublis</td><td>set-exclusive-or</td></tr>
+<tr><td>delete</td><td>nsubst</td><td>sublis</td></tr>
+<tr><td>delete-duplicates</td><td>nsubstitute</td><td>subsetp</td></tr>
+<tr><td>find</td><td>nunion</td><td>subst</td></tr>
+<tr><td>intersection</td><td>position</td><td>substitute</td></tr>
+<tr><td>member</td><td>rassoc</td><td>tree-equal</td></tr>
+<tr><td>mismatch</td><td>remove</td><td>union</td></tr>
+<tr><td>nintersection</td><td>remove-duplicates</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.3: </strong>Functions with Deprecated :TEST-NOT Arguments</p></div></div>
+
+<p>The use of the situation names <tt>compile</tt>, <tt>load</tt>, and <tt>eval</tt>
+in <code>eval-when</code> is deprecated.
+</p>
+
+<hr>
+<span id="Deprecated-Variables"></span><div class="header">
+<p>
+Next: <a href="#Deprecated-Reader-Syntax" accesskey="n" rel="next">Deprecated Reader Syntax</a>, Previous: <a href="#Deprecated-Argument-Conventions" accesskey="p" rel="prev">Deprecated Argument Conventions</a>, Up: <a href="#Deprecated-Language-Features" accesskey="u" rel="up">Deprecated Language Features</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Deprecated-Variables-1"></span><h4 class="subsection">1.8.3 Deprecated Variables</h4>
+
+<p>The <i>variable</i> <code>*modules*</code> is deprecated.
+</p>
+
+<hr>
+<span id="Deprecated-Reader-Syntax"></span><div class="header">
+<p>
+Previous: <a href="#Deprecated-Variables" accesskey="p" rel="prev">Deprecated Variables</a>, Up: <a href="#Deprecated-Language-Features" accesskey="u" rel="up">Deprecated Language Features</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Deprecated-Reader-Syntax-1"></span><h4 class="subsection">1.8.4 Deprecated Reader Syntax</h4>
+
+<p>The <code>#S</code> <i>reader macro</i> forces keyword names into the <code>KEYWORD</code> <i>package</i>;
+see <a href="Syntax.html#SharpsignS">Section 2.4.8.13 (Sharpsign S)</a>.
+This feature is deprecated;
+in the future, keyword names will be taken in the package they are read in,
+so <i>symbols</i> that are actually in the <code>KEYWORD</code> <i>package</i>
+should be used if that is what is desired.
+</p>
+
+
+<hr>
+<span id="Symbols-in-the-COMMON_002dLISP-Package"></span><div class="header">
+<p>
+Previous: <a href="#Deprecated-Language-Features" accesskey="p" rel="prev">Deprecated Language Features</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Symbols-in-the-COMMON_002dLISP-Package-1"></span><h3 class="section">1.9 Symbols in the COMMON-LISP Package</h3>
+
+<p>The figures on the next twelve pages contain a complete enumeration
+of the 978 <i>external</i> <i>symbols</i> in the <code>COMMON-LISP</code> <i>package</i>.
+<span id="index-COMMON_002dLISP"></span>
+</p>
+
+<div class="float"><span id="fig1_002e4"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>&amp;allow-other-keys</td><td>*print-miser-width*</td></tr>
+<tr><td>&amp;aux</td><td>*print-pprint-dispatch*</td></tr>
+<tr><td>&amp;body</td><td>*print-pretty*</td></tr>
+<tr><td>&amp;environment</td><td>*print-radix*</td></tr>
+<tr><td>&amp;key</td><td>*print-readably*</td></tr>
+<tr><td>&amp;optional</td><td>*print-right-margin*</td></tr>
+<tr><td>&amp;rest</td><td>*query-io*</td></tr>
+<tr><td>&amp;whole</td><td>*random-state*</td></tr>
+<tr><td>*</td><td>*read-base*</td></tr>
+<tr><td>**</td><td>*read-default-float-format*</td></tr>
+<tr><td>***</td><td>*read-eval*</td></tr>
+<tr><td>*break-on-signals*</td><td>*read-suppress*</td></tr>
+<tr><td>*compile-file-pathname*</td><td>*readtable*</td></tr>
+<tr><td>*compile-file-truename*</td><td>*standard-input*</td></tr>
+<tr><td>*compile-print*</td><td>*standard-output*</td></tr>
+<tr><td>*compile-verbose*</td><td>*terminal-io*</td></tr>
+<tr><td>*debug-io*</td><td>*trace-output*</td></tr>
+<tr><td>*debugger-hook*</td><td>+</td></tr>
+<tr><td>*default-pathname-defaults*</td><td>++</td></tr>
+<tr><td>*error-output*</td><td>+++</td></tr>
+<tr><td>*features*</td><td>-</td></tr>
+<tr><td>*gensym-counter*</td><td>/</td></tr>
+<tr><td>*load-pathname*</td><td>//</td></tr>
+<tr><td>*load-print*</td><td>///</td></tr>
+<tr><td>*load-truename*</td><td>/=</td></tr>
+<tr><td>*load-verbose*</td><td>1+</td></tr>
+<tr><td>*macroexpand-hook*</td><td>1-</td></tr>
+<tr><td>*modules*</td><td>&lt;</td></tr>
+<tr><td>*package*</td><td>&lt;=</td></tr>
+<tr><td>*print-array*</td><td>=</td></tr>
+<tr><td>*print-base*</td><td>&gt;</td></tr>
+<tr><td>*print-case*</td><td>&gt;=</td></tr>
+<tr><td>*print-circle*</td><td>abort</td></tr>
+<tr><td>*print-escape*</td><td>abs</td></tr>
+<tr><td>*print-gensym*</td><td>acons</td></tr>
+<tr><td>*print-length*</td><td>acos</td></tr>
+<tr><td>*print-level*</td><td>acosh</td></tr>
+<tr><td>*print-lines*</td><td>add-method</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.4: </strong>Symbols in the COMMON-LISP package (part one of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e5"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>adjoin</td><td>atom</td><td>boundp</td></tr>
+<tr><td>adjust-array</td><td>base-char</td><td>break</td></tr>
+<tr><td>adjustable-array-p</td><td>base-string</td><td>broadcast-stream</td></tr>
+<tr><td>allocate-instance</td><td>bignum</td><td>broadcast-stream-streams</td></tr>
+<tr><td>alpha-char-p</td><td>bit</td><td>built-in-class</td></tr>
+<tr><td>alphanumericp</td><td>bit-and</td><td>butlast</td></tr>
+<tr><td>and</td><td>bit-andc1</td><td>byte</td></tr>
+<tr><td>append</td><td>bit-andc2</td><td>byte-position</td></tr>
+<tr><td>apply</td><td>bit-eqv</td><td>byte-size</td></tr>
+<tr><td>apropos</td><td>bit-ior</td><td>caaaar</td></tr>
+<tr><td>apropos-list</td><td>bit-nand</td><td>caaadr</td></tr>
+<tr><td>aref</td><td>bit-nor</td><td>caaar</td></tr>
+<tr><td>arithmetic-error</td><td>bit-not</td><td>caadar</td></tr>
+<tr><td>arithmetic-error-operands</td><td>bit-orc1</td><td>caaddr</td></tr>
+<tr><td>arithmetic-error-operation</td><td>bit-orc2</td><td>caadr</td></tr>
+<tr><td>array</td><td>bit-vector</td><td>caar</td></tr>
+<tr><td>array-dimension</td><td>bit-vector-p</td><td>cadaar</td></tr>
+<tr><td>array-dimension-limit</td><td>bit-xor</td><td>cadadr</td></tr>
+<tr><td>array-dimensions</td><td>block</td><td>cadar</td></tr>
+<tr><td>array-displacement</td><td>boole</td><td>caddar</td></tr>
+<tr><td>array-element-type</td><td>boole-1</td><td>cadddr</td></tr>
+<tr><td>array-has-fill-pointer-p</td><td>boole-2</td><td>caddr</td></tr>
+<tr><td>array-in-bounds-p</td><td>boole-and</td><td>cadr</td></tr>
+<tr><td>array-rank</td><td>boole-andc1</td><td>call-arguments-limit</td></tr>
+<tr><td>array-rank-limit</td><td>boole-andc2</td><td>call-method</td></tr>
+<tr><td>array-row-major-index</td><td>boole-c1</td><td>call-next-method</td></tr>
+<tr><td>array-total-size</td><td>boole-c2</td><td>car</td></tr>
+<tr><td>array-total-size-limit</td><td>boole-clr</td><td>case</td></tr>
+<tr><td>arrayp</td><td>boole-eqv</td><td>catch</td></tr>
+<tr><td>ash</td><td>boole-ior</td><td>ccase</td></tr>
+<tr><td>asin</td><td>boole-nand</td><td>cdaaar</td></tr>
+<tr><td>asinh</td><td>boole-nor</td><td>cdaadr</td></tr>
+<tr><td>assert</td><td>boole-orc1</td><td>cdaar</td></tr>
+<tr><td>assoc</td><td>boole-orc2</td><td>cdadar</td></tr>
+<tr><td>assoc-if</td><td>boole-set</td><td>cdaddr</td></tr>
+<tr><td>assoc-if-not</td><td>boole-xor</td><td>cdadr</td></tr>
+<tr><td>atan</td><td>boolean</td><td>cdar</td></tr>
+<tr><td>atanh</td><td>both-case-p</td><td>cddaar</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.5: </strong>Symbols in the COMMON-LISP package (part two of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e6"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>cddadr</td><td>clear-input</td><td>copy-tree</td></tr>
+<tr><td>cddar</td><td>clear-output</td><td>cos</td></tr>
+<tr><td>cdddar</td><td>close</td><td>cosh</td></tr>
+<tr><td>cddddr</td><td>clrhash</td><td>count</td></tr>
+<tr><td>cdddr</td><td>code-char</td><td>count-if</td></tr>
+<tr><td>cddr</td><td>coerce</td><td>count-if-not</td></tr>
+<tr><td>cdr</td><td>compilation-speed</td><td>ctypecase</td></tr>
+<tr><td>ceiling</td><td>compile</td><td>debug</td></tr>
+<tr><td>cell-error</td><td>compile-file</td><td>decf</td></tr>
+<tr><td>cell-error-name</td><td>compile-file-pathname</td><td>declaim</td></tr>
+<tr><td>cerror</td><td>compiled-function</td><td>declaration</td></tr>
+<tr><td>change-class</td><td>compiled-function-p</td><td>declare</td></tr>
+<tr><td>char</td><td>compiler-macro</td><td>decode-float</td></tr>
+<tr><td>char-code</td><td>compiler-macro-function</td><td>decode-universal-time</td></tr>
+<tr><td>char-code-limit</td><td>complement</td><td>defclass</td></tr>
+<tr><td>char-downcase</td><td>complex</td><td>defconstant</td></tr>
+<tr><td>char-equal</td><td>complexp</td><td>defgeneric</td></tr>
+<tr><td>char-greaterp</td><td>compute-applicable-methods</td><td>define-compiler-macro</td></tr>
+<tr><td>char-int</td><td>compute-restarts</td><td>define-condition</td></tr>
+<tr><td>char-lessp</td><td>concatenate</td><td>define-method-combination</td></tr>
+<tr><td>char-name</td><td>concatenated-stream</td><td>define-modify-macro</td></tr>
+<tr><td>char-not-equal</td><td>concatenated-stream-streams</td><td>define-setf-expander</td></tr>
+<tr><td>char-not-greaterp</td><td>cond</td><td>define-symbol-macro</td></tr>
+<tr><td>char-not-lessp</td><td>condition</td><td>defmacro</td></tr>
+<tr><td>char-upcase</td><td>conjugate</td><td>defmethod</td></tr>
+<tr><td>char/=</td><td>cons</td><td>defpackage</td></tr>
+<tr><td>char&lt;</td><td>consp</td><td>defparameter</td></tr>
+<tr><td>char&lt;=</td><td>constantly</td><td>defsetf</td></tr>
+<tr><td>char=</td><td>constantp</td><td>defstruct</td></tr>
+<tr><td>char&gt;</td><td>continue</td><td>deftype</td></tr>
+<tr><td>char&gt;=</td><td>control-error</td><td>defun</td></tr>
+<tr><td>character</td><td>copy-alist</td><td>defvar</td></tr>
+<tr><td>characterp</td><td>copy-list</td><td>delete</td></tr>
+<tr><td>check-type</td><td>copy-pprint-dispatch</td><td>delete-duplicates</td></tr>
+<tr><td>cis</td><td>copy-readtable</td><td>delete-file</td></tr>
+<tr><td>class</td><td>copy-seq</td><td>delete-if</td></tr>
+<tr><td>class-name</td><td>copy-structure</td><td>delete-if-not</td></tr>
+<tr><td>class-of</td><td>copy-symbol</td><td>delete-package</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.6: </strong>Symbols in the COMMON-LISP package (part three of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e7"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>denominator</td><td>eq</td></tr>
+<tr><td>deposit-field</td><td>eql</td></tr>
+<tr><td>describe</td><td>equal</td></tr>
+<tr><td>describe-object</td><td>equalp</td></tr>
+<tr><td>destructuring-bind</td><td>error</td></tr>
+<tr><td>digit-char</td><td>etypecase</td></tr>
+<tr><td>digit-char-p</td><td>eval</td></tr>
+<tr><td>directory</td><td>eval-when</td></tr>
+<tr><td>directory-namestring</td><td>evenp</td></tr>
+<tr><td>disassemble</td><td>every</td></tr>
+<tr><td>division-by-zero</td><td>exp</td></tr>
+<tr><td>do</td><td>export</td></tr>
+<tr><td>do*</td><td>expt</td></tr>
+<tr><td>do-all-symbols</td><td>extended-char</td></tr>
+<tr><td>do-external-symbols</td><td>fboundp</td></tr>
+<tr><td>do-symbols</td><td>fceiling</td></tr>
+<tr><td>documentation</td><td>fdefinition</td></tr>
+<tr><td>dolist</td><td>ffloor</td></tr>
+<tr><td>dotimes</td><td>fifth</td></tr>
+<tr><td>double-float</td><td>file-author</td></tr>
+<tr><td>double-float-epsilon</td><td>file-error</td></tr>
+<tr><td>double-float-negative-epsilon</td><td>file-error-pathname</td></tr>
+<tr><td>dpb</td><td>file-length</td></tr>
+<tr><td>dribble</td><td>file-namestring</td></tr>
+<tr><td>dynamic-extent</td><td>file-position</td></tr>
+<tr><td>ecase</td><td>file-stream</td></tr>
+<tr><td>echo-stream</td><td>file-string-length</td></tr>
+<tr><td>echo-stream-input-stream</td><td>file-write-date</td></tr>
+<tr><td>echo-stream-output-stream</td><td>fill</td></tr>
+<tr><td>ed</td><td>fill-pointer</td></tr>
+<tr><td>eighth</td><td>find</td></tr>
+<tr><td>elt</td><td>find-all-symbols</td></tr>
+<tr><td>encode-universal-time</td><td>find-class</td></tr>
+<tr><td>end-of-file</td><td>find-if</td></tr>
+<tr><td>endp</td><td>find-if-not</td></tr>
+<tr><td>enough-namestring</td><td>find-method</td></tr>
+<tr><td>ensure-directories-exist</td><td>find-package</td></tr>
+<tr><td>ensure-generic-function</td><td>find-restart</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.7: </strong>Symbols in the COMMON-LISP package (part four of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e8"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>find-symbol</td><td>get-internal-run-time</td></tr>
+<tr><td>finish-output</td><td>get-macro-character</td></tr>
+<tr><td>first</td><td>get-output-stream-string</td></tr>
+<tr><td>fixnum</td><td>get-properties</td></tr>
+<tr><td>flet</td><td>get-setf-expansion</td></tr>
+<tr><td>float</td><td>get-universal-time</td></tr>
+<tr><td>float-digits</td><td>getf</td></tr>
+<tr><td>float-precision</td><td>gethash</td></tr>
+<tr><td>float-radix</td><td>go</td></tr>
+<tr><td>float-sign</td><td>graphic-char-p</td></tr>
+<tr><td>floating-point-inexact</td><td>handler-bind</td></tr>
+<tr><td>floating-point-invalid-operation</td><td>handler-case</td></tr>
+<tr><td>floating-point-overflow</td><td>hash-table</td></tr>
+<tr><td>floating-point-underflow</td><td>hash-table-count</td></tr>
+<tr><td>floatp</td><td>hash-table-p</td></tr>
+<tr><td>floor</td><td>hash-table-rehash-size</td></tr>
+<tr><td>fmakunbound</td><td>hash-table-rehash-threshold</td></tr>
+<tr><td>force-output</td><td>hash-table-size</td></tr>
+<tr><td>format</td><td>hash-table-test</td></tr>
+<tr><td>formatter</td><td>host-namestring</td></tr>
+<tr><td>fourth</td><td>identity</td></tr>
+<tr><td>fresh-line</td><td>if</td></tr>
+<tr><td>fround</td><td>ignorable</td></tr>
+<tr><td>ftruncate</td><td>ignore</td></tr>
+<tr><td>ftype</td><td>ignore-errors</td></tr>
+<tr><td>funcall</td><td>imagpart</td></tr>
+<tr><td>function</td><td>import</td></tr>
+<tr><td>function-keywords</td><td>in-package</td></tr>
+<tr><td>function-lambda-expression</td><td>incf</td></tr>
+<tr><td>functionp</td><td>initialize-instance</td></tr>
+<tr><td>gcd</td><td>inline</td></tr>
+<tr><td>generic-function</td><td>input-stream-p</td></tr>
+<tr><td>gensym</td><td>inspect</td></tr>
+<tr><td>gentemp</td><td>integer</td></tr>
+<tr><td>get</td><td>integer-decode-float</td></tr>
+<tr><td>get-decoded-time</td><td>integer-length</td></tr>
+<tr><td>get-dispatch-macro-character</td><td>integerp</td></tr>
+<tr><td>get-internal-real-time</td><td>interactive-stream-p</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.8: </strong>Symbols in the COMMON-LISP package (part five of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e9"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>intern</td><td>lisp-implementation-type</td></tr>
+<tr><td>internal-time-units-per-second</td><td>lisp-implementation-version</td></tr>
+<tr><td>intersection</td><td>list</td></tr>
+<tr><td>invalid-method-error</td><td>list*</td></tr>
+<tr><td>invoke-debugger</td><td>list-all-packages</td></tr>
+<tr><td>invoke-restart</td><td>list-length</td></tr>
+<tr><td>invoke-restart-interactively</td><td>listen</td></tr>
+<tr><td>isqrt</td><td>listp</td></tr>
+<tr><td>keyword</td><td>load</td></tr>
+<tr><td>keywordp</td><td>load-logical-pathname-translations</td></tr>
+<tr><td>labels</td><td>load-time-value</td></tr>
+<tr><td>lambda</td><td>locally</td></tr>
+<tr><td>lambda-list-keywords</td><td>log</td></tr>
+<tr><td>lambda-parameters-limit</td><td>logand</td></tr>
+<tr><td>last</td><td>logandc1</td></tr>
+<tr><td>lcm</td><td>logandc2</td></tr>
+<tr><td>ldb</td><td>logbitp</td></tr>
+<tr><td>ldb-test</td><td>logcount</td></tr>
+<tr><td>ldiff</td><td>logeqv</td></tr>
+<tr><td>least-negative-double-float</td><td>logical-pathname</td></tr>
+<tr><td>least-negative-long-float</td><td>logical-pathname-translations</td></tr>
+<tr><td>least-negative-normalized-double-float</td><td>logior</td></tr>
+<tr><td>least-negative-normalized-long-float</td><td>lognand</td></tr>
+<tr><td>least-negative-normalized-short-float</td><td>lognor</td></tr>
+<tr><td>least-negative-normalized-single-float</td><td>lognot</td></tr>
+<tr><td>least-negative-short-float</td><td>logorc1</td></tr>
+<tr><td>least-negative-single-float</td><td>logorc2</td></tr>
+<tr><td>least-positive-double-float</td><td>logtest</td></tr>
+<tr><td>least-positive-long-float</td><td>logxor</td></tr>
+<tr><td>least-positive-normalized-double-float</td><td>long-float</td></tr>
+<tr><td>least-positive-normalized-long-float</td><td>long-float-epsilon</td></tr>
+<tr><td>least-positive-normalized-short-float</td><td>long-float-negative-epsilon</td></tr>
+<tr><td>least-positive-normalized-single-float</td><td>long-site-name</td></tr>
+<tr><td>least-positive-short-float</td><td>loop</td></tr>
+<tr><td>least-positive-single-float</td><td>loop-finish</td></tr>
+<tr><td>length</td><td>lower-case-p</td></tr>
+<tr><td>let</td><td>machine-instance</td></tr>
+<tr><td>let*</td><td>machine-type</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.9: </strong>Symbols in the COMMON-LISP package (part six of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e10"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>machine-version</td><td>mask-field</td></tr>
+<tr><td>macro-function</td><td>max</td></tr>
+<tr><td>macroexpand</td><td>member</td></tr>
+<tr><td>macroexpand-1</td><td>member-if</td></tr>
+<tr><td>macrolet</td><td>member-if-not</td></tr>
+<tr><td>make-array</td><td>merge</td></tr>
+<tr><td>make-broadcast-stream</td><td>merge-pathnames</td></tr>
+<tr><td>make-concatenated-stream</td><td>method</td></tr>
+<tr><td>make-condition</td><td>method-combination</td></tr>
+<tr><td>make-dispatch-macro-character</td><td>method-combination-error</td></tr>
+<tr><td>make-echo-stream</td><td>method-qualifiers</td></tr>
+<tr><td>make-hash-table</td><td>min</td></tr>
+<tr><td>make-instance</td><td>minusp</td></tr>
+<tr><td>make-instances-obsolete</td><td>mismatch</td></tr>
+<tr><td>make-list</td><td>mod</td></tr>
+<tr><td>make-load-form</td><td>most-negative-double-float</td></tr>
+<tr><td>make-load-form-saving-slots</td><td>most-negative-fixnum</td></tr>
+<tr><td>make-method</td><td>most-negative-long-float</td></tr>
+<tr><td>make-package</td><td>most-negative-short-float</td></tr>
+<tr><td>make-pathname</td><td>most-negative-single-float</td></tr>
+<tr><td>make-random-state</td><td>most-positive-double-float</td></tr>
+<tr><td>make-sequence</td><td>most-positive-fixnum</td></tr>
+<tr><td>make-string</td><td>most-positive-long-float</td></tr>
+<tr><td>make-string-input-stream</td><td>most-positive-short-float</td></tr>
+<tr><td>make-string-output-stream</td><td>most-positive-single-float</td></tr>
+<tr><td>make-symbol</td><td>muffle-warning</td></tr>
+<tr><td>make-synonym-stream</td><td>multiple-value-bind</td></tr>
+<tr><td>make-two-way-stream</td><td>multiple-value-call</td></tr>
+<tr><td>makunbound</td><td>multiple-value-list</td></tr>
+<tr><td>map</td><td>multiple-value-prog1</td></tr>
+<tr><td>map-into</td><td>multiple-value-setq</td></tr>
+<tr><td>mapc</td><td>multiple-values-limit</td></tr>
+<tr><td>mapcan</td><td>name-char</td></tr>
+<tr><td>mapcar</td><td>namestring</td></tr>
+<tr><td>mapcon</td><td>nbutlast</td></tr>
+<tr><td>maphash</td><td>nconc</td></tr>
+<tr><td>mapl</td><td>next-method-p</td></tr>
+<tr><td>maplist</td><td>nil</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.10: </strong>Symbols in the COMMON-LISP package (part seven of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e11"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>nintersection</td><td>package-error</td></tr>
+<tr><td>ninth</td><td>package-error-package</td></tr>
+<tr><td>no-applicable-method</td><td>package-name</td></tr>
+<tr><td>no-next-method</td><td>package-nicknames</td></tr>
+<tr><td>not</td><td>package-shadowing-symbols</td></tr>
+<tr><td>notany</td><td>package-use-list</td></tr>
+<tr><td>notevery</td><td>package-used-by-list</td></tr>
+<tr><td>notinline</td><td>packagep</td></tr>
+<tr><td>nreconc</td><td>pairlis</td></tr>
+<tr><td>nreverse</td><td>parse-error</td></tr>
+<tr><td>nset-difference</td><td>parse-integer</td></tr>
+<tr><td>nset-exclusive-or</td><td>parse-namestring</td></tr>
+<tr><td>nstring-capitalize</td><td>pathname</td></tr>
+<tr><td>nstring-downcase</td><td>pathname-device</td></tr>
+<tr><td>nstring-upcase</td><td>pathname-directory</td></tr>
+<tr><td>nsublis</td><td>pathname-host</td></tr>
+<tr><td>nsubst</td><td>pathname-match-p</td></tr>
+<tr><td>nsubst-if</td><td>pathname-name</td></tr>
+<tr><td>nsubst-if-not</td><td>pathname-type</td></tr>
+<tr><td>nsubstitute</td><td>pathname-version</td></tr>
+<tr><td>nsubstitute-if</td><td>pathnamep</td></tr>
+<tr><td>nsubstitute-if-not</td><td>peek-char</td></tr>
+<tr><td>nth</td><td>phase</td></tr>
+<tr><td>nth-value</td><td>pi</td></tr>
+<tr><td>nthcdr</td><td>plusp</td></tr>
+<tr><td>null</td><td>pop</td></tr>
+<tr><td>number</td><td>position</td></tr>
+<tr><td>numberp</td><td>position-if</td></tr>
+<tr><td>numerator</td><td>position-if-not</td></tr>
+<tr><td>nunion</td><td>pprint</td></tr>
+<tr><td>oddp</td><td>pprint-dispatch</td></tr>
+<tr><td>open</td><td>pprint-exit-if-list-exhausted</td></tr>
+<tr><td>open-stream-p</td><td>pprint-fill</td></tr>
+<tr><td>optimize</td><td>pprint-indent</td></tr>
+<tr><td>or</td><td>pprint-linear</td></tr>
+<tr><td>otherwise</td><td>pprint-logical-block</td></tr>
+<tr><td>output-stream-p</td><td>pprint-newline</td></tr>
+<tr><td>package</td><td>pprint-pop</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.11: </strong>Symbols in the COMMON-LISP package (part eight of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e12"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>pprint-tab</td><td>read-char</td></tr>
+<tr><td>pprint-tabular</td><td>read-char-no-hang</td></tr>
+<tr><td>prin1</td><td>read-delimited-list</td></tr>
+<tr><td>prin1-to-string</td><td>read-from-string</td></tr>
+<tr><td>princ</td><td>read-line</td></tr>
+<tr><td>princ-to-string</td><td>read-preserving-whitespace</td></tr>
+<tr><td>print</td><td>read-sequence</td></tr>
+<tr><td>print-not-readable</td><td>reader-error</td></tr>
+<tr><td>print-not-readable-object</td><td>readtable</td></tr>
+<tr><td>print-object</td><td>readtable-case</td></tr>
+<tr><td>print-unreadable-object</td><td>readtablep</td></tr>
+<tr><td>probe-file</td><td>real</td></tr>
+<tr><td>proclaim</td><td>realp</td></tr>
+<tr><td>prog</td><td>realpart</td></tr>
+<tr><td>prog*</td><td>reduce</td></tr>
+<tr><td>prog1</td><td>reinitialize-instance</td></tr>
+<tr><td>prog2</td><td>rem</td></tr>
+<tr><td>progn</td><td>remf</td></tr>
+<tr><td>program-error</td><td>remhash</td></tr>
+<tr><td>progv</td><td>remove</td></tr>
+<tr><td>provide</td><td>remove-duplicates</td></tr>
+<tr><td>psetf</td><td>remove-if</td></tr>
+<tr><td>psetq</td><td>remove-if-not</td></tr>
+<tr><td>push</td><td>remove-method</td></tr>
+<tr><td>pushnew</td><td>remprop</td></tr>
+<tr><td>quote</td><td>rename-file</td></tr>
+<tr><td>random</td><td>rename-package</td></tr>
+<tr><td>random-state</td><td>replace</td></tr>
+<tr><td>random-state-p</td><td>require</td></tr>
+<tr><td>rassoc</td><td>rest</td></tr>
+<tr><td>rassoc-if</td><td>restart</td></tr>
+<tr><td>rassoc-if-not</td><td>restart-bind</td></tr>
+<tr><td>ratio</td><td>restart-case</td></tr>
+<tr><td>rational</td><td>restart-name</td></tr>
+<tr><td>rationalize</td><td>return</td></tr>
+<tr><td>rationalp</td><td>return-from</td></tr>
+<tr><td>read</td><td>revappend</td></tr>
+<tr><td>read-byte</td><td>reverse</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.12: </strong>Symbols in the COMMON-LISP package (part nine of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e13"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>room</td><td>simple-bit-vector</td></tr>
+<tr><td>rotatef</td><td>simple-bit-vector-p</td></tr>
+<tr><td>round</td><td>simple-condition</td></tr>
+<tr><td>row-major-aref</td><td>simple-condition-format-arguments</td></tr>
+<tr><td>rplaca</td><td>simple-condition-format-control</td></tr>
+<tr><td>rplacd</td><td>simple-error</td></tr>
+<tr><td>safety</td><td>simple-string</td></tr>
+<tr><td>satisfies</td><td>simple-string-p</td></tr>
+<tr><td>sbit</td><td>simple-type-error</td></tr>
+<tr><td>scale-float</td><td>simple-vector</td></tr>
+<tr><td>schar</td><td>simple-vector-p</td></tr>
+<tr><td>search</td><td>simple-warning</td></tr>
+<tr><td>second</td><td>sin</td></tr>
+<tr><td>sequence</td><td>single-float</td></tr>
+<tr><td>serious-condition</td><td>single-float-epsilon</td></tr>
+<tr><td>set</td><td>single-float-negative-epsilon</td></tr>
+<tr><td>set-difference</td><td>sinh</td></tr>
+<tr><td>set-dispatch-macro-character</td><td>sixth</td></tr>
+<tr><td>set-exclusive-or</td><td>sleep</td></tr>
+<tr><td>set-macro-character</td><td>slot-boundp</td></tr>
+<tr><td>set-pprint-dispatch</td><td>slot-exists-p</td></tr>
+<tr><td>set-syntax-from-char</td><td>slot-makunbound</td></tr>
+<tr><td>setf</td><td>slot-missing</td></tr>
+<tr><td>setq</td><td>slot-unbound</td></tr>
+<tr><td>seventh</td><td>slot-value</td></tr>
+<tr><td>shadow</td><td>software-type</td></tr>
+<tr><td>shadowing-import</td><td>software-version</td></tr>
+<tr><td>shared-initialize</td><td>some</td></tr>
+<tr><td>shiftf</td><td>sort</td></tr>
+<tr><td>short-float</td><td>space</td></tr>
+<tr><td>short-float-epsilon</td><td>special</td></tr>
+<tr><td>short-float-negative-epsilon</td><td>special-operator-p</td></tr>
+<tr><td>short-site-name</td><td>speed</td></tr>
+<tr><td>signal</td><td>sqrt</td></tr>
+<tr><td>signed-byte</td><td>stable-sort</td></tr>
+<tr><td>signum</td><td>standard</td></tr>
+<tr><td>simple-array</td><td>standard-char</td></tr>
+<tr><td>simple-base-string</td><td>standard-char-p</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.13: </strong>Symbols in the COMMON-LISP package (part ten of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e14"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>standard-class</td><td>sublis</td></tr>
+<tr><td>standard-generic-function</td><td>subseq</td></tr>
+<tr><td>standard-method</td><td>subsetp</td></tr>
+<tr><td>standard-object</td><td>subst</td></tr>
+<tr><td>step</td><td>subst-if</td></tr>
+<tr><td>storage-condition</td><td>subst-if-not</td></tr>
+<tr><td>store-value</td><td>substitute</td></tr>
+<tr><td>stream</td><td>substitute-if</td></tr>
+<tr><td>stream-element-type</td><td>substitute-if-not</td></tr>
+<tr><td>stream-error</td><td>subtypep</td></tr>
+<tr><td>stream-error-stream</td><td>svref</td></tr>
+<tr><td>stream-external-format</td><td>sxhash</td></tr>
+<tr><td>streamp</td><td>symbol</td></tr>
+<tr><td>string</td><td>symbol-function</td></tr>
+<tr><td>string-capitalize</td><td>symbol-macrolet</td></tr>
+<tr><td>string-downcase</td><td>symbol-name</td></tr>
+<tr><td>string-equal</td><td>symbol-package</td></tr>
+<tr><td>string-greaterp</td><td>symbol-plist</td></tr>
+<tr><td>string-left-trim</td><td>symbol-value</td></tr>
+<tr><td>string-lessp</td><td>symbolp</td></tr>
+<tr><td>string-not-equal</td><td>synonym-stream</td></tr>
+<tr><td>string-not-greaterp</td><td>synonym-stream-symbol</td></tr>
+<tr><td>string-not-lessp</td><td>t</td></tr>
+<tr><td>string-right-trim</td><td>tagbody</td></tr>
+<tr><td>string-stream</td><td>tailp</td></tr>
+<tr><td>string-trim</td><td>tan</td></tr>
+<tr><td>string-upcase</td><td>tanh</td></tr>
+<tr><td>string/=</td><td>tenth</td></tr>
+<tr><td>string&lt;</td><td>terpri</td></tr>
+<tr><td>string&lt;=</td><td>the</td></tr>
+<tr><td>string=</td><td>third</td></tr>
+<tr><td>string&gt;</td><td>throw</td></tr>
+<tr><td>string&gt;=</td><td>time</td></tr>
+<tr><td>stringp</td><td>trace</td></tr>
+<tr><td>structure</td><td>translate-logical-pathname</td></tr>
+<tr><td>structure-class</td><td>translate-pathname</td></tr>
+<tr><td>structure-object</td><td>tree-equal</td></tr>
+<tr><td>style-warning</td><td>truename</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.14: </strong>Symbols in the COMMON-LISP package (part eleven of twelve).</p></div></div>
+
+
+<div class="float"><span id="fig1_002e15"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>truncate</td><td>values-list</td></tr>
+<tr><td>two-way-stream</td><td>variable</td></tr>
+<tr><td>two-way-stream-input-stream</td><td>vector</td></tr>
+<tr><td>two-way-stream-output-stream</td><td>vector-pop</td></tr>
+<tr><td>type</td><td>vector-push</td></tr>
+<tr><td>type-error</td><td>vector-push-extend</td></tr>
+<tr><td>type-error-datum</td><td>vectorp</td></tr>
+<tr><td>type-error-expected-type</td><td>warn</td></tr>
+<tr><td>type-of</td><td>warning</td></tr>
+<tr><td>typecase</td><td>when</td></tr>
+<tr><td>typep</td><td>wild-pathname-p</td></tr>
+<tr><td>unbound-slot</td><td>with-accessors</td></tr>
+<tr><td>unbound-slot-instance</td><td>with-compilation-unit</td></tr>
+<tr><td>unbound-variable</td><td>with-condition-restarts</td></tr>
+<tr><td>undefined-function</td><td>with-hash-table-iterator</td></tr>
+<tr><td>unexport</td><td>with-input-from-string</td></tr>
+<tr><td>unintern</td><td>with-open-file</td></tr>
+<tr><td>union</td><td>with-open-stream</td></tr>
+<tr><td>unless</td><td>with-output-to-string</td></tr>
+<tr><td>unread-char</td><td>with-package-iterator</td></tr>
+<tr><td>unsigned-byte</td><td>with-simple-restart</td></tr>
+<tr><td>untrace</td><td>with-slots</td></tr>
+<tr><td>unuse-package</td><td>with-standard-io-syntax</td></tr>
+<tr><td>unwind-protect</td><td>write</td></tr>
+<tr><td>update-instance-for-different-class</td><td>write-byte</td></tr>
+<tr><td>update-instance-for-redefined-class</td><td>write-char</td></tr>
+<tr><td>upgraded-array-element-type</td><td>write-line</td></tr>
+<tr><td>upgraded-complex-part-type</td><td>write-sequence</td></tr>
+<tr><td>upper-case-p</td><td>write-string</td></tr>
+<tr><td>use-package</td><td>write-to-string</td></tr>
+<tr><td>use-value</td><td>y-or-n-p</td></tr>
+<tr><td>user-homedir-pathname</td><td>yes-or-no-p</td></tr>
+<tr><td>values</td><td>zerop</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 1.15: </strong>Symbols in the COMMON-LISP package (part twelve of twelve).</p></div></div>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#Deprecated-Language-Features" accesskey="p" rel="prev">Deprecated Language Features</a>, Up: <a href="#Introduction" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

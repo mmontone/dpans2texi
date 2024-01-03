@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>make-sequence (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Sequences.html" rel="up" title="Sequences">
-<link href="subseq.html" rel="next" title="subseq">
-<link href="fill.html" rel="prev" title="fill">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,122 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Sequences.html#make_002dsequence">
 
 </head>
 
 <body lang="en">
-<span id="make_002dsequence"></span><div class="header">
-<p>
-Next: <a href="subseq.html" accesskey="n" rel="next">subseq</a>, Previous: <a href="fill.html" accesskey="p" rel="prev">fill</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">make-sequence</h4>
-<span id="make_002dsequence-_0028Function_0029"></span><h3 class="heading">make-sequence (Function)</h3>
-<span id="index-make_002dsequence-2"></span>
-<span id="index-make_002dsequence"></span>
 
-
-<span id="Syntax_003a-368"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-make_002dsequence-1">Function: <strong>make-sequence</strong> <em>result-type size <tt>&amp;key</tt> initial-element <span class="roman">→</span> sequence</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-357"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>result-type</var>&mdash;a <code>sequence</code> <i>type specifier</i>.
-</p>
-<p><var>size</var>&mdash;a non-negative <i>integer</i>.
-</p>
-<p><var>initial-element</var>&mdash;an <i>object</i>.
-The default is <i>implementation-dependent</i>.
-</p>
-<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
-</p>
-<span id="Description_003a-472"></span><h4 class="subsubheading">Description:</h4>
-
-<p>Returns a <i>sequence</i> of the type <var>result-type</var> and of length <var>size</var>,
-each of the <i>elements</i> of which has been initialized to <var>initial-element</var>.
-</p>
-<p>If the <var>result-type</var> is a <i>subtype</i> of <code>list</code>,
-the result will be a <i>list</i>.
-</p>
-<p>If the <var>result-type</var> is a <i>subtype</i> of <code>vector</code>,
-then if the implementation can determine the element type specified
-for the <var>result-type</var>, the element type of the resulting array 
-is the result of <i>upgrading</i> that element type; or, if the
-implementation can determine that the element type is unspecified (or <code>*</code>),
-the element type of the resulting array is <code>t</code>;
-otherwise, an error is signaled.
-</p>
-<span id="Examples_003a-339"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (make-sequence 'list 0) <span class="roman">→</span> ()
- (make-sequence 'string 26 :initial-element #\.) 
-<span class="roman">→</span> &quot;..........................&quot;
- (make-sequence '(vector double-float) 2
-                :initial-element 1d0)
-<span class="roman">→</span> #(1.0d0 1.0d0)
-</pre></div>
-
-
-<div class="lisp">
-<pre class="lisp"> (make-sequence '(vector * 2) 3) should signal an error
- (make-sequence '(vector * 4) 3) should signal an error
-</pre></div>
-
-
-<span id="Affected-By_003a-69"></span><h4 class="subsubheading">Affected By:</h4>
-
-<p>The <i>implementation</i>.
-</p>
-<span id="Exceptional-Situations_003a-153"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>The consequences are unspecified if <var>initial-element</var> 
-is not an <i>object</i> which can be stored in the resulting <i>sequence</i>.
-</p>
-<p>An error of <i>type</i> <code>type-error</code> must be signaled if the <var>result-type</var> is neither
-a <i>recognizable subtype</i> of <code>list</code>,
-nor a <i>recognizable subtype</i> of <code>vector</code>.
-</p>
-<p>An error of <i>type</i> <code>type-error</code> should be signaled if <var>result-type</var> specifies 
-the number of elements and <var>size</var> is different from that number.
-</p>
-<span id="See-Also_003a-384"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="make_002darray.html">make-array</a>, <a href="make_002dlist.html">make-list</a>
-</p>
-<span id="Notes_003a-258"></span><h4 class="subsubheading">Notes:</h4>
-<div class="lisp">
-<pre class="lisp"> (make-sequence 'string 5) ≡ (make-string 5)               
-</pre></div>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="subseq.html" accesskey="n" rel="next">subseq</a>, Previous: <a href="fill.html" accesskey="p" rel="prev">fill</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Sequences.html#make_002dsequence">make-sequence</a>.</p>
 </body>
-</html>

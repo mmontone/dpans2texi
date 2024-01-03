@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>FORMAT Layout Control (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Formatted-Output.html" rel="up" title="Formatted Output">
-<link href="FORMAT-Control_002dFlow-Operations.html" rel="next" title="FORMAT Control-Flow Operations">
-<link href="FORMAT-Pretty-Printer-Operations.html" rel="prev" title="FORMAT Pretty Printer Operations">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,182 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Printer.html#FORMAT-Layout-Control">
 
 </head>
 
 <body lang="en">
-<span id="FORMAT-Layout-Control"></span><div class="header">
-<p>
-Next: <a href="FORMAT-Control_002dFlow-Operations.html" accesskey="n" rel="next">FORMAT Control-Flow Operations</a>, Previous: <a href="FORMAT-Pretty-Printer-Operations.html" accesskey="p" rel="prev">FORMAT Pretty Printer Operations</a>, Up: <a href="Formatted-Output.html" accesskey="u" rel="up">Formatted Output</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="FORMAT-Layout-Control-1"></span><h4 class="subsection">22.3.6 FORMAT Layout Control</h4>
 
-<span id="Tilde-T_003a-Tabulate"></span><h4 class="subsubsection">22.3.6.1 Tilde T: Tabulate</h4>
-<span id="index-T-_0028format-directive_0029"></span>
-<span id="index-Tilde-T-_0028format-directive_0029"></span>
-
-<p>This spaces over to a given column.
-<code>~<i>colnum</i>,<i>colinc</i>T</code> will output
-sufficient spaces to move the cursor to column <i>colnum</i>.  If the cursor
-is already at or beyond column <i>colnum</i>, it will output spaces to move it to
-column <i>colnum</i>+<i>k</i>*<i>colinc</i> for the smallest positive integer
-<i>k</i> possible, unless <i>colinc</i> is zero, in which case no spaces
-are output if the cursor is already at or beyond column <i>colnum</i>.
-<i>colnum</i> and <i>colinc</i> default to <code>1</code>.
-</p>
-<p>If for some reason the current absolute column position cannot be determined
-by direct inquiry,
-<code>format</code> 
-may be able to deduce the current column position by noting         
-that certain directives (such as <code>~%</code>, or <code>~&amp;</code>,
-or <code>~A</code> 
-with the argument being a string containing a newline) cause
-the column position to be reset to zero, and counting the number of characters
-emitted since that point.  If that fails, <code>format</code> 
-may attempt a
-similar deduction on the riskier assumption that the destination was
-at column zero when <code>format</code> 
-was invoked.  If even this heuristic fails
-or is implementationally inconvenient, at worst
-the <code>~T</code> operation will simply output two spaces.
-</p>
-<p><code>~@T</code> performs relative tabulation.
-<code>~<i>colrel</i>,<i>colinc</i>@T</code> outputs <i>colrel</i> spaces
-and then outputs the smallest non-negative
-number of additional spaces necessary to move the cursor
-to a column that is a multiple                                       
-of <i>colinc</i>.  For example, the directive 
-<code>~3,8@T</code> outputs
-three spaces and then moves the cursor to a &ldquo;standard multiple-of-eight
-tab stop&rdquo; if not at one already.
-If the current output column cannot be determined, however,
-then <i>colinc</i> is ignored, and exactly <i>colrel</i> spaces are output.
-</p>
-<p>If the <i>colon</i> modifier is used with the <code>~T</code> directive,
-the tabbing computation is done relative to the horizontal position where the
-section immediately containing the directive begins, rather than with
-respect to a horizontal position of zero.  The numerical parameters are
-both interpreted as being in units of <i>ems</i> and both default to <code>1</code>.
-<code>~<var>n</var>,<var>m</var>:T</code> is the same as 
-<code>(pprint-tab :section <var>n</var> <var>m</var>)</code>.
-<code>~<var>n</var>,<var>m</var>:@T</code> is the same as
-<code>(pprint-tab :section-relative <var>n</var> <var>m</var>)</code>.
-</p>
-
-<span id="Tilde-Less_002dThan_002dSign_003a-Justification"></span><h4 class="subsubsection">22.3.6.2 Tilde Less-Than-Sign: Justification</h4>
-<span id="TildeLessThanJustification"></span><span id="index-Less_002dThan_002dSign-_0028format-directive_0029-1"></span>
-<span id="index-Tilde-Less_002dThan_002dSign-_0028format-directive_0029-1"></span>
-
-<p><code>~<i>mincol</i>,<i>colinc</i>,<i>minpad</i>,<i>padchar</i>&lt;<i>str</i>~&gt;</code>
-</p>
-<p>This justifies the text produced by processing <i>str</i>
-within a field at least <i>mincol</i> columns wide.  <i>str</i>
-may be divided up into segments with <code>~;</code>, in which case the
-spacing is evenly divided between the text segments.
-</p>
-<p>With no modifiers, the leftmost text segment is left justified in the
-field, and the rightmost text segment is right justified.  If there is
-only one text element, as a special case, it is right justified.
-The <code>:</code> modifier causes                                            
-spacing to be introduced before the first text segment;  the 
-<code>@</code> modifier causes spacing to be added after the last.
-The <i>minpad</i> parameter (default <code>0</code>) is the minimum number of
-padding characters to be output between each segment.
-The padding character is supplied by <i>padchar</i>,
-which defaults to the space character.
-If the total width needed to satisfy these constraints is greater
-than <i>mincol</i>, then the width used is <i>mincol</i>+<i>k</i>*<i>colinc</i>
-for the smallest possible non-negative integer value <i>k</i>.
-<i>colinc</i> defaults to <code>1</code>, and <i>mincol</i> defaults to <code>0</code>.
-</p>
-<p>Note that <i>str</i> may include <code>format</code> directives.
-All the clauses in <i>str</i> are processed in order;
-it is the resulting pieces of text that are justified.
-</p>
-<p>The <code>~^ </code> directive may be used to terminate processing of the
-clauses prematurely, in which case only the completely processed clauses
-are justified.
-</p>
-<p>If the first clause of a <code>~&lt;</code> 
-is terminated with <code>~:;</code> instead of
-<code>~;</code>, then it is used in a special way.  All of the clauses are
-processed (subject to <code>~^ </code>, of course), but the 
-first one is not used
-in performing the spacing and padding.  When the padded result has been
-determined, then if it will fit on the current line of output, it is
-output, and the text for the first clause is discarded.  If, however, the
-padded text will not fit on the current line, then the text segment for
-the first clause is output before the padded text.  The first clause
-ought to contain a newline (such as a <code>~%</code> directive).  The first
-clause is always processed, and so any arguments it refers to will be
-used; the decision is whether to use the resulting segment of text, not
-whether to process the first clause.  If the <code>~:;</code> has a prefix
-parameter <i>n</i>, then the padded text must fit on the current line with
-<i>n</i> character positions to spare to avoid outputting the first clause&rsquo;s
-text.  For example, the control string
-</p>
-<div class="lisp">
-<pre class="lisp"> &quot;~%;; ~{ <!-- /@w -->~&lt;~%;; ~1:; ~S~&gt;~^ <!-- /@w -->,~} <!-- /@w -->.~%&quot;
-</pre></div>
-
-
-<p>can be used to print a list of items separated by commas without
-breaking items over line boundaries, beginning each line with
-<code>;; </code>.  The prefix parameter 
-<code>1</code> in <code>~1:;</code> accounts for the width of the
-comma that will follow the justified item if it is not the last
-element in the list, or the period 
-if it is.  If <code>~:;</code> has a second
-prefix parameter, then it is used as the width of the line,
-thus overriding the natural line width of the output stream.  To make
-the preceding example use a line width of 50, one would write
-</p>
-<div class="lisp">
-<pre class="lisp"> &quot;~%;; ~{ <!-- /@w -->~&lt;~%;; ~1,50:; ~S~&gt;~^ <!-- /@w -->,~}  <!-- /@w -->.~%&quot;
-</pre></div>
-
-<p>If the second argument is not supplied, then <code>format</code> uses the
-line width of the <var>destination</var> output stream.
-If this cannot be determined (for example, when producing a 
-<i>string</i> result), then <code>format</code> uses <code>72</code> as the line length.
-</p>
-<p>See also <a href="FORMAT-Pretty-Printer-Operations.html#TildeLessThanLogicalBlock">Section 22.3.5.2 (Tilde Less-Than-Sign. Logical Block)</a>.
-</p>
-
-<span id="Tilde-Greater_002dThan_002dSign_003a-End-of-Justification"></span><h4 class="subsubsection">22.3.6.3 Tilde Greater-Than-Sign: End of Justification</h4>
-<span id="index-Greater_002dThan_002dSign-_0028format-directive_0029"></span>
-<span id="index-Tilde-Greater_002dThan_002dSign-_0028format-directive_0029"></span>
-
-<p><code>~&gt;</code> terminates a <code>~&lt;</code>.
-The consequences of using it elsewhere are undefined.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="FORMAT-Control_002dFlow-Operations.html" accesskey="n" rel="next">FORMAT Control-Flow Operations</a>, Previous: <a href="FORMAT-Pretty-Printer-Operations.html" accesskey="p" rel="prev">FORMAT Pretty Printer Operations</a>, Up: <a href="Formatted-Output.html" accesskey="u" rel="up">Formatted Output</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Printer.html#FORMAT-Layout-Control">FORMAT Layout Control</a>.</p>
 </body>
-</html>

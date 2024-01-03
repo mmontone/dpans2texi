@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>flet; labels; macrolet (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Data-and-Control-Flow.html" rel="up" title="Data and Control Flow">
-<link href="funcall.html" rel="next" title="funcall">
-<link href="fmakunbound.html" rel="prev" title="fmakunbound">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,307 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Data-and-Control-Flow.html#flet_003b-labels_003b-macrolet">
 
 </head>
 
 <body lang="en">
-<span id="flet_003b-labels_003b-macrolet"></span><div class="header">
-<p>
-Next: <a href="funcall.html" accesskey="n" rel="next">funcall</a>, Previous: <a href="fmakunbound.html" accesskey="p" rel="prev">fmakunbound</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">flet; labels; macrolet</h4>
-<span id="flet_002c-labels_002c-macrolet-_0028Special-Operator_0029"></span><h3 class="heading">flet, labels, macrolet (Special Operator)</h3>
-<span id="index-flet-2"></span>
-<span id="index-flet"></span>
-<span id="index-labels-2"></span>
-<span id="index-labels"></span>
-<span id="index-macrolet-3"></span>
-<span id="index-macrolet-1"></span>
-<span id="flet"></span><span id="labels"></span><span id="macrolet"></span>
 
-
-<span id="Syntax_003a-40"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-flet-1">Special Form: <strong>flet</strong> <em><tt>(</tt><tt>{</tt><tt>(</tt><var><span class="nolinebreak">function-name</span></var>&nbsp;&nbsp;<var><span class="nolinebreak">lambda-list</span></var>&nbsp;〚<tt>{</tt><span class="nolinebreak">local-declaration</span><tt>}</tt>*&nbsp;<span class="roman">|</span>&nbsp;<span class="nolinebreak">local-documentation〛</span>&nbsp;<tt>{</tt><span class="nolinebreak">local-form</span><tt>}</tt>*<tt>)</tt><tt>}</tt>*<tt>)</tt><!-- /@w --> <tt>{</tt>declaration<tt>}</tt>*&nbsp;<tt>{</tt>form<tt>}</tt>*<!-- /@w --> <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<dl>
-<dt id="index-labels-1">Special Form: <strong>labels</strong> <em><tt>(</tt><tt>{</tt><tt>(</tt><var><span class="nolinebreak">function-name</span></var>&nbsp;&nbsp;<var><span class="nolinebreak">lambda-list</span></var>&nbsp;〚<tt>{</tt><span class="nolinebreak">local-declaration</span><tt>}</tt>*&nbsp;<span class="roman">|</span>&nbsp;<span class="nolinebreak">local-documentation〛</span>&nbsp;<tt>{</tt><span class="nolinebreak">local-form</span><tt>}</tt>*<tt>)</tt><tt>}</tt>*<tt>)</tt><!-- /@w --> <tt>{</tt>declaration<tt>}</tt>*&nbsp;<tt>{</tt>form<tt>}</tt>*<!-- /@w --> <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<dl>
-<dt id="index-macrolet-2">Special Form: <strong>macrolet</strong> <em><tt>(</tt><tt>{</tt><tt>(</tt><var>name</var>&nbsp;&nbsp;<var><span class="nolinebreak">lambda-list</span></var>&nbsp;〚<tt>{</tt><span class="nolinebreak">local-declaration</span><tt>}</tt>*&nbsp;<span class="roman">|</span>&nbsp;<span class="nolinebreak">local-documentation〛</span>&nbsp;<tt>{</tt><span class="nolinebreak">local-form</span><tt>}</tt>*<tt>)</tt><tt>}</tt>*<tt>)</tt><!-- /@w --> <tt>{</tt>declaration<tt>}</tt>*&nbsp;<tt>{</tt>form<tt>}</tt>*<!-- /@w --> <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-30"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>function-name</var>&mdash;a <i>function name</i>.
-</p>
-<p><var>name</var>&mdash;a <i>symbol</i>.
-</p>
-<p><var>lambda-list</var>&mdash;a <i>lambda list</i>; 
-for <code>flet</code> and <code>labels</code>,
-it is an <i>ordinary lambda list</i>;
-for <code>macrolet</code>,
-it is a <i>macro lambda list</i>.
-</p>
-<p><var>local-declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
-</p>
-<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
-</p>
-<p><var>local-documentation</var>&mdash;a <i>string</i>; not evaluated.
-</p>
-<p><var>local-forms</var>, <var>forms</var>&mdash;an <i>implicit progn</i>.
-</p>
-<p><var>results</var>&mdash;the <i>values</i> of the <var>forms</var>.
-</p>
-<span id="Description_003a-59"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>flet</code>, <code>labels</code>, and <code>macrolet</code>
-define local <i>functions</i> and <i>macros</i>, and execute
-<var>forms</var> using the local definitions.
-<var>Forms</var> are executed  in order of occurrence.
-</p>
-<p>The body forms (but not the <i>lambda list</i>)
-of each <i>function</i> created by <code>flet</code> and <code>labels</code> 
-and each <i>macro</i> created by <code>macrolet</code>
-are enclosed in an <i>implicit block</i> whose name 
-is the <i>function block name</i> of the <var>function-name</var> or <var>name</var>, 
-as appropriate.
-</p>
-<p>The scope of the <var>declarations</var>
-between
-the list of local function/macro definitions and the body <var>forms</var>
-in <code>flet</code> and <code>labels</code> 
-does not include the bodies of the
-locally defined <i>functions</i>, except that for <code>labels</code>,
-any <code>inline</code>, <code>notinline</code>, or <code>ftype</code> declarations
-that refer to the locally defined functions do apply to the local function
-bodies. That is, their <i>scope</i> 
-is the same as the function name that they
-affect.  
-The scope of these <var>declarations</var> 
-does not include the bodies of the macro expander
-functions defined by <code>macrolet</code>.  
-</p>
-
-<dl compact="compact">
-<dt><b>flet</b></dt>
-<dd>
-
-<p><code>flet</code> defines locally named <i>functions</i> and executes a series of
-<var>forms</var> with these definition <i>bindings</i>.  Any number of
-such local <i>functions</i> can be defined.  
-</p>
-<p>The <i>scope</i> of the name <i>binding</i> encompasses only the body.
-Within the
-body of <code>flet</code>, 
-<var>function-names</var> matching those defined
-by <code>flet</code> 
-refer to the locally defined <i>functions</i> 
-rather than to
-the global function definitions of the same name.
-Also, within the scope of <code>flet</code>, 
-global <i>setf expander</i> definitions of the <var>function-name</var>
-defined by <code>flet</code> do not apply. 
-Note that this applies to 
-<code>(defsetf <i>f</i> ...)</code>, not
-<code>(defmethod (setf <i>f</i>) ...)</code>.
-</p>
-<p>The names of <i>functions</i> defined by <code>flet</code> 
-are in the <i>lexical environment</i>; they retain
-their local definitions only within the body of <code>flet</code>.
-The function definition bindings are visible only in
-the body of <code>flet</code>, not the definitions themselves.  Within the
-function definitions, local function names
-that match those being
-defined refer to <i>functions</i> or 
-<i>macros</i> defined outside the <code>flet</code>.
-<code>flet</code> can locally <i>shadow</i> a global function name,
-and the new definition can refer to the global definition.
-</p>
-<p>Any <var>local-documentation</var> is attached to the corresponding local <var>function</var>
-(if one is actually created) as a <i>documentation string</i>.
-</p>
-</dd>
-<dt><b>labels</b></dt>
-<dd>
-
-<p><code>labels</code> is equivalent to <code>flet</code> except that
-the scope of the defined function names for <code>labels</code> 
-encompasses the function definitions themselves as well as the body.
-</p>
-</dd>
-<dt><b>macrolet</b></dt>
-<dd>
-
-<p><code>macrolet</code> 
-establishes local <i>macro</i> definitions,
-using the same format used by <code>defmacro</code>.
-</p>
-<p>Within the body of <code>macrolet</code>, 
-global <i>setf expander</i> definitions of the <var>names</var> defined by the 
-<code>macrolet</code> do not apply; rather, <code>setf</code> expands the
-<i>macro form</i> and recursively process the resulting <i>form</i>.
-</p>
-<p>The macro-expansion functions defined by <code>macrolet</code> 
-are defined in the 
-<i>lexical environment</i> in which the <code>macrolet</code> form appears.
-Declarations and <code>macrolet</code> and 
-<code>symbol-macrolet</code> definitions
-affect the local macro definitions in a <code>macrolet</code>, but the
-consequences are undefined if the local macro definitions reference
-any local <i>variable</i> or <i>function</i> <i>bindings</i> that are visible in that
-<i>lexical environment</i>.
-</p>
-<p>Any <var>local-documentation</var> is attached to the corresponding local <var>macro function</var>
-as a <i>documentation string</i>.
-</p></dd>
-</dl>
-
-
-<span id="Examples_003a-36"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (defun foo (x flag)
-   (macrolet ((fudge (z)
-                 ;The parameters x and flag are not accessible
-                 ; at this point; a reference to flag would be to
-                 ; the global variable of that name.
-                 ` <!-- /@w -->(if flag (* ,z ,z) ,z)))
-    ;The parameters x and flag are accessible here.
-     (+ x
-        (fudge x)
-        (fudge (+ x 1)))))
- ≡
- (defun foo (x flag)
-   (+ x
-      (if flag (* x x) x)
-      (if flag (* (+ x 1) (+ x 1)) (+ x 1))))
-</pre></div>
-
-<p>after macro expansion.  The occurrences of <code>x</code> and <code>flag</code> legitimately
-refer to the parameters of the function <code>foo</code> because those parameters are
-visible at the site of the macro call which produced the expansion.
-</p>
-
-<div class="lisp">
-<pre class="lisp"> (flet ((flet1 (n) (+ n n)))
-    (flet ((flet1 (n) (+ 2 (flet1 n))))
-      (flet1 2))) <span class="roman">→</span> 6
-
- (defun dummy-function () 'top-level) <span class="roman">→</span> DUMMY-FUNCTION 
- (funcall #'dummy-function) <span class="roman">→</span> TOP-LEVEL 
- (flet ((dummy-function () 'shadow)) 
-      (funcall #'dummy-function)) <span class="roman">→</span> SHADOW 
- (eq (funcall #'dummy-function) (funcall 'dummy-function))
-<span class="roman">→</span> <i>true</i> 
- (flet ((dummy-function () 'shadow))
-   (eq (funcall #'dummy-function)
-       (funcall 'dummy-function)))
-<span class="roman">→</span> <i>false</i> 
-
- (defun recursive-times (k n)
-   (labels ((temp (n) 
-              (if (zerop n) 0 (+ k (temp (1- n))))))
-     (temp n))) <span class="roman">→</span> RECURSIVE-TIMES
- (recursive-times 2 3) <span class="roman">→</span> 6
-
- (defmacro mlets (x &amp;environment env) 
-    (let ((form `(babbit ,x)))
-      (macroexpand form env))) <span class="roman">→</span> MLETS
- (macrolet ((babbit (z) `(+ ,z ,z))) (mlets 5)) <span class="roman">→</span> 10
-</pre></div>
-
-
-<div class="lisp">
-<pre class="lisp"> (flet ((safesqrt (x) (sqrt (abs x))))
-  ;; The safesqrt function is used in two places.
-   (safesqrt (apply #'+ (map 'list #'safesqrt '(1 2 3 4 5 6)))))
-<span class="roman">→</span> 3.291173
-</pre></div>
-
-
-<div class="lisp">
-<pre class="lisp"> (defun integer-power (n k)     
-   (declare (integer n))         
-   (declare (type (integer 0 *) k))
-   (labels ((expt0 (x k a)
-              (declare (integer x a) (type (integer 0 *) k))
-              (cond ((zerop k) a)
-                    ((evenp k) (expt1 (* x x) (floor k 2) a))
-                    (t (expt0 (* x x) (floor k 2) (* x a)))))
-            (expt1 (x k a)
-              (declare (integer x a) (type (integer 0 *) k))
-              (cond ((evenp k) (expt1 (* x x) (floor k 2) a))
-                    (t (expt0 (* x x) (floor k 2) (* x a))))))
-    (expt0 n k 1))) <span class="roman">→</span> INTEGER-POWER
-</pre></div>
-
-
-<div class="lisp">
-<pre class="lisp"> (defun example (y l)
-   (flet ((attach (x)
-            (setq l (append l (list x)))))
-     (declare (inline attach))
-     (dolist (x y)
-       (unless (null (cdr x))
-         (attach x)))
-     l))
-
- (example '((a apple apricot) (b banana) (c cherry) (d) (e))
-          '((1) (2) (3) (4 2) (5) (6 3 2)))
-<span class="roman">→</span> ((1) (2) (3) (4 2) (5) (6 3 2) (A APPLE APRICOT) (B BANANA) (C CHERRY))
-</pre></div>
-
-
-<span id="See-Also_003a-46"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="declare.html">declare</a>,
-<a href="defmacro.html">defmacro</a>,
-<a href="defun.html">defun</a>,
-<a href="documentation_003b-setf-documentation.html#documentation">documentation</a>,
-<a href="let_003b-let_002a.html#let">let</a>,
-<a href="Evaluation.html">Section 3.1 (Evaluation)</a>,
-<a href="Syntactic-Interaction-of-Documentation-Strings-and-Declarations.html">Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)</a>
-</p>
-<span id="Notes_003a-27"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>It is not possible to define recursive <i>functions</i> with <code>flet</code>.
-<code>labels</code> can be used to define mutually recursive <i>functions</i>.
-</p>
-<p>If a <code>macrolet</code> <i>form</i> is a <i>top level form</i>,
-the body <var>forms</var> are also processed as <i>top level forms</i>.
-See <a href="File-Compilation.html">Section 3.2.3 (File Compilation)</a>.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="funcall.html" accesskey="n" rel="next">funcall</a>, Previous: <a href="fmakunbound.html" accesskey="p" rel="prev">fmakunbound</a>, Up: <a href="Data-and-Control-Flow.html" accesskey="u" rel="up">Data and Control Flow</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Data-and-Control-Flow.html#flet_003b-labels_003b-macrolet">flet; labels; macrolet</a>.</p>
 </body>
-</html>

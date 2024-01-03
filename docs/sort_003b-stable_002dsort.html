@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>sort; stable-sort (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Sequences.html" rel="up" title="Sequences">
-<link href="find_003b-find_002dif_003b-find_002dif_002dnot.html" rel="next" title="find; find-if; find-if-not">
-<link href="reverse_003b-nreverse.html" rel="prev" title="reverse; nreverse">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,191 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Sequences.html#sort_003b-stable_002dsort">
 
 </head>
 
 <body lang="en">
-<span id="sort_003b-stable_002dsort"></span><div class="header">
-<p>
-Next: <a href="find_003b-find_002dif_003b-find_002dif_002dnot.html" accesskey="n" rel="next">find; find-if; find-if-not</a>, Previous: <a href="reverse_003b-nreverse.html" accesskey="p" rel="prev">reverse; nreverse</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">sort; stable-sort</h4>
-<span id="sort_002c-stable_002dsort-_0028Function_0029"></span><h3 class="heading">sort, stable-sort (Function)</h3>
-<span id="index-sort-2"></span>
-<span id="index-sort"></span>
-<span id="index-stable_002dsort-2"></span>
-<span id="index-stable_002dsort"></span>
-<span id="sort"></span><span id="stable_002dsort"></span>
 
-<span id="Syntax_003a-376"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-sort-1">Function: <strong>sort</strong> <em>sequence predicate <tt>&amp;key</tt> key <span class="roman">→</span> sorted-sequence</em></dt>
-</dl>
-<dl>
-<dt id="index-stable_002dsort-1">Function: <strong>stable-sort</strong> <em>sequence predicate <tt>&amp;key</tt> key <span class="roman">→</span> sorted-sequence</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-365"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
-</p>
-<p><var>predicate</var>&mdash;a <i>designator</i> for
-a <i>function</i> of two arguments that returns a <i>generalized boolean</i>.
-</p>
-<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
-or <code>nil</code>.
-</p>
-<p><var>sorted-sequence</var>&mdash;a <i>sequence</i>.
-</p>
-<span id="Description_003a-480"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>sort</code> and <code>stable-sort</code> destructively sort <var>sequences</var>  
-according to the order determined by the <var>predicate</var> function.
-</p>
-<p>If <var>sequence</var> is a <i>vector</i>,
-the result is a <i>vector</i> 
-that has the same <i>actual array element type</i> as <var>sequence</var>.
-If <var>sequence</var> is a <i>list</i>,
-the result is a <i>list</i>. 
-</p>
-<p><code>sort</code> determines the relationship between two elements
-by giving keys extracted from the elements to the <var>predicate</var>.
-The first argument to the <var>predicate</var> function is the part of one element
-of <var>sequence</var> extracted by the <var>key</var> function
-(if supplied); the second
-argument is the part of another element
-of <var>sequence</var> extracted by the <var>key</var> function
-(if supplied).
-<var>Predicate</var> should return <i>true</i> if and only if the first argument is
-strictly less than the second (in some appropriate sense). 
-If the first argument is greater than or equal to the second
-(in the appropriate sense), then the <var>predicate</var> should return <i>false</i>.
-</p>
-<p>The argument to the <var>key</var> function is the <var>sequence</var> element.
-The return value of the <var>key</var> function 
-becomes an argument to <var>predicate</var>.
-If <var>key</var> is not supplied or <code>nil</code>, the <var>sequence</var> element itself is used.
-There is no guarantee on the number of times the <var>key</var> will be called.
-</p>
-<p>If the <var>key</var> and <var>predicate</var> always return,
-then the sorting operation will always terminate,
-producing a <i>sequence</i> containing the same <i>elements</i> as <var>sequence</var> 
-(that is, the result is a permutation of <var>sequence</var>).
-This is guaranteed even if the <var>predicate</var>
-does not really consistently represent a total order
-(in which case the <i>elements</i> will be scrambled in some unpredictable way,
-but no <i>element</i> will be lost).  
-If the <var>key</var> consistently returns meaningful keys,
-and the <var>predicate</var> does reflect some total ordering criterion on those keys,
-then the <i>elements</i> of the <var>sorted-sequence</var>
-will be properly sorted according to that ordering.
-</p>
-<p>The sorting operation performed by <code>sort</code> is not guaranteed stable.
-Elements considered equal by the <var>predicate</var> might or might not
-stay in their original order.  The <var>predicate</var> is assumed to
-consider two elements <code>x</code> and <code>y</code> to be equal if
-<code>(funcall <i>predicate</i> <i>x</i> <i>y</i>)</code> and
-<code>(funcall <i>predicate</i> <i>y</i> <i>x</i>)</code> are both <i>false</i>.
-<code>stable-sort</code> guarantees stability.
-</p>
-<p>The sorting operation can be destructive in all cases.  In the case of a
-<i>vector</i> 
-argument, this is accomplished by permuting the elements in place.
-In the case of a <i>list</i>, the <i>list</i> is
-destructively reordered in the same manner as for
-<code>nreverse</code>.  
-</p>
-<span id="Examples_003a-347"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (setq tester (copy-seq &quot;lkjashd&quot;)) <span class="roman">→</span> &quot;lkjashd&quot;
- (sort tester #'char-lessp) <span class="roman">→</span> &quot;adhjkls&quot;
- (setq tester (list '(1 2 3) '(4 5 6) '(7 8 9))) <span class="roman">→</span> ((1 2 3) (4 5 6) (7 8 9))
- (sort tester #'&gt; :key #'car)  <span class="roman">→</span> ((7 8 9) (4 5 6) (1 2 3)) 
- (setq tester (list 1 2 3 4 5 6 7 8 9 0)) <span class="roman">→</span> (1 2 3 4 5 6 7 8 9 0)
- (stable-sort tester #'(lambda (x y) (and (oddp x) (evenp y))))
-<span class="roman">→</span> (1 3 5 7 9 2 4 6 8 0)
- (sort (setq committee-data
-             (vector (list (list &quot;JonL&quot; &quot;White&quot;) &quot;Iteration&quot;)
-                     (list (list &quot;Dick&quot; &quot;Waters&quot;) &quot;Iteration&quot;)
-                     (list (list &quot;Dick&quot; &quot;Gabriel&quot;) &quot;Objects&quot;)
-                     (list (list &quot;Kent&quot; &quot;Pitman&quot;) &quot;Conditions&quot;)
-                     (list (list &quot;Gregor&quot; &quot;Kiczales&quot;) &quot;Objects&quot;)
-                     (list (list &quot;David&quot; &quot;Moon&quot;) &quot;Objects&quot;)
-                     (list (list &quot;Kathy&quot; &quot;Chapman&quot;) &quot;Editorial&quot;)
-                     (list (list &quot;Larry&quot; &quot;Masinter&quot;) &quot;Cleanup&quot;)
-                     (list (list &quot;Sandra&quot; &quot;Loosemore&quot;) &quot;Compiler&quot;)))
-       #'string-lessp :key #'cadar)
-<span class="roman">→</span> #(((&quot;Kathy&quot; &quot;Chapman&quot;) &quot;Editorial&quot;)
-     ((&quot;Dick&quot; &quot;Gabriel&quot;) &quot;Objects&quot;)
-     ((&quot;Gregor&quot; &quot;Kiczales&quot;) &quot;Objects&quot;)
-     ((&quot;Sandra&quot; &quot;Loosemore&quot;) &quot;Compiler&quot;)
-     ((&quot;Larry&quot; &quot;Masinter&quot;) &quot;Cleanup&quot;)
-     ((&quot;David&quot; &quot;Moon&quot;) &quot;Objects&quot;)
-     ((&quot;Kent&quot; &quot;Pitman&quot;) &quot;Conditions&quot;)
-     ((&quot;Dick&quot; &quot;Waters&quot;) &quot;Iteration&quot;)
-     ((&quot;JonL&quot; &quot;White&quot;) &quot;Iteration&quot;))
- ;; Note that individual alphabetical order within `committees'
- ;; is preserved.
- (setq committee-data 
-       (stable-sort committee-data #'string-lessp :key #'cadr))
-<span class="roman">→</span> #(((&quot;Larry&quot; &quot;Masinter&quot;) &quot;Cleanup&quot;)
-     ((&quot;Sandra&quot; &quot;Loosemore&quot;) &quot;Compiler&quot;)
-     ((&quot;Kent&quot; &quot;Pitman&quot;) &quot;Conditions&quot;)
-     ((&quot;Kathy&quot; &quot;Chapman&quot;) &quot;Editorial&quot;)
-     ((&quot;Dick&quot; &quot;Waters&quot;) &quot;Iteration&quot;)
-     ((&quot;JonL&quot; &quot;White&quot;) &quot;Iteration&quot;)
-     ((&quot;Dick&quot; &quot;Gabriel&quot;) &quot;Objects&quot;)
-     ((&quot;Gregor&quot; &quot;Kiczales&quot;) &quot;Objects&quot;)
-     ((&quot;David&quot; &quot;Moon&quot;) &quot;Objects&quot;))
-</pre></div>
-
-
-<span id="Exceptional-Situations_003a-161"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
-<var>sequence</var> is not a <i>proper sequence</i>.
-</p>
-<span id="See-Also_003a-390"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="merge.html">merge</a>,
-<a href="Compiler-Terminology.html">Section 3.2.1 (Compiler Terminology)</a>,
-<a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>,
-<a href="Destructive-Operations.html">Section 3.7 (Destructive Operations)</a>
-</p>
-<span id="Notes_003a-261"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>If <var>sequence</var> is a <i>vector</i>,
-the result might or might not be simple, 
-and might or might not be <i>identical</i> to <var>sequence</var>.
-</p>
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="find_003b-find_002dif_003b-find_002dif_002dnot.html" accesskey="n" rel="next">find; find-if; find-if-not</a>, Previous: <a href="reverse_003b-nreverse.html" accesskey="p" rel="prev">reverse; nreverse</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Sequences.html#sort_003b-stable_002dsort">sort; stable-sort</a>.</p>
 </body>
-</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>define-condition (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Conditions.html" rel="up" title="Conditions">
-<link href="make_002dcondition.html" rel="next" title="make-condition">
-<link href="ignore_002derrors.html" rel="prev" title="ignore-errors">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,442 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Conditions.html#define_002dcondition">
 
 </head>
 
 <body lang="en">
-<span id="define_002dcondition"></span><div class="header">
-<p>
-Next: <a href="make_002dcondition.html" accesskey="n" rel="next">make-condition</a>, Previous: <a href="ignore_002derrors.html" accesskey="p" rel="prev">ignore-errors</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">define-condition</h4>
-<span id="define_002dcondition-_0028Macro_0029"></span><h3 class="heading">define-condition (Macro)</h3>
-<span id="index-define_002dcondition-2"></span>
-<span id="index-define_002dcondition"></span>
 
-
-
-
-
-<span id="Syntax_003a-157"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-define_002dcondition-1">Macro: <strong>define-condition</strong> <em>name <tt>(</tt><tt>{</tt>parent-type<tt>}</tt>*<tt>)</tt> <tt>(</tt><tt>{</tt><tt>↓</tt>slot-spec<tt>}</tt>*<tt>)</tt> <tt>{</tt>option<tt>}</tt>* <span class="roman">→</span> name</em></dt>
-</dl>
-
-<dl compact="compact">
-<dt><var>slot-spec</var>::=</dt>
-<dd><p>slot-name | <tt>(</tt>slot-name <tt>↓</tt>slot-option<tt>)</tt>
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>slot-option</var>::=</dt>
-<dd><p>〚 <tt>{</tt><tt>:reader</tt> <i>symbol</i><tt>}</tt>* | <br> <tt>{</tt><tt>:writer</tt> <tt>↓</tt>function-name<tt>}</tt>* | <br> <tt>{</tt><tt>:accessor</tt> <i>symbol</i><tt>}</tt>* | <br> <tt>{</tt><tt>:allocation</tt> <tt>↓</tt>allocation-type<tt>}</tt> | <br> <tt>{</tt><tt>:initarg</tt> <i>symbol</i><tt>}</tt>* | <br> <tt>{</tt><tt>:initform</tt> <i>form</i><tt>}</tt> | <br> <tt>{</tt><tt>:type</tt> <var>type-specifier</var><tt>}</tt> 〛
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>option</var>::=</dt>
-<dd><p>〚 <tt>(</tt><tt>:default-initargs</tt> <code>.</code> <var>initarg-list</var><tt>)</tt> | <br> <tt>(</tt><tt>:documentation</tt> <i>string</i><tt>)</tt> | <br> <tt>(</tt><tt>:report</tt> <i>report-name</i><tt>)</tt> 〛
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>function-name</var>::=</dt>
-<dd><p><tt>{</tt><i>symbol</i> | <code>(setf <i>symbol</i>)</code><tt>}</tt>
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>allocation-type</var>::=</dt>
-<dd><p><tt>:instance</tt> | <tt>:class</tt>
-</p></dd>
-</dl>
-<dl compact="compact">
-<dt><var>report-name</var>::=</dt>
-<dd><p><i>string</i> | <i>symbol</i> | <i>lambda expression</i>
-</p></dd>
-</dl>
-
-<span id="Arguments-and-Values_003a-146"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>name</var>&mdash;a <i>symbol</i>.
-</p>
-<p><var>parent-type</var>&mdash;a <i>symbol</i> naming a <i>condition</i> <i>type</i>.
-If no <var>parent-types</var> are supplied,
-the <var>parent-types</var> default to <code>(condition)</code>.
-</p>
-<p><var>default-initargs</var>&mdash;a <i>list</i> of <i>keyword/value pairs</i>.
-</p>
-
-
-
-<p><var>Slot-spec</var>&mdash;the <i>name</i> of a <i>slot</i> or a <i>list</i>
-consisting of the <var>slot-name</var> followed by zero or more <var>slot-options</var>.
-</p>
-<p><var>Slot-name</var>&mdash;a slot name (a <i>symbol</i>), 
-the <i>list</i> of a slot name, or the 
-<i>list</i> of slot name/slot form pairs.
-</p>
-<p><var>Option</var>&mdash;Any of the following:
-</p>
-
-<dl compact="compact">
-<dt><tt>:reader</tt></dt>
-<dd>
-
-<p><tt>:reader</tt> can be supplied more than once for a given <i>slot</i> 
-and cannot be <code>nil</code>.
-</p>
-</dd>
-<dt><tt>:writer</tt></dt>
-<dd>
-
-<p><tt>:writer</tt> can be supplied more than once for a given <i>slot</i>
-and must name a <i>generic function</i>.
-</p>
-</dd>
-<dt><tt>:accessor</tt></dt>
-<dd>
-
-<p><tt>:accessor</tt> can be supplied more than once for a given <i>slot</i>
-and cannot be <code>nil</code>.
-</p>
-</dd>
-<dt><tt>:allocation</tt></dt>
-<dd>
-
-<p><tt>:allocation</tt> can be supplied once at most for a given <i>slot</i>.
-The default if <tt>:allocation</tt> is not supplied is <tt>:instance</tt>.
-</p>
-</dd>
-<dt><tt>:initarg</tt></dt>
-<dd> 
-
-<p><tt>:initarg</tt> can be supplied more than once for a given <i>slot</i>.  
-</p>
-</dd>
-<dt><tt>:initform</tt></dt>
-<dd>  
-
-<p><tt>:initform</tt> can be supplied once at most for a given <i>slot</i>.  
-</p>
-</dd>
-<dt><tt>:type</tt></dt>
-<dd> 
-
-<p><tt>:type</tt> can be supplied once at most for a given <i>slot</i>. 
-</p>
-</dd>
-<dt><tt>:documentation</tt></dt>
-<dd> 
-
-<p><tt>:documentation</tt> can be supplied once at most for a given <i>slot</i>. 
-</p>
-</dd>
-<dt><tt>:report</tt></dt>
-<dd>
-
-<p><tt>:report</tt> can be supplied once at most.
-</p></dd>
-</dl>
-
-
-<span id="Description_003a-199"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>define-condition</code> defines a new condition type called <var>name</var>, 
-which is a <i>subtype</i> of 
-the <i>type</i> or <i>types</i> named by
-<var>parent-type</var>.  
-Each <var>parent-type</var> argument specifies a direct <i>supertype</i>
-of the new <i>condition</i>. The new <i>condition</i>
-inherits <i>slots</i> and <i>methods</i> from each of its direct
-<i>supertypes</i>, and so on.
-</p>
-<p>If a slot name/slot form pair is supplied,
-the slot form is a <i>form</i> that 
-can be evaluated by <code>make-condition</code> to
-produce a default value when an explicit value is not provided.  If no 
-slot form
-is supplied, the contents of the <var>slot</var> 
-is initialized in an 
-<i>implementation-dependent</i> way.  
-</p>
-<p>If the <i>type</i> being defined and some other 
-<i>type</i> from which it inherits
-have a slot by the same name, only one slot is allocated in the
-<i>condition</i>, 
-but the supplied slot form overrides any slot form
-that might otherwise have been inherited from a <var>parent-type</var>.  If no 
-slot form is supplied, the inherited slot form (if any) is still visible.
-</p>
-<p>Accessors are created according to the same rules as used by 
-<code>defclass</code>.
-</p>
-<p>A description of <var>slot-options</var> follows:
-</p>
-
-
-<dl compact="compact">
-<dt><tt>:reader</tt></dt>
-<dd>
-
-<p>The <tt>:reader</tt> slot option specifies that an <i>unqualified method</i> is
-to be defined on the <i>generic function</i> named by the argument
-to <tt>:reader</tt> to read the value of the given <i>slot</i>.
-</p>
-
-</dd>
-<dt>&bull;</dt>
-<dd><p>The <tt>:initform</tt> slot option is used to provide a default
-initial value form to be used in the initialization of the <i>slot</i>.  This
-<i>form</i> is evaluated every time it is used to initialize the 
-<i>slot</i>.  The
-<i>lexical environment</i> 
-in which this <i>form</i> is evaluated is the lexical
-<i>environment</i> in which the <code>define-condition</code> 
-form was evaluated.
-Note that the <i>lexical environment</i> refers both to variables and to
-<i>functions</i>.  
-For <i>local slots</i>, the <i>dynamic environment</i> is the dynamic
-<i>environment</i> 
-in which <code>make-condition</code> was called; for 
-<i>shared slots</i>, the <i>dynamic environment</i> 
-is the <i>dynamic environment</i> in which the
-<code>define-condition</code> form was evaluated.  
-</p>
-
-<p>No implementation is permitted to extend the syntax of <code>define-condition</code>
-to allow <code>(<var>slot-name</var> <var>form</var>)</code> as an abbreviation for
-<code>(<var>slot-name</var> :initform <var>form</var>)</code>.
-</p>
-</dd>
-<dt><tt>:initarg</tt></dt>
-<dd>
-
-<p>The <tt>:initarg</tt> slot option declares an initialization
-argument named by its <i>symbol</i> argument
-and specifies that this
-initialization argument initializes the given <i>slot</i>.  If the
-initialization argument has a value in the call to 
-<code>initialize-instance</code>, the value is stored into the given <i>slot</i>,
-and the slot&rsquo;s <tt>:initform</tt> slot option, if any, is not
-evaluated.  If none of the initialization arguments specified for a
-given <i>slot</i> has a value, the <i>slot</i> is initialized according to the
-<tt>:initform</tt> slot option, if specified.  
-</p>
-</dd>
-<dt><tt>:type</tt></dt>
-<dd>
-
-<p>The <tt>:type</tt> slot option specifies that the contents of the
-<i>slot</i> is always of the specified <i>type</i>.  It effectively
-declares the result type of the reader generic function when applied
-to an <i>object</i> of this <i>condition</i> type.  
-The consequences of attempting to store in a
-<i>slot</i> a value that 
-does not satisfy the type of the <i>slot</i> is undefined.
-</p>
-</dd>
-<dt><tt>:default-initargs</tt></dt>
-<dd>
-
-
-
-<p>This option is treated the same as it would be <code>defclass</code>.
-</p>
-</dd>
-<dt><tt>:documentation</tt></dt>
-<dd>
-
-
-
-<p>The <tt>:documentation</tt> slot option provides a <i>documentation string</i>
-for the <i>slot</i>.
-</p>
-</dd>
-<dt><tt>:report</tt></dt>
-<dd>
-
-
-
-<p><i>Condition</i> reporting is mediated through the <code>print-object</code>
-method for the <i>condition</i> type in question, with <code>*print-escape*</code>
-always being <code>nil</code>. Specifying <code>(:report <var>report-name</var>)</code> 
-in the definition of a condition type <code>C</code> is equivalent to:
-</p>
-<div class="lisp">
-<pre class="lisp"> (defmethod print-object ((x c) stream)
-   (if *print-escape* (call-next-method) (<var>report-name</var> x stream)))
-</pre></div>
-
-
-<p>If the value supplied by the argument to <tt>:report</tt> (<var>report-name</var>)
-is a <i>symbol</i> or a <i>lambda expression</i>, 
-it must be acceptable to 
-<code>function</code>. <code>(function <var>report-name</var>)</code> 
-is evaluated
-in the current <i>lexical environment</i>.  
-It should return a <i>function</i> 
-of two
-arguments, a <i>condition</i> and a <i>stream</i>, 
-that prints on the <i>stream</i> a
-description of the <i>condition</i>. 
-This <i>function</i> is called whenever the
-<i>condition</i> is printed while <code>*print-escape*</code> is <code>nil</code>.
-</p>
-<p>If <var>report-name</var> is a <i>string</i>, it is a shorthand for 
-</p>
-<div class="lisp">
-<pre class="lisp"> (lambda (condition stream)
-   (declare (ignore condition))
-   (write-string <var>report-name</var> stream))
-</pre></div>
-
-
-<p>This option is processed after the new <i>condition</i> type has been defined,
-so use of the <var>slot</var> accessors within the <tt>:report</tt> function is permitted.
-If this option is not supplied, information about how to report this
-type of <i>condition</i> is inherited from the <var>parent-type</var>.
-</p></dd>
-</dl>
-
-
-<p>The consequences are unspecifed if an attempt is made to <i>read</i> a 
-<var>slot</var> that has not been explicitly initialized and that has not 
-been given a default value.
-</p>
-<p>The consequences are unspecified if an attempt is made to assign the
-<var>slots</var> by using <code>setf</code>.
-</p>
-<p>If a <code>define-condition</code> <i>form</i> appears as a <i>top level form</i>,
-the <i>compiler</i> must make <var>name</var> recognizable as a valid <i>type</i> name,
-and it must be possible to reference the <i>condition</i> <i>type</i> as the
-<var>parent-type</var> of another <i>condition</i> <i>type</i> in a subsequent
-<code>define-condition</code> <i>form</i> in the <i>file</i> being compiled.
-</p>
-<span id="Examples_003a-128"></span><h4 class="subsubheading">Examples:</h4>
-
-<p>The following form defines a condition of <i>type</i> 
-<code>peg/hole-mismatch</code> which inherits from a condition type
-called <code>blocks-world-error</code>:
-</p>
-<div class="lisp">
-<pre class="lisp">(define-condition peg/hole-mismatch 
-                  (blocks-world-error)
-                  ((peg-shape  :initarg :peg-shape
-                               :reader peg/hole-mismatch-peg-shape)
-                   (hole-shape :initarg :hole-shape
-                               :reader peg/hole-mismatch-hole-shape))
-  (:report (lambda (condition stream)
-             (format stream &quot;A ~A peg cannot go in a ~A hole.&quot;
-                     (peg/hole-mismatch-peg-shape  condition)
-                     (peg/hole-mismatch-hole-shape condition)))))
-</pre></div>
-
-
-<p>The new type has slots <code>peg-shape</code> and <code>hole-shape</code>, 
-so <code>make-condition</code> accepts <code>:peg-shape</code> and <code>:hole-shape</code> keywords.  
-The <i>readers</i> <code>peg/hole-mismatch-peg-shape</code> and <code>peg/hole-mismatch-hole-shape</code> 
-apply to objects of this type, as illustrated in the <tt>:report</tt> information.
-</p>
-<p>The following form defines a <i>condition</i> <i>type</i> named <code>machine-error</code>
-which inherits from <code>error</code>: 
-</p>
-<div class="lisp">
-<pre class="lisp">(define-condition machine-error 
-                  (error)
-                  ((machine-name :initarg :machine-name
-                                 :reader machine-error-machine-name))
-  (:report (lambda (condition stream)
-             (format stream &quot;There is a problem with ~A.&quot;
-                     (machine-error-machine-name condition)))))
-</pre></div>
-
-
-<p>Building on this definition, a new error condition can be defined which
-is a subtype of <code>machine-error</code> for use when machines are not available: 
-</p>
-<div class="lisp">
-<pre class="lisp">(define-condition machine-not-available-error (machine-error) ()
-  (:report (lambda (condition stream)
-             (format stream &quot;The machine ~A is not available.&quot;
-                     (machine-error-machine-name condition)))))
-</pre></div>
-
-
-<p>This defines a still more specific condition, built upon 
-<code>machine-not-available-error</code>, which provides a slot initialization form
-for <code>machine-name</code> but which does not provide any new slots or report
-information.  It just gives the <code>machine-name</code> slot a default initialization:
-</p>
-<div class="lisp">
-<pre class="lisp">(define-condition my-favorite-machine-not-available-error
-                  (machine-not-available-error)
-  ((machine-name :initform &quot;mc.lcs.mit.edu&quot;)))
-</pre></div>
-
-
-<p>Note that since no <tt>:report</tt> clause was given, the information 
-inherited from <code>machine-not-available-error</code> is used to
-report this type of condition.
-</p>
-<div class="lisp">
-<pre class="lisp"> (define-condition ate-too-much (error) 
-     ((person :initarg :person :reader ate-too-much-person)
-      (weight :initarg :weight :reader ate-too-much-weight)
-      (kind-of-food :initarg :kind-of-food
-                    :reader :ate-too-much-kind-of-food)))
-<span class="roman">→</span> ATE-TOO-MUCH
- (define-condition ate-too-much-ice-cream (ate-too-much)
-   ((kind-of-food :initform 'ice-cream)
-    (flavor       :initarg :flavor
-                  :reader ate-too-much-ice-cream-flavor
-                  :initform 'vanilla ))
-   (:report (lambda (condition stream)
-              (format stream &quot;~A ate too much ~A ice-cream&quot;
-                      (ate-too-much-person condition)
-                      (ate-too-much-ice-cream-flavor condition)))))
-<span class="roman">→</span> ATE-TOO-MUCH-ICE-CREAM
- (make-condition 'ate-too-much-ice-cream
-                 :person 'fred
-                 :weight 300
-                 :flavor 'chocolate)
-<span class="roman">→</span> #&lt;ATE-TOO-MUCH-ICE-CREAM 32236101&gt;
- (format t &quot;~A&quot; *)
-▷ FRED ate too much CHOCOLATE ice-cream
-<span class="roman">→</span> NIL
-</pre></div>
-
-
-<span id="See-Also_003a-174"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="make_002dcondition.html">make-condition</a>, <a href="defclass.html">defclass</a>, <a href="Condition-System-Concepts.html">Section 9.1 (Condition System Concepts)</a>
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="make_002dcondition.html" accesskey="n" rel="next">make-condition</a>, Previous: <a href="ignore_002derrors.html" accesskey="p" rel="prev">ignore-errors</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Conditions.html#define_002dcondition">define-condition</a>.</p>
 </body>
-</html>

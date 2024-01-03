@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Declaration Scope (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Declarations.html" rel="up" title="Declarations">
-<link href="Lambda-Lists.html" rel="next" title="Lambda Lists">
-<link href="Declaration-Identifiers.html" rel="prev" title="Declaration Identifiers">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,188 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Evaluation-and-Compilation.html#Declaration-Scope">
 
 </head>
 
 <body lang="en">
-<span id="Declaration-Scope"></span><div class="header">
-<p>
-Previous: <a href="Declaration-Identifiers.html" accesskey="p" rel="prev">Declaration Identifiers</a>, Up: <a href="Declarations.html" accesskey="u" rel="up">Declarations</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Declaration-Scope-1"></span><h4 class="subsection">3.3.4 Declaration Scope</h4>
 
-<p><i>Declarations</i> can be divided into two kinds: those that apply to the
-<i>bindings</i> of <i>variables</i> or <i>functions</i>; and those that
-do not apply to <i>bindings</i>.
-</p>
-<p>A <i>declaration</i> that appears at the head of a binding <i>form</i> 
-and applies to a <i>variable</i> or <i>function</i> <i>binding</i> 
-made by that <i>form</i> is called a <span id="index-bound-declaration"></span>
-<em>bound declaration</em>; 
-such a <i>declaration</i> affects both the <i>binding</i> and
-any references within the <i>scope</i> of the <i>declaration</i>.  
-</p>
-<p><i>Declarations</i> that are not <i>bound declarations</i> are called
-<span id="index-free-declaration"></span>
-<em>free declarations</em>.
-</p>
-<p>A <i>free declaration</i> in a <i>form</i> F1 that applies to a <i>binding</i>
-for a <i>name</i> N <i>established</i> by some <i>form</i> F2
-of which F1 is a <i>subform</i>
-affects only references to N within F1; it does not to apply to
-other references to N outside of F1, nor does it affect the manner
-in which the <i>binding</i> of N by F2 is <i>established</i>.
-</p>
-<p><i>Declarations</i> that do not apply to <i>bindings</i> can only appear 
-as <i>free declarations</i>.
-</p>
-<p>The <i>scope</i> of a <i>bound declaration</i> is the same as the
-<i>lexical scope</i>
-of the <i>binding</i> to which it applies;
-for <i>special variables</i>,
-this means the <i>scope</i> that the <i>binding</i> 
-would have had had it been a <i>lexical binding</i>.
-</p>
-<p>Unless explicitly stated otherwise, the <i>scope</i> of a 
-<i>free declaration</i> includes only the body <i>subforms</i> of 
-the <i>form</i> at whose head it appears, and no other <i>subforms</i>.
-The <i>scope</i> of <i>free declarations</i> specifically does not
-include <i>initialization forms</i> for <i>bindings</i> established
-by the <i>form</i> containing the <i>declarations</i>.
-</p>
-<p>Some <i>iteration forms</i> include step, end-test, or result 
-<i>subforms</i> that are also included in the <i>scope</i>
-of <i>declarations</i> that appear in the <i>iteration form</i>.
-Specifically, the <i>iteration forms</i> and <i>subforms</i> involved
-are:
-</p>
-
-<ul>
-<li> <code>do</code>, <code>do*</code>:  
-<var>step-forms</var>, <var>end-test-form</var>, and <var>result-forms</var>.
-</li><li> <code>dolist</code>, <code>dotimes</code>:
-<var>result-form</var>
-</li><li> <code>do-all-symbols</code>, <code>do-external-symbols</code>, <code>do-symbols</code>:
-<var>result-form</var>
-</li></ul>
-
-
-<span id="Examples-of-Declaration-Scope"></span><h4 class="subsubsection">3.3.4.1 Examples of Declaration Scope</h4>
-
-<p>Here is an example illustrating the <i>scope</i> of <i>bound declarations</i>.
-</p>
-<div class="lisp">
-<pre class="lisp"> (let ((x 1))                ;[1] 1st occurrence of x
-   (declare (special x))     ;[2] 2nd occurrence of x
-   (let ((x 2))              ;[3] 3rd occurrence of x
-     (let ((old-x x)         ;[4] 4th occurrence of x
-           (x 3))            ;[5] 5th occurrence of x
-       (declare (special x)) ;[6] 6th occurrence of x
-       (list old-x x))))     ;[7] 7th occurrence of x
-<span class="roman">→</span> (2 3)
-</pre></div>
-
-
-<p>The first occurrence of <code>x</code> <i>establishes</i> a <i>dynamic binding</i>
-of <code>x</code> because of the <code>special</code> <i>declaration</i> for <code>x</code>
-in the second line.  The third occurrence of <code>x</code> <i>establishes</i> a
-<i>lexical binding</i> of <code>x</code> (because there is no <code>special</code>
-<i>declaration</i> in the corresponding <code>let</code> <i>form</i>).
-The fourth occurrence of <code>x</code> <i>x</i> is a reference to the
-<i>lexical binding</i> of <code>x</code> established in the third line.
-The fifth occurrence of <code>x</code> <i>establishes</i> a <i>dynamic binding</i>
-of <i>x</i> for the body of the <code>let</code> <i>form</i> that begins on
-that line because of the <code>special</code> <i>declaration</i> for <code>x</code>
-in the sixth line. The reference to <code>x</code> in the fourth line is not
-affected by the <code>special</code> <i>declaration</i> in the sixth line 
-because that reference is not within the &ldquo;would-be <i>lexical scope</i>&rdquo;
-of the <i>variable</i> <code>x</code> in the fifth line.  The reference to <code>x</code>
-in the seventh line is a reference to the <i>dynamic binding</i> of <i>x</i>
-<i>established</i> in the fifth line.
-</p>
-<p>Here is another example, to illustrate the <i>scope</i> of a
-<i>free declaration</i>.  In the following:
-</p>
-<div class="lisp">
-<pre class="lisp"> (lambda (&amp;optional (x (foo 1))) ;[1]
-   (declare (notinline foo))     ;[2]
-   (foo x))                      ;[3]
-</pre></div>
-
-
-<p>the <i>call</i> to <code>foo</code> in the first line might be 
-compiled inline even though the <i>call</i> to <code>foo</code> in
-the third line must not be.  This is because
-the <code>notinline</code> <i>declaration</i>
-for <code>foo</code> in the second line applies only to the body on the
-third line.  In order to suppress inlining for both <i>calls</i>, 
-one might write:
-</p>
-<div class="lisp">
-<pre class="lisp"> (locally (declare (notinline foo)) ;[1]
-   (lambda (&amp;optional (x (foo 1)))  ;[2]
-     (foo x)))                      ;[3]
-</pre></div>
-
-
-<p>or, alternatively:
-</p>
-<div class="lisp">
-<pre class="lisp"> (lambda (&amp;optional                               ;[1]
-            (x (locally (declare (notinline foo)) ;[2]
-                 (foo 1))))                       ;[3]
-   (declare (notinline foo))                      ;[4]
-   (foo x))                                       ;[5]
-</pre></div>
-
-
-<p>Finally, here is an example that shows the <i>scope</i> of
-<i>declarations</i> in an <i>iteration form</i>.
-</p>
-<div class="lisp">
-<pre class="lisp"> (let ((x  1))                     ;[1]
-   (declare (special x))           ;[2]
-     (let ((x 2))                  ;[3]
-       (dotimes (i x x)            ;[4]
-         (declare (special x)))))  ;[5]
-<span class="roman">→</span> 1
-</pre></div>
-
-
-<p>In this example, the first reference to <code>x</code> on the fourth line is to
-the <i>lexical binding</i> of <code>x</code> established on the third line.
-However, the second occurrence of <code>x</code> on the fourth line lies within
-the <i>scope</i> of the <i>free declaration</i> on the fifth line
-(because this is the <var>result-form</var> of the <code>dotimes</code>)
-and therefore refers to the <i>dynamic binding</i> of <code>x</code>.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Previous: <a href="Declaration-Identifiers.html" accesskey="p" rel="prev">Declaration Identifiers</a>, Up: <a href="Declarations.html" accesskey="u" rel="up">Declarations</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Evaluation-and-Compilation.html#Declaration-Scope">Declaration Scope</a>.</p>
 </body>
-</html>

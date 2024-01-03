@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Introduction to Scripts and Repertoires (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Character-Concepts.html" rel="up" title="Character Concepts">
-<link href="Character-Attributes.html" rel="next" title="Character Attributes">
-<link href="Introduction-to-Characters.html" rel="prev" title="Introduction to Characters">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,84 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Characters.html#Introduction-to-Scripts-and-Repertoires">
 
 </head>
 
 <body lang="en">
-<span id="Introduction-to-Scripts-and-Repertoires"></span><div class="header">
-<p>
-Next: <a href="Character-Attributes.html" accesskey="n" rel="next">Character Attributes</a>, Previous: <a href="Introduction-to-Characters.html" accesskey="p" rel="prev">Introduction to Characters</a>, Up: <a href="Character-Concepts.html" accesskey="u" rel="up">Character Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Introduction-to-Scripts-and-Repertoires-1"></span><h4 class="subsection">13.1.2 Introduction to Scripts and Repertoires</h4>
 
-<span id="Character-Scripts"></span><h4 class="subsubsection">13.1.2.1 Character Scripts</h4>
-<span id="CharScripts"></span>
-<p>A <i>script</i> is one of possibly several sets that form an <i>exhaustive partition</i>
-of the type <code>character</code>.
-</p>
-<p>The number of such sets and boundaries between them is <i>implementation-defined</i>.
-<span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->does not require these sets to be <i>types</i>, but an <i>implementation</i>
-is permitted to define such <i>types</i> as an extension.  Since no <i>character</i>
-from one <i>script</i> can ever be a member of another <i>script</i>, it is generally
-more useful to speak about <i>character</i> <i>repertoires</i>.
-</p>
-<p>Although
-the term &ldquo;<i>script</i>&rdquo; is chosen for 
-definitional 
-compatibility with ISO terminology, no <i>conforming implementation</i> 
-is required to use any particular <i>scripts</i> standardized by ISO
-or by any other standards organization.
-</p>
-<p>Whether and how the <i>script</i> or <i>scripts</i> used by any given
-<i>implementation</i> are named is <i>implementation-dependent</i>.
-</p>
-
-<span id="Character-Repertoires"></span><h4 class="subsubsection">13.1.2.2 Character Repertoires</h4>
-<span id="CharRepertoires"></span>
-<p>A <span id="index-repertoire"></span>
-<em>repertoire</em> is a <i>type specifier</i> for a subtype of <i>type</i> <code>character</code>.
-This term is generally used when describing a collection of <i>characters</i>
-independent of their coding.
-<i>Characters</i> in <i>repertoires</i> are only identified
-by name,
-by <i>glyph</i>, or
-by character description.
-</p>
-<p>A <i>repertoire</i> can contain <i>characters</i> from several
-<i>scripts</i>, and a <i>character</i> can appear in more than
-one <i>repertoire</i>.
-</p>
-<p>For some examples of <i>repertoires</i>, see the coded character standards
-ISO 8859/1, ISO 8859/2, and ISO 6937/2.
-Note, however, that although
-the term &ldquo;<i>repertoire</i>&rdquo; is chosen for 
-definitional 
-compatibility with ISO terminology, no <i>conforming implementation</i> 
-is required to use <i>repertoires</i> standardized by ISO or any other 
-standards organization.
-</p>
-
-
-
-
-
+<p>The node you are looking for is at <a href="Characters.html#Introduction-to-Scripts-and-Repertoires">Introduction to Scripts and Repertoires</a>.</p>
 </body>
-</html>

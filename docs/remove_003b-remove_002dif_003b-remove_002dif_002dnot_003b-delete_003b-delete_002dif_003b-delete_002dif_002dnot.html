@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>remove; remove-if; remove-if-not; delete; delete-if; delete-if-not (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Sequences.html" rel="up" title="Sequences">
-<link href="remove_002dduplicates_003b-delete_002dduplicates.html" rel="next" title="remove-duplicates; delete-duplicates">
-<link href="merge.html" rel="prev" title="merge">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,257 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Sequences.html#remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot">
 
 </head>
 
 <body lang="en">
-<span id="remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot"></span><div class="header">
-<p>
-Next: <a href="remove_002dduplicates_003b-delete_002dduplicates.html" accesskey="n" rel="next">remove-duplicates; delete-duplicates</a>, Previous: <a href="merge.html" accesskey="p" rel="prev">merge</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</h4>
-<span id="remove_002c-remove_002dif_002c-remove_002dif_002dnot_002c-delete_002c-delete_002dif_002c-delete_002dif_002dnot-_0028Function_0029"></span><h3 class="heading">remove, remove-if, remove-if-not, delete, delete-if, delete-if-not (Function)</h3>
-<span id="index-remove-2"></span>
-<span id="index-remove"></span>
-<span id="index-remove_002dif-2"></span>
-<span id="index-remove_002dif"></span>
-<span id="index-remove_002dif_002dnot-2"></span>
-<span id="index-remove_002dif_002dnot"></span>
-<span id="index-delete-2"></span>
-<span id="index-delete"></span>
-<span id="index-delete_002dif-2"></span>
-<span id="index-delete_002dif"></span>
-<span id="index-delete_002dif_002dnot-2"></span>
-<span id="index-delete_002dif_002dnot"></span>
 
-
-<span id="Syntax_003a-385"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-remove-1">Function: <strong>remove</strong> <em>item sequence <tt>&amp;key</tt> from-end test test-not start end count key <span class="roman">→</span> result-sequence</em></dt>
-</dl>
-
-<dl>
-<dt id="index-remove_002dif-1">Function: <strong>remove-if</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
-</dl>
-
-<dl>
-<dt id="index-remove_002dif_002dnot-1">Function: <strong>remove-if-not</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
-</dl>
-
-<dl>
-<dt id="index-delete-1">Function: <strong>delete</strong> <em>item sequence <tt>&amp;key</tt> from-end test test-not start end count key <span class="roman">→</span> result-sequence</em></dt>
-</dl>
-
-<dl>
-<dt id="index-delete_002dif-1">Function: <strong>delete-if</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
-</dl>
-
-<dl>
-<dt id="index-delete_002dif_002dnot-1">Function: <strong>delete-if-not</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-374"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>item</var>&mdash;an <i>object</i>.
-</p>
-<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
-</p>
-<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> 
-of one <i>argument</i> that returns a <i>generalized boolean</i>.
-</p>
-<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
-The default is <i>false</i>.
-</p>
-<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
-that returns a <i>generalized boolean</i>.
-</p>
-<p><var>test-not</var>&mdash;a <i>designator</i> for 
-a <i>function</i> of two <i>arguments</i>
-that returns a <i>generalized boolean</i>.
-</p>
-<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
-The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
-</p>
-<p><var>count</var>&mdash;an <i>integer</i> or <code>nil</code>.
-The default is <code>nil</code>.
-</p>
-<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
-or <code>nil</code>.
-</p>
-<p><var>result-sequence</var>&mdash;a <i>sequence</i>.
-</p>
-<span id="Description_003a-489"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>remove</code>, <code>remove-if</code>, and <code>remove-if-not</code>
-return a <var>sequence</var> from which 
-the elements that <i>satisfy the test</i> 
-have been removed.  
-</p>
-<p><code>delete</code>, <code>delete-if</code>, and <code>delete-if-not</code>
-are like <code>remove</code>, <code>remove-if</code>, and
-<code>remove-if-not</code> respectively, 
-but they may modify <var>sequence</var>.
-</p>
-<p>If <var>sequence</var> is a <i>vector</i>, the result is a
-<i>vector</i> that has the same
-<i>actual array element type</i> as <var>sequence</var>.
-If <var>sequence</var> is a <i>list</i>, the result is a <i>list</i>. 
-</p>
-<p>Supplying a <var>from-end</var> of <i>true</i> matters only when the
-<var>count</var> is provided; in that case only the rightmost <var>count</var> elements 
-<i>satisfying the test</i> are deleted.
-</p>
-<p><var>Count</var>, if supplied, limits the number of elements
-removed or deleted; if more than <var>count</var> elements <i>satisfy the test</i>,
-then of these elements only the leftmost or rightmost, depending on
-<var>from-end</var>,
-are deleted or removed,
-as many as specified by <var>count</var>.
-If <var>count</var> is supplied and negative, 
-the behavior is as if zero had been supplied instead.
-If <var>count</var> is <code>nil</code>, all matching items are affected.
-</p>
-<p>For all these functions,
-elements 
-not removed or deleted occur in the same order in the result
-as they did in <var>sequence</var>.
-</p>
-<p><code>remove</code>, <code>remove-if</code>, <code>remove-if-not</code> return
-a <i>sequence</i>
-of the same <i>type</i> as <var>sequence</var>
-that has the same elements except that those in the subsequence
-<i>bounded</i> by <var>start</var> and <var>end</var> and <i>satisfying the test</i>
-have been removed.  
-This is a non-destructive operation. If any
-elements need to be removed, the result will be a copy.
-The result of <code>remove</code> may share
-with <var>sequence</var>; 
-the result may be <i>identical</i> to the input <var>sequence</var>
-if no elements need to be removed.
-</p>
-<p><code>delete</code>, <code>delete-if</code>, and <code>delete-if-not</code>
-return a <i>sequence</i> 
-of the same <i>type</i> as <var>sequence</var>
-that has the same elements except that those in the subsequence
-<i>bounded</i> by <var>start</var> and <var>end</var> and <i>satisfying the test</i>
-have been deleted. 
-<var>Sequence</var> may be destroyed and used to construct
-the result; however, the result might or might not be <i>identical</i> 
-to <var>sequence</var>.
-</p>
-<p><code>delete</code>, when <var>sequence</var> is a <i>list</i>, is permitted to 
-<code>setf</code> any part, <code>car</code> or <code>cdr</code>, of the
-top-level list structure in that <var>sequence</var>.
-When <var>sequence</var> is a <i>vector</i>,  <code>delete</code> is 
-permitted to change the dimensions of the <i>vector</i> 
-and to slide its elements into new positions without
-permuting them to produce the resulting <i>vector</i>.
-</p>
-<p><code>delete-if</code> is constrained to behave exactly as follows:
-</p>
-<div class="lisp">
-<pre class="lisp"> (delete nil <i>sequence</i>
-             :test #'(lambda (ignore <i>item</i>) (funcall <i>test</i> <i>item</i>))
-             ...)
-</pre></div>
-
-
-
-<span id="Examples_003a-356"></span><h4 class="subsubheading">Examples:</h4>
-<div class="lisp">
-<pre class="lisp"> (remove 4 '(1 3 4 5 9)) <span class="roman">→</span> (1 3 5 9)
- (remove 4 '(1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 1 3 5)
- (remove 4 '(1 2 4 1 3 4 5) :count 1) <span class="roman">→</span> (1 2 1 3 4 5)
- (remove 4 '(1 2 4 1 3 4 5) :count 1 :from-end t) <span class="roman">→</span> (1 2 4 1 3 5)
- (remove 3 '(1 2 4 1 3 4 5) :test #'&gt;) <span class="roman">→</span> (4 3 4 5)
- (setq lst '(list of four elements)) <span class="roman">→</span> (LIST OF FOUR ELEMENTS)
- (setq lst2 (copy-seq lst)) <span class="roman">→</span> (LIST OF FOUR ELEMENTS)
- (setq lst3 (delete 'four lst)) <span class="roman">→</span> (LIST OF ELEMENTS)
- (equal lst lst2) <span class="roman">→</span> <i>false</i>
- (remove-if #'oddp '(1 2 4 1 3 4 5)) <span class="roman">→</span> (2 4 4)
- (remove-if #'evenp '(1 2 4 1 3 4 5) :count 1 :from-end t) 
-<span class="roman">→</span> (1 2 4 1 3 5)
- (remove-if-not #'evenp '(1 2 3 4 5 6 7 8 9) :count 2 :from-end t)
-<span class="roman">→</span> (1 2 3 4 5 6 8)
- (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
- (delete 4 tester) <span class="roman">→</span> (1 2 1 3 5)
- (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
- (delete 4 tester :count 1) <span class="roman">→</span> (1 2 1 3 4 5)
- (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
- (delete 4 tester :count 1 :from-end t) <span class="roman">→</span> (1 2 4 1 3 5)
- (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
- (delete 3 tester :test #'&gt;) <span class="roman">→</span> (4 3 4 5)
- (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
- (delete-if #'oddp tester) <span class="roman">→</span> (2 4 4)
- (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
- (delete-if #'evenp tester :count 1 :from-end t) <span class="roman">→</span> (1 2 4 1 3 5)    
- (setq tester (list 1 2 3 4 5 6)) <span class="roman">→</span> (1 2 3 4 5 6) 
- (delete-if #'evenp tester) <span class="roman">→</span> (1 3 5) 
- tester <span class="roman">→</span> <i>implementation-dependent</i>
-</pre></div>
-
-
-<div class="lisp">
-<pre class="lisp"> (setq foo (list 'a 'b 'c)) <span class="roman">→</span> (A B C)
- (setq bar (cdr foo)) <span class="roman">→</span> (B C)
- (setq foo (delete 'b foo)) <span class="roman">→</span> (A C)
- bar <span class="roman">→</span> ((C)) or ...
- (eq (cdr foo) (car bar)) <span class="roman">→</span> T or ...
-</pre></div>
-
-
-<span id="Side-Effects_003a-55"></span><h4 class="subsubheading">Side Effects:</h4>
-
-<p>For <code>delete</code>, <code>delete-if</code>, and <code>delete-if-not</code>,
-<var>sequence</var> may be destroyed and used to construct the result.
-</p>
-<span id="Exceptional-Situations_003a-167"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
-<var>sequence</var> is not a <i>proper sequence</i>.
-</p>
-<span id="See-Also_003a-399"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="Compiler-Terminology.html">Section 3.2.1 (Compiler Terminology)</a>,
-<a href="Traversal-Rules-and-Side-Effects.html">Section 3.6 (Traversal Rules and Side Effects)</a>
-</p>
-<span id="Notes_003a-267"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>If <var>sequence</var> is a <i>vector</i>,
-the result might or might not be simple, 
-and might or might not be <i>identical</i> to <var>sequence</var>.
-</p>
-<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
-</p>
-<p>The functions <code>delete-if-not</code> and <code>remove-if-not</code> are deprecated.
-</p>
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="remove_002dduplicates_003b-delete_002dduplicates.html" accesskey="n" rel="next">remove-duplicates; delete-duplicates</a>, Previous: <a href="merge.html" accesskey="p" rel="prev">merge</a>, Up: <a href="Sequences.html" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Sequences.html#remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</a>.</p>
 </body>
-</html>

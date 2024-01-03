@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>abort; continue; muffle-warning; store-value; use-value (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Conditions.html" rel="up" title="Conditions">
-<link href="Symbols.html" rel="next" title="Symbols">
-<link href="use_002dvalue-_0028Restart_0029.html" rel="prev" title="use-value (Restart)">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,274 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Conditions.html#abort_003b-continue_003b-muffle_002dwarning_003b-store_002dvalue_003b-use_002dvalue">
 
 </head>
 
 <body lang="en">
-<span id="abort_003b-continue_003b-muffle_002dwarning_003b-store_002dvalue_003b-use_002dvalue"></span><div class="header">
-<p>
-Previous: <a href="use_002dvalue-_0028Restart_0029.html" accesskey="p" rel="prev">use-value (Restart)</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">abort; continue; muffle-warning; store-value; use-value</h4>
-<span id="abort_002c-continue_002c-muffle_002dwarning_002c-store_002dvalue_002c-use_002dvalue-_0028Function_0029"></span><h3 class="heading">abort, continue, muffle-warning, store-value, use-value (Function)</h3>
-<span id="index-abort-5"></span>
-<span id="index-abort-1"></span>
-<span id="index-continue-5"></span>
-<span id="index-continue-1"></span>
-<span id="index-muffle_002dwarning-5"></span>
-<span id="index-muffle_002dwarning-1"></span>
-<span id="index-store_002dvalue-5"></span>
-<span id="index-store_002dvalue-1"></span>
-<span id="index-use_002dvalue-5"></span>
-<span id="index-use_002dvalue-1"></span>
-<span id="abort"></span><span id="continue"></span><span id="muffle_002dwarning"></span><span id="store_002dvalue"></span><span id="use_002dvalue"></span>
-<span id="index-abort-2"></span>
-<span id="index-continue-2"></span>
-<span id="index-muffle_002dwarning-2"></span>
-<span id="index-store_002dvalue-2"></span>
-<span id="index-use_002dvalue-2"></span>
 
-<span id="Syntax_003a-168"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-abort-3">Function: <strong>abort</strong> <em><tt>&amp;optional</tt> condition <span class="roman">→</span><span class="roman">|</span></em></dt>
-</dl>
-<dl>
-<dt id="index-continue-3">Function: <strong>continue</strong> <em><tt>&amp;optional</tt> condition <span class="roman">→</span> <code>nil</code></em></dt>
-</dl>
-<dl>
-<dt id="index-muffle_002dwarning-3">Function: <strong>muffle-warning</strong> <em><tt>&amp;optional</tt> condition <span class="roman">→</span><span class="roman">|</span></em></dt>
-</dl>
-<dl>
-<dt id="index-store_002dvalue-3">Function: <strong>store-value</strong> <em>value <tt>&amp;optional</tt> condition <span class="roman">→</span> <code>nil</code></em></dt>
-</dl>
-<dl>
-<dt id="index-use_002dvalue-3">Function: <strong>use-value</strong> <em>value <tt>&amp;optional</tt> condition <span class="roman">→</span> <code>nil</code></em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-157"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>value</var>&mdash;an <i>object</i>.
-</p>
-<p><var>condition</var>&mdash;a <i>condition</i> <i>object</i>, or <code>nil</code>.
-</p>
-<span id="Description_003a-216"></span><h4 class="subsubheading">Description:</h4>
-
-<p>Transfers control to the most recently established <i>applicable restart</i>
-having the same name as the function.  That is,
-the <i>function</i> <code>abort</code>    searches for an <i>applicable</i> <tt>abort</tt>    <i>restart</i>, 
-the <i>function</i> <code>continue</code> searches for an <i>applicable</i> <tt>continue</tt> <i>restart</i>,
-and so on.
-</p>
-<p>If no such <i>restart</i> exists, 
-the functions
-<code>continue</code>,
-<code>store-value</code>, 
-and <code>use-value</code>
-return <code>nil</code>, and 
-the functions
-<code>abort</code>
-and <code>muffle-warning</code>
-signal an error of <i>type</i> <code>control-error</code>.
-</p>
-<p>When <var>condition</var> is <i>non-nil</i>,
-only those <i>restarts</i> are considered that are 
-either explicitly associated with that <var>condition</var>,
-or not associated with any <i>condition</i>;
-that is, the excluded <i>restarts</i> are 
-those that are associated with a non-empty set of <i>conditions</i>
-of which the given <var>condition</var> is not an <i>element</i>.
-If <var>condition</var> is <code>nil</code>, all <i>restarts</i> are considered.
-</p>
-<span id="Examples_003a-140"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp">;;; Example of the ABORT retart
-
- (defmacro abort-on-error (&amp;body forms)
-   `(handler-bind ((error #'abort))
-      ,@forms)) <span class="roman">→</span> ABORT-ON-ERROR
- (abort-on-error (+ 3 5)) <span class="roman">→</span> 8
- (abort-on-error (error &quot;You lose.&quot;))
-▷ Returned to Lisp Top Level.
-
-;;; Example of the CONTINUE restart
-
- (defun real-sqrt (n)
-   (when (minusp n)
-     (setq n (- n))
-     (cerror &quot;Return sqrt(~D) instead.&quot; &quot;Tried to take sqrt(-~D).&quot; n))
-   (sqrt n))
-
- (real-sqrt 4) <span class="roman">→</span> 2
- (real-sqrt -9)
-▷ Error: Tried to take sqrt(-9).
-▷ To continue, type :CONTINUE followed by an option number:
-▷  1: Return sqrt(9) instead.
-▷  2: Return to Lisp Toplevel.
-▷ Debug&gt; <kbd>(continue)</kbd>
-▷ Return sqrt(9) instead.
-<span class="roman">→</span> 3
- 
- (handler-bind ((error #'(lambda (c) (continue))))
-   (real-sqrt -9)) <span class="roman">→</span> 3
-
-;;; Example of the MUFFLE-WARNING restart
-
- (defun count-down (x)
-   (do ((counter x (1- counter)))
-       ((= counter 0) 'done)
-     (when (= counter 1)
-       (warn &quot;Almost done&quot;))
-     (format t &quot;~&amp;~D~%&quot; counter)))
-<span class="roman">→</span> COUNT-DOWN
- (count-down 3)
-▷ 3
-▷ 2
-▷ Warning: Almost done
-▷ 1
-<span class="roman">→</span> DONE
- (defun ignore-warnings-while-counting (x)
-   (handler-bind ((warning #'ignore-warning))
-     (count-down x)))
-<span class="roman">→</span> IGNORE-WARNINGS-WHILE-COUNTING
- (defun ignore-warning (condition)
-   (declare (ignore condition))
-   (muffle-warning))
-<span class="roman">→</span> IGNORE-WARNING
- (ignore-warnings-while-counting 3)
-▷ 3
-▷ 2
-▷ 1
-<span class="roman">→</span> DONE
-
-;;; Example of the STORE-VALUE and USE-VALUE restarts
-
- (defun careful-symbol-value (symbol)
-   (check-type symbol symbol)
-   (restart-case (if (boundp symbol)
-                     (return-from careful-symbol-value 
-                                  (symbol-value symbol))
-                     (error 'unbound-variable
-                            :name symbol))
-     (use-value (value)
-       :report &quot;Specify a value to use this time.&quot;
-       value)
-     (store-value (value)
-       :report &quot;Specify a value to store and use in the future.&quot;
-       (setf (symbol-value symbol) value))))
- (setq a 1234) <span class="roman">→</span> 1234
- (careful-symbol-value 'a) <span class="roman">→</span> 1234
- (makunbound 'a) <span class="roman">→</span> A
- (careful-symbol-value 'a)
-▷ Error: A is not bound.
-▷ To continue, type :CONTINUE followed by an option number.
-▷  1: Specify a value to use this time.
-▷  2: Specify a value to store and use in the future.
-▷  3: Return to Lisp Toplevel.
-▷ Debug&gt; <kbd>(use-value 12)</kbd>
-<span class="roman">→</span> 12
- (careful-symbol-value 'a)
-▷ Error: A is not bound.
-▷ To continue, type :CONTINUE followed by an option number.
-▷   1: Specify a value to use this time.
-▷   2: Specify a value to store and use in the future.
-▷   3: Return to Lisp Toplevel.
-▷ Debug&gt; <kbd>(store-value 24)</kbd>
-<span class="roman">→</span> 24
- (careful-symbol-value 'a)
-<span class="roman">→</span> 24
-
-;;; Example of the USE-VALUE restart
-
- (defun add-symbols-with-default (default &amp;rest symbols)
-   (handler-bind ((sys:unbound-symbol
-                    #'(lambda (c)
-                        (declare (ignore c)) 
-                        (use-value default))))
-     (apply #'+ (mapcar #'careful-symbol-value symbols))))
-<span class="roman">→</span> ADD-SYMBOLS-WITH-DEFAULT
- (setq x 1 y 2) <span class="roman">→</span> 2
- (add-symbols-with-default 3 'x 'y 'z) <span class="roman">→</span> 6
-
-
-</pre></div>
-
-
-<span id="Side-Effects_003a-18"></span><h4 class="subsubheading">Side Effects:</h4>
-
-<p>A transfer of control may occur if an appropriate <i>restart</i> is available,
-or (in the case of the <i>function</i> <code>abort</code> or the <i>function</i> <code>muffle-warning</code>)
-execution may be stopped.
-</p>
-<span id="Affected-By_003a-35"></span><h4 class="subsubheading">Affected By:</h4>
-
-<p>Each of these functions can be affected by 
-the presence of a <i>restart</i> having the same name.
-</p>
-<span id="Exceptional-Situations_003a-49"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>If an appropriate <tt>abort</tt> <i>restart</i>
-is not available for the <i>function</i> <code>abort</code>,
-or an appropriate <tt>muffle-warning</tt> <i>restart</i> 
-is not available for the <i>function</i> <code>muffle-warning</code>,
-an error of <i>type</i> <code>control-error</code> is signaled.
-</p>
-<span id="See-Also_003a-190"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="invoke_002drestart.html">invoke-restart</a>,
-<a href="Signaling-and-Handling-Conditions.html#Restarts">Section 9.1.4.2 (Restarts)</a>,
-<a href="Signaling-and-Handling-Conditions.html#InterfacesToRestarts">Section 9.1.4.2.2 (Interfaces to Restarts)</a>,
-<a href="assert.html">assert</a>,
-<a href="case_003b-ccase_003b-ecase.html#ccase">ccase</a>,
-<a href="cerror.html">cerror</a>,
-<a href="check_002dtype.html">check-type</a>,
-<a href="typecase_003b-ctypecase_003b-etypecase.html#ctypecase">ctypecase</a>,
-<a href="#use_002dvalue">use-value</a>,
-<a href="warn.html">warn</a>
-</p>
-<span id="Notes_003a-114"></span><h4 class="subsubheading">Notes:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (abort condition) ≡ (invoke-restart 'abort)
- (muffle-warning)  ≡ (invoke-restart 'muffle-warning)
- (continue)        ≡ (let ((r (find-restart 'continue))) (if r (invoke-restart r)))
- (use-value <var>x</var>) ≡ (let ((r (find-restart 'use-value))) (if r (invoke-restart r <var>x</var>)))
- (store-value x) ≡ (let ((r (find-restart 'store-value))) (if r (invoke-restart r <var>x</var>)))
-</pre></div>
-
-
-<p>No functions defined in this specification are required to provide
-a <tt>use-value</tt> <i>restart</i>.
-</p>
-
-
-
-<hr>
-<div class="header">
-<p>
-Previous: <a href="use_002dvalue-_0028Restart_0029.html" accesskey="p" rel="prev">use-value (Restart)</a>, Up: <a href="Conditions.html" accesskey="u" rel="up">Conditions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Conditions.html#abort_003b-continue_003b-muffle_002dwarning_003b-store_002dvalue_003b-use_002dvalue">abort; continue; muffle-warning; store-value; use-value</a>.</p>
 </body>
-</html>

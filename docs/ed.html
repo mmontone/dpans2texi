@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ed (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Environment.html" rel="up" title="Environment">
-<link href="inspect.html" rel="next" title="inspect">
-<link href="room.html" rel="prev" title="room">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,90 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Environment.html#ed">
 
 </head>
 
 <body lang="en">
-<span id="ed"></span><div class="header">
-<p>
-Next: <a href="inspect.html" accesskey="n" rel="next">inspect</a>, Previous: <a href="room.html" accesskey="p" rel="prev">room</a>, Up: <a href="Environment.html" accesskey="u" rel="up">Environment</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">ed</h4>
-<span id="ed-_0028Function_0029"></span><h3 class="heading">ed (Function)</h3>
-<span id="index-ed-2"></span>
-<span id="index-ed"></span>
 
-
-<span id="Syntax_003a-516"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-ed-1">Function: <strong>ed</strong> <em><tt>&amp;optional</tt> x <span class="roman">→</span> <i>implementation-dependent</i></em></dt>
-</dl>
-
-<span id="Arguments-and-Values_003a-502"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>x</var>&mdash;<code>nil</code>, a <i>pathname</i>, a <i>string</i>, or a <i>function name</i>.
-The default is <code>nil</code>.
-</p>
-<span id="Description_003a-665"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>ed</code> invokes the editor if the <i>implementation</i> provides a resident editor.
-</p>
-<p>If <var>x</var> is <code>nil</code>, the editor is entered.
-If the editor had been previously entered, its prior state is resumed, if possible.
-</p>
-<p>If <var>x</var> is a <i>pathname</i> or <i>string</i>, 
-it is taken as the <i>pathname designator</i> for a <i>file</i> to be edited.
-</p>
-<p>If <var>x</var> is a <i>function name</i>, the text of its definition is edited.
-The means by which the function text is obtained is <i>implementation-defined</i>.
-</p>
-<span id="Exceptional-Situations_003a-241"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>The consequences are undefined if the <i>implementation</i> does not provide a resident editor.
-</p>
-<p>Might signal <code>type-error</code> if its argument is supplied but is not
-a <i>symbol</i>, a <i>pathname</i>, or <code>nil</code>. 
-</p>
-<p>If a failure occurs when performing some operation on the <i>file system</i>
-while attempting to edit a <i>file</i>,
-an error of <i>type</i> <code>file-error</code> is signaled.
-</p>
-<p>An error of <i>type</i> <code>file-error</code> might be signaled if <var>x</var>
-is a <i>designator</i> for a <i>wild</i> <i>pathname</i>.
-</p>
-<p><i>Implementation-dependent</i> additional conditions might be signaled as well.
-</p>
-<span id="See-Also_003a-540"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="pathname-_0028System-Class_0029.html">pathname (System Class)</a>,
-<a href="logical_002dpathname-_0028System-Class_0029.html">logical-pathname (System Class)</a>,
-<a href="compile_002dfile.html">compile-file</a>,
-<a href="load.html">load</a>,
-<a href="Pathnames-as-Filenames.html">Section 19.1.2 (Pathnames as Filenames)</a>
-</p>
-
-
-
-
-
+<p>The node you are looking for is at <a href="Environment.html#ed">ed</a>.</p>
 </body>
-</html>

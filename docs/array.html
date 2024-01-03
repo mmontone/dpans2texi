@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>array (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Arrays.html" rel="up" title="Arrays">
-<link href="simple_002darray.html" rel="next" title="simple-array">
-<link href="Specialized-Arrays.html" rel="prev" title="Specialized Arrays">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,146 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Arrays.html#array">
 
 </head>
 
 <body lang="en">
-<span id="array"></span><div class="header">
-<p>
-Next: <a href="simple_002darray.html" accesskey="n" rel="next">simple-array</a>, Previous: <a href="Array-Concepts.html" accesskey="p" rel="prev">Array Concepts</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">array</h4>
-<span id="array-_0028System-Class_0029"></span><h3 class="heading">array (System Class)</h3>
-<span id="index-array-2"></span>
-<span id="index-array-1"></span>
 
-
-<span id="Class-Precedence-List_003a-53"></span><h4 class="subsubheading">Class Precedence List:</h4>
-<p><code>array</code>,
-<code>t</code>
-</p>
-<span id="Description_003a-420"></span><h4 class="subsubheading">Description:</h4>
-
-<p>An <i>array</i> contains <i>objects</i> arranged according to a
-Cartesian coordinate system.
-An <i>array</i> provides mappings from a set of
-<i>fixnums</i>
-<tt>{</tt>i<sub>0</sub>
-of the <i>array</i>, 
-where 0 ≤ i<sub>j</sub>
-r is the rank of the array, and d<sub>j</sub>
-the array.
-</p>
-<p>When an <i>array</i> is created, the program requesting its creation may
-declare that all <i>elements</i> are of a particular <i>type</i>, 
-called the <i>expressed array element type</i>.
-The implementation is permitted to <i>upgrade</i> this type in order to 
-produce the <i>actual array element type</i>,
-which is the <i>element type</i> for the <i>array</i> is actually <i>specialized</i>.
-See the <i>function</i> <a href="upgraded_002darray_002delement_002dtype.html">upgraded-array-element-type</a>.
-</p>
-<span id="Compound-Type-Specifier-Kind_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Kind:</h4>
-
-<p>Specializing.
-</p>
-<span id="Compound-Type-Specifier-Syntax_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Syntax:</h4>
-
-<p>(array <tt>[</tt><tt>{</tt>element-type | <tt>*</tt><tt>}</tt> <tt>[</tt>dimension-spec<tt>]</tt><tt>]</tt>)
-</p>
-<dl compact="compact">
-<dt><var>dimension-spec</var>::=</dt>
-<dd><p>rank | <tt>*</tt> | <tt>(</tt><tt>{</tt>dimension | <tt>*</tt><tt>}</tt>*<tt>)</tt>
-</p></dd>
-</dl>
-
-<span id="Compound-Type-Specifier-Arguments_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Arguments:</h4>
-
-<p><var>dimension</var>&mdash;a <i>valid array dimension</i>.
-</p>
-<p><var>element-type</var>&mdash;a <i>type specifier</i>.
-</p>
-<p><var>rank</var>&mdash;a non-negative <i>fixnum</i>.
-</p>
-<span id="Compound-Type-Specifier-Description_003a-18"></span><h4 class="subsubheading">Compound Type Specifier Description:</h4>
-
-<p>This denotes the set of <i>arrays</i> whose
-<i>element type</i>,  <i>rank</i>,  and <i>dimensions</i>
-match any given
-<var>element-type</var>, <var>rank</var>, and <var>dimensions</var>.
-Specifically:
-</p>
-<p>If <var>element-type</var> is the <i>symbol</i> <tt>*</tt>,
-<i>arrays</i> are not excluded on the basis of their <i>element type</i>.
-Otherwise, only those <var>arrays</var> are included whose <i>actual array element type</i>
-is the result of <i>upgrading</i> <var>element-type</var>;
-see <a href="Specialized-Arrays.html#ArrayUpgrading">Section 15.1.2.1 (Array Upgrading)</a>.
-</p>
-<p>If the <var>dimension-spec</var> is a <var>rank</var>,
-the set includes only those <var>arrays</var> having that <i>rank</i>.
-If the <var>dimension-spec</var> is a <i>list</i> of <var>dimensions</var>,
-the set includes only those <var>arrays</var> having a <i>rank</i>
-given by the <i>length</i> of the <var>dimensions</var>,
-and having the indicated <var>dimensions</var>; 
-in this case, <tt>*</tt> matches any value for the corresponding <i>dimension</i>.
-If the <var>dimension-spec</var> is the <i>symbol</i> <tt>*</tt>,
-the set is not restricted on the basis of <i>rank</i> or <i>dimension</i>.
-</p>
-
-<span id="See-Also_003a-344"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="_002aprint_002darray_002a.html">*print-array*</a>,
-<a href="aref.html">aref</a>,
-<a href="make_002darray.html">make-array</a>,
-<a href="vector-_0028System-Class_0029.html">vector (System Class)</a>,
-<a href="Sharpsign.html#SharpsignA">Section 2.4.8.12 (Sharpsign A)</a>,
-<a href="Default-Print_002dObject-Methods.html#PrintingOtherArrays">Section 22.1.3.8 (Printing Other Arrays)</a>
-</p>
-<span id="Notes_003a-229"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>Note that the type <code>(array t)</code>     
-is a proper <i>subtype</i> of the type <code>(array *)</code>.
-The reason is that the type <code>(array t)</code> is the set of <i>arrays</i> 
-that can
-hold any <i>object</i> (the <i>elements</i> are of <i>type</i> <code>t</code>,  which includes
-all <i>objects</i>).
-On the other hand, the type <code>(array *)</code>
-is the set of all <i>arrays</i> whatsoever, including for example
-<i>arrays</i> that can hold only <i>characters</i>. 
-The type <code>(array character)</code> 
-is not a <i>subtype</i> of the type <code>(array t)</code>; 
-the two sets                                              
-are <i>disjoint</i> because the type <code>(array character)</code> is not the
-set of all <i>arrays</i> that can hold 
-<i>characters</i>, but rather the set of
-<i>arrays</i> 
-that are specialized to hold precisely <i>characters</i> and no
-other <i>objects</i>. 
-</p>
-<hr>
-<div class="header">
-<p>
-Next: <a href="simple_002darray.html" accesskey="n" rel="next">simple-array</a>, Previous: <a href="Array-Concepts.html" accesskey="p" rel="prev">Array Concepts</a>, Up: <a href="Arrays.html" accesskey="u" rel="up">Arrays</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Arrays.html#array">array</a>.</p>
 </body>
-</html>

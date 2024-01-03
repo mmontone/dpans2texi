@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>I (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Glossary.html" rel="up" title="Glossary">
-<link href="K.html" rel="next" title="K">
-<link href="H.html" rel="prev" title="H">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,312 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Glossary.html#I">
 
 </head>
 
 <body lang="en">
-<span id="I"></span><div class="header">
-<p>
-Next: <a href="K.html" accesskey="n" rel="next">K</a>, Previous: <a href="H.html" accesskey="p" rel="prev">H</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="I-1"></span><h3 class="unnumberedsec">I</h3>
-<dl compact="compact">
-<dt><b>I/O customization variable</b>  <i>n.</i></dt>
-<dd><p>one of the <i>stream variables</i> in the next figure, 
-or some other (<i>implementation-defined</i>) <i>stream variable</i>
-that is defined by the <i>implementation</i> 
-to be an <i>I/O customization variable</i>.
-</p>
 
-<div class="float"><span id="fig26_002e2"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<tr><td>*debug-io*</td><td>*error-io*</td><td>query-io*</td></tr>
-<tr><td>*standard-input*</td><td>*standard-output*</td><td>*trace-output*</td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 26.2: </strong>Standardized I/O Customization Variables</p></div></div>
-
-</dd>
-<dt><b>identical</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>the <i>same</i> under <code>eq</code>.
-</p>
-</dd>
-<dt><b>identifier</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. a <i>symbol</i> used to identify or to distinguish <i>names</i>. 
-2. a <i>string</i> used the same way.            
-</p>
-</dd>
-<dt><b>immutable</b>  <i>adj.</i></dt>
-<dd><p>not subject to change, either because no <i>operator</i> is provided which is
-capable of effecting such change or because some constraint exists which 
-prohibits the use of an <i>operator</i> that might otherwise be capable of
-effecting such a change.  Except as explicitly indicated otherwise,
-<i>implementations</i> are not required to detect attempts to modify
-<i>immutable</i> <i>objects</i> or <i>cells</i>; the consequences of attempting
-to make such modification are undefined.
-&ldquo;Numbers are immutable.&rdquo;
-</p>
-</dd>
-<dt><b>implementation</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a system, mechanism, or body of <i>code</i> that implements the semantics of <span class="roman">Common Lisp</span>.
-</p>
-</dd>
-<dt><b>implementation limit</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a restriction imposed by an <i>implementation</i>.
-</p>
-</dd>
-<dt><b>implementation-defined</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
-<dd><p><i>implementation-dependent</i>, but required by this specification to be
-defined by each <i>conforming implementation</i> and to be documented by 
-the corresponding implementor.
-</p>
-</dd>
-<dt><b>implementation-dependent</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>describing a behavior or aspect of <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->which has been deliberately left
-unspecified, that might be defined in some <i>conforming implementations</i> 
-but not in others, and whose details may differ between <i>implementations</i>.
-A <i>conforming implementation</i> is encouraged (but not required) to 
-document its treatment of each item in this specification which is
-marked <i>implementation-dependent</i>, although in some cases
-such documentation might simply identify the item as &ldquo;undefined.&rdquo;
-</p>
-</dd>
-<dt><b>implementation-independent</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>used to identify or emphasize a behavior or aspect of <span class="roman">Common Lisp</span>&nbsp;<!-- /@w -->which does 
-not vary between <i>conforming implementations</i>.
-</p>
-</dd>
-<dt><b>implicit block</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>block</i> introduced by a <i>macro form</i> 
-rather than by an explicit <code>block</code> <i>form</i>.
-</p>
-</dd>
-<dt><b>implicit compilation</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p><i>compilation</i> performed during <i>evaluation</i>.
-</p>
-</dd>
-<dt><b>implicit progn</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an ordered set of adjacent <i>forms</i> appearing in another
-<i>form</i>, and defined by their context in that <i>form</i>
-to be executed as if within a <code>progn</code>.
-</p>
-</dd>
-<dt><b>implicit tagbody</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an ordered set of adjacent <i>forms</i> and/or <i>tags</i> 
-appearing in another <i>form</i>, and defined by their context 
-in that <i>form</i> to be executed as if within a <code>tagbody</code>.
-</p>
-</dd>
-<dt><b>import</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>symbol</i> into a <i>package</i>)</dt>
-<dd><p>to make the <i>symbol</i> be <i>present</i> in the <i>package</i>.
-</p>
-</dd>
-<dt><b>improper list</b> <span id="glos_002dimproper-list"></span></dt>
-<dd><p><i>n.</i>&nbsp;<!-- /@w -->
-a <i>list</i> which is not a <i>proper list</i>:  
-a <i>circular list</i> or a <i>dotted list</i>.
-</p>
-</dd>
-<dt><b>inaccessible</b>  <i>adj.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>not <i>accessible</i>.
-</p>
-</dd>
-<dt><b>indefinite extent</b> <span id="glos_002dindefinite-extent"></span></dt>
-<dd><p><i>n.</i>&nbsp;<!-- /@w -->
-an <i>extent</i> whose duration is unlimited.
-&ldquo;Most Common Lisp objects have indefinite extent.&rdquo;
-</p>
-</dd>
-<dt><b>indefinite scope</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p><i>scope</i> that is unlimited.
-</p>
-</dd>
-<dt><b>indicator</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>property indicator</i>.
-</p>
-</dd>
-<dt><b>indirect instance</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>class</i> C<sub>1</sub>
-</dt>
-<dd><p>an <i>object</i> of <i>class</i> C<sub>2</sub>
-where C<sub>2</sub>
-&ldquo;An integer is an indirect instance of the class <code>number</code>.&rdquo;
-</p>
-</dd>
-<dt><b>inherit</b>  <i>v.t.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. to receive or acquire a quality, trait, or characteristic; 
-to gain access to a feature defined elsewhere.
-2. (a <i>class</i>) to acquire the structure and behavior defined
-by a <i>superclass</i>.
-3. (a <i>package</i>) to make <i>symbols</i> <i>exported</i> by another
-<i>package</i> <i>accessible</i> by using <code>use-package</code>.
-</p>
-</dd>
-<dt><b>initial pprint dispatch table</b>  <i>n.</i></dt>
-<dd><p>the <i>value</i> of <code>*print-pprint-dispatch*</code> at the time the <i>Lisp image</i> is started.
-</p>
-</dd>
-<dt><b>initial readtable</b>  <i>n.</i></dt>
-<dd><p>the <i>value</i> of <code>*readtable*</code> at the time the <i>Lisp image</i> is started.
-</p>
-</dd>
-<dt><b>initialization argument list</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>property list</i> of initialization argument <i>names</i> and <i>values</i>
-used in the protocol for initializing and reinitializing <i>instances</i> of <i>classes</i>.
-See <a href="Object-Creation-and-Initialization.html">Section 7.1 (Object Creation and Initialization)</a>.
-</p>
-</dd>
-<dt><b>initialization form</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>form</i> used to supply the initial <i>value</i> for a <i>slot</i>
-or <i>variable</i>.
-&ldquo;The initialization form for a slot in a <code>defclass</code> form
-is introduced by the keyword <tt>:initform</tt>.&rdquo;
-</p>
-</dd>
-<dt><b>input</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>stream</i>)</dt>
-<dd><p>supporting input operations (<i>i.e.</i>, being a &ldquo;data source&rdquo;).
-An <i>input</i> <i>stream</i> might also be an <i>output</i> <i>stream</i>,
-in which case it is sometimes called a <i>bidirectional</i> <i>stream</i>.
-See the <i>function</i> <a href="input_002dstream_002dp_003b-output_002dstream_002dp.html#input_002dstream_002dp">input-stream-p</a>.
-</p>
-</dd>
-<dt><b>instance</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. a <i>direct instance</i>.
-2. a <i>generalized instance</i>.
-3. an <i>indirect instance</i>.
-</p>
-</dd>
-<dt><b>integer</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>integer</code>, which represents a mathematical integer.
-</p>
-</dd>
-<dt><b>interactive stream</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>stream</i> on which it makes sense to perform interactive querying.
-See <a href="Introduction-to-Streams.html#InteractiveStreams">Section 21.1.1.1.3 (Interactive Streams)</a>.
-</p>
-</dd>
-<dt><b>intern</b>  <i>v.t.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. (a <i>string</i> in a <i>package</i>)
-to look up the <i>string</i> in the <i>package</i>, 
-returning either a <i>symbol</i> with that <i>name</i>
-which was already <i>accessible</i> in the <i>package</i>
-or a newly created <i>internal symbol</i> of the <i>package</i> 
-with that <i>name</i>.
-2. <i>Idiom.</i>&nbsp;<!-- /@w -->generally, to observe a protocol whereby objects which 
-are equivalent or have equivalent names under some predicate defined
-by the protocol are mapped to a single canonical object.
-</p>
-</dd>
-<dt><b>internal symbol</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>package</i>)</dt>
-<dd><p>a symbol which is <i>accessible</i> in the <i>package</i>,
-but which is not an <i>external symbol</i> of the <i>package</i>.
-</p>
-</dd>
-<dt><b>internal time</b>  <i>n.</i></dt>
-<dd><p><i>time</i>, represented as an <i>integer</i> number of <i>internal time units</i>.
-<i>Absolute</i> <i>internal time</i> is measured as an offset 
-from an arbitrarily chosen, <i>implementation-dependent</i> base.
-See <a href="Time.html#InternalTime">Section 25.1.4.3 (Internal Time)</a>.
-</p>
-</dd>
-<dt><b>internal time unit</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a unit of time equal to 1/n of a second, 
-for some <i>implementation-defined</i> <i>integer</i> value of n.
-See the <i>variable</i> <a href="internal_002dtime_002dunits_002dper_002dsecond.html">internal-time-units-per-second</a>.
-</p>
-</dd>
-<dt><b>interned</b>  <i>adj.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. (of a <i>symbol</i>) <i>accessible</i><sub>3</sub>
-any <i>package</i>.
-2. (of a <i>symbol</i> in a specific <i>package</i>) 
-<i>present</i> in that <i>package</i>.
-</p>
-</dd>
-<dt><b>interpreted function</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>function</i> that is not a <i>compiled function</i>.
-(It is possible for there to be a <i>conforming implementation</i> which
-has no <i>interpreted functions</i>, but a <i>conforming program</i>
-must not assume that all <i>functions</i> are <i>compiled functions</i>.)
-</p>
-</dd>
-<dt><b>interpreted implementation</b>  <i>n.</i></dt>
-<dd><p>an <i>implementation</i> that uses an execution strategy for 
-<i>interpreted functions</i> that does not involve a one-time semantic
-analysis pre-pass, and instead uses &ldquo;lazy&rdquo; (and sometimes repetitious)
-semantic analysis of <i>forms</i> as they are encountered during execution.
-</p>
-</dd>
-<dt><b>interval designator</b>  <i>n.</i>&nbsp;<!-- /@w -->(of <i>type</i> T)</dt>
-<dd><p>an ordered pair of <i>objects</i> that describe a <i>subtype</i> of T
-by delimiting an interval on the real number line.
-See <a href="Interval-Designators.html">Section 12.1.6 (Interval Designators)</a>.
-</p>
-</dd>
-<dt><b>invalid</b>  <i>n.</i>, <i>adj.</i></dt>
-<dd><p>1. <i>n.</i>
-a possible <i>constituent trait</i> of a <i>character</i>
-which if present signifies that the <i>character</i> 
-cannot ever appear in a <i>token</i> 
-except under the control of a <i>single escape</i> <i>character</i>.
-For details, see <a href="Character-Syntax-Types.html#ConstituentChars">Section 2.1.4.1 (Constituent Characters)</a>.
-2. <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)
-being a <i>character</i> that has <i>syntax type</i> <i>constituent</i>
-in the <i>current readtable</i> and that has the 
-<i>constituent trait</i> <i>invalid</i><sub>1</sub>
-See <a href="Character-Syntax-Types.html#ConstituentTraitsOfStdChars">Figure 2.8</a>.
-</p>
-</dd>
-<dt><b>iteration form</b>  <i>n.</i></dt>
-<dd><p>a <i>compound form</i> whose <i>operator</i> is named in the next figure,
-or a <i>compound form</i> that has an <i>implementation-defined</i> <i>operator</i>
-and that is defined by the <i>implementation</i> to be an <i>iteration form</i>.
-</p>
-
-<div class="float"><span id="fig26_002e3"></span>
-<table class="cartouche" border="1"><tr><td>
-<table>
-<tr><td>do</td><td>do-external-symbols</td><td>dotimes</td></tr>
-<tr><td>do*</td><td>do-symbols</td><td>loop</td></tr>
-<tr><td>do-all-symbols</td><td>dolist</td><td></td></tr>
-</table>
-</td></tr></table>
-
-<div class="float-caption"><p><strong>Figure 26.3: </strong>Standardized Iteration Forms</p></div></div>
-
-</dd>
-<dt><b>iteration variable</b>  <i>n.</i></dt>
-<dd><p>a <i>variable</i> V, the <i>binding</i> for which was created by an
-<i>explicit use</i> of V in an <i>iteration form</i>.
-</p>
-
-</dd>
-</dl>
-<hr>
-<div class="header">
-<p>
-Next: <a href="K.html" accesskey="n" rel="next">K</a>, Previous: <a href="H.html" accesskey="p" rel="prev">H</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Glossary.html#I">I</a>.</p>
 </body>
-</html>

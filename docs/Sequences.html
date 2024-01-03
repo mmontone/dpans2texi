@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Sequence-Concepts.html" rel="next" title="Sequence Concepts">
-<link href="make_002dstring.html" rel="prev" title="make-string">
+<link href="Hash-Tables.html#Hash-Tables" rel="next" title="Hash Tables">
+<link href="Strings.html#make_002dstring" rel="prev" title="make-string">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,67 +277,2638 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Sequences"></span><div class="header">
 <p>
-Next: <a href="Hash-Tables.html" accesskey="n" rel="next">Hash Tables</a>, Previous: <a href="Strings.html" accesskey="p" rel="prev">Strings</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Hash-Tables.html#Hash-Tables" accesskey="n" rel="next">Hash Tables</a>, Previous: <a href="Strings.html#Strings" accesskey="p" rel="prev">Strings</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Sequences-1"></span><h2 class="chapter">17 Sequences</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Sequence-Concepts.html" accesskey="1">Sequence Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Sequence-Concepts" accesskey="1">Sequence Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="Rules-about-Test-Functions.html" accesskey="2">Rules about Test Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Rules-about-Test-Functions" accesskey="2">Rules about Test Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="sequence.html" accesskey="3">sequence</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#sequence" accesskey="3">sequence</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="copy_002dseq.html" accesskey="4">copy-seq</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#copy_002dseq" accesskey="4">copy-seq</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="elt.html" accesskey="5">elt</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#elt" accesskey="5">elt</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="fill.html" accesskey="6">fill</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#fill" accesskey="6">fill</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="make_002dsequence.html" accesskey="7">make-sequence</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#make_002dsequence" accesskey="7">make-sequence</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="subseq.html" accesskey="8">subseq</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#subseq" accesskey="8">subseq</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="map.html" accesskey="9">map</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#map" accesskey="9">map</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="map_002dinto.html">map-into</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#map_002dinto">map-into</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="reduce.html">reduce</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#reduce">reduce</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="count_003b-count_002dif_003b-count_002dif_002dnot.html">count; count-if; count-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#count_003b-count_002dif_003b-count_002dif_002dnot">count; count-if; count-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="length.html">length</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#length">length</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="reverse_003b-nreverse.html">reverse; nreverse</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#reverse_003b-nreverse">reverse; nreverse</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="sort_003b-stable_002dsort.html">sort; stable-sort</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#sort_003b-stable_002dsort">sort; stable-sort</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="find_003b-find_002dif_003b-find_002dif_002dnot.html">find; find-if; find-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#find_003b-find_002dif_003b-find_002dif_002dnot">find; find-if; find-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="position_003b-position_002dif_003b-position_002dif_002dnot.html">position; position-if; position-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#position_003b-position_002dif_003b-position_002dif_002dnot">position; position-if; position-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="search.html">search</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#search">search</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="mismatch.html">mismatch</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#mismatch">mismatch</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="replace.html">replace</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#replace">replace</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="substitute_003b-substitute_002dif_003b-substitute_002dif_002dnot_003b-nsubstitute_003b-nsubstitute_002d_002b.html">substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#substitute_003b-substitute_002dif_003b-substitute_002dif_002dnot_003b-nsubstitute_003b-nsubstitute_002d_002b">substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="concatenate.html">concatenate</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#concatenate">concatenate</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="merge.html">merge</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#merge">merge</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot.html">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="remove_002dduplicates_003b-delete_002dduplicates.html">remove-duplicates; delete-duplicates</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#remove_002dduplicates_003b-delete_002dduplicates">remove-duplicates; delete-duplicates</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="Sequence-Concepts"></span><div class="header">
+<p>
+Next: <a href="#Rules-about-Test-Functions" accesskey="n" rel="next">Rules about Test Functions</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Sequence-Concepts-1"></span><h3 class="section">17.1 Sequence Concepts</h3>
+
+<p>A <span id="index-sequence"></span>
+<em>sequence</em> is an ordered collection of <i>elements</i>,
+implemented as either a <i>vector</i> or a <i>list</i>.
+</p>
+<p><i>Sequences</i> can be created by the <i>function</i> <code>make-sequence</code>,
+as well as other <i>functions</i> that create <i>objects</i> 
+of <i>types</i> that are <i>subtypes</i> of <code>sequence</code> 
+(<i>e.g.</i>, <code>list</code>, <code>make-list</code>, <code>mapcar</code>, and <code>vector</code>).
+</p>
+<p>A <span id="index-sequence-function"></span>
+<em>sequence function</em> is a <i>function</i> 
+defined by this specification
+or added as an extension by the <i>implementation</i> 
+that operates on one or more <i>sequences</i>.
+Whenever a <i>sequence function</i> must construct and return
+a new <i>vector</i>, it always returns a <i>simple vector</i>.
+Similarly, any <i>strings</i> constructed will be <i>simple strings</i>.
+</p>
+
+
+<div class="float"><span id="SequenceFunctions"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>concatenate</td><td>length</td><td>remove</td></tr>
+<tr><td>copy-seq</td><td>map</td><td>remove-duplicates</td></tr>
+<tr><td>count</td><td>map-into</td><td>remove-if</td></tr>
+<tr><td>count-if</td><td>merge</td><td>remove-if-not</td></tr>
+<tr><td>count-if-not</td><td>mismatch</td><td>replace</td></tr>
+<tr><td>delete</td><td>notany</td><td>reverse</td></tr>
+<tr><td>delete-duplicates</td><td>notevery</td><td>search</td></tr>
+<tr><td>delete-if</td><td>nreverse</td><td>some</td></tr>
+<tr><td>delete-if-not</td><td>nsubstitute</td><td>sort</td></tr>
+<tr><td>elt</td><td>nsubstitute-if</td><td>stable-sort</td></tr>
+<tr><td>every</td><td>nsubstitute-if-not</td><td>subseq</td></tr>
+<tr><td>fill</td><td>position</td><td>substitute</td></tr>
+<tr><td>find</td><td>position-if</td><td>substitute-if</td></tr>
+<tr><td>find-if</td><td>position-if-not</td><td>substitute-if-not</td></tr>
+<tr><td>find-if-not</td><td>reduce</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 17.1: </strong>Standardized Sequence Functions</p></div></div>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#General-Restrictions-on-Parameters-that-must-be-Sequences" accesskey="1">General Restrictions on Parameters that must be Sequences</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="General-Restrictions-on-Parameters-that-must-be-Sequences"></span><div class="header">
+<p>
+Up: <a href="#Sequence-Concepts" accesskey="u" rel="up">Sequence Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="General-Restrictions-on-Parameters-that-must-be-Sequences-1"></span><h4 class="subsection">17.1.1 General Restrictions on Parameters that must be Sequences</h4>
+
+<p>In general, <i>lists</i> (including <i>association lists</i> and <i>property lists</i>)
+that are treated as <i>sequences</i> must be <i>proper lists</i>.
+</p>
+
+
+<hr>
+<span id="Rules-about-Test-Functions"></span><div class="header">
+<p>
+Next: <a href="#sequence" accesskey="n" rel="next">sequence</a>, Previous: <a href="#Sequence-Concepts" accesskey="p" rel="prev">Sequence Concepts</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Rules-about-Test-Functions-1"></span><h3 class="section">17.2 Rules about Test Functions</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Satisfying-a-Two_002dArgument-Test" accesskey="1">Satisfying a Two-Argument Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Satisfying-a-One_002dArgument-Test" accesskey="2">Satisfying a One-Argument Test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Satisfying-a-Two_002dArgument-Test"></span><div class="header">
+<p>
+Next: <a href="#Satisfying-a-One_002dArgument-Test" accesskey="n" rel="next">Satisfying a One-Argument Test</a>, Up: <a href="#Rules-about-Test-Functions" accesskey="u" rel="up">Rules about Test Functions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Satisfying-a-Two_002dArgument-Test-1"></span><h4 class="subsection">17.2.1 Satisfying a Two-Argument Test</h4>
+<span id="SatisfyingTheTwoArgTest"></span>
+<p>When an <i>object</i> O is being considered iteratively 
+against each <i>element</i> E<sub>i</sub>
+of a <i>sequence</i> S
+by an <i>operator</i> F listed in the next figure,
+it is sometimes useful to control the way in which the presence of O 
+is tested in S is tested by F.
+This control is offered on the basis of a <i>function</i> designated with 
+either a <tt>:test</tt> or <tt>:test-not</tt> <i>argument</i>.
+</p>
+
+<div class="float"><span id="fig17_002e2"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>adjoin</td><td>nset-exclusive-or</td><td>search</td></tr>
+<tr><td>assoc</td><td>nsublis</td><td>set-difference</td></tr>
+<tr><td>count</td><td>nsubst</td><td>set-exclusive-or</td></tr>
+<tr><td>delete</td><td>nsubstitute</td><td>sublis</td></tr>
+<tr><td>find</td><td>nunion</td><td>subsetp</td></tr>
+<tr><td>intersection</td><td>position</td><td>subst</td></tr>
+<tr><td>member</td><td>pushnew</td><td>substitute</td></tr>
+<tr><td>mismatch</td><td>rassoc</td><td>tree-equal</td></tr>
+<tr><td>nintersection</td><td>remove</td><td>union</td></tr>
+<tr><td>nset-difference</td><td>remove-duplicates</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 17.2: </strong>Operators that have Two-Argument Tests to be Satisfied</p></div></div>
+
+<p>The object O might not be compared directly to E<sub>i</sub>
+If a <tt>:key</tt> <i>argument</i> is provided,
+it is a <i>designator</i> for a <i>function</i> of one <i>argument</i> 
+to be called with each E<sub>i</sub>
+and <i>yielding</i> an <i>object</i> Z<sub>i</sub>
+(If there is no <tt>:key</tt> <i>argument</i>, Z<sub>i</sub>
+</p>
+<p>The <i>function</i> designated by the <tt>:key</tt> <i>argument</i> is never called on O itself.
+However, if the function operates on multiple sequences
+(<i>e.g.</i>, as happens in <code>set-difference</code>), O
+will be the result of calling the <tt>:key</tt> function on an
+<i>element</i> of the other sequence.  
+</p>
+<p>A <tt>:test</tt> <i>argument</i>, if supplied to F,
+is a <i>designator</i> for a  <i>function</i>
+of two <i>arguments</i>, O and Z<sub>i</sub>
+An E<sub>i</sub>
+to <span id="index-satisfy-the-test"></span>
+<em>satisfy the test</em> 
+if this <tt>:test</tt> <i>function</i> returns a <i>generalized boolean</i> representing 
+<i>true</i>.
+</p>
+<p>A <tt>:test-not</tt> <i>argument</i>, if supplied to F, 
+is <i>designator</i> for a <i>function</i> 
+of two <i>arguments</i>, O and Z<sub>i</sub>
+An E<sub>i</sub>
+to <span id="index-satisfy-the-test-1"></span>
+<em>satisfy the test</em> 
+if this <tt>:test-not</tt> <i>function</i>
+returns a <i>generalized boolean</i> representing <i>false</i>.
+</p>
+<p>If neither a <tt>:test</tt> nor a <tt>:test-not</tt> <i>argument</i> is supplied, 
+it is as if a <tt>:test</tt> argument of <code>#'eql</code> was supplied.
+</p>
+<p>The consequences are unspecified if both a <tt>:test</tt> and a <tt>:test-not</tt> <i>argument</i>
+are supplied in the same <i>call</i> to F.
+</p>
+<span id="Examples-of-Satisfying-a-Two_002dArgument-Test"></span><h4 class="subsubsection">17.2.1.1 Examples of Satisfying a Two-Argument Test</h4>
+
+<div class="lisp">
+<pre class="lisp"> (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'equal)
+<span class="roman">→</span> (foo bar &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;)
+ (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'equalp)
+<span class="roman">→</span> (foo bar &quot;BAR&quot; &quot;bar&quot;)
+ (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'string-equal)
+<span class="roman">→</span> (bar &quot;BAR&quot; &quot;bar&quot;)
+ (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'string=)
+<span class="roman">→</span> (BAR &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;)
+
+ (remove 1 '(1 1.0 #C(1.0 0.0) 2 2.0 #C(2.0 0.0)) :test-not #'eql)
+<span class="roman">→</span> (1)
+ (remove 1 '(1 1.0 #C(1.0 0.0) 2 2.0 #C(2.0 0.0)) :test-not #'=)
+<span class="roman">→</span> (1 1.0 #C(1.0 0.0))
+ (remove 1 '(1 1.0 #C(1.0 0.0) 2 2.0 #C(2.0 0.0)) :test (complement #'=))
+<span class="roman">→</span> (1 1.0 #C(1.0 0.0))
+
+ (count 1 '((one 1) (uno 1) (two 2) (dos 2)) :key #'cadr) <span class="roman">→</span> 2
+
+ (count 2.0 '(1 2 3) :test #'eql :key #'float) <span class="roman">→</span> 1
+
+ (count &quot;FOO&quot; (list (make-pathname :name &quot;FOO&quot; :type &quot;X&quot;)  
+                    (make-pathname :name &quot;FOO&quot; :type &quot;Y&quot;))
+        :key #'pathname-name
+        :test #'equal)
+<span class="roman">→</span> 2
+</pre></div>
+
+
+
+
+<hr>
+<span id="Satisfying-a-One_002dArgument-Test"></span><div class="header">
+<p>
+Previous: <a href="#Satisfying-a-Two_002dArgument-Test" accesskey="p" rel="prev">Satisfying a Two-Argument Test</a>, Up: <a href="#Rules-about-Test-Functions" accesskey="u" rel="up">Rules about Test Functions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Satisfying-a-One_002dArgument-Test-1"></span><h4 class="subsection">17.2.2 Satisfying a One-Argument Test</h4>
+
+<p>When using one of the <i>functions</i> in the next figure,
+the elements E of a <i>sequence</i> S are filtered
+not on the basis of the presence or absence of an object O 
+under a two <i>argument</i> <i>predicate</i>,
+as with the <i>functions</i> described in <a href="#Satisfying-a-Two_002dArgument-Test">Section 17.2.1 (Satisfying a Two-Argument Test)</a>,
+but rather on the basis of a one <i>argument</i> <i>predicate</i>.
+</p>
+
+<div class="float"><span id="fig17_002e3"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>assoc-if</td><td>member-if</td><td>rassoc-if</td></tr>
+<tr><td>assoc-if-not</td><td>member-if-not</td><td>rassoc-if-not</td></tr>
+<tr><td>count-if</td><td>nsubst-if</td><td>remove-if</td></tr>
+<tr><td>count-if-not</td><td>nsubst-if-not</td><td>remove-if-not</td></tr>
+<tr><td>delete-if</td><td>nsubstitute-if</td><td>subst-if</td></tr>
+<tr><td>delete-if-not</td><td>nsubstitute-if-not</td><td>subst-if-not</td></tr>
+<tr><td>find-if</td><td>position-if</td><td>substitute-if</td></tr>
+<tr><td>find-if-not</td><td>position-if-not</td><td>substitute-if-not</td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 17.3: </strong>Operators that have One-Argument Tests to be Satisfied</p></div></div>
+
+<p>The element E<sub>i</sub>
+If a <tt>:key</tt> <i>argument</i> is provided,
+it is a <i>designator</i> for a <i>function</i> of one <i>argument</i> 
+to be called with each E<sub>i</sub>
+and <i>yielding</i> an <i>object</i> Z<sub>i</sub>
+(If there is no <tt>:key</tt> <i>argument</i>, Z<sub>i</sub>
+</p>
+<p><i>Functions</i> defined in this specification and having a name that
+ends in &ldquo;<code>-if</code>&rdquo; accept a first <i>argument</i> that is a <i>designator</i> for a 
+<i>function</i> of one <i>argument</i>, Z<sub>i</sub>
+An E<sub>i</sub>
+<em>satisfy the test</em> if this <tt>:test</tt> <i>function</i>
+returns a <i>generalized boolean</i> representing <i>true</i>.
+</p>
+<p><i>Functions</i> defined in this specification and having a name that
+ends in &ldquo;<code>-if-not</code>&rdquo; accept a first <i>argument</i> that is a <i>designator</i> for a 
+<i>function</i> of one <i>argument</i>, Z<sub>i</sub>
+An E<sub>i</sub>
+<em>satisfy the test</em> if this <tt>:test</tt> <i>function</i>
+returns a <i>generalized boolean</i> representing <i>false</i>.
+</p>
+<span id="Examples-of-Satisfying-a-One_002dArgument-Test"></span><h4 class="subsubsection">17.2.2.1 Examples of Satisfying a One-Argument Test</h4>
+
+<div class="lisp">
+<pre class="lisp"> (count-if #'zerop '(1 #C(0.0 0.0) 0 0.0d0 0.0s0 3)) <span class="roman">→</span> 4
+
+ (remove-if-not #'symbolp '(0 1 2 3 4 5 6 7 8 9 A B C D E F))
+<span class="roman">→</span> (A B C D E F)
+ (remove-if (complement #'symbolp) '(0 1 2 3 4 5 6 7 8 9 A B C D E F))
+<span class="roman">→</span> (A B C D E F)
+
+ (count-if #'zerop '(&quot;foo&quot; &quot;&quot; &quot;bar&quot; &quot;&quot; &quot;&quot; &quot;baz&quot; &quot;quux&quot;) :key #'length)
+<span class="roman">→</span> 3
+</pre></div>
+
+
+
+
+<hr>
+<span id="sequence"></span><div class="header">
+<p>
+Next: <a href="#copy_002dseq" accesskey="n" rel="next">copy-seq</a>, Previous: <a href="#Rules-about-Test-Functions" accesskey="p" rel="prev">Rules about Test Functions</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">sequence</h4>
+<span id="sequence-_0028System-Class_0029"></span><h3 class="heading">sequence (System Class)</h3>
+<span id="index-sequence-2"></span>
+<span id="index-sequence-1"></span>
+
+
+<span id="Class-Precedence-List_003a-57"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>sequence</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-468"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Sequences</i> are ordered collections of <i>objects</i>,
+called the <i>elements</i> of the <i>sequence</i>.
+</p>
+<p>The <i>types</i> <code>vector</code> and the <i>type</i> <code>list</code> are <i>disjoint</i> subtypes of <i>type</i> <code>sequence</code>,
+but are not necessarily an <i>exhaustive partition</i> of <i>sequence</i>.
+</p>
+<p>When viewing a <i>vector</i> as a <i>sequence</i>, 
+only the <i>active</i> <i>elements</i> of that <i>vector</i> 
+are considered <i>elements</i> of the <i>sequence</i>;
+that is,
+<i>sequence</i> operations respect the <i>fill pointer</i>
+when given <i>sequences</i> represented as <i>vectors</i>.
+</p>
+
+<hr>
+<span id="copy_002dseq"></span><div class="header">
+<p>
+Next: <a href="#elt" accesskey="n" rel="next">elt</a>, Previous: <a href="#sequence" accesskey="p" rel="prev">sequence</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">copy-seq</h4>
+<span id="copy_002dseq-_0028Function_0029"></span><h3 class="heading">copy-seq (Function)</h3>
+<span id="index-copy_002dseq-2"></span>
+<span id="index-copy_002dseq"></span>
+
+
+<span id="Syntax_003a-365"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-copy_002dseq-1">Function: <strong>copy-seq</strong> <em>sequence <span class="roman">→</span> copied-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-354"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>copied-sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<span id="Description_003a-469"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Creates a copy of <var>sequence</var>.  The <i>elements</i> of the new
+<i>sequence</i> are the <i>same</i> as the corresponding <i>elements</i> of
+the given <var>sequence</var>.
+</p>
+<p>If <var>sequence</var> is a <i>vector</i>, 
+the result is a <i>fresh</i> <i>simple array</i>
+of <i>rank</i> one 
+that has the same <i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, 
+the result is a <i>fresh</i> <i>list</i>. 
+</p>
+<span id="Examples_003a-336"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (setq str &quot;a string&quot;) <span class="roman">→</span> &quot;a string&quot;
+ (equalp str (copy-seq str)) <span class="roman">→</span> <i>true</i>
+ (eql str (copy-seq str)) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-150"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-381"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Conses.html#copy_002dlist">copy-list</a>
+</p>
+<span id="Notes_003a-255"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>From a functional standpoint,
+</p><div class="lisp">
+<pre class="lisp"> (copy-seq x) ≡ (subseq x 0)
+</pre></div>
+
+<p>However, the programmer intent is typically very different in these two cases.
+</p>
+
+<hr>
+<span id="elt"></span><div class="header">
+<p>
+Next: <a href="#fill" accesskey="n" rel="next">fill</a>, Previous: <a href="#copy_002dseq" accesskey="p" rel="prev">copy-seq</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">elt</h4>
+<span id="elt-_0028Accessor_0029"></span><h3 class="heading">elt (Accessor)</h3>
+<span id="index-elt-2"></span>
+<span id="index-elt"></span>
+
+
+<span id="Syntax_003a-366"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-elt-1">Function: <strong>elt</strong> <em>sequence index <span class="roman">→</span> object</em></dt>
+</dl>
+<p><tt>(setf (elt sequence index) new-object)</tt>
+</p>
+<span id="Arguments-and-Values_003a-355"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>index</var>&mdash;a <i>valid sequence index</i> for <var>sequence</var>.
+</p>
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>new-object</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-470"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Accesses</i> the <i>element</i> of <var>sequence</var> specified by <var>index</var>.
+</p>
+<span id="Examples_003a-337"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq str (copy-seq &quot;0123456789&quot;)) <span class="roman">→</span> &quot;0123456789&quot;
+ (elt str 6) <span class="roman">→</span> #\6
+ (setf (elt str 0) #\#) <span class="roman">→</span> #\#
+ str <span class="roman">→</span> &quot;#123456789&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-151"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+Should signal an error of <i>type</i> <code>type-error</code> if <var>index</var> is not a <i>valid sequence index</i> for <var>sequence</var>.
+</p>
+<span id="See-Also_003a-382"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Arrays.html#aref">aref</a>,
+<a href="Conses.html#nth">nth</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>
+</p>
+<span id="Notes_003a-256"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>aref</code> may be used to <i>access</i> <i>vector</i> 
+elements that are beyond the <i>vector</i>&rsquo;s <i>fill pointer</i>.
+</p>
+
+<hr>
+<span id="fill"></span><div class="header">
+<p>
+Next: <a href="#make_002dsequence" accesskey="n" rel="next">make-sequence</a>, Previous: <a href="#elt" accesskey="p" rel="prev">elt</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">fill</h4>
+<span id="fill-_0028Function_0029"></span><h3 class="heading">fill (Function)</h3>
+<span id="index-fill-2"></span>
+<span id="index-fill"></span>
+
+
+<span id="Syntax_003a-367"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-fill-1">Function: <strong>fill</strong> <em>sequence item <tt>&amp;key</tt> start end <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-356"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>item</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<span id="Description_003a-471"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Replaces the <i>elements</i> of <var>sequence</var> 
+<i>bounded</i> by <var>start</var> and <var>end</var>
+with <var>item</var>.
+</p>
+<span id="Examples_003a-338"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (fill (list 0 1 2 3 4 5) '(444)) <span class="roman">→</span> ((444) (444) (444) (444) (444) (444))
+ (fill (copy-seq &quot;01234&quot;) #\e :start 3) <span class="roman">→</span> &quot;012ee&quot;
+ (setq x (vector 'a 'b 'c 'd 'e)) <span class="roman">→</span> #(A B C D E)
+ (fill x 'z :start 1 :end 3) <span class="roman">→</span> #(A Z Z D E)
+ x <span class="roman">→</span> #(A Z Z D E)
+ (fill x 'p) <span class="roman">→</span> #(P P P P P)
+ x <span class="roman">→</span> #(P P P P P)
+</pre></div>
+
+
+<span id="Side-Effects_003a-51"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><var>Sequence</var> is destructively modified.
+</p>
+<span id="Exceptional-Situations_003a-152"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>. 
+Should signal an error of <i>type</i> <code>type-error</code> if <var>start</var> is not a non-negative <i>integer</i>.
+Should signal an error of <i>type</i> <code>type-error</code> if <var>end</var> is not a non-negative <i>integer</i> or <code>nil</code>.
+</p>
+<span id="See-Also_003a-383"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#replace">replace</a>, <a href="#nsubstitute">nsubstitute</a>
+</p>
+<span id="Notes_003a-257"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>(fill <var>sequence</var> <var>item</var>) ≡ 
+(nsubstitute-if <var>item</var> (constantly t) <var>sequence</var>)</code>
+</p>
+
+<hr>
+<span id="make_002dsequence"></span><div class="header">
+<p>
+Next: <a href="#subseq" accesskey="n" rel="next">subseq</a>, Previous: <a href="#fill" accesskey="p" rel="prev">fill</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">make-sequence</h4>
+<span id="make_002dsequence-_0028Function_0029"></span><h3 class="heading">make-sequence (Function)</h3>
+<span id="index-make_002dsequence-2"></span>
+<span id="index-make_002dsequence"></span>
+
+
+<span id="Syntax_003a-368"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-make_002dsequence-1">Function: <strong>make-sequence</strong> <em>result-type size <tt>&amp;key</tt> initial-element <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-357"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>result-type</var>&mdash;a <code>sequence</code> <i>type specifier</i>.
+</p>
+<p><var>size</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<p><var>initial-element</var>&mdash;an <i>object</i>.
+The default is <i>implementation-dependent</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<span id="Description_003a-472"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns a <i>sequence</i> of the type <var>result-type</var> and of length <var>size</var>,
+each of the <i>elements</i> of which has been initialized to <var>initial-element</var>.
+</p>
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>list</code>,
+the result will be a <i>list</i>.
+</p>
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>vector</code>,
+then if the implementation can determine the element type specified
+for the <var>result-type</var>, the element type of the resulting array 
+is the result of <i>upgrading</i> that element type; or, if the
+implementation can determine that the element type is unspecified (or <code>*</code>),
+the element type of the resulting array is <code>t</code>;
+otherwise, an error is signaled.
+</p>
+<span id="Examples_003a-339"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (make-sequence 'list 0) <span class="roman">→</span> ()
+ (make-sequence 'string 26 :initial-element #\.) 
+<span class="roman">→</span> &quot;..........................&quot;
+ (make-sequence '(vector double-float) 2
+                :initial-element 1d0)
+<span class="roman">→</span> #(1.0d0 1.0d0)
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (make-sequence '(vector * 2) 3) should signal an error
+ (make-sequence '(vector * 4) 3) should signal an error
+</pre></div>
+
+
+<span id="Affected-By_003a-69"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+<span id="Exceptional-Situations_003a-153"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The consequences are unspecified if <var>initial-element</var> 
+is not an <i>object</i> which can be stored in the resulting <i>sequence</i>.
+</p>
+<p>An error of <i>type</i> <code>type-error</code> must be signaled if the <var>result-type</var> is neither
+a <i>recognizable subtype</i> of <code>list</code>,
+nor a <i>recognizable subtype</i> of <code>vector</code>.
+</p>
+<p>An error of <i>type</i> <code>type-error</code> should be signaled if <var>result-type</var> specifies 
+the number of elements and <var>size</var> is different from that number.
+</p>
+<span id="See-Also_003a-384"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Arrays.html#make_002darray">make-array</a>, <a href="Conses.html#make_002dlist">make-list</a>
+</p>
+<span id="Notes_003a-258"></span><h4 class="subsubheading">Notes:</h4>
+<div class="lisp">
+<pre class="lisp"> (make-sequence 'string 5) ≡ (make-string 5)               
+</pre></div>
+
+
+<hr>
+<span id="subseq"></span><div class="header">
+<p>
+Next: <a href="#map" accesskey="n" rel="next">map</a>, Previous: <a href="#make_002dsequence" accesskey="p" rel="prev">make-sequence</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">subseq</h4>
+<span id="subseq-_0028Accessor_0029"></span><h3 class="heading">subseq (Accessor)</h3>
+<span id="index-subseq-2"></span>
+<span id="index-subseq"></span>
+
+
+<span id="Syntax_003a-369"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-subseq-1">Function: <strong>subseq</strong> <em>sequence start <tt>&amp;optional</tt> end <span class="roman">→</span> subsequence</em></dt>
+</dl>
+<p><tt>(setf (subseq sequence start <tt>&amp;optional</tt> end) new-subsequence)</tt>
+</p>
+<span id="Arguments-and-Values_003a-358"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The default for <var>end</var> is <code>nil</code>.
+</p>
+<p><var>subsequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>new-subsequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<span id="Description_003a-473"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>subseq</code> creates a <i>sequence</i> 
+that is a copy of the subsequence of <var>sequence</var>
+<var>bounded</var> by <var>start</var> and <var>end</var>.
+</p>
+<p><var>Start</var> specifies an offset into the original <var>sequence</var> and
+marks the beginning position of the subsequence.
+<var>end</var> marks the position following the last element of the subsequence.
+</p>
+<p><code>subseq</code> always allocates a new <i>sequence</i> for a result;
+it never shares storage with an old <i>sequence</i>. 
+The result subsequence is always of the same <i>type</i> as <var>sequence</var>.
+</p>
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result is a <i>fresh</i> <i>simple array</i>
+of <i>rank</i> one
+that has the same <i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, 
+the result is a <i>fresh</i> <i>list</i>. 
+</p>
+<p><code>setf</code> may be used with <code>subseq</code> to destructively replace
+<i>elements</i> of a subsequence with <i>elements</i> 
+taken from a <i>sequence</i> of new values.
+If the subsequence and the new sequence are not of equal length,
+the shorter length determines the number of elements that are
+replaced.  The remaining <i>elements</i> at the end of the longer sequence 
+are not modified in the operation.
+</p>
+<span id="Examples_003a-340"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq str &quot;012345&quot;) <span class="roman">→</span> &quot;012345&quot;
+ (subseq str 2) <span class="roman">→</span> &quot;2345&quot;
+ (subseq str 3 5) <span class="roman">→</span> &quot;34&quot;
+ (setf (subseq str 4) &quot;abc&quot;) <span class="roman">→</span> &quot;abc&quot;
+ str <span class="roman">→</span> &quot;0123ab&quot;
+ (setf (subseq str 0 2) &quot;A&quot;) <span class="roman">→</span> &quot;A&quot;
+ str <span class="roman">→</span> &quot;A123ab&quot;
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-154"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>new-subsequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-385"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#replace">replace</a>
+</p>
+
+<hr>
+<span id="map"></span><div class="header">
+<p>
+Next: <a href="#map_002dinto" accesskey="n" rel="next">map-into</a>, Previous: <a href="#subseq" accesskey="p" rel="prev">subseq</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">map</h4>
+<span id="map-_0028Function_0029"></span><h3 class="heading">map (Function)</h3>
+<span id="index-map-2"></span>
+<span id="index-map"></span>
+
+
+<span id="Syntax_003a-370"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-map-1">Function: <strong>map</strong> <em>result-type function <tt>&amp;rest</tt> sequences+ <span class="roman">→</span> result</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-359"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>result-type</var>&mdash;a <code>sequence</code> <i>type specifier</i>, or <code>nil</code>.
+</p>
+<p><var>function</var>&mdash;a <i>function designator</i>.
+<var>function</var> must take as many arguments as 
+there are <var>sequences</var>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>result</var>&mdash;if <var>result-type</var> is a <i>type specifier</i> other than <code>nil</code>, 
+then a <i>sequence</i> of the <i>type</i> it denotes;
+otherwise (if the <var>result-type</var> is <code>nil</code>), <code>nil</code>.
+</p>
+<span id="Description_003a-474"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Applies <var>function</var> to successive sets of arguments in which
+one argument is obtained from each <i>sequence</i>.
+The <var>function</var> is called first on all the elements with index <code>0</code>,
+then on all those with index <code>1</code>, and so on.
+The <var>result-type</var> specifies the <i>type</i> of the resulting <i>sequence</i>.
+</p>
+<p><code>map</code> returns <code>nil</code>&nbsp;<!-- /@w -->if <var>result-type</var> is <code>nil</code>.      
+Otherwise, <code>map</code> returns
+a <i>sequence</i> such that element <code>j</code> is the result
+of applying <var>function</var> to element <code>j</code> of each of the 
+<var>sequences</var>.  The result <i>sequence</i> 
+is as long as the shortest of the
+<var>sequences</var>.
+The consequences are undefined if the result of applying <var>function</var> 
+to the successive elements of the <var>sequences</var> cannot
+be contained in a <i>sequence</i> of the <i>type</i> given by <var>result-type</var>.
+</p>
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>list</code>,
+the result will be a <i>list</i>.
+</p>
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>vector</code>,
+then if the implementation can determine the element type specified
+for the <var>result-type</var>, the element type of the resulting array 
+is the result of <i>upgrading</i> that element type; or, if the
+implementation can determine that the element type is unspecified (or <code>*</code>),
+the element type of the resulting array is <code>t</code>;
+otherwise, an error is signaled.
+</p>
+<span id="Examples_003a-341"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (map 'string #'(lambda (x y)
+                  (char &quot;01234567890ABCDEF&quot; (mod (+ x y) 16)))
+       '(1 2 3 4)
+       '(10 9 8 7)) <span class="roman">→</span> &quot;AAAA&quot;
+ (setq seq '(&quot;lower&quot; &quot;UPPER&quot; &quot;&quot; &quot;123&quot;)) <span class="roman">→</span> (&quot;lower&quot; &quot;UPPER&quot; &quot;&quot; &quot;123&quot;)
+ (map nil #'nstring-upcase seq) <span class="roman">→</span> NIL
+ seq <span class="roman">→</span> (&quot;LOWER&quot; &quot;UPPER&quot; &quot;&quot; &quot;123&quot;)
+ (map 'list #'- '(1 2 3 4)) <span class="roman">→</span> (-1 -2 -3 -4)
+ (map 'string
+      #'(lambda (x) (if (oddp x) #\1 #\0))
+      '(1 2 3 4)) <span class="roman">→</span> &quot;1010&quot;
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (map '(vector * 4) #'cons &quot;abc&quot; &quot;de&quot;) should signal an error
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-155"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error of <i>type</i> <code>type-error</code> must be signaled if the <var>result-type</var> is 
+not a <i>recognizable subtype</i> of <code>list</code>,
+not a <i>recognizable subtype</i> of <code>vector</code>,
+and not <code>nil</code>.
+</p>
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+any <var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<p>An error of <i>type</i> <code>type-error</code> should be signaled
+if <var>result-type</var> specifies the
+number of elements and the minimum length of the <var>sequences</var> 
+is different from that number.
+</p>
+<span id="See-Also_003a-386"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+
+<hr>
+<span id="map_002dinto"></span><div class="header">
+<p>
+Next: <a href="#reduce" accesskey="n" rel="next">reduce</a>, Previous: <a href="#map" accesskey="p" rel="prev">map</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">map-into</h4>
+<span id="map_002dinto-_0028Function_0029"></span><h3 class="heading">map-into (Function)</h3>
+<span id="index-map_002dinto-2"></span>
+<span id="index-map_002dinto"></span>
+
+
+
+<span id="Syntax_003a-371"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-map_002dinto-1">Function: <strong>map-into</strong> <em>result-sequence function <tt>&amp;rest</tt> sequences <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-360"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>result-sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>function</var>&mdash;a <i>designator</i> for a <i>function</i>
+of as many <i>arguments</i> as there are <var>sequences</var>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<span id="Description_003a-475"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Destructively modifies <var>result-sequence</var> to contain the results of
+applying <var>function</var> to each element in the argument <var>sequences</var> 
+in turn.
+</p>
+<p><var>result-sequence</var> and each element of <var>sequences</var> can each be
+either a <i>list</i> or a <i>vector</i>. 
+If <var>result-sequence</var> and each element of <var>sequences</var> are not all
+the same length, the iteration terminates when the shortest <i>sequence</i>
+(of any of the <var>sequences</var> or the <var>result-sequence</var>)
+is exhausted.
+If <var>result-sequence</var> is a <i>vector</i> with a 
+<i>fill pointer</i>, the <i>fill pointer</i> is ignored when deciding how
+many iterations to perform, and afterwards the <i>fill pointer</i> is set to
+the number of times <var>function</var> was applied.
+If <var>result-sequence</var> is longer than the shortest element of <var>sequences</var>,
+extra elements at the end of <var>result-sequence</var> are left unchanged.
+If <var>result-sequence</var> is <code>nil</code>, <code>map-into</code> immediately returns
+<code>nil</code>, since <code>nil</code>&nbsp;<!-- /@w -->is a <i>sequence</i> of length zero.
+</p>
+<p>If <var>function</var> has side effects, it can count on being called
+first on all of the elements with index 0, then on all of those 
+numbered 1, and so on.
+</p>
+<span id="Examples_003a-342"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq a (list 1 2 3 4) b (list 10 10 10 10)) <span class="roman">→</span> (10 10 10 10)
+ (map-into a #'+ a b) <span class="roman">→</span> (11 12 13 14)
+ a <span class="roman">→</span> (11 12 13 14)
+ b <span class="roman">→</span> (10 10 10 10)
+ (setq k '(one two three)) <span class="roman">→</span> (ONE TWO THREE)
+ (map-into a #'cons k a) <span class="roman">→</span> ((ONE . 11) (TWO . 12) (THREE . 13) 14)
+ (map-into a #'gensym) <span class="roman">→</span> (#:G9090 #:G9091 #:G9092 #:G9093)
+ a <span class="roman">→</span> (#:G9090 #:G9091 #:G9092 #:G9093)
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-156"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>result-sequence</var> is not a <i>proper sequence</i>.
+Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="Notes_003a-259"></span><h4 class="subsubheading">Notes:</h4>
+
+<p><code>map-into</code> differs from <code>map</code> in that it modifies an
+existing <i>sequence</i> rather than creating a new one.
+In addition, <code>map-into</code> can be called with only two 
+arguments, while <code>map</code> requires at least three arguments.
+</p>
+<p><code>map-into</code> could be defined by:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun map-into (result-sequence function &amp;rest sequences)
+   (loop for index below (apply #'min 
+                                (length result-sequence)
+                                (mapcar #'length sequences))
+         do (setf (elt result-sequence index)
+                  (apply function
+                         (mapcar #'(lambda (seq) (elt seq index))
+                                 sequences))))
+   result-sequence)
+</pre></div>
+
+
+
+<hr>
+<span id="reduce"></span><div class="header">
+<p>
+Next: <a href="#count_003b-count_002dif_003b-count_002dif_002dnot" accesskey="n" rel="next">count; count-if; count-if-not</a>, Previous: <a href="#map_002dinto" accesskey="p" rel="prev">map-into</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">reduce</h4>
+<span id="reduce-_0028Function_0029"></span><h3 class="heading">reduce (Function)</h3>
+<span id="index-reduce-2"></span>
+<span id="index-reduce"></span>
+
+
+<span id="Syntax_003a-372"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-reduce-1">Function: <strong>reduce</strong> <em>function sequence <tt>&amp;key</tt> key from-end start end initial-value <span class="roman">→</span> result</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-361"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>function</var>&mdash;a <i>designator</i> for a <i>function</i>
+that might be called with either zero or two <i>arguments</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>initial-value</var>&mdash;an <i>object</i>. 
+</p>
+<p><var>result</var>&mdash;an <i>object</i>.
+</p>
+<span id="Description_003a-476"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>reduce</code> uses a binary operation, <var>function</var>,
+to combine the <i>elements</i> of <var>sequence</var> 
+<i>bounded</i> by <var>start</var> and <var>end</var>.
+</p>
+<p>The <var>function</var> must accept as <i>arguments</i> two <i>elements</i>
+of <var>sequence</var> or the results from combining those <i>elements</i>.
+The <var>function</var> must also be able to accept no arguments.
+</p>
+<p>If <var>key</var> is supplied, it is used is used to extract the values to reduce.
+The <var>key</var> function is applied exactly once to each element of <var>sequence</var>
+in the order implied by the reduction order but not to the value of
+<var>initial-value</var>, if supplied.
+The <var>key</var> function typically returns part of the <i>element</i> of <var>sequence</var>.
+If <var>key</var> is not supplied or is <code>nil</code>, the <var>sequence</var> <i>element</i> itself is used.
+</p>
+<p>The reduction is left-associative,
+unless <var>from-end</var> is <i>true</i> in which case it is right-associative.  
+</p>
+<p>If <var>initial-value</var> is supplied, 
+it is logically placed before the subsequence
+(or after it if <var>from-end</var> is <i>true</i>)
+and included in the reduction operation.
+</p>
+<p>In the normal case, the result of <code>reduce</code> is the combined 
+result of <var>function</var>&rsquo;s being applied to successive pairs of <i>elements</i> 
+of <var>sequence</var>.
+If the subsequence contains exactly one <i>element</i> 
+and no <var>initial-value</var> is given,
+then that <i>element</i> is returned and <var>function</var> is not called.
+If the subsequence is empty and an <var>initial-value</var> is given,
+then the <var>initial-value</var> is returned and <var>function</var> is not called.
+If the subsequence is empty and no <var>initial-value</var> is given,
+then the <var>function</var> is called with zero arguments,
+and <code>reduce</code> returns whatever <var>function</var> does.
+This is the only case where the
+<var>function</var> is called with other than two arguments.
+</p>
+<span id="Examples_003a-343"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (reduce #'* '(1 2 3 4 5)) <span class="roman">→</span> 120
+ (reduce #'append '((1) (2)) :initial-value '(i n i t)) <span class="roman">→</span> (I N I T 1 2)
+ (reduce #'append '((1) (2)) :from-end t                  
+                             :initial-value '(i n i t)) <span class="roman">→</span> (1 2 I N I T) 
+ (reduce #'- '(1 2 3 4)) ≡ (- (- (- 1 2) 3) 4) <span class="roman">→</span> -8
+ (reduce #'- '(1 2 3 4) :from-end t)    ;Alternating sum.
+≡ (- 1 (- 2 (- 3 4))) <span class="roman">→</span> -2
+ (reduce #'+ '()) <span class="roman">→</span> 0
+ (reduce #'+ '(3)) <span class="roman">→</span> 3
+ (reduce #'+ '(foo)) <span class="roman">→</span> FOO
+ (reduce #'list '(1 2 3 4)) <span class="roman">→</span> (((1 2) 3) 4)
+ (reduce #'list '(1 2 3 4) :from-end t) <span class="roman">→</span> (1 (2 (3 4)))
+ (reduce #'list '(1 2 3 4) :initial-value 'foo) <span class="roman">→</span> ((((foo 1) 2) 3) 4)
+ (reduce #'list '(1 2 3 4)
+        :from-end t :initial-value 'foo) <span class="roman">→</span> (1 (2 (3 (4 foo))))
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-157"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-387"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+
+<hr>
+<span id="count_003b-count_002dif_003b-count_002dif_002dnot"></span><div class="header">
+<p>
+Next: <a href="#length" accesskey="n" rel="next">length</a>, Previous: <a href="#reduce" accesskey="p" rel="prev">reduce</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">count; count-if; count-if-not</h4>
+<span id="count_002c-count_002dif_002c-count_002dif_002dnot-_0028Function_0029"></span><h3 class="heading">count, count-if, count-if-not (Function)</h3>
+<span id="index-count-2"></span>
+<span id="index-count"></span>
+<span id="index-count_002dif-2"></span>
+<span id="index-count_002dif"></span>
+<span id="index-count_002dif_002dnot-2"></span>
+<span id="index-count_002dif_002dnot"></span>
+
+
+<span id="Syntax_003a-373"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-count-1">Function: <strong>count</strong> <em>item sequence <tt>&amp;key</tt> from-end start end key test test-not <span class="roman">→</span> n</em></dt>
+</dl>
+<dl>
+<dt id="index-count_002dif-1">Function: <strong>count-if</strong> <em>predicate sequence <tt>&amp;key</tt> from-end start end key <span class="roman">→</span> n</em></dt>
+</dl>
+<dl>
+<dt id="index-count_002dif_002dnot-1">Function: <strong>count-if-not</strong> <em>predicate sequence <tt>&amp;key</tt> from-end start end key <span class="roman">→</span> n</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-362"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>item</var>&mdash;an <i>object</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>predicate</var>&mdash;a <i>designator</i> for a <i>function</i> of one <i>argument</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>n</var>&mdash;a non-negative <i>integer</i> 
+less than or equal to the <i>length</i> of <var>sequence</var>.
+</p>
+<span id="Description_003a-477"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>count</code>, <code>count-if</code>, and <code>count-if-not</code> 
+count and return the number of <i>elements</i> in 
+the <var>sequence</var> <i>bounded</i> by <var>start</var> and <var>end</var>
+that <i>satisfy the test</i>.
+</p>
+<p>The <var>from-end</var> has no direct effect on the result.
+However, if <var>from-end</var> is <i>true</i>,
+the <i>elements</i> of <var>sequence</var> will be supplied as <i>arguments</i> to
+the <var>test</var>,
+<var>test-not</var>,
+and <var>key</var> in reverse order,
+which may change the side-effects, if any, of those functions.
+</p>
+<span id="Examples_003a-344"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (count #\a &quot;how many A's are there in here?&quot;) <span class="roman">→</span> 2
+ (count-if-not #'oddp '((1) (2) (3) (4)) :key #'car) <span class="roman">→</span> 2
+ (count-if #'upper-case-p &quot;The Crying of Lot 49&quot; :start 4) <span class="roman">→</span> 2 
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-158"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-388"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#Rules-about-Test-Functions">Section 17.2 (Rules about Test Functions)</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-260"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+<p>The <i>function</i> <code>count-if-not</code> is deprecated.
+</p>
+
+<hr>
+<span id="length"></span><div class="header">
+<p>
+Next: <a href="#reverse_003b-nreverse" accesskey="n" rel="next">reverse; nreverse</a>, Previous: <a href="#count_003b-count_002dif_003b-count_002dif_002dnot" accesskey="p" rel="prev">count; count-if; count-if-not</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">length</h4>
+<span id="length-_0028Function_0029"></span><h3 class="heading">length (Function)</h3>
+<span id="index-length-2"></span>
+<span id="index-length"></span>
+
+
+<span id="Syntax_003a-374"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-length-1">Function: <strong>length</strong> <em>sequence <span class="roman">→</span> n</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-363"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>n</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-478"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the number of <i>elements</i> in <var>sequence</var>.
+</p>
+<p>If <var>sequence</var> is a <i>vector</i> with a <i>fill pointer</i>,
+the active length as specified by the <i>fill pointer</i> is returned.
+</p>
+<span id="Examples_003a-345"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (length &quot;abc&quot;) <span class="roman">→</span> 3
+ (setq str (make-array '(3) :element-type 'character 
+                            :initial-contents &quot;abc&quot;
+                            :fill-pointer t)) <span class="roman">→</span> &quot;abc&quot;
+ (length str) <span class="roman">→</span> 3
+ (setf (fill-pointer str) 2) <span class="roman">→</span> 2
+ (length str) <span class="roman">→</span> 2
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-159"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-389"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Conses.html#list_002dlength">list-length</a>,
+<a href="#sequence">sequence</a>
+</p>
+
+<hr>
+<span id="reverse_003b-nreverse"></span><div class="header">
+<p>
+Next: <a href="#sort_003b-stable_002dsort" accesskey="n" rel="next">sort; stable-sort</a>, Previous: <a href="#length" accesskey="p" rel="prev">length</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">reverse; nreverse</h4>
+<span id="reverse_002c-nreverse-_0028Function_0029"></span><h3 class="heading">reverse, nreverse (Function)</h3>
+<span id="index-reverse-2"></span>
+<span id="index-reverse"></span>
+<span id="index-nreverse-2"></span>
+<span id="index-nreverse"></span>
+<span id="reverse"></span><span id="nreverse"></span>
+
+<span id="Syntax_003a-375"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-reverse-1">Function: <strong>reverse</strong> <em>sequence <span class="roman">→</span> reversed-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-nreverse-1">Function: <strong>nreverse</strong> <em>sequence <span class="roman">→</span> reversed-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-364"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>reversed-sequence</var>&mdash;a <i>sequence</i>.
+</p>
+<span id="Description_003a-479"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>reverse</code> and <code>nreverse</code> return a new <i>sequence</i> 
+of the same kind as <var>sequence</var>, containing the same <i>elements</i>,
+but in reverse order.
+</p>
+<p><code>reverse</code> and <code>nreverse</code> differ in that <code>reverse</code> 
+always creates and returns a new <i>sequence</i>, whereas <code>nreverse</code>
+might modify and return the given <var>sequence</var>.  <code>reverse</code> never
+modifies the given <var>sequence</var>.
+</p>
+<p>For <code>reverse</code>, if <var>sequence</var> is a <i>vector</i>, 
+the result is a <i>fresh</i> <i>simple array</i> of <i>rank</i> one
+that has the same <i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, the result is a <i>fresh</i> <i>list</i>. 
+</p>
+<p>For <code>nreverse</code>, if <var>sequence</var> is a <i>vector</i>,
+the result is a <i>vector</i>
+that has the same <i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, the result is a <i>list</i>.
+</p>
+<p>For <code>nreverse</code>,
+<var>sequence</var> might be destroyed and re-used to produce the result.
+The result might or might not be <i>identical</i> to <var>sequence</var>.
+Specifically, when <var>sequence</var> is a <i>list</i>, 
+<code>nreverse</code> is permitted to <code>setf</code> any part, <code>car</code> or <code>cdr</code>,
+of any <i>cons</i> that is part of the <i>list structure</i> of <var>sequence</var>.
+When <var>sequence</var> is a <i>vector</i>,
+<code>nreverse</code> is permitted to re-order the elements of <var>sequence</var>
+in order to produce the resulting <i>vector</i>.
+</p>
+<span id="Examples_003a-346"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (setq str &quot;abc&quot;) <span class="roman">→</span> &quot;abc&quot;
+ (reverse str) <span class="roman">→</span> &quot;cba&quot;
+ str <span class="roman">→</span> &quot;abc&quot;
+ (setq str (copy-seq str)) <span class="roman">→</span> &quot;abc&quot;
+ (nreverse str) <span class="roman">→</span> &quot;cba&quot;
+ str <span class="roman">→</span> <i>implementation-dependent</i>
+ (setq l (list 1 2 3)) <span class="roman">→</span> (1 2 3)
+ (nreverse l) <span class="roman">→</span> (3 2 1)
+ l <span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<span id="Side-Effects_003a-52"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><code>nreverse</code> might either create a new <i>sequence</i>,
+modify the argument <var>sequence</var>, or both.
+(<code>reverse</code> does not modify <var>sequence</var>.)
+</p>
+<span id="Exceptional-Situations_003a-160"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+
+<hr>
+<span id="sort_003b-stable_002dsort"></span><div class="header">
+<p>
+Next: <a href="#find_003b-find_002dif_003b-find_002dif_002dnot" accesskey="n" rel="next">find; find-if; find-if-not</a>, Previous: <a href="#reverse_003b-nreverse" accesskey="p" rel="prev">reverse; nreverse</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">sort; stable-sort</h4>
+<span id="sort_002c-stable_002dsort-_0028Function_0029"></span><h3 class="heading">sort, stable-sort (Function)</h3>
+<span id="index-sort-2"></span>
+<span id="index-sort"></span>
+<span id="index-stable_002dsort-2"></span>
+<span id="index-stable_002dsort"></span>
+<span id="sort"></span><span id="stable_002dsort"></span>
+
+<span id="Syntax_003a-376"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-sort-1">Function: <strong>sort</strong> <em>sequence predicate <tt>&amp;key</tt> key <span class="roman">→</span> sorted-sequence</em></dt>
+</dl>
+<dl>
+<dt id="index-stable_002dsort-1">Function: <strong>stable-sort</strong> <em>sequence predicate <tt>&amp;key</tt> key <span class="roman">→</span> sorted-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-365"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>predicate</var>&mdash;a <i>designator</i> for
+a <i>function</i> of two arguments that returns a <i>generalized boolean</i>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>sorted-sequence</var>&mdash;a <i>sequence</i>.
+</p>
+<span id="Description_003a-480"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>sort</code> and <code>stable-sort</code> destructively sort <var>sequences</var>  
+according to the order determined by the <var>predicate</var> function.
+</p>
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result is a <i>vector</i> 
+that has the same <i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>,
+the result is a <i>list</i>. 
+</p>
+<p><code>sort</code> determines the relationship between two elements
+by giving keys extracted from the elements to the <var>predicate</var>.
+The first argument to the <var>predicate</var> function is the part of one element
+of <var>sequence</var> extracted by the <var>key</var> function
+(if supplied); the second
+argument is the part of another element
+of <var>sequence</var> extracted by the <var>key</var> function
+(if supplied).
+<var>Predicate</var> should return <i>true</i> if and only if the first argument is
+strictly less than the second (in some appropriate sense). 
+If the first argument is greater than or equal to the second
+(in the appropriate sense), then the <var>predicate</var> should return <i>false</i>.
+</p>
+<p>The argument to the <var>key</var> function is the <var>sequence</var> element.
+The return value of the <var>key</var> function 
+becomes an argument to <var>predicate</var>.
+If <var>key</var> is not supplied or <code>nil</code>, the <var>sequence</var> element itself is used.
+There is no guarantee on the number of times the <var>key</var> will be called.
+</p>
+<p>If the <var>key</var> and <var>predicate</var> always return,
+then the sorting operation will always terminate,
+producing a <i>sequence</i> containing the same <i>elements</i> as <var>sequence</var> 
+(that is, the result is a permutation of <var>sequence</var>).
+This is guaranteed even if the <var>predicate</var>
+does not really consistently represent a total order
+(in which case the <i>elements</i> will be scrambled in some unpredictable way,
+but no <i>element</i> will be lost).  
+If the <var>key</var> consistently returns meaningful keys,
+and the <var>predicate</var> does reflect some total ordering criterion on those keys,
+then the <i>elements</i> of the <var>sorted-sequence</var>
+will be properly sorted according to that ordering.
+</p>
+<p>The sorting operation performed by <code>sort</code> is not guaranteed stable.
+Elements considered equal by the <var>predicate</var> might or might not
+stay in their original order.  The <var>predicate</var> is assumed to
+consider two elements <code>x</code> and <code>y</code> to be equal if
+<code>(funcall <i>predicate</i> <i>x</i> <i>y</i>)</code> and
+<code>(funcall <i>predicate</i> <i>y</i> <i>x</i>)</code> are both <i>false</i>.
+<code>stable-sort</code> guarantees stability.
+</p>
+<p>The sorting operation can be destructive in all cases.  In the case of a
+<i>vector</i> 
+argument, this is accomplished by permuting the elements in place.
+In the case of a <i>list</i>, the <i>list</i> is
+destructively reordered in the same manner as for
+<code>nreverse</code>.  
+</p>
+<span id="Examples_003a-347"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq tester (copy-seq &quot;lkjashd&quot;)) <span class="roman">→</span> &quot;lkjashd&quot;
+ (sort tester #'char-lessp) <span class="roman">→</span> &quot;adhjkls&quot;
+ (setq tester (list '(1 2 3) '(4 5 6) '(7 8 9))) <span class="roman">→</span> ((1 2 3) (4 5 6) (7 8 9))
+ (sort tester #'&gt; :key #'car)  <span class="roman">→</span> ((7 8 9) (4 5 6) (1 2 3)) 
+ (setq tester (list 1 2 3 4 5 6 7 8 9 0)) <span class="roman">→</span> (1 2 3 4 5 6 7 8 9 0)
+ (stable-sort tester #'(lambda (x y) (and (oddp x) (evenp y))))
+<span class="roman">→</span> (1 3 5 7 9 2 4 6 8 0)
+ (sort (setq committee-data
+             (vector (list (list &quot;JonL&quot; &quot;White&quot;) &quot;Iteration&quot;)
+                     (list (list &quot;Dick&quot; &quot;Waters&quot;) &quot;Iteration&quot;)
+                     (list (list &quot;Dick&quot; &quot;Gabriel&quot;) &quot;Objects&quot;)
+                     (list (list &quot;Kent&quot; &quot;Pitman&quot;) &quot;Conditions&quot;)
+                     (list (list &quot;Gregor&quot; &quot;Kiczales&quot;) &quot;Objects&quot;)
+                     (list (list &quot;David&quot; &quot;Moon&quot;) &quot;Objects&quot;)
+                     (list (list &quot;Kathy&quot; &quot;Chapman&quot;) &quot;Editorial&quot;)
+                     (list (list &quot;Larry&quot; &quot;Masinter&quot;) &quot;Cleanup&quot;)
+                     (list (list &quot;Sandra&quot; &quot;Loosemore&quot;) &quot;Compiler&quot;)))
+       #'string-lessp :key #'cadar)
+<span class="roman">→</span> #(((&quot;Kathy&quot; &quot;Chapman&quot;) &quot;Editorial&quot;)
+     ((&quot;Dick&quot; &quot;Gabriel&quot;) &quot;Objects&quot;)
+     ((&quot;Gregor&quot; &quot;Kiczales&quot;) &quot;Objects&quot;)
+     ((&quot;Sandra&quot; &quot;Loosemore&quot;) &quot;Compiler&quot;)
+     ((&quot;Larry&quot; &quot;Masinter&quot;) &quot;Cleanup&quot;)
+     ((&quot;David&quot; &quot;Moon&quot;) &quot;Objects&quot;)
+     ((&quot;Kent&quot; &quot;Pitman&quot;) &quot;Conditions&quot;)
+     ((&quot;Dick&quot; &quot;Waters&quot;) &quot;Iteration&quot;)
+     ((&quot;JonL&quot; &quot;White&quot;) &quot;Iteration&quot;))
+ ;; Note that individual alphabetical order within `committees'
+ ;; is preserved.
+ (setq committee-data 
+       (stable-sort committee-data #'string-lessp :key #'cadr))
+<span class="roman">→</span> #(((&quot;Larry&quot; &quot;Masinter&quot;) &quot;Cleanup&quot;)
+     ((&quot;Sandra&quot; &quot;Loosemore&quot;) &quot;Compiler&quot;)
+     ((&quot;Kent&quot; &quot;Pitman&quot;) &quot;Conditions&quot;)
+     ((&quot;Kathy&quot; &quot;Chapman&quot;) &quot;Editorial&quot;)
+     ((&quot;Dick&quot; &quot;Waters&quot;) &quot;Iteration&quot;)
+     ((&quot;JonL&quot; &quot;White&quot;) &quot;Iteration&quot;)
+     ((&quot;Dick&quot; &quot;Gabriel&quot;) &quot;Objects&quot;)
+     ((&quot;Gregor&quot; &quot;Kiczales&quot;) &quot;Objects&quot;)
+     ((&quot;David&quot; &quot;Moon&quot;) &quot;Objects&quot;))
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-161"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-390"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#merge">merge</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>,
+<a href="Evaluation-and-Compilation.html#Destructive-Operations">Section 3.7 (Destructive Operations)</a>
+</p>
+<span id="Notes_003a-261"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result might or might not be simple, 
+and might or might not be <i>identical</i> to <var>sequence</var>.
+</p>
+
+<hr>
+<span id="find_003b-find_002dif_003b-find_002dif_002dnot"></span><div class="header">
+<p>
+Next: <a href="#position_003b-position_002dif_003b-position_002dif_002dnot" accesskey="n" rel="next">position; position-if; position-if-not</a>, Previous: <a href="#sort_003b-stable_002dsort" accesskey="p" rel="prev">sort; stable-sort</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">find; find-if; find-if-not</h4>
+<span id="find_002c-find_002dif_002c-find_002dif_002dnot-_0028Function_0029"></span><h3 class="heading">find, find-if, find-if-not (Function)</h3>
+<span id="index-find-2"></span>
+<span id="index-find"></span>
+<span id="index-find_002dif-2"></span>
+<span id="index-find_002dif"></span>
+<span id="index-find_002dif_002dnot-2"></span>
+<span id="index-find_002dif_002dnot"></span>
+<span id="find"></span>
+
+<span id="Syntax_003a-377"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-find-1">Function: <strong>find</strong> <em>item sequence <tt>&amp;key</tt> from-end test test-not start end key <span class="roman">→</span> element</em></dt>
+</dl>
+<dl>
+<dt id="index-find_002dif-1">Function: <strong>find-if</strong> <em>predicate sequence <tt>&amp;key</tt> from-end start end key <span class="roman">→</span> element</em></dt>
+</dl>
+<dl>
+<dt id="index-find_002dif_002dnot-1">Function: <strong>find-if-not</strong> <em>predicate sequence <tt>&amp;key</tt> from-end start end key <span class="roman">→</span> element</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-366"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>item</var>&mdash;an <i>object</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>predicate</var>&mdash;a <i>designator</i> for a <i>function</i> of one <i>argument</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>element</var>&mdash;an <i>element</i> of the <var>sequence</var>, or <code>nil</code>.
+</p>
+<span id="Description_003a-481"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>find</code>, <code>find-if</code>, and <code>find-if-not</code> 
+each search for an <i>element</i> of the <var>sequence</var>
+<i>bounded</i> by <var>start</var> and <i>end</i>
+that <i>satisfies the predicate</i> <var>predicate</var> 
+or that <i>satisfies the test</i> <var>test</var> or <var>test-not</var>,
+as appropriate.
+</p>
+<p>If <var>from-end</var> is <i>true</i>,
+then the result is the rightmost <i>element</i> that <i>satisfies the test</i>. 
+</p>
+<p>If the <var>sequence</var> contains an <i>element</i> that <i>satisfies the test</i>,
+then the leftmost or rightmost <var>sequence</var> element, 
+depending on <var>from-end</var>,
+is returned;
+otherwise <code>nil</code>&nbsp;<!-- /@w -->is returned.
+</p>
+<span id="Examples_003a-348"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (find #\d &quot;here are some letters that can be looked at&quot; :test #'char&gt;)
+<span class="roman">→</span> #\Space 
+ (find-if #'oddp '(1 2 3 4 5) :end 3 :from-end t) <span class="roman">→</span> 3
+ (find-if-not #'complexp                                    
+             '#(3.5 2 #C(1.0 0.0) #C(0.0 1.0))
+             :start 2) <span class="roman">→</span> NIL 
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-162"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-391"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#position">position</a>,
+<a href="#Rules-about-Test-Functions">Section 17.2 (Rules about Test Functions)</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-262"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+<p>The <i>function</i> <code>find-if-not</code> is deprecated.
+</p>
+
+<hr>
+<span id="position_003b-position_002dif_003b-position_002dif_002dnot"></span><div class="header">
+<p>
+Next: <a href="#search" accesskey="n" rel="next">search</a>, Previous: <a href="#find_003b-find_002dif_003b-find_002dif_002dnot" accesskey="p" rel="prev">find; find-if; find-if-not</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">position; position-if; position-if-not</h4>
+<span id="position_002c-position_002dif_002c-position_002dif_002dnot-_0028Function_0029"></span><h3 class="heading">position, position-if, position-if-not (Function)</h3>
+<span id="index-position-2"></span>
+<span id="index-position"></span>
+<span id="index-position_002dif-2"></span>
+<span id="index-position_002dif"></span>
+<span id="index-position_002dif_002dnot-2"></span>
+<span id="index-position_002dif_002dnot"></span>
+<span id="position"></span>
+
+<span id="Syntax_003a-378"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-position-1">Function: <strong>position</strong> <em>item sequence <tt>&amp;key</tt> from-end test test-not start end key <span class="roman">→</span> position</em></dt>
+</dl>
+
+<dl>
+<dt id="index-position_002dif-1">Function: <strong>position-if</strong> <em>predicate sequence <tt>&amp;key</tt> from-end start end key <span class="roman">→</span> position</em></dt>
+</dl>
+<dl>
+<dt id="index-position_002dif_002dnot-1">Function: <strong>position-if-not</strong> <em>predicate sequence <tt>&amp;key</tt> from-end start end key <span class="roman">→</span> position</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-367"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>item</var>&mdash;an <i>object</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>predicate</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument 
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>position</var>&mdash;a <i>bounding index</i> of <var>sequence</var>, or <code>nil</code>.
+</p>
+<span id="Description_003a-482"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>position</code>, <code>position-if</code>, and <code>position-if-not</code> 
+each search <var>sequence</var> for an <i>element</i> that <i>satisfies the test</i>.
+</p>
+<p>The <var>position</var> returned is the index within <var>sequence</var>
+of the leftmost  (if <var>from-end</var> is <i>true</i>)
+or of the rightmost (if <var>from-end</var> is <i>false</i>)
+<i>element</i> that <i>satisfies the test</i>;
+otherwise <code>nil</code>&nbsp;<!-- /@w -->is returned.
+The index returned is relative to the left-hand end of the entire <var>sequence</var>,
+regardless of the value of <i>start</i>, <i>end</i>, or <i>from-end</i>.
+</p>
+<span id="Examples_003a-349"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (position #\a &quot;baobab&quot; :from-end t) <span class="roman">→</span> 4
+ (position-if #'oddp '((1) (2) (3) (4)) :start 1 :key #'car) <span class="roman">→</span> 2
+ (position 595 '()) <span class="roman">→</span> NIL
+ (position-if-not #'integerp '(1 2 3 4 5.0)) <span class="roman">→</span> 4 
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-163"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-392"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#find">find</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-263"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+<p>The <i>function</i> <code>position-if-not</code> is deprecated.
+</p>
+
+<hr>
+<span id="search"></span><div class="header">
+<p>
+Next: <a href="#mismatch" accesskey="n" rel="next">mismatch</a>, Previous: <a href="#position_003b-position_002dif_003b-position_002dif_002dnot" accesskey="p" rel="prev">position; position-if; position-if-not</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">search</h4>
+<span id="search-_0028Function_0029"></span><h3 class="heading">search (Function)</h3>
+<span id="index-search-2"></span>
+<span id="index-search"></span>
+
+
+<span id="Syntax_003a-379"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-search-1">Function: <strong>search</strong> <em>sequence-1 sequence-2  <tt>&amp;key</tt> <span class="nolinebreak">from-end</span>&nbsp;test&nbsp;<span class="nolinebreak">test-not</span><!-- /@w --> key&nbsp;start1&nbsp;start2<!-- /@w --> end1&nbsp;end2<!-- /@w --> <span class="roman">→</span> position</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-368"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>Sequence-1</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>Sequence-2</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>start1</var>, <var>end1</var>&mdash;<i>bounding index designators</i> of <var>sequence-1</var>.
+The defaults for <var>start1</var> and <var>end1</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>start2</var>, <var>end2</var>&mdash;<i>bounding index designators</i> of <var>sequence-2</var>.
+The defaults for <var>start2</var> and <var>end2</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>position</var>&mdash;a <i>bounding index</i> of <var>sequence-2</var>,
+or <code>nil</code>.
+</p>
+<span id="Description_003a-483"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Searches <var>sequence-2</var> for a subsequence that matches <var>sequence-1</var>.  
+</p>
+<p>The implementation may choose to search <var>sequence-2</var> in any order;
+there is no guarantee on the number of times the test is made.
+For example,
+when <var>start-end</var> is <i>true</i>,
+the <var>sequence</var> might actually be searched from left to right
+instead of from right to left (but in either case would return
+the rightmost matching subsequence). 
+If the search succeeds,
+<code>search</code> returns the offset into <var>sequence-2</var> 
+of the first element of the leftmost or rightmost matching subsequence, 
+depending on <var>from-end</var>;
+otherwise <code>search</code> returns <code>nil</code>.
+</p>
+<p>If <var>from-end</var> is <i>true</i>, the index of the leftmost
+element of the rightmost matching subsequence is returned.
+</p>
+<span id="Examples_003a-350"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (search &quot;dog&quot; &quot;it's a dog's life&quot;) <span class="roman">→</span> 7
+ (search '(0 1) '(2 4 6 1 3 5) :key #'oddp) <span class="roman">→</span> 2
+</pre></div>
+
+
+<span id="See-Also_003a-393"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-264"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+
+<hr>
+<span id="mismatch"></span><div class="header">
+<p>
+Next: <a href="#replace" accesskey="n" rel="next">replace</a>, Previous: <a href="#search" accesskey="p" rel="prev">search</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">mismatch</h4>
+<span id="mismatch-_0028Function_0029"></span><h3 class="heading">mismatch (Function)</h3>
+<span id="index-mismatch-2"></span>
+<span id="index-mismatch"></span>
+
+
+<span id="Syntax_003a-380"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-mismatch-1">Function: <strong>mismatch</strong> <em>sequence-1 sequence-2  <tt>&amp;key</tt> from-end test test-not key start1 start2 end1 end2 <span class="roman">→</span> position</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-369"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>Sequence-1</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>Sequence-2</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start1</var>, <var>end1</var>&mdash;<i>bounding index designators</i> of <var>sequence-1</var>.
+The defaults for <var>start1</var> and <var>end1</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>start2</var>, <var>end2</var>&mdash;<i>bounding index designators</i> of <var>sequence-2</var>.
+The defaults for <var>start2</var> and <var>end2</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>position</var>&mdash;a <i>bounding index</i> of <var>sequence-1</var>,
+or <code>nil</code>.
+</p>
+<span id="Description_003a-484"></span><h4 class="subsubheading">Description:</h4>
+
+<p>The specified subsequences of         
+<var>sequence-1</var> and <var>sequence-2</var> are compared element-wise.
+</p>
+<p>The <var>key</var> argument is used for both the <var>sequence-1</var> and the <var>sequence-2</var>.
+</p>
+<p>If <var>sequence-1</var> and <var>sequence-2</var> 
+are of equal length and match in every element, the result is
+<i>false</i>.  Otherwise, the result is a non-negative <i>integer</i>,
+the index within
+<var>sequence-1</var> of the leftmost or rightmost position, depending
+on <var>from-end</var>, at which the two
+subsequences fail to match.
+If one subsequence 
+is shorter than and a matching prefix of the other,
+the result is the index
+relative to <var>sequence-1</var> beyond the last position tested.
+</p>
+<p>If <var>from-end</var> is <i>true</i>, then one plus the index of the rightmost
+position in which the <var>sequences</var>
+differ is returned.  In effect, the subsequences
+are aligned at their right-hand ends; then, the last elements are compared,
+the penultimate elements, and so on.  The index returned is 
+an index relative to <var>sequence-1</var>.                  
+</p>
+<span id="Examples_003a-351"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (mismatch &quot;abcd&quot; &quot;ABCDE&quot; :test #'char-equal) <span class="roman">→</span> 4
+ (mismatch '(3 2 1 1 2 3) '(1 2 3) :from-end t) <span class="roman">→</span> 3
+ (mismatch '(1 2 3) '(2 3 4) :test-not #'eq :key #'oddp) <span class="roman">→</span> NIL
+ (mismatch '(1 2 3 4 5 6) '(3 4 5 6 7) :start1 2 :end2 4) <span class="roman">→</span> NIL 
+</pre></div>
+
+
+<span id="See-Also_003a-394"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-265"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+
+<hr>
+<span id="replace"></span><div class="header">
+<p>
+Next: <a href="#substitute_003b-substitute_002dif_003b-substitute_002dif_002dnot_003b-nsubstitute_003b-nsubstitute_002d_002b" accesskey="n" rel="next">substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+</a>, Previous: <a href="#mismatch" accesskey="p" rel="prev">mismatch</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">replace</h4>
+<span id="replace-_0028Function_0029"></span><h3 class="heading">replace (Function)</h3>
+<span id="index-replace-2"></span>
+<span id="index-replace"></span>
+
+
+<span id="Syntax_003a-381"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-replace-1">Function: <strong>replace</strong> <em>sequence-1 sequence-2 <tt>&amp;key</tt> start1 end1 start2 end2 <span class="roman">→</span> sequence-1</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-370"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence-1</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>sequence-2</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>start1</var>, <var>end1</var>&mdash;<i>bounding index designators</i> of <var>sequence-1</var>.
+The defaults for <var>start1</var> and <var>end1</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>start2</var>, <var>end2</var>&mdash;<i>bounding index designators</i> of <var>sequence-2</var>.
+The defaults for <var>start2</var> and <var>end2</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<span id="Description_003a-485"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Destructively modifies <var>sequence-1</var> 
+by replacing the <i>elements</i> of <var>subsequence-1</var>
+<i>bounded</i> by <var>start1</var> and <var>end1</var>
+with the <i>elements</i> of <var>subsequence-2</var> 
+<i>bounded</i> by <var>start2</var> and <var>end2</var>. 
+</p>
+<p><var>Sequence-1</var> is destructively modified by copying successive
+<i>elements</i> into it from <var>sequence-2</var>.
+<i>Elements</i> of the subsequence of <var>sequence-2</var> 
+<i>bounded</i> by <var>start2</var> and <var>end2</var>
+are copied into the subsequence of <var>sequence-1</var> 
+<i>bounded</i> by <var>start1</var> and <var>end1</var>.
+If these subsequences are not of the same length,
+then the shorter length determines how many <i>elements</i> are copied;
+the extra <i>elements</i> near the end of the longer subsequence 
+are not involved in the operation.
+The number of elements copied can be expressed as:
+</p>
+<div class="lisp">
+<pre class="lisp"> (min (- <i>end1</i> <i>start1</i>) (- <i>end2</i> <i>start2</i>))
+</pre></div>
+
+
+<p>If <var>sequence-1</var> and <var>sequence-2</var> are the <i>same</i> <i>object</i>
+and the region being modified overlaps the region being copied
+from, then it is as if the entire source region were copied to another
+place and only then copied back into the target region.
+However, if <var>sequence-1</var> and <var>sequence-2</var> are not the same,
+but the region being modified overlaps the region being copied from
+(perhaps because of shared list structure or displaced <i>arrays</i>),
+then after the <code>replace</code> operation
+the subsequence of <var>sequence-1</var> being modified will have
+unpredictable contents.
+It is an error if the elements of <var>sequence-2</var> are not of a 
+<i>type</i> that can be stored into <var>sequence-1</var>.
+</p>
+<span id="Examples_003a-352"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (replace &quot;abcdefghij&quot; &quot;0123456789&quot; :start1 4 :end1 7 :start2 4) 
+<span class="roman">→</span> &quot;abcd456hij&quot;
+ (setq lst &quot;012345678&quot;) <span class="roman">→</span> &quot;012345678&quot;
+ (replace lst lst :start1 2 :start2 0) <span class="roman">→</span> &quot;010123456&quot;
+ lst <span class="roman">→</span> &quot;010123456&quot;
+</pre></div>
+
+
+<span id="Side-Effects_003a-53"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <var>sequence-1</var> is modified.
+</p>
+<span id="See-Also_003a-395"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#fill">fill</a>
+</p>
+
+<hr>
+<span id="substitute_003b-substitute_002dif_003b-substitute_002dif_002dnot_003b-nsubstitute_003b-nsubstitute_002d_002b"></span><div class="header">
+<p>
+Next: <a href="#concatenate" accesskey="n" rel="next">concatenate</a>, Previous: <a href="#replace" accesskey="p" rel="prev">replace</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+</h4>
+<span id="substitute_002c-substitute_002dif_002c-substitute_002dif_002dnot_002c-nsubstitute_002c-nsubstitute_002dif_002c-nsubstitute_002dif_002dnot-_0028Function_0029"></span><h3 class="heading">substitute, substitute-if, substitute-if-not, nsubstitute, nsubstitute-if, nsubstitute-if-not (Function)</h3>
+<span id="index-substitute-2"></span>
+<span id="index-substitute"></span>
+<span id="index-substitute_002dif-2"></span>
+<span id="index-substitute_002dif"></span>
+<span id="index-substitute_002dif_002dnot-2"></span>
+<span id="index-substitute_002dif_002dnot"></span>
+<span id="index-nsubstitute-2"></span>
+<span id="index-nsubstitute"></span>
+<span id="index-nsubstitute_002dif-2"></span>
+<span id="index-nsubstitute_002dif"></span>
+<span id="index-nsubstitute_002dif_002dnot-2"></span>
+<span id="index-nsubstitute_002dif_002dnot"></span>
+<span id="substitute"></span><span id="nsubstitute"></span>
+
+<span id="Syntax_003a-382"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-substitute-1">Function: <strong>substitute</strong> <em>newitem  olditem  sequence  <tt>&amp;key</tt> <span class="nolinebreak">from-end</span>&nbsp;test<!-- /@w --> <span class="nolinebreak">test-not</span>&nbsp;start<!-- /@w --> end&nbsp;count&nbsp;key<!-- /@w --> <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-substitute_002dif-1">Function: <strong>substitute-if</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-substitute_002dif_002dnot-1">Function: <strong>substitute-if-not</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-nsubstitute-1">Function: <strong>nsubstitute</strong> <em>newitem  olditem  sequence <tt>&amp;key</tt> from-end test test-not start end count key <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-nsubstitute_002dif-1">Function: <strong>nsubstitute-if</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-nsubstitute_002dif_002dnot-1">Function: <strong>nsubstitute-if-not</strong> <em>newitem predicate sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-371"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>newitem</var>&mdash;an <i>object</i>.
+</p>
+<p><var>olditem</var>&mdash;an <i>object</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>predicate</var>&mdash;a <i>designator</i> for a <i>function</i> of one <i>argument</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>count</var>&mdash;an <i>integer</i> or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>result-sequence</var>&mdash;a <i>sequence</i>.
+</p>
+<span id="Description_003a-486"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>substitute</code>, <code>substitute-if</code>, and <code>substitute-if-not</code>
+return a 
+copy of <var>sequence</var> in which each <i>element</i>
+that <i>satisfies the test</i> has been replaced with <var>newitem</var>.
+</p>
+<p><code>nsubstitute</code>, <code>nsubstitute-if</code>, and <code>nsubstitute-if-not</code>
+are like <code>substitute</code>, <code>substitute-if</code>, and
+<code>substitute-if-not</code> respectively, but they may modify 
+<var>sequence</var>.
+</p>
+<p>If 
+<var>sequence</var> is a <i>vector</i>, the result is a
+<i>vector</i> that has the same
+<i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, the result is a 
+<i>list</i>. 
+</p>
+<p><var>Count</var>, if supplied, limits the number of elements
+altered; if more than <var>count</var> <i>elements</i> <i>satisfy the test</i>,
+then of these <i>elements</i> only the leftmost or rightmost, depending
+on <var>from-end</var>, are replaced,
+as many as specified by <var>count</var>.
+If <var>count</var> is supplied and negative, 
+the behavior is as if zero had been supplied instead.
+If <var>count</var> is <code>nil</code>, all matching items are affected.
+</p>
+<p>Supplying a <var>from-end</var> of <i>true</i> matters only when the
+<var>count</var> is provided (and <i>non-nil</i>);
+in that case,
+only the rightmost <var>count</var> <i>elements</i> <i>satisfying the test</i> are removed
+(instead of the leftmost).
+</p>
+<p><var>predicate</var>, <var>test</var>, and <var>test-not</var> 
+might be called more than once for each <i>sequence</i> <i>element</i>,
+and their side effects can happen in any order.         
+</p>
+<p>The result of all these functions is a <i>sequence</i>
+of the same <i>type</i> as <var>sequence</var>
+that has the same elements except that those in the subsequence
+<i>bounded</i> by <var>start</var> and <var>end</var> and <i>satisfying the test</i> 
+have been replaced by <var>newitem</var>.  
+</p>
+<p><code>substitute</code>, <code>substitute-if</code>, and <code>substitute-if-not</code>
+return a <var>sequence</var> which can share with <var>sequence</var> 
+or may be <i>identical</i> to the input <var>sequence</var>
+if no elements need to be changed.
+</p>
+<p><code>nsubstitute</code> and  <code>nsubstitute-if</code> are required to 
+<code>setf</code> any <code>car</code> (if <var>sequence</var> is a <i>list</i>) 
+or <code>aref</code> (if <var>sequence</var> is a <i>vector</i>)
+of <var>sequence</var> that is required to be replaced with <var>newitem</var>.
+If <var>sequence</var> is a <i>list</i>,
+none of the <i>cdrs</i> of the top-level <i>list</i> can be modified.  
+</p>
+<span id="Examples_003a-353"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (substitute #\. #\SPACE &quot;0 2 4 6&quot;) <span class="roman">→</span> &quot;0.2.4.6&quot;
+ (substitute 9 4 '(1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 9 1 3 9 5)
+ (substitute 9 4 '(1 2 4 1 3 4 5) :count 1) <span class="roman">→</span> (1 2 9 1 3 4 5)
+ (substitute 9 4 '(1 2 4 1 3 4 5) :count 1 :from-end t)
+<span class="roman">→</span> (1 2 4 1 3 9 5)
+ (substitute 9 3 '(1 2 4 1 3 4 5) :test #'&gt;) <span class="roman">→</span> (9 9 4 9 3 4 5)
+
+ (substitute-if 0 #'evenp '((1) (2) (3) (4)) :start 2 :key #'car)
+<span class="roman">→</span> ((1) (2) (3) 0)
+ (substitute-if 9 #'oddp '(1 2 4 1 3 4 5)) <span class="roman">→</span> (9 2 4 9 9 4 9)
+ (substitute-if 9 #'evenp '(1 2 4 1 3 4 5) :count 1 :from-end t)
+<span class="roman">→</span> (1 2 4 1 3 9 5)
+
+ (setq some-things (list 'a 'car 'b 'cdr 'c)) <span class="roman">→</span> (A CAR B CDR C)
+ (nsubstitute-if &quot;function was here&quot; #'fboundp some-things
+                 :count 1 :from-end t) <span class="roman">→</span> (A CAR B &quot;function was here&quot; C)
+ some-things <span class="roman">→</span> (A CAR B &quot;function was here&quot; C)
+ (setq alpha-tester (copy-seq &quot;ab &quot;)) <span class="roman">→</span> &quot;ab &quot;
+ (nsubstitute-if-not #\z #'alpha-char-p alpha-tester) <span class="roman">→</span> &quot;abz&quot;
+ alpha-tester <span class="roman">→</span> &quot;abz&quot;
+</pre></div>
+
+
+<span id="Side-Effects_003a-54"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><code>nsubstitute</code>, <code>nsubstitute-if</code>, and <code>nsubstitute-if-not</code>
+modify <var>sequence</var>.
+</p>
+<span id="Exceptional-Situations_003a-164"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-396"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Conses.html#subst">subst</a>,
+<a href="Conses.html#nsubst">nsubst</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-266"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result might or might not be simple, 
+and might or might not be <i>identical</i> to <var>sequence</var>.
+</p>
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+<p>The functions <code>substitute-if-not</code> and <code>nsubstitute-if-not</code> are deprecated.
+</p>
+<p><code>nsubstitute</code> and <code>nsubstitute-if</code> can be used 
+in for-effect-only positions in code.
+</p>
+<p>Because the side-effecting variants (<i>e.g.</i>, <code>nsubstitute</code>)
+potentially change the path that is being traversed, their effects in
+the presence of shared or circular structure may vary in surprising ways when
+compared to their non-side-effecting alternatives.  To see this,
+consider the following side-effect behavior, which might be exhibited by
+some implementations:
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun test-it (fn)
+   (let ((x (cons 'b nil)))
+     (rplacd x x)
+     (funcall fn 'a 'b x :count 1)))
+ (test-it #'substitute) <span class="roman">→</span> (A . #1=(B . #1#))
+ (test-it #'nsubstitute) <span class="roman">→</span> (A . #1#)
+</pre></div>
+
+
+
+<hr>
+<span id="concatenate"></span><div class="header">
+<p>
+Next: <a href="#merge" accesskey="n" rel="next">merge</a>, Previous: <a href="#substitute_003b-substitute_002dif_003b-substitute_002dif_002dnot_003b-nsubstitute_003b-nsubstitute_002d_002b" accesskey="p" rel="prev">substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">concatenate</h4>
+<span id="concatenate-_0028Function_0029"></span><h3 class="heading">concatenate (Function)</h3>
+<span id="index-concatenate-2"></span>
+<span id="index-concatenate"></span>
+
+
+<span id="Syntax_003a-383"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-concatenate-1">Function: <strong>concatenate</strong> <em>result-type <tt>&amp;rest</tt> sequences <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-372"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>result-type</var>&mdash;a <code>sequence</code> <i>type specifier</i>.
+</p>
+<p><var>sequences</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>result-sequence</var>&mdash;a <i>proper sequence</i> of <i>type</i> <var>result-type</var>.
+</p>
+<span id="Description_003a-487"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>concatenate</code> returns a <i>sequence</i> that contains 
+all the individual elements of all the <var>sequences</var> in the order 
+that they are supplied.
+The <i>sequence</i> is of type <var>result-type</var>, 
+which must be a subtype of <i>type</i> <code>sequence</code>.
+</p>
+<p>All of the <var>sequences</var> are copied from; the result
+does not share any structure with any of the <var>sequences</var>.
+Therefore, if only one <var>sequence</var> is provided
+and it is of type <var>result-type</var>,
+<code>concatenate</code> is required to copy <var>sequence</var> rather than simply
+returning it.  
+</p>
+<p>It is an error if any element of the <var>sequences</var> cannot be an
+element of the <i>sequence</i> result.
+</p>
+
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>list</code>,
+the result will be a <i>list</i>.
+</p>
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>vector</code>,
+then if the implementation can determine the element type specified
+for the <var>result-type</var>, the element type of the resulting array 
+is the result of <i>upgrading</i> that element type; or, if the
+implementation can determine that the element type is unspecified (or <code>*</code>),
+the element type of the resulting array is <code>t</code>;
+otherwise, an error is signaled.
+</p>
+<span id="Examples_003a-354"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp">(concatenate 'string &quot;all&quot; &quot; &quot; &quot;together&quot; &quot; &quot; &quot;now&quot;) <span class="roman">→</span> &quot;all together now&quot;
+(concatenate 'list &quot;ABC&quot; '(d e f) #(1 2 3) #*1011)
+<span class="roman">→</span> (#\A #\B #\C D E F 1 2 3 1 0 1 1)
+(concatenate 'list) <span class="roman">→</span> NIL
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp">  (concatenate '(vector * 2) &quot;a&quot; &quot;bc&quot;) should signal an error
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-165"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error is signaled if the <var>result-type</var> is neither
+a <i>recognizable subtype</i> of <code>list</code>,
+nor a <i>recognizable subtype</i> of <code>vector</code>.
+</p>
+<p>An error of <i>type</i> <code>type-error</code> should be signaled if <var>result-type</var> 
+specifies the number of elements and the sum of <var>sequences</var>
+is different from that number.
+</p>
+<span id="See-Also_003a-397"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Conses.html#append">append</a>
+</p>
+
+<hr>
+<span id="merge"></span><div class="header">
+<p>
+Next: <a href="#remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot" accesskey="n" rel="next">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</a>, Previous: <a href="#concatenate" accesskey="p" rel="prev">concatenate</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">merge</h4>
+<span id="merge-_0028Function_0029"></span><h3 class="heading">merge (Function)</h3>
+<span id="index-merge-2"></span>
+<span id="index-merge"></span>
+
+
+<span id="Syntax_003a-384"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-merge-1">Function: <strong>merge</strong> <em>result-type sequence-1 sequence-2 predicate <tt>&amp;key</tt> key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-373"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>result-type</var>&mdash;a <code>sequence</code> <i>type specifier</i>.
+</p>
+<p><var>sequence-1</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>sequence-2</var>&mdash;a <i>sequence</i>.
+</p>
+<p><var>predicate</var>&mdash;a <i>designator</i> for
+a <i>function</i> of two arguments that returns a <i>generalized boolean</i>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>result-sequence</var>&mdash;a <i>proper sequence</i> of <i>type</i> <var>result-type</var>.
+</p>
+<span id="Description_003a-488"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Destructively merges <var>sequence-1</var> with <var>sequence-2</var> according
+to an order determined by the <var>predicate</var>.  <code>merge</code> determines
+the relationship between two elements by giving keys extracted from the
+sequence elements to the <var>predicate</var>.
+</p>
+<p>The first argument to the <var>predicate</var> function is an element of
+<var>sequence-1</var> as returned by the <var>key</var> (if supplied); 
+the second argument is an element of <var>sequence-2</var> as returned by 
+the <var>key</var> (if supplied). 
+<var>Predicate</var> should return <i>true</i> if and only if its first 
+argument is strictly less than the second (in some appropriate sense). 
+If the first argument is greater than or equal to the second
+(in the appropriate sense), then <var>predicate</var> should return <i>false</i>.
+<code>merge</code>
+considers two elements <code>x</code> and <code>y</code> to be equal if
+<code>(funcall predicate x y)</code> and
+<code>(funcall predicate y x)</code> both <i>yield</i> <i>false</i>.
+</p>
+<p>The argument to the <var>key</var> is the <var>sequence</var> element.
+Typically, the return value of the <var>key</var> 
+becomes the argument to <var>predicate</var>.
+If <var>key</var> is not supplied or <code>nil</code>, the sequence element itself is used.
+The <var>key</var> may be executed more than once for each <i>sequence</i> <i>element</i>,
+and its side effects may occur in any order.
+</p>
+<p>If <var>key</var> and <var>predicate</var> return, then the merging operation 
+will terminate.  The result of merging two <i>sequences</i> <code>x</code> and <code>y</code>
+is a new <i>sequence</i> of type <var>result-type</var> <code>z</code>, 
+such that the length of <code>z</code> is the sum of the lengths of <code>x</code>
+and <code>y</code>, and <code>z</code> contains all the elements of <code>x</code> and <code>y</code>.
+If <code>x1</code> and <code>x2</code> are two elements of <code>x</code>, and <code>x1</code> precedes
+<code>x2</code> in <code>x</code>, then <code>x1</code> precedes <code>x2</code> in <code>z</code>, and similarly for
+elements of <code>y</code>.  In short, <code>z</code> is an interleaving of <code>x</code> and <code>y</code>.
+</p>
+<p>If <code>x</code> and <code>y</code> were correctly sorted according to the
+<var>predicate</var>, then <code>z</code> will also be correctly sorted.
+If <code>x</code> or <code>y</code> is not so sorted, then <code>z</code> will not be sorted,
+but will nevertheless be an interleaving of <code>x</code> and <code>y</code>.
+</p>
+<p>The merging operation is guaranteed stable;
+if two or more elements are considered equal by the <var>predicate</var>, 
+then the elements from <var>sequence-1</var> will
+precede those from <var>sequence-2</var> in the result.
+</p>
+<p><var>sequence-1</var> and/or <var>sequence-2</var> may be destroyed.
+</p>
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>list</code>,
+the result will be a <i>list</i>.
+</p>
+<p>If the <var>result-type</var> is a <i>subtype</i> of <code>vector</code>,
+then if the implementation can determine the element type specified
+for the <var>result-type</var>, the element type of the resulting array 
+is the result of <i>upgrading</i> that element type; or, if the
+implementation can determine that the element type is unspecified (or <code>*</code>),
+the element type of the resulting array is <code>t</code>;
+otherwise, an error is signaled.
+</p>
+<span id="Examples_003a-355"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (setq test1 (list 1 3 4 6 7))
+ (setq test2 (list 2 5 8))
+ (merge 'list test1 test2 #'&lt;) <span class="roman">→</span> (1 2 3 4 5 6 7 8)
+ (setq test1 (copy-seq &quot;BOY&quot;))
+ (setq test2 (copy-seq :nosy&quot;))
+ (merge 'string test1 test2 #'char-lessp) <span class="roman">→</span> &quot;BnOosYy&quot;
+ (setq test1 (vector ((red . 1) (blue . 4))))
+ (setq test2 (vector ((yellow . 2) (green . 7))))
+ (merge 'vector test1 test2 #'&lt; :key #'cdr) 
+<span class="roman">→</span> #((RED . 1) (YELLOW . 2) (BLUE . 4) (GREEN . 7)) 
+</pre></div>
+
+<div class="lisp">
+<pre class="lisp"> (merge '(vector * 4) '(1 5) '(2 4 6) #'&lt;) should signal an error
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-166"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>An error must be signaled if the <var>result-type</var> is neither
+a <i>recognizable subtype</i> of <code>list</code>,
+nor a <i>recognizable subtype</i> of <code>vector</code>.
+</p>
+<p>An error of <i>type</i> <code>type-error</code> should be signaled
+if <var>result-type</var> specifies the number of elements 
+and the sum of the lengths of <var>sequence-1</var> and <var>sequence-2</var> 
+is different from that number.
+</p>
+<span id="See-Also_003a-398"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#sort">sort</a>,
+<a href="#stable_002dsort">stable-sort</a>,
+<a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+
+<hr>
+<span id="remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot"></span><div class="header">
+<p>
+Next: <a href="#remove_002dduplicates_003b-delete_002dduplicates" accesskey="n" rel="next">remove-duplicates; delete-duplicates</a>, Previous: <a href="#merge" accesskey="p" rel="prev">merge</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</h4>
+<span id="remove_002c-remove_002dif_002c-remove_002dif_002dnot_002c-delete_002c-delete_002dif_002c-delete_002dif_002dnot-_0028Function_0029"></span><h3 class="heading">remove, remove-if, remove-if-not, delete, delete-if, delete-if-not (Function)</h3>
+<span id="index-remove-2"></span>
+<span id="index-remove"></span>
+<span id="index-remove_002dif-2"></span>
+<span id="index-remove_002dif"></span>
+<span id="index-remove_002dif_002dnot-2"></span>
+<span id="index-remove_002dif_002dnot"></span>
+<span id="index-delete-2"></span>
+<span id="index-delete"></span>
+<span id="index-delete_002dif-2"></span>
+<span id="index-delete_002dif"></span>
+<span id="index-delete_002dif_002dnot-2"></span>
+<span id="index-delete_002dif_002dnot"></span>
+
+
+<span id="Syntax_003a-385"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-remove-1">Function: <strong>remove</strong> <em>item sequence <tt>&amp;key</tt> from-end test test-not start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-remove_002dif-1">Function: <strong>remove-if</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-remove_002dif_002dnot-1">Function: <strong>remove-if-not</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-delete-1">Function: <strong>delete</strong> <em>item sequence <tt>&amp;key</tt> from-end test test-not start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-delete_002dif-1">Function: <strong>delete-if</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-delete_002dif_002dnot-1">Function: <strong>delete-if-not</strong> <em>test sequence <tt>&amp;key</tt> from-end start end count key <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-374"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>item</var>&mdash;an <i>object</i>.
+</p>
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> 
+of one <i>argument</i> that returns a <i>generalized boolean</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>count</var>&mdash;an <i>integer</i> or <code>nil</code>.
+The default is <code>nil</code>.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>result-sequence</var>&mdash;a <i>sequence</i>.
+</p>
+<span id="Description_003a-489"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>remove</code>, <code>remove-if</code>, and <code>remove-if-not</code>
+return a <var>sequence</var> from which 
+the elements that <i>satisfy the test</i> 
+have been removed.  
+</p>
+<p><code>delete</code>, <code>delete-if</code>, and <code>delete-if-not</code>
+are like <code>remove</code>, <code>remove-if</code>, and
+<code>remove-if-not</code> respectively, 
+but they may modify <var>sequence</var>.
+</p>
+<p>If <var>sequence</var> is a <i>vector</i>, the result is a
+<i>vector</i> that has the same
+<i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, the result is a <i>list</i>. 
+</p>
+<p>Supplying a <var>from-end</var> of <i>true</i> matters only when the
+<var>count</var> is provided; in that case only the rightmost <var>count</var> elements 
+<i>satisfying the test</i> are deleted.
+</p>
+<p><var>Count</var>, if supplied, limits the number of elements
+removed or deleted; if more than <var>count</var> elements <i>satisfy the test</i>,
+then of these elements only the leftmost or rightmost, depending on
+<var>from-end</var>,
+are deleted or removed,
+as many as specified by <var>count</var>.
+If <var>count</var> is supplied and negative, 
+the behavior is as if zero had been supplied instead.
+If <var>count</var> is <code>nil</code>, all matching items are affected.
+</p>
+<p>For all these functions,
+elements 
+not removed or deleted occur in the same order in the result
+as they did in <var>sequence</var>.
+</p>
+<p><code>remove</code>, <code>remove-if</code>, <code>remove-if-not</code> return
+a <i>sequence</i>
+of the same <i>type</i> as <var>sequence</var>
+that has the same elements except that those in the subsequence
+<i>bounded</i> by <var>start</var> and <var>end</var> and <i>satisfying the test</i>
+have been removed.  
+This is a non-destructive operation. If any
+elements need to be removed, the result will be a copy.
+The result of <code>remove</code> may share
+with <var>sequence</var>; 
+the result may be <i>identical</i> to the input <var>sequence</var>
+if no elements need to be removed.
+</p>
+<p><code>delete</code>, <code>delete-if</code>, and <code>delete-if-not</code>
+return a <i>sequence</i> 
+of the same <i>type</i> as <var>sequence</var>
+that has the same elements except that those in the subsequence
+<i>bounded</i> by <var>start</var> and <var>end</var> and <i>satisfying the test</i>
+have been deleted. 
+<var>Sequence</var> may be destroyed and used to construct
+the result; however, the result might or might not be <i>identical</i> 
+to <var>sequence</var>.
+</p>
+<p><code>delete</code>, when <var>sequence</var> is a <i>list</i>, is permitted to 
+<code>setf</code> any part, <code>car</code> or <code>cdr</code>, of the
+top-level list structure in that <var>sequence</var>.
+When <var>sequence</var> is a <i>vector</i>,  <code>delete</code> is 
+permitted to change the dimensions of the <i>vector</i> 
+and to slide its elements into new positions without
+permuting them to produce the resulting <i>vector</i>.
+</p>
+<p><code>delete-if</code> is constrained to behave exactly as follows:
+</p>
+<div class="lisp">
+<pre class="lisp"> (delete nil <i>sequence</i>
+             :test #'(lambda (ignore <i>item</i>) (funcall <i>test</i> <i>item</i>))
+             ...)
+</pre></div>
+
+
+
+<span id="Examples_003a-356"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (remove 4 '(1 3 4 5 9)) <span class="roman">→</span> (1 3 5 9)
+ (remove 4 '(1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 1 3 5)
+ (remove 4 '(1 2 4 1 3 4 5) :count 1) <span class="roman">→</span> (1 2 1 3 4 5)
+ (remove 4 '(1 2 4 1 3 4 5) :count 1 :from-end t) <span class="roman">→</span> (1 2 4 1 3 5)
+ (remove 3 '(1 2 4 1 3 4 5) :test #'&gt;) <span class="roman">→</span> (4 3 4 5)
+ (setq lst '(list of four elements)) <span class="roman">→</span> (LIST OF FOUR ELEMENTS)
+ (setq lst2 (copy-seq lst)) <span class="roman">→</span> (LIST OF FOUR ELEMENTS)
+ (setq lst3 (delete 'four lst)) <span class="roman">→</span> (LIST OF ELEMENTS)
+ (equal lst lst2) <span class="roman">→</span> <i>false</i>
+ (remove-if #'oddp '(1 2 4 1 3 4 5)) <span class="roman">→</span> (2 4 4)
+ (remove-if #'evenp '(1 2 4 1 3 4 5) :count 1 :from-end t) 
+<span class="roman">→</span> (1 2 4 1 3 5)
+ (remove-if-not #'evenp '(1 2 3 4 5 6 7 8 9) :count 2 :from-end t)
+<span class="roman">→</span> (1 2 3 4 5 6 8)
+ (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
+ (delete 4 tester) <span class="roman">→</span> (1 2 1 3 5)
+ (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
+ (delete 4 tester :count 1) <span class="roman">→</span> (1 2 1 3 4 5)
+ (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
+ (delete 4 tester :count 1 :from-end t) <span class="roman">→</span> (1 2 4 1 3 5)
+ (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
+ (delete 3 tester :test #'&gt;) <span class="roman">→</span> (4 3 4 5)
+ (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
+ (delete-if #'oddp tester) <span class="roman">→</span> (2 4 4)
+ (setq tester (list 1 2 4 1 3 4 5)) <span class="roman">→</span> (1 2 4 1 3 4 5)
+ (delete-if #'evenp tester :count 1 :from-end t) <span class="roman">→</span> (1 2 4 1 3 5)    
+ (setq tester (list 1 2 3 4 5 6)) <span class="roman">→</span> (1 2 3 4 5 6) 
+ (delete-if #'evenp tester) <span class="roman">→</span> (1 3 5) 
+ tester <span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<div class="lisp">
+<pre class="lisp"> (setq foo (list 'a 'b 'c)) <span class="roman">→</span> (A B C)
+ (setq bar (cdr foo)) <span class="roman">→</span> (B C)
+ (setq foo (delete 'b foo)) <span class="roman">→</span> (A C)
+ bar <span class="roman">→</span> ((C)) or ...
+ (eq (cdr foo) (car bar)) <span class="roman">→</span> T or ...
+</pre></div>
+
+
+<span id="Side-Effects_003a-55"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>For <code>delete</code>, <code>delete-if</code>, and <code>delete-if-not</code>,
+<var>sequence</var> may be destroyed and used to construct the result.
+</p>
+<span id="Exceptional-Situations_003a-167"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should be prepared to signal an error of <i>type</i> <code>type-error</code> if
+<var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-399"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-267"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result might or might not be simple, 
+and might or might not be <i>identical</i> to <var>sequence</var>.
+</p>
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+<p>The functions <code>delete-if-not</code> and <code>remove-if-not</code> are deprecated.
+</p>
+
+<hr>
+<span id="remove_002dduplicates_003b-delete_002dduplicates"></span><div class="header">
+<p>
+Previous: <a href="#remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot" accesskey="p" rel="prev">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">remove-duplicates; delete-duplicates</h4>
+<span id="remove_002dduplicates_002c-delete_002dduplicates-_0028Function_0029"></span><h3 class="heading">remove-duplicates, delete-duplicates (Function)</h3>
+<span id="index-remove_002dduplicates-2"></span>
+<span id="index-remove_002dduplicates"></span>
+<span id="index-delete_002dduplicates-2"></span>
+<span id="index-delete_002dduplicates"></span>
+
+
+<span id="Syntax_003a-386"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-remove_002dduplicates-1">Function: <strong>remove-duplicates</strong> <em>sequence <tt>&amp;key</tt> <span class="nolinebreak">from-end</span>&nbsp;test&nbsp;<span class="nolinebreak">test-not</span><!-- /@w --> start&nbsp;end&nbsp;key<!-- /@w --> <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<dl>
+<dt id="index-delete_002dduplicates-1">Function: <strong>delete-duplicates</strong> <em>sequence <tt>&amp;key</tt>  <span class="nolinebreak">from-end</span>&nbsp;test&nbsp;<span class="nolinebreak">test-not</span><!-- /@w --> start&nbsp;end&nbsp;key<!-- /@w --> <span class="roman">→</span> result-sequence</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-375"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>sequence</var>&mdash;a <i>proper sequence</i>.
+</p>
+<p><var>from-end</var>&mdash;a <i>generalized boolean</i>.
+The default is <i>false</i>.
+</p>
+<p><var>test</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>test-not</var>&mdash;a <i>designator</i> for 
+a <i>function</i> of two <i>arguments</i>
+that returns a <i>generalized boolean</i>.
+</p>
+<p><var>start</var>, <var>end</var>&mdash;<i>bounding index designators</i> of <var>sequence</var>.
+The defaults for <var>start</var> and <var>end</var> are <code>0</code> and <code>nil</code>, respectively.
+</p>
+<p><var>key</var>&mdash;a <i>designator</i> for a <i>function</i> of one argument,
+or <code>nil</code>.
+</p>
+<p><var>result-sequence</var>&mdash;a <i>sequence</i>.
+</p>
+<span id="Description_003a-490"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>remove-duplicates</code> returns a modified copy of <var>sequence</var> 
+from which any element that matches another element occurring in
+<var>sequence</var> has been removed. 
+</p>
+<p>If <var>sequence</var> is a <i>vector</i>, the result is a
+<i>vector</i> that has the same
+<i>actual array element type</i> as <var>sequence</var>.
+If <var>sequence</var> is a <i>list</i>, the result is a <i>list</i>. 
+</p>
+<p><code>delete-duplicates</code> is like <code>remove-duplicates</code>,
+but <code>delete-duplicates</code> may modify <var>sequence</var>.
+</p>
+<p>The elements of <var>sequence</var> are compared <i>pairwise</i>, and if any two match,
+then the one occurring earlier in <var>sequence</var>
+is discarded, unless <var>from-end</var> is <i>true</i>, in which case the one
+later in <var>sequence</var> is discarded.
+</p>
+<p><code>remove-duplicates</code> and <code>delete-duplicates</code> 
+return a <i>sequence</i> of the same <i>type</i> as 
+<var>sequence</var> with enough elements removed so that no two of the remaining
+elements match.  The order of the elements remaining in the result
+is the same as the order in which they appear in <var>sequence</var>.
+</p>
+<p><code>remove-duplicates</code> returns a <i>sequence</i>
+that may share
+with <var>sequence</var> or may be <i>identical</i> to <var>sequence</var>
+if no elements need to be removed.
+</p>
+<p><code>delete-duplicates</code>, when <var>sequence</var> is a <i>list</i>,
+is permitted to <code>setf</code> any part, <code>car</code> or <code>cdr</code>,
+of the top-level list structure in that <var>sequence</var>.
+When <var>sequence</var> is a <i>vector</i>, <code>delete-duplicates</code> 
+is permitted to change the dimensions of the <i>vector</i> 
+and to slide its elements into new positions without
+permuting them to produce the resulting <i>vector</i>.
+</p>
+<span id="Examples_003a-357"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (remove-duplicates &quot;aBcDAbCd&quot; :test #'char-equal :from-end t) <span class="roman">→</span> &quot;aBcD&quot;
+ (remove-duplicates '(a b c b d d e)) <span class="roman">→</span> (A C B D E)
+ (remove-duplicates '(a b c b d d e) :from-end t) <span class="roman">→</span> (A B C D E)
+ (remove-duplicates '((foo #\a) (bar #\%) (baz #\A))
+     :test #'char-equal :key #'cadr) <span class="roman">→</span> ((BAR #\%) (BAZ #\A))
+ (remove-duplicates '((foo #\a) (bar #\%) (baz #\A)) 
+     :test #'char-equal :key #'cadr :from-end t) <span class="roman">→</span> ((FOO #\a) (BAR #\%))
+ (setq tester (list 0 1 2 3 4 5 6))
+ (delete-duplicates tester :key #'oddp :start 1 :end 6) <span class="roman">→</span> (0 4 5 6)
+</pre></div>
+
+
+<span id="Side-Effects_003a-56"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p><code>delete-duplicates</code> might destructively modify <var>sequence</var>.
+</p>
+<span id="Exceptional-Situations_003a-168"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>sequence</var> is not a <i>proper sequence</i>.
+</p>
+<span id="See-Also_003a-400"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#Compiler-Terminology">Section 3.2.1 (Compiler Terminology)</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+<span id="Notes_003a-268"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If <var>sequence</var> is a <i>vector</i>,
+the result might or might not be simple, 
+and might or might not be <i>identical</i> to <var>sequence</var>.
+</p>
+<p>The <tt>:test-not</tt> <i>argument</i> is deprecated.
+</p>
+<p>These functions are useful for converting <var>sequence</var> into a canonical
+form suitable for representing a set.
+</p>
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#remove_003b-remove_002dif_003b-remove_002dif_002dnot_003b-delete_003b-delete_002dif_003b-delete_002dif_002dnot" accesskey="p" rel="prev">remove; remove-if; remove-if-not; delete; delete-if; delete-if-not</a>, Up: <a href="#Sequences" accesskey="u" rel="up">Sequences</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

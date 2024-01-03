@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Error Terminology (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Definitions.html" rel="up" title="Definitions">
-<link href="Sections-Not-Formally-Part-Of-This-Standard.html" rel="next" title="Sections Not Formally Part Of This Standard">
-<link href="Notational-Conventions.html" rel="prev" title="Notational Conventions">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,259 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Introduction.html#Error-Terminology">
 
 </head>
 
 <body lang="en">
-<span id="Error-Terminology"></span><div class="header">
-<p>
-Next: <a href="Sections-Not-Formally-Part-Of-This-Standard.html" accesskey="n" rel="next">Sections Not Formally Part Of This Standard</a>, Previous: <a href="Notational-Conventions.html" accesskey="p" rel="prev">Notational Conventions</a>, Up: <a href="Definitions.html" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Error-Terminology-1"></span><h4 class="subsection">1.4.2 Error Terminology</h4>
 
-<p>Situations in which errors might, should, or must be signaled are described
-in the standard.  The wording used to describe such situations is intended
-to have precise meaning. The following list is a glossary of those meanings.
-</p>
-
-<dl compact="compact">
-<dt><b>Safe code</b></dt>
-<dd><span id="index-safe"></span>
-
-<p>This is <i>code</i> processed with the <code>safety</code> optimization 
-at its highest setting (<code>3</code>).  <code>safety</code> is a lexical property
-of code.  The phrase &ldquo;the function <code>F</code> should signal an error&rdquo; 
-means that if <code>F</code> is invoked from code processed with the highest
-<code>safety</code> optimization, an error is signaled.
-It is <i>implementation-dependent</i> whether <code>F</code> or the calling 
-code signals the error.
-</p>
-</dd>
-<dt><b>Unsafe code</b></dt>
-<dd><span id="index-unsafe"></span>
-
-<p>This is code processed with lower safety levels.
-</p>
-<p>Unsafe code might do error checking.  Implementations are permitted to
-treat all code as safe code all the time.
-</p>
-</dd>
-<dt><b>An error is signaled</b></dt>
-<dd>
-<span id="index-signal"></span>
-<span id="index-is-signaled"></span>
-<span id="index-must-signal"></span>
-
-<p>This means that an error is signaled in both safe and unsafe code.
-<i>Conforming code</i> may rely on the fact that the error is signaled
-in both safe and unsafe code.  Every implementation is required to
-detect the error in both safe and unsafe code. For example, &ldquo;an error
-is signaled if <code>unexport</code> is given a <i>symbol</i>
-not <i>accessible</i> in the <i>current package</i>.&rdquo;
-</p>
-<p>If an explicit error type is not specified, the default is <code>error</code>.
-</p>
-</dd>
-<dt><b>An error should be signaled</b></dt>
-<dd>
-<span id="index-signal-1"></span>
-<span id="index-should-signal"></span>
-
-<p>This means that an error is signaled in safe code, and an error
-might be signaled in unsafe code.  <i>Conforming code</i> may rely on the
-fact that the error is signaled in safe code.  Every
-implementation is required to detect the error at least in safe code.
-When the error is not signaled, the &ldquo;consequences are undefined&rdquo;
-(see below).  For example, &ldquo;<code>+</code> should signal an error of <i>type</i> <code>type-error</code>
-if any argument is not of <i>type</i> <code>number</code>.&rdquo;
-</p>
-</dd>
-<dt><b>Should be prepared to signal an error</b></dt>
-<dd>
-<span id="index-signal-2"></span>
-<span id="index-prepared-to-signal"></span>
-
-<p>This is similar to &ldquo;should be signaled&rdquo; except that it does not
-imply that &lsquo;extra effort&rsquo; has to be taken on the part of an <i>operator</i>
-to discover an erroneous situation if the normal action of that <i>operator</i>
-can be performed successfully with only &lsquo;lazy&rsquo; checking.
-An <i>implementation</i> is always permitted to signal an error,
-but even in <i>safe</i> <i>code</i>, it is only required to signal the error
-when failing to signal it might lead to incorrect results.
-In <i>unsafe</i> <i>code</i>, the consequences are undefined.
-</p>
-<p>For example, defining that 
-&ldquo;<code>find</code> should be prepared to signal an error of <i>type</i> <code>type-error</code>
-if its second <i>argument</i> is not a <i>proper list</i>&rdquo;
-does not imply that an error is always signaled.  The <i>form</i>
-</p>
-<div class="lisp">
-<pre class="lisp"> (find 'a '(a b . c))
-</pre></div>
-
-
-<p>must either signal an error of <i>type</i> <code>type-error</code> in <i>safe</i> <i>code</i>,
-else return <code>A</code>.
-In <i>unsafe</i> <i>code</i>, the consequences are undefined.
-By contrast,
-</p>
-<div class="lisp">
-<pre class="lisp"> (find 'd '(a b . c))
-</pre></div>
-
-
-<p>must signal an error of <i>type</i> <code>type-error</code> in <i>safe</i> <i>code</i>.
-In <i>unsafe</i> <i>code</i>, the consequences are undefined.
-Also,
-</p>
-<div class="lisp">
-<pre class="lisp"> (find 'd '#1=(a b . #1#))
-</pre></div>
-
-
-<p>in <i>safe code</i>
-might return <code>nil</code>&nbsp;<!-- /@w -->(as an <i>implementation-defined</i> extension),
-might never return,
-or might signal an error of <i>type</i> <code>type-error</code>.
-In <i>unsafe</i> <i>code</i>, the consequences are undefined.
-</p>
-<p>Typically, the &ldquo;should be prepared to signal&rdquo; terminology is used in
-type checking situations where there are efficiency considerations that
-make it impractical to detect errors that are not relevant to the
-correct operation of the <i>operator</i>.
-</p>
-</dd>
-<dt><b>The consequences are unspecified</b></dt>
-<dd>
-<span id="index-consequences"></span>
-<span id="index-unspecified-consequences"></span>
-
-<p>This means that the consequences are unpredictable but harmless.
-Implementations are permitted to specify the consequences of this
-situation. No <i>conforming code</i> may depend on the results or effects of
-this situation, and all <i>conforming code</i> is required to treat the
-results and effects of this situation as unpredictable but harmless.
-For example, &ldquo;if the second argument to <code>shared-initialize</code>
-specifies a name that does not correspond to any <i>slots</i>
-<i>accessible</i> in the <i>object</i>, the results are unspecified.&rdquo;
-</p>
-</dd>
-<dt><b>The consequences are undefined</b></dt>
-<dd>
-<span id="index-consequences-1"></span>
-<span id="index-undefined-consequences"></span>
-
-<p>This means that the consequences are unpredictable. The consequences
-may range from harmless to fatal.  No <i>conforming code</i> may depend on
-the results or effects. <i>Conforming code</i> must treat the consequences as
-unpredictable.  In places where the words &ldquo;must,&rdquo; &ldquo;must not,&rdquo; or
-&ldquo;may not&rdquo; are used, then &ldquo;the consequences are undefined&rdquo; if the
-stated requirement is not met and no specific consequence is
-explicitly stated.  An implementation is permitted to signal an error
-in this case.
-</p>
-<p>For example: &ldquo;Once a name has been declared by <code>defconstant</code>
-to be constant, any further assignment or binding of that
-variable has undefined consequences.&rdquo;
-</p>
-</dd>
-<dt><b>An error might be signaled</b></dt>
-<dd>
-<span id="index-signal-3"></span>
-<span id="index-might-signal"></span>
-
-<p>This means that the situation has undefined consequences;
-however, if an error is signaled, it is of the specified <i>type</i>.
-For example, &ldquo;<code>open</code> might signal an error of <i>type</i> <code>file-error</code>.&rdquo;
-</p>
-</dd>
-<dt><b>The return values are unspecified</b></dt>
-<dd>
-<span id="index-unspecified-values"></span>
-
-<p>This means that only the number and nature of the return values of a
-<i>form</i> are not specified.  However, the issue of whether or not
-any side-effects or transfer of control occurs is still well-specified.
-</p>
-<p>A program can be well-specified even if it uses a function whose
-returns values are unspecified.  For example, even if the return
-values of some function <code>F</code> are unspecified, an expression such as
-<code>(length (list (F)))</code> is still well-specified because it does not
-rely on any particular aspect of the value or values returned by <code>F</code>.
-</p>
-</dd>
-<dt><b>Implementations may be extended to cover this situation</b></dt>
-<dd>
-<span id="index-extensions"></span>
-
-<p>This means that the <i>situation</i> has undefined consequences;
-however, a <i>conforming implementation</i> is free to treat
-the situation in a more specific way.  
-For example, an <i>implementation</i> might define 
-that      an error is signaled,
-or that      an error should be signaled,
-or even that a certain well-defined non-error behavior occurs.
-</p>
-<p>No <i>conforming code</i> may depend on the consequences of such a <i>situation</i>;
-all <i>conforming code</i> must treat the consequences of the situation
-as undefined. <i>Implementations</i> are required to document how the
-situation is treated.
-</p>
-<p>For example, &ldquo;implementations may be extended to define other type
-specifiers to have a corresponding <i>class</i>.&rdquo;
-</p>
-</dd>
-<dt><b>Implementations are free to extend the syntax</b></dt>
-<dd>
-<span id="index-extensions-1"></span>
-
-<p>This means that in this situation implementations are permitted to
-define unambiguous extensions to the syntax of the <i>form</i> being
-described.  No <i>conforming code</i> may depend on this extension.
-Implementations are required to document each such extension. All
-<i>conforming code</i> is required to treat the syntax as meaningless. The
-standard might disallow certain extensions while allowing others. For
-example, &ldquo;no implementation is free to extend the syntax of
-<code>defclass</code>.&rdquo;
-</p>
-</dd>
-<dt><b>A warning might be issued</b></dt>
-<dd>
-<span id="index-warning"></span>
-
-<p>This means that <i>implementations</i> are encouraged to issue a warning
-if the context is appropriate (<i>e.g.</i>, when compiling).  However, a
-<i>conforming implementation</i> is not required to issue a warning.
-</p></dd>
-</dl>
-
-
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="Sections-Not-Formally-Part-Of-This-Standard.html" accesskey="n" rel="next">Sections Not Formally Part Of This Standard</a>, Previous: <a href="Notational-Conventions.html" accesskey="p" rel="prev">Notational Conventions</a>, Up: <a href="Definitions.html" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Introduction.html#Error-Terminology">Error Terminology</a>.</p>
 </body>
-</html>

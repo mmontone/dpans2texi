@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>P (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Glossary.html" rel="up" title="Glossary">
-<link href="Q.html" rel="next" title="Q">
-<link href="O.html" rel="prev" title="O">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,399 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Glossary.html#P">
 
 </head>
 
 <body lang="en">
-<span id="P"></span><div class="header">
-<p>
-Next: <a href="Q.html" accesskey="n" rel="next">Q</a>, Previous: <a href="O.html" accesskey="p" rel="prev">O</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="P-1"></span><h3 class="unnumberedsec">P</h3>
-<dl compact="compact">
-<dt><b>package</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>package</code>.
-</p>
-</dd>
-<dt><b>package cell</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w -->(of a <i>symbol</i>)</dt>
-<dd><p>The <i>place</i> in a <i>symbol</i> that holds one of
-possibly several <i>packages</i> in which the <i>symbol</i> is 
-<i>interned</i>, called the <i>home package</i>, or which holds
-<code>nil</code>&nbsp;<!-- /@w -->if no such <i>package</i> exists or is known.
-See the <i>function</i> <a href="symbol_002dpackage.html">symbol-package</a>.
-</p>
-</dd>
-<dt><b>package designator</b>  <i>n.</i></dt>
-<dd><p>a <i>designator</i> for a <i>package</i>; that is,
-an <i>object</i> that denotes a <i>package</i>
-and that is one of:
-a <i>string designator</i> 
-(denoting the <i>package</i> that has the <i>string</i>
-that it designates as its <i>name</i> 
-or as one of its <i>nicknames</i>),
-or a <i>package</i> (denoting itself).
-</p>
-</dd>
-<dt><b>package marker</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a character which is used in the textual notation for a symbol 
-to separate the package name from the symbol name, and which
-is <i>colon</i> in the <i>standard readtable</i>.
-See <a href="Character-Syntax.html">Section 2.1 (Character Syntax)</a>.
-</p>
-</dd>
-<dt><b>package prefix</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a notation preceding the <i>name</i> of a <i>symbol</i> in text that is
-processed by the <i>Lisp reader</i>, which uses a <i>package</i> <i>name</i>
-followed by one or more <i>package markers</i>, and which indicates that
-the symbol is looked up in the indicated <i>package</i>.
-</p>
-</dd>
-<dt><b>package registry</b>  <i>n.</i></dt>
-<dd><p>A mapping of <i>names</i> to <i>package</i> <i>objects</i>.
-It is possible for there to be a <i>package</i> <i>object</i> which is not
-in this mapping; such a <i>package</i> is called an <i>unregistered package</i>.
-<i>Operators</i> such as <code>find-package</code> consult this mapping in order
-to find a <i>package</i> from its <i>name</i>.
-<i>Operators</i> such as <code>do-all-symbols</code>, <code>find-all-symbols</code>, 
-and <code>list-all-packages</code> operate only on <i>packages</i> that exist
-in the <i>package registry</i>.
-</p>
-</dd>
-<dt><b>pairwise</b>  <i>adv.</i>&nbsp;<!-- /@w -->(of an adjective on a set)</dt>
-<dd><p>applying individually to all possible pairings of elements of the set.
-&ldquo;The types A, B, and C are pairwise disjoint if 
-A and B are disjoint,
-B and C are disjoint, and
-A and C are disjoint.&rdquo;
-</p>
-</dd>
-<dt><b>parallel</b> <span id="glos_002dparallel"></span></dt>
-<dd><p><i>adj.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w -->(of <i>binding</i> or <i>assignment</i>)
-done in the style of <code>psetq</code>, <code>let</code>, or <code>do</code>;
-that is, first evaluating all of the <i>forms</i> that produce <i>values</i>,
-and only then <i>assigning</i> or <i>binding</i> the <i>variables</i> (or <i>places</i>).
-Note that this does not imply traditional computational &ldquo;parallelism&rdquo; 
-since the <i>forms</i> that produce <i>values</i> are evaluated <i>sequentially</i>.
-See <a href="S.html#glos_002dsequential">sequential</a>.
-</p>
-</dd>
-<dt><b>parameter</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. (of a <i>function</i>)
-a <i>variable</i> in the definition of a <i>function</i>
-which takes on the <i>value</i> of a corresponding <i>argument</i>
-(or of a <i>list</i> of corresponding arguments)
-to that <i>function</i> when it is called,
-or
-which in some cases is given a default value because there
-is no corresponding <i>argument</i>.
-2. (of a <i>format directive</i>)
-an <i>object</i> received as data flow by a <i>format directive</i>
-due to a prefix notation within the <i>format string</i> at the 
-<i>format directive</i>&rsquo;s point of use.
-See <a href="Formatted-Output.html">Section 22.3 (Formatted Output)</a>.
-&ldquo;In <code>&quot;~3,'0D&quot;</code>, the number <code>3</code> and the character
-<code>#\0</code> are parameters to the <code>~D</code> format directive.&rdquo;
-</p>
-</dd>
-<dt><b>parameter specializer</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. (of a <i>method</i>) an <i>expression</i> which constrains the
-<i>method</i> to be applicable only to <i>argument</i> sequences
-in which the corresponding <i>argument</i> matches the
-<i>parameter specializer</i>.
-2. a <i>class</i>,
-or a <i>list</i> <code>(eql <i>object</i>)</code>.
-</p>
-</dd>
-<dt><b>parameter specializer name</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. (of a <i>method</i> definition) an expression used in code to
-name a <i>parameter specializer</i>. 
-See <a href="Introduction-to-Methods.html">Section 7.6.2 (Introduction to Methods)</a>.
-2. a <i>class</i>,
-a <i>symbol</i> naming a <i>class</i>,
-or a <i>list</i> <code>(eql <i>form</i>)</code>.
-</p>
-</dd>
-<dt><b>pathname</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> of <i>type</i> <code>pathname</code>, which is a structured representation 
-of the name of a <i>file</i>.  A <i>pathname</i> has six components:
-a &ldquo;host,&rdquo;
-a &ldquo;device,&rdquo;
-a &ldquo;directory,&rdquo;
-a &ldquo;name,&rdquo;
-a &ldquo;type,&rdquo; and
-a &ldquo;version.&rdquo;
-</p>
-</dd>
-<dt><b>pathname designator</b>  <i>n.</i></dt>
-<dd><p>a <i>designator</i> for a <i>pathname</i>; that is,
-an <i>object</i> that denotes a <i>pathname</i>
-and that is one of:
-a <i>pathname</i> <i>namestring</i> 
-(denoting the corresponding <i>pathname</i>),
-a <i>stream associated with a file</i> 
-(denoting the <i>pathname</i> used to open the <i>file</i>;
-this may be, but is not required to be, the actual name of the <i>file</i>),
-or a <i>pathname</i> (denoting itself).
-See <a href="File-Operations-on-Open-and-Closed-Streams.html">Section 21.1.1.1.2 (Open and Closed Streams)</a>.
-</p>
-</dd>
-<dt><b>physical pathname</b>  <i>n.</i></dt>
-<dd><p>a <i>pathname</i> that is not a <i>logical pathname</i>.
-</p>
 
-
-</dd>
-<dt><b>place</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1. a <i>form</i> which is suitable for use as a <i>generalized reference</i>.
-2. the conceptual location referred to by such a <i>place</i><sub>1</sub>
-</p>
-</dd>
-<dt><b>plist</b>  [ˈpēˌlist] <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>property list</i>.
-</p>
-</dd>
-<dt><b>portable</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of <i>code</i>)</dt>
-<dd><p>required to produce equivalent results and observable side effects
-in all <i>conforming implementations</i>.
-</p>
-</dd>
-<dt><b>potential copy</b>  <i>n.</i>&nbsp;<!-- /@w -->(of an <i>object</i> O<sub>1</sub>
-</dt>
-<dd><p>an <i>object</i> O<sub>2</sub>
-by O<sub>1</sub>
-to O<sub>1</sub>
-resembles a <i>copy</i> of O<sub>1</sub>
-necessary to satisfy the constraints.
-</p>
-</dd>
-<dt><b>potential number</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>A textual notation that might be parsed by the <i>Lisp reader</i> 
-in some <i>conforming implementation</i> as a <i>number</i> 
-but is not required to be parsed as a <i>number</i>.
-No <i>object</i> is a <i>potential number</i>&mdash;either an <i>object</i> is
-a <i>number</i> or it is not.
-See <a href="Numbers-as-Tokens.html#PotentialNumbersAsTokens">Section 2.3.1.1 (Potential Numbers as Tokens)</a>.
-</p>
-</dd>
-<dt><b>pprint dispatch table</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>an <i>object</i> that can be the <i>value</i> of <code>*print-pprint-dispatch*</code> 
-and hence can control how <i>objects</i> are printed when
-<code>*print-pretty*</code> is <i>true</i>.
-See <a href="Pretty-Printer-Concepts.html#PPrintDispatchTables">Section 22.2.1.4 (Pretty Print Dispatch Tables)</a>.
-</p>
-</dd>
-<dt><b>predicate</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>function</i> that returns a <i>generalized boolean</i>
-as its first value.
-</p>
-</dd>
-<dt><b>present</b>  <i>n.</i></dt>
-<dd><p>1. (of a <i>feature</i> in a <i>Lisp image</i>)
-a state of being that is in effect if and only if the <i>symbol</i> 
-naming the <i>feature</i> is an <i>element</i> of the <i>features list</i>.
-2. (of a <i>symbol</i> in a <i>package</i>)
-being accessible in that <i>package</i> directly,
-rather than being inherited from another <i>package</i>.
-</p>
-</dd>
-<dt><b>pretty print</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(an <i>object</i>)</dt>
-<dd><p>to invoke the <i>pretty printer</i> on the <i>object</i>.
-</p>
-</dd>
-<dt><b>pretty printer</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>the procedure that prints the character representation of an
-<i>object</i> onto a <i>stream</i> when the <i>value</i> of
-<code>*print-pretty*</code> is <i>true</i>, 
-and that uses layout techniques (<i>e.g.</i>, indentation) that
-tend to highlight the structure of the <i>object</i> in a way that
-makes it easier for human readers to parse visually.
-See the <i>variable</i> <a href="_002aprint_002dpprint_002ddispatch_002a.html">*print-pprint-dispatch*</a> and <a href="The-Lisp-Pretty-Printer.html">Section 22.2 (The Lisp Pretty Printer)</a>.
-</p>
-</dd>
-<dt><b>pretty printing stream</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>stream</i> that does pretty printing.  Such streams are created by
-the <i>function</i> <code>pprint-logical-block</code> as a link between the output stream 
-and the logical block.
-</p>
-</dd>
-<dt><b>primary method</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a member of one of two sets of <i>methods</i> 
-(the set of <i>auxiliary methods</i> is the other)
-that form an exhaustive partition of the set of <i>methods</i>
-on the <i>method</i>&rsquo;s <i>generic function</i>.
-How these sets are determined is dependent on the <i>method combination</i> type;
-see <a href="Introduction-to-Methods.html">Section 7.6.2 (Introduction to Methods)</a>.
-</p>
-</dd>
-<dt><b>primary value</b>  <i>n.</i>&nbsp;<!-- /@w -->(of <i>values</i> resulting from the</dt>
-<dd><p><i>evaluation</i> of a <i>form</i>)
-the first <i>value</i>, if any, or else <code>nil</code>&nbsp;<!-- /@w -->if there are no <i>values</i>.
-&ldquo;The primary value returned by <code>truncate</code> is an
-integer quotient, truncated toward zero.&rdquo;
-</p>
-</dd>
-<dt><b>principal</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a value returned by a <span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>function</i> that</dt>
-<dd><p>implements a mathematically irrational or transcendental 
-function defined in the complex domain)
-of possibly many (sometimes an infinite number of) correct values for the
-mathematical function, being the particular <i>value</i> which the corresponding
-<span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>function</i> has been defined to return.
-</p>
-</dd>
-<dt><b>print name</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w -->(usually of a <i>symbol</i>)</dt>
-<dd><p>a <i>name</i><sub>3</sub>
-</p>
-</dd>
-<dt><b>printer control variable</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>variable</i> whose specific purpose is to control some action
-of the <i>Lisp printer</i>; that is, one of the <i>variables</i>
-in <a href="Overview-of-The-Lisp-Printer.html#StdPrinterControlVars">Figure 22.1</a>,
-or else some <i>implementation-defined</i> <i>variable</i> which is
-defined by the <i>implementation</i> to be a <i>printer control variable</i>.
-</p>
-</dd>
-<dt><b>printer escaping</b>  <i>n.</i></dt>
-<dd><p>The combined state of the <i>printer control variables</i>
-<code>*print-escape*</code> and <code>*print-readably*</code>.
-If the value of either <code>*print-readably*</code> or <code>*print-escape*</code> is <i>true</i>, 
-then <span id="index-printer-escaping-1"></span>
-<em>printer escaping</em> is &ldquo;enabled&rdquo;;
-otherwise (if the values of both <code>*print-readably*</code> and <code>*print-escape*</code>
-are <i>false</i>), 
-then <i>printer escaping</i> is &ldquo;disabled&rdquo;.
-</p>
-</dd>
-<dt><b>printing</b>  <i>adj.</i>&nbsp;<!-- /@w -->(of a <i>character</i>)</dt>
-<dd><p>being a <i>graphic</i> <i>character</i> other than <i>space</i>.
-</p>
-</dd>
-<dt><b>process</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>form</i> by the <i>compiler</i>)</dt>
-<dd><p>to perform <i>minimal compilation</i>, determining the time of 
-evaluation for a <i>form</i>, and possibly <i>evaluating</i> that
-<i>form</i> (if required).
-</p>
-</dd>
-<dt><b>processor</b>  <i>n.</i>, <i>ANSI</i></dt>
-<dd><p>an <i>implementation</i>.
-</p>
-</dd>
-<dt><b>proclaim</b>  <i>v.t.</i>&nbsp;<!-- /@w -->(a <i>proclamation</i>)</dt>
-<dd><p>to <i>establish</i> that <i>proclamation</i>.
-</p>
-</dd>
-<dt><b>proclamation</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>global declaration</i>.
-</p>
-</dd>
-<dt><b>prog tag</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>go tag</i>.
-</p>
-</dd>
-<dt><b>program</b>  <i>n.</i>&nbsp;<!-- /@w --><i>Trad.</i>&nbsp;<!-- /@w --></dt>
-<dd><p><span class="roman">Common Lisp</span>&nbsp;<!-- /@w --><i>code</i>.
-</p>
-</dd>
-<dt><b>programmer</b>  <i>n.</i></dt>
-<dd><p>an active entity, typically a human, that writes a <i>program</i>,
-and that might or might not also be a <i>user</i> of the <i>program</i>.
-</p>
-</dd>
-<dt><b>programmer code</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p><i>code</i> that is supplied by the programmer;
-that is, <i>code</i> that is not <i>system code</i>.
-</p>
-</dd>
-<dt><b>proper list</b> <span id="glos_002dproper-list"></span></dt>
-<dd><p><i>n.</i>&nbsp;<!-- /@w -->
-A <i>list</i> terminated by the <i>empty list</i>.
-(The <i>empty list</i> is a <i>proper list</i>.)
-See <a href="I.html#glos_002dimproper-list">improper list</a>.
-</p>
-</dd>
-<dt><b>proper name</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>class</i>)</dt>
-<dd><p>a <i>symbol</i> that <i>names</i> the <i>class</i> whose <i>name</i>
-is that <i>symbol</i>. 
-See the <i>functions</i> <a href="class_002dname.html">class-name</a> and <code>find-class</code>.
-</p>
-</dd>
-<dt><b>proper sequence</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>a <i>sequence</i> which is not an <i>improper list</i>; 
-that is, a <i>vector</i> or a <i>proper list</i>.
-</p>
-</dd>
-<dt><b>proper subtype</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>type</i>)</dt>
-<dd><p>a <i>subtype</i> of the <i>type</i> which is not the <i>same</i> <i>type</i>
-as the <i>type</i> (<i>i.e.</i>, its <i>elements</i> are a &ldquo;proper subset&rdquo; of the 
-<i>type</i>).
-</p>
-</dd>
-<dt><b>property</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>property list</i>)</dt>
-<dd><p>1. a conceptual pairing of a <i>property indicator</i> and its
-associated <i>property value</i> on a <i>property list</i>.
-2. a <i>property value</i>.
-</p>
-</dd>
-<dt><b>property indicator</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>property list</i>)</dt>
-<dd><p>the <i>name</i> part of a <i>property</i>, used as a <i>key</i>
-when looking up a <i>property value</i> on a <i>property list</i>. 
-</p>
-</dd>
-<dt><b>property list</b>  <i>n.</i>&nbsp;<!-- /@w --></dt>
-<dd><p>1.  a <i>list</i> containing an even number of <i>elements</i> that are
-alternating <i>names</i>  (sometimes called <i>indicators</i> 
-or <i>keys</i>) and <i>values</i> (sometimes called <i>properties</i>).
-When there is more than one <i>name</i> and <i>value</i> pair with
-the <i>identical</i> <i>name</i> in a <i>property list</i>,
-the first such pair determines the <i>property</i>.
-2. (of a <i>symbol</i>)
-the component of the <i>symbol</i> containing a <i>property list</i>.
-</p>
-
-</dd>
-<dt><b>property value</b>  <i>n.</i>&nbsp;<!-- /@w -->(of a <i>property indicator</i> on</dt>
-<dd><p>a <i>property list</i>)
-the <i>object</i> associated with the <i>property indicator</i>
-on the <i>property list</i>.
-</p>
-</dd>
-<dt><b>purports to conform</b>  <i>v.</i></dt>
-<dd><p>makes a good-faith claim of conformance.  
-This term expresses intention to conform, regardless of whether the
-goal of that intention is realized in practice.  
-For example, language implementations have been known to have bugs,
-and while an <i>implementation</i> of this specification with bugs
-might not be a <i>conforming implementation</i>, it can still
-<i>purport to conform</i>.  This is an important distinction in
-certain specific cases; <i>e.g.</i>, see the <i>variable</i> <a href="_002afeatures_002a.html">*features*</a>.
-</p>
-
-</dd>
-</dl>
-<hr>
-<div class="header">
-<p>
-Next: <a href="Q.html" accesskey="n" rel="next">Q</a>, Previous: <a href="O.html" accesskey="p" rel="prev">O</a>, Up: <a href="Glossary.html" accesskey="u" rel="up">Glossary</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Glossary.html#P">P</a>.</p>
 </body>
-</html>

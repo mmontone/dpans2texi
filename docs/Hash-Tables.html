@@ -14,10 +14,36 @@
 <link href="Index.html" rel="index" title="Index">
 <link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
 <link href="index.html" rel="up" title="Top">
-<link href="Hash-Table-Concepts.html" rel="next" title="Hash Table Concepts">
-<link href="remove_002dduplicates_003b-delete_002dduplicates.html" rel="prev" title="remove-duplicates; delete-duplicates">
+<link href="Filenames.html#Filenames" rel="next" title="Filenames">
+<link href="Sequences.html#remove_002dduplicates_003b-delete_002dduplicates" rel="prev" title="remove-duplicates; delete-duplicates">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,19 +58,215 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
@@ -55,47 +277,1163 @@ sub {font-size: smaller}
 <body lang="en">
 <span id="Hash-Tables"></span><div class="header">
 <p>
-Next: <a href="Filenames.html" accesskey="n" rel="next">Filenames</a>, Previous: <a href="Sequences.html" accesskey="p" rel="prev">Sequences</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+Next: <a href="Filenames.html#Filenames" accesskey="n" rel="next">Filenames</a>, Previous: <a href="Sequences.html#Sequences" accesskey="p" rel="prev">Sequences</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
 </div>
-<hr>
 <span id="Hash-Tables-1"></span><h2 class="chapter">18 Hash Tables</h2>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="Hash-Table-Concepts.html" accesskey="1">Hash Table Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Hash-Table-Concepts" accesskey="1">Hash Table Concepts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
 Dictionary
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="hash_002dtable.html" accesskey="2">hash-table</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#hash_002dtable" accesskey="2">hash-table</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="make_002dhash_002dtable.html" accesskey="3">make-hash-table</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#make_002dhash_002dtable" accesskey="3">make-hash-table</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="hash_002dtable_002dp.html" accesskey="4">hash-table-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#hash_002dtable_002dp" accesskey="4">hash-table-p</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="hash_002dtable_002dcount.html" accesskey="5">hash-table-count</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#hash_002dtable_002dcount" accesskey="5">hash-table-count</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="hash_002dtable_002drehash_002dsize.html" accesskey="6">hash-table-rehash-size</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#hash_002dtable_002drehash_002dsize" accesskey="6">hash-table-rehash-size</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="hash_002dtable_002drehash_002dthreshold.html" accesskey="7">hash-table-rehash-threshold</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#hash_002dtable_002drehash_002dthreshold" accesskey="7">hash-table-rehash-threshold</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="hash_002dtable_002dsize.html" accesskey="8">hash-table-size</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#hash_002dtable_002dsize" accesskey="8">hash-table-size</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="hash_002dtable_002dtest.html" accesskey="9">hash-table-test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#hash_002dtable_002dtest" accesskey="9">hash-table-test</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="gethash.html">gethash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#gethash">gethash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="remhash.html">remhash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#remhash">remhash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="maphash.html">maphash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#maphash">maphash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="with_002dhash_002dtable_002diterator.html">with-hash-table-iterator</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#with_002dhash_002dtable_002diterator">with-hash-table-iterator</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="clrhash.html">clrhash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#clrhash">clrhash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="sxhash.html">sxhash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#sxhash">sxhash</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
+<hr>
+<span id="Hash-Table-Concepts"></span><div class="header">
+<p>
+Next: <a href="#hash_002dtable" accesskey="n" rel="next">hash-table</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Hash-Table-Concepts-1"></span><h3 class="section">18.1 Hash Table Concepts</h3>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Hash_002dTable-Operations" accesskey="1">Hash-Table Operations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Modifying-Hash-Table-Keys" accesskey="2">Modifying Hash Table Keys</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+<hr>
+<span id="Hash_002dTable-Operations"></span><div class="header">
+<p>
+Next: <a href="#Modifying-Hash-Table-Keys" accesskey="n" rel="next">Modifying Hash Table Keys</a>, Up: <a href="#Hash-Table-Concepts" accesskey="u" rel="up">Hash Table Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Hash_002dTable-Operations-1"></span><h4 class="subsection">18.1.1 Hash-Table Operations</h4>
+
+<p>The next figure&nbsp;<!-- /@w -->lists some <i>defined names</i> that are applicable 
+to <i>hash tables</i>.  The following rules apply to <i>hash tables</i>.
+</p>
+
+<ul class="no-bullet">
+<li>&ndash; A <i>hash table</i> can only associate one value with a given
+key. If an attempt is made to add a second value for a given key,
+the second value will replace the first.
+Thus, adding a value to a <i>hash table</i> is a destructive operation;
+the <i>hash table</i> is modified.  
+
+</li><li>&ndash; There are four kinds of <i>hash tables</i>:
+those whose keys are compared with <code>eq</code>,
+those whose keys are compared with <code>eql</code>,
+those whose keys are compared with <code>equal</code>, and
+those whose keys are compared with <code>equalp</code>.  
+
+</li><li>&ndash; <i>Hash tables</i> are created by <code>make-hash-table</code>. 
+<code>gethash</code> is used to look up a key and find the associated value.
+New entries are added to <i>hash tables</i> using <code>setf</code> with <code>gethash</code>.
+<code>remhash</code> is used to remove an entry.
+For example:
+
+<div class="lisp">
+<pre class="lisp"> (setq a (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32536573&gt;
+ (setf (gethash 'color a) 'brown) <span class="roman">→</span> BROWN
+ (setf (gethash 'name a) 'fred) <span class="roman">→</span> FRED
+ (gethash 'color a) <span class="roman">→</span> BROWN, <i>true</i>
+ (gethash 'name a) <span class="roman">→</span> FRED, <i>true</i>
+ (gethash 'pointy a) <span class="roman">→</span> NIL, <i>false</i>
+</pre></div>
+
+
+<p>In this example, the symbols <code>color</code> and <code>name</code> are being used as
+keys, and the symbols <code>brown</code> and <code>fred</code> are being used as the
+associated values.  The <i>hash table</i> 
+has two items in it, one of which                              
+associates from <code>color</code> to <code>brown</code>, and the other of which
+associates from <code>name</code> to <code>fred</code>.
+</p>
+</li><li>&ndash; A key or a value may be any <i>object</i>.
+
+
+</li><li>&ndash; The existence of an entry in the <i>hash table</i> can be determined
+from the <i>secondary value</i> returned by <code>gethash</code>.
+</li></ul>
+
+
+
+<div class="float"><span id="fig18_002e1"></span>
+<table class="cartouche" border="1"><tr><td>
+<table>
+<tr><td>clrhash</td><td>hash-table-p</td><td>remhash</td></tr>
+<tr><td>gethash</td><td>make-hash-table</td><td>sxhash</td></tr>
+<tr><td>hash-table-count</td><td>maphash</td><td></td></tr>
+</table>
+</td></tr></table>
+
+<div class="float-caption"><p><strong>Figure 18.1: </strong>Hash-table defined names</p></div></div>
+
+
+<hr>
+<span id="Modifying-Hash-Table-Keys"></span><div class="header">
+<p>
+Previous: <a href="#Hash_002dTable-Operations" accesskey="p" rel="prev">Hash-Table Operations</a>, Up: <a href="#Hash-Table-Concepts" accesskey="u" rel="up">Hash Table Concepts</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Modifying-Hash-Table-Keys-1"></span><h4 class="subsection">18.1.2 Modifying Hash Table Keys</h4>
+
+
+<p>The function supplied as the <tt>:test</tt> argument to <code>make-hash-table</code>
+specifies the &lsquo;equivalence test&rsquo; for the <i>hash table</i> it creates.
+</p>
+<p>An <i>object</i> is &lsquo;visibly modified&rsquo; with regard to an equivalence test
+if there exists some set of <i>objects</i> (or potential <i>objects</i>)
+which are equivalent to the <i>object</i> before the modification but are
+no longer equivalent afterwards.
+</p>
+<p>If an <i>object</i> O<sub>1</sub>
+and is then visibly modified with regard to the equivalence test of H,
+then the consequences are unspecified if O<sub>1</sub>
+O<sub>2</sub>
+or after the modification), is used as a key in further operations on H.
+The consequences of using O<sub>1</sub>
+even if O<sub>1</sub>
+and then later modified again in such a way as 
+to undo the visible modification.
+</p>
+<p>Following are specifications of the modifications which are visible to the
+equivalence tests which must be supported by <i>hash tables</i>.  The modifications
+are described in terms of modification of components, and are defined
+recursively.  Visible modifications of components of the <i>object</i> are 
+visible modifications of the <i>object</i>.
+</p>
+<span id="Visible-Modification-of-Objects-with-respect-to-EQ-and-EQL"></span><h4 class="subsubsection">18.1.2.1 Visible Modification of Objects with respect to EQ and EQL</h4>
+<span id="VisModEQL"></span>
+<p>No <i>standardized</i> <i>function</i> is provided that is capable of visibly
+modifying an <i>object</i> with regard to <code>eq</code> or <code>eql</code>.
+</p>
+
+<span id="Visible-Modification-of-Objects-with-respect-to-EQUAL"></span><h4 class="subsubsection">18.1.2.2 Visible Modification of Objects with respect to EQUAL</h4>
+<span id="VisModEQUAL"></span>
+<p>As a consequence of the behavior for <code>equal</code>,
+the rules for visible modification of <i>objects</i> not explicitly mentioned in this
+section are inherited from those in <a href="#VisModEQL">Section 18.1.2.1 (Visible Modification of Objects with respect to EQ and EQL)</a>.
+</p>
+<span id="g_t18_002e1_002e2_002e2_002e1-Visible-Modification-of-Conses-with-respect-to-EQUAL"></span><h4 class="unnumberedsubsubsec">18.1.2.2.1 Visible Modification of Conses with respect to EQUAL</h4>
+
+
+<p>Any visible change to the <i>car</i> or the <i>cdr</i> of a <i>cons</i>
+is considered a visible modification with regard to <code>equal</code>.
+</p>
+
+<span id="g_t18_002e1_002e2_002e2_002e2-Visible-Modification-of-Bit-Vectors-and-Strings-with-respect-to-EQUAL"></span><h4 class="unnumberedsubsubsec">18.1.2.2.2 Visible Modification of Bit Vectors and Strings with respect to EQUAL</h4>
+
+
+<p>For a <i>vector</i> of <i>type</i> <code>bit-vector</code> or of <i>type</i> <code>string</code>, any visible change
+to an <i>active</i> <i>element</i> of the <i>vector</i>,
+or to the <i>length</i> of the <i>vector</i> (if it is <i>actually adjustable</i> 
+or has a <i>fill pointer</i>)
+is considered a visible modification with regard to <code>equal</code>.
+</p>
+
+
+<span id="Visible-Modification-of-Objects-with-respect-to-EQUALP"></span><h4 class="subsubsection">18.1.2.3 Visible Modification of Objects with respect to EQUALP</h4>
+
+<p>As a consequence of the behavior for <code>equalp</code>,
+the rules for visible modification of <i>objects</i> not explicitly mentioned in this
+section are inherited from those in <a href="#VisModEQUAL">Section 18.1.2.2 (Visible Modification of Objects with respect to EQUAL)</a>.
+</p>
+<span id="g_t18_002e1_002e2_002e3_002e1-Visible-Modification-of-Structures-with-respect-to-EQUALP"></span><h4 class="unnumberedsubsubsec">18.1.2.3.1 Visible Modification of Structures with respect to EQUALP</h4>
+
+
+<p>Any visible change to a <i>slot</i> of a <i>structure</i>
+is considered a visible modification with regard to <code>equalp</code>.
+</p>
+
+<span id="g_t18_002e1_002e2_002e3_002e2-Visible-Modification-of-Arrays-with-respect-to-EQUALP"></span><h4 class="unnumberedsubsubsec">18.1.2.3.2 Visible Modification of Arrays with respect to EQUALP</h4>
+
+
+<p>In an <i>array</i>, any visible change
+to an <i>active</i> <i>element</i>,
+to the <i>fill pointer</i> (if the <i>array</i> can and does have one),
+or to the <i>dimensions</i> (if the <i>array</i> is <i>actually adjustable</i>)
+is considered a visible modification with regard to <code>equalp</code>.
+</p>
+
+<span id="g_t18_002e1_002e2_002e3_002e3-Visible-Modification-of-Hash-Tables-with-respect-to-EQUALP"></span><h4 class="unnumberedsubsubsec">18.1.2.3.3 Visible Modification of Hash Tables with respect to EQUALP</h4>
+
+
+<p>In a <i>hash table</i>, any visible change
+to the count of entries in the <i>hash table</i>,
+to the keys,
+or to the values associated with the keys
+is considered a visible modification with regard to <code>equalp</code>.
+</p>
+<p>Note that the visibility of modifications to the keys depends on the equivalence test
+of the <i>hash table</i>, not on the specification of <code>equalp</code>.
+</p>
+
+
+<span id="Visible-Modifications-by-Language-Extensions"></span><h4 class="subsubsection">18.1.2.4 Visible Modifications by Language Extensions</h4>
+
+<p><i>Implementations</i> that extend the language by providing additional mutator
+functions (or additional behavior for existing mutator functions) must
+document how the use of these extensions interacts with equivalence tests and
+<i>hash table</i> searches.
+</p>
+<p><i>Implementations</i> that extend the language by defining additional acceptable
+equivalence tests for <i>hash tables</i> (allowing additional values for the <tt>:test</tt>
+argument to <code>make-hash-table</code>) must document the visible components of these
+tests.
+</p>
+
+
+
+<hr>
+<span id="hash_002dtable"></span><div class="header">
+<p>
+Next: <a href="#make_002dhash_002dtable" accesskey="n" rel="next">make-hash-table</a>, Previous: <a href="#Hash-Table-Concepts" accesskey="p" rel="prev">Hash Table Concepts</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">hash-table</h4>
+<span id="hash_002dtable-_0028System-Class_0029"></span><h3 class="heading">hash-table (System Class)</h3>
+<span id="index-hash_002dtable-1"></span>
+<span id="index-hash_002dtable"></span>
+
+
+<span id="Class-Precedence-List_003a-58"></span><h4 class="subsubheading">Class Precedence List:</h4>
+<p><code>hash-table</code>,
+<code>t</code>
+</p>
+<span id="Description_003a-491"></span><h4 class="subsubheading">Description:</h4>
+
+<p><i>Hash tables</i> provide a way of mapping any <i>object</i> (a <i>key</i>)
+to an associated <i>object</i> (a <i>value</i>).
+</p>
+<span id="See-Also_003a-401"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#Hash-Table-Concepts">Section 18.1 (Hash Table Concepts)</a>,
+<a href="Printer.html#PrintingOtherObjects">Section 22.1.3.13 (Printing Other Objects)</a>
+</p>
+<span id="Notes_003a-269"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The intent is that this mapping be implemented by a hashing mechanism,
+such as that described in Section 6.4 &ldquo;Hashing&rdquo; of <cite>The Art of Computer Programming, Volume 3</cite>
+(pp506-549).  In spite of this intent, no <i>conforming implementation</i> 
+is required to use any particular technique to implement the mapping.
+</p>
+
+<hr>
+<span id="make_002dhash_002dtable"></span><div class="header">
+<p>
+Next: <a href="#hash_002dtable_002dp" accesskey="n" rel="next">hash-table-p</a>, Previous: <a href="#hash_002dtable" accesskey="p" rel="prev">hash-table</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">make-hash-table</h4>
+<span id="make_002dhash_002dtable-_0028Function_0029"></span><h3 class="heading">make-hash-table (Function)</h3>
+<span id="index-make_002dhash_002dtable-2"></span>
+<span id="index-make_002dhash_002dtable"></span>
+
+
+<span id="Syntax_003a-387"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-make_002dhash_002dtable-1">Function: <strong>make-hash-table</strong> <em><tt>&amp;key</tt> test size rehash-size rehash-threshold <span class="roman">→</span> hash-table</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-376"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>test</var>&mdash;a <i>designator</i> for one of the <i>functions</i>
+<code>eq</code>,
+<code>eql</code>,
+<code>equal</code>, or
+<code>equalp</code>.
+The default is <code>eql</code>.
+</p>
+<p><var>size</var>&mdash;a non-negative <i>integer</i>.
+The default is <i>implementation-dependent</i>.
+</p>
+<p><var>rehash-size</var>&mdash;a <i>real</i> of <i>type</i> <code>(or (integer 1 *) (float (1.0) *))</code>.
+The default is <i>implementation-dependent</i>.
+</p>
+<p><var>rehash-threshold</var>&mdash;a <i>real</i> of <i>type</i> <code>(real 0 1)</code>.
+The default is <i>implementation-dependent</i>.
+</p>
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<span id="Description_003a-492"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Creates and returns a new <i>hash table</i>.
+</p>
+<p><var>test</var> determines how <i>keys</i> are compared.
+An <i>object</i> is said to be present in the <var>hash-table</var>
+if that <i>object</i> is the <i>same</i> under the <i>test</i> 
+as the <i>key</i> for some entry in the <var>hash-table</var>.
+</p>
+<p><var>size</var> is a hint to the <i>implementation</i> about how much initial space
+to allocate in the <var>hash-table</var>.
+This information, taken together with the <var>rehash-threshold</var>, controls
+the approximate number of entries which it should be possible
+to insert before the table has to grow.
+The actual size might be rounded up from <var>size</var> to the next &lsquo;good&rsquo; size;
+for example, some <i>implementations</i> might round to the next prime number.
+</p>
+<p><var>rehash-size</var> specifies a minimum amount to increase the size of the 
+<var>hash-table</var> when it becomes full
+enough to require rehashing; 
+see <var>rehash-theshold</var> below.
+If <var>rehash-size</var> is an <i>integer</i>,
+the expected growth rate for the table is additive and
+the <i>integer</i> is the number of entries to add;
+if it is a <i>float</i>,
+the expected growth rate for the table is multiplicative and
+the <i>float</i> is the ratio of the new size to the old size.
+As with <var>size</var>, the actual size of the increase might be rounded up.
+</p>
+<p><var>rehash-threshold</var> specifies how full the <var>hash-table</var> can get 
+before it must grow.
+It specifies the maximum desired hash-table occupancy level.
+</p>
+<p>The <i>values</i> of <var>rehash-size</var> and <var>rehash-threshold</var> do not constrain the
+<i>implementation</i> to use any particular method for computing when and by how much
+the size of <var>hash-table</var> should be enlarged.  Such decisions are   
+<i>implementation-dependent</i>, and these <i>values</i> only hints
+from the <i>programmer</i> to the <i>implementation</i>, and the <i>implementation</i>
+is permitted to ignore them.
+</p>
+<span id="Examples_003a-358"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 46142754&gt;
+ (setf (gethash &quot;one&quot; table) 1) <span class="roman">→</span> 1
+ (gethash &quot;one&quot; table) <span class="roman">→</span> NIL, <i>false</i>
+ (setq table (make-hash-table :test 'equal)) <span class="roman">→</span> #&lt;HASH-TABLE EQUAL 0/139 46145547&gt;
+ (setf (gethash &quot;one&quot; table) 1) <span class="roman">→</span> 1
+ (gethash &quot;one&quot; table) <span class="roman">→</span> 1, T
+ (make-hash-table :rehash-size 1.5 :rehash-threshold 0.7) 
+<span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 46156620&gt;
+</pre></div>
+
+
+
+<span id="See-Also_003a-402"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#gethash">gethash</a>,
+<a href="#hash_002dtable">hash-table</a>
+</p>
+
+<hr>
+<span id="hash_002dtable_002dp"></span><div class="header">
+<p>
+Next: <a href="#hash_002dtable_002dcount" accesskey="n" rel="next">hash-table-count</a>, Previous: <a href="#make_002dhash_002dtable" accesskey="p" rel="prev">make-hash-table</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">hash-table-p</h4>
+<span id="hash_002dtable_002dp-_0028Function_0029"></span><h3 class="heading">hash-table-p (Function)</h3>
+<span id="index-hash_002dtable_002dp-2"></span>
+<span id="index-hash_002dtable_002dp"></span>
+
+
+<span id="Syntax_003a-388"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-hash_002dtable_002dp-1">Function: <strong>hash-table-p</strong> <em>object <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-377"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-493"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns <i>true</i> if <var>object</var> is of <i>type</i> <code>hash-table</code>;
+otherwise, returns <i>false</i>.
+</p>
+<span id="Examples_003a-359"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32511220&gt;
+ (hash-table-p table) <span class="roman">→</span> <i>true</i>
+ (hash-table-p 37) <span class="roman">→</span> <i>false</i>
+ (hash-table-p '((a . 1) (b . 2))) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Notes_003a-270"></span><h4 class="subsubheading">Notes:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (hash-table-p <var>object</var>) ≡ (typep <var>object</var> 'hash-table)
+</pre></div>
+
+
+
+<hr>
+<span id="hash_002dtable_002dcount"></span><div class="header">
+<p>
+Next: <a href="#hash_002dtable_002drehash_002dsize" accesskey="n" rel="next">hash-table-rehash-size</a>, Previous: <a href="#hash_002dtable_002dp" accesskey="p" rel="prev">hash-table-p</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">hash-table-count</h4>
+<span id="hash_002dtable_002dcount-_0028Function_0029"></span><h3 class="heading">hash-table-count (Function)</h3>
+<span id="index-hash_002dtable_002dcount-2"></span>
+<span id="index-hash_002dtable_002dcount"></span>
+
+
+<span id="Syntax_003a-389"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-hash_002dtable_002dcount-1">Function: <strong>hash-table-count</strong> <em>hash-table <span class="roman">→</span> count</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-378"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<p><var>count</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-494"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the number of entries in the <var>hash-table</var>.
+If <var>hash-table</var> has just been created 
+or newly cleared (see <code>clrhash</code>)
+the entry count is <code>0</code>.
+</p>
+<span id="Examples_003a-360"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32115135&gt;
+ (hash-table-count table) <span class="roman">→</span> 0
+ (setf (gethash 57 table) &quot;fifty-seven&quot;) <span class="roman">→</span> &quot;fifty-seven&quot;
+ (hash-table-count table) <span class="roman">→</span> 1
+ (dotimes (i 100) (setf (gethash i table) i)) <span class="roman">→</span> NIL
+ (hash-table-count table) <span class="roman">→</span> 100
+</pre></div>
+
+
+<span id="Affected-By_003a-70"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p><code>clrhash</code>,
+<code>remhash</code>,
+<code>setf</code> of <code>gethash</code>
+</p>
+<span id="See-Also_003a-403"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#hash_002dtable_002dsize">hash-table-size</a>
+</p>
+<span id="Notes_003a-271"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The following relationships are functionally correct, although in practice
+using <code>hash-table-count</code> is probably much faster:
+</p>
+<div class="lisp">
+<pre class="lisp"> (hash-table-count <var>table</var>) ≡
+ (loop for value being the hash-values of <var>table</var> count t) ≡
+ (let ((total 0))
+   (maphash #'(lambda (key value)
+                (declare (ignore key value))
+                (incf total))
+            <var>table</var>)
+   total)
+</pre></div>
+
+
+
+<hr>
+<span id="hash_002dtable_002drehash_002dsize"></span><div class="header">
+<p>
+Next: <a href="#hash_002dtable_002drehash_002dthreshold" accesskey="n" rel="next">hash-table-rehash-threshold</a>, Previous: <a href="#hash_002dtable_002dcount" accesskey="p" rel="prev">hash-table-count</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">hash-table-rehash-size</h4>
+<span id="hash_002dtable_002drehash_002dsize-_0028Function_0029"></span><h3 class="heading">hash-table-rehash-size (Function)</h3>
+<span id="index-hash_002dtable_002drehash_002dsize-2"></span>
+<span id="index-hash_002dtable_002drehash_002dsize"></span>
+
+
+
+<span id="Syntax_003a-390"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-hash_002dtable_002drehash_002dsize-1">Function: <strong>hash-table-rehash-size</strong> <em>hash-table <span class="roman">→</span> rehash-size</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-379"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<p><var>rehash-size</var>&mdash;a <i>real</i> of <i>type</i> <code>(or (integer 1 *) (float (1.0) *))</code>.
+</p>
+<span id="Description_003a-495"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the current rehash size of <var>hash-table</var>,
+suitable for use in a call to <code>make-hash-table</code> 
+in order to produce a <i>hash table</i> 
+with state corresponding to the current state of the <var>hash-table</var>.
+</p>
+<span id="Examples_003a-361"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table :size 100 :rehash-size 1.4))
+<span class="roman">→</span> #&lt;HASH-TABLE EQL 0/100 2556371&gt;
+ (hash-table-rehash-size table) <span class="roman">→</span> 1.4
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-169"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>hash-table</var> is not a <i>hash table</i>.
+</p>
+<span id="See-Also_003a-404"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002dhash_002dtable">make-hash-table</a>,
+<a href="#hash_002dtable_002drehash_002dthreshold">hash-table-rehash-threshold</a>
+</p>
+<span id="Notes_003a-272"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>If the hash table was created with an <i>integer</i> rehash size,
+the result is an <i>integer</i>,
+indicating that the rate of growth of the <var>hash-table</var> when rehashed
+is intended to be additive;
+otherwise,
+the result is a <i>float</i>, 
+indicating that the rate of growth of the <var>hash-table</var> when rehashed
+is intended to be multiplicative.
+However, this value is only advice to the <i>implementation</i>;
+the actual amount by which the <var>hash-table</var> will grow upon rehash is
+<i>implementation-dependent</i>.
+</p>
+
+<hr>
+<span id="hash_002dtable_002drehash_002dthreshold"></span><div class="header">
+<p>
+Next: <a href="#hash_002dtable_002dsize" accesskey="n" rel="next">hash-table-size</a>, Previous: <a href="#hash_002dtable_002drehash_002dsize" accesskey="p" rel="prev">hash-table-rehash-size</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">hash-table-rehash-threshold</h4>
+<span id="hash_002dtable_002drehash_002dthreshold-_0028Function_0029"></span><h3 class="heading">hash-table-rehash-threshold (Function)</h3>
+<span id="index-hash_002dtable_002drehash_002dthreshold-2"></span>
+<span id="index-hash_002dtable_002drehash_002dthreshold"></span>
+
+
+
+<span id="Syntax_003a-391"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-hash_002dtable_002drehash_002dthreshold-1">Function: <strong>hash-table-rehash-threshold</strong> <em>hash-table <span class="roman">→</span> rehash-threshold</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-380"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<p><var>rehash-threshold</var>&mdash;a <i>real</i> of <i>type</i> <code>(real 0 1)</code>.
+</p>
+<span id="Description_003a-496"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the current rehash threshold of <var>hash-table</var>, which is
+suitable for use in a call to <code>make-hash-table</code> in order to
+produce a <i>hash table</i> with state corresponding to the current 
+state of the <var>hash-table</var>.
+</p>
+<span id="Examples_003a-362"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table :size 100 :rehash-threshold 0.5))
+<span class="roman">→</span> #&lt;HASH-TABLE EQL 0/100 2562446&gt;
+ (hash-table-rehash-threshold table) <span class="roman">→</span> 0.5
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-170"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>hash-table</var> is not a <i>hash table</i>.
+</p>
+<span id="See-Also_003a-405"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002dhash_002dtable">make-hash-table</a>,
+<a href="#hash_002dtable_002drehash_002dsize">hash-table-rehash-size</a>
+</p>
+
+
+<hr>
+<span id="hash_002dtable_002dsize"></span><div class="header">
+<p>
+Next: <a href="#hash_002dtable_002dtest" accesskey="n" rel="next">hash-table-test</a>, Previous: <a href="#hash_002dtable_002drehash_002dthreshold" accesskey="p" rel="prev">hash-table-rehash-threshold</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">hash-table-size</h4>
+<span id="hash_002dtable_002dsize-_0028Function_0029"></span><h3 class="heading">hash-table-size (Function)</h3>
+<span id="index-hash_002dtable_002dsize-2"></span>
+<span id="index-hash_002dtable_002dsize"></span>
+
+
+
+<span id="Syntax_003a-392"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-hash_002dtable_002dsize-1">Function: <strong>hash-table-size</strong> <em>hash-table <span class="roman">→</span> size</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-381"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<p><var>size</var>&mdash;a non-negative <i>integer</i>.
+</p>
+<span id="Description_003a-497"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the current size of <var>hash-table</var>, which is suitable for use in
+a call to <code>make-hash-table</code> in order to produce a <i>hash table</i> 
+with state corresponding to the current state of the <var>hash-table</var>.
+</p>
+<span id="Exceptional-Situations_003a-171"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>hash-table</var> is not a <i>hash table</i>.
+</p>
+<span id="See-Also_003a-406"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#hash_002dtable_002dcount">hash-table-count</a>,
+<a href="#make_002dhash_002dtable">make-hash-table</a>
+</p>
+
+
+<hr>
+<span id="hash_002dtable_002dtest"></span><div class="header">
+<p>
+Next: <a href="#gethash" accesskey="n" rel="next">gethash</a>, Previous: <a href="#hash_002dtable_002dsize" accesskey="p" rel="prev">hash-table-size</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">hash-table-test</h4>
+<span id="hash_002dtable_002dtest-_0028Function_0029"></span><h3 class="heading">hash-table-test (Function)</h3>
+<span id="index-hash_002dtable_002dtest-2"></span>
+<span id="index-hash_002dtable_002dtest"></span>
+
+
+
+<span id="Syntax_003a-393"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-hash_002dtable_002dtest-1">Function: <strong>hash-table-test</strong> <em>hash-table <span class="roman">→</span> test</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-382"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<p><var>test</var>&mdash;a <i>function designator</i>.
+For the four <i>standardized</i> <i>hash table</i> test <i>functions</i>
+(see <code>make-hash-table</code>), the <var>test</var> value returned
+is always a <i>symbol</i>.  If an <i>implementation</i> permits additional 
+tests, it is <i>implementation-dependent</i> whether such tests are
+returned as <i>function</i> <i>objects</i> or <i>function names</i>.
+</p>
+<span id="Description_003a-498"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Returns the test used for comparing <i>keys</i> in <var>hash-table</var>.
+</p>
+<span id="Exceptional-Situations_003a-172"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>Should signal an error of <i>type</i> <code>type-error</code> if <var>hash-table</var> is not a <i>hash table</i>.
+</p>
+<span id="See-Also_003a-407"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#make_002dhash_002dtable">make-hash-table</a>
+</p>
+
+
+<hr>
+<span id="gethash"></span><div class="header">
+<p>
+Next: <a href="#remhash" accesskey="n" rel="next">remhash</a>, Previous: <a href="#hash_002dtable_002dtest" accesskey="p" rel="prev">hash-table-test</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">gethash</h4>
+<span id="gethash-_0028Accessor_0029"></span><h3 class="heading">gethash (Accessor)</h3>
+<span id="index-gethash-2"></span>
+<span id="index-gethash"></span>
+
+
+<span id="Syntax_003a-394"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-gethash-1">Function: <strong>gethash</strong> <em>key hash-table <tt>&amp;optional</tt> default <span class="roman">→</span> value, present-p</em></dt>
+</dl>
+<p><tt>(setf (gethash key hash-table <tt>&amp;optional</tt> default) new-value)</tt>
+</p>
+<span id="Arguments-and-Values_003a-383"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>key</var>&mdash;an <i>object</i>.
+</p>
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<p><var>default</var>&mdash;an <i>object</i>.
+The default is <code>nil</code>.
+</p>
+<p><var>value</var>&mdash;an <i>object</i>.
+</p>
+<p><var>present-p</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-499"></span><h4 class="subsubheading">Description:</h4>
+
+<p><var>Value</var> is the <i>object</i> in <var>hash-table</var> whose <i>key</i> 
+is the <i>same</i> as <var>key</var> under the <var>hash-table</var>&rsquo;s equivalence test.
+If there is no such entry, <var>value</var> is the <var>default</var>.
+</p>
+<p><var>Present-p</var> is <i>true</i> if an entry is found; otherwise, it is <i>false</i>.
+</p>
+<p><code>setf</code> may be used with <code>gethash</code> to modify the <i>value</i>
+associated with a given <i>key</i>, or to add a new entry.
+When a <code>gethash</code> <i>form</i> is used as a <code>setf</code> <var>place</var>,
+any <var>default</var> which is supplied is evaluated according to normal
+left-to-right evaluation rules, but its <i>value</i> is ignored.
+</p>
+<span id="Examples_003a-363"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32206334&gt;
+ (gethash 1 table) <span class="roman">→</span> NIL, <i>false</i>
+ (gethash 1 table 2) <span class="roman">→</span> 2, <i>false</i>
+ (setf (gethash 1 table) &quot;one&quot;) <span class="roman">→</span> &quot;one&quot;
+ (setf (gethash 2 table &quot;two&quot;) &quot;two&quot;) <span class="roman">→</span> &quot;two&quot;
+ (gethash 1 table) <span class="roman">→</span> &quot;one&quot;, <i>true</i>
+ (gethash 2 table) <span class="roman">→</span> &quot;two&quot;, <i>true</i>
+ (gethash nil table) <span class="roman">→</span> NIL, <i>false</i>
+ (setf (gethash nil table) nil) <span class="roman">→</span> NIL 
+ (gethash nil table) <span class="roman">→</span> NIL, <i>true</i>
+ (defvar *counters* (make-hash-table)) <span class="roman">→</span> *COUNTERS*
+ (gethash 'foo *counters*) <span class="roman">→</span> NIL, <i>false</i>
+ (gethash 'foo *counters* 0) <span class="roman">→</span> 0, <i>false</i>
+ (defmacro how-many (obj) `(values (gethash ,obj *counters* 0))) <span class="roman">→</span> HOW-MANY
+ (defun count-it (obj) (incf (how-many obj))) <span class="roman">→</span> COUNT-IT
+ (dolist (x '(bar foo foo bar bar baz)) (count-it x))
+ (how-many 'foo) <span class="roman">→</span> 2
+ (how-many 'bar) <span class="roman">→</span> 3
+ (how-many 'quux) <span class="roman">→</span> 0
+</pre></div>
+
+
+<span id="See-Also_003a-408"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="#remhash">remhash</a>
+</p>
+<span id="Notes_003a-273"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>The <i>secondary value</i>, <var>present-p</var>,
+can be used to distinguish the absence of an entry
+from the presence of an entry that has a value of <var>default</var>.
+</p>
+
+<hr>
+<span id="remhash"></span><div class="header">
+<p>
+Next: <a href="#maphash" accesskey="n" rel="next">maphash</a>, Previous: <a href="#gethash" accesskey="p" rel="prev">gethash</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">remhash</h4>
+<span id="remhash-_0028Function_0029"></span><h3 class="heading">remhash (Function)</h3>
+<span id="index-remhash-2"></span>
+<span id="index-remhash"></span>
+
+
+<span id="Syntax_003a-395"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-remhash-1">Function: <strong>remhash</strong> <em>key hash-table <span class="roman">→</span> generalized-boolean</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-384"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>key</var>&mdash;an <i>object</i>.
+</p>
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<p><var>generalized-boolean</var>&mdash;a <i>generalized boolean</i>.
+</p>
+<span id="Description_003a-500"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Removes the entry for <var>key</var> in <var>hash-table</var>, if any.
+Returns <i>true</i> if there was such an entry, or <i>false</i> otherwise.
+</p>
+<span id="Examples_003a-364"></span><h4 class="subsubheading">Examples:</h4>
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32115666&gt;
+ (setf (gethash 100 table) &quot;C&quot;) <span class="roman">→</span> &quot;C&quot;
+ (gethash 100 table) <span class="roman">→</span> &quot;C&quot;, <i>true</i>
+ (remhash 100 table) <span class="roman">→</span> <i>true</i>
+ (gethash 100 table) <span class="roman">→</span> NIL, <i>false</i>
+ (remhash 100 table) <span class="roman">→</span> <i>false</i>
+</pre></div>
+
+
+<span id="Side-Effects_003a-57"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <var>hash-table</var> is modified.
+</p>
+
+<hr>
+<span id="maphash"></span><div class="header">
+<p>
+Next: <a href="#with_002dhash_002dtable_002diterator" accesskey="n" rel="next">with-hash-table-iterator</a>, Previous: <a href="#remhash" accesskey="p" rel="prev">remhash</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">maphash</h4>
+<span id="maphash-_0028Function_0029"></span><h3 class="heading">maphash (Function)</h3>
+<span id="index-maphash-2"></span>
+<span id="index-maphash"></span>
+
+
+<span id="Syntax_003a-396"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-maphash-1">Function: <strong>maphash</strong> <em>function hash-table <span class="roman">→</span> <code>nil</code></em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-385"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>function</var>&mdash;a <i>designator</i> for a <i>function</i> of two <i>arguments</i>,
+the <i>key</i> and the <i>value</i>.
+</p>
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<span id="Description_003a-501"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Iterates over all entries in the <var>hash-table</var>.  For each entry,
+the <var>function</var> is called with two <i>arguments</i>&mdash;the <i>key</i> 
+and the <i>value</i> of that entry.
+</p>
+<p>The consequences are unspecified if any attempt is made to add or remove
+an entry from the <var>hash-table</var> while a <code>maphash</code> is in progress,
+with two exceptions:
+the <var>function</var> can use can use <code>setf</code> of <code>gethash</code>
+to change the <i>value</i> part of the entry currently being processed, 
+or it can use <code>remhash</code> to remove that entry.
+</p>
+<span id="Examples_003a-365"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32304110&gt;
+ (dotimes (i 10) (setf (gethash i table) i)) <span class="roman">→</span> NIL
+ (let ((sum-of-squares 0))
+    (maphash #'(lambda (key val) 
+                 (let ((square (* val val)))
+                   (incf sum-of-squares square)
+                   (setf (gethash key table) square)))
+             table)
+    sum-of-squares) <span class="roman">→</span> 285
+ (hash-table-count table) <span class="roman">→</span> 10
+ (maphash #'(lambda (key val)
+               (when (oddp val) (remhash key table)))
+           table) <span class="roman">→</span> NIL
+ (hash-table-count table) <span class="roman">→</span> 5
+ (maphash #'(lambda (k v) (print (list k v))) table)
+(0 0) 
+(8 64) 
+(2 4) 
+(6 36) 
+(4 16) 
+<span class="roman">→</span> NIL
+</pre></div>
+
+
+<span id="Side-Effects_003a-58"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>None, other than any which might be done by the <var>function</var>.
+</p>
+<span id="See-Also_003a-409"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Iteration.html#loop">loop</a>,
+<a href="#with_002dhash_002dtable_002diterator">with-hash-table-iterator</a>,
+<a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+
+<hr>
+<span id="with_002dhash_002dtable_002diterator"></span><div class="header">
+<p>
+Next: <a href="#clrhash" accesskey="n" rel="next">clrhash</a>, Previous: <a href="#maphash" accesskey="p" rel="prev">maphash</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">with-hash-table-iterator</h4>
+<span id="with_002dhash_002dtable_002diterator-_0028Macro_0029"></span><h3 class="heading">with-hash-table-iterator (Macro)</h3>
+<span id="index-with_002dhash_002dtable_002diterator-2"></span>
+<span id="index-with_002dhash_002dtable_002diterator"></span>
+
+
+
+
+<span id="Syntax_003a-397"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-with_002dhash_002dtable_002diterator-1">Macro: <strong>with-hash-table-iterator</strong> <em><tt>(</tt>name hash-table<tt>)</tt>  <tt>{</tt>declaration<tt>}</tt>* <tt>{</tt>form<tt>}</tt>* <span class="roman">→</span> <tt>{</tt>result<tt>}</tt>*</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-386"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>name</var>&mdash;a name suitable for the first argument to <code>macrolet</code>.
+</p>
+<p><var>hash-table</var>&mdash;a <i>form</i>, evaluated once, that should produce a <i>hash table</i>.
+</p>
+<p><var>declaration</var>&mdash;a <tt>declare</tt> <i>expression</i>; not evaluated.
+</p>
+<p><var>forms</var>&mdash;an <i>implicit progn</i>.
+</p>
+<p><var>results</var>&mdash;the <i>values</i> returned by <var>forms</var>.
+</p>
+<span id="Description_003a-502"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Within the lexical scope of the body, <var>name</var> is defined via <code>macrolet</code> 
+such that successive invocations of <code>(<var>name</var>)</code> return the items,
+one by one, from the <i>hash table</i> that is obtained by evaluating
+<var>hash-table</var> only once.
+</p>
+<p>An invocation <code>(<var>name</var>)</code> returns three values as follows:
+</p>
+
+<ol>
+<li> A <i>generalized boolean</i> that is <i>true</i> if an entry is returned.
+</li><li> The key from the <var>hash-table</var> entry.
+</li><li> The value from the <var>hash-table</var> entry.
+</li></ol>
+
+<p>After all entries have been returned by successive invocations of
+<code>(<var>name</var>)</code>, then only one value is returned, namely <code>nil</code>.
+</p>
+<p>It is unspecified what happens if any of the implicit interior state 
+of an iteration is returned outside the dynamic extent of the 
+<code>with-hash-table-iterator</code> <i>form</i>
+such as by returning some <i>closure</i> over the invocation <i>form</i>.
+</p>
+<p>Any number of invocations of <code>with-hash-table-iterator</code> 
+can be nested, and the body of the innermost one can invoke all of the
+locally <i>established</i> <i>macros</i>, provided all of those <i>macros</i>
+have <i>distinct</i> names.
+</p>
+<span id="Examples_003a-366"></span><h4 class="subsubheading">Examples:</h4>
+
+<p>The following function should return <code>t</code>&nbsp;<!-- /@w -->on any 
+<i>hash table</i>, and signal
+an error if the usage of <code>with-hash-table-iterator</code> does not agree
+with the corresponding usage of <code>maphash</code>.
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun test-hash-table-iterator (hash-table)
+   (let ((all-entries '())
+         (generated-entries '())
+         (unique (list nil)))
+     (maphash #'(lambda (key value) (push (list key value) all-entries))
+              hash-table)
+     (with-hash-table-iterator (generator-fn hash-table)
+       (loop     
+         (multiple-value-bind (more? key value) (generator-fn)
+           (unless more? (return))
+           (unless (eql value (gethash key hash-table unique))
+             (error &quot;Key ~S not found for value ~S&quot; key value))
+           (push (list key value) generated-entries))))
+     (unless (= (length all-entries)
+                (length generated-entries)
+                (length (union all-entries generated-entries
+                               :key #'car :test (hash-table-test hash-table))))
+       (error &quot;Generated entries and Maphash entries don't correspond&quot;))
+     t))
+</pre></div>
+
+
+<p>The following could be an acceptable definition of 
+<code>maphash</code>, implemented by <code>with-hash-table-iterator</code>.
+</p>
+<div class="lisp">
+<pre class="lisp"> (defun maphash (function hash-table)
+   (with-hash-table-iterator (next-entry hash-table)
+     (loop (multiple-value-bind (more key value) (next-entry)
+             (unless more (return nil))
+             (funcall function key value)))))
+</pre></div>
+
+
+<span id="Exceptional-Situations_003a-173"></span><h4 class="subsubheading">Exceptional Situations:</h4>
+
+<p>The consequences are undefined if the local function named <var>name</var>
+<i>established</i> by <code>with-hash-table-iterator</code> is called after it has
+returned <i>false</i> as its <i>primary value</i>.
+</p>
+<span id="See-Also_003a-410"></span><h4 class="subsubheading">See Also:</h4>
+
+<p><a href="Evaluation-and-Compilation.html#Traversal-Rules-and-Side-Effects">Section 3.6 (Traversal Rules and Side Effects)</a>
+</p>
+
+
+<hr>
+<span id="clrhash"></span><div class="header">
+<p>
+Next: <a href="#sxhash" accesskey="n" rel="next">sxhash</a>, Previous: <a href="#with_002dhash_002dtable_002diterator" accesskey="p" rel="prev">with-hash-table-iterator</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">clrhash</h4>
+<span id="clrhash-_0028Function_0029"></span><h3 class="heading">clrhash (Function)</h3>
+<span id="index-clrhash-2"></span>
+<span id="index-clrhash"></span>
+
+
+<span id="Syntax_003a-398"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-clrhash-1">Function: <strong>clrhash</strong> <em>hash-table <span class="roman">→</span> hash-table</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-387"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>hash-table</var>&mdash;a <i>hash table</i>.
+</p>
+<span id="Description_003a-503"></span><h4 class="subsubheading">Description:</h4>
+
+<p>Removes all entries from <var>hash-table</var>,
+and then returns that empty <i>hash table</i>.
+</p>
+<span id="Examples_003a-367"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (setq table (make-hash-table)) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32004073&gt;
+ (dotimes (i 100) (setf (gethash i table) (format nil &quot;~R&quot; i))) <span class="roman">→</span> NIL
+ (hash-table-count table) <span class="roman">→</span> 100
+ (gethash 57 table) <span class="roman">→</span> &quot;fifty-seven&quot;, <i>true</i>
+ (clrhash table) <span class="roman">→</span> #&lt;HASH-TABLE EQL 0/120 32004073&gt;
+ (hash-table-count table) <span class="roman">→</span> 0
+ (gethash 57 table) <span class="roman">→</span> NIL, <i>false</i>
+</pre></div>
+
+
+<span id="Side-Effects_003a-59"></span><h4 class="subsubheading">Side Effects:</h4>
+
+<p>The <var>hash-table</var> is modified.
+</p>
+
+<hr>
+<span id="sxhash"></span><div class="header">
+<p>
+Previous: <a href="#clrhash" accesskey="p" rel="prev">clrhash</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<h4 class="node-heading">sxhash</h4>
+<span id="sxhash-_0028Function_0029"></span><h3 class="heading">sxhash (Function)</h3>
+<span id="index-sxhash-2"></span>
+<span id="index-sxhash"></span>
+
+
+
+<span id="Syntax_003a-399"></span><h4 class="subsubheading">Syntax:</h4>
+
+<dl>
+<dt id="index-sxhash-1">Function: <strong>sxhash</strong> <em>object <span class="roman">→</span> hash-code</em></dt>
+</dl>
+
+<span id="Arguments-and-Values_003a-388"></span><h4 class="subsubheading">Arguments and Values:</h4>
+
+<p><var>object</var>&mdash;an <i>object</i>.
+</p>
+<p><var>hash-code</var>&mdash;a non-negative <i>fixnum</i>.
+</p>
+<span id="Description_003a-504"></span><h4 class="subsubheading">Description:</h4>
+
+<p><code>sxhash</code> returns a hash code for <var>object</var>. 
+</p>
+<p>The manner in which the hash code is computed is <i>implementation-dependent</i>,
+but subject to certain constraints:
+</p>
+
+<ol>
+<li> <code>(equal <var>x</var> <var>y</var>)</code> implies <code>(= (sxhash <var>x</var>) (sxhash <var>y</var>))</code>.
+
+</li><li> For any two <i>objects</i>, <var>x</var> and <var>y</var>,
+both of which are 
+<i>bit vectors</i>,
+<i>characters</i>, 
+<i>conses</i>,
+<i>numbers</i>,
+<i>pathnames</i>,
+<i>strings</i>,
+or <i>symbols</i>,
+and which are <i>similar</i>,
+<code>(sxhash <var>x</var>)</code> and <code>(sxhash <var>y</var>)</code>
+<i>yield</i> the same mathematical value 
+even if <var>x</var> and <var>y</var> exist in different <i>Lisp images</i> of
+the same <i>implementation</i>.
+See <a href="Evaluation-and-Compilation.html#Literal-Objects-in-Compiled-Files">Section 3.2.4 (Literal Objects in Compiled Files)</a>.
+
+</li><li> The <var>hash-code</var> for an <i>object</i> is always the <i>same</i>
+within a single <i>session</i> provided that the <i>object</i> is not
+visibly modified with regard to the equivalence test <code>equal</code>.
+See <a href="#Modifying-Hash-Table-Keys">Section 18.1.2 (Modifying Hash Table Keys)</a>.
+
+</li><li> The <var>hash-code</var> is intended for hashing.  This places no verifiable
+constraint on a <i>conforming implementation</i>, but the intent is that
+an <i>implementation</i> should make a good-faith effort to produce
+<var>hash-codes</var> that are well distributed within the range of
+non-negative <i>fixnums</i>.
+
+</li><li> Computation of the <var>hash-code</var> must terminate, 
+even if the <var>object</var> contains circularities.  
+</li></ol>
+
+
+<span id="Examples_003a-368"></span><h4 class="subsubheading">Examples:</h4>
+
+<div class="lisp">
+<pre class="lisp"> (= (sxhash (list 'list &quot;ab&quot;)) (sxhash (list 'list &quot;ab&quot;))) <span class="roman">→</span> <i>true</i>
+ (= (sxhash &quot;a&quot;) (sxhash (make-string 1 :initial-element #\a))) <span class="roman">→</span> <i>true</i>
+ (let ((r (make-random-state)))
+   (= (sxhash r) (sxhash (make-random-state r))))
+<span class="roman">→</span> <i>implementation-dependent</i>
+</pre></div>
+
+
+<span id="Affected-By_003a-71"></span><h4 class="subsubheading">Affected By:</h4>
+
+<p>The <i>implementation</i>.
+</p>
+<span id="Notes_003a-274"></span><h4 class="subsubheading">Notes:</h4>
+
+<p>Many common hashing needs are satisfied by <code>make-hash-table</code> and the
+related functions on <i>hash tables</i>.  <code>sxhash</code> is intended for use
+where the pre-defined abstractions are insufficient.  Its main intent is to
+allow the user a convenient means of implementing more complicated hashing
+paradigms than are provided through <i>hash tables</i>.
+</p>
+<p>The hash codes returned by <code>sxhash</code> are not necessarily related to 
+any hashing strategy used by any other <i>function</i> in <span class="roman">Common Lisp</span>.
+</p>
+<p>For <i>objects</i> of <i>types</i> that <code>equal</code> compares 
+with <code>eq</code>, item 3 requires that the <var>hash-code</var> be
+based on some immutable quality of the identity of the object.
+Another legitimate implementation technique would be to have 
+<code>sxhash</code> assign (and cache) a random hash code for these
+<i>objects</i>, since there is no requirement that <i>similar</i> but
+non-<code>eq</code> objects have the same hash code.
+</p>
+<p>Although <i>similarity</i> is defined for <i>symbols</i> in terms
+of both the <i>symbol</i>&rsquo;s <i>name</i> and the <i>packages</i> in which 
+the <i>symbol</i> is <i>accessible</i>, item 3 disallows using <i>package</i>
+information to compute the hash code, since changes to the package status 
+of a symbol are not visible to <var>equal</var>.
+</p>
+
+
+
+
+<hr>
+<div class="header">
+<p>
+Previous: <a href="#clrhash" accesskey="p" rel="prev">clrhash</a>, Up: <a href="#Hash-Tables" accesskey="u" rel="up">Hash Tables</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
 
 
 

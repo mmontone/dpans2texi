@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>defpackage (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Packages.html" rel="up" title="Packages">
-<link href="do_002dsymbols_003b-do_002dexternal_002dsymbols_003b-do_002dall_002dsymbols.html" rel="next" title="do-symbols; do-external-symbols; do-all-symbols">
-<link href="use_002dpackage.html" rel="prev" title="use-package">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,327 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Packages.html#defpackage">
 
 </head>
 
 <body lang="en">
-<span id="defpackage"></span><div class="header">
-<p>
-Next: <a href="do_002dsymbols_003b-do_002dexternal_002dsymbols_003b-do_002dall_002dsymbols.html" accesskey="n" rel="next">do-symbols; do-external-symbols; do-all-symbols</a>, Previous: <a href="use_002dpackage.html" accesskey="p" rel="prev">use-package</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<h4 class="node-heading">defpackage</h4>
-<span id="defpackage-_0028Macro_0029"></span><h3 class="heading">defpackage (Macro)</h3>
-<span id="index-defpackage-2"></span>
-<span id="index-defpackage"></span>
 
-
-
-<span id="Syntax_003a-202"></span><h4 class="subsubheading">Syntax:</h4>
-
-<dl>
-<dt id="index-defpackage-1">Macro: <strong>defpackage</strong> <em>defined-package-name 〚<tt>↓</tt>option〛 <span class="roman">→</span> package</em></dt>
-</dl>
-
-<dl compact="compact">
-<dt><var>option</var>::=</dt>
-<dd><p><tt>{</tt><tt>(</tt><tt>:nicknames</tt> <tt>{</tt>nickname<tt>}</tt>*<tt>)</tt><tt>}</tt>* | <br> <tt>(</tt><tt>:documentation</tt> <i>string</i><tt>)</tt> | <br> <tt>{</tt><tt>(</tt><tt>:use</tt> <tt>{</tt>package-name<tt>}</tt>*<tt>)</tt><tt>}</tt>* | <br> <tt>{</tt><tt>(</tt><tt>:shadow</tt> <tt>{</tt><tt>↓</tt>symbol-name<tt>}</tt>*<tt>)</tt><tt>}</tt>* | <br> <tt>{</tt><tt>(</tt><tt>:shadowing-import-from</tt> <var>package-name</var> <tt>{</tt><tt>↓</tt>symbol-name<tt>}</tt>*<tt>)</tt><tt>}</tt>* | <br> <tt>{</tt><tt>(</tt><tt>:import-from</tt> <var>package-name</var> <tt>{</tt><tt>↓</tt>symbol-name<tt>}</tt>*<tt>)</tt><tt>}</tt>* | <br> <tt>{</tt><tt>(</tt><tt>:export</tt> <tt>{</tt><tt>↓</tt>symbol-name<tt>}</tt>*<tt>)</tt><tt>}</tt>* | <br> <tt>{</tt><tt>(</tt><tt>:intern</tt> <tt>{</tt><tt>↓</tt>symbol-name<tt>}</tt>*<tt>)</tt><tt>}</tt>* | <br> <tt>(</tt><tt>:size</tt> <i>integer</i><tt>)</tt>
-</p></dd>
-</dl>
-
-<span id="Arguments-and-Values_003a-191"></span><h4 class="subsubheading">Arguments and Values:</h4>
-
-<p><var>defined-package-name</var>&mdash;a <i>string designator</i>.
-</p>
-<p><var>package-name</var>&mdash;a <i>package designator</i>.
-</p>
-<p><var>nickname</var>&mdash;a <i>string designator</i>.
-</p>
-<p><var>symbol-name</var>&mdash;a <i>string designator</i>.
-</p>
-<p><var>package</var>&mdash;the <i>package</i> named <var>package-name</var>.
-</p>
-<span id="Description_003a-255"></span><h4 class="subsubheading">Description:</h4>
-
-<p><code>defpackage</code> creates a <i>package</i> as specified and returns 
-the <i>package</i>.
-</p>
-<p>If <var>defined-package-name</var> already refers to an existing 
-<i>package</i>, the name-to-package mapping for that name is not changed.
-If the new definition is at variance with the current state of that
-<i>package</i>, the consequences are undefined;  an implementation
-might choose to modify the existing <i>package</i> to reflect the
-new definition.  If <var>defined-package-name</var> is a <i>symbol</i>,
-its <i>name</i> is used.
-</p>
-<p>The standard <i>options</i> are described below. 
-</p>
-
-<dl compact="compact">
-<dt><tt>:nicknames</tt></dt>
-<dd>
-
-<p>The arguments to <tt>:nicknames</tt> set the <i>package</i>&rsquo;s nicknames to the
-supplied names.
-</p>
-</dd>
-<dt><tt>:documentation</tt></dt>
-<dd>
-
-<p>The argument to <tt>:documentation</tt> specifies a <i>documentation string</i>;
-it is attached as a <i>documentation string</i> to the <i>package</i>.
-At most one <tt>:documentation</tt> option 
-can appear in a single <code>defpackage</code> <i>form</i>.
-</p>
-</dd>
-<dt><tt>:use</tt></dt>
-<dd>
-
-<p>The arguments to <tt>:use</tt> set the <i>packages</i> that the <i>package</i>
-named by <var>package-name</var>
-will inherit from. If <tt>:use</tt> is not supplied,
-it defaults to the same <i>implementation-dependent</i> value as the <tt>:use</tt> <i>argument</i> to
-<code>make-package</code>.
-</p>
-</dd>
-<dt><tt>:shadow</tt></dt>
-<dd>
-
-<p>The arguments to <tt>:shadow</tt>, <var>symbol-names</var>, name <i>symbols</i> 
-that are to be created in the <i>package</i> being defined.
-These <i>symbols</i> are added to the list of shadowing
-<i>symbols</i> effectively as if by <code>shadow</code>.
-</p>
-</dd>
-<dt><tt>:shadowing-import-from</tt></dt>
-<dd>
-
-<p>The <i>symbols</i> named by the argument <var>symbol-names</var>
-are found (involving a lookup as if by <code>find-symbol</code>)
-in the specified <var>package-name</var>.  The resulting <i>symbols</i>
-are <i>imported</i> into the <i>package</i> being defined, and 
-placed on the shadowing symbols list as if by <code>shadowing-import</code>.
-In no case are <i>symbols</i> created in any <i>package</i>
-other than the one being defined.
-</p>
-</dd>
-<dt><tt>:import-from</tt></dt>
-<dd>
-
-<p>The <i>symbols</i> named by the argument <var>symbol-names</var>
-are found in the <i>package</i> named by <var>package-name</var> and 
-they are <i>imported</i> into the <i>package</i> being defined.
-In no case are <i>symbols</i> created in any <i>package</i>
-other than the one being defined.
-</p>
-</dd>
-<dt><tt>:export</tt></dt>
-<dd>
-
-<p>The <i>symbols</i> named by
-the argument <var>symbol-names</var>  are found 
-or created in the <i>package</i> being defined
-and <i>exported</i>.
-The <tt>:export</tt> option interacts
-with the <tt>:use</tt> option, since inherited <i>symbols</i> 
-can be used rather than new ones created.
-The <tt>:export</tt> option interacts
-with the 
-<tt>:import-from</tt> and <tt>:shadowing-import-from</tt> options, since 
-<i>imported</i> 
-symbols can be used rather than new ones created.
-If an argument to the <tt>:export</tt> option is <i>accessible</i> as
-an (inherited) <i>internal symbol</i> via <code>use-package</code>, that the
-<i>symbol</i> named by <var>symbol-name</var>
-is first <i>imported</i> into the <i>package</i> being
-defined, and is then <i>exported</i> from that <i>package</i>.
-</p>
-</dd>
-<dt><tt>:intern</tt></dt>
-<dd>
-
-<p>The <i>symbols</i> named by the argument <var>symbol-names</var> 
-are found or created in the <i>package</i> being defined.
-The <tt>:intern</tt> option interacts with the 
-<tt>:use</tt> option, since inherited <i>symbols</i> 
-can be used rather than new ones created.  
-</p>
-</dd>
-<dt><tt>:size</tt></dt>
-<dd>
-
-<p>The argument to the <tt>:size</tt> option
-declares the approximate number of <i>symbols</i> expected in the 
-<i>package</i>.
-This is an efficiency hint only and might be ignored by an
-implementation.
-</p></dd>
-</dl>
-
-
-<p>The order in which the options appear in a 
-<code>defpackage</code> form is irrelevant.
-The order in which they are executed is as follows:
-</p>
-<ol>
-<li> <tt>:shadow</tt> and <tt>:shadowing-import-from</tt>.
-</li><li> <tt>:use</tt>. 
-</li><li> <tt>:import-from</tt> and <tt>:intern</tt>.
-</li><li> <tt>:export</tt>.
-</li></ol>
-
-<p>Shadows are established first, since they might  be necessary to block 
-spurious name conflicts when the <tt>:use</tt> 
-option is processed. The <tt>:use</tt> option is executed
-next so that <tt>:intern</tt> and <tt>:export</tt> options can refer to normally 
-inherited <i>symbols</i>.  
-The <tt>:export</tt> option is executed last so that it can refer to 
-<i>symbols</i> created by any of the other options; in 
-particular, <i>shadowing symbols</i> and 
-<i>imported</i> <i>symbols</i> can be made external.  
-</p>
-<p>If a defpackage <i>form</i> appears as a <i>top level form</i>,
-all of the actions normally performed by this <i>macro</i> 
-at load time must also be performed at compile time.
-</p>
-<span id="Examples_003a-173"></span><h4 class="subsubheading">Examples:</h4>
-
-<div class="lisp">
-<pre class="lisp"> (defpackage &quot;MY-PACKAGE&quot;
-   (:nicknames &quot;MYPKG&quot; &quot;MY-PKG&quot;)
-   (:use &quot;COMMON-LISP&quot;)
-   (:shadow &quot;CAR&quot; &quot;CDR&quot;)
-   (:shadowing-import-from &quot;VENDOR-COMMON-LISP&quot;  &quot;CONS&quot;)
-   (:import-from &quot;VENDOR-COMMON-LISP&quot;  &quot;GC&quot;)
-   (:export &quot;EQ&quot; &quot;CONS&quot; &quot;FROBOLA&quot;)
-   )
- 
- 
- (defpackage my-package
-   (:nicknames mypkg :MY-PKG)  ; remember Common Lisp conventions for case
-   (:use common-lisp)          ; conversion on symbols
-   (:shadow CAR :cdr #:cons)                              
-   (:export &quot;CONS&quot;)            ; this is the shadowed one.
-   )
-</pre></div>
-
-
-<span id="Affected-By_003a-53"></span><h4 class="subsubheading">Affected By:</h4>
-
-<p>Existing <i>packages</i>.
-</p>
-<span id="Exceptional-Situations_003a-71"></span><h4 class="subsubheading">Exceptional Situations:</h4>
-
-<p>If one of the supplied <tt>:nicknames</tt> already
-refers to an existing <i>package</i>, 
-an error of <i>type</i> <code>package-error</code> is signaled.
-</p>
-<p>An error of <i>type</i> <code>program-error</code> should be signaled if <tt>:size</tt> or <tt>:documentation</tt>
-appears more than once.
-</p>
-<p>Since <i>implementations</i> might allow extended <i>options</i>
-an error of <i>type</i> <code>program-error</code> should be signaled
-if an <i>option</i> is present that is not 
-actually supported in the host <i>implementation</i>.
-</p>
-<p>The collection of <var>symbol-name</var> arguments given to the options 
-<tt>:shadow</tt>, <tt>:intern</tt>, 
-<tt>:import-from</tt>, and <tt>:shadowing-import-from</tt> must 
-all be disjoint; additionally, the <var>symbol-name</var> arguments given to 
-<tt>:export</tt> and <tt>:intern</tt> 
-must be disjoint. 
-Disjoint in this context is defined as no two of the <var>symbol-names</var>
-being <code>string=</code> with each other. If either condition is 
-violated, an error of <i>type</i> <code>program-error</code> should be signaled.
-</p>
-<p>For the <tt>:shadowing-import-from</tt> and <tt>:import-from</tt> options,
-a <i>correctable</i> <i>error</i> of <i>type</i> <code>package-error</code>
-is signaled if no <i>symbol</i> is 
-<i>accessible</i> in the <i>package</i> named by
-<var>package-name</var> for one of the argument <var>symbol-names</var>.
-</p>
-<p>Name conflict errors are handled by the underlying calls to 
-<code>make-package</code>, <code>use-package</code>, <code>import</code>, and 
-<code>export</code>. See <a href="Package-Concepts.html">Section 11.1 (Package Concepts)</a>.
-</p>
-<span id="See-Also_003a-227"></span><h4 class="subsubheading">See Also:</h4>
-
-<p><a href="documentation_003b-setf-documentation.html#documentation">documentation</a>,
-<a href="Package-Concepts.html">Section 11.1 (Package Concepts)</a>,
-<a href="Compilation.html">Section 3.2 (Compilation)</a>
-</p>
-<span id="Notes_003a-132"></span><h4 class="subsubheading">Notes:</h4>
-
-<p>The <tt>:intern</tt> option is useful if an <tt>:import-from</tt> or a 
-<tt>:shadowing-import-from</tt> option in a subsequent call to <code>defpackage</code> 
-(for some other <i>package</i>) expects to find
-these <i>symbols</i> <i>accessible</i> but not necessarily external.
-</p>
-
-<p>It is recommended that the entire <i>package</i> definition is put
-in a single place, and that all the <i>package</i> definitions of a
-program are in a single file.  This file can be <i>loaded</i> before
-<i>loading</i> or compiling anything else that depends on those 
-<i>packages</i>. Such a file can be read in the <code>COMMON-LISP-USER</code> <i>package</i>,
-avoiding any initial state issues.
-</p>
-<p><code>defpackage</code> cannot be used to create two &ldquo;mutually
-recursive&rdquo; packages, such as:
-</p>
-<div class="lisp">
-<pre class="lisp"> (defpackage my-package
-   (:use common-lisp your-package)    ;requires your-package to exist first
-   (:export &quot;MY-FUN&quot;))                
- (defpackage your-package
-   (:use common-lisp)
-   (:import-from my-package &quot;MY-FUN&quot;) ;requires my-package to exist first
-   (:export &quot;MY-FUN&quot;))
-</pre></div>
-
-
-<p>However, nothing prevents the user from using the 
-<i>package</i>-affecting functions 
-such as <code>use-package</code>, 
-<code>import</code>, and <code>export</code> to establish such links
-after a more standard use of <code>defpackage</code>.
-</p>
-<p>The macroexpansion of <code>defpackage</code> 
-could usefully canonicalize the names
-into <i>strings</i>, 
-so that even if a source file has random <i>symbols</i> in the
-<code>defpackage</code> form, the compiled file would only contain 
-<i>strings</i>.
-</p>
-<p>Frequently additional <i>implementation-dependent</i> options take the
-form of a <i>keyword</i> standing by itself as an abbreviation for a list
-<code>(keyword T)</code>; this syntax should be properly reported as an unrecognized
-option in implementations that do not support it.
-</p>
-
-<hr>
-<div class="header">
-<p>
-Next: <a href="do_002dsymbols_003b-do_002dexternal_002dsymbols_003b-do_002dall_002dsymbols.html" accesskey="n" rel="next">do-symbols; do-external-symbols; do-all-symbols</a>, Previous: <a href="use_002dpackage.html" accesskey="p" rel="prev">use-package</a>, Up: <a href="Packages.html" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Packages.html#defpackage">defpackage</a>.</p>
 </body>
-</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<!-- This file redirects to the location of a node or anchor -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Conforming Programs (ANSI Common Lisp)</title>
@@ -10,14 +11,34 @@
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
-<link href="index.html" rel="start" title="Top">
-<link href="Index.html" rel="index" title="Index">
-<link href="Table-of-Contents.html#SEC_Contents" rel="contents" title="Table of Contents">
-<link href="Conformance.html" rel="up" title="Conformance">
-<link href="Language-Extensions.html" rel="next" title="Language Extensions">
-<link href="Conforming-Implementations.html" rel="prev" title="Conforming Implementations">
 <style type="text/css">
 <!--
+/*
+CSS for TexInfo/HTML files.
+
+Copyright (C) 2015-2021 Assaf Gordon (assafgordon@gmail.com)
+
+License:
+GNU All Permissive License
+https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without any warranty.
+
+
+The used tags/classes were collected from a Texinfo-generated HTML using:
+
+  cd coreutils
+  makeinfo --html --no-split -o coreutils.html doc/coreutils.texi
+  cat coreutils.html | sed 's/</\n</g' | sed 's;>.*;>;g' \
+         | grep '^<' | grep 'class=' | sort -u \
+         | perl -lane 'm/<(\w+) .*class="([-\w]+)"/ ; print $1, "\t", $2' \
+         | sort -u
+
+*/
+
 a.summary-letter {text-decoration: none}
 blockquote.indentedblock {margin-right: 0em}
 div.display {margin-left: 3.2em}
@@ -32,131 +53,224 @@ span.nolinebreak {white-space: nowrap}
 span.roman {font-family: initial; font-weight: normal}
 span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
-body {font-family: century schoolbook, serif;
-      line-height: 1.3;
-      padding-left: 5em; padding-right: 1em;
-      padding-bottom: 1em; max-width: 60em;}
-table {border-collapse: collapse}
-span.roman { font-family: century schoolbook, serif; font-weight: normal; }
-h1, h2, h3, h4, h5, h6 {font-family:  Helvetica, sans-serif}
-dfn {font-family: inherit; font-variant: italic; font-weight: bolder }
-kbd {font-family: monospace; text-decoration: underline}
-var {font-family: Helvetica, sans-serif; font-variant: slanted}
-td  {padding-right: 1em; padding-left: 1em}
-sub {font-size: smaller}
-.node {padding: 0; margin: 0}
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 1em;
+
+  overflow-x: hidden; /* Coupled with the div.header trick,
+			 this will extend the header lines
+			 access the entire page width without causing
+			 a horizontal scroll bar to appear. */
+}
+
+
+a {
+  text-decoration: none;
+  outline-style: none;
+  color: blue;
+}
+a:visited {
+  color: rgb(16,0,112);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+   Titles / Headers
+******************************************************/
+
+/* @settitle:
+   The title of the document at the top of the document/header */
+h1.settitle {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* The title at the beginning of the document, before the @menu */
+h1.top {
+  color: rgb(51,70,131);
+  text-shadow: rgb(153,153,153) 1px 1px 0px;
+}
+
+/* @chapter */
+h2.chapter {
+}
+
+h2.appendix { }
+h2.unnumbered { }
+
+/* @section */
+h3.section {
+}
+/* @unnumberedsec */
+h3.unnumberedsec {
+}
+/* @heading (seems to be only used in fdl.texi) */
+h3.heading {
+}
+
+/* @subsection */
+h4.subsection {
+}
+
+
+/**************************************************
+  Short Contents (if @shortcontents command is used)
+***************************************************/
+h2.shortcontents-heading { }
+div.shortcontents { }
+div.shortcontents ul { }
+div.shortcontents ul li { }
+
+
+/**************************************************
+  Contents (if @contents command is used)
+***************************************************/
+h2.contents-heading { }
+div.contents { }
+div.contents ul { }
+div.contents ul li { }
+
+
+/* The @menu table */
+table.menu { }
+pre.menu-comment {}
+
+
+
+/************************************
+  @example   and   @verbatim
+************************************/
+div.example {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.example pre.example {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+/* Note: @verbatim is also rendered inside a 'div.example' */
+div.example pre.verbatim {
+  /* Round Corners */
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+
+  padding: 1ex;
+  background-color: #f3f3f3;
+}
+
+
+
+/************************************
+  @smallexample
+************************************/
+div.smallexample {
+}
+div.smallexample pre.smallexample {
+}
+
+/***********************************
+  @display
+***********************************/
+div.display {
+}
+div.display pre.display {
+}
+
+
+
+/**************************************
+  @footnote
+**************************************/
+div.footnote { }
+h4.footnotes-heading { }
+
+/**************************************
+The header at the top of each page / section
+(the next/previous/top/up links)
+**************************************/
+div.header {
+   padding-top: 0.5ex;
+   padding-bottom: 0.5ex;
+   background-color: #ddddff;
+
+   /* This will extend the background color of the header
+      bar to the entire width of the page (and beyond),
+      requires 'overflow-x: hidden' in the 'body'. */
+   padding-left: 3000px;
+   margin-left: -3000px;
+   padding-right: 3000px;
+   margin-right: -3000px;
+}
+
+/* Disable any additional margins */
+div.header p {
+    margin: 0;
+}
+div.header p a {
+    color: blue;
+}
+
+
+/**************************************
+   @table is rendered as <dl> (defnition list),
+   @item  is rendered as <dt> (definition term),
+   text is rendered as <dd> (definition description)
+**************************************/
+dl {
+   margin: 0 1em;
+}
+dl dt {
+   margin: 1em 0;
+}
+dl dd {
+   margin-left: 2em;
+}
+
+/*******************************************************
+  Text Styles
+*******************************************************/
+
+/* @var{} */
+var {
+  color: #CC0000;
+}
+
+/* @samp{} */
+samp {
+  color: #6600CC;
+}
+
+/* @env{} will result in <p><code>X</code></p> */
+p code {
+  color: #532c14;
+}
+
+/* @option{} */
+span.nocodebreak {
+  color: #5D4C46;
+}
 
 -->
 </style>
 
+<meta http-equiv="Refresh" content="0; url=Introduction.html#Conforming-Programs">
 
 </head>
 
 <body lang="en">
-<span id="Conforming-Programs"></span><div class="header">
-<p>
-Previous: <a href="Conforming-Implementations.html" accesskey="p" rel="prev">Conforming Implementations</a>, Up: <a href="Conformance.html" accesskey="u" rel="up">Conformance</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-<hr>
-<span id="Conforming-Programs-1"></span><h4 class="subsection">1.5.2 Conforming Programs</h4>
-<span id="index-conforming-program"></span>
-<span id="index-conforming-code"></span>
 
-<p>Code conforming with the requirements of this standard shall adhere to the
-following:
-</p>
-
-<ol>
-<li> <i>Conforming code</i> shall use only those features of the
-language syntax and semantics that are 
-either specified in this standard
-or defined using the extension mechanisms 
-specified in the standard.
-
-
-</li><li> <i>Conforming code</i> may use
-<i>implementation-dependent</i> features and values, 
-but shall not rely upon
-any particular interpretation of these features and values 
-other than those that are discovered by the execution of <i>code</i>.
-
-</li><li> <i>Conforming code</i> shall not depend on the consequences
-of undefined or unspecified situations.
-
-</li><li> <i>Conforming code</i> does not use any constructions 
-that are prohibited by the standard.
-
-</li><li> <i>Conforming code</i> does not depend on extensions 
-included in an implementation.
-</li></ol>
-
-
-<span id="Use-of-Implementation_002dDefined-Language-Features"></span><h4 class="subsubsection">1.5.2.1 Use of Implementation-Defined Language Features</h4>
-
-<p>Note that <i>conforming code</i> may rely on particular
-<i>implementation-defined</i> values or features. Also note that the
-requirements for <i>conforming code</i> and <i>conforming implementations</i> do not
-require that the results produced by conforming code always be the
-same when processed by a <i>conforming implementation</i>. The results may be the
-same, or they may differ.
-</p>
-
-<p>Conforming code may run in all conforming implementations, but might
-have allowable <i>implementation-defined</i> behavior that makes it
-non-portable code.
-For example, the following are examples of <i>forms</i> that are conforming, but
-that might return different <i>values</i> in different implementations:
-</p>
-<div class="lisp">
-<pre class="lisp"> (evenp most-positive-fixnum) <span class="roman">→</span> <i>implementation-dependent</i>
- (random) <span class="roman">→</span> <i>implementation-dependent</i>
- (&gt; lambda-parameters-limit 93) <span class="roman">→</span> <i>implementation-dependent</i>
- (char-name #\A) <span class="roman">→</span> <i>implementation-dependent</i>
-</pre></div>
-
-
-<span id="g_t1_002e5_002e2_002e1_002e1-Use-of-Read_002dTime-Conditionals"></span><h4 class="unnumberedsubsubsec">1.5.2.1.1 Use of Read-Time Conditionals</h4>
-
-<span id="ReadTimeConditionals"></span>
-<p>Use of <code>#+</code> and <code>#-</code> does not automatically disqualify a program
-from being conforming.  A program which uses <code>#+</code> and <code>#-</code> is 
-considered conforming if there is no set of <i>features</i> in which the
-program would not be conforming.  Of course, <i>conforming programs</i> are
-not necessarily working programs.  The following program is conforming:
-</p>
-<div class="lisp">
-<pre class="lisp">(defun foo ()
-  #+ACME (acme:initialize-something)
-  (print 'hello-there))
-</pre></div>
-
-
-<p>However, this program might or might not work, depending on whether the
-presence of the feature <code>ACME</code> really implies that a function named
-<code>acme:initialize-something</code> is present in the environment.  In effect,
-using <code>#+</code> or <code>#-</code> in a <i>conforming program</i> means that the variable
-<code>*features*</code>
-<span id="index-_002afeatures_002a"></span>
-becomes just one more piece of input data to that 
-program.  Like any other data coming into a program, the programmer
-is responsible for assuring that the program does not make unwarranted
-assumptions on the basis of input data.
-</p>
-
-
-<span id="Character-Set-for-Portable-Code"></span><h4 class="subsubsection">1.5.2.2 Character Set for Portable Code</h4>
-
-<p><i>Portable code</i> is written using only <i>standard characters</i>.
-</p>
-
-
-<hr>
-<div class="header">
-<p>
-Previous: <a href="Conforming-Implementations.html" accesskey="p" rel="prev">Conforming Implementations</a>, Up: <a href="Conformance.html" accesskey="u" rel="up">Conformance</a> &nbsp; [<a href="Table-of-Contents.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index.html" title="Index" rel="index">Index</a>]</p>
-</div>
-
-
-
+<p>The node you are looking for is at <a href="Introduction.html#Conforming-Programs">Conforming Programs</a>.</p>
 </body>
-</html>
